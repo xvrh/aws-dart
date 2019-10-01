@@ -473,6 +473,9 @@ class GetRevisionResponse {
       GetRevisionResponse();
 }
 
+/// The information about a journal export job, including the ledger name,
+/// export ID, when it was created, current status, and its start and end time
+/// export parameters.
 class JournalS3ExportDescription {
   /// The name of the ledger.
   final String ledgerName;
@@ -522,6 +525,8 @@ class JournalS3ExportDescription {
       JournalS3ExportDescription();
 }
 
+/// Information about a ledger, including its name, state, and when it was
+/// created.
 class LedgerSummary {
   /// The name of the ledger.
   final String name;
@@ -620,12 +625,13 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// The encryption settings that are used by a journal export job to write data
+/// in an Amazon Simple Storage Service (Amazon S3) bucket.
 class S3EncryptionConfiguration {
   /// The Amazon S3 object encryption type.
   ///
   /// To learn more about server-side encryption options in Amazon S3, see
-  /// [Protecting Data Using Server-Side
-  /// Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html)
+  /// [Protecting Data Using Server-Side Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html)
   /// in the _Amazon S3 Developer Guide_.
   final String objectEncryptionType;
 
@@ -647,13 +653,15 @@ class S3EncryptionConfiguration {
       S3EncryptionConfiguration();
 }
 
+/// The Amazon Simple Storage Service (Amazon S3) bucket location in which a
+/// journal export job writes the journal contents.
 class S3ExportConfiguration {
   /// The Amazon S3 bucket name in which a journal export job writes the journal
   /// contents.
   ///
   /// The bucket name must comply with the Amazon S3 bucket naming conventions.
-  /// For more information, see [Bucket Restrictions and
-  /// Limitations](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html)
+  /// For more information, see
+  /// [Bucket Restrictions and Limitations](https://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html)
   /// in the _Amazon S3 Developer Guide_.
   final String bucket;
 
@@ -661,8 +669,8 @@ class S3ExportConfiguration {
   /// the journal contents.
   ///
   /// The prefix must comply with Amazon S3 key naming rules and restrictions.
-  /// For more information, see [Object Key and
-  /// Metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html)
+  /// For more information, see
+  /// [Object Key and Metadata](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html)
   /// in the _Amazon S3 Developer Guide_.
   ///
   /// The following are examples of valid `Prefix` values:
@@ -735,6 +743,8 @@ class UpdateLedgerResponse {
       UpdateLedgerResponse();
 }
 
+/// A structure that can contain an Amazon Ion value in multiple encoding
+/// formats.
 class ValueHolder {
   /// An Amazon Ion plaintext value contained in a `ValueHolder` structure.
   final String ionText;

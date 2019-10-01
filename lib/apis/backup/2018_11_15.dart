@@ -782,6 +782,7 @@ class BackupApi {
   }
 }
 
+/// Contains detailed information about a backup job.
 class BackupJob {
   /// Uniquely identifies a request to AWS Backup to back up a resource.
   final String backupJobId;
@@ -884,6 +885,10 @@ class BackupJob {
   static BackupJob fromJson(Map<String, dynamic> json) => BackupJob();
 }
 
+/// Contains an optional backup plan display name and an array of `BackupRule`
+/// objects, each of which specifies a backup rule. Each rule in a backup plan
+/// is a separate scheduled task and can back up a different selection of AWS
+/// resources.
 class BackupPlan {
   /// The display name of a backup plan.
   final String backupPlanName;
@@ -899,6 +904,10 @@ class BackupPlan {
   static BackupPlan fromJson(Map<String, dynamic> json) => BackupPlan();
 }
 
+/// Contains an optional backup plan display name and an array of `BackupRule`
+/// objects, each of which specifies a backup rule. Each rule in a backup plan
+/// is a separate scheduled task and can back up a different selection of AWS
+/// resources.
 class BackupPlanInput {
   /// The display name of a backup plan.
   final String backupPlanName;
@@ -913,6 +922,7 @@ class BackupPlanInput {
   });
 }
 
+/// An object specifying metadata associated with a backup plan template.
 class BackupPlanTemplatesListMember {
   /// Uniquely identifies a stored backup plan template.
   final String backupPlanTemplateId;
@@ -928,6 +938,7 @@ class BackupPlanTemplatesListMember {
       BackupPlanTemplatesListMember();
 }
 
+/// Contains metadata about a backup plan.
 class BackupPlansListMember {
   /// An Amazon Resource Name (ARN) that uniquely identifies a backup plan; for
   /// example,
@@ -980,6 +991,7 @@ class BackupPlansListMember {
       BackupPlansListMember();
 }
 
+/// Specifies a scheduled task used to back up a selection of resources.
 class BackupRule {
   /// An optional display name for a backup rule.
   final String ruleName;
@@ -1034,6 +1046,7 @@ class BackupRule {
   static BackupRule fromJson(Map<String, dynamic> json) => BackupRule();
 }
 
+/// Specifies a scheduled task used to back up a selection of resources.
 class BackupRuleInput {
   /// >An optional display name for a backup rule.
   final String ruleName;
@@ -1080,6 +1093,7 @@ class BackupRuleInput {
   });
 }
 
+/// Used to specify a set of resources to a backup plan.
 class BackupSelection {
   /// The display name of a resource selection document.
   final String selectionName;
@@ -1109,6 +1123,7 @@ class BackupSelection {
       BackupSelection();
 }
 
+/// Contains metadata about a `BackupSelection` object.
 class BackupSelectionsListMember {
   /// Uniquely identifies a request to assign a set of resources to a backup
   /// plan.
@@ -1146,6 +1161,7 @@ class BackupSelectionsListMember {
       BackupSelectionsListMember();
 }
 
+/// Contains metadata about a backup vault.
 class BackupVaultListMember {
   /// The name of a logical container where backups are stored. Backup vaults
   /// are identified by names that are unique to the account used to create them
@@ -1187,6 +1203,18 @@ class BackupVaultListMember {
       BackupVaultListMember();
 }
 
+/// Contains `DeleteAt` and `MoveToColdStorageAt` timestamps, which are used to
+/// specify a lifecycle for a recovery point.
+///
+/// The lifecycle defines when a protected resource is transitioned to cold
+/// storage and when it expires. AWS Backup transitions and expires backups
+/// automatically according to the lifecycle that you define.
+///
+/// Backups transitioned to cold storage must be stored in cold storage for a
+/// minimum of 90 days. Therefore, the “expire after days” setting must be 90
+/// days greater than the “transition to cold after days” setting. The
+/// “transition to cold after days” setting cannot be changed after a backup has
+/// been transitioned to cold.
 class CalculatedLifecycle {
   /// A timestamp that specifies when to transition a recovery point to cold
   /// storage.
@@ -1203,6 +1231,9 @@ class CalculatedLifecycle {
       CalculatedLifecycle();
 }
 
+/// Contains an array of triplets made up of a condition type (such as
+/// `StringEquals`), a key, and a value. Conditions are used to filter resources
+/// in a selection that is assigned to a backup plan.
 class Condition {
   /// An operation, such as `StringEquals`, that is applied to a key-value pair
   /// used to filter resources in a selection.
@@ -1907,6 +1938,8 @@ class GetSupportedResourceTypesOutput {
       GetSupportedResourceTypesOutput();
 }
 
+/// Contains an array of `Transition` objects specifying how long in days before
+/// a recovery point transitions to cold storage or is deleted.
 class Lifecycle {
   /// Specifies the number of days after creation that a recovery point is moved
   /// to cold storage.
@@ -2136,6 +2169,7 @@ class ListTagsOutput {
   static ListTagsOutput fromJson(Map<String, dynamic> json) => ListTagsOutput();
 }
 
+/// A structure that contains information about a backed-up resource.
 class ProtectedResource {
   /// An Amazon Resource Name (ARN) that uniquely identifies a resource. The
   /// format of the ARN depends on the resource type.
@@ -2161,6 +2195,8 @@ class ProtectedResource {
       ProtectedResource();
 }
 
+/// Contains detailed information about the recovery points stored in a backup
+/// vault.
 class RecoveryPointByBackupVault {
   /// An Amazon Resource Name (ARN) that uniquely identifies a recovery point;
   /// for example,
@@ -2265,6 +2301,7 @@ class RecoveryPointByBackupVault {
       RecoveryPointByBackupVault();
 }
 
+/// Contains detailed information about a saved recovery point.
 class RecoveryPointByResource {
   /// An Amazon Resource Name (ARN) that uniquely identifies a recovery point;
   /// for example,
@@ -2306,6 +2343,8 @@ class RecoveryPointByResource {
       RecoveryPointByResource();
 }
 
+/// Contains information about the backup plan and rule that AWS Backup used to
+/// initiate the recovery point backup.
 class RecoveryPointCreator {
   /// Uniquely identifies a backup plan.
   final String backupPlanId;
@@ -2333,6 +2372,7 @@ class RecoveryPointCreator {
       RecoveryPointCreator();
 }
 
+/// Contains metadata about a restore job.
 class RestoreJobsListMember {
   /// Uniquely identifies the job that restores a recovery point.
   final String restoreJobId;

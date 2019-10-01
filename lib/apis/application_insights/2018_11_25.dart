@@ -107,7 +107,7 @@ class ApplicationInsightsApi {
   /// [componentName]: The name of the component.
   ///
   /// [tier]: The tier of the application component. Supported tiers include
-  /// `DOT\_NET\_WORKER`, `DOT\_NET\_WEB`, `SQL_SERVER`, and `DEFAULT`.
+  /// `DOT_NET_WORKER`, `DOT_NET_WEB`, `SQL_SERVER`, and `DEFAULT`.
   Future<DescribeComponentConfigurationRecommendationResponse>
       describeComponentConfigurationRecommendation(
           {@required String resourceGroupName,
@@ -241,12 +241,12 @@ class ApplicationInsightsApi {
   /// [monitor]: Indicates whether the application component is monitored.
   ///
   /// [tier]: The tier of the application component. Supported tiers include
-  /// `DOT\_NET\_WORKER`, `DOT\_NET\_WEB`, `SQL_SERVER`, and `DEFAULT`.
+  /// `DOT_NET_WORKER`, `DOT_NET_WEB`, `SQL_SERVER`, and `DEFAULT`.
   ///
   /// [componentConfiguration]: The configuration settings of the component. The
   /// value is the escaped JSON of the configuration. For more information about
-  /// the JSON format, see [Working with
-  /// JSON](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html).
+  /// the JSON format, see
+  /// [Working with JSON](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html).
   /// You can send a request to `DescribeComponentConfigurationRecommendation`
   /// to see the recommended configuration for a component.
   Future<UpdateComponentConfigurationResponse> updateComponentConfiguration(
@@ -259,6 +259,8 @@ class ApplicationInsightsApi {
   }
 }
 
+/// Describes a standalone resource or similarly grouped resources that the
+/// application is made up of.
 class ApplicationComponent {
   /// The name of the component.
   final String componentName;
@@ -283,6 +285,7 @@ class ApplicationComponent {
       ApplicationComponent();
 }
 
+/// Describes the status of the application.
 class ApplicationInfo {
   /// The name of the resource group used for the application.
   final String resourceGroupName;
@@ -371,7 +374,7 @@ class DescribeComponentConfigurationResponse {
   final bool monitor;
 
   /// The tier of the application component. Supported tiers include
-  /// `DOT\_NET\_WORKER`, `DOT\_NET\_WEB`, `SQL_SERVER`, and `DEFAULT`
+  /// `DOT_NET_WORKER`, `DOT_NET_WEB`, `SQL_SERVER`, and `DEFAULT`
   final String tier;
 
   /// The configuration settings of the component. The value is the escaped JSON
@@ -483,6 +486,7 @@ class ListProblemsResponse {
       ListProblemsResponse();
 }
 
+/// Describes an anomaly or error with the application.
 class Observation {
   /// The ID of the observation type.
   final String id;
@@ -542,6 +546,7 @@ class Observation {
   static Observation fromJson(Map<String, dynamic> json) => Observation();
 }
 
+/// Describes a problem that is detected by correlating observations.
 class Problem {
   /// The ID of the problem.
   final String id;
@@ -588,6 +593,7 @@ class Problem {
   static Problem fromJson(Map<String, dynamic> json) => Problem();
 }
 
+/// Describes observations related to the problem.
 class RelatedObservations {
   /// The list of observations related to the problem.
   final List<Observation> observationList;

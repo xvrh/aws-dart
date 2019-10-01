@@ -11,28 +11,28 @@ import 'package:meta/meta.dart';
 /// Use the following links to get started using the _AWS Storage Gateway
 /// Service API Reference_:
 ///
-/// *    [AWS Storage Gateway Required Request
-/// Headers](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewayHTTPRequestsHeaders):
+/// *
+/// [AWS Storage Gateway Required Request Headers](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewayHTTPRequestsHeaders):
 /// Describes the required headers that you must send with every POST request to
 /// AWS Storage Gateway.
 ///
-/// *    [Signing
-/// Requests](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewaySigningRequests):
+/// *
+/// [Signing Requests](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#AWSStorageGatewaySigningRequests):
 /// AWS Storage Gateway requires that you authenticate every request you send;
 /// this topic describes how sign such a request.
 ///
-/// *    [Error
-/// Responses](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#APIErrorResponses):
+/// *
+/// [Error Responses](https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#APIErrorResponses):
 /// Provides reference information about AWS Storage Gateway errors.
 ///
-/// *    [Operations in AWS Storage
-/// Gateway](https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_Operations.html):
+/// *
+/// [Operations in AWS Storage Gateway](https://docs.aws.amazon.com/storagegateway/latest/APIReference/API_Operations.html):
 /// Contains detailed descriptions of all AWS Storage Gateway operations, their
 /// request parameters, response elements, possible errors, and examples of
 /// requests and responses.
 ///
-/// *    [AWS Storage Gateway Regions and
-/// Endpoints:](http://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
+/// *
+/// [AWS Storage Gateway Regions and Endpoints:](http://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
 /// Provides a list of each AWS Region and the endpoints available for use with
 /// AWS Storage Gateway.
 ///
@@ -49,8 +49,8 @@ import 'package:meta/meta.dart';
 /// gateway volumes are changing to a longer format. Starting in December 2016,
 /// all new volumes and snapshots will be created with a 17-character string.
 /// Starting in April 2016, you will be able to use these longer IDs so you can
-/// test your systems with the new format. For more information, see [Longer EC2
-/// and EBS Resource IDs](https://aws.amazon.com/ec2/faqs/#longer-ids).
+/// test your systems with the new format. For more information, see
+/// [Longer EC2 and EBS Resource IDs](https://aws.amazon.com/ec2/faqs/#longer-ids).
 ///
 ///  For example, a volume Amazon Resource Name (ARN) with the longer volume ID
 /// format looks like the following:
@@ -61,9 +61,8 @@ import 'package:meta/meta.dart';
 /// A snapshot ID with the longer ID format looks like the following:
 /// `snap-78e226633445566ee`.
 ///
-/// For more information, see [Announcement: Heads-up – Longer AWS Storage
-/// Gateway volume and snapshot IDs coming in
-/// 2016](https://forums.aws.amazon.com/ann.jspa?annID=3557).
+/// For more information, see
+/// [Announcement: Heads-up – Longer AWS Storage Gateway volume and snapshot IDs coming in 2016](https://forums.aws.amazon.com/ann.jspa?annID=3557).
 class StorageGatewayApi {
   /// Activates the gateway you previously deployed on your host. In the
   /// activation process, you specify information such as the AWS Region that
@@ -103,12 +102,12 @@ class StorageGatewayApi {
   /// store your data. The gateway AWS Region specified must be the same AWS
   /// Region as the AWS Region in your `Host` header in the request. For more
   /// information about available AWS Regions and endpoints for AWS Storage
-  /// Gateway, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
+  /// Gateway, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
   /// in the _Amazon Web Services Glossary_.
   ///
-  ///  Valid Values: See [AWS Storage Gateway Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
+  ///  Valid Values: See
+  /// [AWS Storage Gateway Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sg_region)
   /// in the AWS General Reference.
   ///
   /// [gatewayType]: A value that defines the type of gateway to activate. The
@@ -150,8 +149,8 @@ class StorageGatewayApi {
 
   /// Configures one or more gateway local disks as cache for a gateway. This
   /// operation is only supported in the cached volume, tape and file gateway
-  /// type (see [Storage Gateway
-  /// Concepts](https://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html)).
+  /// type (see
+  /// [Storage Gateway Concepts](https://docs.aws.amazon.com/storagegateway/latest/userguide/StorageGatewayConcepts.html)).
   ///
   /// In the request, you specify the gateway Amazon Resource Name (ARN) to
   /// which you want to add cache, and one or more disk IDs that you want to
@@ -448,8 +447,8 @@ class StorageGatewayApi {
   ///
   /// [defaultStorageClass]: The default storage class for objects put into an
   /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
-  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
-  /// the default value `S3_STANDARD` is used. Optional.
+  /// `S3_STANDARD_IA`, or `S3_ONEZONE_IA`. If this field is not populated, the
+  /// default value `S3_STANDARD` is used. Optional.
   ///
   /// [objectAcl]: A value that sets the access control list permission for
   /// objects in the S3 bucket that a file gateway puts objects into. The
@@ -462,11 +461,11 @@ class StorageGatewayApi {
   /// [squash]: A value that maps a user to anonymous user. Valid options are
   /// the following:
   ///
-  /// *    `RootSquash` \- Only root is mapped to anonymous user.
+  /// *    `RootSquash` - Only root is mapped to anonymous user.
   ///
-  /// *    `NoSquash` \- No one is mapped to anonymous user
+  /// *    `NoSquash` - No one is mapped to anonymous user
   ///
-  /// *    `AllSquash` \- Everyone is mapped to anonymous user.
+  /// *    `AllSquash` - Everyone is mapped to anonymous user.
   ///
   /// [readOnly]: A value that sets the write status of a file share. This value
   /// is true if the write status is read-only, and otherwise false.
@@ -525,8 +524,8 @@ class StorageGatewayApi {
   /// to enable you to create a file share. Make sure that AWS STS is activated
   /// in the AWS Region you are creating your file gateway in. If AWS STS is not
   /// activated in this AWS Region, activate it. For information about how to
-  /// activate AWS STS, see [Activating and Deactivating AWS STS in an AWS
-  /// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// activate AWS STS, see
+  /// [Activating and Deactivating AWS STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _AWS Identity and Access Management User Guide._
   ///
   /// File gateways don't support creating hard or symbolic links on a file
@@ -552,8 +551,8 @@ class StorageGatewayApi {
   ///
   /// [defaultStorageClass]: The default storage class for objects put into an
   /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
-  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
-  /// the default value `S3_STANDARD` is used. Optional.
+  /// `S3_STANDARD_IA`, or `S3_ONEZONE_IA`. If this field is not populated, the
+  /// default value `S3_STANDARD` is used. Optional.
   ///
   /// [objectAcl]: A value that sets the access control list permission for
   /// objects in the S3 bucket that a file gateway puts objects into. The
@@ -647,8 +646,8 @@ class StorageGatewayApi {
   /// recovery, as well as import the data to an Amazon Elastic Block Store
   /// (EBS) volume in Amazon Elastic Compute Cloud (EC2). You can take snapshots
   /// of your gateway volume on a scheduled or ad hoc basis. This API enables
-  /// you to take ad-hoc snapshot. For more information, see [Editing a Snapshot
-  /// Schedule](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#SchedulingSnapshot).
+  /// you to take ad-hoc snapshot. For more information, see
+  /// [Editing a Snapshot Schedule](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#SchedulingSnapshot).
   ///
   /// In the CreateSnapshot request you identify the volume by providing its
   /// Amazon Resource Name (ARN). You must also provide description for the
@@ -660,8 +659,8 @@ class StorageGatewayApi {
   /// in stored and cached volume gateway type.
   ///
   ///  To list or delete a snapshot, you must use the Amazon EC2 API. For more
-  /// information, see DescribeSnapshots or DeleteSnapshot in the [EC2 API
-  /// reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Operations.html).
+  /// information, see DescribeSnapshots or DeleteSnapshot in the
+  /// [EC2 API reference](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_Operations.html).
   ///
   ///
   /// Volume and snapshot IDs are changing to a longer length ID format. For
@@ -838,7 +837,7 @@ class StorageGatewayApi {
   ///
   ///
   ///
-  /// The size must be aligned by gigabyte (1024\*1024\*1024 byte).
+  /// The size must be aligned by gigabyte (1024*1024*1024 byte).
   ///
   /// [tapeBarcode]: The barcode that you want to assign to the tape.
   ///
@@ -901,7 +900,7 @@ class StorageGatewayApi {
   ///
   ///
   ///
-  /// The size must be aligned by gigabyte (1024\*1024\*1024 byte).
+  /// The size must be aligned by gigabyte (1024*1024*1024 byte).
   ///
   /// [clientToken]: A unique identifier that you use to retry a request. If you
   /// retry a request, use the same `ClientToken` you specified in the initial
@@ -1016,11 +1015,11 @@ class StorageGatewayApi {
   ///
   /// You no longer pay software charges after the gateway is deleted; however,
   /// your existing Amazon EBS snapshots persist and you will continue to be
-  /// billed for these snapshots. You can choose to remove all remaining Amazon
-  /// EBS snapshots by canceling your Amazon EC2 subscription.  If you prefer
+  /// billed for these snapshots. You can choose to remove all remaining Amazon
+  /// EBS snapshots by canceling your Amazon EC2 subscription.  If you prefer
   /// not to cancel your Amazon EC2 subscription, you can delete your snapshots
-  /// using the Amazon EC2 console. For more information, see the  [AWS Storage
-  /// Gateway Detail Page](http://aws.amazon.com/storagegateway).
+  /// using the Amazon EC2 console. For more information, see the
+  /// [AWS Storage Gateway Detail Page](http://aws.amazon.com/storagegateway).
   Future<DeleteGatewayOutput> deleteGateway(String gatewayArn) async {
     return DeleteGatewayOutput.fromJson({});
   }
@@ -1029,8 +1028,8 @@ class StorageGatewayApi {
   ///
   /// You can take snapshots of your gateway volumes on a scheduled or ad hoc
   /// basis. This API action enables you to delete a snapshot schedule for a
-  /// volume. For more information, see [Working with
-  /// Snapshots](https://docs.aws.amazon.com/storagegateway/latest/userguide/WorkingWithSnapshots.html).
+  /// volume. For more information, see
+  /// [Working with Snapshots](https://docs.aws.amazon.com/storagegateway/latest/userguide/WorkingWithSnapshots.html).
   /// In the `DeleteSnapshotSchedule` request, you identify the volume by
   /// providing its Amazon Resource Name (ARN). This operation is only supported
   /// in stored and cached volume gateway types.
@@ -1564,9 +1563,8 @@ class StorageGatewayApi {
   /// the gateway last listed the bucket's contents and cached the results. This
   /// operation is only supported in the file gateway type. You can subscribe to
   /// be notified through an Amazon CloudWatch event when your RefreshCache
-  /// operation completes. For more information, see [Getting Notified About
-  /// File
-  /// Operations](https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-notification).
+  /// operation completes. For more information, see
+  /// [Getting Notified About File Operations](https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-notification).
   ///
   /// When this API is called, it only initiates the refresh operation. When the
   /// API call completes and returns a success code, it doesn't necessarily mean
@@ -1580,7 +1578,7 @@ class StorageGatewayApi {
   /// to refresh.
   ///
   /// [folderList]: A comma-separated list of the paths of folders to refresh in
-  /// the cache. The default is \[`"/"`\]. The default refreshes objects and
+  /// the cache. The default is [`"/"`]. The default refreshes objects and
   /// folders at the root of the Amazon S3 bucket. If `Recursive` is set to
   /// "true", the entire S3 bucket that the file share has access to is
   /// refreshed.
@@ -1822,8 +1820,8 @@ class StorageGatewayApi {
   /// CloudWatch log group that you want to use to monitor and log events in the
   /// gateway.
   ///
-  /// For more information, see [What Is Amazon CloudWatch
-  /// Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
+  /// For more information, see
+  /// [What Is Amazon CloudWatch Logs?](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html).
   Future<UpdateGatewayInformationOutput> updateGatewayInformation(
       String gatewayArn,
       {String gatewayName,
@@ -1843,11 +1841,10 @@ class StorageGatewayApi {
   /// A software update forces a system restart of your gateway. You can
   /// minimize the chance of any disruption to your applications by increasing
   /// your iSCSI Initiators' timeouts. For more information about increasing
-  /// iSCSI Initiator timeouts for Windows and Linux, see [Customizing Your
-  /// Windows iSCSI
-  /// Settings](https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorWindowsClient.html#CustomizeWindowsiSCSISettings)
-  /// and [Customizing Your Linux iSCSI
-  /// Settings](https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorRedHatClient.html#CustomizeLinuxiSCSISettings),
+  /// iSCSI Initiator timeouts for Windows and Linux, see
+  /// [Customizing Your Windows iSCSI Settings](https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorWindowsClient.html#CustomizeWindowsiSCSISettings)
+  /// and
+  /// [Customizing Your Linux iSCSI Settings](https://docs.aws.amazon.com/storagegateway/latest/userguide/ConfiguringiSCSIClientInitiatorRedHatClient.html#CustomizeLinuxiSCSISettings),
   /// respectively.
   Future<UpdateGatewaySoftwareNowOutput> updateGatewaySoftwareNow(
       String gatewayArn) async {
@@ -1924,8 +1921,8 @@ class StorageGatewayApi {
   ///
   /// [defaultStorageClass]: The default storage class for objects put into an
   /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
-  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
-  /// the default value `S3_STANDARD` is used. Optional.
+  /// `S3_STANDARD_IA`, or `S3_ONEZONE_IA`. If this field is not populated, the
+  /// default value `S3_STANDARD` is used. Optional.
   ///
   /// [objectAcl]: A value that sets the access control list permission for
   /// objects in the S3 bucket that a file gateway puts objects into. The
@@ -1938,11 +1935,11 @@ class StorageGatewayApi {
   /// [squash]: The user mapped to anonymous user. Valid options are the
   /// following:
   ///
-  /// *    `RootSquash` \- Only root is mapped to anonymous user.
+  /// *    `RootSquash` - Only root is mapped to anonymous user.
   ///
-  /// *    `NoSquash` \- No one is mapped to anonymous user
+  /// *    `NoSquash` - No one is mapped to anonymous user
   ///
-  /// *    `AllSquash` \- Everyone is mapped to anonymous user.
+  /// *    `AllSquash` - Everyone is mapped to anonymous user.
   ///
   /// [readOnly]: A value that sets the write status of a file share. This value
   /// is true if the write status is read-only, and otherwise false.
@@ -1984,8 +1981,8 @@ class StorageGatewayApi {
   /// to enable you to create a file share. Make sure that AWS STS is activated
   /// in the AWS Region you are creating your file gateway in. If AWS STS is not
   /// activated in this AWS Region, activate it. For information about how to
-  /// activate AWS STS, see [Activating and Deactivating AWS STS in an AWS
-  /// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// activate AWS STS, see
+  /// [Activating and Deactivating AWS STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _AWS Identity and Access Management User Guide._
   ///
   /// File gateways don't support creating hard or symbolic links on a file
@@ -2003,8 +2000,8 @@ class StorageGatewayApi {
   ///
   /// [defaultStorageClass]: The default storage class for objects put into an
   /// Amazon S3 bucket by the file gateway. Possible values are `S3_STANDARD`,
-  /// `S3\_STANDARD\_IA`, or `S3\_ONEZONE\_IA`. If this field is not populated,
-  /// the default value `S3_STANDARD` is used. Optional.
+  /// `S3_STANDARD_IA`, or `S3_ONEZONE_IA`. If this field is not populated, the
+  /// default value `S3_STANDARD` is used. Optional.
   ///
   /// [objectAcl]: A value that sets the access control list permission for
   /// objects in the S3 bucket that a file gateway puts objects into. The
@@ -2158,6 +2155,16 @@ class StorageGatewayApi {
   }
 }
 
+/// AWS Storage Gateway returns the Amazon Resource Name (ARN) of the activated
+/// gateway. It is a string made of information such as your account, gateway
+/// name, and AWS Region. This ARN is used to reference the gateway in other API
+/// operations as well as resource-based authorization.
+///
+///
+///
+/// For gateways activated prior to September 02, 2015, the gateway ARN contains
+/// the gateway name rather than the gateway ID. Changing the name of the
+/// gateway has no effect on the gateway ARN.
 class ActivateGatewayOutput {
   final String gatewayArn;
 
@@ -2177,6 +2184,7 @@ class AddCacheOutput {
   static AddCacheOutput fromJson(Map<String, dynamic> json) => AddCacheOutput();
 }
 
+/// AddTagsToResourceOutput
 class AddTagsToResourceOutput {
   /// The Amazon Resource Name (ARN) of the resource you want to add tags to.
   final String resourceArn;
@@ -2198,6 +2206,8 @@ class AddUploadBufferOutput {
       AddUploadBufferOutput();
 }
 
+/// A JSON object containing the of the gateway for which working storage was
+/// configured.
 class AddWorkingStorageOutput {
   final String gatewayArn;
 
@@ -2220,6 +2230,7 @@ class AssignTapePoolOutput {
       AssignTapePoolOutput();
 }
 
+/// AttachVolumeOutput
 class AttachVolumeOutput {
   /// The Amazon Resource Name (ARN) of the volume that was attached to the
   /// gateway.
@@ -2237,6 +2248,7 @@ class AttachVolumeOutput {
       AttachVolumeOutput();
 }
 
+/// Describes an iSCSI cached volume.
 class CachediScsiVolume {
   /// The Amazon Resource Name (ARN) of the storage volume.
   final String volumeArn;
@@ -2253,9 +2265,8 @@ class CachediScsiVolume {
   final String volumeStatus;
 
   /// A value that indicates whether a storage volume is attached to or detached
-  /// from a gateway. For more information, see [Moving Your Volumes to a
-  /// Different
-  /// Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
+  /// from a gateway. For more information, see
+  /// [Moving Your Volumes to a Different Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
   final String volumeAttachmentStatus;
 
   /// The size, in bytes, of the volume capacity.
@@ -2324,6 +2335,7 @@ class CachediScsiVolume {
       CachediScsiVolume();
 }
 
+/// CancelArchivalOutput
 class CancelArchivalOutput {
   /// The Amazon Resource Name (ARN) of the virtual tape for which archiving was
   /// canceled.
@@ -2336,6 +2348,7 @@ class CancelArchivalOutput {
       CancelArchivalOutput();
 }
 
+/// CancelRetrievalOutput
 class CancelRetrievalOutput {
   /// The Amazon Resource Name (ARN) of the virtual tape for which retrieval was
   /// canceled.
@@ -2348,6 +2361,8 @@ class CancelRetrievalOutput {
       CancelRetrievalOutput();
 }
 
+/// Describes Challenge-Handshake Authentication Protocol (CHAP) information
+/// that supports authentication between your gateway and iSCSI initiators.
 class ChapInfo {
   /// The Amazon Resource Name (ARN) of the volume.
   ///
@@ -2391,6 +2406,7 @@ class CreateCachediScsiVolumeOutput {
       CreateCachediScsiVolumeOutput();
 }
 
+/// CreateNFSFileShareOutput
 class CreateNfsFileShareOutput {
   /// The Amazon Resource Name (ARN) of the newly created file share.
   final String fileShareArn;
@@ -2402,6 +2418,7 @@ class CreateNfsFileShareOutput {
       CreateNfsFileShareOutput();
 }
 
+/// CreateSMBFileShareOutput
 class CreateSmbFileShareOutput {
   /// The Amazon Resource Name (ARN) of the newly created file share.
   final String fileShareArn;
@@ -2435,6 +2452,7 @@ class CreateSnapshotFromVolumeRecoveryPointOutput {
       CreateSnapshotFromVolumeRecoveryPointOutput();
 }
 
+/// A JSON object containing the following fields:
 class CreateSnapshotOutput {
   /// The Amazon Resource Name (ARN) of the volume of which the snapshot was
   /// taken.
@@ -2454,6 +2472,7 @@ class CreateSnapshotOutput {
       CreateSnapshotOutput();
 }
 
+/// A JSON object containing the following fields:
 class CreateStorediScsiVolumeOutput {
   /// The Amazon Resource Name (ARN) of the configured volume.
   final String volumeArn;
@@ -2474,6 +2493,7 @@ class CreateStorediScsiVolumeOutput {
       CreateStorediScsiVolumeOutput();
 }
 
+/// CreateTapeOutput
 class CreateTapeWithBarcodeOutput {
   /// A unique Amazon Resource Name (ARN) that represents the virtual tape that
   /// was created.
@@ -2486,6 +2506,7 @@ class CreateTapeWithBarcodeOutput {
       CreateTapeWithBarcodeOutput();
 }
 
+/// CreateTapeOutput
 class CreateTapesOutput {
   /// A list of unique Amazon Resource Names (ARNs) that represents the virtual
   /// tapes that were created.
@@ -2498,6 +2519,8 @@ class CreateTapesOutput {
       CreateTapesOutput();
 }
 
+/// A JSON object containing the of the gateway whose bandwidth rate information
+/// was deleted.
 class DeleteBandwidthRateLimitOutput {
   final String gatewayArn;
 
@@ -2508,6 +2531,7 @@ class DeleteBandwidthRateLimitOutput {
       DeleteBandwidthRateLimitOutput();
 }
 
+/// A JSON object containing the following fields:
 class DeleteChapCredentialsOutput {
   /// The Amazon Resource Name (ARN) of the target.
   final String targetArn;
@@ -2523,6 +2547,7 @@ class DeleteChapCredentialsOutput {
       DeleteChapCredentialsOutput();
 }
 
+/// DeleteFileShareOutput
 class DeleteFileShareOutput {
   /// The Amazon Resource Name (ARN) of the deleted file share.
   final String fileShareArn;
@@ -2534,6 +2559,7 @@ class DeleteFileShareOutput {
       DeleteFileShareOutput();
 }
 
+/// A JSON object containing the ID of the deleted gateway.
 class DeleteGatewayOutput {
   final String gatewayArn;
 
@@ -2555,6 +2581,7 @@ class DeleteSnapshotScheduleOutput {
       DeleteSnapshotScheduleOutput();
 }
 
+/// DeleteTapeArchiveOutput
 class DeleteTapeArchiveOutput {
   /// The Amazon Resource Name (ARN) of the virtual tape that was deleted from
   /// the virtual tape shelf (VTS).
@@ -2567,6 +2594,7 @@ class DeleteTapeArchiveOutput {
       DeleteTapeArchiveOutput();
 }
 
+/// DeleteTapeOutput
 class DeleteTapeOutput {
   /// The Amazon Resource Name (ARN) of the deleted virtual tape.
   final String tapeArn;
@@ -2578,6 +2606,7 @@ class DeleteTapeOutput {
       DeleteTapeOutput();
 }
 
+/// A JSON object containing the of the storage volume that was deleted
 class DeleteVolumeOutput {
   /// The Amazon Resource Name (ARN) of the storage volume that was deleted. It
   /// is the same ARN you provided in the request.
@@ -2590,6 +2619,7 @@ class DeleteVolumeOutput {
       DeleteVolumeOutput();
 }
 
+/// A JSON object containing the following fields:
 class DescribeBandwidthRateLimitOutput {
   final String gatewayArn;
 
@@ -2652,6 +2682,7 @@ class DescribeCacheOutput {
       DescribeCacheOutput();
 }
 
+/// A JSON object containing the following fields:
 class DescribeCachediScsiVolumesOutput {
   /// An array of objects where each object contains metadata about one cached
   /// volume.
@@ -2664,6 +2695,7 @@ class DescribeCachediScsiVolumesOutput {
       DescribeCachediScsiVolumesOutput();
 }
 
+/// A JSON object containing a .
 class DescribeChapCredentialsOutput {
   /// An array of ChapInfo objects that represent CHAP credentials. Each object
   /// in the array contains CHAP credential information for one target-initiator
@@ -2691,6 +2723,7 @@ class DescribeChapCredentialsOutput {
       DescribeChapCredentialsOutput();
 }
 
+/// A JSON object containing the following fields:
 class DescribeGatewayInformationOutput {
   final String gatewayArn;
 
@@ -2765,6 +2798,17 @@ class DescribeGatewayInformationOutput {
       DescribeGatewayInformationOutput();
 }
 
+/// A JSON object containing the following fields:
+///
+/// *    DescribeMaintenanceStartTimeOutput$DayOfMonth
+///
+/// *    DescribeMaintenanceStartTimeOutput$DayOfWeek
+///
+/// *    DescribeMaintenanceStartTimeOutput$HourOfDay
+///
+/// *    DescribeMaintenanceStartTimeOutput$MinuteOfHour
+///
+/// *    DescribeMaintenanceStartTimeOutput$Timezone
 class DescribeMaintenanceStartTimeOutput {
   final String gatewayArn;
 
@@ -2810,6 +2854,7 @@ class DescribeMaintenanceStartTimeOutput {
       DescribeMaintenanceStartTimeOutput();
 }
 
+/// DescribeNFSFileSharesOutput
 class DescribeNfsFileSharesOutput {
   /// An array containing a description for each requested file share.
   final List<NfsFileShareInfo> nfsFileShareInfoList;
@@ -2821,6 +2866,7 @@ class DescribeNfsFileSharesOutput {
       DescribeNfsFileSharesOutput();
 }
 
+/// DescribeSMBFileSharesOutput
 class DescribeSmbFileSharesOutput {
   /// An array containing a description for each requested file share.
   final List<SmbFileShareInfo> smbFileShareInfoList;
@@ -2966,6 +3012,7 @@ class DescribeStorediScsiVolumesOutput {
       DescribeStorediScsiVolumesOutput();
 }
 
+/// DescribeTapeArchivesOutput
 class DescribeTapeArchivesOutput {
   /// An array of virtual tape objects in the virtual tape shelf (VTS). The
   /// description includes of the Amazon Resource Name (ARN) of the virtual
@@ -2989,6 +3036,7 @@ class DescribeTapeArchivesOutput {
       DescribeTapeArchivesOutput();
 }
 
+/// DescribeTapeRecoveryPointsOutput
 class DescribeTapeRecoveryPointsOutput {
   final String gatewayArn;
 
@@ -3013,6 +3061,7 @@ class DescribeTapeRecoveryPointsOutput {
       DescribeTapeRecoveryPointsOutput();
 }
 
+/// DescribeTapesOutput
 class DescribeTapesOutput {
   /// An array of virtual tape descriptions.
   final List<Tape> tapes;
@@ -3057,6 +3106,7 @@ class DescribeUploadBufferOutput {
       DescribeUploadBufferOutput();
 }
 
+/// DescribeVTLDevicesOutput
 class DescribeVtlDevicesOutput {
   final String gatewayArn;
 
@@ -3079,6 +3129,7 @@ class DescribeVtlDevicesOutput {
       DescribeVtlDevicesOutput();
 }
 
+/// A JSON object containing the following fields:
 class DescribeWorkingStorageOutput {
   final String gatewayArn;
 
@@ -3106,6 +3157,7 @@ class DescribeWorkingStorageOutput {
       DescribeWorkingStorageOutput();
 }
 
+/// AttachVolumeOutput
 class DetachVolumeOutput {
   /// The Amazon Resource Name (ARN) of the volume that was detached.
   final String volumeArn;
@@ -3117,6 +3169,7 @@ class DetachVolumeOutput {
       DetachVolumeOutput();
 }
 
+/// Lists iSCSI information about a VTL device.
 class DeviceiScsiAttributes {
   /// Specifies the unique Amazon Resource Name (ARN) that encodes the iSCSI
   /// qualified name(iqn) of a tape drive or media changer target.
@@ -3141,6 +3194,7 @@ class DeviceiScsiAttributes {
       DeviceiScsiAttributes();
 }
 
+/// DisableGatewayOutput
 class DisableGatewayOutput {
   /// The unique Amazon Resource Name (ARN) of the disabled gateway.
   final String gatewayArn;
@@ -3152,6 +3206,7 @@ class DisableGatewayOutput {
       DisableGatewayOutput();
 }
 
+/// Represents a gateway's local disk.
 class Disk {
   /// The unique device ID or other distinguishing data that identifies a local
   /// disk.
@@ -3193,6 +3248,7 @@ class Disk {
   static Disk fromJson(Map<String, dynamic> json) => Disk();
 }
 
+/// Describes a file share.
 class FileShareInfo {
   final String fileShareType;
 
@@ -3214,6 +3270,7 @@ class FileShareInfo {
   static FileShareInfo fromJson(Map<String, dynamic> json) => FileShareInfo();
 }
 
+/// Describes a gateway object.
 class GatewayInfo {
   /// The unique identifier assigned to your gateway during activation. This ID
   /// becomes part of the gateway Amazon Resource Name (ARN), which you use as
@@ -3253,6 +3310,7 @@ class GatewayInfo {
   static GatewayInfo fromJson(Map<String, dynamic> json) => GatewayInfo();
 }
 
+/// JoinDomainOutput
 class JoinDomainOutput {
   /// The unique Amazon Resource Name (ARN) of the gateway that joined the
   /// domain.
@@ -3265,6 +3323,7 @@ class JoinDomainOutput {
       JoinDomainOutput();
 }
 
+/// ListFileShareOutput
 class ListFileSharesOutput {
   /// If the request includes `Marker`, the response returns that value in this
   /// field.
@@ -3320,6 +3379,7 @@ class ListLocalDisksOutput {
       ListLocalDisksOutput();
 }
 
+/// ListTagsForResourceOutput
 class ListTagsForResourceOutput {
   /// he Amazon Resource Name (ARN) of the resource for which you want to list
   /// tags.
@@ -3341,6 +3401,11 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// A JSON object containing the following fields:
+///
+/// *    ListTapesOutput$Marker
+///
+/// *    ListTapesOutput$VolumeInfos
 class ListTapesOutput {
   final List<TapeInfo> tapeInfos;
 
@@ -3358,6 +3423,7 @@ class ListTapesOutput {
       ListTapesOutput();
 }
 
+/// ListVolumeInitiatorsOutput
 class ListVolumeInitiatorsOutput {
   /// The host names and port numbers of all iSCSI initiators that are connected
   /// to the gateway.
@@ -3384,6 +3450,11 @@ class ListVolumeRecoveryPointsOutput {
       ListVolumeRecoveryPointsOutput();
 }
 
+/// A JSON object containing the following fields:
+///
+/// *    ListVolumesOutput$Marker
+///
+/// *    ListVolumesOutput$VolumeInfos
 class ListVolumesOutput {
   final String gatewayArn;
 
@@ -3394,7 +3465,7 @@ class ListVolumesOutput {
 
   /// An array of VolumeInfo objects, where each object describes an iSCSI
   /// volume. If no volumes are defined for the gateway, then `VolumeInfos` is
-  /// an empty array "\[\]".
+  /// an empty array "[]".
   final List<VolumeInfo> volumeInfos;
 
   ListVolumesOutput({
@@ -3406,6 +3477,12 @@ class ListVolumesOutput {
       ListVolumesOutput();
 }
 
+/// Describes Network File System (NFS) file share default values. Files and
+/// folders stored as Amazon S3 objects in S3 buckets don't, by default, have
+/// Unix file permissions assigned to them. Upon discovery in an S3 bucket by
+/// Storage Gateway, the S3 objects that represent files and folders are
+/// assigned these default Unix permissions. This operation is only supported
+/// for file gateways.
 class NfsFileShareDefaults {
   /// The Unix file mode in the form "nnnn". For example, "0666" represents the
   /// default file mode inside the file share. The default value is 0666.
@@ -3434,6 +3511,9 @@ class NfsFileShareDefaults {
       NfsFileShareDefaults();
 }
 
+/// The Unix file permissions and ownership information assigned, by default, to
+/// native S3 objects when file gateway discovers them in S3 buckets. This
+/// operation is only supported in file gateways.
 class NfsFileShareInfo {
   final NfsFileShareDefaults nfsFileShareDefaults;
 
@@ -3458,8 +3538,8 @@ class NfsFileShareInfo {
   final String locationArn;
 
   /// The default storage class for objects put into an Amazon S3 bucket by the
-  /// file gateway. Possible values are `S3_STANDARD`, `S3\_STANDARD\_IA`, or
-  /// `S3\_ONEZONE\_IA`. If this field is not populated, the default value
+  /// file gateway. Possible values are `S3_STANDARD`, `S3_STANDARD_IA`, or
+  /// `S3_ONEZONE_IA`. If this field is not populated, the default value
   /// `S3_STANDARD` is used. Optional.
   final String defaultStorageClass;
 
@@ -3518,6 +3598,7 @@ class NfsFileShareInfo {
       NfsFileShareInfo();
 }
 
+/// Describes a gateway's network interface.
 class NetworkInterface {
   /// The Internet Protocol version 4 (IPv4) address of the interface.
   final String ipv4Address;
@@ -3555,6 +3636,7 @@ class NotifyWhenUploadedOutput {
       NotifyWhenUploadedOutput();
 }
 
+/// RefreshCacheOutput
 class RefreshCacheOutput {
   final String fileShareArn;
 
@@ -3568,6 +3650,7 @@ class RefreshCacheOutput {
       RefreshCacheOutput();
 }
 
+/// RemoveTagsFromResourceOutput
 class RemoveTagsFromResourceOutput {
   /// The Amazon Resource Name (ARN) of the resource that the tags were removed
   /// from.
@@ -3590,6 +3673,7 @@ class ResetCacheOutput {
       ResetCacheOutput();
 }
 
+/// RetrieveTapeArchiveOutput
 class RetrieveTapeArchiveOutput {
   /// The Amazon Resource Name (ARN) of the retrieved virtual tape.
   final String tapeArn;
@@ -3601,6 +3685,7 @@ class RetrieveTapeArchiveOutput {
       RetrieveTapeArchiveOutput();
 }
 
+/// RetrieveTapeRecoveryPointOutput
 class RetrieveTapeRecoveryPointOutput {
   /// The Amazon Resource Name (ARN) of the virtual tape for which the recovery
   /// point was retrieved.
@@ -3613,6 +3698,9 @@ class RetrieveTapeRecoveryPointOutput {
       RetrieveTapeRecoveryPointOutput();
 }
 
+/// The Windows file permissions and ownership information assigned, by default,
+/// to native S3 objects when file gateway discovers them in S3 buckets. This
+/// operation is only supported for file gateways.
 class SmbFileShareInfo {
   final String fileShareArn;
 
@@ -3636,8 +3724,8 @@ class SmbFileShareInfo {
   final String locationArn;
 
   /// The default storage class for objects put into an Amazon S3 bucket by the
-  /// file gateway. Possible values are `S3_STANDARD`, `S3\_STANDARD\_IA`, or
-  /// `S3\_ONEZONE\_IA`. If this field is not populated, the default value
+  /// file gateway. Possible values are `S3_STANDARD`, `S3_STANDARD_IA`, or
+  /// `S3_ONEZONE_IA`. If this field is not populated, the default value
   /// `S3_STANDARD` is used. Optional.
   final String defaultStorageClass;
 
@@ -3743,6 +3831,7 @@ class SetSmbGuestPasswordOutput {
       SetSmbGuestPasswordOutput();
 }
 
+/// A JSON object containing the of the gateway that was shut down.
 class ShutdownGatewayOutput {
   final String gatewayArn;
 
@@ -3753,6 +3842,7 @@ class ShutdownGatewayOutput {
       ShutdownGatewayOutput();
 }
 
+/// A JSON object containing the of the gateway that was restarted.
 class StartGatewayOutput {
   final String gatewayArn;
 
@@ -3763,6 +3853,7 @@ class StartGatewayOutput {
       StartGatewayOutput();
 }
 
+/// Describes an iSCSI stored volume.
 class StorediScsiVolume {
   /// The Amazon Resource Name (ARN) of the storage volume.
   final String volumeArn;
@@ -3780,8 +3871,8 @@ class StorediScsiVolume {
 
   /// A value that indicates whether a storage volume is attached to, detached
   /// from, or is in the process of detaching from a gateway. For more
-  /// information, see [Moving Your Volumes to a Different
-  /// Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
+  /// information, see
+  /// [Moving Your Volumes to a Different Gateway](https://docs.aws.amazon.com/storagegateway/latest/userguide/managing-volumes.html#attach-detach-volume).
   final String volumeAttachmentStatus;
 
   /// The size of the volume in bytes.
@@ -3862,6 +3953,9 @@ class StorediScsiVolume {
       StorediScsiVolume();
 }
 
+/// A key-value pair that helps you manage, filter, and search for your
+/// resource. Allowed characters: letters, white space, and numbers,
+/// representable in UTF-8, and the following characters: + - = . _ : /
 class Tag {
   /// Tag key (String). The key can't start with aws:.
   final String key;
@@ -3876,6 +3970,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Describes a virtual tape object.
 class Tape {
   /// The Amazon Resource Name (ARN) of the virtual tape.
   final String tapeArn;
@@ -3935,6 +4030,7 @@ class Tape {
   static Tape fromJson(Map<String, dynamic> json) => Tape();
 }
 
+/// Represents a virtual tape that is archived in the virtual tape shelf (VTS).
 class TapeArchive {
   /// The Amazon Resource Name (ARN) of an archived virtual tape.
   final String tapeArn;
@@ -3994,6 +4090,7 @@ class TapeArchive {
   static TapeArchive fromJson(Map<String, dynamic> json) => TapeArchive();
 }
 
+/// Describes a virtual tape.
 class TapeInfo {
   /// The Amazon Resource Name (ARN) of a virtual tape.
   final String tapeArn;
@@ -4031,6 +4128,7 @@ class TapeInfo {
   static TapeInfo fromJson(Map<String, dynamic> json) => TapeInfo();
 }
 
+/// Describes a recovery point.
 class TapeRecoveryPointInfo {
   /// The Amazon Resource Name (ARN) of the virtual tape.
   final String tapeArn;
@@ -4058,6 +4156,8 @@ class TapeRecoveryPointInfo {
       TapeRecoveryPointInfo();
 }
 
+/// A JSON object containing the of the gateway whose throttle information was
+/// updated.
 class UpdateBandwidthRateLimitOutput {
   final String gatewayArn;
 
@@ -4068,6 +4168,7 @@ class UpdateBandwidthRateLimitOutput {
       UpdateBandwidthRateLimitOutput();
 }
 
+/// A JSON object containing the following fields:
 class UpdateChapCredentialsOutput {
   /// The Amazon Resource Name (ARN) of the target. This is the same target
   /// specified in the request.
@@ -4085,6 +4186,7 @@ class UpdateChapCredentialsOutput {
       UpdateChapCredentialsOutput();
 }
 
+/// A JSON object containing the ARN of the gateway that was updated.
 class UpdateGatewayInformationOutput {
   final String gatewayArn;
 
@@ -4099,6 +4201,7 @@ class UpdateGatewayInformationOutput {
       UpdateGatewayInformationOutput();
 }
 
+/// A JSON object containing the of the gateway that was updated.
 class UpdateGatewaySoftwareNowOutput {
   final String gatewayArn;
 
@@ -4109,6 +4212,8 @@ class UpdateGatewaySoftwareNowOutput {
       UpdateGatewaySoftwareNowOutput();
 }
 
+/// A JSON object containing the of the gateway whose maintenance start time is
+/// updated.
 class UpdateMaintenanceStartTimeOutput {
   final String gatewayArn;
 
@@ -4119,6 +4224,7 @@ class UpdateMaintenanceStartTimeOutput {
       UpdateMaintenanceStartTimeOutput();
 }
 
+/// UpdateNFSFileShareOutput
 class UpdateNfsFileShareOutput {
   /// The Amazon Resource Name (ARN) of the updated file share.
   final String fileShareArn;
@@ -4130,6 +4236,7 @@ class UpdateNfsFileShareOutput {
       UpdateNfsFileShareOutput();
 }
 
+/// UpdateSMBFileShareOutput
 class UpdateSmbFileShareOutput {
   /// The Amazon Resource Name (ARN) of the updated SMB file share.
   final String fileShareArn;
@@ -4151,6 +4258,7 @@ class UpdateSmbSecurityStrategyOutput {
       UpdateSmbSecurityStrategyOutput();
 }
 
+/// A JSON object containing the of the updated storage volume.
 class UpdateSnapshotScheduleOutput {
   /// The Amazon Resource Name (ARN) of the volume. Use the ListVolumes
   /// operation to return a list of gateway volumes.
@@ -4163,6 +4271,7 @@ class UpdateSnapshotScheduleOutput {
       UpdateSnapshotScheduleOutput();
 }
 
+/// UpdateVTLDeviceTypeOutput
 class UpdateVtlDeviceTypeOutput {
   /// The Amazon Resource Name (ARN) of the medium changer you have selected.
   final String vtlDeviceArn;
@@ -4174,6 +4283,7 @@ class UpdateVtlDeviceTypeOutput {
       UpdateVtlDeviceTypeOutput();
 }
 
+/// Represents a device object associated with a tape gateway.
 class VtlDevice {
   /// Specifies the unique Amazon Resource Name (ARN) of the device (tape drive
   /// or media changer).
@@ -4201,6 +4311,7 @@ class VtlDevice {
   static VtlDevice fromJson(Map<String, dynamic> json) => VtlDevice();
 }
 
+/// Describes a storage volume object.
 class VolumeInfo {
   /// The Amazon Resource Name (ARN) for the storage volume. For example, the
   /// following is a valid ARN:
@@ -4256,6 +4367,7 @@ class VolumeInfo {
   static VolumeInfo fromJson(Map<String, dynamic> json) => VolumeInfo();
 }
 
+/// Describes a storage volume recovery point object.
 class VolumeRecoveryPointInfo {
   /// The Amazon Resource Name (ARN) of the volume target.
   final String volumeArn;
@@ -4284,6 +4396,7 @@ class VolumeRecoveryPointInfo {
       VolumeRecoveryPointInfo();
 }
 
+/// Lists iSCSI information about a volume.
 class VolumeiScsiAttributes {
   /// The Amazon Resource Name (ARN) of the volume target.
   final String targetArn;

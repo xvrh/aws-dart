@@ -323,6 +323,7 @@ class AddFlowOutputsResponse {
       AddFlowOutputsResponse();
 }
 
+/// The output that you want to add to this flow.
 class AddOutputRequest {
   /// The range of IP addresses that should be allowed to initiate output
   /// requests to this flow. These IP addresses should be in the form of a
@@ -415,6 +416,7 @@ class DescribeFlowResponse {
       DescribeFlowResponse();
 }
 
+/// Information about the encryption of the flow.
 class Encryption {
   /// The type of algorithm that is used for the encryption (such as aes128,
   /// aes192, or aes256).
@@ -473,6 +475,7 @@ class Encryption {
   static Encryption fromJson(Map<String, dynamic> json) => Encryption();
 }
 
+/// The settings for a flow entitlement.
 class Entitlement {
   /// A description of the entitlement.
   final String description;
@@ -502,6 +505,7 @@ class Entitlement {
   static Entitlement fromJson(Map<String, dynamic> json) => Entitlement();
 }
 
+/// The settings for a flow, including its source, outputs, and entitlements.
 class Flow {
   /// The Availability Zone that you want to create the flow in. These options
   /// are limited to the Availability Zones within the current AWS.
@@ -546,6 +550,7 @@ class Flow {
   static Flow fromJson(Map<String, dynamic> json) => Flow();
 }
 
+/// The entitlements that you want to grant on a flow.
 class GrantEntitlementRequest {
   /// A description of the entitlement. This description appears only on the AWS
   /// Elemental MediaConnect console and will not be seen by the subscriber or
@@ -640,6 +645,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// An entitlement that has been granted to you from other AWS accounts.
 class ListedEntitlement {
   /// The ARN of the entitlement.
   final String entitlementArn;
@@ -655,6 +661,8 @@ class ListedEntitlement {
       ListedEntitlement();
 }
 
+/// Provides a summary of a flow, including its ARN, Availability Zone, and
+/// source type.
 class ListedFlow {
   /// The Availability Zone that the flow was created in.
   final String availabilityZone;
@@ -688,6 +696,7 @@ class ListedFlow {
   static ListedFlow fromJson(Map<String, dynamic> json) => ListedFlow();
 }
 
+/// Messages that provide the state of the flow.
 class Messages {
   /// A list of errors that might have been generated from processes on this
   /// flow.
@@ -699,6 +708,7 @@ class Messages {
   static Messages fromJson(Map<String, dynamic> json) => Messages();
 }
 
+/// The settings for an output.
 class Output {
   /// A description of the output.
   final String description;
@@ -774,6 +784,7 @@ class RevokeFlowEntitlementResponse {
       RevokeFlowEntitlementResponse();
 }
 
+/// The settings for the source of the flow.
 class SetSourceRequest {
   /// The type of encryption that is used on the content ingested from this
   /// source.
@@ -827,6 +838,7 @@ class SetSourceRequest {
   });
 }
 
+/// The settings for the source of the flow.
 class Source {
   /// The type of encryption that is used on the content ingested from this
   /// source.
@@ -905,6 +917,8 @@ class StopFlowResponse {
       StopFlowResponse();
 }
 
+/// Attributes related to the transport stream that are used in a source or
+/// output.
 class Transport {
   /// The range of IP addresses that should be allowed to initiate output
   /// requests to this flow. These IP addresses should be in the form of a
@@ -943,6 +957,7 @@ class Transport {
   static Transport fromJson(Map<String, dynamic> json) => Transport();
 }
 
+/// Information about the encryption of the flow.
 class UpdateEncryption {
   /// The type of algorithm that is used for the encryption (such as aes128,
   /// aes192, or aes256).

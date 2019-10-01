@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 /// This is the _AWS Global Accelerator API Reference_. This guide is for
 /// developers who need detailed information about AWS Global Accelerator API
 /// actions, data types, and errors. For more information about Global
-/// Accelerator features, see the [AWS Global Accelerator Developer
-/// Guide](https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html).
+/// Accelerator features, see the
+/// [AWS Global Accelerator Developer Guide](https://docs.aws.amazon.com/global-accelerator/latest/dg/Welcome.html).
 ///
 /// AWS Global Accelerator is a network layer service in which you create
 /// accelerators to improve availability and performance for internet
@@ -357,8 +357,8 @@ class GlobalAcceleratorApi {
   /// is false. If the value is true, `FlowLogsS3Bucket` and `FlowLogsS3Prefix`
   /// must be specified.
   ///
-  /// For more information, see [Flow
-  /// Logs](https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html)
+  /// For more information, see
+  /// [Flow Logs](https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   ///
   /// [flowLogsS3Bucket]: The name of the Amazon S3 bucket for the flow logs.
@@ -467,6 +467,9 @@ class GlobalAcceleratorApi {
   }
 }
 
+/// An accelerator is a complex type that includes one or more listeners that
+/// process inbound connections and then direct traffic to one or more endpoint
+/// groups, each of which includes endpoints, such as load balancers.
 class Accelerator {
   /// The Amazon Resource Name (ARN) of the accelerator.
   final String acceleratorArn;
@@ -511,13 +514,14 @@ class Accelerator {
   static Accelerator fromJson(Map<String, dynamic> json) => Accelerator();
 }
 
+/// Attributes of an accelerator.
 class AcceleratorAttributes {
   /// Indicates whether flow logs are enabled. The default value is false. If
   /// the value is true, `FlowLogsS3Bucket` and `FlowLogsS3Prefix` must be
   /// specified.
   ///
-  /// For more information, see [Flow
-  /// Logs](https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html)
+  /// For more information, see
+  /// [Flow Logs](https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   final bool flowLogsEnabled;
 
@@ -620,6 +624,7 @@ class DescribeListenerResponse {
       DescribeListenerResponse();
 }
 
+/// A complex type for endpoints.
 class EndpointConfiguration {
   /// An ID for the endpoint. If the endpoint is a Network Load Balancer or
   /// Application Load Balancer, this is the Amazon Resource Name (ARN) of the
@@ -633,8 +638,8 @@ class EndpointConfiguration {
   /// weights of 4, 5, 5, and 6 (sum=20). The result is that 4/20 of your
   /// traffic, on average, is routed to the first endpoint, 5/20 is routed both
   /// to the second and third endpoints, and 6/20 is routed to the last
-  /// endpoint. For more information, see [Endpoint
-  /// Weights](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html)
+  /// endpoint. For more information, see
+  /// [Endpoint Weights](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   final int weight;
 
@@ -646,8 +651,8 @@ class EndpointConfiguration {
   /// `X-Forwarded-For` request header as traffic travels to applications on the
   /// Application Load Balancer endpoint fronted by the accelerator.
   ///
-  /// For more information, see  [Viewing Client IP Addresses in AWS Global
-  /// Accelerator](https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works-client-ip.html)
+  /// For more information, see
+  /// [Viewing Client IP Addresses in AWS Global Accelerator](https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works-client-ip.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   final bool clientIPPreservationEnabled;
 
@@ -658,6 +663,8 @@ class EndpointConfiguration {
   });
 }
 
+/// A complex type for an endpoint. Each endpoint group can include one or more
+/// endpoints, such as load balancers.
 class EndpointDescription {
   /// An ID for the endpoint. If the endpoint is a Network Load Balancer or
   /// Application Load Balancer, this is the Amazon Resource Name (ARN) of the
@@ -672,8 +679,8 @@ class EndpointDescription {
   /// weights of 4, 5, 5, and 6 (sum=20). The result is that 4/20 of your
   /// traffic, on average, is routed to the first endpoint, 5/20 is routed both
   /// to the second and third endpoints, and 6/20 is routed to the last
-  /// endpoint. For more information, see [Endpoint
-  /// Weights](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html)
+  /// endpoint. For more information, see
+  /// [Endpoint Weights](https://docs.aws.amazon.com/global-accelerator/latest/dg/about-endpoints-endpoint-weights.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   final int weight;
 
@@ -712,8 +719,8 @@ class EndpointDescription {
   /// `X-Forwarded-For` request header as traffic travels to applications on the
   /// Application Load Balancer endpoint fronted by the accelerator.
   ///
-  /// For more information, see  [Viewing Client IP Addresses in AWS Global
-  /// Accelerator](https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works-client-ip.html)
+  /// For more information, see
+  /// [Viewing Client IP Addresses in AWS Global Accelerator](https://docs.aws.amazon.com/global-accelerator/latest/dg/introduction-how-it-works-client-ip.html)
   /// in the _AWS Global Accelerator Developer Guide_.
   final bool clientIPPreservationEnabled;
 
@@ -728,6 +735,8 @@ class EndpointDescription {
       EndpointDescription();
 }
 
+/// A complex type for the endpoint group. An AWS Region can have only one
+/// endpoint group for a specific listener.
 class EndpointGroup {
   /// The Amazon Resource Name (ARN) of the endpoint group.
   final String endpointGroupArn;
@@ -788,6 +797,7 @@ class EndpointGroup {
   static EndpointGroup fromJson(Map<String, dynamic> json) => EndpointGroup();
 }
 
+/// A complex type for the set of IP addresses for an accelerator.
 class IpSet {
   /// The types of IP addresses included in this IP set.
   final String ipFamily;
@@ -851,6 +861,7 @@ class ListListenersResponse {
       ListListenersResponse();
 }
 
+/// A complex type for a listener.
 class Listener {
   /// The Amazon Resource Name (ARN) of the listener.
   final String listenerArn;
@@ -894,6 +905,7 @@ class Listener {
   static Listener fromJson(Map<String, dynamic> json) => Listener();
 }
 
+/// A complex type for a range of ports for a listener.
 class PortRange {
   /// The first port in the range of ports, inclusive.
   final int fromPort;

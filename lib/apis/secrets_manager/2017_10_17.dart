@@ -7,8 +7,8 @@ import 'dart:typed_data';
 /// retrieve, secrets.
 ///
 /// This guide provides descriptions of the Secrets Manager API. For more
-/// information about using this service, see the [AWS Secrets Manager User
-/// Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/introduction.html).
+/// information about using this service, see the
+/// [AWS Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/introduction.html).
 ///
 ///  **API Version**
 ///
@@ -27,8 +27,8 @@ import 'dart:typed_data';
 /// We recommend that you use the AWS SDKs to make programmatic API calls to
 /// Secrets Manager. However, you also can use the Secrets Manager HTTP Query
 /// API to make direct calls to the Secrets Manager web service. To learn more
-/// about the Secrets Manager HTTP Query API, see [Making Query
-/// Requests](https://docs.aws.amazon.com/secretsmanager/latest/userguide/query-requests.html)
+/// about the Secrets Manager HTTP Query API, see
+/// [Making Query Requests](https://docs.aws.amazon.com/secretsmanager/latest/userguide/query-requests.html)
 /// in the _AWS Secrets Manager User Guide_.
 ///
 /// Secrets Manager supports GET and POST requests for all actions. That is, the
@@ -40,10 +40,10 @@ import 'dart:typed_data';
 ///
 /// We welcome your feedback. Send your comments to
 /// [awssecretsmanager-feedback@amazon.com](mailto:awssecretsmanager-feedback@amazon.com),
-/// or post your feedback and questions in the [AWS Secrets Manager Discussion
-/// Forum](http://forums.aws.amazon.com/forum.jspa?forumID=296). For more
-/// information about the AWS Discussion Forums, see [Forums
-/// Help](http://forums.aws.amazon.com/help.jspa).
+/// or post your feedback and questions in the
+/// [AWS Secrets Manager Discussion Forum](http://forums.aws.amazon.com/forum.jspa?forumID=296).
+/// For more information about the AWS Discussion Forums, see
+/// [Forums Help](http://forums.aws.amazon.com/help.jspa).
 ///
 ///  **How examples are presented**
 ///
@@ -63,13 +63,11 @@ import 'dart:typed_data';
 /// using information that's collected by AWS CloudTrail, you can determine
 /// which requests were successfully made to Secrets Manager, who made the
 /// request, when it was made, and so on. For more about AWS Secrets Manager and
-/// its support for AWS CloudTrail, see [Logging AWS Secrets Manager Events with
-/// AWS
-/// CloudTrail](http://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring.html#monitoring_cloudtrail)
+/// its support for AWS CloudTrail, see
+/// [Logging AWS Secrets Manager Events with AWS CloudTrail](http://docs.aws.amazon.com/secretsmanager/latest/userguide/monitoring.html#monitoring_cloudtrail)
 /// in the _AWS Secrets Manager User Guide_. To learn more about CloudTrail,
-/// including how to turn it on and find your log files, see the [AWS CloudTrail
-/// User
-/// Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
+/// including how to turn it on and find your log files, see the
+/// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class SecretsManagerApi {
   /// Disables automatic scheduled rotation and cancels the rotation of a secret
   /// if one is currently in progress.
@@ -309,12 +307,11 @@ class SecretsManagerApi {
   ///
   /// For storing multiple values, we recommend that you use a JSON text string
   /// argument and specify key/value pairs. For information on how to format a
-  /// JSON parameter for the various command line tool environments, see [Using
-  /// JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// JSON parameter for the various command line tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_. For example:
   ///
-  ///  `\[{"username":"bob"},{"password":"abc123xyz456"}\]`
+  ///  `[{"username":"bob"},{"password":"abc123xyz456"}]`
   ///
   /// If your command-line tool or SDK requires quotation marks around the
   /// parameter, you should use single quotes to avoid confusion with the double
@@ -336,12 +333,12 @@ class SecretsManagerApi {
   ///
   /// This parameter requires a JSON text string argument. For information on
   /// how to format a JSON parameter for the various command line tool
-  /// environments, see [Using JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_. For example:
   ///
   ///
-  /// `\[{"Key":"CostCenter","Value":"12345"},{"Key":"environment","Value":"production"}\]`
+  /// `[{"Key":"CostCenter","Value":"12345"},{"Key":"environment","Value":"production"}]`
   ///
   /// If your command-line tool or SDK requires quotation marks around the
   /// parameter, you should use single quotes to avoid confusion with the double
@@ -576,7 +573,7 @@ class SecretsManagerApi {
   /// generated password if you don't explicitly exclude them with
   /// `ExcludeCharacters` or `ExcludePunctuation`:
   ///
-  ///  ``! " # $ % & ' ( ) \* \+ , \- . / : ; < = \> ? @ \[ \ \] ^ _ ` { | } ~``
+  ///  ``! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [  ] ^ _ ` { | } ~``
   ///
   /// [excludeUppercase]: Specifies that the generated password should not
   /// include uppercase letters. The default if you do not include this switch
@@ -830,12 +827,10 @@ class SecretsManagerApi {
   /// (ARN) in the policy statement's `Resources` element. You can also use a
   /// combination of both identity-based and resource-based policies. The
   /// affected users and roles receive the permissions that are permitted by all
-  /// of the relevant policies. For more information, see [Using Resource-Based
-  /// Policies for AWS Secrets
-  /// Manager](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html).
+  /// of the relevant policies. For more information, see
+  /// [Using Resource-Based Policies for AWS Secrets Manager](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html).
   /// For the complete description of the AWS policy syntax and grammar, see
-  /// [IAM JSON Policy
-  /// Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
+  /// [IAM JSON Policy Reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
   /// in the _IAM User Guide_.
   ///
   ///  **Minimum permissions**
@@ -877,8 +872,8 @@ class SecretsManagerApi {
   /// the grammar and syntax for an AWS resource-based policy. The policy in the
   /// string identifies who can access or manage this secret and its versions.
   /// For information on how to format a JSON parameter for the various command
-  /// line tool environments, see [Using JSON for
-  /// Parameters](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// line tool environments, see
+  /// [Using JSON for Parameters](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_.
   Future<PutResourcePolicyResponse> putResourcePolicy(
       {@required String secretId, @required String resourcePolicy}) async {
@@ -1032,14 +1027,13 @@ class SecretsManagerApi {
   ///
   /// For storing multiple values, we recommend that you use a JSON text string
   /// argument and specify key/value pairs. For information on how to format a
-  /// JSON parameter for the various command line tool environments, see [Using
-  /// JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// JSON parameter for the various command line tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_.
   ///
   ///  For example:
   ///
-  ///  `\[{"username":"bob"},{"password":"abc123xyz456"}\]`
+  ///  `[{"username":"bob"},{"password":"abc123xyz456"}]`
   ///
   /// If your command-line tool or SDK requires quotation marks around the
   /// parameter, you should use single quotes to avoid confusion with the double
@@ -1115,8 +1109,7 @@ class SecretsManagerApi {
   /// `AWSCURRENT` so that your clients all immediately begin to use the new
   /// version. For more information about rotating secrets and how to configure
   /// a Lambda function to rotate the secrets for your protected service, see
-  /// [Rotating Secrets in AWS Secrets
-  /// Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
+  /// [Rotating Secrets in AWS Secrets Manager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/rotating-secrets.html)
   /// in the _AWS Secrets Manager User Guide_.
   ///
   /// Secrets Manager schedules the next rotation when the previous one is
@@ -1281,10 +1274,10 @@ class SecretsManagerApi {
   ///
   /// This parameter to the API requires a JSON text string argument. For
   /// information on how to format a JSON parameter for the various command line
-  /// tool environments, see [Using JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_. For the AWS CLI, you can also use the syntax:
-  /// `--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"\[,…\]`
+  /// `--Tags Key="Key1",Value="Value1",Key="Key2",Value="Value2"[,…]`
   Future<void> tagResource(
       {@required String secretId, @required List<Tag> tags}) async {}
 
@@ -1335,8 +1328,8 @@ class SecretsManagerApi {
   ///
   /// This parameter to the API requires a JSON text string argument. For
   /// information on how to format a JSON parameter for the various command line
-  /// tool environments, see [Using JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_.
   Future<void> untagResource(
       {@required String secretId, @required List<String> tagKeys}) async {}
@@ -1501,12 +1494,11 @@ class SecretsManagerApi {
   ///
   /// For storing multiple values, we recommend that you use a JSON text string
   /// argument and specify key/value pairs. For information on how to format a
-  /// JSON parameter for the various command line tool environments, see [Using
-  /// JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
+  /// JSON parameter for the various command line tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_. For example:
   ///
-  ///  `\[{"username":"bob"},{"password":"abc123xyz456"}\]`
+  ///  `[{"username":"bob"},{"password":"abc123xyz456"}]`
   ///
   /// If your command-line tool or SDK requires quotation marks around the
   /// parameter, you should use single quotes to avoid confusion with the double
@@ -1515,7 +1507,7 @@ class SecretsManagerApi {
   /// For example, the following string is surrounded by double-quotes. All of
   /// the embedded double quotes are escaped:
   ///
-  ///  `"\[{\\"username\\":\\"bob\\"},{\\"password\\":\\"abc123xyz456\\"}\]"`
+  ///  `"[{"username":"bob"},{"password":"abc123xyz456"}]"`
   Future<UpdateSecretResponse> updateSecret(String secretId,
       {String clientRequestToken,
       String description,
@@ -1531,8 +1523,8 @@ class SecretsManagerApi {
   /// secret at a time. If a staging label to be added is already attached to
   /// another version, then it is moved--removed from the other version first
   /// and then attached to this one. For more information about staging labels,
-  /// see [Staging
-  /// Labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label)
+  /// see
+  /// [Staging Labels](https://docs.aws.amazon.com/secretsmanager/latest/userguide/terms-concepts.html#term_staging-label)
   /// in the _AWS Secrets Manager User Guide_.
   ///
   /// The staging labels that you specify in the `VersionStage` parameter are
@@ -1809,8 +1801,7 @@ class GetResourcePolicyResponse {
   /// permissions that are associated with the user or role that attempts to
   /// access this secret. The combined permissions specify who can access the
   /// secret and what actions they can perform. For more information, see
-  /// [Authentication and Access Control for AWS Secrets
-  /// Manager](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html)
+  /// [Authentication and Access Control for AWS Secrets Manager](http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html)
   /// in the _AWS Secrets Manager User Guide_.
   final String resourcePolicy;
 
@@ -2019,6 +2010,7 @@ class RotateSecretResponse {
       RotateSecretResponse();
 }
 
+/// A structure that defines the rotation configuration for the secret.
 class RotationRulesType {
   /// Specifies the number of days between automatic scheduled rotations of the
   /// secret.
@@ -2038,11 +2030,14 @@ class RotationRulesType {
       RotationRulesType();
 }
 
+/// A structure that contains the details about a secret. It does not include
+/// the encrypted `SecretString` and `SecretBinary` values. To get those values,
+/// use the GetSecretValue operation.
 class SecretListEntry {
   /// The Amazon Resource Name (ARN) of the secret.
   ///
-  /// For more information about ARNs in Secrets Manager, see [Policy
-  /// Resources](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources)
+  /// For more information about ARNs in Secrets Manager, see
+  /// [Policy Resources](https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#iam-resources)
   /// in the _AWS Secrets Manager User Guide_.
   final String arn;
 
@@ -2129,6 +2124,7 @@ class SecretListEntry {
       SecretListEntry();
 }
 
+/// A structure that contains information about one version of a secret.
 class SecretVersionsListEntry {
   /// The unique version identifier of this version of the secret.
   final String versionId;
@@ -2155,6 +2151,7 @@ class SecretVersionsListEntry {
       SecretVersionsListEntry();
 }
 
+/// A structure that contains information about a tag.
 class Tag {
   /// The key identifier, or name, of the tag.
   final String key;

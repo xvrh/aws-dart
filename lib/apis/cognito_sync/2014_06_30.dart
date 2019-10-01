@@ -15,15 +15,14 @@ import 'package:meta/meta.dart';
 /// With Amazon Cognito Sync, the data stored for each identity is accessible
 /// only to credentials assigned to that identity. In order to use the Cognito
 /// Sync service, you need to make API calls using credentials retrieved with
-/// [Amazon Cognito Identity
-/// service](http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html).
+/// [Amazon Cognito Identity service](http://docs.aws.amazon.com/cognitoidentity/latest/APIReference/Welcome.html).
 ///
 /// If you want to use Cognito Sync in an Android or iOS application, you will
 /// probably want to make API calls via the AWS Mobile SDK. To learn more, see
-/// the [Developer Guide for
-/// Android](http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html)
-/// and the [Developer Guide for
-/// iOS](http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html).
+/// the
+/// [Developer Guide for Android](http://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-sync.html)
+/// and the
+/// [Developer Guide for iOS](http://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-sync.html).
 class CognitoSyncApi {
   /// Initiates a bulk publish of all existing datasets for an Identity Pool to
   /// the configured stream. Customers are limited to one successful bulk
@@ -398,6 +397,7 @@ class CognitoSyncApi {
   }
 }
 
+/// The output for the BulkPublish operation.
 class BulkPublishResponse {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -411,6 +411,7 @@ class BulkPublishResponse {
       BulkPublishResponse();
 }
 
+/// Configuration options for configure Cognito streams.
 class CognitoStreams {
   /// The name of the Cognito stream to receive updates. This stream must be in
   /// the developers account and in the same region as the identity pool.
@@ -437,6 +438,11 @@ class CognitoStreams {
   static CognitoStreams fromJson(Map<String, dynamic> json) => CognitoStreams();
 }
 
+/// A collection of data for an identity pool. An identity pool can have
+/// multiple datasets. A dataset is per identity and can be general or
+/// associated with a particular entity in an application (like a saved game).
+/// Datasets are automatically created if they don't exist. Data is synced by
+/// dataset, and a dataset can hold up to 1MB of key-value pairs.
 class Dataset {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -474,6 +480,7 @@ class Dataset {
   static Dataset fromJson(Map<String, dynamic> json) => Dataset();
 }
 
+/// Response to a successful DeleteDataset request.
 class DeleteDatasetResponse {
   /// A collection of data for an identity pool. An identity pool can have
   /// multiple datasets. A dataset is per identity and can be general or
@@ -489,6 +496,7 @@ class DeleteDatasetResponse {
       DeleteDatasetResponse();
 }
 
+/// Response to a successful DescribeDataset request.
 class DescribeDatasetResponse {
   /// Meta data for a collection of data for an identity. An identity can have
   /// multiple datasets. A dataset can be general or associated with a
@@ -504,6 +512,7 @@ class DescribeDatasetResponse {
       DescribeDatasetResponse();
 }
 
+/// Response to a successful DescribeIdentityPoolUsage request.
 class DescribeIdentityPoolUsageResponse {
   /// Information about the usage of the identity pool.
   final IdentityPoolUsage identityPoolUsage;
@@ -516,6 +525,7 @@ class DescribeIdentityPoolUsageResponse {
       DescribeIdentityPoolUsageResponse();
 }
 
+/// The response to a successful DescribeIdentityUsage request.
 class DescribeIdentityUsageResponse {
   /// Usage information for the identity.
   final IdentityUsage identityUsage;
@@ -527,6 +537,7 @@ class DescribeIdentityUsageResponse {
       DescribeIdentityUsageResponse();
 }
 
+/// The output for the GetBulkPublishDetails operation.
 class GetBulkPublishDetailsResponse {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -568,6 +579,7 @@ class GetBulkPublishDetailsResponse {
       GetBulkPublishDetailsResponse();
 }
 
+/// The response from the GetCognitoEvents request
 class GetCognitoEventsResponse {
   /// The Cognito Events returned from the GetCognitoEvents request
   final Map<String, String> events;
@@ -579,6 +591,7 @@ class GetCognitoEventsResponse {
       GetCognitoEventsResponse();
 }
 
+/// The output for the GetIdentityPoolConfiguration operation.
 class GetIdentityPoolConfigurationResponse {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -600,6 +613,7 @@ class GetIdentityPoolConfigurationResponse {
       GetIdentityPoolConfigurationResponse();
 }
 
+/// Usage information for the identity pool.
 class IdentityPoolUsage {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -625,6 +639,7 @@ class IdentityPoolUsage {
       IdentityPoolUsage();
 }
 
+/// Usage information for the identity.
 class IdentityUsage {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -655,6 +670,7 @@ class IdentityUsage {
   static IdentityUsage fromJson(Map<String, dynamic> json) => IdentityUsage();
 }
 
+/// Returned for a successful ListDatasets request.
 class ListDatasetsResponse {
   /// A set of datasets.
   final List<Dataset> datasets;
@@ -674,6 +690,7 @@ class ListDatasetsResponse {
       ListDatasetsResponse();
 }
 
+/// Returned for a successful ListIdentityPoolUsage request.
 class ListIdentityPoolUsageResponse {
   /// Usage information for the identity pools.
   final List<IdentityPoolUsage> identityPoolUsages;
@@ -697,6 +714,7 @@ class ListIdentityPoolUsageResponse {
       ListIdentityPoolUsageResponse();
 }
 
+/// Returned for a successful ListRecordsRequest.
 class ListRecordsResponse {
   /// A list of all records.
   final List<Record> records;
@@ -740,6 +758,7 @@ class ListRecordsResponse {
       ListRecordsResponse();
 }
 
+/// Configuration options to be applied to the identity pool.
 class PushSync {
   /// List of SNS platform application ARNs that could be used by clients.
   final List<String> applicationArns;
@@ -754,6 +773,7 @@ class PushSync {
   static PushSync fromJson(Map<String, dynamic> json) => PushSync();
 }
 
+/// The basic data structure of a dataset.
 class Record {
   /// The key for the record.
   final String key;
@@ -784,6 +804,7 @@ class Record {
   static Record fromJson(Map<String, dynamic> json) => Record();
 }
 
+/// An update operation for a record.
 class RecordPatch {
   /// An operation, either replace or remove.
   final String op;
@@ -809,6 +830,7 @@ class RecordPatch {
   });
 }
 
+/// Response to a RegisterDevice request.
 class RegisterDeviceResponse {
   /// The unique ID generated for this device by Cognito.
   final String deviceId;
@@ -820,6 +842,7 @@ class RegisterDeviceResponse {
       RegisterDeviceResponse();
 }
 
+/// The output for the SetIdentityPoolConfiguration operation
 class SetIdentityPoolConfigurationResponse {
   /// A name-spaced GUID (for example,
   /// us-east-1:23EC4050-6AEA-7089-A2DD-08002EXAMPLE) created by Amazon Cognito.
@@ -841,18 +864,21 @@ class SetIdentityPoolConfigurationResponse {
       SetIdentityPoolConfigurationResponse();
 }
 
+/// Response to a SubscribeToDataset request.
 class SubscribeToDatasetResponse {
   SubscribeToDatasetResponse();
   static SubscribeToDatasetResponse fromJson(Map<String, dynamic> json) =>
       SubscribeToDatasetResponse();
 }
 
+/// Response to an UnsubscribeFromDataset request.
 class UnsubscribeFromDatasetResponse {
   UnsubscribeFromDatasetResponse();
   static UnsubscribeFromDatasetResponse fromJson(Map<String, dynamic> json) =>
       UnsubscribeFromDatasetResponse();
 }
 
+/// Returned for a successful UpdateRecordsRequest.
 class UpdateRecordsResponse {
   /// A list of records that have been updated.
   final List<Record> records;

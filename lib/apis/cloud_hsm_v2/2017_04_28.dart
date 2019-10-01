@@ -1,8 +1,8 @@
 import 'package:meta/meta.dart';
 
-/// For more information about AWS CloudHSM, see [AWS
-/// CloudHSM](http://aws.amazon.com/cloudhsm/) and the [AWS CloudHSM User
-/// Guide](http://docs.aws.amazon.com/cloudhsm/latest/userguide/).
+/// For more information about AWS CloudHSM, see
+/// [AWS CloudHSM](http://aws.amazon.com/cloudhsm/) and the
+/// [AWS CloudHSM User Guide](http://docs.aws.amazon.com/cloudhsm/latest/userguide/).
 class CloudHsmV2Api {
   /// Copy an AWS CloudHSM cluster backup to a different region.
   ///
@@ -255,6 +255,7 @@ class CloudHsmV2Api {
   }
 }
 
+/// Contains information about a backup of an AWS CloudHSM cluster.
 class Backup {
   /// The identifier (ID) of the backup.
   final String backupId;
@@ -293,6 +294,7 @@ class Backup {
   static Backup fromJson(Map<String, dynamic> json) => Backup();
 }
 
+/// Contains one or more certificates or a certificate signing request (CSR).
 class Certificates {
   /// The cluster's certificate signing request (CSR). The CSR exists only when
   /// the cluster's state is `UNINITIALIZED`.
@@ -321,6 +323,7 @@ class Certificates {
   static Certificates fromJson(Map<String, dynamic> json) => Certificates();
 }
 
+/// Contains information about an AWS CloudHSM cluster.
 class Cluster {
   /// The cluster's backup policy.
   final String backupPolicy;
@@ -507,6 +510,8 @@ class DestinationBackup {
       DestinationBackup();
 }
 
+/// Contains information about a hardware security module (HSM) in an AWS
+/// CloudHSM cluster.
 class Hsm {
   /// The Availability Zone that contains the HSM.
   final String availabilityZone;
@@ -588,6 +593,7 @@ class RestoreBackupResponse {
       RestoreBackupResponse();
 }
 
+/// Contains a tag. A tag is a key-value pair.
 class Tag {
   /// The key of the tag.
   final String key;

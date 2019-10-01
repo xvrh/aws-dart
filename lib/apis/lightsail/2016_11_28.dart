@@ -7,13 +7,13 @@ import 'package:meta/meta.dart';
 /// low, predictable price. You manage those Lightsail servers through the
 /// Lightsail console or by using the API or command-line interface (CLI).
 ///
-/// For more information about Lightsail concepts and tasks, see the [Lightsail
-/// Dev Guide](https://lightsail.aws.amazon.com/ls/docs/all).
+/// For more information about Lightsail concepts and tasks, see the
+/// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/all).
 ///
 /// To use the Lightsail API or the CLI, you will need to use AWS Identity and
 /// Access Management (IAM) to generate access keys. For details about how to
-/// set this up, see the [Lightsail Dev
-/// Guide](http://lightsail.aws.amazon.com/ls/docs/how-to/article/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli).
+/// set this up, see the
+/// [Lightsail Dev Guide](http://lightsail.aws.amazon.com/ls/docs/how-to/article/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli).
 class LightsailApi {
   /// Allocates a static IP address.
   ///
@@ -27,8 +27,8 @@ class LightsailApi {
   ///
   /// The `attach disk` operation supports tag-based access control via resource
   /// tags applied to the resource identified by diskName. For more information,
-  /// see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique Lightsail disk name (e.g., `my-disk`).
   ///
@@ -50,8 +50,8 @@ class LightsailApi {
   ///
   /// The `attach instances to load balancer` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of the load balancer.
   ///
@@ -82,8 +82,8 @@ class LightsailApi {
   ///
   /// The `attach load balancer tls certificate` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of the load balancer to which you want to
   /// associate the SSL/TLS certificate.
@@ -111,8 +111,8 @@ class LightsailApi {
   ///
   /// The `close instance public ports` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// instanceName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// instanceName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [portInfo]: Information about the public port you are trying to close.
   ///
@@ -164,12 +164,12 @@ class LightsailApi {
   /// Creates a block storage disk that can be attached to a Lightsail instance
   /// in the same Availability Zone (e.g., `us-east-2a`). The disk is created in
   /// the regional endpoint that you send the HTTP request to. For more
-  /// information, see [Regions and Availability Zones in
-  /// Lightsail](https://lightsail.aws.amazon.com/ls/docs/overview/article/understanding-regions-and-availability-zones-in-amazon-lightsail).
+  /// information, see
+  /// [Regions and Availability Zones in Lightsail](https://lightsail.aws.amazon.com/ls/docs/overview/article/understanding-regions-and-availability-zones-in-amazon-lightsail).
   ///
   /// The `create disk` operation supports tag-based access control via request
-  /// tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique Lightsail disk name (e.g., `my-disk`).
   ///
@@ -198,14 +198,13 @@ class LightsailApi {
   /// Creates a block storage disk from a disk snapshot that can be attached to
   /// a Lightsail instance in the same Availability Zone (e.g., `us-east-2a`).
   /// The disk is created in the regional endpoint that you send the HTTP
-  /// request to. For more information, see [Regions and Availability Zones in
-  /// Lightsail](https://lightsail.aws.amazon.com/ls/docs/overview/article/understanding-regions-and-availability-zones-in-amazon-lightsail).
+  /// request to. For more information, see
+  /// [Regions and Availability Zones in Lightsail](https://lightsail.aws.amazon.com/ls/docs/overview/article/understanding-regions-and-availability-zones-in-amazon-lightsail).
   ///
   /// The `create disk from snapshot` operation supports tag-based access
   /// control via request tags and resource tags applied to the resource
-  /// identified by diskSnapshotName. For more information, see the [Lightsail
-  /// Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// identified by diskSnapshotName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique Lightsail disk name (e.g., `my-disk`).
   ///
@@ -261,8 +260,8 @@ class LightsailApi {
   /// running instance to access the data on the disk.
   ///
   /// The `create disk snapshot` operation supports tag-based access control via
-  /// request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique name of the source disk (e.g., `Disk-Virginia-1`).
   ///
@@ -297,8 +296,8 @@ class LightsailApi {
   /// Creates a domain resource for the specified domain (e.g., example.com).
   ///
   /// The `create domain` operation supports tag-based access control via
-  /// request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [domainName]: The domain name to manage (e.g., `example.com`).
   ///
@@ -325,8 +324,8 @@ class LightsailApi {
   ///
   /// The `create domain entry` operation supports tag-based access control via
   /// resource tags applied to the resource identified by domainName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [domainName]: The domain name (e.g., `example.com`) for which you want to
   /// create the domain entry.
@@ -343,8 +342,8 @@ class LightsailApi {
   /// snapshot.
   ///
   /// The `create instance snapshot` operation supports tag-based access control
-  /// via request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// via request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceSnapshotName]: The name for your new snapshot.
   ///
@@ -371,17 +370,17 @@ class LightsailApi {
   /// available blueprints.
   ///
   /// The `create instances` operation supports tag-based access control via
-  /// request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceNames]: The names to use for your new Lightsail instances.
   /// Separate multiple values using quotation marks and commas, for example:
-  /// `\["MyFirstInstance","MySecondInstance"\]`
+  /// `["MyFirstInstance","MySecondInstance"]`
   ///
   /// [availabilityZone]: The Availability Zone in which to create your
   /// instance. Use the following format: `us-east-2a` (case sensitive). You can
-  /// get a list of Availability Zones by using the [get
-  /// regions](http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
+  /// get a list of Availability Zones by using the
+  /// [get regions](http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
   /// operation. Be sure to add the `include Availability Zones` parameter to
   /// your request.
   ///
@@ -393,12 +392,12 @@ class LightsailApi {
   /// It is now deprecated.
   ///
   /// [blueprintId]: The ID for a virtual private server image (e.g.,
-  /// `app\_wordpress\_4_4` or `app\_lamp\_7_0`). Use the get blueprints
-  /// operation to return a list of available images (or _blueprints_).
+  /// `app_wordpress_4_4` or `app_lamp_7_0`). Use the get blueprints operation
+  /// to return a list of available images (or _blueprints_).
   ///
   /// [bundleId]: The bundle of specification information for your virtual
   /// private server (or _instance_), including the pricing plan (e.g.,
-  /// `micro\_1\_0`).
+  /// `micro_1_0`).
   ///
   /// [userData]: A launch script you can create that configures a server with
   /// additional user data. For example, you might want to run `apt-get -y
@@ -408,8 +407,8 @@ class LightsailApi {
   ///
   /// Depending on the machine image you choose, the command to get software on
   /// your instance varies. Amazon Linux and CentOS use `yum`, Debian and Ubuntu
-  /// use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the [Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image).
+  /// use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the
+  /// [Dev Guide](https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image).
   ///
   /// [keyPairName]: The name of your key pair.
   ///
@@ -436,8 +435,7 @@ class LightsailApi {
   /// The `create instances from snapshot` operation supports tag-based access
   /// control via request tags and resource tags applied to the resource
   /// identified by instanceSnapshotName. For more information, see the
-  /// [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceNames]: The names for your new instances.
   ///
@@ -446,8 +444,8 @@ class LightsailApi {
   ///
   /// [availabilityZone]: The Availability Zone where you want to create your
   /// instances. Use the following formatting: `us-east-2a` (case sensitive).
-  /// You can get a list of Availability Zones by using the [get
-  /// regions](http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
+  /// You can get a list of Availability Zones by using the
+  /// [get regions](http://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
   /// operation. Be sure to add the `include Availability Zones` parameter to
   /// your request.
   ///
@@ -457,7 +455,7 @@ class LightsailApi {
   ///
   /// [bundleId]: The bundle of specification information for your virtual
   /// private server (or _instance_), including the pricing plan (e.g.,
-  /// `micro\_1\_0`).
+  /// `micro_1_0`).
   ///
   /// [userData]: You can create a launch script that configures a server with
   /// additional user data. For example, `apt-get -y update`.
@@ -466,8 +464,8 @@ class LightsailApi {
   ///
   /// Depending on the machine image you choose, the command to get software on
   /// your instance varies. Amazon Linux and CentOS use `yum`, Debian and Ubuntu
-  /// use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the [Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image).
+  /// use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the
+  /// [Dev Guide](https://lightsail.aws.amazon.com/ls/docs/getting-started/article/compare-options-choose-lightsail-instance-image).
   ///
   /// [keyPairName]: The name for your key pair.
   ///
@@ -491,8 +489,8 @@ class LightsailApi {
   /// Creates an SSH key pair.
   ///
   /// The `create key pair` operation supports tag-based access control via
-  /// request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [keyPairName]: The name for your new key pair.
   ///
@@ -507,9 +505,8 @@ class LightsailApi {
   }
 
   /// Creates a Lightsail load balancer. To learn more about deciding whether to
-  /// load balance your application, see [Configure your Lightsail instances for
-  /// load
-  /// balancing](https://lightsail.aws.amazon.com/ls/docs/how-to/article/configure-lightsail-instances-for-load-balancing).
+  /// load balance your application, see
+  /// [Configure your Lightsail instances for load balancing](https://lightsail.aws.amazon.com/ls/docs/how-to/article/configure-lightsail-instances-for-load-balancing).
   /// You can create up to 5 load balancers per AWS Region in your account.
   ///
   /// When you create a load balancer, you can specify a unique name and port
@@ -517,8 +514,8 @@ class LightsailApi {
   /// `UpdateLoadBalancerAttribute` operation.
   ///
   /// The `create load balancer` operation supports tag-based access control via
-  /// request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of your load balancer.
   ///
@@ -570,8 +567,8 @@ class LightsailApi {
   ///
   /// The `create load balancer tls certificate` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The load balancer name where you want to create the
   /// SSL/TLS certificate.
@@ -611,8 +608,8 @@ class LightsailApi {
   /// Creates a new database in Amazon Lightsail.
   ///
   /// The `create relational database` operation supports tag-based access
-  /// control via request tags. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// control via request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name to use for your new database.
   ///
@@ -663,9 +660,10 @@ class LightsailApi {
   /// *   Cannot be a reserved word for the database engine you choose.
   ///
   ///     For more information about reserved words in MySQL 5.6 or 5.7, see the
-  /// Keywords and Reserved Words articles for [MySQL
-  /// 5.6](https://dev.mysql.com/doc/refman/5.6/en/keywords.html) or [MySQL
-  /// 5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html) respectively.
+  /// Keywords and Reserved Words articles for
+  /// [MySQL 5.6](https://dev.mysql.com/doc/refman/5.6/en/keywords.html) or
+  /// [MySQL 5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html)
+  /// respectively.
   ///
   /// [masterUserPassword]: The password for the master user of your new
   /// database. The password can include any printable ASCII character except
@@ -679,8 +677,8 @@ class LightsailApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. For more information about the preferred
-  /// backup window time blocks for each region, see the [Working With
-  /// Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
+  /// backup window time blocks for each region, see the
+  /// [Working With Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
   /// guide in the Amazon Relational Database Service (Amazon RDS)
   /// documentation.
   ///
@@ -750,8 +748,8 @@ class LightsailApi {
   /// The `create relational database from snapshot` operation supports
   /// tag-based access control via request tags and resource tags applied to the
   /// resource identified by relationalDatabaseSnapshotName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name to use for your new database.
   ///
@@ -836,9 +834,8 @@ class LightsailApi {
   /// before deleting a database.
   ///
   /// The `create relational database snapshot` operation supports tag-based
-  /// access control via request tags. For more information, see the [Lightsail
-  /// Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// access control via request tags. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of the database on which to base your
   /// new snapshot.
@@ -871,8 +868,8 @@ class LightsailApi {
   ///
   /// The `delete disk` operation supports tag-based access control via resource
   /// tags applied to the resource identified by diskName. For more information,
-  /// see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique name of the disk you want to delete (e.g.,
   /// `my-disk`).
@@ -891,8 +888,8 @@ class LightsailApi {
   ///
   /// The `delete disk snapshot` operation supports tag-based access control via
   /// resource tags applied to the resource identified by diskSnapshotName. For
-  /// more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskSnapshotName]: The name of the disk snapshot you want to delete
   /// (e.g., `my-disk-snapshot`).
@@ -905,8 +902,8 @@ class LightsailApi {
   ///
   /// The `delete domain` operation supports tag-based access control via
   /// resource tags applied to the resource identified by domainName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [domainName]: The specific domain name to delete.
   Future<DeleteDomainResult> deleteDomain(String domainName) async {
@@ -917,8 +914,8 @@ class LightsailApi {
   ///
   /// The `delete domain entry` operation supports tag-based access control via
   /// resource tags applied to the resource identified by domainName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [domainName]: The name of the domain entry to delete.
   ///
@@ -933,8 +930,8 @@ class LightsailApi {
   ///
   /// The `delete instance` operation supports tag-based access control via
   /// resource tags applied to the resource identified by instanceName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceName]: The name of the instance to delete.
   Future<DeleteInstanceResult> deleteInstance(String instanceName) async {
@@ -945,8 +942,8 @@ class LightsailApi {
   ///
   /// The `delete instance snapshot` operation supports tag-based access control
   /// via resource tags applied to the resource identified by
-  /// instanceSnapshotName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// instanceSnapshotName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceSnapshotName]: The name of the snapshot to delete.
   Future<DeleteInstanceSnapshotResult> deleteInstanceSnapshot(
@@ -958,8 +955,8 @@ class LightsailApi {
   ///
   /// The `delete key pair` operation supports tag-based access control via
   /// resource tags applied to the resource identified by keyPairName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [keyPairName]: The name of the key pair to delete.
   Future<DeleteKeyPairResult> deleteKeyPair(String keyPairName) async {
@@ -975,9 +972,8 @@ class LightsailApi {
   ///
   /// Perform this operation only if you were expecting the host key or
   /// certificate mismatch or if you are familiar with the new host key or
-  /// certificate on the instance. For more information, see [Troubleshooting
-  /// connection issues when using the Amazon Lightsail browser-based SSH or RDP
-  /// client](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection).
+  /// certificate on the instance. For more information, see
+  /// [Troubleshooting connection issues when using the Amazon Lightsail browser-based SSH or RDP client](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-troubleshooting-browser-based-ssh-rdp-client-connection).
   ///
   /// [instanceName]: The name of the instance for which you want to reset the
   /// host key or certificate.
@@ -993,8 +989,8 @@ class LightsailApi {
   ///
   /// The `delete load balancer` operation supports tag-based access control via
   /// resource tags applied to the resource identified by loadBalancerName. For
-  /// more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of the load balancer you want to delete.
   Future<DeleteLoadBalancerResult> deleteLoadBalancer(
@@ -1006,8 +1002,8 @@ class LightsailApi {
   ///
   /// The `delete load balancer tls certificate` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The load balancer name.
   ///
@@ -1031,8 +1027,8 @@ class LightsailApi {
   ///
   /// The `delete relational database` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of the database that you are deleting.
   ///
@@ -1069,8 +1065,8 @@ class LightsailApi {
   ///
   /// The `delete relational database snapshot` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseSnapshotName]: The name of the database snapshot that
   /// you are deleting.
@@ -1086,8 +1082,8 @@ class LightsailApi {
   ///
   /// The `detach disk` operation supports tag-based access control via resource
   /// tags applied to the resource identified by diskName. For more information,
-  /// see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [diskName]: The unique name of the disk you want to detach from your
   /// instance (e.g., `my-disk`).
@@ -1102,8 +1098,8 @@ class LightsailApi {
   ///
   /// The `detach instances from load balancer` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of the Lightsail load balancer.
   ///
@@ -1141,8 +1137,8 @@ class LightsailApi {
   ///
   /// The `export snapshot` operation supports tag-based access control via
   /// resource tags applied to the resource identified by sourceSnapshotName.
-  /// For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   ///
   ///
@@ -1289,8 +1285,8 @@ class LightsailApi {
   ///
   /// The `get instance access details` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// instanceName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// instanceName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceName]: The name of the instance to access.
   ///
@@ -1404,83 +1400,83 @@ class LightsailApi {
   /// values are listed below, along with the most useful `statistics` to
   /// include in your request.
   ///
-  /// *     **`ClientTLSNegotiationErrorCount`**  \- The number of TLS
+  /// *     **`ClientTLSNegotiationErrorCount`**  - The number of TLS
   /// connections initiated by the client that did not establish a session with
   /// the load balancer. Possible causes include a mismatch of ciphers or
   /// protocols.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`.
   ///
-  /// *     **`HealthyHostCount`**  \- The number of target instances that are
+  /// *     **`HealthyHostCount`**  - The number of target instances that are
   /// considered healthy.
   ///
   ///      `Statistics`: The most useful statistic are `Average`, `Minimum`, and
   /// `Maximum`.
   ///
-  /// *     **`UnhealthyHostCount`**  \- The number of target instances that are
+  /// *     **`UnhealthyHostCount`**  - The number of target instances that are
   /// considered unhealthy.
   ///
   ///      `Statistics`: The most useful statistic are `Average`, `Minimum`, and
   /// `Maximum`.
   ///
-  /// *     **`HTTPCode\_LB\_4XX_Count`**  \- The number of HTTP 4XX client
-  /// error codes that originate from the load balancer. Client errors are
-  /// generated when requests are malformed or incomplete. These requests have
-  /// not been received by the target instance. This count does not include any
-  /// response codes generated by the target instances.
+  /// *     **`HTTPCode_LB_4XX_Count`**  - The number of HTTP 4XX client error
+  /// codes that originate from the load balancer. Client errors are generated
+  /// when requests are malformed or incomplete. These requests have not been
+  /// received by the target instance. This count does not include any response
+  /// codes generated by the target instances.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_LB\_5XX_Count`**  \- The number of HTTP 5XX server
-  /// error codes that originate from the load balancer. This count does not
-  /// include any response codes generated by the target instances.
+  /// *     **`HTTPCode_LB_5XX_Count`**  - The number of HTTP 5XX server error
+  /// codes that originate from the load balancer. This count does not include
+  /// any response codes generated by the target instances.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`. Note that `Minimum`,
   /// `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_2XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_2XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_3XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_3XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_4XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_4XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_5XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_5XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`InstanceResponseTime`**  \- The time elapsed, in seconds, after
+  /// *     **`InstanceResponseTime`**  - The time elapsed, in seconds, after
   /// the request leaves the load balancer until a response from the target
   /// instance is received.
   ///
   ///      `Statistics`: The most useful statistic is `Average`.
   ///
-  /// *     **`RejectedConnectionCount`**  \- The number of connections that
-  /// were rejected because the load balancer had reached its maximum number of
+  /// *     **`RejectedConnectionCount`**  - The number of connections that were
+  /// rejected because the load balancer had reached its maximum number of
   /// connections.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`.
   ///
-  /// *     **`RequestCount`**  \- The number of requests processed over IPv4.
+  /// *     **`RequestCount`**  - The number of requests processed over IPv4.
   /// This count includes only the requests with a response generated by a
   /// target instance of the load balancer.
   ///
@@ -1499,24 +1495,24 @@ class LightsailApi {
   /// [statistics]: An array of statistics that you want to request metrics for.
   /// Valid values are listed below.
   ///
-  /// *     **`SampleCount`**  \- The count (number) of data points used for the
+  /// *     **`SampleCount`**  - The count (number) of data points used for the
   /// statistical calculation.
   ///
-  /// *     **`Average`**  \- The value of Sum / SampleCount during the
-  /// specified period. By comparing this statistic with the Minimum and
-  /// Maximum, you can determine the full scope of a metric and how close the
-  /// average use is to the Minimum and Maximum. This comparison helps you to
-  /// know when to increase or decrease your resources as needed.
+  /// *     **`Average`**  - The value of Sum / SampleCount during the specified
+  /// period. By comparing this statistic with the Minimum and Maximum, you can
+  /// determine the full scope of a metric and how close the average use is to
+  /// the Minimum and Maximum. This comparison helps you to know when to
+  /// increase or decrease your resources as needed.
   ///
-  /// *     **`Sum`**  \- All values submitted for the matching metric added
+  /// *     **`Sum`**  - All values submitted for the matching metric added
   /// together. This statistic can be useful for determining the total volume of
   /// a metric.
   ///
-  /// *     **`Minimum`**  \- The lowest value observed during the specified
+  /// *     **`Minimum`**  - The lowest value observed during the specified
   /// period. You can use this value to determine low volumes of activity for
   /// your application.
   ///
-  /// *     **`Maximum`**  \- The highest value observed during the specified
+  /// *     **`Maximum`**  - The highest value observed during the specified
   /// period. You can use this value to determine high volumes of activity for
   /// your application.
   Future<GetLoadBalancerMetricDataResult> getLoadBalancerMetricData(
@@ -1881,8 +1877,8 @@ class LightsailApi {
   ///
   /// The `open instance public ports` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// instanceName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// instanceName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [portInfo]: An array of key-value pairs containing information about the
   /// port mappings.
@@ -1904,8 +1900,8 @@ class LightsailApi {
   ///
   /// The `put instance public ports` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// instanceName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// instanceName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [portInfos]: Specifies information about the public port(s).
   ///
@@ -1921,8 +1917,8 @@ class LightsailApi {
   ///
   /// The `reboot instance` operation supports tag-based access control via
   /// resource tags applied to the resource identified by instanceName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceName]: The name of the instance to reboot.
   Future<RebootInstanceResult> rebootInstance(String instanceName) async {
@@ -1933,8 +1929,8 @@ class LightsailApi {
   ///
   /// The `reboot relational database` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of your database to reboot.
   Future<RebootRelationalDatabaseResult> rebootRelationalDatabase(
@@ -1955,14 +1951,14 @@ class LightsailApi {
   ///  When you start a stopped instance, Lightsail assigns a new public IP
   /// address to the instance. To use the same IP address after stopping and
   /// starting an instance, create a static IP address and attach it to the
-  /// instance. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip).
+  /// instance. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip).
   ///
   ///
   /// The `start instance` operation supports tag-based access control via
   /// resource tags applied to the resource identified by instanceName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceName]: The name of the instance (a virtual private server) to
   /// start.
@@ -1975,8 +1971,8 @@ class LightsailApi {
   ///
   /// The `start relational database` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of your database to start.
   Future<StartRelationalDatabaseResult> startRelationalDatabase(
@@ -1989,14 +1985,14 @@ class LightsailApi {
   ///  When you start a stopped instance, Lightsail assigns a new public IP
   /// address to the instance. To use the same IP address after stopping and
   /// starting an instance, create a static IP address and attach it to the
-  /// instance. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip).
+  /// instance. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/lightsail-create-static-ip).
   ///
   ///
   /// The `stop instance` operation supports tag-based access control via
   /// resource tags applied to the resource identified by instanceName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [instanceName]: The name of the instance (a virtual private server) to
   /// stop.
@@ -2018,8 +2014,8 @@ class LightsailApi {
   ///
   /// The `stop relational database` operation supports tag-based access control
   /// via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of your database to stop.
   ///
@@ -2034,13 +2030,13 @@ class LightsailApi {
   /// Adds one or more tags to the specified Amazon Lightsail resource. Each
   /// resource can have a maximum of 50 tags. Each tag consists of a key and an
   /// optional value. Tag keys must be unique per resource. For more information
-  /// about tags, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   ///
   /// The `tag resource` operation supports tag-based access control via request
   /// tags and resource tags applied to the resource identified by resourceName.
-  /// For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [resourceName]: The name of the resource to which you are adding tags.
   ///
@@ -2060,8 +2056,8 @@ class LightsailApi {
   ///
   /// The `untag resource` operation supports tag-based access control via
   /// request tags and resource tags applied to the resource identified by
-  /// resourceName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// resourceName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [resourceName]: The name of the resource from which you are removing a
   /// tag.
@@ -2076,8 +2072,8 @@ class LightsailApi {
   ///
   /// The `update domain entry` operation supports tag-based access control via
   /// resource tags applied to the resource identified by domainName. For more
-  /// information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [domainName]: The name of the domain recordset to update.
   ///
@@ -2093,8 +2089,8 @@ class LightsailApi {
   ///
   /// The `update load balancer attribute` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// loadBalancerName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// loadBalancerName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [loadBalancerName]: The name of the load balancer that you want to modify
   /// (e.g., `my-load-balancer`.
@@ -2120,8 +2116,8 @@ class LightsailApi {
   ///
   /// The `update relational database` operation supports tag-based access
   /// control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of your database to update.
   ///
@@ -2223,8 +2219,8 @@ class LightsailApi {
   ///
   /// The `update relational database parameters` operation supports tag-based
   /// access control via resource tags applied to the resource identified by
-  /// relationalDatabaseName. For more information, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
+  /// relationalDatabaseName. For more information, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags).
   ///
   /// [relationalDatabaseName]: The name of your database for which to update
   /// parameters.
@@ -2300,6 +2296,7 @@ class AttachStaticIpResult {
       AttachStaticIpResult();
 }
 
+/// Describes an Availability Zone.
 class AvailabilityZone {
   /// The name of the Availability Zone. The format is `us-east-2a`
   /// (case-sensitive).
@@ -2316,9 +2313,10 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// Describes a blueprint (a virtual private server image).
 class Blueprint {
-  /// The ID for the virtual private server image (e.g., `app\_wordpress\_4_4`
-  /// or `app\_lamp\_7_0`).
+  /// The ID for the virtual private server image (e.g., `app_wordpress_4_4` or
+  /// `app_lamp_7_0`).
   final String blueprintId;
 
   /// The friendly name of the blueprint (e.g., `Amazon Linux`).
@@ -2380,6 +2378,8 @@ class Blueprint {
   static Blueprint fromJson(Map<String, dynamic> json) => Blueprint();
 }
 
+/// Describes a bundle, which is a set of specs describing your virtual private
+/// server (or _instance_).
 class Bundle {
   /// The price in US dollars (e.g., `5.0`).
   final double price;
@@ -2390,7 +2390,7 @@ class Bundle {
   /// The size of the SSD (e.g., `30`).
   final int diskSizeInGb;
 
-  /// The bundle ID (e.g., `micro\_1\_0`).
+  /// The bundle ID (e.g., `micro_1_0`).
   final String bundleId;
 
   /// The Amazon EC2 instance type (e.g., `t2.micro`).
@@ -2448,6 +2448,12 @@ class CloseInstancePublicPortsResult {
       CloseInstancePublicPortsResult();
 }
 
+/// Describes a CloudFormation stack record created as a result of the `create
+/// cloud formation stack` operation.
+///
+/// A CloudFormation stack record provides information about the AWS
+/// CloudFormation stack used to create a new Amazon Elastic Compute Cloud
+/// instance from an exported Lightsail instance snapshot.
 class CloudFormationStackRecord {
   /// The name of the CloudFormation stack record. It starts with
   /// `CloudFormationStackRecord` followed by a GUID.
@@ -2492,6 +2498,8 @@ class CloudFormationStackRecord {
       CloudFormationStackRecord();
 }
 
+/// Describes the source of a CloudFormation stack record (i.e., the export
+/// snapshot record).
 class CloudFormationStackRecordSourceInfo {
   /// The Lightsail resource type (e.g., `ExportSnapshotRecord`).
   final String resourceType;
@@ -2854,6 +2862,7 @@ class DeleteRelationalDatabaseSnapshotResult {
       DeleteRelationalDatabaseSnapshotResult();
 }
 
+/// Describes the destination of a record.
 class DestinationInfo {
   /// The ID of the resource created at the destination.
   final String id;
@@ -2904,6 +2913,7 @@ class DetachStaticIpResult {
       DetachStaticIpResult();
 }
 
+/// Describes a system disk or an block storage disk.
 class Disk {
   /// The unique name of the disk.
   final String name;
@@ -2927,8 +2937,8 @@ class Disk {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The size of the disk in GB.
@@ -2991,6 +3001,7 @@ class Disk {
   static Disk fromJson(Map<String, dynamic> json) => Disk();
 }
 
+/// Describes a disk.
 class DiskInfo {
   /// The disk name.
   final String name;
@@ -3014,6 +3025,7 @@ class DiskInfo {
   static DiskInfo fromJson(Map<String, dynamic> json) => DiskInfo();
 }
 
+/// Describes a block storage disk mapping.
 class DiskMap {
   /// The original disk path exposed to the instance (for example, `/dev/sdh`).
   final String originalDiskPath;
@@ -3027,6 +3039,7 @@ class DiskMap {
   });
 }
 
+/// Describes a block storage disk snapshot.
 class DiskSnapshot {
   /// The name of the disk snapshot (e.g., `my-disk-snapshot`).
   final String name;
@@ -3050,8 +3063,8 @@ class DiskSnapshot {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The size of the disk in GB.
@@ -3098,6 +3111,7 @@ class DiskSnapshot {
   static DiskSnapshot fromJson(Map<String, dynamic> json) => DiskSnapshot();
 }
 
+/// Describes a disk snapshot.
 class DiskSnapshotInfo {
   /// The size of the disk in GB (e.g., `32`).
   final int sizeInGb;
@@ -3109,6 +3123,7 @@ class DiskSnapshotInfo {
       DiskSnapshotInfo();
 }
 
+/// Describes a domain where you are storing recordsets in Lightsail.
 class Domain {
   /// The name of the domain.
   final String name;
@@ -3134,8 +3149,8 @@ class Domain {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// An array of key-value pairs containing information about the domain
@@ -3155,6 +3170,7 @@ class Domain {
   static Domain fromJson(Map<String, dynamic> json) => Domain();
 }
 
+/// Describes a domain recordset entry.
 class DomainEntry {
   /// The ID of the domain recordset entry.
   final String id;
@@ -3231,6 +3247,7 @@ class DownloadDefaultKeyPairResult {
       DownloadDefaultKeyPairResult();
 }
 
+/// Describes an export snapshot record.
 class ExportSnapshotRecord {
   /// The export snapshot record name.
   final String name;
@@ -3272,6 +3289,7 @@ class ExportSnapshotRecord {
       ExportSnapshotRecord();
 }
 
+/// Describes the source of an export snapshot record.
 class ExportSnapshotRecordSourceInfo {
   /// The Lightsail resource type (e.g., `InstanceSnapshot` or `DiskSnapshot`).
   final String resourceType;
@@ -3626,83 +3644,83 @@ class GetLoadBalancerMetricDataResult {
   /// listed below, along with the most useful `statistics` to include in your
   /// request.
   ///
-  /// *     **`ClientTLSNegotiationErrorCount`**  \- The number of TLS
+  /// *     **`ClientTLSNegotiationErrorCount`**  - The number of TLS
   /// connections initiated by the client that did not establish a session with
   /// the load balancer. Possible causes include a mismatch of ciphers or
   /// protocols.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`.
   ///
-  /// *     **`HealthyHostCount`**  \- The number of target instances that are
+  /// *     **`HealthyHostCount`**  - The number of target instances that are
   /// considered healthy.
   ///
   ///      `Statistics`: The most useful statistic are `Average`, `Minimum`, and
   /// `Maximum`.
   ///
-  /// *     **`UnhealthyHostCount`**  \- The number of target instances that are
+  /// *     **`UnhealthyHostCount`**  - The number of target instances that are
   /// considered unhealthy.
   ///
   ///      `Statistics`: The most useful statistic are `Average`, `Minimum`, and
   /// `Maximum`.
   ///
-  /// *     **`HTTPCode\_LB\_4XX_Count`**  \- The number of HTTP 4XX client
-  /// error codes that originate from the load balancer. Client errors are
-  /// generated when requests are malformed or incomplete. These requests have
-  /// not been received by the target instance. This count does not include any
-  /// response codes generated by the target instances.
+  /// *     **`HTTPCode_LB_4XX_Count`**  - The number of HTTP 4XX client error
+  /// codes that originate from the load balancer. Client errors are generated
+  /// when requests are malformed or incomplete. These requests have not been
+  /// received by the target instance. This count does not include any response
+  /// codes generated by the target instances.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_LB\_5XX_Count`**  \- The number of HTTP 5XX server
-  /// error codes that originate from the load balancer. This count does not
-  /// include any response codes generated by the target instances.
+  /// *     **`HTTPCode_LB_5XX_Count`**  - The number of HTTP 5XX server error
+  /// codes that originate from the load balancer. This count does not include
+  /// any response codes generated by the target instances.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`. Note that `Minimum`,
   /// `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_2XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_2XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_3XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_3XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_4XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_4XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`HTTPCode\_Instance\_5XX_Count`**  \- The number of HTTP response
+  /// *     **`HTTPCode_Instance_5XX_Count`**  - The number of HTTP response
   /// codes generated by the target instances. This does not include any
   /// response codes generated by the load balancer.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`. Note that
   /// `Minimum`, `Maximum`, and `Average` all return `1`.
   ///
-  /// *     **`InstanceResponseTime`**  \- The time elapsed, in seconds, after
+  /// *     **`InstanceResponseTime`**  - The time elapsed, in seconds, after
   /// the request leaves the load balancer until a response from the target
   /// instance is received.
   ///
   ///      `Statistics`: The most useful statistic is `Average`.
   ///
-  /// *     **`RejectedConnectionCount`**  \- The number of connections that
-  /// were rejected because the load balancer had reached its maximum number of
+  /// *     **`RejectedConnectionCount`**  - The number of connections that were
+  /// rejected because the load balancer had reached its maximum number of
   /// connections.
   ///
   ///      `Statistics`: The most useful statistic is `Sum`.
   ///
-  /// *     **`RequestCount`**  \- The number of requests processed over IPv4.
+  /// *     **`RequestCount`**  - The number of requests processed over IPv4.
   /// This count includes only the requests with a response generated by a
   /// target instance of the load balancer.
   ///
@@ -4057,6 +4075,7 @@ class GetStaticIpsResult {
       GetStaticIpsResult();
 }
 
+/// Describes the public SSH host keys or the RDP certificate.
 class HostKeyAttributes {
   /// The SSH host key algorithm or the RDP certificate format.
   ///
@@ -4130,6 +4149,7 @@ class ImportKeyPairResult {
       ImportKeyPairResult();
 }
 
+/// Describes an instance (a virtual private server).
 class Instance {
   /// The name the user gave the instance (e.g., `Amazon_Linux-1GB-Ohio-1`).
   final String name;
@@ -4154,17 +4174,17 @@ class Instance {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
-  /// The blueprint ID (e.g., `os\_amlinux\_2016_03`).
+  /// The blueprint ID (e.g., `os_amlinux_2016_03`).
   final String blueprintId;
 
   /// The friendly name of the blueprint (e.g., `Amazon Linux`).
   final String blueprintName;
 
-  /// The bundle for the instance (e.g., `micro\_1\_0`).
+  /// The bundle for the instance (e.g., `micro_1_0`).
   final String bundleId;
 
   /// A Boolean value indicating whether this instance has a static IP assigned
@@ -4221,6 +4241,8 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// The parameters for gaining temporary access to one of your Amazon Lightsail
+/// instances.
 class InstanceAccessDetails {
   /// For SSH access, the public key to use when accessing your instance For
   /// OpenSSH clients (e.g., command line SSH), you should save this value to
@@ -4288,6 +4310,8 @@ class InstanceAccessDetails {
       InstanceAccessDetails();
 }
 
+/// Describes the Amazon Elastic Compute Cloud instance and related resources to
+/// be created using the `create cloud formation stack` operation.
 class InstanceEntry {
   /// The name of the export snapshot record, which contains the exported
   /// Lightsail instance snapshot that will be used as the source of the new
@@ -4337,6 +4361,7 @@ class InstanceEntry {
   });
 }
 
+/// Describes the hardware for the instance.
 class InstanceHardware {
   /// The number of vCPUs the instance has.
   final int cpuCount;
@@ -4356,6 +4381,7 @@ class InstanceHardware {
       InstanceHardware();
 }
 
+/// Describes information about the health of the instance.
 class InstanceHealthSummary {
   /// The name of the Lightsail instance for which you are requesting health
   /// check data.
@@ -4370,10 +4396,10 @@ class InstanceHealthSummary {
   /// If  **`instanceHealth`**  is `initial`, the  **`instanceHealthReason`**
   /// value can be one of the following:
   ///
-  /// *     **`Lb.RegistrationInProgress`**  \- The target instance is in the
+  /// *     **`Lb.RegistrationInProgress`**  - The target instance is in the
   /// process of being registered with the load balancer.
   ///
-  /// *     **`Lb.InitialHealthChecking`**  \- The Lightsail load balancer is
+  /// *     **`Lb.InitialHealthChecking`**  - The Lightsail load balancer is
   /// still sending the target instance the minimum number of health checks
   /// required to determine its health status.
   ///
@@ -4381,43 +4407,43 @@ class InstanceHealthSummary {
   /// If  **`instanceHealth`**  is `unhealthy`, the  **`instanceHealthReason`**
   /// value can be one of the following:
   ///
-  /// *     **`Instance.ResponseCodeMismatch`**  \- The health checks did not
+  /// *     **`Instance.ResponseCodeMismatch`**  - The health checks did not
   /// return an expected HTTP code.
   ///
-  /// *     **`Instance.Timeout`**  \- The health check requests timed out.
+  /// *     **`Instance.Timeout`**  - The health check requests timed out.
   ///
-  /// *     **`Instance.FailedHealthChecks`**  \- The health checks failed
+  /// *     **`Instance.FailedHealthChecks`**  - The health checks failed
   /// because the connection to the target instance timed out, the target
   /// instance response was malformed, or the target instance failed the health
   /// check for an unknown reason.
   ///
-  /// *     **`Lb.InternalError`**  \- The health checks failed due to an
+  /// *     **`Lb.InternalError`**  - The health checks failed due to an
   /// internal error.
   ///
   ///
   /// If  **`instanceHealth`**  is `unused`, the  **`instanceHealthReason`**
   /// value can be one of the following:
   ///
-  /// *     **`Instance.NotRegistered`**  \- The target instance is not
+  /// *     **`Instance.NotRegistered`**  - The target instance is not
   /// registered with the target group.
   ///
-  /// *     **`Instance.NotInUse`**  \- The target group is not used by any load
+  /// *     **`Instance.NotInUse`**  - The target group is not used by any load
   /// balancer, or the target instance is in an Availability Zone that is not
   /// enabled for its load balancer.
   ///
-  /// *     **`Instance.IpUnusable`**  \- The target IP address is reserved for
+  /// *     **`Instance.IpUnusable`**  - The target IP address is reserved for
   /// use by a Lightsail load balancer.
   ///
-  /// *     **`Instance.InvalidState`**  \- The target is in the stopped or
+  /// *     **`Instance.InvalidState`**  - The target is in the stopped or
   /// terminated state.
   ///
   ///
   /// If  **`instanceHealth`**  is `draining`, the  **`instanceHealthReason`**
   /// value can be one of the following:
   ///
-  /// *     **`Instance.DeregistrationInProgress`**  \- The target instance is
-  /// in the process of being deregistered and the deregistration delay period
-  /// has not expired.
+  /// *     **`Instance.DeregistrationInProgress`**  - The target instance is in
+  /// the process of being deregistered and the deregistration delay period has
+  /// not expired.
   final String instanceHealthReason;
 
   InstanceHealthSummary({
@@ -4429,6 +4455,7 @@ class InstanceHealthSummary {
       InstanceHealthSummary();
 }
 
+/// Describes monthly data transfer rates and port information for an instance.
 class InstanceNetworking {
   /// The amount of data in GB allocated for monthly data transfers.
   final MonthlyTransfer monthlyTransfer;
@@ -4445,6 +4472,7 @@ class InstanceNetworking {
       InstanceNetworking();
 }
 
+/// Describes information about the instance ports.
 class InstancePortInfo {
   /// The first port in the range.
   final int fromPort;
@@ -4454,17 +4482,18 @@ class InstancePortInfo {
 
   /// The protocol being used. Can be one of the following.
   ///
-  /// *    `tcp` \- Transmission Control Protocol (TCP) provides reliable,
+  /// *    `tcp` - Transmission Control Protocol (TCP) provides reliable,
   /// ordered, and error-checked delivery of streamed data between applications
   /// running on hosts communicating by an IP network. If you have an
   /// application that doesn't require reliable data stream service, use UDP
   /// instead.
   ///
-  /// *    `all` \- All transport layer protocol types. For more general
-  /// information, see [Transport
-  /// layer](https://en.wikipedia.org/wiki/Transport_layer) on Wikipedia.
+  /// *    `all` - All transport layer protocol types. For more general
+  /// information, see
+  /// [Transport layer](https://en.wikipedia.org/wiki/Transport_layer) on
+  /// Wikipedia.
   ///
-  /// *    `udp` \- With User Datagram Protocol (UDP), computer applications can
+  /// *    `udp` - With User Datagram Protocol (UDP), computer applications can
   /// send messages (or datagrams) to other hosts on an Internet Protocol (IP)
   /// network. Prior communications are not required to set up transmission
   /// channels or data paths. Applications that don't require reliable data
@@ -4498,6 +4527,7 @@ class InstancePortInfo {
       InstancePortInfo();
 }
 
+/// Describes the port state.
 class InstancePortState {
   /// The first port in the range.
   final int fromPort;
@@ -4507,17 +4537,18 @@ class InstancePortState {
 
   /// The protocol being used. Can be one of the following.
   ///
-  /// *    `tcp` \- Transmission Control Protocol (TCP) provides reliable,
+  /// *    `tcp` - Transmission Control Protocol (TCP) provides reliable,
   /// ordered, and error-checked delivery of streamed data between applications
   /// running on hosts communicating by an IP network. If you have an
   /// application that doesn't require reliable data stream service, use UDP
   /// instead.
   ///
-  /// *    `all` \- All transport layer protocol types. For more general
-  /// information, see [Transport
-  /// layer](https://en.wikipedia.org/wiki/Transport_layer) on Wikipedia.
+  /// *    `all` - All transport layer protocol types. For more general
+  /// information, see
+  /// [Transport layer](https://en.wikipedia.org/wiki/Transport_layer) on
+  /// Wikipedia.
   ///
-  /// *    `udp` \- With User Datagram Protocol (UDP), computer applications can
+  /// *    `udp` - With User Datagram Protocol (UDP), computer applications can
   /// send messages (or datagrams) to other hosts on an Internet Protocol (IP)
   /// network. Prior communications are not required to set up transmission
   /// channels or data paths. Applications that don't require reliable data
@@ -4539,6 +4570,7 @@ class InstancePortState {
       InstancePortState();
 }
 
+/// Describes the snapshot of the virtual private server, or _instance_.
 class InstanceSnapshot {
   /// The name of the snapshot.
   final String name;
@@ -4563,8 +4595,8 @@ class InstanceSnapshot {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The state the snapshot is in.
@@ -4586,11 +4618,11 @@ class InstanceSnapshot {
   final String fromInstanceArn;
 
   /// The blueprint ID from which you created the snapshot (e.g.,
-  /// `os\_debian\_8_3`). A blueprint is a virtual private server (or
-  /// _instance_) image used to create instances quickly.
+  /// `os_debian_8_3`). A blueprint is a virtual private server (or _instance_)
+  /// image used to create instances quickly.
   final String fromBlueprintId;
 
-  /// The bundle ID from which you created the snapshot (e.g., `micro\_1\_0`).
+  /// The bundle ID from which you created the snapshot (e.g., `micro_1_0`).
   final String fromBundleId;
 
   /// The size in GB of the SSD.
@@ -4617,12 +4649,13 @@ class InstanceSnapshot {
       InstanceSnapshot();
 }
 
+/// Describes an instance snapshot.
 class InstanceSnapshotInfo {
   /// The bundle ID from which the source instance was created (e.g.,
-  /// `micro\_1\_0`).
+  /// `micro_1_0`).
   final String fromBundleId;
 
-  /// The blueprint ID from which the source instance (e.g., `os\_debian\_8_3`).
+  /// The blueprint ID from which the source instance (e.g., `os_debian_8_3`).
   final String fromBlueprintId;
 
   /// A list of objects describing the disks that were attached to the source
@@ -4638,6 +4671,7 @@ class InstanceSnapshotInfo {
       InstanceSnapshotInfo();
 }
 
+/// Describes the virtual private server (or _instance_) status.
 class InstanceState {
   /// The status code for the instance.
   final int code;
@@ -4663,6 +4697,7 @@ class IsVpcPeeredResult {
       IsVpcPeeredResult();
 }
 
+/// Describes the SSH key pair.
 class KeyPair {
   /// The friendly name of the SSH key pair.
   final String name;
@@ -4687,8 +4722,8 @@ class KeyPair {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The RSA fingerprint of the key pair.
@@ -4707,6 +4742,7 @@ class KeyPair {
   static KeyPair fromJson(Map<String, dynamic> json) => KeyPair();
 }
 
+/// Describes the Lightsail load balancer.
 class LoadBalancer {
   /// The name of the load balancer (e.g., `my-load-balancer`).
   final String name;
@@ -4731,8 +4767,8 @@ class LoadBalancer {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The DNS name of your Lightsail load balancer.
@@ -4795,6 +4831,9 @@ class LoadBalancer {
   static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
 }
 
+/// Describes a load balancer SSL/TLS certificate.
+///
+/// TLS is just an updated, more secure version of Secure Socket Layer (SSL).
 class LoadBalancerTlsCertificate {
   /// The name of the SSL/TLS certificate (e.g., `my-certificate`).
   final String name;
@@ -4816,32 +4855,32 @@ class LoadBalancerTlsCertificate {
 
   /// The resource type (e.g., `LoadBalancerTlsCertificate`).
   ///
-  /// *     **`Instance`**  \- A Lightsail instance (a virtual private server)
+  /// *     **`Instance`**  - A Lightsail instance (a virtual private server)
   ///
-  /// *     **`StaticIp`**  \- A static IP address
+  /// *     **`StaticIp`**  - A static IP address
   ///
-  /// *     **`KeyPair`**  \- The key pair used to connect to a Lightsail
+  /// *     **`KeyPair`**  - The key pair used to connect to a Lightsail
   /// instance
   ///
-  /// *     **`InstanceSnapshot`**  \- A Lightsail instance snapshot
+  /// *     **`InstanceSnapshot`**  - A Lightsail instance snapshot
   ///
-  /// *     **`Domain`**  \- A DNS zone
+  /// *     **`Domain`**  - A DNS zone
   ///
-  /// *     **`PeeredVpc`**  \- A peered VPC
+  /// *     **`PeeredVpc`**  - A peered VPC
   ///
-  /// *     **`LoadBalancer`**  \- A Lightsail load balancer
+  /// *     **`LoadBalancer`**  - A Lightsail load balancer
   ///
-  /// *     **`LoadBalancerTlsCertificate`**  \- An SSL/TLS certificate
+  /// *     **`LoadBalancerTlsCertificate`**  - An SSL/TLS certificate
   /// associated with a Lightsail load balancer
   ///
-  /// *     **`Disk`**  \- A Lightsail block storage disk
+  /// *     **`Disk`**  - A Lightsail block storage disk
   ///
-  /// *     **`DiskSnapshot`**  \- A block storage disk snapshot
+  /// *     **`DiskSnapshot`**  - A block storage disk snapshot
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The load balancer name where your SSL/TLS certificate is attached.
@@ -4940,6 +4979,8 @@ class LoadBalancerTlsCertificate {
       LoadBalancerTlsCertificate();
 }
 
+/// Contains information about the domain names on an SSL/TLS certificate that
+/// you will use to validate domain ownership.
 class LoadBalancerTlsCertificateDomainValidationOption {
   /// The fully qualified domain name in the certificate request.
   final String domainName;
@@ -4956,6 +4997,8 @@ class LoadBalancerTlsCertificateDomainValidationOption {
       LoadBalancerTlsCertificateDomainValidationOption();
 }
 
+/// Describes the validation record of each domain name in the SSL/TLS
+/// certificate.
 class LoadBalancerTlsCertificateDomainValidationRecord {
   /// A fully qualified domain name in the certificate. For example,
   /// `example.com`.
@@ -4985,6 +5028,8 @@ class LoadBalancerTlsCertificateDomainValidationRecord {
       LoadBalancerTlsCertificateDomainValidationRecord();
 }
 
+/// Contains information about the status of Lightsail's managed renewal for the
+/// certificate.
 class LoadBalancerTlsCertificateRenewalSummary {
   /// The status of Lightsail's managed renewal of the certificate. Valid values
   /// are listed below.
@@ -5006,6 +5051,7 @@ class LoadBalancerTlsCertificateRenewalSummary {
       LoadBalancerTlsCertificateRenewalSummary();
 }
 
+/// Provides a summary of SSL/TLS certificate metadata.
 class LoadBalancerTlsCertificateSummary {
   /// The name of the SSL/TLS certificate.
   final String name;
@@ -5023,6 +5069,7 @@ class LoadBalancerTlsCertificateSummary {
       LoadBalancerTlsCertificateSummary();
 }
 
+/// Describes a database log event.
 class LogEvent {
   /// The timestamp when the database log event was created.
   final DateTime createdAt;
@@ -5037,6 +5084,7 @@ class LogEvent {
   static LogEvent fromJson(Map<String, dynamic> json) => LogEvent();
 }
 
+/// Describes the metric data point.
 class MetricDatapoint {
   /// The average.
   final double average;
@@ -5072,6 +5120,8 @@ class MetricDatapoint {
       MetricDatapoint();
 }
 
+/// Describes the monthly data transfer in and out of your virtual private
+/// server (or _instance_).
 class MonthlyTransfer {
   /// The amount allocated per month (in GB).
   final int gbPerMonthAllocated;
@@ -5095,6 +5145,7 @@ class OpenInstancePublicPortsResult {
       OpenInstancePublicPortsResult();
 }
 
+/// Describes the API operation.
 class Operation {
   /// The ID of the operation.
   final String id;
@@ -5149,6 +5200,8 @@ class Operation {
   static Operation fromJson(Map<String, dynamic> json) => Operation();
 }
 
+/// The password data for the Windows Server-based instance, including the
+/// ciphertext and the key pair name.
 class PasswordData {
   /// The encrypted password. Ciphertext will be an empty string if access to
   /// your new instance is not ready yet. When you create an instance, it can
@@ -5196,6 +5249,7 @@ class PeerVpcResult {
   static PeerVpcResult fromJson(Map<String, dynamic> json) => PeerVpcResult();
 }
 
+/// Describes a pending database maintenance action.
 class PendingMaintenanceAction {
   /// The type of pending database maintenance action.
   final String action;
@@ -5215,6 +5269,7 @@ class PendingMaintenanceAction {
       PendingMaintenanceAction();
 }
 
+/// Describes a pending database value modification.
 class PendingModifiedRelationalDatabaseValues {
   /// The password for the master user of the database.
   final String masterUserPassword;
@@ -5235,6 +5290,8 @@ class PendingModifiedRelationalDatabaseValues {
       PendingModifiedRelationalDatabaseValues();
 }
 
+/// Describes information about the ports on your virtual private server (or
+/// _instance_).
 class PortInfo {
   /// The first port in the range.
   final int fromPort;
@@ -5287,6 +5344,7 @@ class RebootRelationalDatabaseResult {
       RebootRelationalDatabaseResult();
 }
 
+/// Describes the AWS Region.
 class Region {
   /// The continent code (e.g., `NA`, meaning North America).
   final String continentCode;
@@ -5319,6 +5377,7 @@ class Region {
   static Region fromJson(Map<String, dynamic> json) => Region();
 }
 
+/// Describes a database.
 class RelationalDatabase {
   /// The unique name of the database resource in Lightsail.
   final String name;
@@ -5343,8 +5402,8 @@ class RelationalDatabase {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The blueprint ID for the database. A blueprint describes the major engine
@@ -5445,6 +5504,8 @@ class RelationalDatabase {
       RelationalDatabase();
 }
 
+/// Describes a database image, or blueprint. A blueprint describes the major
+/// engine version of a database.
 class RelationalDatabaseBlueprint {
   /// The ID for the database blueprint.
   final String blueprintId;
@@ -5478,6 +5539,8 @@ class RelationalDatabaseBlueprint {
       RelationalDatabaseBlueprint();
 }
 
+/// Describes a database bundle. A bundle describes the performance
+/// specifications of the database.
 class RelationalDatabaseBundle {
   /// The ID for the database bundle.
   final String bundleId;
@@ -5521,6 +5584,7 @@ class RelationalDatabaseBundle {
       RelationalDatabaseBundle();
 }
 
+/// Describes an endpoint for a database.
 class RelationalDatabaseEndpoint {
   /// Specifies the port that the database is listening on.
   final int port;
@@ -5536,6 +5600,7 @@ class RelationalDatabaseEndpoint {
       RelationalDatabaseEndpoint();
 }
 
+/// Describes an event for a database.
 class RelationalDatabaseEvent {
   /// The database that the database event relates to.
   final String resource;
@@ -5559,6 +5624,7 @@ class RelationalDatabaseEvent {
       RelationalDatabaseEvent();
 }
 
+/// Describes the hardware of a database.
 class RelationalDatabaseHardware {
   /// The number of vCPUs for the database.
   final int cpuCount;
@@ -5578,6 +5644,7 @@ class RelationalDatabaseHardware {
       RelationalDatabaseHardware();
 }
 
+/// Describes the parameters of a database.
 class RelationalDatabaseParameter {
   /// Specifies the valid range of values for the parameter.
   final String allowedValues;
@@ -5619,6 +5686,7 @@ class RelationalDatabaseParameter {
       RelationalDatabaseParameter();
 }
 
+/// Describes a database snapshot.
 class RelationalDatabaseSnapshot {
   /// The name of the database snapshot.
   final String name;
@@ -5643,8 +5711,8 @@ class RelationalDatabaseSnapshot {
   final String resourceType;
 
   /// The tag keys and optional values for the resource. For more information
-  /// about tags in Lightsail, see the [Lightsail Dev
-  /// Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
+  /// about tags in Lightsail, see the
+  /// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
   final List<Tag> tags;
 
   /// The software of the database snapshot (for example, `MySQL`)
@@ -5709,6 +5777,7 @@ class ReleaseStaticIpResult {
       ReleaseStaticIpResult();
 }
 
+/// Describes the resource location.
 class ResourceLocation {
   /// The Availability Zone. Follows the format `us-east-2a` (case-sensitive).
   final String availabilityZone;
@@ -5747,6 +5816,7 @@ class StartRelationalDatabaseResult {
       StartRelationalDatabaseResult();
 }
 
+/// Describes the static IP.
 class StaticIp {
   /// The name of the static IP (e.g., `StaticIP-Ohio-EXAMPLE`).
   final String name;
@@ -5817,6 +5887,11 @@ class StopRelationalDatabaseResult {
       StopRelationalDatabaseResult();
 }
 
+/// Describes a tag key and optional value assigned to an Amazon Lightsail
+/// resource.
+///
+/// For more information about tags in Lightsail, see the
+/// [Lightsail Dev Guide](https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-tags).
 class Tag {
   /// The key of the tag.
   ///

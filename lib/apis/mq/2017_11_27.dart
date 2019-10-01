@@ -51,8 +51,8 @@ class MqApi {
   ///
   /// [subnetIds]: The list of groups (2 maximum) that define which subnets and
   /// IP ranges the broker can use from different Availability Zones. A
-  /// SINGLE\_INSTANCE deployment requires one subnet (for example, the default
-  /// subnet). An ACTIVE\_STANDBY\_MULTI\_AZ deployment requires two subnets.
+  /// SINGLE_INSTANCE deployment requires one subnet (for example, the default
+  /// subnet). An ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
   ///
   /// [tags]: Create tags when creating the broker.
   ///
@@ -393,6 +393,7 @@ class MqApi {
   }
 }
 
+/// Name of the availability zone.
 class AvailabilityZone {
   /// Id for the availability zone.
   final String name;
@@ -404,6 +405,7 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// Types of broker engines.
 class BrokerEngineType {
   /// The type of broker engine.
   final String engineType;
@@ -419,6 +421,7 @@ class BrokerEngineType {
       BrokerEngineType();
 }
 
+/// Returns information about all brokers.
 class BrokerInstance {
   /// The URL of the broker's ActiveMQ Web Console.
   final String consoleUrl;
@@ -438,6 +441,7 @@ class BrokerInstance {
   static BrokerInstance fromJson(Map<String, dynamic> json) => BrokerInstance();
 }
 
+/// Option for host instance type.
 class BrokerInstanceOption {
   /// The list of available az.
   final List<AvailabilityZone> availabilityZones;
@@ -461,6 +465,7 @@ class BrokerInstanceOption {
       BrokerInstanceOption();
 }
 
+/// The Amazon Resource Name (ARN) of the broker.
 class BrokerSummary {
   /// The Amazon Resource Name (ARN) of the broker.
   final String brokerArn;
@@ -498,6 +503,7 @@ class BrokerSummary {
   static BrokerSummary fromJson(Map<String, dynamic> json) => BrokerSummary();
 }
 
+/// Returns information about all configurations.
 class Configuration {
   /// Required. The ARN of the configuration.
   final String arn;
@@ -545,6 +551,7 @@ class Configuration {
   static Configuration fromJson(Map<String, dynamic> json) => Configuration();
 }
 
+/// A list of information about the configuration.
 class ConfigurationId {
   /// Required. The unique ID that Amazon MQ generates for the configuration.
   final String id;
@@ -560,6 +567,7 @@ class ConfigurationId {
       ConfigurationId();
 }
 
+/// Returns information about the specified configuration revision.
 class ConfigurationRevision {
   /// Required. The date and time of the configuration revision.
   final DateTime created;
@@ -579,6 +587,7 @@ class ConfigurationRevision {
       ConfigurationRevision();
 }
 
+/// Broker configuration information
 class Configurations {
   /// The current configuration of the broker.
   final ConfigurationId current;
@@ -780,9 +789,9 @@ class DescribeBrokerResponse {
   final List<String> securityGroups;
 
   /// The list of groups (2 maximum) that define which subnets and IP ranges the
-  /// broker can use from different Availability Zones. A SINGLE\_INSTANCE
+  /// broker can use from different Availability Zones. A SINGLE_INSTANCE
   /// deployment requires one subnet (for example, the default subnet). An
-  /// ACTIVE\_STANDBY\_MULTI\_AZ deployment requires two subnets.
+  /// ACTIVE_STANDBY_MULTI_AZ deployment requires two subnets.
   final List<String> subnetIds;
 
   /// The list of all tags associated with this broker.
@@ -923,6 +932,7 @@ class DescribeUserResponse {
       DescribeUserResponse();
 }
 
+/// Encryption options for the broker.
 class EncryptionOptions {
   /// The customer master key (CMK) to use for the AWS Key Management Service
   /// (KMS). This key is used to encrypt your data at rest. If not provided,
@@ -941,6 +951,7 @@ class EncryptionOptions {
       EncryptionOptions();
 }
 
+/// Id of the engine version.
 class EngineVersion {
   /// Id for the version.
   final String name;
@@ -1050,6 +1061,7 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// The list of information about logs to be enabled for the specified broker.
 class Logs {
   /// Enables audit logging. Every user management action made using JMX or the
   /// ActiveMQ Web Console is logged.
@@ -1065,6 +1077,8 @@ class Logs {
   static Logs fromJson(Map<String, dynamic> json) => Logs();
 }
 
+/// The list of information about logs currently enabled and pending to be
+/// deployed for the specified broker.
 class LogsSummary {
   /// Enables audit logging. Every user management action made using JMX or the
   /// ActiveMQ Web Console is logged.
@@ -1093,6 +1107,7 @@ class LogsSummary {
   static LogsSummary fromJson(Map<String, dynamic> json) => LogsSummary();
 }
 
+/// The list of information about logs to be enabled for the specified broker.
 class PendingLogs {
   /// Enables audit logging. Every user management action made using JMX or the
   /// ActiveMQ Web Console is logged.
@@ -1114,6 +1129,8 @@ class RebootBrokerResponse {
       RebootBrokerResponse();
 }
 
+/// Returns information about the XML element or attribute that was sanitized in
+/// the configuration.
 class SanitizationWarning {
   /// The name of the XML attribute that has been sanitized.
   final String attributeName;
@@ -1208,6 +1225,7 @@ class UpdateUserResponse {
       UpdateUserResponse();
 }
 
+/// An ActiveMQ user associated with the broker.
 class User {
   /// Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
   final bool consoleAccess;
@@ -1236,6 +1254,8 @@ class User {
   });
 }
 
+/// Returns information about the status of the changes pending for the ActiveMQ
+/// user.
 class UserPendingChanges {
   /// Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
   final bool consoleAccess;
@@ -1258,6 +1278,7 @@ class UserPendingChanges {
       UserPendingChanges();
 }
 
+/// Returns a list of all ActiveMQ users.
 class UserSummary {
   /// The type of change pending for the ActiveMQ user.
   final String pendingChange;
@@ -1274,6 +1295,8 @@ class UserSummary {
   static UserSummary fromJson(Map<String, dynamic> json) => UserSummary();
 }
 
+/// The scheduled time period relative to UTC during which Amazon MQ begins to
+/// apply pending updates or patches to the broker.
 class WeeklyStartTime {
   /// Required. The day of the week.
   final String dayOfWeek;

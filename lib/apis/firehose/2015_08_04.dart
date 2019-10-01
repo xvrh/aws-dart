@@ -66,9 +66,8 @@ class FirehoseApi {
   /// Kinesis Data Firehose assumes the IAM role that is configured as part of
   /// the destination. The role should allow the Kinesis Data Firehose principal
   /// to assume the role, and the role should have permissions that allow the
-  /// service to deliver the data. For more information, see [Grant Kinesis Data
-  /// Firehose Access to an Amazon S3
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
+  /// service to deliver the data. For more information, see
+  /// [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   ///
   /// [deliveryStreamName]: The name of the delivery stream. This name must be
@@ -90,7 +89,7 @@ class FirehoseApi {
   /// containing the Kinesis data stream Amazon Resource Name (ARN) and the role
   /// ARN for the source stream.
   ///
-  /// [s3DestinationConfiguration]: \[Deprecated\] The destination in Amazon S3.
+  /// [s3DestinationConfiguration]: [Deprecated] The destination in Amazon S3.
   /// You can specify only one destination.
   ///
   /// [extendedS3DestinationConfiguration]: The destination in Amazon S3. You
@@ -109,8 +108,8 @@ class FirehoseApi {
   /// key-value pair that you can define and assign to AWS resources. Tags are
   /// metadata. For example, you can add friendly names and descriptions or
   /// other types of information that can help you distinguish the delivery
-  /// stream. For more information about tags, see [Using Cost Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// stream. For more information about tags, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the AWS Billing and Cost Management User Guide.
   ///
   /// You can specify up to 50 tags when creating a delivery stream.
@@ -236,8 +235,8 @@ class FirehoseApi {
   /// second, 5,000 records per second, or 5 MB per second. If you use PutRecord
   /// and PutRecordBatch, the limits are an aggregate across these two
   /// operations for each delivery stream. For more information about limits and
-  /// how to request an increase, see [Amazon Kinesis Data Firehose
-  /// Limits](http://docs.aws.amazon.com/firehose/latest/dev/limits.html).
+  /// how to request an increase, see
+  /// [Amazon Kinesis Data Firehose Limits](http://docs.aws.amazon.com/firehose/latest/dev/limits.html).
   ///
   /// You must specify the name of the delivery stream and the data record when
   /// using PutRecord. The data record consists of a data blob that can be up to
@@ -247,8 +246,8 @@ class FirehoseApi {
   ///
   /// Kinesis Data Firehose buffers records before delivering them to the
   /// destination. To disambiguate the data blobs at the destination, a common
-  /// solution is to use delimiters in the data, such as a newline (`\\n`) or
-  /// some other character unique within the data. This allows the consumer
+  /// solution is to use delimiters in the data, such as a newline (`n`) or some
+  /// other character unique within the data. This allows the consumer
   /// application to parse individual data items when reading the data from the
   /// destination.
   ///
@@ -289,8 +288,8 @@ class FirehoseApi {
   /// second, 5,000 records per second, or 5 MB per second. If you use PutRecord
   /// and PutRecordBatch, the limits are an aggregate across these two
   /// operations for each delivery stream. For more information about limits,
-  /// see [Amazon Kinesis Data Firehose
-  /// Limits](http://docs.aws.amazon.com/firehose/latest/dev/limits.html).
+  /// see
+  /// [Amazon Kinesis Data Firehose Limits](http://docs.aws.amazon.com/firehose/latest/dev/limits.html).
   ///
   /// Each PutRecordBatch request supports up to 500 records. Each record in the
   /// request can be as large as 1,000 KB (before 64-bit encoding), up to a
@@ -304,8 +303,8 @@ class FirehoseApi {
   ///
   /// Kinesis Data Firehose buffers records before delivering them to the
   /// destination. To disambiguate the data blobs at the destination, a common
-  /// solution is to use delimiters in the data, such as a newline (`\\n`) or
-  /// some other character unique within the data. This allows the consumer
+  /// solution is to use delimiters in the data, such as a newline (`n`) or some
+  /// other character unique within the data. This allows the consumer
   /// application to parse individual data items when reading the data from the
   /// destination.
   ///
@@ -427,8 +426,8 @@ class FirehoseApi {
   /// value that you specify in the request. Tags are metadata. For example, you
   /// can add friendly names and descriptions or other types of information that
   /// can help you distinguish the delivery stream. For more information about
-  /// tags, see [Using Cost Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// tags, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// Each delivery stream can have up to 50 tags.
@@ -508,8 +507,8 @@ class FirehoseApi {
   ///
   /// [destinationId]: The ID of the destination.
   ///
-  /// [s3DestinationUpdate]: \[Deprecated\] Describes an update for a
-  /// destination in Amazon S3.
+  /// [s3DestinationUpdate]: [Deprecated] Describes an update for a destination
+  /// in Amazon S3.
   ///
   /// [extendedS3DestinationUpdate]: Describes an update for a destination in
   /// Amazon S3.
@@ -535,6 +534,9 @@ class FirehoseApi {
   }
 }
 
+/// Describes hints for the buffering to perform before delivering data to the
+/// destination. These options are treated as hints, and therefore Kinesis Data
+/// Firehose might choose to use different values when it is optimal.
 class BufferingHints {
   /// Buffer incoming data to the specified size, in MBs, before delivering it
   /// to the destination. The default value is 5.
@@ -556,6 +558,7 @@ class BufferingHints {
   static BufferingHints fromJson(Map<String, dynamic> json) => BufferingHints();
 }
 
+/// Describes the Amazon CloudWatch logging options for your delivery stream.
 class CloudWatchLoggingOptions {
   /// Enables or disables CloudWatch logging.
   final bool enabled;
@@ -577,6 +580,7 @@ class CloudWatchLoggingOptions {
       CloudWatchLoggingOptions();
 }
 
+/// Describes a `COPY` command for Amazon Redshift.
 class CopyCommand {
   /// The name of the target table. The table must already exist in the
   /// database.
@@ -586,30 +590,29 @@ class CopyCommand {
   final String dataTableColumns;
 
   /// Optional parameters to use with the Amazon Redshift `COPY` command. For
-  /// more information, see the "Optional Parameters" section of [Amazon
-  /// Redshift COPY
-  /// command](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html). Some
-  /// possible examples that would apply to Kinesis Data Firehose are as
+  /// more information, see the "Optional Parameters" section of
+  /// [Amazon Redshift COPY command](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY.html).
+  /// Some possible examples that would apply to Kinesis Data Firehose are as
   /// follows:
   ///
-  ///  `delimiter '\\t' lzop;` \- fields are delimited with "\\t" (TAB
-  /// character) and compressed using lzop.
+  ///  `delimiter 't' lzop;` - fields are delimited with "t" (TAB character) and
+  /// compressed using lzop.
   ///
-  ///  `delimiter '|'` \- fields are delimited with "|" (this is the default
+  ///  `delimiter '|'` - fields are delimited with "|" (this is the default
   /// delimiter).
   ///
-  ///  `delimiter '|' escape` \- the delimiter should be escaped.
+  ///  `delimiter '|' escape` - the delimiter should be escaped.
   ///
   ///  `fixedwidth
-  /// 'venueid:3,venuename:25,venuecity:12,venuestate:2,venueseats:6'` \- fields
+  /// 'venueid:3,venuename:25,venuecity:12,venuestate:2,venueseats:6'` - fields
   /// are fixed width in the source, with each width specified after every
   /// column in the table.
   ///
-  ///  `JSON 's3://mybucket/jsonpaths.txt'` \- data is in JSON format, and the
+  ///  `JSON 's3://mybucket/jsonpaths.txt'` - data is in JSON format, and the
   /// path specified is the format of the data.
   ///
-  /// For more examples, see [Amazon Redshift COPY command
-  /// examples](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html).
+  /// For more examples, see
+  /// [Amazon Redshift COPY command examples](http://docs.aws.amazon.com/redshift/latest/dg/r_COPY_command_examples.html).
   final String copyOptions;
 
   CopyCommand({
@@ -631,6 +634,13 @@ class CreateDeliveryStreamOutput {
       CreateDeliveryStreamOutput();
 }
 
+/// Specifies that you want Kinesis Data Firehose to convert data from the JSON
+/// format to the Parquet or ORC format before writing it to Amazon S3. Kinesis
+/// Data Firehose uses the serializer and deserializer that you specify, in
+/// addition to the column information from the AWS Glue table, to deserialize
+/// your input data from JSON and then serialize it to the Parquet or ORC
+/// format. For more information, see
+/// [Kinesis Data Firehose Record Format Conversion](https://docs.aws.amazon.com/firehose/latest/dev/record-format-conversion.html).
 class DataFormatConversionConfiguration {
   /// Specifies the AWS Glue Data Catalog table that contains the column
   /// information.
@@ -665,13 +675,14 @@ class DeleteDeliveryStreamOutput {
       DeleteDeliveryStreamOutput();
 }
 
+/// Contains information about a delivery stream.
 class DeliveryStreamDescription {
   /// The name of the delivery stream.
   final String deliveryStreamName;
 
   /// The Amazon Resource Name (ARN) of the delivery stream. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String deliveryStreamArn;
 
   /// The status of the delivery stream.
@@ -729,6 +740,7 @@ class DeliveryStreamDescription {
       DeliveryStreamDescription();
 }
 
+/// Indicates the server-side encryption (SSE) status for the delivery stream.
 class DeliveryStreamEncryptionConfiguration {
   /// For a full description of the different values of this status, see
   /// StartDeliveryStreamEncryption and StopDeliveryStreamEncryption.
@@ -753,6 +765,12 @@ class DescribeDeliveryStreamOutput {
       DescribeDeliveryStreamOutput();
 }
 
+/// The deserializer you want Kinesis Data Firehose to use for converting the
+/// input data from JSON. Kinesis Data Firehose then serializes the data to its
+/// final format using the Serializer. Kinesis Data Firehose supports two types
+/// of deserializers: the
+/// [Apache Hive JSON SerDe](https://cwiki.apache.org/confluence/display/Hive/LanguageManual+DDL#LanguageManualDDL-JSON)
+/// and the [OpenX JSON SerDe](https://github.com/rcongiu/Hive-JSON-Serde).
 class Deserializer {
   /// The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data,
   /// which means converting it from the JSON format in preparation for
@@ -776,11 +794,12 @@ class Deserializer {
   static Deserializer fromJson(Map<String, dynamic> json) => Deserializer();
 }
 
+/// Describes the destination for a delivery stream.
 class DestinationDescription {
   /// The ID of the destination.
   final String destinationId;
 
-  /// \[Deprecated\] The destination in Amazon S3.
+  /// [Deprecated] The destination in Amazon S3.
   final S3DestinationDescription s3DestinationDescription;
 
   /// The destination in Amazon S3.
@@ -807,6 +826,8 @@ class DestinationDescription {
       DestinationDescription();
 }
 
+/// Describes the buffering to perform before delivering data to the Amazon ES
+/// destination.
 class ElasticsearchBufferingHints {
   /// Buffer incoming data for the specified period of time, in seconds, before
   /// delivering it to the destination. The default value is 300 (5 minutes).
@@ -829,22 +850,21 @@ class ElasticsearchBufferingHints {
       ElasticsearchBufferingHints();
 }
 
+/// Describes the configuration of a destination in Amazon ES.
 class ElasticsearchDestinationConfiguration {
   /// The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis
   /// Data Firehose for calling the Amazon ES Configuration API and for indexing
-  /// documents. For more information, see [Grant Kinesis Data Firehose Access
-  /// to an Amazon S3
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
-  /// and [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// documents. For more information, see
+  /// [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
+  /// and
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
   /// The ARN of the Amazon ES domain. The IAM role must have permissions
-  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
-  /// `DescribeElasticsearchDomainConfig` after assuming the role specified in
-  /// **RoleARN**. For more information, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
+  /// `DescribeElasticsearchDomainConfig` after assuming the role specified in
+  /// **RoleARN**. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String domainArn;
 
   /// The Elasticsearch index name.
@@ -858,9 +878,9 @@ class ElasticsearchDestinationConfiguration {
 
   /// The Elasticsearch index rotation period. Index rotation appends a
   /// timestamp to the `IndexName` to facilitate the expiration of old data. For
-  /// more information, see [Index Rotation for the Amazon ES
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
-  /// The default value is `OneDay`.
+  /// more information, see
+  /// [Index Rotation for the Amazon ES Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
+  /// The default value is `OneDay`.
   final String indexRotationPeriod;
 
   /// The buffering options. If no value is specified, the default values for
@@ -877,9 +897,8 @@ class ElasticsearchDestinationConfiguration {
   /// `elasticsearch-failed/` appended to the key prefix. When set to
   /// `AllDocuments`, Kinesis Data Firehose delivers all incoming records to
   /// Amazon S3, and also writes failed documents with `elasticsearch-failed/`
-  /// appended to the prefix. For more information, see [Amazon S3 Backup for
-  /// the Amazon ES
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup).
+  /// appended to the prefix. For more information, see
+  /// [Amazon S3 Backup for the Amazon ES Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-s3-backup).
   /// Default value is `FailedDocumentsOnly`.
   final String s3BackupMode;
 
@@ -907,15 +926,15 @@ class ElasticsearchDestinationConfiguration {
   });
 }
 
+/// The destination description in Amazon ES.
 class ElasticsearchDestinationDescription {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the Amazon ES domain. For more information, see [Amazon
-  /// Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the Amazon ES domain. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String domainArn;
 
   /// The Elasticsearch index name.
@@ -963,22 +982,21 @@ class ElasticsearchDestinationDescription {
       ElasticsearchDestinationDescription();
 }
 
+/// Describes an update for a destination in Amazon ES.
 class ElasticsearchDestinationUpdate {
   /// The Amazon Resource Name (ARN) of the IAM role to be assumed by Kinesis
   /// Data Firehose for calling the Amazon ES Configuration API and for indexing
-  /// documents. For more information, see [Grant Kinesis Data Firehose Access
-  /// to an Amazon S3
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
-  /// and [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// documents. For more information, see
+  /// [Grant Kinesis Data Firehose Access to an Amazon S3 Destination](http://docs.aws.amazon.com/firehose/latest/dev/controlling-access.html#using-iam-s3)
+  /// and
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
   /// The ARN of the Amazon ES domain. The IAM role must have permissions
-  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
-  /// `DescribeElasticsearchDomainConfig` after assuming the IAM role specified
-  /// in `RoleARN`. For more information, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// for `DescribeElasticsearchDomain`, `DescribeElasticsearchDomains`, and
+  /// `DescribeElasticsearchDomainConfig` after assuming the IAM role specified
+  /// in `RoleARN`. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String domainArn;
 
   /// The Elasticsearch index name.
@@ -992,9 +1010,9 @@ class ElasticsearchDestinationUpdate {
 
   /// The Elasticsearch index rotation period. Index rotation appends a
   /// timestamp to `IndexName` to facilitate the expiration of old data. For
-  /// more information, see [Index Rotation for the Amazon ES
-  /// Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
-  /// Default value is `OneDay`.
+  /// more information, see
+  /// [Index Rotation for the Amazon ES Destination](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#es-index-rotation).
+  /// Default value is `OneDay`.
   final String indexRotationPeriod;
 
   /// The buffering options. If no value is specified,
@@ -1028,6 +1046,8 @@ class ElasticsearchDestinationUpdate {
   });
 }
 
+/// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
+/// documents to Amazon ES.
 class ElasticsearchRetryOptions {
   /// After an initial failure to deliver to Amazon ES, the total amount of time
   /// during which Kinesis Data Firehose retries delivery (including the first
@@ -1043,6 +1063,7 @@ class ElasticsearchRetryOptions {
       ElasticsearchRetryOptions();
 }
 
+/// Describes the encryption for a destination in Amazon S3.
 class EncryptionConfiguration {
   /// Specifically override existing encryption information to ensure that no
   /// encryption is used.
@@ -1059,22 +1080,22 @@ class EncryptionConfiguration {
       EncryptionConfiguration();
 }
 
+/// Describes the configuration of a destination in Amazon S3.
 class ExtendedS3DestinationConfiguration {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1126,22 +1147,22 @@ class ExtendedS3DestinationConfiguration {
   });
 }
 
+/// Describes a destination in Amazon S3.
 class ExtendedS3DestinationDescription {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1195,22 +1216,22 @@ class ExtendedS3DestinationDescription {
       ExtendedS3DestinationDescription();
 }
 
+/// Describes an update for a destination in Amazon S3.
 class ExtendedS3DestinationUpdate {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1262,12 +1283,17 @@ class ExtendedS3DestinationUpdate {
   });
 }
 
+/// The native Hive / HCatalog JsonSerDe. Used by Kinesis Data Firehose for
+/// deserializing data, which means converting it from the JSON format in
+/// preparation for serializing it to the Parquet or ORC format. This is one of
+/// two deserializers you can choose, depending on which one offers the
+/// functionality you need. The other option is the OpenX SerDe.
 class HiveJsonSerDe {
   /// Indicates how you want Kinesis Data Firehose to parse the date and
   /// timestamps that may be present in your input data JSON. To specify these
   /// format strings, follow the pattern syntax of JodaTime's DateTimeFormat
-  /// format strings. For more information, see [Class
-  /// DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+  /// format strings. For more information, see
+  /// [Class DateTimeFormat](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
   /// You can also use the special value `millis` to parse timestamps in epoch
   /// milliseconds. If you don't specify a format, Kinesis Data Firehose uses
   /// `java.sql.Timestamp::valueOf` by default.
@@ -1279,6 +1305,8 @@ class HiveJsonSerDe {
   static HiveJsonSerDe fromJson(Map<String, dynamic> json) => HiveJsonSerDe();
 }
 
+/// Specifies the deserializer you want to use to convert the format of the
+/// input data.
 class InputFormatConfiguration {
   /// Specifies which deserializer to use. You can choose either the Apache Hive
   /// JSON SerDe or the OpenX JSON SerDe. If both are non-null, the server
@@ -1292,11 +1320,12 @@ class InputFormatConfiguration {
       InputFormatConfiguration();
 }
 
+/// Describes an encryption key for a destination in Amazon S3.
 class KmsEncryptionConfig {
   /// The Amazon Resource Name (ARN) of the encryption key. Must belong to the
   /// same AWS Region as the destination Amazon S3 bucket. For more information,
-  /// see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String awskmsKeyArn;
 
   KmsEncryptionConfig({
@@ -1306,16 +1335,16 @@ class KmsEncryptionConfig {
       KmsEncryptionConfig();
 }
 
+/// The stream and role Amazon Resource Names (ARNs) for a Kinesis data stream
+/// used as the source for a delivery stream.
 class KinesisStreamSourceConfiguration {
   /// The ARN of the source Kinesis data stream. For more information, see
-  /// [Amazon Kinesis Data Streams ARN
-  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// [Amazon Kinesis Data Streams ARN Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   final String kinesisStreamArn;
 
   /// The ARN of the role that provides access to the source Kinesis data
-  /// stream. For more information, see [AWS Identity and Access Management
-  /// (IAM) ARN
-  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
+  /// stream. For more information, see
+  /// [AWS Identity and Access Management (IAM) ARN Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
   final String roleArn;
 
   KinesisStreamSourceConfiguration({
@@ -1324,15 +1353,17 @@ class KinesisStreamSourceConfiguration {
   });
 }
 
+/// Details about a Kinesis data stream used as the source for a Kinesis Data
+/// Firehose delivery stream.
 class KinesisStreamSourceDescription {
   /// The Amazon Resource Name (ARN) of the source Kinesis data stream. For more
-  /// information, see [Amazon Kinesis Data Streams ARN
-  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// information, see
+  /// [Amazon Kinesis Data Streams ARN Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   final String kinesisStreamArn;
 
   /// The ARN of the role used by the source Kinesis data stream. For more
-  /// information, see [AWS Identity and Access Management (IAM) ARN
-  /// Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
+  /// information, see
+  /// [AWS Identity and Access Management (IAM) ARN Format](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam).
   final String roleArn;
 
   /// Kinesis Data Firehose starts retrieving records from the Kinesis data
@@ -1381,6 +1412,11 @@ class ListTagsForDeliveryStreamOutput {
       ListTagsForDeliveryStreamOutput();
 }
 
+/// The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data, which
+/// means converting it from the JSON format in preparation for serializing it
+/// to the Parquet or ORC format. This is one of two deserializers you can
+/// choose, depending on which one offers the functionality you need. The other
+/// option is the native Hive / HCatalog JsonSerDe.
 class OpenxJsonSerDe {
   /// When set to `true`, specifies that the names of the keys include dots and
   /// that you want Kinesis Data Firehose to replace them with underscores. This
@@ -1410,6 +1446,9 @@ class OpenxJsonSerDe {
   static OpenxJsonSerDe fromJson(Map<String, dynamic> json) => OpenxJsonSerDe();
 }
 
+/// A serializer to use for converting data to the ORC format before storing it
+/// in Amazon S3. For more information, see
+/// [Apache ORC](https://orc.apache.org/docs/).
 class OrcSerDe {
   /// The number of bytes in each stripe. The default is 64 MiB and the minimum
   /// is 8 MiB.
@@ -1482,6 +1521,8 @@ class OrcSerDe {
   static OrcSerDe fromJson(Map<String, dynamic> json) => OrcSerDe();
 }
 
+/// Specifies the serializer that you want Kinesis Data Firehose to use to
+/// convert the format of your data before it writes it to Amazon S3.
 class OutputFormatConfiguration {
   /// Specifies which serializer to use. You can choose either the ORC SerDe or
   /// the Parquet SerDe. If both are non-null, the server rejects the request.
@@ -1494,6 +1535,9 @@ class OutputFormatConfiguration {
       OutputFormatConfiguration();
 }
 
+/// A serializer to use for converting data to the Parquet format before storing
+/// it in Amazon S3. For more information, see
+/// [Apache Parquet](https://parquet.apache.org/documentation/latest/).
 class ParquetSerDe {
   /// The Hadoop Distributed File System (HDFS) block size. This is useful if
   /// you intend to copy the data from Amazon S3 to HDFS before querying. The
@@ -1534,6 +1578,7 @@ class ParquetSerDe {
   static ParquetSerDe fromJson(Map<String, dynamic> json) => ParquetSerDe();
 }
 
+/// Describes a data processing configuration.
 class ProcessingConfiguration {
   /// Enables or disables data processing.
   final bool enabled;
@@ -1549,6 +1594,7 @@ class ProcessingConfiguration {
       ProcessingConfiguration();
 }
 
+/// Describes a data processor.
 class Processor {
   /// The type of processor.
   final String type;
@@ -1563,6 +1609,7 @@ class Processor {
   static Processor fromJson(Map<String, dynamic> json) => Processor();
 }
 
+/// Describes the processor parameter.
 class ProcessorParameter {
   /// The name of the parameter.
   final String parameterName;
@@ -1602,6 +1649,10 @@ class PutRecordBatchOutput {
       PutRecordBatchOutput();
 }
 
+/// Contains the result for an individual record from a PutRecordBatch request.
+/// If the record is successfully added to your delivery stream, it receives a
+/// record ID. If the record fails to be added to your delivery stream, the
+/// result includes an error code and an error message.
 class PutRecordBatchResponseEntry {
   /// The ID of the record.
   final String recordId;
@@ -1637,6 +1688,7 @@ class PutRecordOutput {
       PutRecordOutput();
 }
 
+/// The unit of data in a delivery stream.
 class Record {
   /// The data blob, which is base64-encoded when the blob is serialized. The
   /// maximum size of the data blob, before base64-encoding, is 1,000 KiB.
@@ -1647,10 +1699,11 @@ class Record {
   });
 }
 
+/// Describes the configuration of a destination in Amazon Redshift.
 class RedshiftDestinationConfiguration {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
   /// The database connection string.
@@ -1706,10 +1759,11 @@ class RedshiftDestinationConfiguration {
   });
 }
 
+/// Describes a destination in Amazon Redshift.
 class RedshiftDestinationDescription {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
   /// The database connection string.
@@ -1756,10 +1810,11 @@ class RedshiftDestinationDescription {
       RedshiftDestinationDescription();
 }
 
+/// Describes an update for a destination in Amazon Redshift.
 class RedshiftDestinationUpdate {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
   /// The database connection string.
@@ -1813,6 +1868,8 @@ class RedshiftDestinationUpdate {
   });
 }
 
+/// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
+/// documents to Amazon Redshift.
 class RedshiftRetryOptions {
   /// The length of time during which Kinesis Data Firehose retries delivery
   /// after a failure, starting from the initial request and including the first
@@ -1828,22 +1885,22 @@ class RedshiftRetryOptions {
       RedshiftRetryOptions();
 }
 
+/// Describes the configuration of a destination in Amazon S3.
 class S3DestinationConfiguration {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1883,22 +1940,22 @@ class S3DestinationConfiguration {
   });
 }
 
+/// Describes a destination in Amazon S3.
 class S3DestinationDescription {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1936,22 +1993,22 @@ class S3DestinationDescription {
       S3DestinationDescription();
 }
 
+/// Describes an update for a destination in Amazon S3.
 class S3DestinationUpdate {
   /// The Amazon Resource Name (ARN) of the AWS credentials. For more
-  /// information, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String roleArn;
 
-  /// The ARN of the S3 bucket. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// The ARN of the S3 bucket. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String bucketArn;
 
   /// The "YYYY/MM/DD/HH" time format prefix is automatically used for delivered
   /// Amazon S3 files. You can specify an extra prefix to be added in front of
   /// the time format prefix. If the prefix ends with a slash, it appears as a
-  /// folder in the S3 bucket. For more information, see [Amazon S3 Object Name
-  /// Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
+  /// folder in the S3 bucket. For more information, see
+  /// [Amazon S3 Object Name Format](http://docs.aws.amazon.com/firehose/latest/dev/basic-deliver.html#s3-object-name)
   /// in the _Amazon Kinesis Data Firehose Developer Guide_.
   final String prefix;
 
@@ -1991,6 +2048,8 @@ class S3DestinationUpdate {
   });
 }
 
+/// Specifies the schema to which you want Kinesis Data Firehose to configure
+/// your data before it writes it to Amazon S3.
 class SchemaConfiguration {
   /// The role that Kinesis Data Firehose can use to access AWS Glue. This role
   /// must be in the same account you use for Kinesis Data Firehose.
@@ -2030,15 +2089,21 @@ class SchemaConfiguration {
       SchemaConfiguration();
 }
 
+/// The serializer that you want Kinesis Data Firehose to use to convert data to
+/// the target format before writing it to Amazon S3. Kinesis Data Firehose
+/// supports two types of serializers: the
+/// [ORC SerDe](https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/orc/OrcSerde.html)
+/// and the
+/// [Parquet SerDe](https://hive.apache.org/javadocs/r1.2.2/api/org/apache/hadoop/hive/ql/io/parquet/serde/ParquetHiveSerDe.html).
 class Serializer {
   /// A serializer to use for converting data to the Parquet format before
-  /// storing it in Amazon S3. For more information, see [Apache
-  /// Parquet](https://parquet.apache.org/documentation/latest/).
+  /// storing it in Amazon S3. For more information, see
+  /// [Apache Parquet](https://parquet.apache.org/documentation/latest/).
   final ParquetSerDe parquetSerDe;
 
   /// A serializer to use for converting data to the ORC format before storing
-  /// it in Amazon S3. For more information, see [Apache
-  /// ORC](https://orc.apache.org/docs/).
+  /// it in Amazon S3. For more information, see
+  /// [Apache ORC](https://orc.apache.org/docs/).
   final OrcSerDe orcSerDe;
 
   Serializer({
@@ -2048,6 +2113,8 @@ class Serializer {
   static Serializer fromJson(Map<String, dynamic> json) => Serializer();
 }
 
+/// Details about a Kinesis data stream used as the source for a Kinesis Data
+/// Firehose delivery stream.
 class SourceDescription {
   /// The KinesisStreamSourceDescription value for the source Kinesis data
   /// stream.
@@ -2060,6 +2127,7 @@ class SourceDescription {
       SourceDescription();
 }
 
+/// Describes the configuration of a destination in Splunk.
 class SplunkDestinationConfiguration {
   /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
   /// sends your data.
@@ -2113,6 +2181,7 @@ class SplunkDestinationConfiguration {
   });
 }
 
+/// Describes a destination in Splunk.
 class SplunkDestinationDescription {
   /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
   /// sends your data.
@@ -2168,6 +2237,7 @@ class SplunkDestinationDescription {
       SplunkDestinationDescription();
 }
 
+/// Describes an update for a destination in Splunk.
 class SplunkDestinationUpdate {
   /// The HTTP Event Collector (HEC) endpoint to which Kinesis Data Firehose
   /// sends your data.
@@ -2221,6 +2291,8 @@ class SplunkDestinationUpdate {
   });
 }
 
+/// Configures retry behavior in case Kinesis Data Firehose is unable to deliver
+/// documents to Splunk, or if it doesn't receive an acknowledgment from Splunk.
 class SplunkRetryOptions {
   /// The total amount of time that Kinesis Data Firehose spends on retries.
   /// This duration starts after the initial attempt to send data to Splunk
@@ -2249,6 +2321,8 @@ class StopDeliveryStreamEncryptionOutput {
       StopDeliveryStreamEncryptionOutput();
 }
 
+/// Metadata that you can assign to a delivery stream, consisting of a key-value
+/// pair.
 class Tag {
   /// A unique identifier for the tag. Maximum length: 128 characters. Valid
   /// characters: Unicode letters, digits, white space, _ . / = + - % @

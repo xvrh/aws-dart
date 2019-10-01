@@ -755,6 +755,15 @@ class ElasticTranscoderApi {
   }
 }
 
+/// The file to be used as album art. There can be multiple artworks associated
+/// with an audio file, to a maximum of 20.
+///
+/// To remove artwork or leave the artwork empty, you can either set `Artwork`
+/// to null, or set the `Merge Policy` to "Replace" and use an empty `Artwork`
+/// array.
+///
+/// To pass through existing artwork unchanged, set the `Merge Policy` to
+/// "Prepend", "Append", or "Fallback", and use an empty `Artwork` array.
 class Artwork {
   /// The name of the file to be used as album art. To determine which Amazon S3
   /// bucket contains the specified file, Elastic Transcoder checks the pipeline
@@ -833,6 +842,7 @@ class Artwork {
   static Artwork fromJson(Map<String, dynamic> json) => Artwork();
 }
 
+/// Options associated with your audio codec.
 class AudioCodecOptions {
   /// You can only choose an audio profile when you specify AAC for the value of
   /// Audio:Codec.
@@ -901,6 +911,7 @@ class AudioCodecOptions {
       AudioCodecOptions();
 }
 
+/// Parameters required for transcoding audio.
 class AudioParameters {
   /// The audio codec for the output file. Valid values include `aac`, `flac`,
   /// `mp2`, `mp3`, `pcm`, and `vorbis`.
@@ -1087,12 +1098,16 @@ class AudioParameters {
       AudioParameters();
 }
 
+/// The response body contains a JSON object. If the job is successfully
+/// canceled, the value of `Success` is `true`.
 class CancelJobResponse {
   CancelJobResponse();
   static CancelJobResponse fromJson(Map<String, dynamic> json) =>
       CancelJobResponse();
 }
 
+/// The file format of the output captions. If you leave this value blank,
+/// Elastic Transcoder returns an error.
 class CaptionFormat {
   /// The format you specify determines whether Elastic Transcoder generates an
   /// embedded or sidecar caption for this output.
@@ -1156,6 +1171,8 @@ class CaptionFormat {
   static CaptionFormat fromJson(Map<String, dynamic> json) => CaptionFormat();
 }
 
+/// A source file for the input sidecar captions used during the transcoding
+/// process.
 class CaptionSource {
   /// The name of the sidecar caption file that you want Elastic Transcoder to
   /// include in the output file.
@@ -1178,7 +1195,7 @@ class CaptionSource {
   /// associated video file, the `TimeOffset` tells Elastic Transcoder how much
   /// of the video to encode before including captions.
   ///
-  /// Specify the TimeOffset in the form \[+-\]SS.sss or \[+-\]HH:mm:SS.ss.
+  /// Specify the TimeOffset in the form [+-]SS.sss or [+-]HH:mm:SS.ss.
   final String timeOffset;
 
   /// The label of the caption shown in the player when choosing a language. We
@@ -1201,6 +1218,7 @@ class CaptionSource {
   static CaptionSource fromJson(Map<String, dynamic> json) => CaptionSource();
 }
 
+/// The captions to be created, if any.
 class Captions {
   /// A policy that determines how Elastic Transcoder handles the existence of
   /// multiple captions.
@@ -1240,6 +1258,8 @@ class Captions {
   static Captions fromJson(Map<String, dynamic> json) => Captions();
 }
 
+/// Settings for one clip in a composition. All jobs in a playlist must have the
+/// same clip settings.
 class Clip {
   /// Settings that determine when a clip begins and how long it lasts.
   final TimeSpan timeSpan;
@@ -1250,6 +1270,7 @@ class Clip {
   static Clip fromJson(Map<String, dynamic> json) => Clip();
 }
 
+/// The `CreateJobOutput` structure.
 class CreateJobOutput {
   ///  The name to assign to the transcoded file. Elastic Transcoder saves the
   /// file in the Amazon S3 bucket specified by the `OutputBucket` object in the
@@ -1416,6 +1437,7 @@ class CreateJobOutput {
   });
 }
 
+/// Information about the master playlist.
 class CreateJobPlaylist {
   /// The name that you want Elastic Transcoder to assign to the master
   /// playlist, for example, nyc-vacation.m3u8. If the name includes a `/`
@@ -1492,6 +1514,7 @@ class CreateJobPlaylist {
   });
 }
 
+/// The CreateJobResponse structure.
 class CreateJobResponse {
   /// A section of the response body that provides information about the job
   /// that is created.
@@ -1504,6 +1527,8 @@ class CreateJobResponse {
       CreateJobResponse();
 }
 
+/// When you create a pipeline, Elastic Transcoder returns the values that you
+/// specified in the request.
 class CreatePipelineResponse {
   /// A section of the response body that provides information about the
   /// pipeline that is created.
@@ -1525,6 +1550,7 @@ class CreatePipelineResponse {
       CreatePipelineResponse();
 }
 
+/// The `CreatePresetResponse` structure.
 class CreatePresetResponse {
   /// A section of the response body that provides information about the preset
   /// that is created.
@@ -1544,18 +1570,22 @@ class CreatePresetResponse {
       CreatePresetResponse();
 }
 
+/// The `DeletePipelineResponse` structure.
 class DeletePipelineResponse {
   DeletePipelineResponse();
   static DeletePipelineResponse fromJson(Map<String, dynamic> json) =>
       DeletePipelineResponse();
 }
 
+/// The `DeletePresetResponse` structure.
 class DeletePresetResponse {
   DeletePresetResponse();
   static DeletePresetResponse fromJson(Map<String, dynamic> json) =>
       DeletePresetResponse();
 }
 
+/// The detected properties of the input file. Elastic Transcoder identifies
+/// these values from the input file.
 class DetectedProperties {
   /// The detected width of the input file, in pixels.
   final int width;
@@ -1583,6 +1613,11 @@ class DetectedProperties {
       DetectedProperties();
 }
 
+/// The encryption settings, if any, that are used for decrypting your input
+/// files or encrypting your output files. If your input file is encrypted, you
+/// must specify the mode that Elastic Transcoder uses to decrypt your file,
+/// otherwise you must specify the mode you want Elastic Transcoder to use to
+/// encrypt your output files.
 class Encryption {
   /// The specific server-side encryption mode that you want Elastic Transcoder
   /// to use when decrypting your input files or encrypting your output files.
@@ -1658,6 +1693,8 @@ class Encryption {
   static Encryption fromJson(Map<String, dynamic> json) => Encryption();
 }
 
+/// The HLS content protection settings, if any, that you want Elastic
+/// Transcoder to apply to your output files.
 class HlsContentProtection {
   /// The content protection method for your output. The only valid value is:
   /// `aes-128`.
@@ -1719,6 +1756,7 @@ class HlsContentProtection {
       HlsContentProtection();
 }
 
+/// The captions to be created, if any.
 class InputCaptions {
   /// A policy that determines how Elastic Transcoder handles the existence of
   /// multiple captions.
@@ -1753,6 +1791,8 @@ class InputCaptions {
   static InputCaptions fromJson(Map<String, dynamic> json) => InputCaptions();
 }
 
+/// A section of the response body that provides information about the job that
+/// is created.
 class Job {
   /// The identifier that Elastic Transcoder assigned to the job. You use this
   /// value to get settings for the job or to delete the job.
@@ -1854,6 +1894,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// The .jpg or .png file associated with an audio file.
 class JobAlbumArt {
   /// A policy that determines how Elastic Transcoder handles the existence of
   /// multiple album artwork files.
@@ -1883,6 +1924,7 @@ class JobAlbumArt {
   static JobAlbumArt fromJson(Map<String, dynamic> json) => JobAlbumArt();
 }
 
+/// Information about the file that you're transcoding.
 class JobInput {
   ///  The name of the file to transcode. Elsewhere in the body of the JSON
   /// block is the the ID of the pipeline to use for processing the job. The
@@ -2015,6 +2057,12 @@ class JobInput {
   static JobInput fromJson(Map<String, dynamic> json) => JobInput();
 }
 
+/// Outputs recommended instead.
+///
+/// If you specified one output for a job, information about that output. If you
+/// specified multiple outputs for a job, the `Output` object lists information
+/// about the first output. This duplicates the information that is listed for
+/// the first output in the `Outputs` object.
 class JobOutput {
   /// A sequential counter, starting with 1, that identifies an output among the
   /// outputs from the current job. In the Output syntax, this value is always
@@ -2261,6 +2309,8 @@ class JobOutput {
   static JobOutput fromJson(Map<String, dynamic> json) => JobOutput();
 }
 
+/// Watermarks can be in .png or .jpg format. If you want to display a watermark
+/// that is not rectangular, use the .png format, which supports transparency.
 class JobWatermark {
   /// The ID of the watermark settings that Elastic Transcoder uses to add
   /// watermarks to the video during transcoding. The settings are in the preset
@@ -2290,6 +2340,7 @@ class JobWatermark {
   static JobWatermark fromJson(Map<String, dynamic> json) => JobWatermark();
 }
 
+/// The `ListJobsByPipelineResponse` structure.
 class ListJobsByPipelineResponse {
   /// An array of `Job` objects that are in the specified pipeline.
   final List<Job> jobs;
@@ -2308,6 +2359,7 @@ class ListJobsByPipelineResponse {
       ListJobsByPipelineResponse();
 }
 
+///  The `ListJobsByStatusResponse` structure.
 class ListJobsByStatusResponse {
   /// An array of `Job` objects that have the specified status.
   final List<Job> jobs;
@@ -2326,6 +2378,7 @@ class ListJobsByStatusResponse {
       ListJobsByStatusResponse();
 }
 
+/// A list of the pipelines associated with the current AWS account.
 class ListPipelinesResponse {
   /// An array of `Pipeline` objects.
   final List<Pipeline> pipelines;
@@ -2343,6 +2396,7 @@ class ListPipelinesResponse {
       ListPipelinesResponse();
 }
 
+/// The `ListPresetsResponse` structure.
 class ListPresetsResponse {
   /// An array of `Preset` objects.
   final List<Preset> presets;
@@ -2360,6 +2414,13 @@ class ListPresetsResponse {
       ListPresetsResponse();
 }
 
+/// The Amazon Simple Notification Service (Amazon SNS) topic or topics to
+/// notify in order to report job status.
+///
+///
+///
+/// To receive notifications, you must also subscribe to the new topic in the
+/// Amazon SNS console.
 class Notifications {
   /// The Amazon Simple Notification Service (Amazon SNS) topic that you want to
   /// notify when Elastic Transcoder has started to process the job.
@@ -2386,6 +2447,7 @@ class Notifications {
   static Notifications fromJson(Map<String, dynamic> json) => Notifications();
 }
 
+/// The `Permission` structure.
 class Permission {
   /// The type of value that appears in the Grantee object:
   ///
@@ -2418,7 +2480,7 @@ class Permission {
   /// *    `WRITE_ACP`: The grantee can write the ACL for the thumbnails that
   /// Elastic Transcoder adds to the Amazon S3 bucket.
   ///
-  /// *    `FULL_CONTROL`: The grantee has READ, READ\_ACP, and WRITE\_ACP
+  /// *    `FULL_CONTROL`: The grantee has READ, READ_ACP, and WRITE_ACP
   /// permissions for the thumbnails that Elastic Transcoder adds to the Amazon
   /// S3 bucket.
   final List<String> access;
@@ -2431,6 +2493,7 @@ class Permission {
   static Permission fromJson(Map<String, dynamic> json) => Permission();
 }
 
+/// The pipeline (queue) that is used to manage jobs.
 class Pipeline {
   /// The identifier for the pipeline. You use this value to identify the
   /// pipeline in which you want to perform a variety of operations, such as
@@ -2586,9 +2649,9 @@ class Pipeline {
   ///         *    `WRITE_ACP`: The grantee can write the ACL for the thumbnails
   /// that Elastic Transcoder adds to the Amazon S3 bucket.
   ///
-  ///         *    `FULL_CONTROL`: The grantee has READ, READ\_ACP, and
-  /// WRITE\_ACP permissions for the thumbnails that Elastic Transcoder adds to
-  /// the Amazon S3 bucket.
+  ///         *    `FULL_CONTROL`: The grantee has READ, READ_ACP, and WRITE_ACP
+  /// permissions for the thumbnails that Elastic Transcoder adds to the Amazon
+  /// S3 bucket.
   ///
   ///
   ///
@@ -2613,6 +2676,7 @@ class Pipeline {
   static Pipeline fromJson(Map<String, dynamic> json) => Pipeline();
 }
 
+/// The `PipelineOutputConfig` structure.
 class PipelineOutputConfig {
   ///  The Amazon S3 bucket in which you want Elastic Transcoder to save the
   /// transcoded files. Specify this value when all of the following are true:
@@ -2666,6 +2730,13 @@ class PipelineOutputConfig {
       PipelineOutputConfig();
 }
 
+/// The PlayReady DRM settings, if any, that you want Elastic Transcoder to
+/// apply to the output files associated with this playlist.
+///
+/// PlayReady DRM encrypts your media files using `aes-ctr` encryption.
+///
+/// If you use DRM for an `HLSv3` playlist, your outputs must have a master
+/// playlist.
 class PlayReadyDrm {
   /// The type of DRM, if any, that you want Elastic Transcoder to apply to the
   /// output files associated with this playlist.
@@ -2722,6 +2793,12 @@ class PlayReadyDrm {
   static PlayReadyDrm fromJson(Map<String, dynamic> json) => PlayReadyDrm();
 }
 
+///  Use Only for Fragmented MP4 or MPEG-TS Outputs. If you specify a preset for
+/// which the value of Container is `fmp4` (Fragmented MP4) or `ts` (MPEG-TS),
+/// Playlists contains information about the master playlists that you want
+/// Elastic Transcoder to create. We recommend that you create only one master
+/// playlist per output format. The maximum number of master playlists in a job
+/// is 30.
 class Playlist {
   /// The name that you want Elastic Transcoder to assign to the master
   /// playlist, for example, nyc-vacation.m3u8. If the name includes a `/`
@@ -2809,6 +2886,12 @@ class Playlist {
   static Playlist fromJson(Map<String, dynamic> json) => Playlist();
 }
 
+/// Presets are templates that contain most of the settings for transcoding
+/// media files from one format to another. Elastic Transcoder includes some
+/// default presets for common formats, for example, several iPod and iPhone
+/// versions. You can also create your own presets for formats that aren't
+/// included among the default presets. You specify which preset you want to use
+/// when you create a job.
 class Preset {
   /// Identifier for the new preset. You use this value to get settings for the
   /// preset or to delete it.
@@ -2858,6 +2941,20 @@ class Preset {
   static Preset fromJson(Map<String, dynamic> json) => Preset();
 }
 
+/// Settings for the size, location, and opacity of graphics that you want
+/// Elastic Transcoder to overlay over videos that are transcoded using this
+/// preset. You can specify settings for up to four watermarks. Watermarks
+/// appear in the specified size and location, and with the specified opacity
+/// for the duration of the transcoded video.
+///
+/// Watermarks can be in .png or .jpg format. If you want to display a watermark
+/// that is not rectangular, use the .png format, which supports transparency.
+///
+/// When you create a job that uses this preset, you specify the .png or .jpg
+/// graphics that you want Elastic Transcoder to include in the transcoded
+/// videos. You can specify fewer graphics in the job than you specify watermark
+/// settings in the preset, which allows you to use the same preset for up to
+/// four watermarks that have different dimensions.
 class PresetWatermark {
   ///  A unique identifier for the settings for one watermark. The value of `Id`
   /// can be up to 40 characters long.
@@ -3033,6 +3130,7 @@ class PresetWatermark {
       PresetWatermark();
 }
 
+/// The `ReadJobResponse` structure.
 class ReadJobResponse {
   /// A section of the response body that provides information about the job.
   final Job job;
@@ -3044,6 +3142,7 @@ class ReadJobResponse {
       ReadJobResponse();
 }
 
+/// The `ReadPipelineResponse` structure.
 class ReadPipelineResponse {
   /// A section of the response body that provides information about the
   /// pipeline.
@@ -3065,6 +3164,7 @@ class ReadPipelineResponse {
       ReadPipelineResponse();
 }
 
+/// The `ReadPresetResponse` structure.
 class ReadPresetResponse {
   /// A section of the response body that provides information about the preset.
   final Preset preset;
@@ -3076,6 +3176,7 @@ class ReadPresetResponse {
       ReadPresetResponse();
 }
 
+/// The `TestRoleResponse` structure.
 class TestRoleResponse {
   /// If the operation is successful, this value is `true`; otherwise, the value
   /// is `false`.
@@ -3093,6 +3194,7 @@ class TestRoleResponse {
       TestRoleResponse();
 }
 
+/// Thumbnails for videos.
 class Thumbnails {
   /// The format of thumbnails, if any. Valid values are `jpg` and `png`.
   ///
@@ -3190,6 +3292,7 @@ class Thumbnails {
   static Thumbnails fromJson(Map<String, dynamic> json) => Thumbnails();
 }
 
+/// Settings that determine when a clip begins and how long it lasts.
 class TimeSpan {
   /// The place in the input file where you want a clip to start. The format can
   /// be either HH:mm:ss.SSS (maximum value: 23:59:59.999; SSS is thousandths of
@@ -3213,6 +3316,7 @@ class TimeSpan {
   static TimeSpan fromJson(Map<String, dynamic> json) => TimeSpan();
 }
 
+/// Details about the timing of a job.
 class Timing {
   /// The time the job was submitted to Elastic Transcoder, in epoch
   /// milliseconds.
@@ -3232,6 +3336,7 @@ class Timing {
   static Timing fromJson(Map<String, dynamic> json) => Timing();
 }
 
+/// The `UpdatePipelineNotificationsResponse` structure.
 class UpdatePipelineNotificationsResponse {
   /// A section of the response body that provides information about the
   /// pipeline associated with this notification.
@@ -3245,6 +3350,8 @@ class UpdatePipelineNotificationsResponse {
       UpdatePipelineNotificationsResponse();
 }
 
+/// When you update a pipeline, Elastic Transcoder returns the values that you
+/// specified in the request.
 class UpdatePipelineResponse {
   /// The pipeline updated by this `UpdatePipelineResponse` call.
   final Pipeline pipeline;
@@ -3265,6 +3372,8 @@ class UpdatePipelineResponse {
       UpdatePipelineResponse();
 }
 
+/// When you update status for a pipeline, Elastic Transcoder returns the values
+/// that you specified in the request.
 class UpdatePipelineStatusResponse {
   /// A section of the response body that provides information about the
   /// pipeline.
@@ -3277,6 +3386,7 @@ class UpdatePipelineStatusResponse {
       UpdatePipelineStatusResponse();
 }
 
+/// The `VideoParameters` structure.
 class VideoParameters {
   /// The video codec for the output file. Valid values include `gif`, `H.264`,
   /// `mpeg2`, `vp8`, and `vp9`. You can only specify `vp8` and `vp9` when the
@@ -3400,16 +3510,16 @@ class VideoParameters {
   /// resolution changes from the list below, Elastic Transcoder applies the
   /// following color space conversions:
   ///
-  /// *    _Standard to HD, 720x480 to 1920x1080_ \- Elastic Transcoder applies
+  /// *    _Standard to HD, 720x480 to 1920x1080_ - Elastic Transcoder applies
   /// `Bt601ToBt709`
   ///
-  /// *    _Standard to HD, 720x576 to 1920x1080_ \- Elastic Transcoder applies
+  /// *    _Standard to HD, 720x576 to 1920x1080_ - Elastic Transcoder applies
   /// `Bt601ToBt709`
   ///
-  /// *    _HD to Standard, 1920x1080 to 720x480_ \- Elastic Transcoder applies
+  /// *    _HD to Standard, 1920x1080 to 720x480_ - Elastic Transcoder applies
   /// `Bt709ToBt601`
   ///
-  /// *    _HD to Standard, 1920x1080 to 720x576_ \- Elastic Transcoder applies
+  /// *    _HD to Standard, 1920x1080 to 720x576_ - Elastic Transcoder applies
   /// `Bt709ToBt601`
   ///
   ///
@@ -3742,6 +3852,12 @@ class VideoParameters {
       VideoParameters();
 }
 
+/// Elastic Transcoder returns a warning if the resources used by your pipeline
+/// are not in the same region as the pipeline.
+///
+/// Using resources in the same region, such as your Amazon S3 buckets, Amazon
+/// SNS notification topics, and AWS KMS key, reduces processing time and
+/// prevents cross-regional charges.
 class Warning {
   /// The code of the cross-regional warning.
   final String code;

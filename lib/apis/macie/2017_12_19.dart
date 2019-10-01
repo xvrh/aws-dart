@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 /// recognizes sensitive data such as personally identifiable information (PII)
 /// or intellectual property, and provides you with dashboards and alerts that
 /// give visibility into how this data is being accessed or moved. For more
-/// information, see the [Macie User
-/// Guide](https://docs.aws.amazon.com/macie/latest/userguide/what-is-macie.html).
+/// information, see the
+/// [Macie User Guide](https://docs.aws.amazon.com/macie/latest/userguide/what-is-macie.html).
 class MacieApi {
   /// Associates a specified AWS account with Amazon Macie as a member account.
   ///
@@ -124,6 +124,8 @@ class AssociateS3ResourcesResult {
       AssociateS3ResourcesResult();
 }
 
+/// The classification type that Amazon Macie applies to the associated S3
+/// resources.
 class ClassificationType {
   /// A one-time classification of all of the existing objects in a specified S3
   /// bucket.
@@ -142,6 +144,9 @@ class ClassificationType {
       ClassificationType();
 }
 
+/// The classification type that Amazon Macie applies to the associated S3
+/// resources. At least one of the classification types (oneTime or continuous)
+/// must be specified.
 class ClassificationTypeUpdate {
   /// A one-time classification of all of the existing objects in a specified S3
   /// bucket.
@@ -171,6 +176,7 @@ class DisassociateS3ResourcesResult {
       DisassociateS3ResourcesResult();
 }
 
+/// Includes details about the failed S3 resources.
 class FailedS3Resource {
   /// The failed S3 resources.
   final S3Resource failedItem;
@@ -227,6 +233,7 @@ class ListS3ResourcesResult {
       ListS3ResourcesResult();
 }
 
+/// Contains information about the Amazon Macie member account.
 class MemberAccount {
   /// The AWS account ID of the Amazon Macie member account.
   final String accountId;
@@ -237,6 +244,10 @@ class MemberAccount {
   static MemberAccount fromJson(Map<String, dynamic> json) => MemberAccount();
 }
 
+/// Contains information about the S3 resource. This data type is used as a
+/// request parameter in the DisassociateS3Resources action and can be used as a
+/// response parameter in the AssociateS3Resources and UpdateS3Resources
+/// actions.
 class S3Resource {
   /// The name of the S3 bucket.
   final String bucketName;
@@ -251,6 +262,10 @@ class S3Resource {
   static S3Resource fromJson(Map<String, dynamic> json) => S3Resource();
 }
 
+/// The S3 resources that you want to associate with Amazon Macie for monitoring
+/// and data classification. This data type is used as a request parameter in
+/// the AssociateS3Resources action and a response parameter in the
+/// ListS3Resources action.
 class S3ResourceClassification {
   /// The name of the S3 bucket that you want to associate with Amazon Macie.
   final String bucketName;
@@ -271,6 +286,8 @@ class S3ResourceClassification {
       S3ResourceClassification();
 }
 
+/// The S3 resources whose classification types you want to update. This data
+/// type is used as a request parameter in the UpdateS3Resources action.
 class S3ResourceClassificationUpdate {
   /// The name of the S3 bucket whose classification types you want to update.
   final String bucketName;

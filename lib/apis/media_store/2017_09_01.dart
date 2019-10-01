@@ -17,8 +17,8 @@ class MediaStoreApi {
   /// as "environment") and the tag value represents a specific value within
   /// that category (such as "test," "development," or "production"). You can
   /// add up to 50 tags to each container. For more information about tagging,
-  /// including naming and usage conventions, see [Tagging Resources in
-  /// MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
+  /// including naming and usage conventions, see
+  /// [Tagging Resources in MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
   Future<CreateContainerOutput> createContainer(String containerName,
       {List<Tag> tags}) async {
     return CreateContainerOutput.fromJson({});
@@ -78,9 +78,8 @@ class MediaStoreApi {
   }
 
   /// Retrieves the access policy for the specified container. For information
-  /// about the data that is included in an access policy, see the [AWS Identity
-  /// and Access Management User
-  /// Guide](https://aws.amazon.com/documentation/iam/).
+  /// about the data that is included in an access policy, see the
+  /// [AWS Identity and Access Management User Guide](https://aws.amazon.com/documentation/iam/).
   ///
   /// [containerName]: The name of the container.
   Future<GetContainerPolicyOutput> getContainerPolicy(
@@ -142,8 +141,8 @@ class MediaStoreApi {
 
   /// Creates an access policy for the specified container to restrict the users
   /// and clients that can access it. For information about the data that is
-  /// included in an access policy, see the [AWS Identity and Access Management
-  /// User Guide](https://aws.amazon.com/documentation/iam/).
+  /// included in an access policy, see the
+  /// [AWS Identity and Access Management User Guide](https://aws.amazon.com/documentation/iam/).
   ///
   /// For this release of the REST API, you can create only one policy for a
   /// container. If you enter `PutContainerPolicy` twice, the second command
@@ -174,9 +173,8 @@ class MediaStoreApi {
   /// more than one rule applies, the service uses the first applicable rule
   /// listed.
   ///
-  /// To learn more about CORS, see [Cross-Origin Resource Sharing (CORS) in AWS
-  /// Elemental
-  /// MediaStore](https://docs.aws.amazon.com/mediastore/latest/ug/cors-policy.html).
+  /// To learn more about CORS, see
+  /// [Cross-Origin Resource Sharing (CORS) in AWS Elemental MediaStore](https://docs.aws.amazon.com/mediastore/latest/ug/cors-policy.html).
   ///
   /// [containerName]: The name of the container that you want to assign the
   /// CORS policy to.
@@ -194,8 +192,7 @@ class MediaStoreApi {
   /// effect.
   ///
   /// For information about how to construct an object lifecycle policy, see
-  /// [Components of an Object Lifecycle
-  /// Policy](https://docs.aws.amazon.com/mediastore/latest/ug/policies-object-lifecycle-components.html).
+  /// [Components of an Object Lifecycle Policy](https://docs.aws.amazon.com/mediastore/latest/ug/policies-object-lifecycle-components.html).
   ///
   /// [containerName]: The name of the container that you want to assign the
   /// object lifecycle policy to.
@@ -234,8 +231,8 @@ class MediaStoreApi {
   /// the tag key might be "customer" and the tag value might be "companyA." You
   /// can specify one or more tags to add to each container. You can add up to
   /// 50 tags to each container. For more information about tagging, including
-  /// naming and usage conventions, see [Tagging Resources in
-  /// MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
+  /// naming and usage conventions, see
+  /// [Tagging Resources in MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
   ///
   /// [resource]: The Amazon Resource Name (ARN) for the container.
   ///
@@ -267,6 +264,8 @@ class MediaStoreApi {
   }
 }
 
+/// This section describes operations that you can perform on an AWS Elemental
+/// MediaStore container.
 class Container {
   /// The DNS endpoint of the container. Use the endpoint to identify the
   /// specific container when sending requests to the data plane. The service
@@ -314,6 +313,9 @@ class Container {
   static Container fromJson(Map<String, dynamic> json) => Container();
 }
 
+/// A rule for a CORS policy. You can add up to 100 rules to a CORS policy. If
+/// more than one rule applies, the service uses the first applicable rule
+/// listed.
 class CorsRule {
   /// One or more response headers that you want users to be able to access from
   /// their applications (for example, from a JavaScript `XMLHttpRequest`
@@ -516,6 +518,13 @@ class StopAccessLoggingOutput {
       StopAccessLoggingOutput();
 }
 
+/// A collection of tags associated with a container. Each tag consists of a
+/// key:value pair, which can be anything you define. Typically, the tag key
+/// represents a category (such as "environment") and the tag value represents a
+/// specific value within that category (such as "test," "development," or
+/// "production"). You can add up to 50 tags to each container. For more
+/// information about tagging, including naming and usage conventions, see
+/// [Tagging Resources in MediaStore](https://aws.amazon.com/documentation/mediastore/tagging).
 class Tag {
   /// Part of the key:value pair that defines a tag. You can use a tag key to
   /// describe a category of information, such as "customer." Tag keys are

@@ -219,7 +219,7 @@ class AlexaForBusinessApi {
   /// [ssid]: The SSID of the Wi-Fi network.
   ///
   /// [securityType]: The security type of the Wi-Fi network. This can be
-  /// WPA2\_ENTERPRISE, WPA2\_PSK, WPA_PSK, WEP, or OPEN.
+  /// WPA2_ENTERPRISE, WPA2_PSK, WPA_PSK, WEP, or OPEN.
   ///
   /// [eapMethod]: The authentication standard that is used in the EAP
   /// framework. Currently, EAP_TLS is supported.
@@ -1473,6 +1473,7 @@ class AlexaForBusinessApi {
   }
 }
 
+/// An address book with attributes.
 class AddressBook {
   /// The ARN of the address book.
   final String addressBookArn;
@@ -1491,6 +1492,7 @@ class AddressBook {
   static AddressBook fromJson(Map<String, dynamic> json) => AddressBook();
 }
 
+/// Information related to an address book.
 class AddressBookData {
   /// The ARN of the address book.
   final String addressBookArn;
@@ -1556,14 +1558,26 @@ class AssociateSkillWithUsersResponse {
       AssociateSkillWithUsersResponse();
 }
 
+/// The audio message. There is a 1 MB limit on the audio file input and the
+/// only supported format is MP3. To convert your MP3 audio files to an
+/// Alexa-friendly,
+///
+/// required codec version (MPEG version 2) and bit rate (48 kbps), you might
+/// use converter software. One option for this is a command-line tool, FFmpeg.
+/// For more information, see [FFmpeg](https://www.ffmpeg.org/). The following
+/// command converts the provided <input-file> to an MP3 file that is played in
+/// the announcement:
+///
+///  `ffmpeg -i <input-file> -ac 2 -codec:a libmp3lame -b:a 48k -ar 16000
+/// <output-file.mp3>`
 class Audio {
   /// The locale of the audio message. Currently, en-US is supported.
   final String locale;
 
   /// The location of the audio file. Currently, S3 URLs are supported. Only S3
   /// locations comprised of safe characters are valid. For more information,
-  /// see [Safe
-  /// Characters](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#Safe%20Characters).
+  /// see
+  /// [Safe Characters](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#Safe%20Characters).
   final String location;
 
   Audio({
@@ -1572,6 +1586,7 @@ class Audio {
   });
 }
 
+/// Usage report with specified parameters.
 class BusinessReport {
   /// The status of the report generation execution (RUNNING, SUCCEEDED, or
   /// FAILED).
@@ -1599,6 +1614,7 @@ class BusinessReport {
   static BusinessReport fromJson(Map<String, dynamic> json) => BusinessReport();
 }
 
+/// The content range of the report.
 class BusinessReportContentRange {
   /// The interval of the content range.
   final String interval;
@@ -1610,6 +1626,7 @@ class BusinessReportContentRange {
       BusinessReportContentRange();
 }
 
+/// The recurrence of the reports.
 class BusinessReportRecurrence {
   /// The start date.
   final String startDate;
@@ -1621,6 +1638,7 @@ class BusinessReportRecurrence {
       BusinessReportRecurrence();
 }
 
+/// The S3 location of the output reports.
 class BusinessReportS3Location {
   /// The path of the business report.
   final String path;
@@ -1636,6 +1654,7 @@ class BusinessReportS3Location {
       BusinessReportS3Location();
 }
 
+/// The schedule of the usage report.
 class BusinessReportSchedule {
   /// The ARN of the business report schedule.
   final String scheduleArn;
@@ -1677,6 +1696,8 @@ class BusinessReportSchedule {
       BusinessReportSchedule();
 }
 
+/// The skill store category that is shown. Alexa skills are assigned a specific
+/// skill category during creation, such as News, Social, and Sports.
 class Category {
   /// The ID of the skill store category.
   final BigInt categoryId;
@@ -1691,6 +1712,8 @@ class Category {
   static Category fromJson(Map<String, dynamic> json) => Category();
 }
 
+/// The default conference provider that is used if no other scheduled meetings
+/// are detected.
 class ConferencePreference {
   /// The ARN of the default conference provider.
   final String defaultConferenceProviderArn;
@@ -1702,6 +1725,10 @@ class ConferencePreference {
       ConferencePreference();
 }
 
+/// An entity that provides a conferencing solution. Alexa for Business acts as
+/// the voice interface and mediator that connects users to their preferred
+/// conference provider. Examples of conference providers include Amazon Chime,
+/// Zoom, Cisco, and Polycom.
 class ConferenceProvider {
   /// The ARN of the newly created conference provider.
   final String arn;
@@ -1733,6 +1760,7 @@ class ConferenceProvider {
       ConferenceProvider();
 }
 
+/// A contact with attributes.
 class Contact {
   /// The ARN of the contact.
   final String contactArn;
@@ -1770,6 +1798,7 @@ class Contact {
   static Contact fromJson(Map<String, dynamic> json) => Contact();
 }
 
+/// Information related to a contact.
 class ContactData {
   /// The ARN of the contact.
   final String contactArn;
@@ -1807,6 +1836,8 @@ class ContactData {
   static ContactData fromJson(Map<String, dynamic> json) => ContactData();
 }
 
+/// The content definition. This can contain only one text, SSML, or audio list
+/// object.
 class Content {
   /// The list of text messages.
   final List<Text> textList;
@@ -2020,6 +2051,7 @@ class DeleteUserResponse {
       DeleteUserResponse();
 }
 
+/// The details about the developer that published the skill.
 class DeveloperInfo {
   /// The name of the developer.
   final String developerName;
@@ -2042,6 +2074,7 @@ class DeveloperInfo {
   static DeveloperInfo fromJson(Map<String, dynamic> json) => DeveloperInfo();
 }
 
+/// A device with attributes.
 class Device {
   /// The ARN of a device.
   final String deviceArn;
@@ -2089,6 +2122,7 @@ class Device {
   static Device fromJson(Map<String, dynamic> json) => Device();
 }
 
+/// Device attributes.
 class DeviceData {
   /// The ARN of a device.
   final String deviceArn;
@@ -2143,6 +2177,7 @@ class DeviceData {
   static DeviceData fromJson(Map<String, dynamic> json) => DeviceData();
 }
 
+/// The list of device events.
 class DeviceEvent {
   /// The type of device event.
   final String type;
@@ -2161,6 +2196,7 @@ class DeviceEvent {
   static DeviceEvent fromJson(Map<String, dynamic> json) => DeviceEvent();
 }
 
+/// Detailed information about a device's network profile.
 class DeviceNetworkProfileInfo {
   /// The ARN of the network profile associated with a device.
   final String networkProfileArn;
@@ -2180,6 +2216,7 @@ class DeviceNetworkProfileInfo {
       DeviceNetworkProfileInfo();
 }
 
+/// Details of a device’s status.
 class DeviceStatusDetail {
   /// The list of available features on the device.
   final String feature;
@@ -2195,6 +2232,7 @@ class DeviceStatusDetail {
       DeviceStatusDetail();
 }
 
+/// Detailed information about a device's status.
 class DeviceStatusInfo {
   /// One or more device status detail descriptions.
   final List<DeviceStatusDetail> deviceStatusDetails;
@@ -2245,6 +2283,9 @@ class DisassociateSkillGroupFromRoomResponse {
       DisassociateSkillGroupFromRoomResponse();
 }
 
+/// A filter name and value pair that is used to return a more specific list of
+/// results. Filters can be used to match a set of resources by various
+/// criteria.
 class Filter {
   /// The key of a filter.
   final String key;
@@ -2265,6 +2306,7 @@ class ForgetSmartHomeAppliancesResponse {
       ForgetSmartHomeAppliancesResponse();
 }
 
+/// The details of the gateway.
 class Gateway {
   /// The ARN of the gateway.
   final String arn;
@@ -2292,6 +2334,7 @@ class Gateway {
   static Gateway fromJson(Map<String, dynamic> json) => Gateway();
 }
 
+/// The details of the gateway group.
 class GatewayGroup {
   /// The ARN of the gateway group.
   final String arn;
@@ -2310,6 +2353,7 @@ class GatewayGroup {
   static GatewayGroup fromJson(Map<String, dynamic> json) => GatewayGroup();
 }
 
+/// The summary of a gateway group.
 class GatewayGroupSummary {
   /// The ARN of the gateway group.
   final String arn;
@@ -2329,6 +2373,7 @@ class GatewayGroupSummary {
       GatewayGroupSummary();
 }
 
+/// The summary of a gateway.
 class GatewaySummary {
   /// The ARN of the gateway.
   final String arn;
@@ -2509,6 +2554,7 @@ class GetSkillGroupResponse {
       GetSkillGroupResponse();
 }
 
+/// The IP endpoint and protocol for calling.
 class IPDialIn {
   /// The IP address.
   final String endpoint;
@@ -2677,6 +2723,15 @@ class ListTagsResponse {
       ListTagsResponse();
 }
 
+/// The values that indicate whether a pin is always required (YES), never
+/// required (NO), or OPTIONAL.
+///
+/// *   If YES, Alexa will always ask for a meeting pin.
+///
+/// *   If NO, Alexa will never ask for a meeting pin.
+///
+/// *   If OPTIONAL, Alexa will ask if you have a meeting pin and if the
+/// customer responds with yes, it will ask for the meeting pin.
 class MeetingSetting {
   /// The values that indicate whether the pin is always required.
   final String requirePin;
@@ -2687,6 +2742,7 @@ class MeetingSetting {
   static MeetingSetting fromJson(Map<String, dynamic> json) => MeetingSetting();
 }
 
+/// The network profile associated with a device.
 class NetworkProfile {
   /// The ARN of the network profile associated with a device.
   final String networkProfileArn;
@@ -2700,8 +2756,8 @@ class NetworkProfile {
   /// The SSID of the Wi-Fi network.
   final String ssid;
 
-  /// The security type of the Wi-Fi network. This can be WPA2\_ENTERPRISE,
-  /// WPA2\_PSK, WPA_PSK, WEP, or OPEN.
+  /// The security type of the Wi-Fi network. This can be WPA2_ENTERPRISE,
+  /// WPA2_PSK, WPA_PSK, WEP, or OPEN.
   final String securityType;
 
   /// The authentication standard that is used in the EAP framework. Currently,
@@ -2741,6 +2797,7 @@ class NetworkProfile {
   static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile();
 }
 
+/// The data associated with a network profile.
 class NetworkProfileData {
   /// The ARN of the network profile associated with a device.
   final String networkProfileArn;
@@ -2754,8 +2811,8 @@ class NetworkProfileData {
   /// The SSID of the Wi-Fi network.
   final String ssid;
 
-  /// The security type of the Wi-Fi network. This can be WPA2\_ENTERPRISE,
-  /// WPA2\_PSK, WPA_PSK, WEP, or OPEN.
+  /// The security type of the Wi-Fi network. This can be WPA2_ENTERPRISE,
+  /// WPA2_PSK, WPA_PSK, WEP, or OPEN.
   final String securityType;
 
   /// The authentication standard that is used in the EAP framework. Currently,
@@ -2780,6 +2837,7 @@ class NetworkProfileData {
       NetworkProfileData();
 }
 
+/// The information for public switched telephone network (PSTN) conferencing.
 class PstnDialIn {
   /// The zip code.
   final String countryCode;
@@ -2806,6 +2864,8 @@ class PstnDialIn {
   static PstnDialIn fromJson(Map<String, dynamic> json) => PstnDialIn();
 }
 
+/// The phone number for the contact containing the raw number and phone number
+/// type.
 class PhoneNumber {
   /// The raw value of the phone number.
   final String number;
@@ -2820,6 +2880,7 @@ class PhoneNumber {
   static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber();
 }
 
+/// A room profile with attributes.
 class Profile {
   /// The ARN of a room profile.
   final String profileArn;
@@ -2878,6 +2939,7 @@ class Profile {
   static Profile fromJson(Map<String, dynamic> json) => Profile();
 }
 
+/// The data of a room profile.
 class ProfileData {
   /// The ARN of a room profile.
   final String profileArn;
@@ -2987,6 +3049,7 @@ class RevokeInvitationResponse {
       RevokeInvitationResponse();
 }
 
+/// A room with attributes.
 class Room {
   /// The ARN of a room.
   final String roomArn;
@@ -3013,6 +3076,7 @@ class Room {
   static Room fromJson(Map<String, dynamic> json) => Room();
 }
 
+/// The data of a room.
 class RoomData {
   /// The ARN of a room.
   final String roomArn;
@@ -3043,6 +3107,7 @@ class RoomData {
   static RoomData fromJson(Map<String, dynamic> json) => RoomData();
 }
 
+/// A skill parameter associated with a room.
 class RoomSkillParameter {
   /// The parameter key of a room skill parameter. ParameterKey is an enumerated
   /// type that only takes “DEFAULT” or “SCOPE” as valid values.
@@ -3235,6 +3300,7 @@ class SendInvitationResponse {
       SendInvitationResponse();
 }
 
+/// The SIP address for the contact containing the URI and SIP address type.
 class SipAddress {
   /// The URI for the SIP address.
   final String uri;
@@ -3249,6 +3315,7 @@ class SipAddress {
   static SipAddress fromJson(Map<String, dynamic> json) => SipAddress();
 }
 
+/// Granular information about the skill.
 class SkillDetails {
   /// The description of the product.
   final String productDescription;
@@ -3296,6 +3363,7 @@ class SkillDetails {
   static SkillDetails fromJson(Map<String, dynamic> json) => SkillDetails();
 }
 
+/// A skill group with attributes.
 class SkillGroup {
   /// The ARN of a skill group.
   final String skillGroupArn;
@@ -3314,6 +3382,7 @@ class SkillGroup {
   static SkillGroup fromJson(Map<String, dynamic> json) => SkillGroup();
 }
 
+/// The attributes of a skill group.
 class SkillGroupData {
   /// The skill group ARN of a skill group.
   final String skillGroupArn;
@@ -3332,6 +3401,7 @@ class SkillGroupData {
   static SkillGroupData fromJson(Map<String, dynamic> json) => SkillGroupData();
 }
 
+/// The summary of skills.
 class SkillSummary {
   /// The ARN of the skill summary.
   final String skillId;
@@ -3359,6 +3429,7 @@ class SkillSummary {
   static SkillSummary fromJson(Map<String, dynamic> json) => SkillSummary();
 }
 
+/// The detailed information about an Alexa skill.
 class SkillsStoreSkill {
   /// The ARN of the skill.
   final String skillId;
@@ -3394,6 +3465,8 @@ class SkillsStoreSkill {
       SkillsStoreSkill();
 }
 
+/// A smart home appliance that can connect to a central system. Any domestic
+/// device can be a smart appliance.
 class SmartHomeAppliance {
   /// The friendly name of the smart home appliance.
   final String friendlyName;
@@ -3413,6 +3486,7 @@ class SmartHomeAppliance {
       SmartHomeAppliance();
 }
 
+/// An object representing a sort criteria.
 class Sort {
   /// The sort key of a sort object.
   final String key;
@@ -3426,6 +3500,8 @@ class Sort {
   });
 }
 
+/// The SSML message. For more information, see
+/// [SSML Reference](https://developer.amazon.com/docs/custom-skills/speech-synthesis-markup-language-ssml-reference.html).
 class Ssml {
   /// The locale of the SSML message. Currently, en-US is supported.
   final String locale;
@@ -3453,6 +3529,7 @@ class StartSmartHomeApplianceDiscoveryResponse {
       StartSmartHomeApplianceDiscoveryResponse();
 }
 
+/// A key-value pair that can be associated with a resource.
 class Tag {
   /// The key of a tag. Tag keys are case-sensitive.
   final String key;
@@ -3473,6 +3550,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// The text message.
 class Text {
   /// The locale of the text message. Currently, en-US is supported.
   final String locale;
@@ -3559,6 +3637,7 @@ class UpdateSkillGroupResponse {
       UpdateSkillGroupResponse();
 }
 
+/// Information related to a user.
 class UserData {
   /// The ARN of a user.
   final String userArn;

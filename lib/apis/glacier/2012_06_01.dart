@@ -22,15 +22,15 @@ import 'dart:typed_data';
 /// If you are a first-time user of Glacier, we recommend that you begin by
 /// reading the following sections in the _Amazon S3 Glacier Developer Guide_:
 ///
-/// *    [What is Amazon S3
-/// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
-/// \- This section of the Developer Guide describes the underlying data model,
+/// *
+/// [What is Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html)
+/// - This section of the Developer Guide describes the underlying data model,
 /// the operations it supports, and the AWS SDKs that you can use to interact
 /// with the service.
 ///
-/// *    [Getting Started with Amazon S3
-/// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html)
-/// \- The Getting Started section walks you through the process of creating a
+/// *
+/// [Getting Started with Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/amazon-glacier-getting-started.html)
+/// - The Getting Started section walks you through the process of creating a
 /// vault, uploading archives, creating jobs to download archives, retrieving
 /// the job output, and deleting archives.
 class GlacierApi {
@@ -48,15 +48,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Working with
-  /// Archives in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
-  /// and [Abort Multipart
-  /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Working with Archives in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
+  /// and
+  /// [Abort Multipart Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-abort-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -84,11 +82,9 @@ class GlacierApi {
   /// InitiateVaultLock. A vault lock is put into the `Locked` state by calling
   /// CompleteVaultLock. You can get the state of a vault lock by calling
   /// GetVaultLock. For more information about the vault locking process, see
-  /// [Amazon Glacier Vault
-  /// Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
-  /// For more information about vault lock policies, see [Amazon Glacier Access
-  /// Control with Vault Lock
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
+  /// [Amazon Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
+  /// For more information about vault lock policies, see
+  /// [Amazon Glacier Access Control with Vault Lock Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
   ///
   /// This operation is idempotent. You can successfully invoke this operation
   /// multiple times, if the vault lock is in the `InProgress` state or if there
@@ -110,8 +106,8 @@ class GlacierApi {
   /// would cause the tag limit for the vault to be exceeded, the operation
   /// throws the `LimitExceededException` error. If a tag already exists on the
   /// vault under a specified key, the existing key value will be overwritten.
-  /// For more information about tags, see [Tagging Amazon S3 Glacier
-  /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
+  /// For more information about tags, see
+  /// [Tagging Amazon S3 Glacier Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -140,8 +136,8 @@ class GlacierApi {
   ///
   /// In the request, you must include the computed SHA256 tree hash of the
   /// entire archive you have uploaded. For information about computing a SHA256
-  /// tree hash, see [Computing
-  /// Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
+  /// tree hash, see
+  /// [Computing Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
   /// On the server side, Glacier also constructs the SHA256 tree hash of the
   /// assembled archive. If the values match, Glacier saves the archive to the
   /// vault; otherwise, it returns an error, and the operation fails. The
@@ -167,15 +163,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Uploading Large
-  /// Archives in Parts (Multipart
-  /// Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
-  /// and [Complete Multipart
-  /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Uploading Large Archives in Parts (Multipart Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
+  /// and
+  /// [Complete Multipart Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-complete-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -212,8 +206,8 @@ class GlacierApi {
   /// the vault lock policy to become unchangeable. A vault lock is put into the
   /// `InProgress` state by calling InitiateVaultLock. You can obtain the state
   /// of the vault lock by calling GetVaultLock. For more information about the
-  /// vault locking process, [Amazon Glacier Vault
-  /// Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
+  /// vault locking process,
+  /// [Amazon Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
   ///
   /// This operation is idempotent. This request is always successful if the
   /// vault lock is in the `Locked` state and the provided lock ID matches the
@@ -259,15 +253,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Creating a Vault
-  /// in Amazon
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html)
-  /// and [Create
-  /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Creating a Vault in Amazon Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/creating-vaults.html)
+  /// and
+  /// [Create Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-put.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID. This value must
@@ -303,15 +295,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Deleting an
-  /// Archive in Amazon
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html)
-  /// and [Delete
-  /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Deleting an Archive in Amazon Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-an-archive.html)
+  /// and
+  /// [Delete Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -335,26 +325,23 @@ class GlacierApi {
   /// these conditions is not satisfied, the vault deletion fails (that is, the
   /// vault is not removed) and Amazon S3 Glacier returns an error. You can use
   /// DescribeVault to return the number of archives in a vault, and you can use
-  /// [Initiate a Job (POST
-  /// jobs)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html)
+  /// [Initiate a Job (POST jobs)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html)
   /// to initiate a new inventory retrieval for a vault. The inventory contains
-  /// the archive IDs you use to delete archives using [Delete Archive (DELETE
-  /// archive)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html).
+  /// the archive IDs you use to delete archives using
+  /// [Delete Archive (DELETE archive)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-delete.html).
   ///
   /// This operation is idempotent.
   ///
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Deleting a Vault
-  /// in Amazon
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html)
-  /// and [Delete
-  /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Deleting a Vault in Amazon Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/deleting-vaults.html)
+  /// and
+  /// [Delete Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-delete.html)
   ///  in the _Amazon S3 Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -376,9 +363,8 @@ class GlacierApi {
   ///
   /// This operation is idempotent. You can invoke delete multiple times, even
   /// if there is no policy associated with the vault. For more information
-  /// about vault access policies, see [Amazon Glacier Access Control with Vault
-  /// Access
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
+  /// about vault access policies, see
+  /// [Amazon Glacier Access Control with Vault Access Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -400,15 +386,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Configuring
-  /// Vault Notifications in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
-  /// and [Delete Vault Notification
-  /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Configuring Vault Notifications in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
+  /// and
+  /// [Delete Vault Notification Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-delete.html)
   ///  in the Amazon S3 Glacier Developer Guide.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -439,13 +423,12 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
   ///  For more information about using this operation, see the documentation
-  /// for the underlying REST API [Describe
-  /// Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html)
+  /// for the underlying REST API
+  /// [Describe Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-describe-job-get.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -473,22 +456,19 @@ class GlacierApi {
   /// and then immediately use Describe Vault, the change in contents will not
   /// be immediately reflected. If you want to retrieve the latest inventory of
   /// the vault, use InitiateJob. Amazon S3 Glacier generates vault inventories
-  /// approximately daily. For more information, see [Downloading a Vault
-  /// Inventory in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html).
+  /// approximately daily. For more information, see
+  /// [Downloading a Vault Inventory in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html).
   ///
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and underlying REST API, see [Retrieving Vault
-  /// Metadata in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html)
-  /// and [Describe
-  /// Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html)
+  /// For conceptual information and underlying REST API, see
+  /// [Retrieving Vault Metadata in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html)
+  /// and
+  /// [Describe Vault](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -506,8 +486,8 @@ class GlacierApi {
 
   /// This operation returns the current data retrieval policy for the account
   /// and region specified in the GET request. For more information about data
-  /// retrieval policies, see [Amazon Glacier Data Retrieval
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
+  /// retrieval policies, see
+  /// [Amazon Glacier Data Retrieval Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID. This value must
   /// match the AWS account ID associated with the credentials used to sign the
@@ -559,17 +539,14 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and the underlying REST API, see [Downloading a
-  /// Vault
-  /// Inventory](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html),
-  /// [Downloading an
-  /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html),
-  /// and [Get Job
-  /// Output](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html)
+  /// For conceptual information and the underlying REST API, see
+  /// [Downloading a Vault Inventory](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-inventory.html),
+  /// [Downloading an Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/downloading-an-archive.html),
+  /// and
+  /// [Get Job Output](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-job-output-get.html)
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -620,13 +597,12 @@ class GlacierApi {
   }
 
   /// This operation retrieves the `access-policy` subresource set on the vault;
-  /// for more information on setting this subresource, see [Set Vault Access
-  /// Policy (PUT
-  /// access-policy)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-SetVaultAccessPolicy.html).
+  /// for more information on setting this subresource, see
+  /// [Set Vault Access Policy (PUT access-policy)](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-SetVaultAccessPolicy.html).
   /// If there is no access policy set on the vault, the operation returns a
   /// `404 Not found` error. For more information about vault access policies,
-  /// see [Amazon Glacier Access Control with Vault Access
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
+  /// see
+  /// [Amazon Glacier Access Control with Vault Access Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -658,13 +634,11 @@ class GlacierApi {
   /// InitiateVaultLock. A vault lock is put into the `Locked` state by calling
   /// CompleteVaultLock. You can abort the vault locking process by calling
   /// AbortVaultLock. For more information about the vault locking process,
-  /// [Amazon Glacier Vault
-  /// Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
+  /// [Amazon Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
   ///
   /// If there is no vault lock policy set on the vault, the operation returns a
   /// `404 Not found` error. For more information about vault lock policies,
-  /// [Amazon Glacier Access Control with Vault Lock
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
+  /// [Amazon Glacier Access Control with Vault Lock Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -685,22 +659,19 @@ class GlacierApi {
   /// For information about setting a notification configuration on a vault, see
   /// SetVaultNotifications. If a notification configuration for a vault is not
   /// set, the operation returns a `404 Not Found` error. For more information
-  /// about vault notifications, see [Configuring Vault Notifications in Amazon
-  /// S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html).
+  /// about vault notifications, see
+  /// [Configuring Vault Notifications in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html).
   ///
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and underlying REST API, see [Configuring Vault
-  /// Notifications in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
-  /// and [Get Vault Notification
-  /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html)
+  /// For conceptual information and underlying REST API, see
+  /// [Configuring Vault Notifications in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
+  /// and
+  /// [Get Vault Notification Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -719,8 +690,8 @@ class GlacierApi {
   /// This operation initiates a job of the specified type, which can be a
   /// select, an archival retrieval, or a vault retrieval. For more information
   /// about using this operation, see the documentation for the underlying REST
-  /// API [Initiate a
-  /// Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html).
+  /// API
+  /// [Initiate a Job](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -768,15 +739,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and underlying REST API, see [Uploading Large
-  /// Archives in Parts (Multipart
-  /// Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
-  /// and [Initiate Multipart
-  /// Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html)
+  /// For conceptual information and underlying REST API, see
+  /// [Uploading Large Archives in Parts (Multipart Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
+  /// and
+  /// [Initiate Multipart Upload](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-initiate-upload.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -818,8 +787,7 @@ class GlacierApi {
   ///
   /// You can set one vault lock policy for each vault and this policy can be up
   /// to 20 KB in size. For more information about vault lock policies, see
-  /// [Amazon Glacier Access Control with Vault Lock
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
+  /// [Amazon Glacier Access Control with Vault Lock Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock-policy.html).
   ///
   /// You must complete the vault locking process within 24 hours after the
   /// vault lock enters the `InProgress` state. After the 24 hour window ends,
@@ -833,8 +801,8 @@ class GlacierApi {
   ///
   /// You can abort the vault locking process by calling AbortVaultLock. You can
   /// get the state of the vault lock by calling GetVaultLock. For more
-  /// information about the vault locking process, [Amazon Glacier Vault
-  /// Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
+  /// information about the vault locking process,
+  /// [Amazon Glacier Vault Lock](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-lock.html).
   ///
   /// If this operation is called when the vault lock is in the `InProgress`
   /// state, the operation returns an `AccessDeniedException` error. When the
@@ -850,7 +818,7 @@ class GlacierApi {
   ///
   /// [vaultName]: The name of the vault.
   ///
-  /// [policy]: The vault lock policy as a JSON string, which uses "\\" as an
+  /// [policy]: The vault lock policy as a JSON string, which uses "" as an
   /// escape character.
   Future<InitiateVaultLockOutput> initiateVaultLock(
       {@required String accountId,
@@ -894,8 +862,8 @@ class GlacierApi {
   /// completed (`true`) or jobs that were not completed (`false`).
   ///
   /// For more information about using this operation, see the documentation for
-  /// the underlying REST API [List
-  /// Jobs](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html).
+  /// the underlying REST API
+  /// [List Jobs](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-jobs-get.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -955,15 +923,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and the underlying REST API, see [Working with
-  /// Archives in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
-  /// and [List Multipart
-  /// Uploads](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html)
+  /// For conceptual information and the underlying REST API, see
+  /// [Working with Archives in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
+  /// and
+  /// [List Multipart Uploads](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-uploads.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -1011,15 +977,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and the underlying REST API, see [Working with
-  /// Archives in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
-  /// and [List
-  /// Parts](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html)
+  /// For conceptual information and the underlying REST API, see
+  /// [Working with Archives in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html)
+  /// and
+  /// [List Parts](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-multipart-list-parts.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -1066,8 +1030,8 @@ class GlacierApi {
 
   /// This operation lists all the tags attached to a vault. The operation
   /// returns an empty map if there are no tags. For more information about
-  /// tags, see [Tagging Amazon S3 Glacier
-  /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
+  /// tags, see
+  /// [Tagging Amazon S3 Glacier Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -1097,15 +1061,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and underlying REST API, see [Retrieving Vault
-  /// Metadata in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html)
-  /// and [List
-  /// Vaults](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html)
+  /// For conceptual information and underlying REST API, see
+  /// [Retrieving Vault Metadata in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/retrieving-vault-info.html)
+  /// and
+  /// [List Vaults](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vaults-get.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID. This value must
@@ -1139,8 +1101,8 @@ class GlacierApi {
   }
 
   /// This operation removes one or more tags from the set of tags attached to a
-  /// vault. For more information about tags, see [Tagging Amazon S3 Glacier
-  /// Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
+  /// vault. For more information about tags, see
+  /// [Tagging Amazon S3 Glacier Resources](https://docs.aws.amazon.com/amazonglacier/latest/dev/tagging.html).
   /// This operation is idempotent. The operation will be successful, even if
   /// there are no tags attached to the vault.
   ///
@@ -1167,8 +1129,8 @@ class GlacierApi {
   ///
   /// The set policy operation does not affect retrieval jobs that were in
   /// progress before the policy was enacted. For more information about data
-  /// retrieval policies, see [Amazon Glacier Data Retrieval
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
+  /// retrieval policies, see
+  /// [Amazon Glacier Data Retrieval Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/data-retrieval-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID. This value must
   /// match the AWS account ID associated with the credentials used to sign the
@@ -1186,9 +1148,8 @@ class GlacierApi {
   /// to the `access-policy` subresource of the vault. An access policy is
   /// specific to a vault and is also called a vault subresource. You can set
   /// one access policy per vault and the policy can be up to 20 KB in size. For
-  /// more information about vault access policies, see [Amazon Glacier Access
-  /// Control with Vault Access
-  /// Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
+  /// more information about vault access policies, see
+  /// [Amazon Glacier Access Control with Vault Access Policies](https://docs.aws.amazon.com/amazonglacier/latest/dev/vault-access-policy.html).
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
   /// that owns the vault. You can either specify an AWS account ID or
@@ -1233,15 +1194,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  /// For conceptual information and underlying REST API, see [Configuring Vault
-  /// Notifications in Amazon S3
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
-  /// and [Set Vault Notification
-  /// Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html)
+  /// For conceptual information and underlying REST API, see
+  /// [Configuring Vault Notifications in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/configuring-notifications.html)
+  /// and
+  /// [Set Vault Notification Configuration](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-vault-notifications-put.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -1276,8 +1235,8 @@ class GlacierApi {
   /// information, see InitiateJob.
   ///
   /// You must provide a SHA256 tree hash of the data you are uploading. For
-  /// information about computing a SHA256 tree hash, see [Computing
-  /// Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
+  /// information about computing a SHA256 tree hash, see
+  /// [Computing Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
   ///
   /// You can optionally specify an archive description of up to 1,024 printable
   /// ASCII characters. You can get the archive description when you either
@@ -1292,15 +1251,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Uploading an
-  /// Archive in Amazon
-  /// Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html)
-  /// and [Upload
-  /// Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Uploading an Archive in Amazon Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-an-archive.html)
+  /// and
+  /// [Upload Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html)
   /// in the _Amazon Glacier Developer Guide_.
   ///
   /// [vaultName]: The name of the vault.
@@ -1339,8 +1296,8 @@ class GlacierApi {
   /// include it in your request. Upon receiving the part data, Amazon S3
   /// Glacier also computes a SHA256 tree hash. If these hash values don't
   /// match, the operation fails. For information about computing a SHA256 tree
-  /// hash, see [Computing
-  /// Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
+  /// hash, see
+  /// [Computing Checksums](https://docs.aws.amazon.com/amazonglacier/latest/dev/checksum-calculations.html).
   ///
   /// *    **Part size does not match**The size of each part except the last
   /// must match the size specified in the corresponding InitiateMultipartUpload
@@ -1366,15 +1323,13 @@ class GlacierApi {
   /// An AWS account has full permission to perform all operations (actions).
   /// However, AWS Identity and Access Management (IAM) users don't have any
   /// permissions by default. You must grant them explicit permission to perform
-  /// specific actions. For more information, see [Access Control Using AWS
-  /// Identity and Access Management
-  /// (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
+  /// specific actions. For more information, see
+  /// [Access Control Using AWS Identity and Access Management (IAM)](https://docs.aws.amazon.com/amazonglacier/latest/dev/using-iam-with-amazon-glacier.html).
   ///
-  ///  For conceptual information and underlying REST API, see [Uploading Large
-  /// Archives in Parts (Multipart
-  /// Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
-  /// and [Upload
-  /// Part](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html)
+  ///  For conceptual information and underlying REST API, see
+  /// [Uploading Large Archives in Parts (Multipart Upload)](https://docs.aws.amazon.com/amazonglacier/latest/dev/uploading-archive-mpu.html)
+  /// and
+  /// [Upload Part](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-upload-part.html)
   ///  in the _Amazon Glacier Developer Guide_.
   ///
   /// [accountId]: The `AccountId` value is the AWS account ID of the account
@@ -1407,6 +1362,12 @@ class GlacierApi {
   }
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
+///
+/// For information about the underlying REST API, see
+/// [Upload Archive](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-archive-post.html).
+/// For conceptual information, see
+/// [Working with Archives in Amazon S3 Glacier](https://docs.aws.amazon.com/amazonglacier/latest/dev/working-with-archives.html).
 class ArchiveCreationOutput {
   /// The relative URI path of the newly added archive resource.
   final String location;
@@ -1427,6 +1388,8 @@ class ArchiveCreationOutput {
       ArchiveCreationOutput();
 }
 
+/// Contains information about the comma-separated value (CSV) file to select
+/// from.
 class CsvInput {
   /// Describes the first line of input. Valid values are `None`, `Ignore`, and
   /// `Use`.
@@ -1462,6 +1425,8 @@ class CsvInput {
   static CsvInput fromJson(Map<String, dynamic> json) => CsvInput();
 }
 
+/// Contains information about the comma-separated value (CSV) file that the job
+/// results are stored in.
 class CsvOutput {
   /// A value that indicates whether all output fields should be contained
   /// within quotation marks.
@@ -1492,6 +1457,7 @@ class CsvOutput {
   static CsvOutput fromJson(Map<String, dynamic> json) => CsvOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class CreateVaultOutput {
   /// The URI of the vault that was created.
   final String location;
@@ -1503,6 +1469,7 @@ class CreateVaultOutput {
       CreateVaultOutput();
 }
 
+/// Data retrieval policy.
 class DataRetrievalPolicy {
   /// The policy rule. Although this is a list type, currently there must be
   /// only one rule, which contains a Strategy field and optionally a
@@ -1516,6 +1483,7 @@ class DataRetrievalPolicy {
       DataRetrievalPolicy();
 }
 
+/// Data retrieval policy rule.
 class DataRetrievalRule {
   /// The type of data retrieval policy to set.
   ///
@@ -1537,6 +1505,7 @@ class DataRetrievalRule {
       DataRetrievalRule();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class DescribeVaultOutput {
   /// The Amazon Resource Name (ARN) of the vault.
   final String vaultArn;
@@ -1576,6 +1545,8 @@ class DescribeVaultOutput {
       DescribeVaultOutput();
 }
 
+/// Contains information about the encryption used to store the job results in
+/// Amazon S3.
 class Encryption {
   /// The server-side encryption algorithm used when storing job results in
   /// Amazon S3, for example `AES256` or `aws:kms`.
@@ -1598,6 +1569,8 @@ class Encryption {
   static Encryption fromJson(Map<String, dynamic> json) => Encryption();
 }
 
+/// Contains the Amazon S3 Glacier response to the `GetDataRetrievalPolicy`
+/// request.
 class GetDataRetrievalPolicyOutput {
   /// Contains the returned data retrieval policy in JSON format.
   final DataRetrievalPolicy policy;
@@ -1609,6 +1582,7 @@ class GetDataRetrievalPolicyOutput {
       GetDataRetrievalPolicyOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class GetJobOutputOutput {
   /// The job data, either archive data or inventory data.
   final Uint8List body;
@@ -1669,6 +1643,7 @@ class GetJobOutputOutput {
       GetJobOutputOutput();
 }
 
+/// Output for GetVaultAccessPolicy.
 class GetVaultAccessPolicyOutput {
   /// Contains the returned vault access policy as a JSON string.
   final VaultAccessPolicy policy;
@@ -1680,8 +1655,9 @@ class GetVaultAccessPolicyOutput {
       GetVaultAccessPolicyOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class GetVaultLockOutput {
-  /// The vault lock policy as a JSON string, which uses "\\" as an escape
+  /// The vault lock policy as a JSON string, which uses "" as an escape
   /// character.
   final String policy;
 
@@ -1706,6 +1682,7 @@ class GetVaultLockOutput {
       GetVaultLockOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class GetVaultNotificationsOutput {
   /// Returns the notification configuration set on the vault.
   final VaultNotificationConfig vaultNotificationConfig;
@@ -1717,6 +1694,7 @@ class GetVaultNotificationsOutput {
       GetVaultNotificationsOutput();
 }
 
+/// Contains the description of an Amazon S3 Glacier job.
 class GlacierJobDescription {
   /// An opaque string that identifies an Amazon S3 Glacier job.
   final String jobId;
@@ -1849,6 +1827,7 @@ class GlacierJobDescription {
       GlacierJobDescription();
 }
 
+/// Contains information about a grant.
 class Grant {
   /// The grantee.
   final Grantee grantee;
@@ -1863,6 +1842,7 @@ class Grant {
   static Grant fromJson(Map<String, dynamic> json) => Grant();
 }
 
+/// Contains information about the grantee.
 class Grantee {
   /// Type of grantee
   final String type;
@@ -1889,6 +1869,7 @@ class Grantee {
   static Grantee fromJson(Map<String, dynamic> json) => Grantee();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class InitiateJobOutput {
   /// The relative URI path of the job.
   final String location;
@@ -1908,6 +1889,7 @@ class InitiateJobOutput {
       InitiateJobOutput();
 }
 
+/// The Amazon S3 Glacier response to your request.
 class InitiateMultipartUploadOutput {
   /// The relative URI path of the multipart upload ID Amazon S3 Glacier
   /// created.
@@ -1925,6 +1907,7 @@ class InitiateMultipartUploadOutput {
       InitiateMultipartUploadOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class InitiateVaultLockOutput {
   /// The lock ID, which is used to complete the vault locking process.
   final String lockId;
@@ -1936,6 +1919,7 @@ class InitiateVaultLockOutput {
       InitiateVaultLockOutput();
 }
 
+/// Describes how the archive is serialized.
 class InputSerialization {
   /// Describes the serialization of a CSV-encoded object.
   final CsvInput csv;
@@ -1947,6 +1931,7 @@ class InputSerialization {
       InputSerialization();
 }
 
+/// Describes the options for a range inventory retrieval job.
 class InventoryRetrievalJobDescription {
   /// The output format for the vault inventory list, which is set by the
   /// **InitiateJob** request when initiating a job to retrieve a vault
@@ -1972,9 +1957,8 @@ class InventoryRetrievalJobDescription {
   /// An opaque string that represents where to continue pagination of the vault
   /// inventory retrieval results. You use the marker in a new **InitiateJob**
   /// request to obtain additional inventory items. If there are no more
-  /// inventory items, this value is `null`. For more information, see  [Range
-  /// Inventory
-  /// Retrieval](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering).
+  /// inventory items, this value is `null`. For more information, see
+  /// [Range Inventory Retrieval](https://docs.aws.amazon.com/amazonglacier/latest/dev/api-initiate-job-post.html#api-initiate-job-post-vault-inventory-list-filtering).
   final String marker;
 
   InventoryRetrievalJobDescription({
@@ -1988,6 +1972,7 @@ class InventoryRetrievalJobDescription {
       InventoryRetrievalJobDescription();
 }
 
+/// Provides options for specifying a range inventory retrieval job.
 class InventoryRetrievalJobInput {
   /// The start of the date range in UTC for vault inventory retrieval that
   /// includes archives created on or after this date. This value should be a
@@ -2017,6 +2002,7 @@ class InventoryRetrievalJobInput {
   });
 }
 
+/// Provides options for defining a job.
 class JobParameters {
   /// When initiating a job to retrieve a vault inventory, you can optionally
   /// add this parameter to your request to specify the output format. If you
@@ -2088,6 +2074,7 @@ class JobParameters {
   });
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class ListJobsOutput {
   /// A list of job objects. Each job object contains metadata describing the
   /// job.
@@ -2107,6 +2094,7 @@ class ListJobsOutput {
   static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class ListMultipartUploadsOutput {
   /// A list of in-progress multipart uploads.
   final List<UploadListElement> uploadsList;
@@ -2125,6 +2113,7 @@ class ListMultipartUploadsOutput {
       ListMultipartUploadsOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class ListPartsOutput {
   /// The ID of the upload to which the parts are associated.
   final String multipartUploadId;
@@ -2177,6 +2166,7 @@ class ListProvisionedCapacityOutput {
       ListProvisionedCapacityOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class ListTagsForVaultOutput {
   /// The tags attached to the vault. Each tag is composed of a key and a value.
   final Map<String, String> tags;
@@ -2188,6 +2178,7 @@ class ListTagsForVaultOutput {
       ListTagsForVaultOutput();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class ListVaultsOutput {
   /// List of vaults.
   final List<DescribeVaultOutput> vaultList;
@@ -2204,6 +2195,8 @@ class ListVaultsOutput {
       ListVaultsOutput();
 }
 
+/// Contains information about the location where the select job results are
+/// stored.
 class OutputLocation {
   /// Describes an S3 location that will receive the results of the job request.
   final S3Location s3;
@@ -2214,6 +2207,7 @@ class OutputLocation {
   static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation();
 }
 
+/// Describes how the select output is serialized.
 class OutputSerialization {
   /// Describes the serialization of CSV-encoded query results.
   final CsvOutput csv;
@@ -2225,6 +2219,7 @@ class OutputSerialization {
       OutputSerialization();
 }
 
+/// A list of the part sizes of the multipart upload.
 class PartListElement {
   /// The byte range of a part, inclusive of the upper value of the range.
   final String rangeInBytes;
@@ -2241,6 +2236,7 @@ class PartListElement {
       PartListElement();
 }
 
+/// The definition for a provisioned capacity unit.
 class ProvisionedCapacityDescription {
   /// The ID that identifies the provisioned capacity unit.
   final String capacityId;
@@ -2274,6 +2270,8 @@ class PurchaseProvisionedCapacityOutput {
       PurchaseProvisionedCapacityOutput();
 }
 
+/// Contains information about the location in Amazon S3 where the select job
+/// results are stored.
 class S3Location {
   /// The name of the Amazon S3 bucket where the job results are stored.
   final String bucketName;
@@ -2313,6 +2311,7 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+/// Contains information about the parameters used for a select.
 class SelectParameters {
   /// Describes the serialization format of the object.
   final InputSerialization inputSerialization;
@@ -2336,6 +2335,7 @@ class SelectParameters {
       SelectParameters();
 }
 
+/// A list of in-progress multipart uploads for a vault.
 class UploadListElement {
   /// The ID of a multipart upload.
   final String multipartUploadId;
@@ -2366,6 +2366,7 @@ class UploadListElement {
       UploadListElement();
 }
 
+/// Contains the Amazon S3 Glacier response to your request.
 class UploadMultipartPartOutput {
   /// The SHA256 tree hash that Amazon S3 Glacier computed for the uploaded
   /// part.
@@ -2378,6 +2379,7 @@ class UploadMultipartPartOutput {
       UploadMultipartPartOutput();
 }
 
+/// Contains the vault access policy.
 class VaultAccessPolicy {
   /// The vault access policy.
   final String policy;
@@ -2389,6 +2391,7 @@ class VaultAccessPolicy {
       VaultAccessPolicy();
 }
 
+/// Contains the vault lock policy.
 class VaultLockPolicy {
   /// The vault lock policy.
   final String policy;
@@ -2398,6 +2401,7 @@ class VaultLockPolicy {
   });
 }
 
+/// Represents a vault's notification configuration.
 class VaultNotificationConfig {
   /// The Amazon Simple Notification Service (Amazon SNS) topic Amazon Resource
   /// Name (ARN).

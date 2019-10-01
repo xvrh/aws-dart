@@ -6,8 +6,8 @@ import 'package:meta/meta.dart';
 /// storage for use with Amazon EC2 instances in the AWS Cloud. With Amazon EFS,
 /// storage capacity is elastic, growing and shrinking automatically as you add
 /// and remove files, so your applications have the storage they need, when they
-/// need it. For more information, see the [User
-/// Guide](https://docs.aws.amazon.com/efs/latest/ug/api-reference.html).
+/// need it. For more information, see the
+/// [User Guide](https://docs.aws.amazon.com/efs/latest/ug/api-reference.html).
 class EfsApi {
   /// Creates a new, empty file system. The operation requires a creation token
   /// in the request that Amazon EFS uses to ensure idempotent creation (calling
@@ -47,16 +47,15 @@ class EfsApi {
   /// mode can scale to higher levels of aggregate throughput and operations per
   /// second with a tradeoff of slightly higher latencies for most file
   /// operations. The performance mode can't be changed after the file system
-  /// has been created. For more information, see [Amazon EFS: Performance
-  /// Modes](https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html).
+  /// has been created. For more information, see
+  /// [Amazon EFS: Performance Modes](https://docs.aws.amazon.com/efs/latest/ug/performance.html#performancemodes.html).
   ///
   /// After the file system is fully created, Amazon EFS sets its lifecycle
   /// state to `available`, at which point you can create one or more mount
   /// targets for the file system in your VPC. For more information, see
   /// CreateMountTarget. You mount your Amazon EFS file system on an EC2
   /// instances in your VPC by using the mount target. For more information, see
-  /// [Amazon EFS: How it
-  /// Works](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html).
+  /// [Amazon EFS: How it Works](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html).
   ///
   ///  This operation requires permissions for the
   /// `elasticfilesystem:CreateFileSystem` action.
@@ -106,18 +105,16 @@ class EfsApi {
   /// `ProvisionedThroughPutInMibps`. You can decrease your file system's
   /// throughput in Provisioned Throughput mode or change between the throughput
   /// modes as long as it’s been more than 24 hours since the last decrease or
-  /// throughput mode change. For more, see [Specifying Throughput with
-  /// Provisioned
-  /// Mode](https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput)
+  /// throughput mode change. For more, see
+  /// [Specifying Throughput with Provisioned Mode](https://docs.aws.amazon.com/efs/latest/ug/performance.html#provisioned-throughput)
   /// in the _Amazon EFS User Guide._
   ///
   /// [provisionedThroughputInMibps]: The throughput, measured in MiB/s, that
   /// you want to provision for a file system that you're creating. Valid values
   /// are 1-1024. Required if `ThroughputMode` is set to `provisioned`. The
   /// upper limit for throughput is 1024 MiB/s. You can get this limit increased
-  /// by contacting AWS Support. For more information, see [Amazon EFS Limits
-  /// That You Can
-  /// Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
+  /// by contacting AWS Support. For more information, see
+  /// [Amazon EFS Limits That You Can Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
   /// in the _Amazon EFS User Guide._
   ///
   /// [tags]: A value that specifies to create one or more tags associated with
@@ -142,9 +139,8 @@ class EfsApi {
   /// mount target for a given file system. If you have multiple subnets in an
   /// Availability Zone, you create a mount target in one of the subnets. EC2
   /// instances do not need to be in the same subnet as the mount target in
-  /// order to access their file system. For more information, see [Amazon EFS:
-  /// How it
-  /// Works](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html).
+  /// order to access their file system. For more information, see
+  /// [Amazon EFS: How it Works](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html).
   ///
   /// In the request, you also specify a file system ID for which you are
   /// creating the mount target and the file system's lifecycle state must be
@@ -166,9 +162,8 @@ class EfsApi {
   /// when mounting the file system in an EC2 instance. You can also use the
   /// mount target's DNS name when mounting the file system. The EC2 instance on
   /// which you mount the file system by using the mount target can resolve the
-  /// mount target's DNS name to its IP address. For more information, see [How
-  /// it Works: Implementation
-  /// Overview](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html#how-it-works-implementation).
+  /// mount target's DNS name to its IP address. For more information, see
+  /// [How it Works: Implementation Overview](https://docs.aws.amazon.com/efs/latest/ug/how-it-works.html#how-it-works-implementation).
   ///
   /// Note that you can create mount targets for a file system in only one VPC,
   /// and there can be only one mount target per Availability Zone. That is, if
@@ -335,8 +330,8 @@ class EfsApi {
   /// Deletes the specified tags from a file system. If the `DeleteTags` request
   /// includes a tag key that doesn't exist, Amazon EFS ignores it and doesn't
   /// cause an error. For more information about tags and related restrictions,
-  /// see [Tag
-  /// Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// see
+  /// [Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// This operation requires permissions for the `elasticfilesystem:DeleteTags`
@@ -660,6 +655,7 @@ class DescribeTagsResponse {
       DescribeTagsResponse();
 }
 
+/// A description of the file system.
 class FileSystemDescription {
   /// The AWS account that created the file system. If the file system was
   /// created by an IAM user, the parent account to which the user belongs is
@@ -724,8 +720,7 @@ class FileSystemDescription {
   /// system. Valid values are 1-1024. Required if `ThroughputMode` is set to
   /// `provisioned`. The limit on throughput is 1024 MiB/s. You can get these
   /// limits increased by contacting AWS Support. For more information, see
-  /// [Amazon EFS Limits That You Can
-  /// Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
+  /// [Amazon EFS Limits That You Can Increase](https://docs.aws.amazon.com/efs/latest/ug/limits.html#soft-limits)
   /// in the _Amazon EFS User Guide._
   final double provisionedThroughputInMibps;
 
@@ -753,6 +748,14 @@ class FileSystemDescription {
       FileSystemDescription();
 }
 
+/// The latest known metered size (in bytes) of data stored in the file system,
+/// in its `Value` field, and the time at which that size was determined in its
+/// `Timestamp` field. The value doesn't represent the size of a consistent
+/// snapshot of the file system, but it is eventually consistent when there are
+/// no writes to the file system. That is, the value represents the actual size
+/// only if the file system is not modified for a period longer than a couple of
+/// hours. Otherwise, the value is not necessarily the exact size the file
+/// system was at any instant in time.
 class FileSystemSize {
   /// The latest known metered size (in bytes) of data stored in the file
   /// system.
@@ -793,6 +796,8 @@ class LifecycleConfigurationDescription {
       LifecycleConfigurationDescription();
 }
 
+/// Describes a policy used by EFS lifecycle management to transition files to
+/// the Infrequent Access (IA) storage class.
 class LifecyclePolicy {
   ///  A value that describes the period of time that a file is not accessed,
   /// after which it transitions to the IA storage class. Metadata operations
@@ -807,6 +812,7 @@ class LifecyclePolicy {
       LifecyclePolicy();
 }
 
+/// Provides a description of a mount target.
 class MountTargetDescription {
   /// AWS account ID that owns the resource.
   final String ownerId;
@@ -843,6 +849,9 @@ class MountTargetDescription {
       MountTargetDescription();
 }
 
+/// A tag is a key-value pair. Allowed characters are letters, white space, and
+/// numbers that can be represented in UTF-8, and the following characters: `+ -
+/// = . _ : /`
 class Tag {
   /// The tag key (String). The key can't start with `aws:`.
   final String key;

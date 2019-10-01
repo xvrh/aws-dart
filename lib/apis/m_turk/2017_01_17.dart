@@ -157,8 +157,8 @@ class MTurkApi {
   /// `HitLayoutParameters`.
   ///
   ///   If a HIT is created with 10 or more maximum assignments, there is an
-  /// additional fee. For more information, see [Amazon Mechanical Turk
-  /// Pricing](https://requester.mturk.com/pricing).
+  /// additional fee. For more information, see
+  /// [Amazon Mechanical Turk Pricing](https://requester.mturk.com/pricing).
   ///
   /// [maxAssignments]:  The number of times the HIT can be accepted and
   /// completed before the HIT becomes unavailable.
@@ -342,8 +342,8 @@ class MTurkApi {
   /// `HitLayoutParameters`.
   ///
   ///   If a HIT is created with 10 or more maximum assignments, there is an
-  /// additional fee. For more information, see [Amazon Mechanical Turk
-  /// Pricing](https://requester.mturk.com/pricing).
+  /// additional fee. For more information, see
+  /// [Amazon Mechanical Turk Pricing](https://requester.mturk.com/pricing).
   ///
   /// [hitTypeId]: The HIT type ID you want to create this HIT with.
   ///
@@ -1173,6 +1173,9 @@ class ApproveAssignmentResponse {
       ApproveAssignmentResponse();
 }
 
+///  The Assignment data structure represents a single assignment of a HIT to a
+/// Worker. The assignment tracks the Worker's efforts to complete the HIT, and
+/// contains the results for later retrieval.
 class Assignment {
   ///  A unique identifier for the assignment.
   final String assignmentId;
@@ -1253,6 +1256,7 @@ class AssociateQualificationWithWorkerResponse {
       AssociateQualificationWithWorkerResponse();
 }
 
+/// An object representing a Bonus payment paid to a Worker.
 class BonusPayment {
   /// The ID of the Worker to whom the bonus was paid.
   final String workerId;
@@ -1438,6 +1442,8 @@ class GetQualificationTypeResponse {
       GetQualificationTypeResponse();
 }
 
+///  The HIT data structure represents a single HIT, including all the
+/// information necessary for a Worker to accept and complete the HIT.
 class Hit {
   ///  A unique identifier for the HIT.
   final String hitId;
@@ -1548,6 +1554,9 @@ class Hit {
   static Hit fromJson(Map<String, dynamic> json) => Hit();
 }
 
+///  The HITLayoutParameter data structure defines parameter values used with a
+/// HITLayout. A HITLayout is a reusable Amazon Mechanical Turk project template
+/// used to provide Human Intelligence Task (HIT) question data for CreateHIT.
 class HitLayoutParameter {
   ///  The name of the parameter in the HITLayout.
   final String name;
@@ -1772,6 +1781,7 @@ class ListWorkersWithQualificationTypeResponse {
       ListWorkersWithQualificationTypeResponse();
 }
 
+/// The Locale data structure represents a geographical region or location.
 class Locale {
   ///  The country of the locale. Must be a valid ISO 3166 country code. For
   /// example, the code US refers to the United States of America.
@@ -1788,6 +1798,8 @@ class Locale {
   static Locale fromJson(Map<String, dynamic> json) => Locale();
 }
 
+/// The NotificationSpecification data structure describes a HIT event
+/// notification for a HIT type.
 class NotificationSpecification {
   ///  The target for notification messages. The Destination’s format is
   /// determined by the specified Transport:
@@ -1821,6 +1833,8 @@ class NotificationSpecification {
   });
 }
 
+///  When MTurk encounters an issue with notifying the Workers you specified, it
+/// returns back this object with failure details.
 class NotifyWorkersFailureStatus {
   ///  Encoded value for the failure type.
   final String notifyWorkersFailureCode;
@@ -1853,6 +1867,8 @@ class NotifyWorkersResponse {
       NotifyWorkersResponse();
 }
 
+///  This data structure is the data type for the AnswerKey parameter of the
+/// ScoreMyKnownAnswers/2011-09-01 Review Policy.
 class ParameterMapEntry {
   ///  The QuestionID from the HIT that is used to identify which question
   /// requires Mechanical Turk to score as part of the
@@ -1872,6 +1888,7 @@ class ParameterMapEntry {
       ParameterMapEntry();
 }
 
+///  Name of the parameter from the Review policy.
 class PolicyParameter {
   ///  Name of the parameter from the list of Review Polices.
   final String key;
@@ -1891,6 +1908,8 @@ class PolicyParameter {
       PolicyParameter();
 }
 
+/// The Qualification data structure represents a Qualification assigned to a
+/// user, including the Qualification type and the value (score).
 class Qualification {
   ///  The ID of the Qualification type for the Qualification.
   final String qualificationTypeId;
@@ -1924,6 +1943,8 @@ class Qualification {
   static Qualification fromJson(Map<String, dynamic> json) => Qualification();
 }
 
+///  The QualificationRequest data structure represents a request a Worker has
+/// made for a Qualification.
 class QualificationRequest {
   /// The ID of the Qualification request, a unique identifier generated when
   /// the request was submitted.
@@ -1966,6 +1987,10 @@ class QualificationRequest {
       QualificationRequest();
 }
 
+///  The QualificationRequirement data structure describes a Qualification that
+/// a Worker must have before the Worker is allowed to accept a HIT. A
+/// requirement may optionally state that a Worker must have the Qualification
+/// in order to preview the HIT, or see the HIT in search results.
 class QualificationRequirement {
   ///  The ID of the Qualification type for the requirement.
   final String qualificationTypeId;
@@ -2045,6 +2070,11 @@ class QualificationRequirement {
       QualificationRequirement();
 }
 
+///  The QualificationType data structure represents a Qualification type, a
+/// description of a property of a Worker that must match the requirements of a
+/// HIT for the Worker to be able to accept the HIT. The type also describes how
+/// a Worker can obtain a Qualification of that type, such as through a
+/// Qualification test.
 class QualificationType {
   ///  A unique identifier for the Qualification type. A Qualification type is
   /// given a Qualification type ID when you call the CreateQualificationType
@@ -2142,6 +2172,9 @@ class RejectQualificationRequestResponse {
       RejectQualificationRequestResponse();
 }
 
+///  Both the AssignmentReviewReport and the HITReviewReport elements contains
+/// the ReviewActionDetail data structure. This structure is returned multiple
+/// times for each action specified in the Review Policy.
 class ReviewActionDetail {
   /// The unique identifier for the action.
   final String actionId;
@@ -2184,6 +2217,8 @@ class ReviewActionDetail {
       ReviewActionDetail();
 }
 
+///  HIT Review Policy data structures represent HIT review policies, which you
+/// specify when you create a HIT.
 class ReviewPolicy {
   ///  Name of a Review Policy: SimplePlurality/2011-09-01 or
   /// ScoreMyKnownAnswers/2011-09-01
@@ -2199,6 +2234,7 @@ class ReviewPolicy {
   static ReviewPolicy fromJson(Map<String, dynamic> json) => ReviewPolicy();
 }
 
+///  Contains both ReviewResult and ReviewAction elements for a particular HIT.
 class ReviewReport {
   ///  A list of ReviewResults objects for each action specified in the Review
   /// Policy.
@@ -2215,6 +2251,8 @@ class ReviewReport {
   static ReviewReport fromJson(Map<String, dynamic> json) => ReviewReport();
 }
 
+///  This data structure is returned multiple times for each result specified in
+/// the Review Policy.
 class ReviewResultDetail {
   ///  A unique identifier of the Review action result.
   final String actionId;
@@ -2303,6 +2341,8 @@ class UpdateQualificationTypeResponse {
       UpdateQualificationTypeResponse();
 }
 
+///  The WorkerBlock data structure represents a Worker who has been blocked. It
+/// has two elements: the WorkerId and the Reason for the block.
 class WorkerBlock {
   ///  The ID of the Worker who accepted the HIT.
   final String workerId;

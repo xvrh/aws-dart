@@ -9,15 +9,15 @@ import 'dart:typed_data';
 /// subscribers over multiple delivery protocols. For more information about
 /// this product see [https://aws.amazon.com/sns](http://aws.amazon.com/sns/).
 /// For detailed information about Amazon SNS features and their associated API
-/// calls, see the [Amazon SNS Developer
-/// Guide](https://docs.aws.amazon.com/sns/latest/dg/).
+/// calls, see the
+/// [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/).
 ///
 /// We also provide SDKs that enable you to access Amazon SNS from your
 /// preferred programming language. The SDKs contain functionality that
 /// automatically takes care of tasks such as: cryptographically signing your
 /// service requests, retrying requests, and handling error responses. For a
-/// list of available SDKs, go to [Tools for Amazon Web
-/// Services](http://aws.amazon.com/tools/).
+/// list of available SDKs, go to
+/// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 class SnsApi {
   /// Adds a statement to a topic's access control policy, granting access for
   /// the specified AWS accounts to the specified actions.
@@ -96,23 +96,18 @@ class SnsApi {
   /// PlatformCredential is "private key". For Baidu, PlatformCredential is
   /// "secret key". The PlatformApplicationArn that is returned when using
   /// `CreatePlatformApplication` is then used as an attribute for the
-  /// `CreatePlatformEndpoint` action. For more information, see [Using Amazon
-  /// SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// `CreatePlatformEndpoint` action. For more information, see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   /// For more information about obtaining the PlatformPrincipal and
   /// PlatformCredential for each of the supported push notification services,
-  /// see [Getting Started with Apple Push Notification
-  /// Service](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-apns.html),
-  /// [Getting Started with Amazon Device
-  /// Messaging](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-adm.html),
-  /// [Getting Started with Baidu Cloud
-  /// Push](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-baidu.html),
-  /// [Getting Started with Google Cloud Messaging for
-  /// Android](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-gcm.html),
-  /// [Getting Started with
-  /// MPNS](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-mpns.html), or
-  /// [Getting Started with
-  /// WNS](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-wns.html).
+  /// see
+  /// [Getting Started with Apple Push Notification Service](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-apns.html),
+  /// [Getting Started with Amazon Device Messaging](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-adm.html),
+  /// [Getting Started with Baidu Cloud Push](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-baidu.html),
+  /// [Getting Started with Google Cloud Messaging for Android](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-gcm.html),
+  /// [Getting Started with MPNS](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-mpns.html),
+  /// or
+  /// [Getting Started with WNS](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-wns.html).
   ///
   /// [name]: Application names must be made up of only uppercase and lowercase
   /// ASCII letters, numbers, underscores, hyphens, and periods, and must be
@@ -140,13 +135,13 @@ class SnsApi {
   /// a topic. The `CreatePlatformEndpoint` action is idempotent, so if the
   /// requester already owns an endpoint with the same device token and
   /// attributes, that endpoint's ARN is returned without creating a new
-  /// endpoint. For more information, see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// endpoint. For more information, see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// When using `CreatePlatformEndpoint` with Baidu, two attributes must be
   /// provided: ChannelId and UserId. The token field must also contain the
-  /// ChannelId. For more information, see [Creating an Amazon SNS Endpoint for
-  /// Baidu](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html).
+  /// ChannelId. For more information, see
+  /// [Creating an Amazon SNS Endpoint for Baidu](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePushBaiduEndpoint.html).
   ///
   /// [platformApplicationArn]: PlatformApplicationArn returned from
   /// CreatePlatformApplication is used to create a an endpoint.
@@ -201,9 +196,9 @@ class SnsApi {
   /// The following attribute applies only to
   /// [server-side-encryption](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html):
   ///
-  /// *    `KmsMasterKeyId` \- The ID of an AWS-managed customer master key
-  /// (CMK) for Amazon SNS or a custom CMK. For more information, see [Key
-  /// Terms](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms).
+  /// *    `KmsMasterKeyId` - The ID of an AWS-managed customer master key (CMK)
+  /// for Amazon SNS or a custom CMK. For more information, see
+  /// [Key Terms](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms).
   /// For more examples, see
   /// [KeyId](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters)
   /// in the _AWS Key Management Service API Reference_.
@@ -215,9 +210,8 @@ class SnsApi {
   }
 
   /// Deletes the endpoint for a device and mobile app from Amazon SNS. This
-  /// action is idempotent. For more information, see [Using Amazon SNS Mobile
-  /// Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// action is idempotent. For more information, see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// When you delete an endpoint that is also subscribed to a topic, then you
   /// must also unsubscribe the endpoint from the topic.
@@ -227,8 +221,7 @@ class SnsApi {
 
   /// Deletes a platform application object for one of the supported push
   /// notification services, such as APNS and GCM. For more information, see
-  /// [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// [platformApplicationArn]: PlatformApplicationArn of platform application
   /// object to delete.
@@ -244,8 +237,8 @@ class SnsApi {
 
   /// Retrieves the endpoint attributes for a device on one of the supported
   /// push notification services, such as GCM and APNS. For more information,
-  /// see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// [endpointArn]: EndpointArn for GetEndpointAttributes input.
   Future<GetEndpointAttributesResponse> getEndpointAttributes(
@@ -255,8 +248,8 @@ class SnsApi {
 
   /// Retrieves the attributes of the platform application object for the
   /// supported push notification services, such as APNS and GCM. For more
-  /// information, see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// information, see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// [platformApplicationArn]: PlatformApplicationArn for
   /// GetPlatformApplicationAttributesInput.
@@ -306,8 +299,8 @@ class SnsApi {
   /// receive the next page, you call `ListEndpointsByPlatformApplication` again
   /// using the NextToken string received from the previous call. When there are
   /// no more records to return, NextToken will be null. For more information,
-  /// see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// This action is throttled at 30 transactions per second (TPS).
   ///
@@ -348,8 +341,8 @@ class SnsApi {
   /// NextToken string will be returned. To receive the next page, you call
   /// `ListPlatformApplications` using the NextToken string received from the
   /// previous call. When there are no more records to return, NextToken will be
-  /// null. For more information, see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// null. For more information, see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// This action is throttled at 15 transactions per second (TPS).
   ///
@@ -392,9 +385,9 @@ class SnsApi {
   }
 
   /// List all tags added to the specified Amazon SNS topic. For an overview,
-  /// see [Amazon SNS
-  /// Tags](https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html) in the
-  /// _Amazon Simple Notification Service Developer Guide_.
+  /// see
+  /// [Amazon SNS Tags](https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html)
+  /// in the _Amazon Simple Notification Service Developer Guide_.
   ///
   /// [resourceArn]: The ARN of the topic for which to list tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
@@ -439,9 +432,8 @@ class SnsApi {
   /// EndpointArn for the TargetArn parameter. The EndpointArn is returned when
   /// making a call with the `CreatePlatformEndpoint` action.
   ///
-  /// For more information about formatting messages, see [Send Custom
-  /// Platform-Specific Payloads in Messages to Mobile
-  /// Devices](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html).
+  /// For more information about formatting messages, see
+  /// [Send Custom Platform-Specific Payloads in Messages to Mobile Devices](https://docs.aws.amazon.com/sns/latest/dg/mobile-push-send-custommessage.html).
   ///
   /// [topicArn]: The topic you want to publish to.
   ///
@@ -536,8 +528,8 @@ class SnsApi {
   /// send to a specific transport protocol (e.g., "http").
   ///
   /// For information about sending different messages for each protocol using
-  /// the AWS Management Console, go to [Create Different Messages for Each
-  /// Protocol](https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol)
+  /// the AWS Management Console, go to
+  /// [Create Different Messages for Each Protocol](https://docs.aws.amazon.com/sns/latest/gsg/Publish.html#sns-message-formatting-by-protocol)
   /// in the _Amazon Simple Notification Service Getting Started Guide_.
   ///
   /// Valid value: `json`
@@ -564,8 +556,8 @@ class SnsApi {
 
   /// Sets the attributes for an endpoint for a device on one of the supported
   /// push notification services, such as GCM and APNS. For more information,
-  /// see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   ///
   /// [endpointArn]: EndpointArn used for SetEndpointAttributes action.
   ///
@@ -590,11 +582,10 @@ class SnsApi {
 
   /// Sets the attributes of the platform application object for the supported
   /// push notification services, such as APNS and GCM. For more information,
-  /// see [Using Amazon SNS Mobile Push
-  /// Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
+  /// see
+  /// [Using Amazon SNS Mobile Push Notifications](https://docs.aws.amazon.com/sns/latest/dg/SNSMobilePush.html).
   /// For information on configuring attributes for message delivery status, see
-  /// [Using Amazon SNS Application Attributes for Message Delivery
-  /// Status](https://docs.aws.amazon.com/sns/latest/dg/sns-msg-status.html).
+  /// [Using Amazon SNS Application Attributes for Message Delivery Status](https://docs.aws.amazon.com/sns/latest/dg/sns-msg-status.html).
   ///
   /// [platformApplicationArn]: PlatformApplicationArn for
   /// SetPlatformApplicationAttributes action.
@@ -642,8 +633,8 @@ class SnsApi {
   ///
   /// You can override some of these settings for a single message when you use
   /// the `Publish` action with the `MessageAttributes.entry.N` parameter. For
-  /// more information, see [Sending an SMS
-  /// Message](https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html)
+  /// more information, see
+  /// [Sending an SMS Message](https://docs.aws.amazon.com/sns/latest/dg/sms_publish-to-phone.html)
   /// in the _Amazon SNS Developer Guide_.
   ///
   /// [attributes]: The default settings for sending SMS messages from your
@@ -659,8 +650,8 @@ class SnsApi {
   /// will incur costs that exceed your limit.
   ///
   /// By default, the spend limit is set to the maximum allowed by Amazon SNS.
-  /// If you want to raise the limit, submit an [SNS Limit Increase
-  /// case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-sns).
+  /// If you want to raise the limit, submit an
+  /// [SNS Limit Increase case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-sns).
   /// For **New limit value**, enter your desired monthly spend limit. In the
   /// **Use Case Description** field, explain that you are requesting an SMS
   /// monthly spend limit increase.
@@ -723,9 +714,9 @@ class SnsApi {
   /// Amazon SNS service principle to perform the `s3:PutObject` and
   /// `s3:GetBucketLocation` actions.
   ///
-  /// For an example bucket policy and usage report, see [Monitoring SMS
-  /// Activity](https://docs.aws.amazon.com/sns/latest/dg/sms_stats.html) in the
-  /// _Amazon SNS Developer Guide_.
+  /// For an example bucket policy and usage report, see
+  /// [Monitoring SMS Activity](https://docs.aws.amazon.com/sns/latest/dg/sms_stats.html)
+  /// in the _Amazon SNS Developer Guide_.
   Future<SetSmsAttributesResponse> setSmsAttributes(
       Map<String, String> attributes) async {
     return SetSmsAttributesResponse.fromJson({});
@@ -781,9 +772,9 @@ class SnsApi {
   /// The following attribute applies only to
   /// [server-side-encryption](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html):
   ///
-  /// *    `KmsMasterKeyId` \- The ID of an AWS-managed customer master key
-  /// (CMK) for Amazon SNS or a custom CMK. For more information, see [Key
-  /// Terms](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms).
+  /// *    `KmsMasterKeyId` - The ID of an AWS-managed customer master key (CMK)
+  /// for Amazon SNS or a custom CMK. For more information, see
+  /// [Key Terms](https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html#sse-key-terms).
   /// For more examples, see
   /// [KeyId](https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestParameters)
   /// in the _AWS Key Management Service API Reference_.
@@ -887,9 +878,9 @@ class SnsApi {
     return SubscribeResponse.fromJson({});
   }
 
-  /// Add tags to the specified Amazon SNS topic. For an overview, see [Amazon
-  /// SNS Tags](https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html) in the
-  /// _Amazon SNS Developer Guide_.
+  /// Add tags to the specified Amazon SNS topic. For an overview, see
+  /// [Amazon SNS Tags](https://docs.aws.amazon.com/sns/latest/dg/sns-tags.html)
+  /// in the _Amazon SNS Developer Guide_.
   ///
   /// When you use topic tags, keep the following guidelines in mind:
   ///
@@ -904,12 +895,12 @@ class SnsApi {
   /// the existing tag.
   ///
   /// *   Tagging actions are limited to 10 TPS per AWS account. If your
-  /// application requires a higher throughput, file a [technical support
-  /// request](https://console.aws.amazon.com/support/home#/case/create?issueType=technical).
+  /// application requires a higher throughput, file a
+  /// [technical support request](https://console.aws.amazon.com/support/home#/case/create?issueType=technical).
   ///
   ///
-  /// For a full list of tag restrictions, see [Limits Related to
-  /// Topics](https://docs.aws.amazon.com/sns/latest/dg/sns-limits.html#limits-topics)
+  /// For a full list of tag restrictions, see
+  /// [Limits Related to Topics](https://docs.aws.amazon.com/sns/latest/dg/sns-limits.html#limits-topics)
   /// in the _Amazon SNS Developer Guide_.
   ///
   /// [resourceArn]: The ARN of the topic to which to add tags.
@@ -947,6 +938,7 @@ class SnsApi {
   }
 }
 
+/// The response from the `CheckIfPhoneNumberIsOptedOut` action.
 class CheckIfPhoneNumberIsOptedOutResponse {
   /// Indicates whether the phone number is opted out:
   ///
@@ -965,6 +957,7 @@ class CheckIfPhoneNumberIsOptedOutResponse {
       CheckIfPhoneNumberIsOptedOutResponse();
 }
 
+/// Response for ConfirmSubscriptions action.
 class ConfirmSubscriptionResponse {
   /// The ARN of the created subscription.
   final String subscriptionArn;
@@ -976,6 +969,7 @@ class ConfirmSubscriptionResponse {
       ConfirmSubscriptionResponse();
 }
 
+/// Response from CreateEndpoint action.
 class CreateEndpointResponse {
   /// EndpointArn returned from CreateEndpoint action.
   final String endpointArn;
@@ -987,6 +981,7 @@ class CreateEndpointResponse {
       CreateEndpointResponse();
 }
 
+/// Response from CreatePlatformApplication action.
 class CreatePlatformApplicationResponse {
   /// PlatformApplicationArn is returned.
   final String platformApplicationArn;
@@ -999,6 +994,7 @@ class CreatePlatformApplicationResponse {
       CreatePlatformApplicationResponse();
 }
 
+/// Response from CreateTopic action.
 class CreateTopicResponse {
   /// The Amazon Resource Name (ARN) assigned to the created topic.
   final String topicArn;
@@ -1010,6 +1006,7 @@ class CreateTopicResponse {
       CreateTopicResponse();
 }
 
+/// Endpoint for mobile app and device.
 class Endpoint {
   /// EndpointArn for mobile app and device.
   final String endpointArn;
@@ -1024,6 +1021,7 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Response from GetEndpointAttributes of the EndpointArn.
 class GetEndpointAttributesResponse {
   /// Attributes include the following:
   ///
@@ -1048,6 +1046,7 @@ class GetEndpointAttributesResponse {
       GetEndpointAttributesResponse();
 }
 
+/// Response for GetPlatformApplicationAttributes action.
 class GetPlatformApplicationAttributesResponse {
   /// Attributes include the following:
   ///
@@ -1073,6 +1072,7 @@ class GetPlatformApplicationAttributesResponse {
       GetPlatformApplicationAttributesResponse();
 }
 
+/// The response from the `GetSMSAttributes` request.
 class GetSmsAttributesResponse {
   /// The SMS attribute names and their values.
   final Map<String, String> attributes;
@@ -1084,6 +1084,7 @@ class GetSmsAttributesResponse {
       GetSmsAttributesResponse();
 }
 
+/// Response for GetSubscriptionAttributes action.
 class GetSubscriptionAttributesResponse {
   /// A map of the subscription's attributes. Attributes in this map include the
   /// following:
@@ -1124,6 +1125,7 @@ class GetSubscriptionAttributesResponse {
       GetSubscriptionAttributesResponse();
 }
 
+/// Response for GetTopicAttributes action.
 class GetTopicAttributesResponse {
   /// A map of the topic's attributes. Attributes in this map include the
   /// following:
@@ -1161,6 +1163,7 @@ class GetTopicAttributesResponse {
       GetTopicAttributesResponse();
 }
 
+/// Response for ListEndpointsByPlatformApplication action.
 class ListEndpointsByPlatformApplicationResponse {
   /// Endpoints returned for ListEndpointsByPlatformApplication action.
   final List<Endpoint> endpoints;
@@ -1179,6 +1182,7 @@ class ListEndpointsByPlatformApplicationResponse {
       ListEndpointsByPlatformApplicationResponse();
 }
 
+/// The response from the `ListPhoneNumbersOptedOut` action.
 class ListPhoneNumbersOptedOutResponse {
   /// A list of phone numbers that are opted out of receiving SMS messages. The
   /// list is paginated, and each page can contain up to 100 phone numbers.
@@ -1197,6 +1201,7 @@ class ListPhoneNumbersOptedOutResponse {
       ListPhoneNumbersOptedOutResponse();
 }
 
+/// Response for ListPlatformApplications action.
 class ListPlatformApplicationsResponse {
   /// Platform applications returned when calling ListPlatformApplications
   /// action.
@@ -1214,6 +1219,7 @@ class ListPlatformApplicationsResponse {
       ListPlatformApplicationsResponse();
 }
 
+/// Response for ListSubscriptionsByTopic action.
 class ListSubscriptionsByTopicResponse {
   /// A list of subscriptions.
   final List<Subscription> subscriptions;
@@ -1230,6 +1236,7 @@ class ListSubscriptionsByTopicResponse {
       ListSubscriptionsByTopicResponse();
 }
 
+/// Response for ListSubscriptions action
 class ListSubscriptionsResponse {
   /// A list of subscriptions.
   final List<Subscription> subscriptions;
@@ -1257,6 +1264,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Response for ListTopics action.
 class ListTopicsResponse {
   /// A list of topic ARNs.
   final List<Topic> topics;
@@ -1273,16 +1281,26 @@ class ListTopicsResponse {
       ListTopicsResponse();
 }
 
+/// The user-specified message attribute value. For string data types, the value
+/// attribute has the same restrictions on the content as the message body. For
+/// more information, see
+/// [Publish](https://docs.aws.amazon.com/sns/latest/api/API_Publish.html).
+///
+/// Name, type, and value must not be empty or null. In addition, the message
+/// body should not be empty or null. All parts of the message attribute,
+/// including name, type, and value, are included in the message size
+/// restriction, which is currently 256 KB (262,144 bytes). For more
+/// information, see
+/// [Using Amazon SNS Message Attributes](https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html).
 class MessageAttributeValue {
   /// Amazon SNS supports the following logical data types: String,
-  /// String.Array, Number, and Binary. For more information, see [Message
-  /// Attribute Data
-  /// Types](https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes).
+  /// String.Array, Number, and Binary. For more information, see
+  /// [Message Attribute Data Types](https://docs.aws.amazon.com/sns/latest/dg/SNSMessageAttributes.html#SNSMessageAttributes.DataTypes).
   final String dataType;
 
   /// Strings are Unicode with UTF8 binary encoding. For a list of code values,
-  /// see [ASCII Printable
-  /// Characters](https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
+  /// see
+  /// [ASCII Printable Characters](https://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
   final String stringValue;
 
   /// Binary type attributes can store any binary data, for example, compressed
@@ -1296,12 +1314,14 @@ class MessageAttributeValue {
   });
 }
 
+/// The response for the OptInPhoneNumber action.
 class OptInPhoneNumberResponse {
   OptInPhoneNumberResponse();
   static OptInPhoneNumberResponse fromJson(Map<String, dynamic> json) =>
       OptInPhoneNumberResponse();
 }
 
+/// Platform application object.
 class PlatformApplication {
   /// PlatformApplicationArn for platform application object.
   final String platformApplicationArn;
@@ -1317,6 +1337,7 @@ class PlatformApplication {
       PlatformApplication();
 }
 
+/// Response for Publish action.
 class PublishResponse {
   /// Unique identifier assigned to the published message.
   ///
@@ -1330,12 +1351,14 @@ class PublishResponse {
       PublishResponse();
 }
 
+/// The response for the SetSMSAttributes action.
 class SetSmsAttributesResponse {
   SetSmsAttributesResponse();
   static SetSmsAttributesResponse fromJson(Map<String, dynamic> json) =>
       SetSmsAttributesResponse();
 }
 
+/// Response for Subscribe action.
 class SubscribeResponse {
   /// The ARN of the subscription if it is confirmed, or the string "pending
   /// confirmation" if the subscription requires confirmation. However, if the
@@ -1351,6 +1374,7 @@ class SubscribeResponse {
       SubscribeResponse();
 }
 
+/// A wrapper type for the attributes of an Amazon SNS subscription.
 class Subscription {
   /// The subscription's ARN.
   final String subscriptionArn;
@@ -1377,6 +1401,7 @@ class Subscription {
   static Subscription fromJson(Map<String, dynamic> json) => Subscription();
 }
 
+/// The list of tags to be added to the specified topic.
 class Tag {
   /// The required key portion of the tag.
   final String key;
@@ -1397,6 +1422,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// A wrapper type for the topic's Amazon Resource Name (ARN). To retrieve a
+/// topic's attributes, use `GetTopicAttributes`.
 class Topic {
   /// The topic's ARN.
   final String topicArn;

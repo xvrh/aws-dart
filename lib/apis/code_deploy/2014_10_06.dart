@@ -68,17 +68,17 @@ import 'package:meta/meta.dart';
 ///
 ///  **AWS CodeDeploy Information Resources**
 ///
-/// *    [AWS CodeDeploy User
-/// Guide](https://docs.aws.amazon.com/codedeploy/latest/userguide)
+/// *
+/// [AWS CodeDeploy User Guide](https://docs.aws.amazon.com/codedeploy/latest/userguide)
 ///
-/// *    [AWS CodeDeploy API Reference
-/// Guide](https://docs.aws.amazon.com/codedeploy/latest/APIReference/)
+/// *
+/// [AWS CodeDeploy API Reference Guide](https://docs.aws.amazon.com/codedeploy/latest/APIReference/)
 ///
-/// *    [AWS CLI Reference for AWS
-/// CodeDeploy](https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html)
+/// *
+/// [AWS CLI Reference for AWS CodeDeploy](https://docs.aws.amazon.com/cli/latest/reference/deploy/index.html)
 ///
-/// *    [AWS CodeDeploy Developer
-/// Forum](https://forums.aws.amazon.com/forum.jspa?forumID=179)
+/// *
+/// [AWS CodeDeploy Developer Forum](https://forums.aws.amazon.com/forum.jspa?forumID=179)
 class CodeDeployApi {
   /// Adds tags to on-premises instances.
   ///
@@ -216,9 +216,9 @@ class CodeDeployApi {
   /// want to start rerouting traffic to the replacement environment.
   ///
   /// [deploymentWaitType]:  The status of the deployment's waiting period.
-  /// READY\_WAIT indicates the deployment is ready to start shifting traffic.
-  /// TERMINATION\_WAIT indicates the traffic is shifted, but the original
-  /// target is not terminated.
+  /// READY_WAIT indicates the deployment is ready to start shifting traffic.
+  /// TERMINATION_WAIT indicates the traffic is shifted, but the original target
+  /// is not terminated.
   Future<void> continueDeployment(
       {String deploymentId, String deploymentWaitType}) async {}
 
@@ -334,9 +334,9 @@ class CodeDeployApi {
   /// *   HOST_COUNT: The value parameter represents the minimum number of
   /// healthy instances as an absolute value.
   ///
-  /// *   FLEET\_PERCENT: The value parameter represents the minimum number of
+  /// *   FLEET_PERCENT: The value parameter represents the minimum number of
   /// healthy instances as a percentage of the total number of instances in the
-  /// deployment. If you specify FLEET\_PERCENT, at the start of the deployment,
+  /// deployment. If you specify FLEET_PERCENT, at the start of the deployment,
   /// AWS CodeDeploy converts the percentage to the equivalent number of
   /// instance and rounds up fractional instances.
   ///
@@ -377,8 +377,8 @@ class CodeDeployApi {
   /// deployment group.
   ///
   /// For more information about the predefined deployment configurations in AWS
-  /// CodeDeploy, see [Working with Deployment Groups in AWS
-  /// CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
+  /// CodeDeploy, see
+  /// [Working with Deployment Groups in AWS CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/deployment-configurations.html)
   /// in the AWS CodeDeploy User Guide.
   ///
   /// [ec2TagFilters]: The Amazon EC2 tags on which to filter. The deployment
@@ -395,9 +395,8 @@ class CodeDeployApi {
   /// the user's behalf when interacting with AWS services.
   ///
   /// [triggerConfigurations]: Information about triggers to create when the
-  /// deployment group is created. For examples, see [Create a Trigger for an
-  /// AWS CodeDeploy
-  /// Event](https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html)
+  /// deployment group is created. For examples, see
+  /// [Create a Trigger for an AWS CodeDeploy Event](https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-sns.html)
   /// in the AWS CodeDeploy User Guide.
   ///
   /// [alarmConfiguration]: Information to add about Amazon CloudWatch alarms
@@ -731,10 +730,10 @@ class CodeDeployApi {
   /// [targetFilters]:  A key used to filter the returned targets. The two valid
   /// values are:
   ///
-  /// *    `TargetStatus` \- A `TargetStatus` filter string can be `Failed`,
+  /// *    `TargetStatus` - A `TargetStatus` filter string can be `Failed`,
   /// `InProgress`, `Pending`, `Ready`, `Skipped`, `Succeeded`, or `Unknown`.
   ///
-  /// *    `ServerInstanceLabel` \- A `ServerInstanceLabel` filter string can be
+  /// *    `ServerInstanceLabel` - A `ServerInstanceLabel` filter string can be
   /// `Blue` or `Green`.
   Future<ListDeploymentTargetsOutput> listDeploymentTargets(
       {String deploymentId,
@@ -993,9 +992,8 @@ class CodeDeployApi {
   /// change it.
   ///
   /// [triggerConfigurations]: Information about triggers to change when the
-  /// deployment group is updated. For examples, see [Modify Triggers in an AWS
-  /// CodeDeploy Deployment
-  /// Group](https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html)
+  /// deployment group is updated. For examples, see
+  /// [Modify Triggers in an AWS CodeDeploy Deployment Group](https://docs.aws.amazon.com/codedeploy/latest/userguide/how-to-notify-edit.html)
   /// in the AWS CodeDeploy User Guide.
   ///
   /// [alarmConfiguration]: Information to add or change about Amazon CloudWatch
@@ -1049,6 +1047,7 @@ class CodeDeployApi {
   }
 }
 
+/// Information about an alarm.
 class Alarm {
   /// The name of the alarm. Maximum length is 255 characters. Each alarm name
   /// can be used only once in a list of alarms.
@@ -1060,6 +1059,7 @@ class Alarm {
   static Alarm fromJson(Map<String, dynamic> json) => Alarm();
 }
 
+/// Information about alarms associated with the deployment group.
 class AlarmConfiguration {
   /// Indicates whether the alarm configuration is enabled.
   final bool enabled;
@@ -1088,6 +1088,10 @@ class AlarmConfiguration {
       AlarmConfiguration();
 }
 
+///  A revision for an AWS Lambda or Amazon ECS deployment that is a
+/// YAML-formatted or JSON-formatted string. For AWS Lambda and Amazon ECS
+/// deployments, the revision is the same as the AppSpec file. This method
+/// replaces the deprecated `RawString` data type.
 class AppSpecContent {
   ///  The YAML-formatted or JSON-formatted revision string.
   ///
@@ -1114,6 +1118,7 @@ class AppSpecContent {
   static AppSpecContent fromJson(Map<String, dynamic> json) => AppSpecContent();
 }
 
+/// Information about an application.
 class ApplicationInfo {
   /// The application ID.
   final String applicationId;
@@ -1147,6 +1152,9 @@ class ApplicationInfo {
       ApplicationInfo();
 }
 
+/// Information about a configuration for automatically rolling back to a
+/// previous version of an application revision when a deployment is not
+/// completed successfully.
 class AutoRollbackConfiguration {
   /// Indicates whether a defined automatic rollback configuration is currently
   /// enabled.
@@ -1163,6 +1171,7 @@ class AutoRollbackConfiguration {
       AutoRollbackConfiguration();
 }
 
+/// Information about an Auto Scaling group.
 class AutoScalingGroup {
   /// The Auto Scaling group name.
   final String name;
@@ -1178,6 +1187,7 @@ class AutoScalingGroup {
       AutoScalingGroup();
 }
 
+/// Represents the output of a BatchGetApplicationRevisions operation.
 class BatchGetApplicationRevisionsOutput {
   /// The name of the application that corresponds to the revisions.
   final String applicationName;
@@ -1199,6 +1209,7 @@ class BatchGetApplicationRevisionsOutput {
       BatchGetApplicationRevisionsOutput();
 }
 
+/// Represents the output of a BatchGetApplications operation.
 class BatchGetApplicationsOutput {
   /// Information about the applications.
   final List<ApplicationInfo> applicationsInfo;
@@ -1210,6 +1221,7 @@ class BatchGetApplicationsOutput {
       BatchGetApplicationsOutput();
 }
 
+/// Represents the output of a BatchGetDeploymentGroups operation.
 class BatchGetDeploymentGroupsOutput {
   /// Information about the deployment groups.
   final List<DeploymentGroupInfo> deploymentGroupsInfo;
@@ -1225,6 +1237,7 @@ class BatchGetDeploymentGroupsOutput {
       BatchGetDeploymentGroupsOutput();
 }
 
+/// Represents the output of a BatchGetDeploymentInstances operation.
 class BatchGetDeploymentInstancesOutput {
   /// Information about the instance.
   final List<InstanceSummary> instancesSummary;
@@ -1262,6 +1275,7 @@ class BatchGetDeploymentTargetsOutput {
       BatchGetDeploymentTargetsOutput();
 }
 
+///  Represents the output of a BatchGetDeployments operation.
 class BatchGetDeploymentsOutput {
   ///  Information about the deployments.
   final List<DeploymentInfo> deploymentsInfo;
@@ -1273,6 +1287,7 @@ class BatchGetDeploymentsOutput {
       BatchGetDeploymentsOutput();
 }
 
+/// Represents the output of a BatchGetOnPremisesInstances operation.
 class BatchGetOnPremisesInstancesOutput {
   /// Information about the on-premises instances.
   final List<InstanceInfo> instanceInfos;
@@ -1285,6 +1300,7 @@ class BatchGetOnPremisesInstancesOutput {
       BatchGetOnPremisesInstancesOutput();
 }
 
+/// Information about blue/green deployment options for a deployment group.
 class BlueGreenDeploymentConfiguration {
   /// Information about whether to terminate instances in the original fleet
   /// during a blue/green deployment.
@@ -1307,6 +1323,9 @@ class BlueGreenDeploymentConfiguration {
       BlueGreenDeploymentConfiguration();
 }
 
+/// Information about whether instances in the original environment are
+/// terminated when a blue/green deployment is successful.
+/// `BlueInstanceTerminationOption` does not apply to Lambda deployments.
 class BlueInstanceTerminationOption {
   /// The action to take on instances in the original environment after a
   /// successful blue/green deployment.
@@ -1337,6 +1356,7 @@ class BlueInstanceTerminationOption {
       BlueInstanceTerminationOption();
 }
 
+/// Represents the output of a CreateApplication operation.
 class CreateApplicationOutput {
   /// A unique application ID.
   final String applicationId;
@@ -1348,6 +1368,7 @@ class CreateApplicationOutput {
       CreateApplicationOutput();
 }
 
+/// Represents the output of a CreateDeploymentConfig operation.
 class CreateDeploymentConfigOutput {
   /// A unique deployment configuration ID.
   final String deploymentConfigId;
@@ -1359,6 +1380,7 @@ class CreateDeploymentConfigOutput {
       CreateDeploymentConfigOutput();
 }
 
+/// Represents the output of a CreateDeploymentGroup operation.
 class CreateDeploymentGroupOutput {
   /// A unique deployment group ID.
   final String deploymentGroupId;
@@ -1370,6 +1392,7 @@ class CreateDeploymentGroupOutput {
       CreateDeploymentGroupOutput();
 }
 
+///  Represents the output of a CreateDeployment operation.
 class CreateDeploymentOutput {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -1381,6 +1404,7 @@ class CreateDeploymentOutput {
       CreateDeploymentOutput();
 }
 
+/// Represents the output of a DeleteDeploymentGroup operation.
 class DeleteDeploymentGroupOutput {
   /// If the output contains no data, and the corresponding deployment group
   /// contained at least one Auto Scaling group, AWS CodeDeploy successfully
@@ -1397,6 +1421,7 @@ class DeleteDeploymentGroupOutput {
       DeleteDeploymentGroupOutput();
 }
 
+/// Represents the output of a DeleteGitHubAccountToken operation.
 class DeleteGitHubAccountTokenOutput {
   /// The name of the GitHub account connection that was deleted.
   final String tokenName;
@@ -1408,6 +1433,7 @@ class DeleteGitHubAccountTokenOutput {
       DeleteGitHubAccountTokenOutput();
 }
 
+/// Information about a deployment configuration.
 class DeploymentConfigInfo {
   /// The deployment configuration ID.
   final String deploymentConfigId;
@@ -1441,6 +1467,7 @@ class DeploymentConfigInfo {
       DeploymentConfigInfo();
 }
 
+/// Information about a deployment group.
 class DeploymentGroupInfo {
   /// The application name.
   final String applicationName;
@@ -1467,8 +1494,8 @@ class DeploymentGroupInfo {
 
   /// A service role Amazon Resource Name (ARN) that grants CodeDeploy
   /// permission to make calls to AWS services on your behalf. For more
-  /// information, see [Create a Service Role for AWS
-  /// CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html)
+  /// information, see
+  /// [Create a Service Role for AWS CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/getting-started-create-service-role.html)
   /// in the _AWS CodeDeploy User Guide_.
   final String serviceRoleArn;
 
@@ -1553,6 +1580,7 @@ class DeploymentGroupInfo {
       DeploymentGroupInfo();
 }
 
+/// Information about a deployment.
 class DeploymentInfo {
   /// The application name.
   final String applicationName;
@@ -1726,6 +1754,7 @@ class DeploymentInfo {
   static DeploymentInfo fromJson(Map<String, dynamic> json) => DeploymentInfo();
 }
 
+/// Information about the deployment status of the instances in the deployment.
 class DeploymentOverview {
   /// The number of instances in the deployment in a pending state.
   final BigInt pending;
@@ -1759,6 +1788,8 @@ class DeploymentOverview {
       DeploymentOverview();
 }
 
+/// Information about how traffic is rerouted to instances in a replacement
+/// environment in a blue/green deployment.
 class DeploymentReadyOption {
   /// Information about when to reroute traffic from an original environment to
   /// a replacement environment in a blue/green deployment.
@@ -1786,6 +1817,8 @@ class DeploymentReadyOption {
       DeploymentReadyOption();
 }
 
+/// Information about the type of deployment, either in-place or blue/green, you
+/// want to run and whether to route deployment traffic behind a load balancer.
 class DeploymentStyle {
   /// Indicates whether to run an in-place deployment or a blue/green
   /// deployment.
@@ -1802,6 +1835,7 @@ class DeploymentStyle {
       DeploymentStyle();
 }
 
+///  Information about the deployment target.
 class DeploymentTarget {
   ///  The deployment type that is specific to the deployment's compute
   /// platform.
@@ -1829,6 +1863,8 @@ class DeploymentTarget {
       DeploymentTarget();
 }
 
+/// Diagnostic information about executable scripts that are part of a
+/// deployment.
 class Diagnostics {
   /// The associated error code:
   ///
@@ -1869,6 +1905,7 @@ class Diagnostics {
   static Diagnostics fromJson(Map<String, dynamic> json) => Diagnostics();
 }
 
+/// Information about an EC2 tag filter.
 class Ec2TagFilter {
   /// The tag filter key.
   final String key;
@@ -1882,7 +1919,7 @@ class Ec2TagFilter {
   ///
   /// *   VALUE_ONLY: Value only.
   ///
-  /// *   KEY\_AND\_VALUE: Key and value.
+  /// *   KEY_AND_VALUE: Key and value.
   final String type;
 
   Ec2TagFilter({
@@ -1893,6 +1930,7 @@ class Ec2TagFilter {
   static Ec2TagFilter fromJson(Map<String, dynamic> json) => Ec2TagFilter();
 }
 
+/// Information about groups of EC2 instance tags.
 class Ec2TagSet {
   /// A list that contains other lists of EC2 instance tag groups. For an
   /// instance to be included in the deployment group, it must be identified by
@@ -1905,6 +1943,8 @@ class Ec2TagSet {
   static Ec2TagSet fromJson(Map<String, dynamic> json) => Ec2TagSet();
 }
 
+///  Contains the service and cluster names used to identify an Amazon ECS
+/// deployment's target.
 class EcsService {
   ///  The name of the target Amazon ECS service.
   final String serviceName;
@@ -1919,6 +1959,7 @@ class EcsService {
   static EcsService fromJson(Map<String, dynamic> json) => EcsService();
 }
 
+///  Information about the target of an Amazon ECS deployment.
 class EcsTarget {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -1955,6 +1996,12 @@ class EcsTarget {
   static EcsTarget fromJson(Map<String, dynamic> json) => EcsTarget();
 }
 
+///  Information about a set of Amazon ECS tasks in an AWS CodeDeploy
+/// deployment. An Amazon ECS task set includes details such as the desired
+/// number of tasks, how many tasks are running, and whether the task set serves
+/// production traffic. An AWS CodeDeploy application that uses the Amazon ECS
+/// compute platform deploys a containerized application in an Amazon ECS
+/// service as a task set.
 class EcsTaskSet {
   ///  A unique ID of an `ECSTaskSet`.
   final String identifer;
@@ -2013,6 +2060,9 @@ class EcsTaskSet {
   static EcsTaskSet fromJson(Map<String, dynamic> json) => EcsTaskSet();
 }
 
+/// Information about a load balancer in Elastic Load Balancing to use in a
+/// deployment. Instances are registered directly with a load balancer, and
+/// traffic is routed to the load balancer.
 class ElbInfo {
   /// For blue/green deployments, the name of the load balancer that is used to
   /// route traffic from original instances to replacement instances in a
@@ -2028,11 +2078,12 @@ class ElbInfo {
   static ElbInfo fromJson(Map<String, dynamic> json) => ElbInfo();
 }
 
+/// Information about a deployment error.
 class ErrorInformation {
-  /// For more information, see [Error Codes for AWS
-  /// CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html)
-  /// in the [AWS CodeDeploy User
-  /// Guide](https://docs.aws.amazon.com/codedeploy/latest/userguide).
+  /// For more information, see
+  /// [Error Codes for AWS CodeDeploy](https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html)
+  /// in the
+  /// [AWS CodeDeploy User Guide](https://docs.aws.amazon.com/codedeploy/latest/userguide).
   ///
   /// The error code:
   ///
@@ -2040,30 +2091,30 @@ class ErrorInformation {
   /// most likely raised if the application is deleted after the deployment is
   /// created, but before it is started.
   ///
-  /// *   DEPLOYMENT\_GROUP\_MISSING: The deployment group was missing. This
-  /// error code is most likely raised if the deployment group is deleted after
-  /// the deployment is created, but before it is started.
+  /// *   DEPLOYMENT_GROUP_MISSING: The deployment group was missing. This error
+  /// code is most likely raised if the deployment group is deleted after the
+  /// deployment is created, but before it is started.
   ///
   /// *   HEALTH_CONSTRAINTS: The deployment failed on too many instances to be
   /// successfully deployed within the instance health constraints specified.
   ///
-  /// *   HEALTH\_CONSTRAINTS\_INVALID: The revision cannot be successfully
+  /// *   HEALTH_CONSTRAINTS_INVALID: The revision cannot be successfully
   /// deployed within the instance health constraints specified.
   ///
-  /// *   IAM\_ROLE\_MISSING: The service role cannot be accessed.
+  /// *   IAM_ROLE_MISSING: The service role cannot be accessed.
   ///
-  /// *   IAM\_ROLE\_PERMISSIONS: The service role does not have the correct
+  /// *   IAM_ROLE_PERMISSIONS: The service role does not have the correct
   /// permissions.
   ///
   /// *   INTERNAL_ERROR: There was an internal error.
   ///
-  /// *   NO\_EC2\_SUBSCRIPTION: The calling account is not subscribed to Amazon
+  /// *   NO_EC2_SUBSCRIPTION: The calling account is not subscribed to Amazon
   /// EC2.
   ///
   /// *   NO_INSTANCES: No instances were specified, or no instances can be
   /// found.
   ///
-  /// *   OVER\_MAX\_INSTANCES: The maximum number of instances was exceeded.
+  /// *   OVER_MAX_INSTANCES: The maximum number of instances was exceeded.
   ///
   /// *   THROTTLED: The operation was throttled because the calling account
   /// exceeded the throttling limits of one or more AWS services.
@@ -2086,6 +2137,7 @@ class ErrorInformation {
       ErrorInformation();
 }
 
+/// Information about an application revision.
 class GenericRevisionInfo {
   /// A comment about the revision.
   final String description;
@@ -2113,6 +2165,7 @@ class GenericRevisionInfo {
       GenericRevisionInfo();
 }
 
+/// Represents the output of a GetApplication operation.
 class GetApplicationOutput {
   /// Information about the application.
   final ApplicationInfo application;
@@ -2124,6 +2177,7 @@ class GetApplicationOutput {
       GetApplicationOutput();
 }
 
+/// Represents the output of a GetApplicationRevision operation.
 class GetApplicationRevisionOutput {
   /// The name of the application that corresponds to the revision.
   final String applicationName;
@@ -2143,6 +2197,7 @@ class GetApplicationRevisionOutput {
       GetApplicationRevisionOutput();
 }
 
+/// Represents the output of a GetDeploymentConfig operation.
 class GetDeploymentConfigOutput {
   /// Information about the deployment configuration.
   final DeploymentConfigInfo deploymentConfigInfo;
@@ -2154,6 +2209,7 @@ class GetDeploymentConfigOutput {
       GetDeploymentConfigOutput();
 }
 
+/// Represents the output of a GetDeploymentGroup operation.
 class GetDeploymentGroupOutput {
   /// Information about the deployment group.
   final DeploymentGroupInfo deploymentGroupInfo;
@@ -2165,6 +2221,7 @@ class GetDeploymentGroupOutput {
       GetDeploymentGroupOutput();
 }
 
+///  Represents the output of a GetDeploymentInstance operation.
 class GetDeploymentInstanceOutput {
   ///  Information about the instance.
   final InstanceSummary instanceSummary;
@@ -2176,6 +2233,7 @@ class GetDeploymentInstanceOutput {
       GetDeploymentInstanceOutput();
 }
 
+/// Represents the output of a GetDeployment operation.
 class GetDeploymentOutput {
   /// Information about the deployment.
   final DeploymentInfo deploymentInfo;
@@ -2202,6 +2260,7 @@ class GetDeploymentTargetOutput {
       GetDeploymentTargetOutput();
 }
 
+///  Represents the output of a GetOnPremisesInstance operation.
 class GetOnPremisesInstanceOutput {
   ///  Information about the on-premises instance.
   final InstanceInfo instanceInfo;
@@ -2213,6 +2272,7 @@ class GetOnPremisesInstanceOutput {
       GetOnPremisesInstanceOutput();
 }
 
+/// Information about the location of application artifacts stored in GitHub.
 class GitHubLocation {
   /// The GitHub account and repository pair that stores a reference to the
   /// commit that represents the bundled artifacts for the application revision.
@@ -2231,13 +2291,15 @@ class GitHubLocation {
   static GitHubLocation fromJson(Map<String, dynamic> json) => GitHubLocation();
 }
 
+/// Information about the instances that belong to the replacement environment
+/// in a blue/green deployment.
 class GreenFleetProvisioningOption {
   /// The method used to add instances to a replacement environment.
   ///
   /// *   DISCOVER_EXISTING: Use instances that already exist or will be created
   /// manually.
   ///
-  /// *   COPY\_AUTO\_SCALING_GROUP: Use settings from a specified Auto Scaling
+  /// *   COPY_AUTO_SCALING_GROUP: Use settings from a specified Auto Scaling
   /// group to define and create instances in a new Auto Scaling group.
   final String action;
 
@@ -2248,6 +2310,7 @@ class GreenFleetProvisioningOption {
       GreenFleetProvisioningOption();
 }
 
+/// Information about an on-premises instance.
 class InstanceInfo {
   /// The name of the on-premises instance.
   final String instanceName;
@@ -2283,6 +2346,7 @@ class InstanceInfo {
   static InstanceInfo fromJson(Map<String, dynamic> json) => InstanceInfo();
 }
 
+/// Information about an instance in a deployment.
 class InstanceSummary {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -2332,6 +2396,8 @@ class InstanceSummary {
       InstanceSummary();
 }
 
+///  A target Amazon EC2 or on-premises instance during a deployment that uses
+/// the EC2/On-premises compute platform.
 class InstanceTarget {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -2367,13 +2433,13 @@ class InstanceTarget {
   static InstanceTarget fromJson(Map<String, dynamic> json) => InstanceTarget();
 }
 
+///  Information about a Lambda function specified in a deployment.
 class LambdaFunctionInfo {
   ///  The name of a Lambda function.
   final String functionName;
 
-  ///  The alias of a Lambda function. For more information, see [Introduction
-  /// to AWS Lambda
-  /// Aliases](https://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html).
+  ///  The alias of a Lambda function. For more information, see
+  /// [Introduction to AWS Lambda Aliases](https://docs.aws.amazon.com/lambda/latest/dg/aliases-intro.html).
   final String functionAlias;
 
   ///  The version of a Lambda function that production traffic points to.
@@ -2398,6 +2464,8 @@ class LambdaFunctionInfo {
       LambdaFunctionInfo();
 }
 
+///  Information about the target AWS Lambda function during an AWS Lambda
+/// deployment.
 class LambdaTarget {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -2433,6 +2501,8 @@ class LambdaTarget {
   static LambdaTarget fromJson(Map<String, dynamic> json) => LambdaTarget();
 }
 
+/// Information about the most recent attempted or successful deployment to a
+/// deployment group.
 class LastDeploymentInfo {
   ///  The unique ID of a deployment.
   final String deploymentId;
@@ -2458,6 +2528,7 @@ class LastDeploymentInfo {
       LastDeploymentInfo();
 }
 
+/// Information about a deployment lifecycle event.
 class LifecycleEvent {
   /// The deployment lifecycle event name, such as ApplicationStop,
   /// BeforeInstall, AfterInstall, ApplicationStart, or ValidateService.
@@ -2497,6 +2568,7 @@ class LifecycleEvent {
   static LifecycleEvent fromJson(Map<String, dynamic> json) => LifecycleEvent();
 }
 
+/// Represents the output of a ListApplicationRevisions operation.
 class ListApplicationRevisionsOutput {
   /// A list of locations that contain the matching revisions.
   final List<RevisionLocation> revisions;
@@ -2514,6 +2586,7 @@ class ListApplicationRevisionsOutput {
       ListApplicationRevisionsOutput();
 }
 
+/// Represents the output of a ListApplications operation.
 class ListApplicationsOutput {
   /// A list of application names.
   final List<String> applications;
@@ -2531,6 +2604,7 @@ class ListApplicationsOutput {
       ListApplicationsOutput();
 }
 
+/// Represents the output of a ListDeploymentConfigs operation.
 class ListDeploymentConfigsOutput {
   /// A list of deployment configurations, including built-in configurations
   /// such as CodeDeployDefault.OneAtATime.
@@ -2549,6 +2623,7 @@ class ListDeploymentConfigsOutput {
       ListDeploymentConfigsOutput();
 }
 
+/// Represents the output of a ListDeploymentGroups operation.
 class ListDeploymentGroupsOutput {
   /// The application name.
   final String applicationName;
@@ -2570,6 +2645,7 @@ class ListDeploymentGroupsOutput {
       ListDeploymentGroupsOutput();
 }
 
+/// Represents the output of a ListDeploymentInstances operation.
 class ListDeploymentInstancesOutput {
   /// A list of instance IDs.
   final List<String> instancesList;
@@ -2604,6 +2680,7 @@ class ListDeploymentTargetsOutput {
       ListDeploymentTargetsOutput();
 }
 
+/// Represents the output of a ListDeployments operation.
 class ListDeploymentsOutput {
   /// A list of deployment IDs.
   final List<String> deployments;
@@ -2621,6 +2698,7 @@ class ListDeploymentsOutput {
       ListDeploymentsOutput();
 }
 
+/// Represents the output of a ListGitHubAccountTokenNames operation.
 class ListGitHubAccountTokenNamesOutput {
   /// A list of names of connections to GitHub accounts.
   final List<String> tokenNameList;
@@ -2639,6 +2717,7 @@ class ListGitHubAccountTokenNamesOutput {
       ListGitHubAccountTokenNamesOutput();
 }
 
+/// Represents the output of the list on-premises instances operation.
 class ListOnPremisesInstancesOutput {
   /// The list of matching on-premises instance names.
   final List<String> instanceNames;
@@ -2674,6 +2753,8 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// Information about the Elastic Load Balancing load balancer or target group
+/// used in a deployment.
 class LoadBalancerInfo {
   /// An array that contains information about the load balancer to use for load
   /// balancing in a deployment. In Elastic Load Balancing, load balancers are
@@ -2702,6 +2783,7 @@ class LoadBalancerInfo {
       LoadBalancerInfo();
 }
 
+/// Information about minimum healthy instance.
 class MinimumHealthyHosts {
   /// The minimum healthy instance value.
   final int value;
@@ -2715,25 +2797,25 @@ class MinimumHealthyHosts {
   /// of the total number of instance in the deployment.
   ///
   ///
-  /// In an example of nine instance, if a HOST\_COUNT of six is specified,
+  /// In an example of nine instance, if a HOST_COUNT of six is specified,
   /// deploy to up to three instances at a time. The deployment is successful if
   /// six or more instances are deployed to successfully. Otherwise, the
-  /// deployment fails. If a FLEET\_PERCENT of 40 is specified, deploy to up to
+  /// deployment fails. If a FLEET_PERCENT of 40 is specified, deploy to up to
   /// five instance at a time. The deployment is successful if four or more
   /// instance are deployed to successfully. Otherwise, the deployment fails.
   ///
   ///  In a call to the `GetDeploymentConfig`, CodeDeployDefault.OneAtATime
-  /// returns a minimum healthy instance type of MOST\_CONCURRENCY and a value
-  /// of 1. This means a deployment to only one instance at a time. (You cannot
-  /// set the type to MOST\_CONCURRENCY, only to HOST\_COUNT or FLEET\_PERCENT.)
-  /// In addition, with CodeDeployDefault.OneAtATime, AWS CodeDeploy attempts to
+  /// returns a minimum healthy instance type of MOST_CONCURRENCY and a value of
+  /// 1. This means a deployment to only one instance at a time. (You cannot set
+  /// the type to MOST_CONCURRENCY, only to HOST_COUNT or FLEET_PERCENT.) In
+  /// addition, with CodeDeployDefault.OneAtATime, AWS CodeDeploy attempts to
   /// ensure that all instances but one are kept in a healthy state during the
   /// deployment. Although this allows one instance at a time to be taken
   /// offline for a new deployment, it also means that if the deployment to the
   /// last instance fails, the overall deployment is still successful.
   ///
-  /// For more information, see [AWS CodeDeploy Instance
-  /// Health](https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html)
+  /// For more information, see
+  /// [AWS CodeDeploy Instance Health](https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html)
   /// in the _AWS CodeDeploy User Guide_.
   final String type;
 
@@ -2745,6 +2827,7 @@ class MinimumHealthyHosts {
       MinimumHealthyHosts();
 }
 
+/// Information about groups of on-premises instance tags.
 class OnPremisesTagSet {
   /// A list that contains other lists of on-premises instance tag groups. For
   /// an instance to be included in the deployment group, it must be identified
@@ -2771,6 +2854,9 @@ class PutLifecycleEventHookExecutionStatusOutput {
       PutLifecycleEventHookExecutionStatusOutput();
 }
 
+/// A revision for an AWS Lambda deployment that is a YAML-formatted or
+/// JSON-formatted string. For AWS Lambda deployments, the revision is the same
+/// as the AppSpec file.
 class RawString {
   /// The YAML-formatted or JSON-formatted revision string. It includes
   /// information about which Lambda function to update and optional Lambda
@@ -2787,6 +2873,7 @@ class RawString {
   static RawString fromJson(Map<String, dynamic> json) => RawString();
 }
 
+/// Information about an application revision.
 class RevisionInfo {
   /// Information about the location and type of an application revision.
   final RevisionLocation revisionLocation;
@@ -2802,6 +2889,7 @@ class RevisionInfo {
   static RevisionInfo fromJson(Map<String, dynamic> json) => RevisionInfo();
 }
 
+/// Information about the location of an application revision.
 class RevisionLocation {
   /// The type of application revision:
   ///
@@ -2840,6 +2928,7 @@ class RevisionLocation {
       RevisionLocation();
 }
 
+/// Information about a deployment rollback.
 class RollbackInfo {
   /// The ID of the deployment rollback.
   final String rollbackDeploymentId;
@@ -2861,6 +2950,7 @@ class RollbackInfo {
   static RollbackInfo fromJson(Map<String, dynamic> json) => RollbackInfo();
 }
 
+/// Information about the location of application artifacts stored in Amazon S3.
 class S3Location {
   /// The name of the Amazon S3 bucket where the application revision is stored.
   final String bucket;
@@ -2902,6 +2992,7 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+///  Represents the output of a StopDeployment operation.
 class StopDeploymentOutput {
   /// The status of the stop deployment operation:
   ///
@@ -2921,6 +3012,7 @@ class StopDeploymentOutput {
       StopDeploymentOutput();
 }
 
+/// Information about a tag.
 class Tag {
   /// The tag's key.
   final String key;
@@ -2935,6 +3027,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Information about an on-premises instance tag filter.
 class TagFilter {
   /// The on-premises instance tag filter key.
   final String key;
@@ -2948,7 +3041,7 @@ class TagFilter {
   ///
   /// *   VALUE_ONLY: Value only.
   ///
-  /// *   KEY\_AND\_VALUE: Key and value.
+  /// *   KEY_AND_VALUE: Key and value.
   final String type;
 
   TagFilter({
@@ -2965,6 +3058,9 @@ class TagResourceOutput {
       TagResourceOutput();
 }
 
+/// Information about a target group in Elastic Load Balancing to use in a
+/// deployment. Instances are registered as targets in a target group, and
+/// traffic is routed to the target group.
 class TargetGroupInfo {
   /// For blue/green deployments, the name of the target group that instances in
   /// the original environment are deregistered from, and instances in the
@@ -2981,6 +3077,8 @@ class TargetGroupInfo {
       TargetGroupInfo();
 }
 
+///  Information about two target groups and how traffic is routed during an
+/// Amazon ECS deployment. An optional test traffic route can be specified.
 class TargetGroupPairInfo {
   ///  One pair of target groups. One is associated with the original task set.
   /// The second is associated with the task set that serves traffic after the
@@ -3005,6 +3103,8 @@ class TargetGroupPairInfo {
       TargetGroupPairInfo();
 }
 
+/// Information about the instances to be used in the replacement environment in
+/// a blue/green deployment.
 class TargetInstances {
   /// The tag filter key, type, and value used to identify Amazon EC2 instances
   /// in a replacement environment for a blue/green deployment. Cannot be used
@@ -3030,6 +3130,9 @@ class TargetInstances {
       TargetInstances();
 }
 
+/// A configuration that shifts traffic from one version of a Lambda function to
+/// another in two increments. The original and target Lambda function versions
+/// are specified in the deployment's AppSpec file.
 class TimeBasedCanary {
   /// The percentage of traffic to shift in the first increment of a
   /// `TimeBasedCanary` deployment.
@@ -3047,6 +3150,10 @@ class TimeBasedCanary {
       TimeBasedCanary();
 }
 
+/// A configuration that shifts traffic from one version of a Lambda function to
+/// another in equal increments, with an equal number of minutes between each
+/// increment. The original and target Lambda function versions are specified in
+/// the deployment's AppSpec file.
 class TimeBasedLinear {
   /// The percentage of traffic that is shifted at the start of each increment
   /// of a `TimeBasedLinear` deployment.
@@ -3064,6 +3171,7 @@ class TimeBasedLinear {
       TimeBasedLinear();
 }
 
+/// Information about a time range.
 class TimeRange {
   /// The start time of the time range.
   ///
@@ -3085,6 +3193,8 @@ class TimeRange {
   });
 }
 
+///  Information about a listener. The listener contains the path used to route
+/// traffic that is received from the load balancer to a target group.
 class TrafficRoute {
   ///  The ARN of one listener. The listener identifies the route between a
   /// target group and a load balancer. This is an array of strings with a
@@ -3097,6 +3207,8 @@ class TrafficRoute {
   static TrafficRoute fromJson(Map<String, dynamic> json) => TrafficRoute();
 }
 
+/// The configuration that specifies how traffic is shifted from one version of
+/// a Lambda function to another version during an AWS Lambda deployment.
 class TrafficRoutingConfig {
   /// The type of traffic shifting (`TimeBasedCanary` or `TimeBasedLinear`) used
   /// by a deployment configuration .
@@ -3122,6 +3234,7 @@ class TrafficRoutingConfig {
       TrafficRoutingConfig();
 }
 
+/// Information about notification triggers for the deployment group.
 class TriggerConfig {
   /// The name of the notification trigger.
   final String triggerName;
@@ -3147,6 +3260,7 @@ class UntagResourceOutput {
       UntagResourceOutput();
 }
 
+/// Represents the output of an UpdateDeploymentGroup operation.
 class UpdateDeploymentGroupOutput {
   /// If the output contains no data, and the corresponding deployment group
   /// contained at least one Auto Scaling group, AWS CodeDeploy successfully

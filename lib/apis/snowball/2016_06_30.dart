@@ -321,8 +321,8 @@ class SnowballApi {
   /// This action returns a list of the different Amazon EC2 Amazon Machine
   /// Images (AMIs) that are owned by your AWS account that would be supported
   /// for use on `EDGE`, `EDGE_C`, and `EDGE_CG` devices. For more information
-  /// on compatible AMIs, see [Using Amazon EC2 Compute
-  /// Instances](http://docs.aws.amazon.com/snowball/latest/developer-guide/using-ec2.html)
+  /// on compatible AMIs, see
+  /// [Using Amazon EC2 Compute Instances](http://docs.aws.amazon.com/snowball/latest/developer-guide/using-ec2.html)
   /// in the _AWS Snowball Developer Guide_.
   ///
   /// [maxResults]: The maximum number of results for the list of compatible
@@ -433,6 +433,12 @@ class SnowballApi {
   }
 }
 
+/// The address that you want the Snowball or Snowballs associated with a
+/// specific job to be shipped to. Addresses are validated at the time of
+/// creation. The address you provide must be located within the serviceable
+/// area of your region. Although no individual elements of the `Address` are
+/// required, if the address is invalid or unsupported, then an exception is
+/// thrown.
 class Address {
   /// The unique ID for an address.
   final String addressId;
@@ -509,6 +515,7 @@ class CancelJobResult {
       CancelJobResult();
 }
 
+/// Contains a cluster's state, a cluster's ID, and other important information.
 class ClusterListEntry {
   /// The 39-character ID for the cluster that you want to list, for example
   /// `CID123e4567-e89b-12d3-a456-426655440000`.
@@ -535,6 +542,7 @@ class ClusterListEntry {
       ClusterListEntry();
 }
 
+/// Contains metadata about a specific cluster.
 class ClusterMetadata {
   /// The automatically generated ID for a cluster.
   final String clusterId;
@@ -621,6 +629,10 @@ class ClusterMetadata {
       ClusterMetadata();
 }
 
+/// A JSON-formatted object that describes a compatible Amazon Machine Image
+/// (AMI). For more information on compatible AMIs, see
+/// [Using Amazon EC2 Compute Instances](http://docs.aws.amazon.com/snowball/latest/developer-guide/using-ec2.html)
+/// in the _AWS Snowball Developer Guide_.
 class CompatibleImage {
   /// The unique identifier for an individual Snowball Edge AMI.
   final String amiId;
@@ -672,6 +684,9 @@ class CreateJobResult {
       CreateJobResult();
 }
 
+/// Defines the real-time status of a Snowball's data transfer while the device
+/// is at AWS. This data is only available while a job has a `JobState` value of
+/// `InProgress`, for both import and export jobs.
 class DataTransfer {
   /// The number of bytes transferred between a Snowball and Amazon S3.
   final BigInt bytesTransferred;
@@ -756,6 +771,10 @@ class DescribeJobResult {
       DescribeJobResult();
 }
 
+/// A JSON-formatted object that contains the IDs for an Amazon Machine Image
+/// (AMI), including the Amazon EC2 AMI ID and the Snowball Edge AMI ID. Each
+/// AMI has these two IDs to simplify identifying the AMI in both the AWS Cloud
+/// and on the device.
 class Ec2AmiResource {
   /// The ID of the AMI in Amazon EC2.
   final String amiId;
@@ -770,6 +789,7 @@ class Ec2AmiResource {
   static Ec2AmiResource fromJson(Map<String, dynamic> json) => Ec2AmiResource();
 }
 
+/// The container for the EventTriggerDefinition$EventResourceARN.
 class EventTriggerDefinition {
   /// The Amazon Resource Name (ARN) for any local Amazon S3 resource that is an
   /// AWS Lambda function's event trigger associated with this job.
@@ -822,6 +842,8 @@ class GetSnowballUsageResult {
       GetSnowballUsageResult();
 }
 
+/// Each `JobListEntry` object contains a job's state, a job's ID, and a value
+/// that indicates whether the job is a job part, in the case of an export job.
 class JobListEntry {
   /// The automatically generated ID for a job, for example
   /// `JID123e4567-e89b-12d3-a456-426655440000`.
@@ -864,6 +886,26 @@ class JobListEntry {
   static JobListEntry fromJson(Map<String, dynamic> json) => JobListEntry();
 }
 
+/// Contains job logs. Whenever Snowball is used to import data into or export
+/// data out of Amazon S3, you'll have the option of downloading a PDF job
+/// report. Job logs are returned as a part of the response syntax of the
+/// `DescribeJob` action in the `JobMetadata` data type. The job logs can be
+/// accessed for up to 60 minutes after this request has been made. To access
+/// any of the job logs after 60 minutes have passed, you'll have to make
+/// another call to the `DescribeJob` action.
+///
+/// For import jobs, the PDF job report becomes available at the end of the
+/// import process. For export jobs, your job report typically becomes available
+/// while the Snowball for your job part is being delivered to you.
+///
+/// The job report provides you insight into the state of your Amazon S3 data
+/// transfer. The report includes details about your job or job part for your
+/// records.
+///
+/// For deeper visibility into the status of your transferred objects, you can
+/// look at the two associated logs: a success log and a failure log. The logs
+/// are saved in comma-separated value (CSV) format, and the name of each log
+/// includes the ID of the job or job part that the log describes.
 class JobLogs {
   /// A link to an Amazon S3 presigned URL where the job completion report is
   /// located.
@@ -883,6 +925,9 @@ class JobLogs {
   static JobLogs fromJson(Map<String, dynamic> json) => JobLogs();
 }
 
+/// Contains information about a specific job including shipping information,
+/// job status, and other important metadata. This information is returned as a
+/// part of the response syntax of the `DescribeJob` action.
 class JobMetadata {
   /// The automatically generated ID for a job, for example
   /// `JID123e4567-e89b-12d3-a456-426655440000`.
@@ -979,6 +1024,9 @@ class JobMetadata {
   static JobMetadata fromJson(Map<String, dynamic> json) => JobMetadata();
 }
 
+/// Contains an array of AWS resource objects. Each object represents an Amazon
+/// S3 bucket, an AWS Lambda function, or an Amazon Machine Image (AMI) based on
+/// Amazon EC2 that is associated with a particular job.
 class JobResource {
   /// An array of `S3Resource` objects.
   final List<S3Resource> s3Resources;
@@ -997,6 +1045,10 @@ class JobResource {
   static JobResource fromJson(Map<String, dynamic> json) => JobResource();
 }
 
+/// Contains a key range. For export jobs, a `S3Resource` object can have an
+/// optional `KeyRange` value. The length of the range is defined at job
+/// creation, and has either an inclusive `BeginMarker`, an inclusive
+/// `EndMarker`, or both. Ranges are UTF-8 binary sorted.
 class KeyRange {
   /// The key that starts an optional key range for an export job. Ranges are
   /// inclusive and UTF-8 binary sorted.
@@ -1013,6 +1065,7 @@ class KeyRange {
   static KeyRange fromJson(Map<String, dynamic> json) => KeyRange();
 }
 
+/// Identifies
 class LambdaResource {
   /// An Amazon Resource Name (ARN) that represents an AWS Lambda function to be
   /// triggered by PUT object actions on the associated local Amazon S3
@@ -1099,6 +1152,16 @@ class ListJobsResult {
   static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
 }
 
+/// The Amazon Simple Notification Service (Amazon SNS) notification settings
+/// associated with a specific job. The `Notification` object is returned as a
+/// part of the response syntax of the `DescribeJob` action in the `JobMetadata`
+/// data type.
+///
+/// When the notification settings are defined during job creation, you can
+/// choose to notify based on a specific set of job states using the
+/// `JobStatesToNotify` array of strings, or you can specify that you want to
+/// have Amazon SNS notifications sent out for all job states with `NotifyAll`
+/// set to true.
 class Notification {
   /// The new SNS `TopicArn` that you want to associate with this job. You can
   /// create Amazon Resource Names (ARNs) for topics by using the
@@ -1125,6 +1188,11 @@ class Notification {
   static Notification fromJson(Map<String, dynamic> json) => Notification();
 }
 
+/// Each `S3Resource` object represents an Amazon S3 bucket that your
+/// transferred data will be exported from or imported into. For export jobs,
+/// this object can have an optional `KeyRange` value. The length of the range
+/// is defined at job creation, and has either an inclusive `BeginMarker`, an
+/// inclusive `EndMarker`, or both. Ranges are UTF-8 binary sorted.
 class S3Resource {
   /// The Amazon Resource Name (ARN) of an Amazon S3 bucket.
   final String bucketArn;
@@ -1142,6 +1210,8 @@ class S3Resource {
   static S3Resource fromJson(Map<String, dynamic> json) => S3Resource();
 }
 
+/// The `Status` and `TrackingNumber` information for an inbound or outbound
+/// shipment.
 class Shipment {
   /// Status information for a shipment.
   final String status;
@@ -1161,6 +1231,8 @@ class Shipment {
   static Shipment fromJson(Map<String, dynamic> json) => Shipment();
 }
 
+/// A job's shipping information, including inbound and outbound tracking
+/// numbers and shipping speed options.
 class ShippingDetails {
   /// The shipping speed for a particular job. This speed doesn't dictate how
   /// soon you'll get the Snowball from the job's creation date. This speed

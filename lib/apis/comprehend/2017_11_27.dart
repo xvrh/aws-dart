@@ -7,8 +7,7 @@ import 'package:meta/meta.dart';
 class ComprehendApi {
   /// Determines the dominant language of the input text for a batch of
   /// documents. For a list of languages that Amazon Comprehend can detect, see
-  /// [Amazon Comprehend Supported
-  /// Languages](https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html).
+  /// [Amazon Comprehend Supported Languages](https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html).
   ///
   /// [textList]: A list containing the text of the input documents. The list
   /// can contain a maximum of 25 documents. Each document should contain at
@@ -128,8 +127,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your custom
-  /// classifier. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// classifier. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<CreateDocumentClassifierResponse> createDocumentClassifier(
       {@required String documentClassifierName,
       @required String dataAccessRoleArn,
@@ -183,8 +182,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your custom
-  /// entity recognizer. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// entity recognizer. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<CreateEntityRecognizerResponse> createEntityRecognizer(
       {@required String recognizerName,
       @required String dataAccessRoleArn,
@@ -313,9 +312,8 @@ class ComprehendApi {
   }
 
   /// Determines the dominant language of the input text. For a list of
-  /// languages that Amazon Comprehend can detect, see [Amazon Comprehend
-  /// Supported
-  /// Languages](https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html).
+  /// languages that Amazon Comprehend can detect, see
+  /// [Amazon Comprehend Supported Languages](https://docs.aws.amazon.com/comprehend/latest/dg/how-languages.html).
   ///
   /// [text]: A UTF-8 text string. Each string should contain at least 20
   /// characters and must contain fewer that 5,000 bytes of UTF-8 encoded
@@ -569,8 +567,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your
-  /// document classification job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// document classification job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartDocumentClassificationJobResponse> startDocumentClassificationJob(
       {String jobName,
       @required String documentClassifierArn,
@@ -613,8 +611,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your
-  /// dominant language detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// dominant language detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartDominantLanguageDetectionJobResponse>
       startDominantLanguageDetectionJob(
           {@required InputDataConfig inputDataConfig,
@@ -673,8 +671,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your entity
-  /// detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartEntitiesDetectionJobResponse> startEntitiesDetectionJob(
       {@required InputDataConfig inputDataConfig,
       @required OutputDataConfig outputDataConfig,
@@ -723,8 +721,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]:  Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your key
-  /// phrases detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// phrases detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartKeyPhrasesDetectionJobResponse> startKeyPhrasesDetectionJob(
       {@required InputDataConfig inputDataConfig,
       @required OutputDataConfig outputDataConfig,
@@ -772,8 +770,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your
-  /// sentiment detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// sentiment detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartSentimentDetectionJobResponse> startSentimentDetectionJob(
       {@required InputDataConfig inputDataConfig,
       @required OutputDataConfig outputDataConfig,
@@ -821,8 +819,8 @@ class ComprehendApi {
   ///
   /// [vpcConfig]: Configuration parameters for an optional private Virtual
   /// Private Cloud (VPC) containing the resources you are using for your topic
-  /// detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   Future<StartTopicsDetectionJobResponse> startTopicsDetectionJob(
       {@required InputDataConfig inputDataConfig,
       @required OutputDataConfig outputDataConfig,
@@ -976,6 +974,8 @@ class ComprehendApi {
   }
 }
 
+/// The result of calling the operation. The operation returns one object for
+/// each document that is successfully processed by the operation.
 class BatchDetectDominantLanguageItemResult {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1015,6 +1015,8 @@ class BatchDetectDominantLanguageResponse {
       BatchDetectDominantLanguageResponse();
 }
 
+/// The result of calling the operation. The operation returns one object for
+/// each document that is successfully processed by the operation.
 class BatchDetectEntitiesItemResult {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1051,6 +1053,8 @@ class BatchDetectEntitiesResponse {
       BatchDetectEntitiesResponse();
 }
 
+/// The result of calling the operation. The operation returns one object for
+/// each document that is successfully processed by the operation.
 class BatchDetectKeyPhrasesItemResult {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1088,6 +1092,8 @@ class BatchDetectKeyPhrasesResponse {
       BatchDetectKeyPhrasesResponse();
 }
 
+/// The result of calling the operation. The operation returns one object for
+/// each document that is successfully processed by the operation.
 class BatchDetectSentimentItemResult {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1129,6 +1135,8 @@ class BatchDetectSentimentResponse {
       BatchDetectSentimentResponse();
 }
 
+/// The result of calling the operation. The operation returns one object that
+/// is successfully processed by the operation.
 class BatchDetectSyntaxItemResult {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1165,6 +1173,9 @@ class BatchDetectSyntaxResponse {
       BatchDetectSyntaxResponse();
 }
 
+/// Describes an error that occurred while processing a document in a batch. The
+/// operation returns on `BatchItemError` object for each document that
+/// contained an error.
 class BatchItemError {
   /// The zero-based index of the document in the input list.
   final int index;
@@ -1183,6 +1194,8 @@ class BatchItemError {
   static BatchItemError fromJson(Map<String, dynamic> json) => BatchItemError();
 }
 
+/// Describes the result metrics for the test data associated with an
+/// documentation classifier.
 class ClassifierEvaluationMetrics {
   /// The fraction of the labels that were correct recognized. It is computed by
   /// dividing the number of labels in the test documents that were correctly
@@ -1215,6 +1228,7 @@ class ClassifierEvaluationMetrics {
       ClassifierEvaluationMetrics();
 }
 
+/// Provides information about a document classifier.
 class ClassifierMetadata {
   /// The number of labels in the input data.
   final int numberOfLabels;
@@ -1381,9 +1395,9 @@ class DetectDominantLanguageResponse {
   /// The languages that Amazon Comprehend detected in the input text. For each
   /// language, the response returns the RFC 5646 language code and the level of
   /// confidence that Amazon Comprehend has in the accuracy of its inference.
-  /// For more information about RFC 5646, see [Tags for Identifying
-  /// Languages](https://tools.ietf.org/html/rfc5646) on the _IETF Tools_ web
-  /// site.
+  /// For more information about RFC 5646, see
+  /// [Tags for Identifying Languages](https://tools.ietf.org/html/rfc5646) on
+  /// the _IETF Tools_ web site.
   final List<DominantLanguage> languages;
 
   DetectDominantLanguageResponse({
@@ -1452,6 +1466,9 @@ class DetectSyntaxResponse {
       DetectSyntaxResponse();
 }
 
+/// Provides information for filtering a list of document classification jobs.
+/// For more information, see the operation. You can provide only one filter
+/// parameter in each request.
 class DocumentClassificationJobFilter {
   /// Filters on the name of the job.
   final String jobName;
@@ -1478,6 +1495,7 @@ class DocumentClassificationJobFilter {
   });
 }
 
+/// Provides information about a document classification job.
 class DocumentClassificationJobProperties {
   /// The identifier assigned to the document classification job.
   final String jobId;
@@ -1527,8 +1545,8 @@ class DocumentClassificationJobProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your document classification
-  /// job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   DocumentClassificationJobProperties({
@@ -1550,6 +1568,9 @@ class DocumentClassificationJobProperties {
       DocumentClassificationJobProperties();
 }
 
+/// Provides information for filtering a list of document classifiers. You can
+/// only specify one filtering parameter in a request. For more information, see
+/// the operation.
 class DocumentClassifierFilter {
   /// Filters the list of classifiers based on status.
   final String status;
@@ -1573,6 +1594,10 @@ class DocumentClassifierFilter {
   });
 }
 
+/// The input properties for training a document classifier.
+///
+/// For more information on how the input file is formatted, see
+/// how-document-classification-training-data.
 class DocumentClassifierInputDataConfig {
   /// The Amazon S3 URI for the input data. The S3 bucket must be in the same
   /// region as the API endpoint that you are calling. The URI can point to a
@@ -1592,6 +1617,7 @@ class DocumentClassifierInputDataConfig {
       DocumentClassifierInputDataConfig();
 }
 
+/// Provides output results configuration parameters for custom classifier jobs.
 class DocumentClassifierOutputDataConfig {
   /// When you use the `OutputDataConfig` object while creating a custom
   /// classifier, you specify the Amazon S3 location where you want to write the
@@ -1629,6 +1655,7 @@ class DocumentClassifierOutputDataConfig {
       DocumentClassifierOutputDataConfig();
 }
 
+/// Provides information about a document classifier.
 class DocumentClassifierProperties {
   /// The Amazon Resource Name (ARN) that identifies the document classifier.
   final String documentClassifierArn;
@@ -1693,8 +1720,8 @@ class DocumentClassifierProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your custom classifier. For
-  /// more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   DocumentClassifierProperties({
@@ -1717,11 +1744,13 @@ class DocumentClassifierProperties {
       DocumentClassifierProperties();
 }
 
+/// Returns the code for the dominant language in the input text and the level
+/// of confidence that Amazon Comprehend has in the accuracy of the detection.
 class DominantLanguage {
   /// The RFC 5646 language code for the dominant language. For more information
-  /// about RFC 5646, see [Tags for Identifying
-  /// Languages](https://tools.ietf.org/html/rfc5646) on the _IETF Tools_ web
-  /// site.
+  /// about RFC 5646, see
+  /// [Tags for Identifying Languages](https://tools.ietf.org/html/rfc5646) on
+  /// the _IETF Tools_ web site.
   final String languageCode;
 
   /// The level of confidence that Amazon Comprehend has in the accuracy of the
@@ -1736,6 +1765,8 @@ class DominantLanguage {
       DominantLanguage();
 }
 
+/// Provides information for filtering a list of dominant language detection
+/// jobs. For more information, see the operation.
 class DominantLanguageDetectionJobFilter {
   /// Filters on the name of the job.
   final String jobName;
@@ -1762,6 +1793,7 @@ class DominantLanguageDetectionJobFilter {
   });
 }
 
+/// Provides information about a dominant language detection job.
 class DominantLanguageDetectionJobProperties {
   /// The identifier assigned to the dominant language detection job.
   final String jobId;
@@ -1808,8 +1840,8 @@ class DominantLanguageDetectionJobProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your dominant language
-  /// detection job. For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// detection job. For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   DominantLanguageDetectionJobProperties({
@@ -1830,6 +1862,8 @@ class DominantLanguageDetectionJobProperties {
       DominantLanguageDetectionJobProperties();
 }
 
+/// Provides information for filtering a list of dominant language detection
+/// jobs. For more information, see the operation.
 class EntitiesDetectionJobFilter {
   /// Filters on the name of the job.
   final String jobName;
@@ -1856,6 +1890,7 @@ class EntitiesDetectionJobFilter {
   });
 }
 
+/// Provides information about an entities detection job.
 class EntitiesDetectionJobProperties {
   /// The identifier assigned to the entities detection job.
   final String jobId;
@@ -1907,8 +1942,8 @@ class EntitiesDetectionJobProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your entity detection job. For
-  /// more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   EntitiesDetectionJobProperties({
@@ -1930,6 +1965,7 @@ class EntitiesDetectionJobProperties {
       EntitiesDetectionJobProperties();
 }
 
+/// Provides information about an entity.
 class Entity {
   /// The level of confidence that Amazon Comprehend has in the accuracy of the
   /// detection.
@@ -1965,6 +2001,7 @@ class Entity {
   static Entity fromJson(Map<String, dynamic> json) => Entity();
 }
 
+/// Describes the annotations associated with a entity recognizer.
 class EntityRecognizerAnnotations {
   ///  Specifies the Amazon S3 location where the annotations for an entity
   /// recognizer are located. The URI must be in the same region as the API
@@ -1978,6 +2015,7 @@ class EntityRecognizerAnnotations {
       EntityRecognizerAnnotations();
 }
 
+/// Describes the training documents submitted with an entity recognizer.
 class EntityRecognizerDocuments {
   ///  Specifies the Amazon S3 location where the training documents for an
   /// entity recognizer are located. The URI must be in the same region as the
@@ -1991,6 +2029,7 @@ class EntityRecognizerDocuments {
       EntityRecognizerDocuments();
 }
 
+/// Describes the entity recognizer submitted with an entity recognizer.
 class EntityRecognizerEntityList {
   /// Specifies the Amazon S3 location where the entity list is located. The URI
   /// must be in the same region as the API endpoint that you are calling.
@@ -2003,6 +2042,7 @@ class EntityRecognizerEntityList {
       EntityRecognizerEntityList();
 }
 
+/// Detailed information about the accuracy of an entity recognizer.
 class EntityRecognizerEvaluationMetrics {
   /// A measure of the usefulness of the recognizer results in the test data.
   /// High precision means that the recognizer returned substantially more
@@ -2030,6 +2070,9 @@ class EntityRecognizerEvaluationMetrics {
       EntityRecognizerEvaluationMetrics();
 }
 
+/// Provides information for filtering a list of entity recognizers. You can
+/// only specify one filtering parameter in a request. For more information, see
+/// the operation./>
 class EntityRecognizerFilter {
   /// The status of an entity recognizer.
   final String status;
@@ -2051,6 +2094,7 @@ class EntityRecognizerFilter {
   });
 }
 
+/// Specifies the format and location of the input data.
 class EntityRecognizerInputDataConfig {
   /// The entity types in the input data for an entity recognizer. A maximum of
   /// 12 entity types can be used at one time to train an entity recognizer.
@@ -2075,6 +2119,7 @@ class EntityRecognizerInputDataConfig {
       EntityRecognizerInputDataConfig();
 }
 
+/// Detailed information about an entity recognizer.
 class EntityRecognizerMetadata {
   ///  The number of documents in the input data that were used to train the
   /// entity recognizer. Typically this is 80 to 90 percent of the input
@@ -2102,6 +2147,8 @@ class EntityRecognizerMetadata {
       EntityRecognizerMetadata();
 }
 
+/// Individual item from the list of entity types in the metadata of an entity
+/// recognizer.
 class EntityRecognizerMetadataEntityTypesListItem {
   /// Type of entity from the list of entity types in the metadata of an entity
   /// recognizer.
@@ -2125,6 +2172,7 @@ class EntityRecognizerMetadataEntityTypesListItem {
       EntityRecognizerMetadataEntityTypesListItem();
 }
 
+/// Describes information about an entity recognizer.
 class EntityRecognizerProperties {
   /// The Amazon Resource Name (ARN) that identifies the entity recognizer.
   final String entityRecognizerArn;
@@ -2174,8 +2222,8 @@ class EntityRecognizerProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your custom entity recognizer.
-  /// For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   EntityRecognizerProperties({
@@ -2197,6 +2245,8 @@ class EntityRecognizerProperties {
       EntityRecognizerProperties();
 }
 
+/// Detailed information about the accuracy of an entity recognizer for a
+/// specific entity type.
 class EntityTypesEvaluationMetrics {
   /// A measure of the usefulness of the recognizer results for a specific
   /// entity type in the test data. High precision means that the recognizer
@@ -2223,6 +2273,7 @@ class EntityTypesEvaluationMetrics {
       EntityTypesEvaluationMetrics();
 }
 
+/// Information about an individual item on a list of entity types.
 class EntityTypesListItem {
   /// Entity type of an item on an entity type list.
   final String type;
@@ -2234,6 +2285,7 @@ class EntityTypesListItem {
       EntityTypesListItem();
 }
 
+/// The input properties for a topic detection job.
 class InputDataConfig {
   /// The Amazon S3 URI for the input data. The URI must be in same region as
   /// the API endpoint that you are calling. The URI can point to a single input
@@ -2246,11 +2298,11 @@ class InputDataConfig {
 
   /// Specifies how the text in an input file should be processed:
   ///
-  /// *    `ONE\_DOC\_PER_FILE` \- Each file is considered a separate document.
-  /// Use this option when you are processing large documents, such as newspaper
+  /// *    `ONE_DOC_PER_FILE` - Each file is considered a separate document. Use
+  /// this option when you are processing large documents, such as newspaper
   /// articles or scientific papers.
   ///
-  /// *    `ONE\_DOC\_PER_LINE` \- Each line in a file is considered a separate
+  /// *    `ONE_DOC_PER_LINE` - Each line in a file is considered a separate
   /// document. Use this option when you are processing many short documents,
   /// such as text messages.
   final String inputFormat;
@@ -2263,6 +2315,7 @@ class InputDataConfig {
       InputDataConfig();
 }
 
+/// Describes a key noun phrase.
 class KeyPhrase {
   /// The level of confidence that Amazon Comprehend has in the accuracy of the
   /// detection.
@@ -2294,6 +2347,8 @@ class KeyPhrase {
   static KeyPhrase fromJson(Map<String, dynamic> json) => KeyPhrase();
 }
 
+/// Provides information for filtering a list of dominant language detection
+/// jobs. For more information, see the operation.
 class KeyPhrasesDetectionJobFilter {
   /// Filters on the name of the job.
   final String jobName;
@@ -2320,6 +2375,7 @@ class KeyPhrasesDetectionJobFilter {
   });
 }
 
+/// Provides information about a key phrases detection job.
 class KeyPhrasesDetectionJobProperties {
   /// The identifier assigned to the key phrases detection job.
   final String jobId;
@@ -2368,8 +2424,8 @@ class KeyPhrasesDetectionJobProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your key phrases detection job.
-  /// For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   KeyPhrasesDetectionJobProperties({
@@ -2538,6 +2594,7 @@ class ListTopicsDetectionJobsResponse {
       ListTopicsDetectionJobsResponse();
 }
 
+/// Provides configuration parameters for the output of topic detection jobs.
 class OutputDataConfig {
   /// When you use the `OutputDataConfig` object with asynchronous operations,
   /// you specify the Amazon S3 location where you want to write the output
@@ -2574,6 +2631,10 @@ class OutputDataConfig {
       OutputDataConfig();
 }
 
+/// Identifies the part of speech represented by the token and gives the
+/// confidence that Amazon Comprehend has that the part of speech was correctly
+/// identified. For more information about the parts of speech that Amazon
+/// Comprehend can identify, see how-syntax.
 class PartOfSpeechTag {
   /// Identifies the part of speech that the token represents.
   final String tag;
@@ -2590,6 +2651,8 @@ class PartOfSpeechTag {
       PartOfSpeechTag();
 }
 
+/// Provides information for filtering a list of dominant language detection
+/// jobs. For more information, see the operation.
 class SentimentDetectionJobFilter {
   /// Filters on the name of the job.
   final String jobName;
@@ -2616,6 +2679,7 @@ class SentimentDetectionJobFilter {
   });
 }
 
+/// Provides information about a sentiment detection job.
 class SentimentDetectionJobProperties {
   /// The identifier assigned to the sentiment detection job.
   final String jobId;
@@ -2664,8 +2728,8 @@ class SentimentDetectionJobProperties {
 
   ///  Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your sentiment detection job.
-  /// For more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// For more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   SentimentDetectionJobProperties({
@@ -2686,6 +2750,8 @@ class SentimentDetectionJobProperties {
       SentimentDetectionJobProperties();
 }
 
+/// Describes the level of confidence that Amazon Comprehend has in the accuracy
+/// of its detection of sentiments.
 class SentimentScore {
   /// The level of confidence that Amazon Comprehend has in the accuracy of its
   /// detection of the `POSITIVE` sentiment.
@@ -2963,6 +3029,9 @@ class StopTrainingEntityRecognizerResponse {
       StopTrainingEntityRecognizerResponse();
 }
 
+/// Represents a work in the input text that was recognized and assigned a part
+/// of speech. There is one syntax token record for each word in the source
+/// text.
 class SyntaxToken {
   /// A unique identifier for a token.
   final int tokenId;
@@ -2993,6 +3062,9 @@ class SyntaxToken {
   static SyntaxToken fromJson(Map<String, dynamic> json) => SyntaxToken();
 }
 
+/// A key-value pair that adds as a metadata to a resource used by Amazon
+/// Comprehend. For example, a tag with the key-value pair ‘Department’:’Sales’
+/// might be added to a resource to indicate its use by a particular department.
 class Tag {
   /// The initial part of a key-value pair that forms a tag associated with a
   /// given resource. For instance, if you want to show which resources are used
@@ -3021,6 +3093,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Provides information for filtering topic detection jobs. For more
+/// information, see .
 class TopicsDetectionJobFilter {
   final String jobName;
 
@@ -3046,6 +3120,7 @@ class TopicsDetectionJobFilter {
   });
 }
 
+/// Provides information about a topic detection job.
 class TopicsDetectionJobProperties {
   /// The identifier assigned to the topic detection job.
   final String jobId;
@@ -3095,8 +3170,8 @@ class TopicsDetectionJobProperties {
 
   /// Configuration parameters for a private Virtual Private Cloud (VPC)
   /// containing the resources you are using for your topic detection job. For
-  /// more information, see [Amazon
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+  /// more information, see
+  /// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
   final VpcConfig vpcConfig;
 
   TopicsDetectionJobProperties({
@@ -3123,22 +3198,25 @@ class UntagResourceResponse {
       UntagResourceResponse();
 }
 
+///  Configuration parameters for an optional private Virtual Private Cloud
+/// (VPC) containing the resources you are using for the job. For For more
+/// information, see
+/// [Amazon VPC](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
 class VpcConfig {
   /// The ID number for a security group on an instance of your private VPC.
   /// Security groups on your VPC function serve as a virtual firewall to
   /// control inbound and outbound traffic and provides security for the
   /// resources that you’ll be accessing on the VPC. This ID number is preceded
   /// by "sg-", for instance: "sg-03b388029b0a285ea". For more information, see
-  /// [Security Groups for your
-  /// VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
+  /// [Security Groups for your VPC](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html).
   final List<String> securityGroupIds;
 
   /// The ID for each subnet being used in your private VPC. This subnet is a
   /// subset of the a range of IPv4 addresses used by the VPC and is specific to
   /// a given availability zone in the VPC’s region. This ID number is preceded
   /// by "subnet-", for instance: "subnet-04ccf456919e69055". For more
-  /// information, see [VPCs and
-  /// Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html).
+  /// information, see
+  /// [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html).
   final List<String> subnets;
 
   VpcConfig({

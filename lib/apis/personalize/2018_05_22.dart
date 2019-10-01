@@ -794,6 +794,7 @@ class PersonalizeApi {
   }
 }
 
+/// Describes a custom algorithm.
 class Algorithm {
   /// The name of the algorithm.
   final String name;
@@ -843,6 +844,7 @@ class Algorithm {
   static Algorithm fromJson(Map<String, dynamic> json) => Algorithm();
 }
 
+/// Describes an algorithm image.
 class AlgorithmImage {
   /// The name of the algorithm image.
   final String name;
@@ -857,6 +859,10 @@ class AlgorithmImage {
   static AlgorithmImage fromJson(Map<String, dynamic> json) => AlgorithmImage();
 }
 
+/// When the solution performs AutoML (`performAutoML` is true in
+/// CreateSolution), Amazon Personalize determines which recipe, from the
+/// specified list, optimizes the given metric. Amazon Personalize then uses
+/// that recipe for the solution.
 class AutoMLConfig {
   /// The metric to optimize.
   final String metricName;
@@ -871,6 +877,9 @@ class AutoMLConfig {
   static AutoMLConfig fromJson(Map<String, dynamic> json) => AutoMLConfig();
 }
 
+/// When the solution performs AutoML (`performAutoML` is true in
+/// CreateSolution), specifies the recipe that best optimized the specified
+/// metric.
 class AutoMLResult {
   /// The Amazon Resource Name (ARN) of the best recipe.
   final String bestRecipeArn;
@@ -881,6 +890,8 @@ class AutoMLResult {
   static AutoMLResult fromJson(Map<String, dynamic> json) => AutoMLResult();
 }
 
+/// Describes a deployed solution version, otherwise known as a campaign. For
+/// more information on campaigns, see CreateCampaign.
 class Campaign {
   /// The name of the campaign.
   final String name;
@@ -929,6 +940,8 @@ class Campaign {
   static Campaign fromJson(Map<String, dynamic> json) => Campaign();
 }
 
+/// Provides a summary of the properties of a campaign. For a complete listing,
+/// call the DescribeCampaign API.
 class CampaignSummary {
   /// The name of the campaign.
   final String name;
@@ -966,6 +979,8 @@ class CampaignSummary {
       CampaignSummary();
 }
 
+/// Provides a summary of the properties of a campaign update. For a complete
+/// listing, call the DescribeCampaign API.
 class CampaignUpdateSummary {
   /// The Amazon Resource Name (ARN) of the deployed solution version.
   final String solutionVersionArn;
@@ -1005,6 +1020,7 @@ class CampaignUpdateSummary {
       CampaignUpdateSummary();
 }
 
+/// Provides the name and range of a categorical hyperparameter.
 class CategoricalHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -1020,6 +1036,7 @@ class CategoricalHyperParameterRange {
       CategoricalHyperParameterRange();
 }
 
+/// Provides the name and range of a continuous hyperparameter.
 class ContinuousHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -1133,6 +1150,7 @@ class CreateSolutionVersionResponse {
       CreateSolutionVersionResponse();
 }
 
+/// Describes the data source that contains the data to upload to a dataset.
 class DataSource {
   /// The path to the Amazon S3 bucket where the data that you want to upload to
   /// your dataset is stored. For example:
@@ -1146,6 +1164,7 @@ class DataSource {
   static DataSource fromJson(Map<String, dynamic> json) => DataSource();
 }
 
+/// Provides metadata for a dataset.
 class Dataset {
   /// The name of the dataset.
   final String name;
@@ -1196,6 +1215,15 @@ class Dataset {
   static Dataset fromJson(Map<String, dynamic> json) => Dataset();
 }
 
+/// A dataset group is a collection of related datasets (Interactions, User, and
+/// Item). You create a dataset group by calling CreateDatasetGroup. You then
+/// create a dataset and add it to a dataset group by calling CreateDataset. The
+/// dataset group is used to create and train a solution by calling
+/// CreateSolution. A dataset group can contain only one of each type of
+/// dataset.
+///
+/// You can specify an AWS Key Management Service (KMS) key to encrypt the
+/// datasets in the group.
 class DatasetGroup {
   /// The name of the dataset group.
   final String name;
@@ -1241,6 +1269,8 @@ class DatasetGroup {
   static DatasetGroup fromJson(Map<String, dynamic> json) => DatasetGroup();
 }
 
+/// Provides a summary of the properties of a dataset group. For a complete
+/// listing, call the DescribeDatasetGroup API.
 class DatasetGroupSummary {
   /// The name of the dataset group.
   final String name;
@@ -1278,6 +1308,13 @@ class DatasetGroupSummary {
       DatasetGroupSummary();
 }
 
+/// Describes a job that imports training data from a data source (Amazon S3
+/// bucket) to an Amazon Personalize dataset. For more information, see
+/// CreateDatasetImportJob.
+///
+/// A dataset import job can be in one of the following states:
+///
+/// *   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
 class DatasetImportJob {
   /// The name of the import job.
   final String jobName;
@@ -1327,6 +1364,8 @@ class DatasetImportJob {
       DatasetImportJob();
 }
 
+/// Provides a summary of the properties of a dataset import job. For a complete
+/// listing, call the DescribeDatasetImportJob API.
 class DatasetImportJobSummary {
   /// The Amazon Resource Name (ARN) of the dataset import job.
   final String datasetImportJobArn;
@@ -1362,6 +1401,8 @@ class DatasetImportJobSummary {
       DatasetImportJobSummary();
 }
 
+/// Describes the schema for a dataset. For more information on schemas, see
+/// CreateSchema.
 class DatasetSchema {
   /// The name of the schema.
   final String name;
@@ -1388,6 +1429,8 @@ class DatasetSchema {
   static DatasetSchema fromJson(Map<String, dynamic> json) => DatasetSchema();
 }
 
+/// Provides a summary of the properties of a dataset schema. For a complete
+/// listing, call the DescribeSchema API.
 class DatasetSchemaSummary {
   /// The name of the schema.
   final String name;
@@ -1411,6 +1454,8 @@ class DatasetSchemaSummary {
       DatasetSchemaSummary();
 }
 
+/// Provides a summary of the properties of a dataset. For a complete listing,
+/// call the DescribeDataset API.
 class DatasetSummary {
   /// The name of the dataset.
   final String name;
@@ -1455,6 +1500,9 @@ class DatasetSummary {
   static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
 }
 
+/// Provides the name and default range of a categorical hyperparameter and
+/// whether the hyperparameter is tunable. A tunable hyperparameter can have its
+/// value determined during hyperparameter optimization (HPO).
 class DefaultCategoricalHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -1475,6 +1523,9 @@ class DefaultCategoricalHyperParameterRange {
       DefaultCategoricalHyperParameterRange();
 }
 
+/// Provides the name and default range of a continuous hyperparameter and
+/// whether the hyperparameter is tunable. A tunable hyperparameter can have its
+/// value determined during hyperparameter optimization (HPO).
 class DefaultContinuousHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -1499,6 +1550,8 @@ class DefaultContinuousHyperParameterRange {
       DefaultContinuousHyperParameterRange();
 }
 
+/// Specifies the hyperparameters and their default ranges. Hyperparameters can
+/// be categorical, continuous, or integer-valued.
 class DefaultHyperParameterRanges {
   /// The integer-valued hyperparameters and their default ranges.
   final List<DefaultIntegerHyperParameterRange> integerHyperParameterRanges;
@@ -1520,6 +1573,9 @@ class DefaultHyperParameterRanges {
       DefaultHyperParameterRanges();
 }
 
+/// Provides the name and default range of a integer-valued hyperparameter and
+/// whether the hyperparameter is tunable. A tunable hyperparameter can have its
+/// value determined during hyperparameter optimization (HPO).
 class DefaultIntegerHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -1676,6 +1732,7 @@ class DescribeSolutionVersionResponse {
       DescribeSolutionVersionResponse();
 }
 
+/// Provides information about an event tracker.
 class EventTracker {
   /// The name of the event tracker.
   final String name;
@@ -1723,6 +1780,8 @@ class EventTracker {
   static EventTracker fromJson(Map<String, dynamic> json) => EventTracker();
 }
 
+/// Provides a summary of the properties of an event tracker. For a complete
+/// listing, call the DescribeEventTracker API.
 class EventTrackerSummary {
   /// The name of the event tracker.
   final String name;
@@ -1756,6 +1815,9 @@ class EventTrackerSummary {
       EventTrackerSummary();
 }
 
+/// Provides feature transformation information. Feature transformation is the
+/// process of modifying raw input data into a form more suitable for model
+/// training.
 class FeatureTransformation {
   /// The name of the feature transformation.
   final String name;
@@ -1807,6 +1869,9 @@ class GetSolutionMetricsResponse {
       GetSolutionMetricsResponse();
 }
 
+/// Describes the properties for hyperparameter optimization (HPO). For use with
+/// the bring-your-own-recipe feature. Do not use for Amazon Personalize native
+/// recipes.
 class HpoConfig {
   /// The metric to optimize during HPO.
   final HpoObjective hpoObjective;
@@ -1825,6 +1890,7 @@ class HpoConfig {
   static HpoConfig fromJson(Map<String, dynamic> json) => HpoConfig();
 }
 
+/// The metric to optimize during hyperparameter optimization (HPO).
 class HpoObjective {
   /// The data type of the metric.
   final String type;
@@ -1843,6 +1909,7 @@ class HpoObjective {
   static HpoObjective fromJson(Map<String, dynamic> json) => HpoObjective();
 }
 
+/// Describes the resource configuration for hyperparameter optimization (HPO).
 class HpoResourceConfig {
   /// The maximum number of training jobs.
   final String maxNumberOfTrainingJobs;
@@ -1858,6 +1925,8 @@ class HpoResourceConfig {
       HpoResourceConfig();
 }
 
+/// Specifies the hyperparameters and their ranges. Hyperparameters can be
+/// categorical, continuous, or integer-valued.
 class HyperParameterRanges {
   /// The integer-valued hyperparameters and their ranges.
   final List<IntegerHyperParameterRange> integerHyperParameterRanges;
@@ -1877,6 +1946,7 @@ class HyperParameterRanges {
       HyperParameterRanges();
 }
 
+/// Provides the name and range of an integer-valued hyperparameter.
 class IntegerHyperParameterRange {
   /// The name of the hyperparameter.
   final String name;
@@ -2031,6 +2101,9 @@ class ListSolutionsResponse {
       ListSolutionsResponse();
 }
 
+/// Provides information about a recipe. Each recipe provides an algorithm that
+/// Amazon Personalize uses in model training when you use the CreateSolution
+/// operation.
 class Recipe {
   /// The name of the recipe.
   final String name;
@@ -2080,6 +2153,8 @@ class Recipe {
   static Recipe fromJson(Map<String, dynamic> json) => Recipe();
 }
 
+/// Provides a summary of the properties of a recipe. For a complete listing,
+/// call the DescribeRecipe API.
 class RecipeSummary {
   /// The name of the recipe.
   final String name;
@@ -2106,6 +2181,8 @@ class RecipeSummary {
   static RecipeSummary fromJson(Map<String, dynamic> json) => RecipeSummary();
 }
 
+/// An object that provides information about a solution. A solution is a
+/// trained model that can be deployed as a campaign.
 class Solution {
   /// The name of the solution.
   final String name;
@@ -2177,6 +2254,7 @@ class Solution {
   static Solution fromJson(Map<String, dynamic> json) => Solution();
 }
 
+/// Describes the configuration properties for the solution.
 class SolutionConfig {
   /// Only events with a value greater than or equal to this threshold are used
   /// for training a model.
@@ -2207,6 +2285,8 @@ class SolutionConfig {
   static SolutionConfig fromJson(Map<String, dynamic> json) => SolutionConfig();
 }
 
+/// Provides a summary of the properties of a solution. For a complete listing,
+/// call the DescribeSolution API.
 class SolutionSummary {
   /// The name of the solution.
   final String name;
@@ -2240,6 +2320,7 @@ class SolutionSummary {
       SolutionSummary();
 }
 
+/// An object that provides information about a specific version of a Solution.
 class SolutionVersion {
   /// The ARN of the solution version.
   final String solutionVersionArn;
@@ -2305,6 +2386,8 @@ class SolutionVersion {
       SolutionVersion();
 }
 
+/// Provides a summary of the properties of a solution version. For a complete
+/// listing, call the DescribeSolutionVersion API.
 class SolutionVersionSummary {
   /// The Amazon Resource Name (ARN) of the solution version.
   final String solutionVersionArn;

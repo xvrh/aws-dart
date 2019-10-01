@@ -60,6 +60,7 @@ class IotEventsDataApi {
   }
 }
 
+/// Contains information about the errors encountered.
 class BatchPutMessageErrorEntry {
   /// The ID of the message that caused the error. (See the value corresponding
   /// to the `"messageId"` key in the `"message"` object.)
@@ -91,6 +92,8 @@ class BatchPutMessageResponse {
       BatchPutMessageResponse();
 }
 
+/// Information about the error that occured when attempting to update a
+/// detector.
 class BatchUpdateDetectorErrorEntry {
   /// The `"messageId"` of the update request that caused the error. (The value
   /// of the `"messageId"` in the update request `"Detector"` object.)
@@ -134,6 +137,7 @@ class DescribeDetectorResponse {
       DescribeDetectorResponse();
 }
 
+/// Information about the detector (instance).
 class Detector {
   /// The name of the detector model that created this detector (instance).
   final String detectorModelName;
@@ -165,6 +169,7 @@ class Detector {
   static Detector fromJson(Map<String, dynamic> json) => Detector();
 }
 
+/// Information about the current state of the detector instance.
 class DetectorState {
   /// The name of the state.
   final String stateName;
@@ -183,6 +188,8 @@ class DetectorState {
   static DetectorState fromJson(Map<String, dynamic> json) => DetectorState();
 }
 
+/// The new state, variable values, and timer settings of the detector
+/// (instance).
 class DetectorStateDefinition {
   /// The name of the new state of the detector (instance).
   final String stateName;
@@ -202,6 +209,7 @@ class DetectorStateDefinition {
   });
 }
 
+/// Information about the detector state.
 class DetectorStateSummary {
   /// The name of the state.
   final String stateName;
@@ -213,6 +221,7 @@ class DetectorStateSummary {
       DetectorStateSummary();
 }
 
+/// Information about the detector (instance).
 class DetectorSummary {
   /// The name of the detector model that created this detector (instance).
   final String detectorModelName;
@@ -261,6 +270,7 @@ class ListDetectorsResponse {
       ListDetectorsResponse();
 }
 
+/// Information about a message.
 class Message {
   /// The ID to assign to the message. Within each batch sent, each
   /// `"messageId"` must be unique.
@@ -280,6 +290,7 @@ class Message {
   });
 }
 
+/// The current state of a timer.
 class Timer {
   /// The name of the timer.
   final String name;
@@ -294,6 +305,7 @@ class Timer {
   static Timer fromJson(Map<String, dynamic> json) => Timer();
 }
 
+/// The new setting of a timer.
 class TimerDefinition {
   /// The name of the timer.
   final String name;
@@ -308,6 +320,7 @@ class TimerDefinition {
   });
 }
 
+/// Information used to update the detector (instance).
 class UpdateDetectorRequest {
   /// The ID to assign to the detector update `"message"`. Each `"messageId"`
   /// must be unique within each batch sent.
@@ -332,6 +345,7 @@ class UpdateDetectorRequest {
   });
 }
 
+/// The current state of the variable.
 class Variable {
   /// The name of the variable.
   final String name;
@@ -346,6 +360,7 @@ class Variable {
   static Variable fromJson(Map<String, dynamic> json) => Variable();
 }
 
+/// The new value of the variable.
 class VariableDefinition {
   /// The name of the variable.
   final String name;

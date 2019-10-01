@@ -11,9 +11,9 @@ class TextractApi {
   ///
   /// *   Words and lines that are related to nearby lines and words. The
   /// related information is returned in two Block objects each of type
-  /// `KEY\_VALUE\_SET`: a KEY Block object and a VALUE Block object. For
-  /// example, _Name: Ana Silva Carolina_ contains a key and value. _Name:_ is
-  /// the key. _Ana Silva Carolina_ is the value.
+  /// `KEY_VALUE_SET`: a KEY Block object and a VALUE Block object. For example,
+  /// _Name: Ana Silva Carolina_ contains a key and value. _Name:_ is the key.
+  /// _Ana Silva Carolina_ is the value.
   ///
   /// *   Table and table cell data. A TABLE Block object contains information
   /// about a detected table. A CELL Block object is returned for each cell in a
@@ -35,8 +35,8 @@ class TextractApi {
   ///  `AnalyzeDocument` is a synchronous operation. To analyze documents
   /// asynchronously, use StartDocumentAnalysis.
   ///
-  /// For more information, see [Document Text
-  /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
+  /// For more information, see
+  /// [Document Text Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
   ///
   /// [document]: The input document as base64-encoded bytes or an Amazon S3
   /// object. If you use the AWS CLI to call Amazon Textract operations, you
@@ -70,8 +70,8 @@ class TextractApi {
   ///  `DetectDocumentText` is a synchronous operation. To analyze documents
   /// asynchronously, use StartDocumentTextDetection.
   ///
-  /// For more information, see [Document Text
-  /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
+  /// For more information, see
+  /// [Document Text Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
   ///
   /// [document]: The input document as base64-encoded bytes or an Amazon S3
   /// object. If you use the AWS CLI to call Amazon Textract operations, you
@@ -103,9 +103,9 @@ class TextractApi {
   ///
   /// *   Words and lines that are related to nearby lines and words. The
   /// related information is returned in two Block objects each of type
-  /// `KEY\_VALUE\_SET`: a KEY Block object and a VALUE Block object. For
-  /// example, _Name: Ana Silva Carolina_ contains a key and value. _Name:_ is
-  /// the key. _Ana Silva Carolina_ is the value.
+  /// `KEY_VALUE_SET`: a KEY Block object and a VALUE Block object. For example,
+  /// _Name: Ana Silva Carolina_ contains a key and value. _Name:_ is the key.
+  /// _Ana Silva Carolina_ is the value.
   ///
   /// *   Table and table cell data. A TABLE Block object contains information
   /// about a detected table. A CELL Block object is returned for each cell in a
@@ -127,8 +127,8 @@ class TextractApi {
   /// the token value that's returned from the previous call to
   /// `GetDocumentAnalysis`.
   ///
-  /// For more information, see [Document Text
-  /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
+  /// For more information, see
+  /// [Document Text Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
   ///
   /// [jobId]: A unique identifier for the text-detection job. The `JobId` is
   /// returned from `StartDocumentAnalysis`.
@@ -178,8 +178,8 @@ class TextractApi {
   /// with the token value that's returned from the previous call to
   /// `GetDocumentTextDetection`.
   ///
-  /// For more information, see [Document Text
-  /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
+  /// For more information, see
+  /// [Document Text Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
   ///
   /// [jobId]: A unique identifier for the text detection job. The `JobId` is
   /// returned from `StartDocumentTextDetection`.
@@ -217,8 +217,8 @@ class TextractApi {
   /// `SUCCEEDED`. If so, call GetDocumentAnalysis, and pass the job identifier
   /// (`JobId`) from the initial call to `StartDocumentAnalysis`.
   ///
-  /// For more information, see [Document Text
-  /// Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
+  /// For more information, see
+  /// [Document Text Analysis](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-analyzing.html).
   ///
   /// [documentLocation]: The location of the document to be processed.
   ///
@@ -268,8 +268,8 @@ class TextractApi {
   /// GetDocumentTextDetection, and pass the job identifier (`JobId`) from the
   /// initial call to `StartDocumentTextDetection`.
   ///
-  /// For more information, see [Document Text
-  /// Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
+  /// For more information, see
+  /// [Document Text Detection](https://docs.aws.amazon.com/textract/latest/dg/how-it-works-detecting.html).
   ///
   /// [documentLocation]: The location of the document to be processed.
   ///
@@ -310,45 +310,61 @@ class AnalyzeDocumentResponse {
       AnalyzeDocumentResponse();
 }
 
+/// A `Block` represents items that are recognized in a document within a group
+/// of pixels close to each other. The information returned in a `Block` depends
+/// on the type of operation. In document-text detection (for example
+/// DetectDocumentText), you get information about the detected words and lines
+/// of text. In text analysis (for example AnalyzeDocument), you can also get
+/// information about the fields, tables and selection elements that are
+/// detected in the document.
+///
+/// An array of `Block` objects is returned by both synchronous and asynchronous
+/// operations. In synchronous operations, such as DetectDocumentText, the array
+/// of `Block` objects is the entire set of results. In asynchronous operations,
+/// such as GetDocumentAnalysis, the array is returned over one or more
+/// responses.
+///
+/// For more information, see
+/// [How Amazon Textract Works](https://docs.aws.amazon.com/textract/latest/dg/how-it-works.html).
 class Block {
   /// The type of text that's recognized in a block. In text-detection
   /// operations, the following types are returned:
   ///
-  /// *    _PAGE_ \- Contains a list of the LINE Block objects that are detected
+  /// *    _PAGE_ - Contains a list of the LINE Block objects that are detected
   /// on a document page.
   ///
-  /// *    _WORD_ \- A word detected on a document page. A word is one or more
+  /// *    _WORD_ - A word detected on a document page. A word is one or more
   /// ISO basic Latin script characters that aren't separated by spaces.
   ///
-  /// *    _LINE_ \- A string of tab-delimited, contiguous words that's detected
+  /// *    _LINE_ - A string of tab-delimited, contiguous words that's detected
   /// on a document page.
   ///
   ///
   /// In text analysis operations, the following types are returned:
   ///
-  /// *    _PAGE_ \- Contains a list of child Block objects that are detected on
+  /// *    _PAGE_ - Contains a list of child Block objects that are detected on
   /// a document page.
   ///
-  /// *    _KEY\_VALUE\_SET_ \- Stores the KEY and VALUE Block objects for a
-  /// field that's detected on a document page. Use the `EntityType` field to
-  /// determine if a KEY\_VALUE\_SET object is a KEY Block object or a VALUE
-  /// Block object.
+  /// *    _KEY_VALUE_SET_ - Stores the KEY and VALUE Block objects for a field
+  /// that's detected on a document page. Use the `EntityType` field to
+  /// determine if a KEY_VALUE_SET object is a KEY Block object or a VALUE Block
+  /// object.
   ///
-  /// *    _WORD_ \- A word detected on a document page. A word is one or more
+  /// *    _WORD_ - A word detected on a document page. A word is one or more
   /// ISO basic Latin script characters that aren't separated by spaces that's
   /// detected on a document page.
   ///
-  /// *    _LINE_ \- A string of tab-delimited, contiguous words that's detected
+  /// *    _LINE_ - A string of tab-delimited, contiguous words that's detected
   /// on a document page.
   ///
-  /// *    _TABLE_ \- A table that's detected on a document page. A table is any
+  /// *    _TABLE_ - A table that's detected on a document page. A table is any
   /// grid-based information with 2 or more rows or columns with a cell span of
   /// 1 row and 1 column each.
   ///
-  /// *    _CELL_ \- A cell within a detected table. The cell is the parent of
+  /// *    _CELL_ - A cell within a detected table. The cell is the parent of
   /// the block that contains the text in the cell.
   ///
-  /// *    _SELECTION_ELEMENT_ \- A selectable element such as a radio button or
+  /// *    _SELECTION_ELEMENT_ - A selectable element such as a radio button or
   /// checkbox that's detected on a document page. Use the value of
   /// `SelectionStatus` to determine the status of the selection element.
   final String blockType;
@@ -400,9 +416,9 @@ class Block {
 
   /// The type of entity. The following can be returned:
   ///
-  /// *    _KEY_ \- An identifier for a field on the document.
+  /// *    _KEY_ - An identifier for a field on the document.
   ///
-  /// *    _VALUE_ \- The field text.
+  /// *    _VALUE_ - The field text.
   ///
   ///
   ///  `EntityTypes` isn't returned by `DetectDocumentText` and
@@ -440,6 +456,20 @@ class Block {
   static Block fromJson(Map<String, dynamic> json) => Block();
 }
 
+/// The bounding box around the recognized text, key, value, table or table cell
+/// on a document page. The `left` (x-coordinate) and `top` (y-coordinate) are
+/// coordinates that represent the top and left sides of the bounding box. Note
+/// that the upper-left corner of the image is the origin (0,0).
+///
+/// The `top` and `left` values returned are ratios of the overall document page
+/// size. For example, if the input image is 700 x 200 pixels, and the top-left
+/// coordinate of the bounding box is 350 x 50 pixels, the API returns a `left`
+/// value of 0.5 (350/700) and a `top` value of 0.25 (50/200).
+///
+/// The `width` and `height` values represent the dimensions of the bounding box
+/// as a ratio of the overall document page dimension. For example, if the
+/// document page size is 700 x 200 pixels, and the bounding box width is 70
+/// pixels, the width returned is 0.1.
 class BoundingBox {
   /// The width of the bounding box as a ratio of the overall document page
   /// width.
@@ -482,6 +512,29 @@ class DetectDocumentTextResponse {
       DetectDocumentTextResponse();
 }
 
+/// The input document, either as bytes or as an S3 object.
+///
+/// You pass image bytes to an Amazon Textract API operation by using the
+/// `Bytes` property. For example, you would use the `Bytes` property to pass a
+/// document loaded from a local file system. Image bytes passed by using the
+/// `Bytes` property must be base64 encoded. Your code might not need to encode
+/// document file bytes if you're using an AWS SDK to call Amazon Textract API
+/// operations.
+///
+/// You pass images stored in an S3 bucket to an Amazon Textract API operation
+/// by using the `S3Object` property. Documents stored in an S3 bucket don't
+/// need to be base64 encoded.
+///
+/// The AWS Region for the S3 bucket that contains the S3 object must match the
+/// AWS Region that you use for Amazon Textract operations.
+///
+/// If you use the AWS CLI to call Amazon Textract operations, passing image
+/// bytes using the Bytes property isn't supported. You must first upload the
+/// document to an Amazon S3 bucket, and then call the operation using the
+/// S3Object property.
+///
+/// For Amazon Textract to process an S3 object, the user must have permission
+/// to access the S3 object.
 class Document {
   /// A blob of base-64 encoded documents bytes. The maximum size of a document
   /// that's provided in a blob of bytes is 5 MB. The document bytes must be in
@@ -501,6 +554,11 @@ class Document {
   });
 }
 
+/// The Amazon S3 bucket that contains the document to be processed. It's used
+/// by asynchronous operations such as StartDocumentTextDetection.
+///
+/// The input document can be an image file in JPG or PNG format. It can also be
+/// a file in PDF format.
 class DocumentLocation {
   /// The Amazon S3 bucket that contains the input document.
   final S3Object s3Object;
@@ -510,6 +568,7 @@ class DocumentLocation {
   });
 }
 
+/// Information about the input document.
 class DocumentMetadata {
   /// The number of pages detected in the document.
   final int pages;
@@ -521,6 +580,8 @@ class DocumentMetadata {
       DocumentMetadata();
 }
 
+/// Information about where a recognized text, key, value, table, or table cell
+/// is located on a document page.
 class Geometry {
   /// An axis-aligned coarse representation of the location of the recognized
   /// text on the document page.
@@ -608,6 +669,9 @@ class GetDocumentTextDetectionResponse {
       GetDocumentTextDetectionResponse();
 }
 
+/// The Amazon Simple Notification Service (Amazon SNS) topic to which Amazon
+/// Textract publishes the completion status of an asynchronous document
+/// operation, such as StartDocumentTextDetection.
 class NotificationChannel {
   /// The Amazon SNS topic that Amazon Textract posts the completion status to.
   final String snsTopicArn;
@@ -622,6 +686,14 @@ class NotificationChannel {
   });
 }
 
+/// The X and Y coordinates of a point on a document page. The X and Y values
+/// returned are ratios of the overall document page size. For example, if the
+/// input document is 700 x 200 and the operation returns X=0.5 and Y=0.25, then
+/// the point is at the (350,50) pixel coordinate on the document page.
+///
+/// An array of `Point` objects, `Polygon`, is returned by DetectDocumentText.
+/// `Polygon` represents a fine-grained polygon around detected text. For more
+/// information, see Geometry in the Amazon Textract Developer Guide.
 class Point {
   /// The value of the X coordinate for a point on a `Polygon`.
   final double x;
@@ -636,6 +708,12 @@ class Point {
   static Point fromJson(Map<String, dynamic> json) => Point();
 }
 
+/// Information about how blocks are related to each other. A `Block` object
+/// contains 0 or more `Relation` objects in a list, `Relationships`. For more
+/// information, see Block.
+///
+/// The `Type` element provides the type of the relationship for all blocks in
+/// the `IDs` array.
 class Relationship {
   /// The type of relationship that the blocks in the IDs array have with the
   /// current block. The relationship can be `VALUE` or `CHILD`.
@@ -652,6 +730,13 @@ class Relationship {
   static Relationship fromJson(Map<String, dynamic> json) => Relationship();
 }
 
+/// The S3 bucket name and file name that identifies the document.
+///
+/// The AWS Region for the S3 bucket that contains the document must match the
+/// Region that you use for Amazon Textract operations.
+///
+/// For Amazon Textract to process a file in an S3 bucket, the user must have
+/// permission to access the S3 bucket and file.
 class S3Object {
   /// The name of the S3 bucket.
   final String bucket;
@@ -695,6 +780,9 @@ class StartDocumentTextDetectionResponse {
       StartDocumentTextDetectionResponse();
 }
 
+/// A warning about an issue that occurred during asynchronous text analysis
+/// (StartDocumentAnalysis) or asynchronous document-text detection
+/// (StartDocumentTextDetection).
 class Warning {
   /// The error code for the warning.
   final String errorCode;

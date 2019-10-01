@@ -14,8 +14,8 @@ class PollyApi {
   /// is it possible to retrieve it using either the `GetLexicon` or
   /// `ListLexicon` APIs.
   ///
-  /// For more information, see [Managing
-  /// Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
+  /// For more information, see
+  /// [Managing Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
   ///
   /// [name]: The name of the lexicon to delete. Must be an existing lexicon in
   /// the region.
@@ -71,8 +71,8 @@ class PollyApi {
   }
 
   /// Returns the content of the specified pronunciation lexicon stored in an
-  /// AWS Region. For more information, see [Managing
-  /// Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
+  /// AWS Region. For more information, see
+  /// [Managing Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
   ///
   /// [name]: Name of the lexicon.
   Future<GetLexiconOutput> getLexicon(String name) async {
@@ -92,8 +92,8 @@ class PollyApi {
   }
 
   /// Returns a list of pronunciation lexicons stored in an AWS Region. For more
-  /// information, see [Managing
-  /// Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
+  /// information, see
+  /// [Managing Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
   ///
   /// [nextToken]: An opaque pagination token returned from previous
   /// `ListLexicons` operation. If present, indicates where to continue the list
@@ -125,11 +125,11 @@ class PollyApi {
   /// take some time before the lexicon is available to the SynthesizeSpeech
   /// operation.
   ///
-  /// For more information, see [Managing
-  /// Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
+  /// For more information, see
+  /// [Managing Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
   ///
   /// [name]: Name of the lexicon. The name must follow the regular express
-  /// format \[0-9A-Za-z\]{1,20}. That is, the name is a case-sensitive
+  /// format [0-9A-Za-z]{1,20}. That is, the name is a case-sensitive
   /// alphanumeric string up to 20 characters long.
   ///
   /// [content]: Content of the PLS lexicon as string data.
@@ -215,8 +215,8 @@ class PollyApi {
   /// input must be valid, well-formed SSML. Some alphabets might not be
   /// available with all the voices (for example, Cyrillic might not be read at
   /// all by English voices) unless phoneme mapping is used. For more
-  /// information, see [How it
-  /// Works](https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html).
+  /// information, see
+  /// [How it Works](https://docs.aws.amazon.com/polly/latest/dg/how-text-to-speech-works.html).
   ///
   /// [engine]: Specifies the engine (`standard` or `neural`) for Amazon Polly
   /// to use when processing input text for speech synthesis. Using a voice that
@@ -260,8 +260,8 @@ class PollyApi {
   /// `TextType`, follow the SSML format for the input text.
   ///
   /// [textType]:  Specifies whether the input text is plain text or SSML. The
-  /// default value is plain text. For more information, see [Using
-  /// SSML](https://docs.aws.amazon.com/polly/latest/dg/ssml.html).
+  /// default value is plain text. For more information, see
+  /// [Using SSML](https://docs.aws.amazon.com/polly/latest/dg/ssml.html).
   ///
   /// [voiceId]:  Voice ID to use for the synthesis. You can get a list of
   /// available voice IDs by calling the
@@ -332,6 +332,9 @@ class GetSpeechSynthesisTaskOutput {
       GetSpeechSynthesisTaskOutput();
 }
 
+/// Provides lexicon name and lexicon content in string format. For more
+/// information, see
+/// [Pronunciation Lexicon Specification (PLS) Version 1.0](https://www.w3.org/TR/pronunciation-lexicon/).
 class Lexicon {
   /// Lexicon content in string format. The content of a lexicon must be in PLS
   /// format.
@@ -347,6 +350,9 @@ class Lexicon {
   static Lexicon fromJson(Map<String, dynamic> json) => Lexicon();
 }
 
+/// Contains metadata describing the lexicon such as the number of lexemes,
+/// language code, and so on. For more information, see
+/// [Managing Lexicons](https://docs.aws.amazon.com/polly/latest/dg/managing-lexicons.html).
 class LexiconAttributes {
   /// Phonetic alphabet used in the lexicon. Valid values are `ipa` and
   /// `x-sampa`.
@@ -381,6 +387,7 @@ class LexiconAttributes {
       LexiconAttributes();
 }
 
+/// Describes the content of the lexicon.
 class LexiconDescription {
   /// Name of the lexicon.
   final String name;
@@ -448,6 +455,8 @@ class StartSpeechSynthesisTaskOutput {
       StartSpeechSynthesisTaskOutput();
 }
 
+/// SynthesisTask object that provides information about a speech synthesis
+/// task.
 class SynthesisTask {
   /// Specifies the engine (`standard` or `neural`) for Amazon Polly to use when
   /// processing input text for speech synthesis. Using a voice that is not
@@ -570,6 +579,7 @@ class SynthesizeSpeechOutput {
       SynthesizeSpeechOutput();
 }
 
+/// Description of the voice.
 class Voice {
   /// Gender of the voice.
   final String gender;

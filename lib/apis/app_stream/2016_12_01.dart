@@ -11,17 +11,16 @@ import 'package:meta/meta.dart';
 /// provides access to your users on demand.
 ///
 ///  You can call the AppStream 2.0 API operations by using an interface VPC
-/// endpoint (interface endpoint). For more information, see [Access AppStream
-/// 2.0 API Operations and CLI Commands Through an Interface VPC
-/// Endpoint](https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html)
+/// endpoint (interface endpoint). For more information, see
+/// [Access AppStream 2.0 API Operations and CLI Commands Through an Interface VPC Endpoint](https://docs.aws.amazon.com/appstream2/latest/developerguide/access-api-cli-through-interface-vpc-endpoint.html)
 /// in the _Amazon AppStream 2.0 Administration Guide_.
 ///
 /// To learn more about AppStream 2.0, see the following resources:
 ///
 /// *    [Amazon AppStream 2.0 product page](http://aws.amazon.com/appstream2)
 ///
-/// *    [Amazon AppStream 2.0
-/// documentation](http://aws.amazon.com/documentation/appstream2)
+/// *
+/// [Amazon AppStream 2.0 documentation](http://aws.amazon.com/documentation/appstream2)
 class AppStreamApi {
   /// Associates the specified fleet with the specified stack.
   ///
@@ -198,10 +197,10 @@ class AppStreamApi {
   /// Generally allowed characters are: letters, numbers, and spaces
   /// representable in UTF-8, and the following special characters:
   ///
-  /// _ . : / = + \ - @
+  /// _ . : / = +  - @
   ///
-  /// For more information, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [idleDisconnectTimeoutInSeconds]: The amount of time that users can be
@@ -290,7 +289,7 @@ class AppStreamApi {
   ///
   /// [appstreamAgentVersion]: The version of the AppStream 2.0 agent to use for
   /// this image builder. To use the latest version of the AppStream 2.0 agent,
-  /// specify \[LATEST\].
+  /// specify [LATEST].
   ///
   /// [tags]: The tags to associate with the image builder. A tag is a key-value
   /// pair, and the value is optional. For example, Environment=Test. If you do
@@ -299,12 +298,12 @@ class AppStreamApi {
   /// Generally allowed characters are: letters, numbers, and spaces
   /// representable in UTF-8, and the following special characters:
   ///
-  /// _ . : / = + \ - @
+  /// _ . : / = +  - @
   ///
   /// If you do not specify a value, the value is set to an empty string.
   ///
-  /// For more information about tags, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information about tags, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [accessEndpoints]: The list of interface VPC endpoint (interface endpoint)
@@ -374,10 +373,10 @@ class AppStreamApi {
   /// Generally allowed characters are: letters, numbers, and spaces
   /// representable in UTF-8, and the following special characters:
   ///
-  /// _ . : / = + \ - @
+  /// _ . : / = +  - @
   ///
-  /// For more information about tags, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information about tags, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [accessEndpoints]: The list of interface VPC endpoint (interface endpoint)
@@ -413,8 +412,8 @@ class AppStreamApi {
   /// [validity]: The time that the streaming URL will be valid, in seconds.
   /// Specify a value between 1 and 604800 seconds. The default is 60 seconds.
   ///
-  /// [sessionContext]: The session context. For more information, see [Session
-  /// Context](https://docs.aws.amazon.com/appstream2/latest/developerguide/managing-stacks-fleets.html#managing-stacks-fleets-parameters)
+  /// [sessionContext]: The session context. For more information, see
+  /// [Session Context](https://docs.aws.amazon.com/appstream2/latest/developerguide/managing-stacks-fleets.html#managing-stacks-fleets-parameters)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   Future<CreateStreamingUrlResult> createStreamingUrl(
       {@required String stackName,
@@ -833,8 +832,8 @@ class AppStreamApi {
   /// Retrieves a list of all tags for the specified AppStream 2.0 resource. You
   /// can tag AppStream 2.0 image builders, images, fleets, and stacks.
   ///
-  /// For more information about tags, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information about tags, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
@@ -856,7 +855,7 @@ class AppStreamApi {
   ///
   /// [appstreamAgentVersion]: The version of the AppStream 2.0 agent to use for
   /// this image builder. To use the latest version of the AppStream 2.0 agent,
-  /// specify \[LATEST\].
+  /// specify [LATEST].
   Future<StartImageBuilderResult> startImageBuilder(String name,
       {String appstreamAgentVersion}) async {
     return StartImageBuilderResult.fromJson({});
@@ -886,8 +885,8 @@ class AppStreamApi {
   /// To list the current tags for your resources, use ListTagsForResource. To
   /// disassociate tags from your resources, use UntagResource.
   ///
-  /// For more information about tags, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information about tags, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
@@ -901,7 +900,7 @@ class AppStreamApi {
   /// Generally allowed characters are: letters, numbers, and spaces
   /// representable in UTF-8, and the following special characters:
   ///
-  /// _ . : / = + \ - @
+  /// _ . : / = +  - @
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
       @required Map<String, String> tags}) async {
@@ -913,8 +912,8 @@ class AppStreamApi {
   ///
   /// To list the current tags for your resources, use ListTagsForResource.
   ///
-  /// For more information about tags, see [Tagging Your
-  /// Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
+  /// For more information about tags, see
+  /// [Tagging Your Resources](https://docs.aws.amazon.com/appstream2/latest/developerguide/tagging-basic.html)
   /// in the _Amazon AppStream 2.0 Administration Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource.
@@ -1150,6 +1149,12 @@ class AppStreamApi {
   }
 }
 
+/// Describes an interface VPC endpoint (interface endpoint) that lets you
+/// create a private connection between the virtual private cloud (VPC) that you
+/// specify and AppStream 2.0. When you specify an interface endpoint for a
+/// stack, users of the stack can connect to AppStream 2.0 only through that
+/// endpoint. When you specify an interface endpoint for an image builder,
+/// administrators can connect to the image builder only through that endpoint.
 class AccessEndpoint {
   /// The type of interface endpoint.
   final String endpointType;
@@ -1164,6 +1169,7 @@ class AccessEndpoint {
   static AccessEndpoint fromJson(Map<String, dynamic> json) => AccessEndpoint();
 }
 
+/// Describes an application in the application catalog.
 class Application {
   /// The name of the application.
   final String name;
@@ -1199,6 +1205,7 @@ class Application {
   static Application fromJson(Map<String, dynamic> json) => Application();
 }
 
+/// The persistent application settings for users of a stack.
 class ApplicationSettings {
   /// Enables or disables persistent application settings for users during their
   /// streaming sessions.
@@ -1216,6 +1223,7 @@ class ApplicationSettings {
   });
 }
 
+/// Describes the persistent application settings for users of a stack.
 class ApplicationSettingsResponse {
   /// Specifies whether persistent application settings are enabled for users
   /// during their streaming sessions.
@@ -1268,6 +1276,7 @@ class BatchDisassociateUserStackResult {
       BatchDisassociateUserStackResult();
 }
 
+/// Describes the capacity for a fleet.
 class ComputeCapacity {
   /// The desired number of streaming instances.
   final int desiredInstances;
@@ -1277,6 +1286,7 @@ class ComputeCapacity {
   });
 }
 
+/// Describes the capacity status for a fleet.
 class ComputeCapacityStatus {
   /// The desired number of streaming instances.
   final int desired;
@@ -1644,6 +1654,8 @@ class DescribeUsersResult {
       DescribeUsersResult();
 }
 
+/// Describes the configuration information required to join fleets and image
+/// builders to Microsoft Active Directory domains.
 class DirectoryConfig {
   /// The fully qualified name of the directory (for example, corp.example.com).
   final String directoryName;
@@ -1680,6 +1692,8 @@ class DisassociateFleetResult {
       DisassociateFleetResult();
 }
 
+/// Describes the configuration information required to join fleets and image
+/// builders to Microsoft Active Directory domains.
 class DomainJoinInfo {
   /// The fully qualified name of the directory (for example, corp.example.com).
   final String directoryName;
@@ -1706,6 +1720,7 @@ class ExpireSessionResult {
       ExpireSessionResult();
 }
 
+/// Describes a fleet.
 class Fleet {
   /// The Amazon Resource Name (ARN) for the fleet.
   final String arn;
@@ -1841,6 +1856,7 @@ class Fleet {
   static Fleet fromJson(Map<String, dynamic> json) => Fleet();
 }
 
+/// Describes a fleet error.
 class FleetError {
   /// The error code.
   final String errorCode;
@@ -1855,6 +1871,7 @@ class FleetError {
   static FleetError fromJson(Map<String, dynamic> json) => FleetError();
 }
 
+/// Describes an image.
 class Image {
   /// The name of the image.
   final String name;
@@ -1930,6 +1947,7 @@ class Image {
   static Image fromJson(Map<String, dynamic> json) => Image();
 }
 
+/// Describes a virtual machine that is used to create an image.
 class ImageBuilder {
   /// The name of the image builder.
   final String name;
@@ -2014,6 +2032,7 @@ class ImageBuilder {
   static ImageBuilder fromJson(Map<String, dynamic> json) => ImageBuilder();
 }
 
+/// Describes the reason why the last image builder state change occurred.
 class ImageBuilderStateChangeReason {
   /// The state change reason code.
   final String code;
@@ -2029,6 +2048,7 @@ class ImageBuilderStateChangeReason {
       ImageBuilderStateChangeReason();
 }
 
+/// Describes the permissions for an image.
 class ImagePermissions {
   /// Indicates whether the image can be used for a fleet.
   final bool allowFleet;
@@ -2044,6 +2064,7 @@ class ImagePermissions {
       ImagePermissions();
 }
 
+/// Describes the reason why the last image state change occurred.
 class ImageStateChangeReason {
   /// The state change reason code.
   final String code;
@@ -2059,6 +2080,7 @@ class ImageStateChangeReason {
       ImageStateChangeReason();
 }
 
+/// Describes the error that is returned when a usage report can't be generated.
 class LastReportGenerationExecutionError {
   /// The error code for the error that is returned when a usage report can't be
   /// generated.
@@ -2120,6 +2142,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Describes the network details of the fleet or image builder instance.
 class NetworkAccessConfiguration {
   /// The private IP address of the elastic network interface that is attached
   /// to instances in your VPC.
@@ -2138,6 +2161,7 @@ class NetworkAccessConfiguration {
       NetworkAccessConfiguration();
 }
 
+/// Describes a resource error.
 class ResourceError {
   /// The error code.
   final String errorCode;
@@ -2156,6 +2180,8 @@ class ResourceError {
   static ResourceError fromJson(Map<String, dynamic> json) => ResourceError();
 }
 
+/// Describes the credentials for the service account used by the fleet or image
+/// builder to connect to the directory.
 class ServiceAccountCredentials {
   /// The user name of the account. This account must have the following
   /// privileges: create computer objects, join computers to the domain, and
@@ -2174,6 +2200,7 @@ class ServiceAccountCredentials {
       ServiceAccountCredentials();
 }
 
+/// Describes a streaming session.
 class Session {
   /// The identifier of the streaming session.
   final String id;
@@ -2228,6 +2255,8 @@ class Session {
   static Session fromJson(Map<String, dynamic> json) => Session();
 }
 
+/// Describes the permissions that are available to the specified AWS account
+/// for a shared image.
 class SharedImagePermissions {
   /// The 12-digit identifier of the AWS account with which the image is shared.
   final String sharedAccountId;
@@ -2243,6 +2272,7 @@ class SharedImagePermissions {
       SharedImagePermissions();
 }
 
+/// Describes a stack.
 class Stack {
   /// The ARN of the stack.
   final String arn;
@@ -2301,6 +2331,7 @@ class Stack {
   static Stack fromJson(Map<String, dynamic> json) => Stack();
 }
 
+/// Describes a stack error.
 class StackError {
   /// The error code.
   final String errorCode;
@@ -2349,6 +2380,7 @@ class StopImageBuilderResult {
       StopImageBuilderResult();
 }
 
+/// Describes a connector that enables persistent storage for users.
 class StorageConnector {
   /// The type of storage connector.
   final String connectorType;
@@ -2419,6 +2451,7 @@ class UpdateStackResult {
       UpdateStackResult();
 }
 
+/// Describes information about the usage report subscription.
 class UsageReportSubscription {
   /// The Amazon S3 bucket where generated reports are stored.
   ///
@@ -2450,6 +2483,7 @@ class UsageReportSubscription {
       UsageReportSubscription();
 }
 
+/// Describes a user in the user pool.
 class User {
   /// The ARN of the user.
   final String arn;
@@ -2504,6 +2538,8 @@ class User {
   static User fromJson(Map<String, dynamic> json) => User();
 }
 
+/// Describes an action and whether the action is enabled or disabled for users
+/// during their streaming sessions.
 class UserSetting {
   /// The action that is enabled or disabled.
   final String action;
@@ -2518,6 +2554,7 @@ class UserSetting {
   static UserSetting fromJson(Map<String, dynamic> json) => UserSetting();
 }
 
+/// Describes a user in the user pool and the associated stack.
 class UserStackAssociation {
   /// The name of the stack that is associated with the user.
   final String stackName;
@@ -2546,6 +2583,8 @@ class UserStackAssociation {
       UserStackAssociation();
 }
 
+/// Describes the error that is returned when a user can’t be associated with or
+/// disassociated from a stack.
 class UserStackAssociationError {
   /// Information about the user and associated stack.
   final UserStackAssociation userStackAssociation;
@@ -2567,6 +2606,7 @@ class UserStackAssociationError {
       UserStackAssociationError();
 }
 
+/// Describes VPC configuration information for fleets and image builders.
 class VpcConfig {
   /// The identifiers of the subnets to which a network interface is attached
   /// from the fleet instance or image builder instance. Fleet instances use one

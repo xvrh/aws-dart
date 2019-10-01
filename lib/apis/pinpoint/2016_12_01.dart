@@ -1073,6 +1073,8 @@ class PinpointApi {
   }
 }
 
+/// Specifies the status and settings of the ADM (Amazon Device Messaging)
+/// channel for an application.
 class AdmChannelRequest {
   /// The Client ID that you received from Amazon to send messages by using ADM.
   final String clientId;
@@ -1091,6 +1093,8 @@ class AdmChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the ADM (Amazon Device
+/// Messaging) channel for an application.
 class AdmChannelResponse {
   /// The unique identifier for the application that the ADM channel applies to.
   final String applicationId;
@@ -1140,6 +1144,8 @@ class AdmChannelResponse {
       AdmChannelResponse();
 }
 
+/// Specifies the settings for a one-time message that's sent directly to an
+/// endpoint through the ADM (Amazon Device Messaging) channel.
 class AdmMessage {
   /// The action to occur if the recipient taps the push notification. Valid
   /// values are:
@@ -1239,6 +1245,8 @@ class AdmMessage {
   });
 }
 
+/// Specifies the status and settings of the APNs (Apple Push Notification
+/// service) channel for an application.
 class ApnsChannelRequest {
   /// The bundle identifier that's assigned to your iOS app. This identifier is
   /// used for APNs tokens.
@@ -1282,6 +1290,8 @@ class ApnsChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the APNs (Apple Push
+/// Notification service) channel for an application.
 class ApnsChannelResponse {
   /// The unique identifier for the application that the APNs channel applies
   /// to.
@@ -1343,6 +1353,8 @@ class ApnsChannelResponse {
       ApnsChannelResponse();
 }
 
+/// Specifies the settings for a one-time message that's sent directly to an
+/// endpoint through the APNs (Apple Push Notification service) channel.
 class ApnsMessage {
   /// The action to occur if the recipient taps the push notification. Valid
   /// values are:
@@ -1475,6 +1487,8 @@ class ApnsMessage {
   });
 }
 
+/// Specifies the status and settings of the APNs (Apple Push Notification
+/// service) sandbox channel for an application.
 class ApnsSandboxChannelRequest {
   /// The bundle identifier that's assigned to your iOS app. This identifier is
   /// used for APNs tokens.
@@ -1520,6 +1534,8 @@ class ApnsSandboxChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the APNs (Apple Push
+/// Notification service) sandbox channel for an application.
 class ApnsSandboxChannelResponse {
   /// The unique identifier for the application that the APNs sandbox channel
   /// applies to.
@@ -1582,6 +1598,8 @@ class ApnsSandboxChannelResponse {
       ApnsSandboxChannelResponse();
 }
 
+/// Specifies the status and settings of the APNs (Apple Push Notification
+/// service) VoIP channel for an application.
 class ApnsVoipChannelRequest {
   /// The bundle identifier that's assigned to your iOS app. This identifier is
   /// used for APNs tokens.
@@ -1625,6 +1643,8 @@ class ApnsVoipChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the APNs (Apple Push
+/// Notification service) VoIP channel for an application.
 class ApnsVoipChannelResponse {
   /// The unique identifier for the application that the APNs VoIP channel
   /// applies to.
@@ -1686,6 +1706,8 @@ class ApnsVoipChannelResponse {
       ApnsVoipChannelResponse();
 }
 
+/// Specifies the status and settings of the APNs (Apple Push Notification
+/// service) VoIP sandbox channel for an application.
 class ApnsVoipSandboxChannelRequest {
   /// The bundle identifier that's assigned to your iOS app. This identifier is
   /// used for APNs tokens.
@@ -1733,6 +1755,8 @@ class ApnsVoipSandboxChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the APNs (Apple Push
+/// Notification service) VoIP sandbox channel for an application.
 class ApnsVoipSandboxChannelResponse {
   /// The unique identifier for the application that the APNs VoIP sandbox
   /// channel applies to.
@@ -1772,7 +1796,7 @@ class ApnsVoipSandboxChannelResponse {
   final String lastModifiedDate;
 
   /// The type of messaging or notification platform for the channel. For the
-  /// APNs VoIP sandbox channel, this value is APNS\_VOIP\_SANDBOX.
+  /// APNs VoIP sandbox channel, this value is APNS_VOIP_SANDBOX.
   final String platform;
 
   /// The current version of the APNs VoIP sandbox channel.
@@ -1796,6 +1820,7 @@ class ApnsVoipSandboxChannelResponse {
       ApnsVoipSandboxChannelResponse();
 }
 
+/// Provides information about the activities that were performed by a campaign.
 class ActivitiesResponse {
   /// An array of responses, one for each activity that was performed by the
   /// campaign.
@@ -1814,6 +1839,7 @@ class ActivitiesResponse {
       ActivitiesResponse();
 }
 
+/// Provides information about an activity that was performed by a campaign.
 class ActivityResponse {
   /// The unique identifier for the application that the campaign applies to.
   final String applicationId;
@@ -1881,6 +1907,8 @@ class ActivityResponse {
       ActivityResponse();
 }
 
+/// Specifies address-based configuration settings for a message that's sent
+/// directly to an endpoint.
 class AddressConfiguration {
   /// The message body to use instead of the default message body. This value
   /// overrides the default message body.
@@ -1919,6 +1947,9 @@ class AddressConfiguration {
   });
 }
 
+/// Provides the results of a query that retrieved the data for a standard
+/// metric that applies to an application, and provides information about that
+/// query.
 class ApplicationDateRangeKpiResponse {
   /// The unique identifier for the application that the metric applies to.
   final String applicationId;
@@ -1931,8 +1962,8 @@ class ApplicationDateRangeKpiResponse {
   /// (KPI)_, that the data was retrieved for. This value describes the
   /// associated metric and consists of two or more terms, which are comprised
   /// of lowercase alphanumeric characters, separated by a hyphen. For a list of
-  /// valid values, see the [Amazon Pinpoint Developer
-  /// Guide](developerguide.html).
+  /// valid values, see the
+  /// [Amazon Pinpoint Developer Guide](developerguide.html).
   final String kpiName;
 
   /// An array of objects that contains the results of the query. Each object
@@ -1960,6 +1991,7 @@ class ApplicationDateRangeKpiResponse {
       ApplicationDateRangeKpiResponse();
 }
 
+/// Provides information about an application.
 class ApplicationResponse {
   /// The Amazon Resource Name (ARN) of the application.
   final String arn;
@@ -1987,6 +2019,8 @@ class ApplicationResponse {
       ApplicationResponse();
 }
 
+/// Provides information about an application, including the default settings
+/// for an application.
 class ApplicationSettingsResource {
   /// The unique identifier for the application. This identifier is displayed as
   /// the **Project ID** on the Amazon Pinpoint console.
@@ -2034,6 +2068,7 @@ class ApplicationSettingsResource {
       ApplicationSettingsResource();
 }
 
+/// Provides information about all of your applications.
 class ApplicationsResponse {
   /// An array of responses, one for each application that was returned.
   final List<ApplicationResponse> item;
@@ -2051,6 +2086,8 @@ class ApplicationsResponse {
       ApplicationsResponse();
 }
 
+/// Specifies attribute-based criteria for including or excluding endpoints from
+/// a segment.
 class AttributeDimension {
   /// The type of segment dimension to use. Valid values are: INCLUSIVE,
   /// endpoints that match the criteria are included in the segment; and,
@@ -2071,6 +2108,8 @@ class AttributeDimension {
       AttributeDimension();
 }
 
+/// Provides information about the type and the names of attributes that were
+/// removed from all the endpoints that are associated with an application.
 class AttributesResource {
   /// The unique identifier for the application.
   final String applicationId;
@@ -2099,6 +2138,8 @@ class AttributesResource {
       AttributesResource();
 }
 
+/// Specifies the status and settings of the Baidu (Baidu Cloud Push) channel
+/// for an application.
 class BaiduChannelRequest {
   /// The API key that you received from the Baidu Cloud Push service to
   /// communicate with the service.
@@ -2118,6 +2159,8 @@ class BaiduChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the Baidu (Baidu Cloud
+/// Push) channel for an application.
 class BaiduChannelResponse {
   /// The unique identifier for the application that the Baidu channel applies
   /// to.
@@ -2173,6 +2216,8 @@ class BaiduChannelResponse {
       BaiduChannelResponse();
 }
 
+/// Specifies the settings for a one-time message that's sent directly to an
+/// endpoint through the Baidu (Baidu Cloud Push) channel.
 class BaiduMessage {
   /// The action to occur if the recipient taps the push notification. Valid
   /// values are:
@@ -2261,6 +2306,8 @@ class BaiduMessage {
   });
 }
 
+/// Provides the results of a query that retrieved the data for a standard
+/// metric that applies to an application or campaign.
 class BaseKpiResult {
   /// An array of objects that provides the results of a query that retrieved
   /// the data for a standard metric that applies to an application or campaign.
@@ -2272,6 +2319,9 @@ class BaseKpiResult {
   static BaseKpiResult fromJson(Map<String, dynamic> json) => BaseKpiResult();
 }
 
+/// Provides the results of a query that retrieved the data for a standard
+/// metric that applies to a campaign, and provides information about that
+/// query.
 class CampaignDateRangeKpiResponse {
   /// The unique identifier for the application that the metric applies to.
   final String applicationId;
@@ -2287,8 +2337,8 @@ class CampaignDateRangeKpiResponse {
   /// (KPI)_, that the data was retrieved for. This value describes the
   /// associated metric and consists of two or more terms, which are comprised
   /// of lowercase alphanumeric characters, separated by a hyphen. For a list of
-  /// valid values, see the [Amazon Pinpoint Developer
-  /// Guide](developerguide.html).
+  /// valid values, see the
+  /// [Amazon Pinpoint Developer Guide](developerguide.html).
   final String kpiName;
 
   /// An array of objects that contains the results of the query. Each object
@@ -2318,6 +2368,8 @@ class CampaignDateRangeKpiResponse {
       CampaignDateRangeKpiResponse();
 }
 
+/// Specifies the content and "From" address for an email message that's sent to
+/// recipients of a campaign.
 class CampaignEmailMessage {
   /// The body of the email for recipients whose email clients don't support
   /// HTML content.
@@ -2344,6 +2396,7 @@ class CampaignEmailMessage {
       CampaignEmailMessage();
 }
 
+/// Specifies the settings for events that cause a campaign to be sent.
 class CampaignEventFilter {
   /// The dimension settings of the event filter for the campaign.
   final EventDimensions dimensions;
@@ -2361,6 +2414,7 @@ class CampaignEventFilter {
       CampaignEventFilter();
 }
 
+/// Specifies the AWS Lambda function to use as a code hook for a campaign.
 class CampaignHook {
   /// The name or Amazon Resource Name (ARN) of the AWS Lambda function that
   /// Amazon Pinpoint invokes to send messages for a campaign.
@@ -2381,6 +2435,7 @@ class CampaignHook {
   static CampaignHook fromJson(Map<String, dynamic> json) => CampaignHook();
 }
 
+/// Specifies limits on the messages that a campaign can send.
 class CampaignLimits {
   /// The maximum number of messages that a campaign can send to a single
   /// endpoint during a 24-hour period. The maximum value is 100.
@@ -2408,6 +2463,8 @@ class CampaignLimits {
   static CampaignLimits fromJson(Map<String, dynamic> json) => CampaignLimits();
 }
 
+/// Provides information about the status, configuration, and other settings for
+/// a campaign.
 class CampaignResponse {
   /// An array of responses, one for each treatment that you defined for the
   /// campaign, in addition to the default treatment.
@@ -2513,6 +2570,8 @@ class CampaignResponse {
       CampaignResponse();
 }
 
+/// Specifies the content and settings for an SMS message that's sent to
+/// recipients of a campaign.
 class CampaignSmsMessage {
   /// The body of the SMS message.
   final String body;
@@ -2536,6 +2595,7 @@ class CampaignSmsMessage {
       CampaignSmsMessage();
 }
 
+/// Provides information about the status of a campaign.
 class CampaignState {
   /// The status of the campaign, or the status of a treatment that belongs to
   /// an A/B test campaign. If a campaign uses A/B testing, the campaign has a
@@ -2549,6 +2609,8 @@ class CampaignState {
   static CampaignState fromJson(Map<String, dynamic> json) => CampaignState();
 }
 
+/// Provides information about the configuration and other settings for all the
+/// campaigns that are associated with an application.
 class CampaignsResponse {
   /// An array of responses, one for each campaign that's associated with the
   /// application.
@@ -2567,6 +2629,8 @@ class CampaignsResponse {
       CampaignsResponse();
 }
 
+/// Provides information about the general settings and status of a channel for
+/// an application.
 class ChannelResponse {
   /// The unique identifier for the application.
   final String applicationId;
@@ -2611,6 +2675,9 @@ class ChannelResponse {
       ChannelResponse();
 }
 
+/// Provides information about the general settings and status of all channels
+/// for an application, including channels that aren't enabled for the
+/// application.
 class ChannelsResponse {
   /// A map that contains a multipart response for each channel. For each item
   /// in this object, the ChannelType is the key and the Channel is the value.
@@ -2633,6 +2700,8 @@ class CreateAppResponse {
       CreateAppResponse();
 }
 
+/// Specifies the display name of an application and the tags to associate with
+/// the application.
 class CreateApplicationRequest {
   /// The display name of the application. This name is displayed as the
   /// **Project name** on the Amazon Pinpoint console.
@@ -2689,6 +2758,7 @@ class CreateSegmentResponse {
       CreateSegmentResponse();
 }
 
+/// Specifies the default message to use for all channels.
 class DefaultMessage {
   /// The default message body of the push notification, email, or SMS message.
   final String body;
@@ -2704,6 +2774,8 @@ class DefaultMessage {
   });
 }
 
+/// Specifies the default settings and content for a push notification that's
+/// sent directly to an endpoint.
 class DefaultPushNotificationMessage {
   /// The default action to occur if a recipient taps the push notification.
   /// Valid values are:
@@ -2918,6 +2990,8 @@ class DeleteVoiceChannelResponse {
       DeleteVoiceChannelResponse();
 }
 
+/// Specifies the settings and content for the default message and any default
+/// messages that you tailored for specific channels.
 class DirectMessageConfiguration {
   /// The default push notification message for the ADM (Amazon Device
   /// Messaging) channel. This message overrides the default push notification
@@ -2971,10 +3045,11 @@ class DirectMessageConfiguration {
   });
 }
 
+/// Specifies the status and settings of the email channel for an application.
 class EmailChannelRequest {
   /// The configuration set that you want to apply to email that you send
-  /// through the channel by using the [Amazon Pinpoint Email
-  /// API](emailAPIreference.html).
+  /// through the channel by using the
+  /// [Amazon Pinpoint Email API](emailAPIreference.html).
   final String configurationSet;
 
   /// Specifies whether to enable the email channel for the application.
@@ -3003,6 +3078,8 @@ class EmailChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the email channel for
+/// an application.
 class EmailChannelResponse {
   /// The unique identifier for the application that the email channel applies
   /// to.
@@ -3080,6 +3157,8 @@ class EmailChannelResponse {
       EmailChannelResponse();
 }
 
+/// Specifies the default settings and content for a one-time email message
+/// that's sent directly to an endpoint.
 class EmailMessage {
   /// The body of the email message.
   final String body;
@@ -3117,6 +3196,8 @@ class EmailMessage {
   });
 }
 
+/// Specifies an endpoint to create or update and the settings and attributes to
+/// set or change for the endpoint.
 class EndpointBatchItem {
   /// The destination address for messages or push notifications that you send
   /// to the endpoint. The address varies by channel. For a push-notification
@@ -3129,11 +3210,11 @@ class EndpointBatchItem {
 
   /// One or more custom attributes that describe the endpoint by associating a
   /// name with an array of values. For example, the value of a custom attribute
-  /// named Interests might be: \["science", "music", "travel"\]. You can use
+  /// named Interests might be: ["science", "music", "travel"]. You can use
   /// these attributes as filter criteria when you create segments.
   ///
   /// When you define the name of a custom attribute, avoid using the following
-  /// characters: number sign (#), colon (:), question mark (?), backslash (\\),
+  /// characters: number sign (#), colon (:), question mark (?), backslash (),
   /// and slash (/). The Amazon Pinpoint console can't display attribute names
   /// that contain these characters. This limitation doesn't apply to attribute
   /// values.
@@ -3194,6 +3275,8 @@ class EndpointBatchItem {
   });
 }
 
+/// Specifies a batch of endpoints to create or update and the settings and
+/// attributes to set or change for each endpoint.
 class EndpointBatchRequest {
   /// An array that defines the endpoints to create or update and, for each
   /// endpoint, the property values to set or change. An array can contain a
@@ -3205,6 +3288,8 @@ class EndpointBatchRequest {
   });
 }
 
+/// Specifies demographic information about an endpoint, such as the applicable
+/// time zone and platform.
 class EndpointDemographic {
   /// The version of the app that's associated with the endpoint.
   final String appVersion;
@@ -3247,6 +3332,8 @@ class EndpointDemographic {
       EndpointDemographic();
 }
 
+/// Provides the status code and message that result from processing data for an
+/// endpoint.
 class EndpointItemResponse {
   /// The custom message that's returned in the response as a result of
   /// processing the endpoint data.
@@ -3264,6 +3351,7 @@ class EndpointItemResponse {
       EndpointItemResponse();
 }
 
+/// Specifies geographic information about an endpoint.
 class EndpointLocation {
   /// The name of the city where the endpoint is located.
   final String city;
@@ -3300,6 +3388,8 @@ class EndpointLocation {
       EndpointLocation();
 }
 
+/// Provides information about the delivery status and results of sending a
+/// message directly to an endpoint.
 class EndpointMessageResult {
   /// The endpoint address that the message was delivered to.
   final String address;
@@ -3354,6 +3444,7 @@ class EndpointMessageResult {
       EndpointMessageResult();
 }
 
+/// Specifies the channel type and other settings for an endpoint.
 class EndpointRequest {
   /// The destination address for messages or push notifications that you send
   /// to the endpoint. The address varies by channel. For a push-notification
@@ -3366,11 +3457,11 @@ class EndpointRequest {
 
   /// One or more custom attributes that describe the endpoint by associating a
   /// name with an array of values. For example, the value of a custom attribute
-  /// named Interests might be: \["science", "music", "travel"\]. You can use
+  /// named Interests might be: ["science", "music", "travel"]. You can use
   /// these attributes as filter criteria when you create segments.
   ///
   /// When you define the name of a custom attribute, avoid using the following
-  /// characters: number sign (#), colon (:), question mark (?), backslash (\\),
+  /// characters: number sign (#), colon (:), question mark (?), backslash (),
   /// and slash (/). The Amazon Pinpoint console can't display attribute names
   /// that contain these characters. This limitation doesn't apply to attribute
   /// values.
@@ -3426,6 +3517,8 @@ class EndpointRequest {
   });
 }
 
+/// Provides information about the channel type and other settings for an
+/// endpoint.
 class EndpointResponse {
   /// The destination address for messages or push notifications that you send
   /// to the endpoint. The address varies by channel. For example, the address
@@ -3442,7 +3535,7 @@ class EndpointResponse {
 
   /// One or more custom attributes that describe the endpoint by associating a
   /// name with an array of values. For example, the value of a custom attribute
-  /// named Interests might be: \["science", "music", "travel"\]. You can use
+  /// named Interests might be: ["science", "music", "travel"]. You can use
   /// these attributes as filter criteria when you create segments.
   final Map<String, List<String>> attributes;
 
@@ -3518,6 +3611,8 @@ class EndpointResponse {
       EndpointResponse();
 }
 
+/// Specifies the content, including message variables and attributes, to use in
+/// a message that's sent directly to an endpoint.
 class EndpointSendConfiguration {
   /// The body of the message. If specified, this value overrides the default
   /// message body.
@@ -3551,14 +3646,16 @@ class EndpointSendConfiguration {
   });
 }
 
+/// Specifies data for one or more attributes that describe the user who's
+/// associated with an endpoint.
 class EndpointUser {
   /// One or more custom attributes that describe the user by associating a name
   /// with an array of values. For example, the value of an attribute named
-  /// Interests might be: \["science", "music", "travel"\]. You can use these
+  /// Interests might be: ["science", "music", "travel"]. You can use these
   /// attributes as filter criteria when you create segments.
   ///
   /// When you define the name of a custom attribute, avoid using the following
-  /// characters: number sign (#), colon (:), question mark (?), backslash (\\),
+  /// characters: number sign (#), colon (:), question mark (?), backslash (),
   /// and slash (/). The Amazon Pinpoint console can't display attribute names
   /// that contain these characters. This limitation doesn't apply to attribute
   /// values.
@@ -3574,6 +3671,8 @@ class EndpointUser {
   static EndpointUser fromJson(Map<String, dynamic> json) => EndpointUser();
 }
 
+/// Provides information about all the endpoints that are associated with a user
+/// ID.
 class EndpointsResponse {
   /// An array of responses, one for each endpoint that's associated with the
   /// user ID.
@@ -3586,6 +3685,7 @@ class EndpointsResponse {
       EndpointsResponse();
 }
 
+/// Specifies information about an event that reports data to Amazon Pinpoint.
 class Event {
   /// The package name of the app that's recording the event.
   final String appPackageName;
@@ -3631,6 +3731,8 @@ class Event {
   });
 }
 
+/// Specifies the dimensions for an event filter that determines when a campaign
+/// is sent.
 class EventDimensions {
   /// One or more custom attributes that your app reports to Amazon Pinpoint.
   /// You can use these attributes as selection criteria when you create an
@@ -3656,6 +3758,7 @@ class EventDimensions {
       EventDimensions();
 }
 
+/// Provides the status code and message that result from processing an event.
 class EventItemResponse {
   /// A custom message that's returned in the response as a result of processing
   /// the event.
@@ -3674,6 +3777,8 @@ class EventItemResponse {
       EventItemResponse();
 }
 
+/// Specifies settings for publishing event data to an Amazon Kinesis data
+/// stream or an Amazon Kinesis Data Firehose delivery stream.
 class EventStream {
   /// The unique identifier for the application to publish event data for.
   final String applicationId;
@@ -3716,6 +3821,7 @@ class EventStream {
   static EventStream fromJson(Map<String, dynamic> json) => EventStream();
 }
 
+/// Specifies a batch of endpoints and events to process.
 class EventsBatch {
   /// A set of properties and attributes that are associated with the endpoint.
   final PublicEndpoint endpoint;
@@ -3729,6 +3835,7 @@ class EventsBatch {
   });
 }
 
+/// Specifies a batch of events to process.
 class EventsRequest {
   /// The batch of events to process. For each item in a batch, the endpoint ID
   /// acts as a key that has an EventsBatch object as its value.
@@ -3739,6 +3846,8 @@ class EventsRequest {
   });
 }
 
+/// Provides information about endpoints and the events that they're associated
+/// with.
 class EventsResponse {
   /// A map that contains a multipart response for each endpoint. For each item
   /// in this object, the endpoint ID is the key and the item response is the
@@ -3753,6 +3862,8 @@ class EventsResponse {
   static EventsResponse fromJson(Map<String, dynamic> json) => EventsResponse();
 }
 
+/// Specifies the settings for a job that exports endpoint definitions to an
+/// Amazon Simple Storage Service (Amazon S3) bucket.
 class ExportJobRequest {
   /// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
   /// (IAM) role that authorizes Amazon Pinpoint to access the Amazon S3
@@ -3782,6 +3893,10 @@ class ExportJobRequest {
   });
 }
 
+/// Provides information about the resource settings for a job that exports
+/// endpoint definitions to a file. The file can be added directly to an Amazon
+/// Simple Storage Service (Amazon S3) bucket by using the Amazon Pinpoint API
+/// or downloaded directly to a computer by using the Amazon Pinpoint console.
 class ExportJobResource {
   /// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
   /// (IAM) role that authorized Amazon Pinpoint to access the Amazon S3
@@ -3813,6 +3928,10 @@ class ExportJobResource {
       ExportJobResource();
 }
 
+/// Provides information about the status and settings of a job that exports
+/// endpoint definitions to a file. The file can be added directly to an Amazon
+/// Simple Storage Service (Amazon S3) bucket by using the Amazon Pinpoint API
+/// or downloaded directly to a computer by using the Amazon Pinpoint console.
 class ExportJobResponse {
   /// The unique identifier for the application that's associated with the
   /// export job.
@@ -3882,6 +4001,9 @@ class ExportJobResponse {
       ExportJobResponse();
 }
 
+/// Provides information about all the export jobs that are associated with an
+/// application or segment. An export job is a job that exports endpoint
+/// definitions to a file.
 class ExportJobsResponse {
   /// An array of responses, one for each export job that's associated with the
   /// application (Export Jobs resource) or segment (Segment Export Jobs
@@ -3901,6 +4023,10 @@ class ExportJobsResponse {
       ExportJobsResponse();
 }
 
+/// Specifies the status and settings of the GCM channel for an application.
+/// This channel enables Amazon Pinpoint to send push notifications through the
+/// Firebase Cloud Messaging (FCM), formerly Google Cloud Messaging (GCM),
+/// service.
 class GcmChannelRequest {
   /// The API key, also referred to as a _server key_, that you received from
   /// Google to communicate with Google services.
@@ -3915,6 +4041,10 @@ class GcmChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the GCM channel for an
+/// application. The GCM channel enables Amazon Pinpoint to send push
+/// notifications through the Firebase Cloud Messaging (FCM), formerly Google
+/// Cloud Messaging (GCM), service.
 class GcmChannelResponse {
   /// The unique identifier for the application that the GCM channel applies to.
   final String applicationId;
@@ -3969,6 +4099,10 @@ class GcmChannelResponse {
       GcmChannelResponse();
 }
 
+/// Specifies the settings for a one-time message that's sent directly to an
+/// endpoint through the GCM channel. The GCM channel enables Amazon Pinpoint to
+/// send messages to the Firebase Cloud Messaging (FCM), formerly Google Cloud
+/// Messaging (GCM), service.
 class GcmMessage {
   /// The action to occur if the recipient taps the push notification. Valid
   /// values are:
@@ -4062,7 +4196,7 @@ class GcmMessage {
   /// notification the first time. If you don't specify this value, FCM defaults
   /// to the maximum value, which is 2,419,200 seconds (28 days).
   ///
-  /// Amazon Pinpoint specifies this value in the FCM time\_to\_live parameter
+  /// Amazon Pinpoint specifies this value in the FCM time_to_live parameter
   /// when it sends the notification message to FCM.
   final int timeToLive;
 
@@ -4095,6 +4229,7 @@ class GcmMessage {
   });
 }
 
+/// Specifies the GPS coordinates of a location.
 class GpsCoordinates {
   /// The latitude coordinate of the location.
   final double latitude;
@@ -4109,6 +4244,8 @@ class GpsCoordinates {
   static GpsCoordinates fromJson(Map<String, dynamic> json) => GpsCoordinates();
 }
 
+/// Specifies GPS-based criteria for including or excluding endpoints from a
+/// segment.
 class GpsPointDimension {
   /// The GPS coordinates to measure distance from.
   final GpsCoordinates coordinates;
@@ -4465,6 +4602,8 @@ class GetVoiceChannelResponse {
       GetVoiceChannelResponse();
 }
 
+/// Specifies the settings for a job that imports endpoint definitions from an
+/// Amazon Simple Storage Service (Amazon S3) bucket.
 class ImportJobRequest {
   /// Specifies whether to create a segment that contains the endpoints, when
   /// the endpoint definitions are imported.
@@ -4524,6 +4663,10 @@ class ImportJobRequest {
   });
 }
 
+/// Provides information about the resource settings for a job that imports
+/// endpoint definitions from one or more files. The files can be stored in an
+/// Amazon Simple Storage Service (Amazon S3) bucket or uploaded directly from a
+/// computer by using the Amazon Pinpoint console.
 class ImportJobResource {
   /// Specifies whether the import job creates a segment that contains the
   /// endpoints, when the endpoint definitions are imported.
@@ -4587,6 +4730,10 @@ class ImportJobResource {
       ImportJobResource();
 }
 
+/// Provides information about the status and settings of a job that imports
+/// endpoint definitions from one or more files. The files can be stored in an
+/// Amazon Simple Storage Service (Amazon S3) bucket or uploaded directly from a
+/// computer by using the Amazon Pinpoint console.
 class ImportJobResponse {
   /// The unique identifier for the application that's associated with the
   /// import job.
@@ -4656,6 +4803,9 @@ class ImportJobResponse {
       ImportJobResponse();
 }
 
+/// Provides information about the status and settings of all the import jobs
+/// that are associated with an application or segment. An import job is a job
+/// that imports endpoint definitions from one or more files.
 class ImportJobsResponse {
   /// An array of responses, one for each import job that's associated with the
   /// application (Import Jobs resource) or segment (Segment Import Jobs
@@ -4675,6 +4825,8 @@ class ImportJobsResponse {
       ImportJobsResponse();
 }
 
+/// Provides information about the results of a request to create or update an
+/// endpoint that's associated with an event.
 class ItemResponse {
   /// The response that was received after the endpoint data was accepted.
   final EndpointItemResponse endpointItemResponse;
@@ -4701,6 +4853,8 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Specifies the content and settings for a push notification that's sent to
+/// recipients of a campaign.
 class Message {
   /// The action to occur if a recipient taps the push notification. Valid
   /// values are:
@@ -4783,6 +4937,7 @@ class Message {
   static Message fromJson(Map<String, dynamic> json) => Message();
 }
 
+/// Provides information about an API request or response.
 class MessageBody {
   /// The message that's returned from the API.
   final String message;
@@ -4797,6 +4952,7 @@ class MessageBody {
   static MessageBody fromJson(Map<String, dynamic> json) => MessageBody();
 }
 
+/// Specifies the message configuration settings for a campaign.
 class MessageConfiguration {
   /// The message that the campaign sends through the ADM (Amazon Device
   /// Messaging) channel. This message overrides the default message.
@@ -4839,6 +4995,8 @@ class MessageConfiguration {
       MessageConfiguration();
 }
 
+/// Specifies the objects that define configuration and other settings for a
+/// message.
 class MessageRequest {
   /// A map of key-value pairs, where each key is an address and each value is
   /// an AddressConfiguration object. An address can be a push notification
@@ -4876,6 +5034,8 @@ class MessageRequest {
   });
 }
 
+/// Provides information about the results of a request to send a message to an
+/// endpoint address.
 class MessageResponse {
   /// The unique identifier for the application that was used to send the
   /// message.
@@ -4905,6 +5065,8 @@ class MessageResponse {
       MessageResponse();
 }
 
+/// Provides information about the results of sending a message directly to an
+/// endpoint address.
 class MessageResult {
   /// The delivery status of the message. Possible values are:
   ///
@@ -4956,10 +5118,13 @@ class MessageResult {
   static MessageResult fromJson(Map<String, dynamic> json) => MessageResult();
 }
 
+/// Specifies metric-based criteria for including or excluding endpoints from a
+/// segment. These criteria derive from custom metrics that you define for
+/// endpoints.
 class MetricDimension {
   /// The operator to use when comparing metric values. Valid values are:
-  /// GREATER\_THAN, LESS\_THAN, GREATER\_THAN\_OR\_EQUAL,
-  /// LESS\_THAN\_OR\_EQUAL, and EQUAL.
+  /// GREATER_THAN, LESS_THAN, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, and
+  /// EQUAL.
   final String comparisonOperator;
 
   /// The value to compare.
@@ -4973,6 +5138,7 @@ class MetricDimension {
       MetricDimension();
 }
 
+/// Specifies a phone number to validate and retrieve information about.
 class NumberValidateRequest {
   /// The two-character code, in ISO 3166-1 alpha-2 format, for the country or
   /// region where the phone number was originally registered.
@@ -4989,6 +5155,7 @@ class NumberValidateRequest {
   });
 }
 
+/// Provides information about a phone number.
 class NumberValidateResponse {
   /// The carrier or service provider that the phone number is currently
   /// registered with. In some countries and regions, this value may be the
@@ -5075,6 +5242,8 @@ class PhoneNumberValidateResponse {
       PhoneNumberValidateResponse();
 }
 
+/// Specifies the properties and attributes of an endpoint that's associated
+/// with an event.
 class PublicEndpoint {
   /// The unique identifier for the recipient, such as a device token, email
   /// address, or mobile phone number.
@@ -5157,6 +5326,8 @@ class PutEventsResponse {
       PutEventsResponse();
 }
 
+/// Specifies the start and end times that define a time range when messages
+/// aren't sent to endpoints.
 class QuietTime {
   /// The specific time when quiet time ends. This value has to use 24-hour
   /// notation and be in HH:MM format, where HH is the hour (with a leading
@@ -5177,6 +5348,8 @@ class QuietTime {
   static QuietTime fromJson(Map<String, dynamic> json) => QuietTime();
 }
 
+/// Specifies the contents of an email message, represented as a raw MIME
+/// message.
 class RawEmail {
   /// The email message, represented as a raw MIME message. The entire message
   /// must be base64 encoded.
@@ -5187,6 +5360,8 @@ class RawEmail {
   });
 }
 
+/// Specifies criteria for including or excluding endpoints from a segment based
+/// on how recently an endpoint was active.
 class RecencyDimension {
   /// The duration to use when determining whether an endpoint is active or
   /// inactive.
@@ -5216,6 +5391,8 @@ class RemoveAttributesResponse {
       RemoveAttributesResponse();
 }
 
+/// Provides the results of a query that retrieved the data for a standard
+/// metric that applies to an application or campaign.
 class ResultRow {
   /// An array of objects that defines the field and field values that were used
   /// to group data in a result set that contains multiple results. This value
@@ -5233,6 +5410,9 @@ class ResultRow {
   static ResultRow fromJson(Map<String, dynamic> json) => ResultRow();
 }
 
+/// Provides a single value and metadata about that value as part of an array of
+/// query results for a standard metric that applies to an application or
+/// campaign.
 class ResultRowValue {
   /// The name of the field that Amazon Pinpoint uses to store the value
   /// specified by the Value property.
@@ -5255,6 +5435,7 @@ class ResultRowValue {
   static ResultRowValue fromJson(Map<String, dynamic> json) => ResultRowValue();
 }
 
+/// Specifies the status and settings of the SMS channel for an application.
 class SmsChannelRequest {
   /// Specifies whether to enable the SMS channel for the application.
   final bool enabled;
@@ -5274,6 +5455,8 @@ class SmsChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the SMS channel for an
+/// application.
 class SmsChannelResponse {
   /// The unique identifier for the application that the SMS channel applies to.
   final String applicationId;
@@ -5344,6 +5527,8 @@ class SmsChannelResponse {
       SmsChannelResponse();
 }
 
+/// Specifies the default settings for a one-time SMS message that's sent
+/// directly to an endpoint.
 class SmsMessage {
   /// The body of the SMS message.
   final String body;
@@ -5382,6 +5567,7 @@ class SmsMessage {
   });
 }
 
+/// Specifies the schedule settings for a campaign.
 class Schedule {
   /// The scheduled time, in ISO 8601 format, for the campaign to end.
   final String endTime;
@@ -5440,6 +5626,8 @@ class Schedule {
   static Schedule fromJson(Map<String, dynamic> json) => Schedule();
 }
 
+/// Specifies dimension settings for including or excluding endpoints from a
+/// segment based on how recently an endpoint was active.
 class SegmentBehaviors {
   /// The dimension settings that are based on how recently an endpoint was
   /// active.
@@ -5452,6 +5640,9 @@ class SegmentBehaviors {
       SegmentBehaviors();
 }
 
+/// Specifies demographic-based dimension settings for including or excluding
+/// endpoints from a segment. These settings derive from characteristics of
+/// endpoint devices, such as platform, make, and model.
 class SegmentDemographics {
   /// The app version criteria for the segment.
   final SetDimension appVersion;
@@ -5483,6 +5674,7 @@ class SegmentDemographics {
       SegmentDemographics();
 }
 
+/// Specifies the dimension settings for a segment.
 class SegmentDimensions {
   /// One or more custom attributes to use as criteria for the segment.
   final Map<String, AttributeDimension> attributes;
@@ -5516,6 +5708,8 @@ class SegmentDimensions {
       SegmentDimensions();
 }
 
+/// Specifies the base segments and dimensions for a segment, and the
+/// relationships between these base segments and dimensions.
 class SegmentGroup {
   /// An array that defines the dimensions for the segment.
   final List<SegmentDimensions> dimensions;
@@ -5550,6 +5744,8 @@ class SegmentGroup {
   static SegmentGroup fromJson(Map<String, dynamic> json) => SegmentGroup();
 }
 
+/// Specifies the settings that define the relationships between segment groups
+/// for a segment.
 class SegmentGroupList {
   /// An array that defines the set of segment criteria to evaluate when
   /// handling segment groups for the segment.
@@ -5569,6 +5765,8 @@ class SegmentGroupList {
       SegmentGroupList();
 }
 
+/// Provides information about the import job that created a segment. An import
+/// job is a job that creates a user segment by importing endpoint definitions.
 class SegmentImportResource {
   /// The number of channel types in the endpoint definitions that were imported
   /// to create the segment.
@@ -5611,6 +5809,7 @@ class SegmentImportResource {
       SegmentImportResource();
 }
 
+/// Specifies geographical dimension settings for a segment.
 class SegmentLocation {
   /// The country or region code, in ISO 3166-1 alpha-2 format, for the segment.
   final SetDimension country;
@@ -5626,6 +5825,7 @@ class SegmentLocation {
       SegmentLocation();
 }
 
+/// Specifies the segment identifier and version of a segment.
 class SegmentReference {
   /// The unique identifier for the segment.
   final String id;
@@ -5641,6 +5841,8 @@ class SegmentReference {
       SegmentReference();
 }
 
+/// Provides information about the configuration, dimension, and other settings
+/// for a segment.
 class SegmentResponse {
   /// The unique identifier for the application that the segment is associated
   /// with.
@@ -5710,6 +5912,8 @@ class SegmentResponse {
       SegmentResponse();
 }
 
+/// Provides information about all the segments that are associated with an
+/// application.
 class SegmentsResponse {
   /// An array of responses, one for each segment that's associated with the
   /// application (Segments resource) or each version of a segment that's
@@ -5739,6 +5943,8 @@ class SendMessagesResponse {
       SendMessagesResponse();
 }
 
+/// Specifies the configuration and other settings for a message to send to all
+/// the endpoints that are associated with a list of users.
 class SendUsersMessageRequest {
   /// A map of custom attribute-value pairs. For a push notification, Amazon
   /// Pinpoint adds these attributes to the data.pinpoint object in the body of
@@ -5768,6 +5974,7 @@ class SendUsersMessageRequest {
   });
 }
 
+/// Provides information about which users and endpoints a message was sent to.
 class SendUsersMessageResponse {
   /// The unique identifier for the application that was used to send the
   /// message.
@@ -5801,6 +6008,7 @@ class SendUsersMessagesResponse {
       SendUsersMessagesResponse();
 }
 
+/// Provides information about a session.
 class Session {
   /// The duration of the session, in milliseconds.
   final int duration;
@@ -5822,6 +6030,7 @@ class Session {
   });
 }
 
+/// Specifies the dimension type and values for a segment dimension.
 class SetDimension {
   /// The type of segment dimension to use. Valid values are: INCLUSIVE,
   /// endpoints that match the criteria are included in the segment; and,
@@ -5841,6 +6050,8 @@ class SetDimension {
   static SetDimension fromJson(Map<String, dynamic> json) => SetDimension();
 }
 
+/// Specifies the content of an email message, composed of a subject, a text
+/// part, and an HTML part.
 class SimpleEmail {
   /// The body of the email message, in HTML format. We recommend using an HTML
   /// part for email clients that support HTML. You can include links, formatted
@@ -5862,6 +6073,8 @@ class SimpleEmail {
   });
 }
 
+/// Specifies the subject or body of an email message, represented as textual
+/// email data and the applicable character set.
 class SimpleEmailPart {
   /// The applicable character set for the message content.
   final String charset;
@@ -5875,6 +6088,8 @@ class SimpleEmailPart {
   });
 }
 
+/// Specifies the tags (keys and values) for an application, campaign, or
+/// segment.
 class TagsModel {
   /// A string-to-string map of key-value pairs that defines the tags for an
   /// application, campaign, or segment. A project, campaign, or segment can
@@ -5891,6 +6106,8 @@ class TagsModel {
   static TagsModel fromJson(Map<String, dynamic> json) => TagsModel();
 }
 
+/// Specifies the settings for a campaign treatment. A treatment is a variation
+/// of a campaign that's used for A/B testing of a campaign.
 class TreatmentResource {
   /// The unique identifier for the treatment.
   final String id;
@@ -5990,6 +6207,8 @@ class UpdateApplicationSettingsResponse {
       UpdateApplicationSettingsResponse();
 }
 
+/// Specifies one or more attributes to remove from all the endpoints that are
+/// associated with an application.
 class UpdateAttributesRequest {
   /// An array of the attributes to remove from all the endpoints that are
   /// associated with the application. The array can specify the complete, exact
@@ -6092,6 +6311,7 @@ class UpdateVoiceChannelResponse {
       UpdateVoiceChannelResponse();
 }
 
+/// Specifies the status and settings of the voice channel for an application.
 class VoiceChannelRequest {
   /// Specifies whether to enable the voice channel for the application.
   final bool enabled;
@@ -6101,6 +6321,8 @@ class VoiceChannelRequest {
   });
 }
 
+/// Provides information about the status and settings of the voice channel for
+/// an application.
 class VoiceChannelResponse {
   /// The unique identifier for the application that the voice channel applies
   /// to.
@@ -6152,6 +6374,8 @@ class VoiceChannelResponse {
       VoiceChannelResponse();
 }
 
+/// Specifies the settings for a one-time voice message that's sent directly to
+/// an endpoint through the voice channel.
 class VoiceMessage {
   /// The text script for the voice message.
   final String body;
@@ -6170,8 +6394,8 @@ class VoiceMessage {
   final Map<String, List<String>> substitutions;
 
   /// The name of the voice to use when delivering the message. For a list of
-  /// supported voices, see the [Amazon Polly Developer
-  /// Guide](AmazonPollyDG.html).
+  /// supported voices, see the
+  /// [Amazon Polly Developer Guide](AmazonPollyDG.html).
   final String voiceId;
 
   VoiceMessage({
@@ -6183,6 +6407,7 @@ class VoiceMessage {
   });
 }
 
+/// Specifies the default settings for an application.
 class WriteApplicationSettingsRequest {
   /// The settings for the AWS Lambda function to use by default as a code hook
   /// for campaigns in the application. To override these settings for a
@@ -6230,6 +6455,7 @@ class WriteApplicationSettingsRequest {
   });
 }
 
+/// Specifies the configuration and other settings for a campaign.
 class WriteCampaignRequest {
   /// An array of requests that defines additional treatments for the campaign,
   /// in addition to the default treatment for the campaign.
@@ -6298,6 +6524,9 @@ class WriteCampaignRequest {
   });
 }
 
+/// Specifies the Amazon Resource Name (ARN) of an event stream to publish
+/// events to and the AWS Identity and Access Management (IAM) role to use when
+/// publishing those events.
 class WriteEventStream {
   /// The Amazon Resource Name (ARN) of the Amazon Kinesis data stream or Amazon
   /// Kinesis Data Firehose delivery stream that you want to publish event data
@@ -6320,6 +6549,9 @@ class WriteEventStream {
   });
 }
 
+/// Specifies the configuration, dimension, and other settings for a segment. A
+/// WriteSegmentRequest object can include a Dimensions object or a
+/// SegmentGroups object, but not both.
 class WriteSegmentRequest {
   /// The criteria that define the dimensions for the segment.
   final SegmentDimensions dimensions;
@@ -6346,6 +6578,8 @@ class WriteSegmentRequest {
   });
 }
 
+/// Specifies the settings for a campaign treatment. A treatment is a variation
+/// of a campaign that's used for A/B testing of a campaign.
 class WriteTreatmentResource {
   /// The message configuration settings for the treatment.
   final MessageConfiguration messageConfiguration;

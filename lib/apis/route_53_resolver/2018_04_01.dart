@@ -7,18 +7,17 @@ import 'package:meta/meta.dart';
 ///
 /// 2.  Run the following AWS CLI command to create a Resolver endpoint:
 ///
-///      `create-resolver-endpoint --name \[endpoint\_name\] --direction INBOUND
-/// --creator-request-id \[unique\_string\] --security-group-ids
-/// \[security\_group\_with\_inbound\_rules\] --ip-addresses
-/// SubnetId=\[subnet\_id\] SubnetId=\[subnet\_id\_in\_different_AZ\]`
+///      `create-resolver-endpoint --name [endpoint_name] --direction INBOUND
+/// --creator-request-id [unique_string] --security-group-ids
+/// [security_group_with_inbound_rules] --ip-addresses SubnetId=[subnet_id]
+/// SubnetId=[subnet_id_in_different_AZ]`
 ///
 ///     Note the resolver endpoint ID that appears in the response. You'll use
 /// it in step 3.
 ///
 /// 3.  Get the IP addresses for the Resolver endpoints:
 ///
-///      `get-resolver-endpoint --resolver-endpoint-id
-/// \[resolver\_endpoint\_id\]`
+///      `get-resolver-endpoint --resolver-endpoint-id [resolver_endpoint_id]`
 ///
 /// 4.  In your network configuration, define the IP addresses that you got in
 /// step 3 as DNS servers.
@@ -38,8 +37,7 @@ import 'package:meta/meta.dart';
 ///
 /// To delete an endpoint, use the following AWS CLI command:
 ///
-///  `delete-resolver-endpoint --resolver-endpoint-id
-/// \[resolver\_endpoint\_id\]`
+///  `delete-resolver-endpoint --resolver-endpoint-id [resolver_endpoint_id]`
 class Route53ResolverApi {
   /// Adds IP addresses to an inbound or an outbound resolver endpoint. If you
   /// want to adding more than one IP address, submit one
@@ -588,6 +586,8 @@ class DisassociateResolverRuleResponse {
       DisassociateResolverRuleResponse();
 }
 
+/// For `List` operations, an optional specification to return a subset of
+/// objects, such as resolver endpoints or resolver rules.
 class Filter {
   /// When you're using a `List` operation and you want the operation to return
   /// a subset of objects, such as resolver endpoints or resolver rules, the
@@ -658,6 +658,8 @@ class GetResolverRuleResponse {
       GetResolverRuleResponse();
 }
 
+/// In an CreateResolverEndpoint request, a subnet and IP address that you want
+/// to use for DNS queries.
 class IpAddressRequest {
   /// The subnet that contains the IP address.
   final String subnetId;
@@ -671,6 +673,8 @@ class IpAddressRequest {
   });
 }
 
+/// In the response to a GetResolverEndpoint request, information about the IP
+/// addresses that the resolver endpoint uses for DNS queries.
 class IpAddressResponse {
   /// The ID of one IP address.
   final String ipId;
@@ -709,6 +713,8 @@ class IpAddressResponse {
       IpAddressResponse();
 }
 
+/// In an UpdateResolverEndpoint request, information about an IP address to
+/// update.
 class IpAddressUpdate {
   ///  _Only when removing an IP address from a resolver endpoint_: The ID of
   /// the IP address that you want to remove. To get this ID, use
@@ -842,6 +848,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// The response to a `PutResolverRulePolicy` request.
 class PutResolverRulePolicyResponse {
   /// Whether the `PutResolverRulePolicy` request was successful.
   final bool returnValue;
@@ -853,6 +860,10 @@ class PutResolverRulePolicyResponse {
       PutResolverRulePolicyResponse();
 }
 
+/// In the response to a CreateResolverEndpoint, DeleteResolverEndpoint,
+/// GetResolverEndpoint, ListResolverEndpoints, or UpdateResolverEndpoint
+/// request, a complex type that contains settings for an existing inbound or
+/// outbound resolver endpoint.
 class ResolverEndpoint {
   /// The ID of the resolver endpoint.
   final String id;
@@ -922,6 +933,11 @@ class ResolverEndpoint {
       ResolverEndpoint();
 }
 
+/// For queries that originate in your VPC, detailed information about a
+/// resolver rule, which specifies how to route DNS queries out of the VPC. The
+/// `ResolverRule` parameter appears in the response to a CreateResolverRule,
+/// DeleteResolverRule, GetResolverRule, ListResolverRules, or
+/// UpdateResolverRule request.
 class ResolverRule {
   /// The ID that Resolver assigned to the resolver rule when you created it.
   final String id;
@@ -986,6 +1002,9 @@ class ResolverRule {
   static ResolverRule fromJson(Map<String, dynamic> json) => ResolverRule();
 }
 
+/// In the response to an AssociateResolverRule, DisassociateResolverRule, or
+/// ListResolverRuleAssociations request, information about an association
+/// between a resolver rule and a VPC.
 class ResolverRuleAssociation {
   /// The ID of the association between a resolver rule and a VPC. Resolver
   /// assigns this value when you submit an AssociateResolverRule request.
@@ -1021,6 +1040,8 @@ class ResolverRuleAssociation {
       ResolverRuleAssociation();
 }
 
+/// In an UpdateResolverRule request, information about the changes that you
+/// want to make.
 class ResolverRuleConfig {
   /// The new name for the resolver rule. The name that you specify appears in
   /// the Resolver dashboard in the Route 53 console.
@@ -1041,6 +1062,8 @@ class ResolverRuleConfig {
   });
 }
 
+/// One tag that you want to add to the specified resource. A tag consists of a
+/// `Key` (a name for the tag) and a `Value`.
 class Tag {
   /// The name for the tag. For example, if you want to associate Resolver
   /// resources with the account IDs of your customers for billing purposes, the
@@ -1065,6 +1088,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// In a CreateResolverRule request, an array of the IPs that you want to
+/// forward DNS queries to.
 class TargetAddress {
   /// One IP address that you want to forward DNS queries to. You can specify
   /// only IPv4 addresses.

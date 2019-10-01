@@ -6,10 +6,10 @@ import 'dart:typed_data';
 /// **Overview**
 ///
 /// This is the AWS Lambda API Reference. The AWS Lambda Developer Guide
-/// provides additional information. For the service overview, go to [What is
-/// AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html), and
-/// for information about how the service works, go to [AWS LambdaL How it
-/// Works](http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
+/// provides additional information. For the service overview, go to
+/// [What is AWS Lambda](http://docs.aws.amazon.com/lambda/latest/dg/welcome.html),
+/// and for information about how the service works, go to
+/// [AWS LambdaL How it Works](http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
 /// in the AWS Lambda Developer Guide.
 class LambdaApi {
   /// Identifies a stream as an event source for an AWS Lambda function. It can
@@ -17,8 +17,8 @@ class LambdaApi {
   /// invokes the specified function when records are posted to the stream.
   ///
   /// This is the pull model, where AWS Lambda invokes the function. For more
-  /// information, go to [AWS Lambda: How it
-  /// Works](http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
+  /// information, go to
+  /// [AWS Lambda: How it Works](http://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
   /// in the AWS Lambda Developer Guide.
   ///
   /// This association between an Amazon Kinesis stream and an AWS Lambda
@@ -52,8 +52,8 @@ class LambdaApi {
   /// [parameters]: A map (key-value pairs) defining the configuration for AWS
   /// Lambda to use when reading the event source. Currently, AWS Lambda
   /// supports only the `InitialPositionInStream` key. The valid values are:
-  /// "TRIM\_HORIZON" and "LATEST". The default value is "TRIM\_HORIZON". For
-  /// more information, go to
+  /// "TRIM_HORIZON" and "LATEST". The default value is "TRIM_HORIZON". For more
+  /// information, go to
   /// [ShardIteratorType](http://docs.aws.amazon.com/kinesis/latest/APIReference/API_GetShardIterator.html#Kinesis-GetShardIterator-request-ShardIteratorType)
   /// in the Amazon Kinesis Service API Reference.
   Future<EventSourceConfiguration> addEventSource(
@@ -235,8 +235,8 @@ class LambdaApi {
   /// other AWS Lambda APIs, such as InvokeAsync.
   ///
   /// [functionZip]: A .zip file containing your packaged source code. For more
-  /// information about creating a .zip file, go to [AWS LambdaL How it
-  /// Works](http://docs.aws.amazon.com/lambda/latest/dg/walkthrough-custom-events.html)
+  /// information about creating a .zip file, go to
+  /// [AWS LambdaL How it Works](http://docs.aws.amazon.com/lambda/latest/dg/walkthrough-custom-events.html)
   /// in the AWS Lambda Developer Guide.
   ///
   /// [runtime]: The runtime environment for the Lambda function you are
@@ -280,6 +280,7 @@ class LambdaApi {
   }
 }
 
+/// Describes mapping between an Amazon Kinesis stream and a Lambda function.
 class EventSourceConfiguration {
   /// The AWS Lambda assigned opaque identifier for the mapping.
   final String uuid;
@@ -333,6 +334,7 @@ class EventSourceConfiguration {
       EventSourceConfiguration();
 }
 
+/// The object for the Lambda function location.
 class FunctionCodeLocation {
   /// The repository from which you can download the function.
   final String repositoryType;
@@ -349,6 +351,7 @@ class FunctionCodeLocation {
       FunctionCodeLocation();
 }
 
+/// A complex type that describes function metadata.
 class FunctionConfiguration {
   /// The name of the function.
   final String functionName;
@@ -411,6 +414,8 @@ class FunctionConfiguration {
       FunctionConfiguration();
 }
 
+/// This response contains the object for AWS Lambda function location (see
+/// API_FunctionCodeLocation
 class GetFunctionResponse {
   final FunctionConfiguration configuration;
 
@@ -424,6 +429,7 @@ class GetFunctionResponse {
       GetFunctionResponse();
 }
 
+/// Upon success, it returns empty response. Otherwise, throws an exception.
 class InvokeAsyncResponse {
   /// It will be 202 upon success.
   final int status;
@@ -435,6 +441,7 @@ class InvokeAsyncResponse {
       InvokeAsyncResponse();
 }
 
+/// Contains a list of event sources (see API_EventSourceConfiguration)
 class ListEventSourcesResponse {
   /// A string, present if there are more event source mappings.
   final String nextMarker;
@@ -450,6 +457,8 @@ class ListEventSourcesResponse {
       ListEventSourcesResponse();
 }
 
+/// Contains a list of AWS Lambda function configurations (see
+/// API_FunctionConfiguration.
 class ListFunctionsResponse {
   /// A string, present if there are more functions.
   final String nextMarker;

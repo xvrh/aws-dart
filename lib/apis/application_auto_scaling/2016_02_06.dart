@@ -44,8 +44,8 @@ import 'package:meta/meta.dart';
 ///
 /// To learn more about Application Auto Scaling, including information about
 /// granting IAM users required permissions for Application Auto Scaling
-/// actions, see the [Application Auto Scaling User
-/// Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
+/// actions, see the
+/// [Application Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
 class ApplicationAutoScalingApi {
   /// Deletes the specified scaling policy for an Application Auto Scaling
   /// scalable target.
@@ -54,10 +54,10 @@ class ApplicationAutoScalingApi {
   /// does not delete the CloudWatch alarm associated with the scaling policy,
   /// even if it no longer has an associated action.
   ///
-  /// For more information, see [Delete a Step Scaling
-  /// Policy](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html#delete-step-scaling-policy)
-  /// and [Delete a Target Tracking Scaling
-  /// Policy](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html#delete-target-tracking-policy)
+  /// For more information, see
+  /// [Delete a Step Scaling Policy](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html#delete-step-scaling-policy)
+  /// and
+  /// [Delete a Target Tracking Scaling Policy](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html#delete-target-tracking-policy)
   /// in the _Application Auto Scaling User Guide_.
   ///
   /// To create a scaling policy or update an existing one, see
@@ -67,8 +67,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scalable
@@ -106,44 +106,44 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   Future<DeleteScalingPolicyResponse> deleteScalingPolicy(
       {@required String policyName,
@@ -156,14 +156,14 @@ class ApplicationAutoScalingApi {
   /// Deletes the specified scheduled action for an Application Auto Scaling
   /// scalable target.
   ///
-  /// For more information, see [Delete a Scheduled
-  /// Action](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action)
+  /// For more information, see
+  /// [Delete a Scheduled Action](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-scheduled-scaling.html#delete-scheduled-action)
   /// in the _Application Auto Scaling User Guide_.
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [scheduledActionName]: The name of the scheduled action.
@@ -203,44 +203,44 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   Future<DeleteScheduledActionResponse> deleteScheduledAction(
       {@required String serviceNamespace,
@@ -260,8 +260,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scalable
@@ -299,45 +299,45 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension associated with the scalable
   /// target. This string consists of the service namespace, resource type, and
   /// scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   Future<DeregisterScalableTargetResponse> deregisterScalableTarget(
       {@required String serviceNamespace,
@@ -356,8 +356,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceIds]: The identifier of the resource associated with the scalable
@@ -396,46 +396,46 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension associated with the scalable
   /// target. This string consists of the service namespace, resource type, and
   /// scaling property. If you specify a scalable dimension, you must also
   /// specify a resource ID.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [maxResults]: The maximum number of scalable targets. This value can be
@@ -469,8 +469,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scaling
@@ -509,45 +509,45 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property. If you specify a
   /// scalable dimension, you must also specify a resource ID.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [maxResults]: The maximum number of scalable targets. This value can be
@@ -583,8 +583,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scaling
@@ -623,45 +623,45 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property. If you specify a
   /// scalable dimension, you must also specify a resource ID.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [maxResults]: The maximum number of scalable targets. This value can be
@@ -698,8 +698,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scheduled
@@ -738,45 +738,45 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property. If you specify a
   /// scalable dimension, you must also specify a resource ID.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [maxResults]: The maximum number of scheduled action results. This value
@@ -827,16 +827,15 @@ class ApplicationAutoScalingApi {
   /// is 10, Application Auto Scaling uses the policy with the highest
   /// calculated capacity (200% of 10 = 20) and scales out to 30.
   ///
-  /// Learn more about how to work with scaling policies in the [Application
-  /// Auto Scaling User
-  /// Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
+  /// Learn more about how to work with scaling policies in the
+  /// [Application Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
   ///
   /// [policyName]: The name of the scaling policy.
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource associated with the scaling
@@ -874,44 +873,44 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [policyType]: The policy type. This parameter is required if you are
@@ -923,10 +922,10 @@ class ApplicationAutoScalingApi {
   ///
   ///  `StepScaling`—Not supported for Amazon DynamoDB
   ///
-  /// For more information, see [Step Scaling Policies for Application Auto
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html)
-  /// and [Target Tracking Scaling Policies for Application Auto
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html)
+  /// For more information, see
+  /// [Step Scaling Policies for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html)
+  /// and
+  /// [Target Tracking Scaling Policies for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html)
   /// in the _Application Auto Scaling User Guide_.
   ///
   /// [stepScalingPolicyConfiguration]: A step scaling policy.
@@ -969,14 +968,13 @@ class ApplicationAutoScalingApi {
   /// are no longer using a scheduled action, you can delete it using
   /// DeleteScheduledAction.
   ///
-  /// Learn more about how to work with scheduled actions in the [Application
-  /// Auto Scaling User
-  /// Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
+  /// Learn more about how to work with scheduled actions in the
+  /// [Application Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/application/userguide/what-is-application-auto-scaling.html).
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [schedule]: The schedule for this action. The following formats are
@@ -995,8 +993,8 @@ class ApplicationAutoScalingApi {
   /// For rate expressions, _value_ is a positive integer and _unit_ is `minute`
   /// | `minutes` | `hour` | `hours` | `day` | `days`.
   ///
-  /// For more information about cron expressions, see [Cron
-  /// Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
+  /// For more information about cron expressions, see
+  /// [Cron Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
   /// in the _Amazon CloudWatch Events User Guide_.
   ///
   /// [scheduledActionName]: The name of the scheduled action.
@@ -1036,44 +1034,44 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension. This string consists of the
   /// service namespace, resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [startTime]: The date and time for the scheduled action to start.
@@ -1121,8 +1119,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [serviceNamespace]: The namespace of the AWS service that provides the
   /// resource or `custom-resource` for a resource provided by your own
-  /// application or service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// application or service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [resourceId]: The identifier of the resource that is associated with the
@@ -1161,45 +1159,45 @@ class ApplicationAutoScalingApi {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   ///
   /// [scalableDimension]: The scalable dimension associated with the scalable
   /// target. This string consists of the service namespace, resource type, and
   /// scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   ///
   /// [minCapacity]: The minimum value to scale to in response to a scale-in
@@ -1210,8 +1208,8 @@ class ApplicationAutoScalingApi {
   ///
   /// [roleArn]: Application Auto Scaling creates a service-linked role that
   /// grants it permissions to modify the scalable target on your behalf. For
-  /// more information, see [Service-Linked Roles for Application Auto
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html).
+  /// more information, see
+  /// [Service-Linked Roles for Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-service-linked-roles.html).
   ///
   /// For resources that are not supported using a service-linked role, this
   /// parameter is required, and it must specify the ARN of an IAM role that
@@ -1236,8 +1234,8 @@ class ApplicationAutoScalingApi {
   /// scaling activities that involve scheduled actions are suspended.
   ///
   ///
-  /// For more information, see [Suspend and Resume Application Auto
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html)
+  /// For more information, see
+  /// [Suspend and Resume Application Auto Scaling](https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html)
   /// in the _Application Auto Scaling User Guide_.
   Future<RegisterScalableTargetResponse> registerScalableTarget(
       {@required String serviceNamespace,
@@ -1251,6 +1249,7 @@ class ApplicationAutoScalingApi {
   }
 }
 
+/// Represents a CloudWatch alarm associated with a scaling policy.
 class Alarm {
   /// The name of the alarm.
   final String alarmName;
@@ -1265,6 +1264,25 @@ class Alarm {
   static Alarm fromJson(Map<String, dynamic> json) => Alarm();
 }
 
+/// Represents a CloudWatch metric of your choosing for a target tracking
+/// scaling policy to use with Application Auto Scaling.
+///
+/// To create your customized metric specification:
+///
+/// *   Add values for each required parameter from CloudWatch. You can use an
+/// existing metric, or a new metric that you create. To use your own metric,
+/// you must first publish the metric to CloudWatch. For more information, see
+/// [Publish Custom Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
+/// in the _Amazon CloudWatch User Guide_.
+///
+/// *   Choose a metric that changes proportionally with capacity. The value of
+/// the metric should increase or decrease in inverse proportion to the number
+/// of capacity units. That is, the value of the metric should decrease when
+/// capacity increases.
+///
+///
+/// For more information about CloudWatch, see
+/// [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
 class CustomizedMetricSpecification {
   /// The name of the metric.
   final String metricName;
@@ -1378,6 +1396,7 @@ class DescribeScheduledActionsResponse {
       DescribeScheduledActionsResponse();
 }
 
+/// Describes the dimension names and values associated with a metric.
 class MetricDimension {
   /// The name of the dimension.
   final String name;
@@ -1393,6 +1412,8 @@ class MetricDimension {
       MetricDimension();
 }
 
+/// Represents a predefined metric for a target tracking scaling policy to use
+/// with Application Auto Scaling.
 class PredefinedMetricSpecification {
   /// The metric type. The `ALBRequestCountPerTarget` metric type applies only
   /// to Spot Fleet requests and ECS services.
@@ -1448,11 +1469,12 @@ class RegisterScalableTargetResponse {
       RegisterScalableTargetResponse();
 }
 
+/// Represents a scalable target.
 class ScalableTarget {
   /// The namespace of the AWS service that provides the resource or
   /// `custom-resource` for a resource provided by your own application or
-  /// service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   final String serviceNamespace;
 
@@ -1491,45 +1513,45 @@ class ScalableTarget {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   final String resourceId;
 
   /// The scalable dimension associated with the scalable target. This string
   /// consists of the service namespace, resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   final String scalableDimension;
 
@@ -1561,6 +1583,7 @@ class ScalableTarget {
   static ScalableTarget fromJson(Map<String, dynamic> json) => ScalableTarget();
 }
 
+/// Represents the minimum and maximum capacity for a scheduled action.
 class ScalableTargetAction {
   /// The minimum capacity.
   final int minCapacity;
@@ -1576,14 +1599,15 @@ class ScalableTargetAction {
       ScalableTargetAction();
 }
 
+/// Represents a scaling activity.
 class ScalingActivity {
   /// The unique identifier of the scaling activity.
   final String activityId;
 
   /// The namespace of the AWS service that provides the resource or
   /// `custom-resource` for a resource provided by your own application or
-  /// service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   final String serviceNamespace;
 
@@ -1622,45 +1646,45 @@ class ScalingActivity {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   final String resourceId;
 
   /// The scalable dimension. This string consists of the service namespace,
   /// resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   final String scalableDimension;
 
@@ -1703,6 +1727,7 @@ class ScalingActivity {
       ScalingActivity();
 }
 
+/// Represents a scaling policy to use with Application Auto Scaling.
 class ScalingPolicy {
   /// The Amazon Resource Name (ARN) of the scaling policy.
   final String policyArn;
@@ -1712,8 +1737,8 @@ class ScalingPolicy {
 
   /// The namespace of the AWS service that provides the resource or
   /// `custom-resource` for a resource provided by your own application or
-  /// service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   final String serviceNamespace;
 
@@ -1752,45 +1777,45 @@ class ScalingPolicy {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   final String resourceId;
 
   /// The scalable dimension. This string consists of the service namespace,
   /// resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   final String scalableDimension;
 
@@ -1825,6 +1850,7 @@ class ScalingPolicy {
   static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
 }
 
+/// Represents a scheduled action.
 class ScheduledAction {
   /// The name of the scheduled action.
   final String scheduledActionName;
@@ -1834,8 +1860,8 @@ class ScheduledAction {
 
   /// The namespace of the AWS service that provides the resource or
   /// `custom-resource` for a resource provided by your own application or
-  /// service. For more information, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// service. For more information, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
   /// in the _Amazon Web Services General Reference_.
   final String serviceNamespace;
 
@@ -1854,8 +1880,8 @@ class ScheduledAction {
   /// For rate expressions, _value_ is a positive integer and _unit_ is `minute`
   /// | `minutes` | `hour` | `hours` | `day` | `days`.
   ///
-  /// For more information about cron expressions, see [Cron
-  /// Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
+  /// For more information about cron expressions, see
+  /// [Cron Expressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
   /// in the _Amazon CloudWatch Events User Guide_.
   final String schedule;
 
@@ -1894,45 +1920,45 @@ class ScheduledAction {
   /// *   Custom resources are not supported with a resource type. This
   /// parameter must specify the `OutputValue` from the CloudFormation template
   /// stack used to access the resources. The unique identifier is defined by
-  /// the service provider. More information is available in our [GitHub
-  /// repository](https://github.com/aws/aws-auto-scaling-custom-resource).
+  /// the service provider. More information is available in our
+  /// [GitHub repository](https://github.com/aws/aws-auto-scaling-custom-resource).
   final String resourceId;
 
   /// The scalable dimension. This string consists of the service namespace,
   /// resource type, and scaling property.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `elasticmapreduce:instancegroup:InstanceCount` \- The instance count
+  /// *    `elasticmapreduce:instancegroup:InstanceCount` - The instance count
   /// of an EMR Instance Group.
   ///
-  /// *    `appstream:fleet:DesiredCapacity` \- The desired capacity of an
+  /// *    `appstream:fleet:DesiredCapacity` - The desired capacity of an
   /// AppStream 2.0 fleet.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   ///
-  /// *    `sagemaker:variant:DesiredInstanceCount` \- The number of EC2
+  /// *    `sagemaker:variant:DesiredInstanceCount` - The number of EC2
   /// instances for an Amazon SageMaker model endpoint variant.
   ///
-  /// *    `custom-resource:ResourceType:Property` \- The scalable dimension for
+  /// *    `custom-resource:ResourceType:Property` - The scalable dimension for
   /// a custom resource provided by your own application or service.
   final String scalableDimension;
 
@@ -1968,6 +1994,34 @@ class ScheduledAction {
       ScheduledAction();
 }
 
+/// Represents a step adjustment for a StepScalingPolicyConfiguration. Describes
+/// an adjustment based on the difference between the value of the aggregated
+/// CloudWatch metric and the breach threshold that you've defined for the
+/// alarm.
+///
+/// For the following examples, suppose that you have an alarm with a breach
+/// threshold of 50:
+///
+/// *   To trigger the adjustment when the metric is greater than or equal to 50
+/// and less than 60, specify a lower bound of 0 and an upper bound of 10.
+///
+/// *   To trigger the adjustment when the metric is greater than 40 and less
+/// than or equal to 50, specify a lower bound of -10 and an upper bound of 0.
+///
+///
+/// There are a few rules for the step adjustments for your step policy:
+///
+/// *   The ranges of your step adjustments can't overlap or have a gap.
+///
+/// *   At most one step adjustment can have a null lower bound. If one step
+/// adjustment has a negative lower bound, then there must be a step adjustment
+/// with a null lower bound.
+///
+/// *   At most one step adjustment can have a null upper bound. If one step
+/// adjustment has a positive upper bound, then there must be a step adjustment
+/// with a null upper bound.
+///
+/// *   The upper and lower bound can't be null in the same step adjustment.
 class StepAdjustment {
   /// The lower bound for the difference between the alarm threshold and the
   /// CloudWatch metric. If the metric value is above the breach threshold, the
@@ -2000,6 +2054,8 @@ class StepAdjustment {
   static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment();
 }
 
+/// Represents a step scaling policy configuration to use with Application Auto
+/// Scaling.
 class StepScalingPolicyConfiguration {
   /// Specifies whether the `ScalingAdjustment` value in a StepAdjustment is an
   /// absolute number or a percentage of the current capacity.
@@ -2062,6 +2118,8 @@ class StepScalingPolicyConfiguration {
       StepScalingPolicyConfiguration();
 }
 
+/// Specifies whether the scaling activities for a scalable target are in a
+/// suspended state.
 class SuspendedState {
   /// Whether scale in by a target tracking scaling policy or a step scaling
   /// policy is suspended. Set the value to `true` if you don't want Application
@@ -2088,6 +2146,8 @@ class SuspendedState {
   static SuspendedState fromJson(Map<String, dynamic> json) => SuspendedState();
 }
 
+/// Represents a target tracking scaling policy configuration to use with
+/// Application Auto Scaling.
 class TargetTrackingScalingPolicyConfiguration {
   /// The target value for the metric. The range is 8.515920e-109 to
   /// 1.174271e+108 (Base 10) or 2e-360 to 2e360 (Base 2).

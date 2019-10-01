@@ -10,8 +10,8 @@ import 'package:meta/meta.dart';
 /// collected by Application Discovery Service is securely retained in an
 /// AWS-hosted and managed database in the cloud. You can export the data as a
 /// CSV or XML file into your preferred visualization tool or cloud-migration
-/// solution to plan your migration. For more information, see [AWS Application
-/// Discovery Service FAQ](http://aws.amazon.com/application-discovery/faqs/).
+/// solution to plan your migration. For more information, see
+/// [AWS Application Discovery Service FAQ](http://aws.amazon.com/application-discovery/faqs/).
 ///
 /// Application Discovery Service offers two modes of operation:
 ///
@@ -47,10 +47,10 @@ import 'package:meta/meta.dart';
 /// solution.
 ///
 ///  Application Discovery Service doesn't gather sensitive information. All
-/// data is handled according to the [AWS Privacy
-/// Policy](http://aws.amazon.com/privacy/). You can operate Application
-/// Discovery Service offline to inspect collected data before it is shared with
-/// the service.
+/// data is handled according to the
+/// [AWS Privacy Policy](http://aws.amazon.com/privacy/). You can operate
+/// Application Discovery Service offline to inspect collected data before it is
+/// shared with the service.
 ///
 /// This API reference provides descriptions, syntax, and usage examples for
 /// each of the actions and data types for Application Discovery Service. The
@@ -59,9 +59,8 @@ import 'package:meta/meta.dart';
 /// tailored to the programming language or platform that you're using. For more
 /// information, see [AWS SDKs](http://aws.amazon.com/tools/#SDKs).
 ///
-/// This guide is intended for use with the  [_AWS Application Discovery Service
-/// User
-/// Guide_](http://docs.aws.amazon.com/application-discovery/latest/userguide/)
+/// This guide is intended for use with the
+/// [_AWS Application Discovery Service User Guide_](http://docs.aws.amazon.com/application-discovery/latest/userguide/)
 /// .
 class ApplicationDiscoveryServiceApi {
   /// Associates one or more configuration items with an application.
@@ -197,9 +196,8 @@ class ApplicationDiscoveryServiceApi {
   /// about the server, such as host name, operating system, number of network
   /// cards, etc.
   ///
-  /// For a complete list of outputs for each asset type, see [Using the
-  /// DescribeConfigurations
-  /// Action](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#DescribeConfigurations).
+  /// For a complete list of outputs for each asset type, see
+  /// [Using the DescribeConfigurations Action](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#DescribeConfigurations).
   ///
   /// [configurationIds]: One or more configuration IDs.
   Future<DescribeConfigurationsResponse> describeConfigurations(
@@ -245,7 +243,7 @@ class ApplicationDiscoveryServiceApi {
   ///
   /// [filters]: One or more filters.
   ///
-  /// *    `AgentId` \- ID of the agent whose collected data will be exported
+  /// *    `AgentId` - ID of the agent whose collected data will be exported
   ///
   /// [maxResults]: The maximum number of volume results returned by
   /// `DescribeExportTasks` in paginated output. When this parameter is used,
@@ -362,8 +360,8 @@ class ApplicationDiscoveryServiceApi {
   ///  `{"key": "serverType", "value": "webServer"}`
   ///
   /// For a complete list of filter options and guidance about using them with
-  /// this action, see [Querying Discovered Configuration
-  /// Items](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#ListConfigurations).
+  /// this action, see
+  /// [Querying Discovered Configuration Items](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#ListConfigurations).
   ///
   /// [maxResults]: The total number of items to return. The maximum value is
   /// 100.
@@ -376,8 +374,8 @@ class ApplicationDiscoveryServiceApi {
   ///
   /// [orderBy]: Certain filter criteria return output that can be sorted in
   /// ascending or descending order. For a list of output characteristics for
-  /// each filter, see [Using the ListConfigurations
-  /// Action](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#ListConfigurations).
+  /// each filter, see
+  /// [Using the ListConfigurations Action](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html#ListConfigurations).
   Future<ListConfigurationsResponse> listConfigurations(
       String configurationType,
       {List<Filter> filters,
@@ -499,17 +497,15 @@ class ApplicationDiscoveryServiceApi {
   /// one of the AWS SDKs to import the records from your file.
   ///
   ///
-  /// For more information, including step-by-step procedures, see [Migration
-  /// Hub
-  /// Import](https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-import.html)
+  /// For more information, including step-by-step procedures, see
+  /// [Migration Hub Import](https://docs.aws.amazon.com/application-discovery/latest/userguide/discovery-import.html)
   /// in the _AWS Application Discovery Service User Guide_.
   ///
   ///
   ///
   /// There are limits to the number of import tasks you can create (and delete)
-  /// in an AWS account. For more information, see [AWS Application Discovery
-  /// Service
-  /// Limits](https://docs.aws.amazon.com/application-discovery/latest/userguide/ads_service_limits.html)
+  /// in an AWS account. For more information, see
+  /// [AWS Application Discovery Service Limits](https://docs.aws.amazon.com/application-discovery/latest/userguide/ads_service_limits.html)
   /// in the _AWS Application Discovery Service User Guide_.
   ///
   /// [clientRequestToken]: Optional. A unique token that you can provide to
@@ -569,6 +565,9 @@ class ApplicationDiscoveryServiceApi {
   }
 }
 
+/// Information about agents or connectors that were instructed to start
+/// collecting data. Information includes the agent/connector ID, a description
+/// of the operation, and whether the agent/connector configuration was updated.
 class AgentConfigurationStatus {
   /// The agent/connector ID.
   final String agentId;
@@ -591,6 +590,10 @@ class AgentConfigurationStatus {
       AgentConfigurationStatus();
 }
 
+/// Information about agents or connectors associated with the user’s AWS
+/// account. Information includes agent or connector IDs, IP addresses, media
+/// access control (MAC) addresses, agent or connector health, hostname where
+/// the agent or connector resides, and agent version for each agent.
 class AgentInfo {
   /// The agent or connector ID.
   final String agentId;
@@ -638,6 +641,7 @@ class AgentInfo {
   static AgentInfo fromJson(Map<String, dynamic> json) => AgentInfo();
 }
 
+/// Network details about the host where the agent/connector resides.
 class AgentNetworkInfo {
   /// The IP address for the host where the agent/connector resides.
   final String ipAddress;
@@ -660,6 +664,8 @@ class AssociateConfigurationItemsToApplicationResponse {
       AssociateConfigurationItemsToApplicationResponse();
 }
 
+/// Error messages returned for each import task that you deleted as a response
+/// for this command.
 class BatchDeleteImportDataError {
   /// The unique import ID associated with the error that occurred.
   final String importTaskId;
@@ -691,6 +697,8 @@ class BatchDeleteImportDataResponse {
       BatchDeleteImportDataResponse();
 }
 
+/// Tags for a configuration item. Tags are metadata that help you categorize IT
+/// assets.
 class ConfigurationTag {
   /// A type of IT asset to tag.
   final String configurationType;
@@ -721,13 +729,14 @@ class ConfigurationTag {
       ConfigurationTag();
 }
 
+/// A list of continuous export descriptions.
 class ContinuousExportDescription {
   /// The unique ID assigned to this export.
   final String exportId;
 
   /// Describes the status of the export. Can be one of the following values:
   ///
-  /// *   START\_IN\_PROGRESS - setting up resources to start continuous export.
+  /// *   START_IN_PROGRESS - setting up resources to start continuous export.
   ///
   /// *   START_FAILED - an error occurred setting up continuous export. To
   /// recover, call start-continuous-export again.
@@ -737,7 +746,7 @@ class ContinuousExportDescription {
   /// *   ERROR - an error occurred during export. To fix the issue, call
   /// stop-continuous-export and start-continuous-export.
   ///
-  /// *   STOP\_IN\_PROGRESS - stopping the export.
+  /// *   STOP_IN_PROGRESS - stopping the export.
   ///
   /// *   STOP_FAILED - an error occurred stopping the export. To recover, call
   /// stop-continuous-export again.
@@ -751,41 +760,38 @@ class ContinuousExportDescription {
   ///
   /// *   ACCESS_DENIED - You don’t have permission to start Data Exploration in
   /// Amazon Athena. Contact your AWS administrator for help. For more
-  /// information, see [Setting Up AWS Application Discovery
-  /// Service](http://docs.aws.amazon.com/application-discovery/latest/userguide/setting-up.html)
+  /// information, see
+  /// [Setting Up AWS Application Discovery Service](http://docs.aws.amazon.com/application-discovery/latest/userguide/setting-up.html)
   /// in the Application Discovery Service User Guide.
   ///
-  /// *   DELIVERY\_STREAM\_LIMIT_FAILURE - You reached the limit for Amazon
+  /// *   DELIVERY_STREAM_LIMIT_FAILURE - You reached the limit for Amazon
   /// Kinesis Data Firehose delivery streams. Reduce the number of streams or
-  /// request a limit increase and try again. For more information, see [Kinesis
-  /// Data Streams
-  /// Limits](http://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
+  /// request a limit increase and try again. For more information, see
+  /// [Kinesis Data Streams Limits](http://docs.aws.amazon.com/streams/latest/dev/service-sizes-and-limits.html)
   /// in the Amazon Kinesis Data Streams Developer Guide.
   ///
-  /// *   FIREHOSE\_ROLE\_MISSING - The Data Exploration feature is in an error
+  /// *   FIREHOSE_ROLE_MISSING - The Data Exploration feature is in an error
   /// state because your IAM User is missing the
   /// AWSApplicationDiscoveryServiceFirehose role. Turn on Data Exploration in
-  /// Amazon Athena and try again. For more information, see [Step 3: Provide
-  /// Application Discovery Service Access to Non-Administrator Users by
-  /// Attaching
-  /// Policies](http://docs.aws.amazon.com/application-discovery/latest/userguide/setting-up.html#setting-up-user-policy)
+  /// Amazon Athena and try again. For more information, see
+  /// [Step 3: Provide Application Discovery Service Access to Non-Administrator Users by Attaching Policies](http://docs.aws.amazon.com/application-discovery/latest/userguide/setting-up.html#setting-up-user-policy)
   /// in the Application Discovery Service User Guide.
   ///
-  /// *   FIREHOSE\_STREAM\_DOES\_NOT\_EXIST - The Data Exploration feature is
-  /// in an error state because your IAM User is missing one or more of the
-  /// Kinesis data delivery streams.
+  /// *   FIREHOSE_STREAM_DOES_NOT_EXIST - The Data Exploration feature is in an
+  /// error state because your IAM User is missing one or more of the Kinesis
+  /// data delivery streams.
   ///
   /// *   INTERNAL_FAILURE - The Data Exploration feature is in an error state
   /// because of an internal failure. Try again later. If this problem persists,
   /// contact AWS Support.
   ///
-  /// *   S3\_BUCKET\_LIMIT_FAILURE - You reached the limit for Amazon S3
-  /// buckets. Reduce the number of Amazon S3 buckets or request a limit
-  /// increase and try again. For more information, see [Bucket Restrictions and
-  /// Limitations](http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html)
+  /// *   S3_BUCKET_LIMIT_FAILURE - You reached the limit for Amazon S3 buckets.
+  /// Reduce the number of Amazon S3 buckets or request a limit increase and try
+  /// again. For more information, see
+  /// [Bucket Restrictions and Limitations](http://docs.aws.amazon.com/AmazonS3/latest/dev/BucketRestrictions.html)
   /// in the Amazon Simple Storage Service Developer Guide.
   ///
-  /// *   S3\_NOT\_SIGNED_UP - Your account is not signed up for the Amazon S3
+  /// *   S3_NOT_SIGNED_UP - Your account is not signed up for the Amazon S3
   /// service. You must sign up before you can use Amazon S3. You can sign up at
   /// the following URL: [https://aws.amazon.com/s3](https://aws.amazon.com/s3).
   final String statusDetail;
@@ -805,7 +811,7 @@ class ContinuousExportDescription {
 
   /// An object which describes how the data is stored.
   ///
-  /// *    `databaseName` \- the name of the Glue database used to store the
+  /// *    `databaseName` - the name of the Glue database used to store the
   /// schema.
   final Map<String, String> schemaStorageConfig;
 
@@ -840,6 +846,7 @@ class CreateTagsResponse {
       CreateTagsResponse();
 }
 
+/// Inventory data for installed discovery agents.
 class CustomerAgentInfo {
   /// Number of active discovery agents.
   final int activeAgents;
@@ -875,6 +882,7 @@ class CustomerAgentInfo {
       CustomerAgentInfo();
 }
 
+/// Inventory data for installed discovery connectors.
 class CustomerConnectorInfo {
   /// Number of active discovery connectors.
   final int activeConnectors;
@@ -1058,6 +1066,10 @@ class ExportConfigurationsResponse {
       ExportConfigurationsResponse();
 }
 
+/// Used to select which agent's data is to be exported. A single agent ID may
+/// be selected for export using the
+/// [StartExportTask](http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_StartExportTask.html)
+/// action.
 class ExportFilter {
   /// A single `ExportFilter` name. Supported filters: `agentId`.
   final String name;
@@ -1078,6 +1090,8 @@ class ExportFilter {
   });
 }
 
+/// Information regarding the export status of discovered data. The value is an
+/// array of objects.
 class ExportInfo {
   /// A unique identifier used to query an export.
   final String exportId;
@@ -1122,6 +1136,10 @@ class ExportInfo {
   static ExportInfo fromJson(Map<String, dynamic> json) => ExportInfo();
 }
 
+/// A filter that can use conditional operators.
+///
+/// For more information about filters, see
+/// [Querying Discovered Configuration Items](http://docs.aws.amazon.com/application-discovery/latest/APIReference/discovery-api-queries.html).
 class Filter {
   /// The name of the filter.
   final String name;
@@ -1132,7 +1150,7 @@ class Filter {
   final List<String> values;
 
   /// A conditional operator. The following operators are valid: EQUALS,
-  /// NOT\_EQUALS, CONTAINS, NOT\_CONTAINS. If you specify multiple filters, the
+  /// NOT_EQUALS, CONTAINS, NOT_CONTAINS. If you specify multiple filters, the
   /// system utilizes all filters as though concatenated by _AND_. If you
   /// specify multiple values for a particular filter, the system differentiates
   /// the values using _OR_. Calling either _DescribeConfigurations_ or
@@ -1178,6 +1196,9 @@ class GetDiscoverySummaryResponse {
       GetDiscoverySummaryResponse();
 }
 
+/// An array of information related to the import task request that includes
+/// status information, times, IDs, the Amazon S3 Object URL for the import
+/// file, and more.
 class ImportTask {
   /// The unique ID for a specific import task. These IDs aren't globally
   /// unique, but they are unique within an AWS account.
@@ -1265,6 +1286,13 @@ class ImportTask {
   static ImportTask fromJson(Map<String, dynamic> json) => ImportTask();
 }
 
+/// A name-values pair of elements you can use to filter the results when
+/// querying your import tasks. Currently, wildcards are not supported for
+/// filters.
+///
+///
+///
+/// When filtering by import status, all other filter values are ignored.
 class ImportTaskFilter {
   /// The name, status, or import task ID for a specific import task.
   final String name;
@@ -1323,6 +1351,7 @@ class ListServerNeighborsResponse {
       ListServerNeighborsResponse();
 }
 
+/// Details about neighboring servers.
 class NeighborConnectionDetail {
   /// The ID of the server that opened the network connection.
   final String sourceServerId;
@@ -1350,6 +1379,7 @@ class NeighborConnectionDetail {
       NeighborConnectionDetail();
 }
 
+/// A field and direction for ordered output.
 class OrderByElement {
   /// The field on which to order.
   final String fieldName;
@@ -1379,7 +1409,7 @@ class StartContinuousExportResponse {
 
   /// A dictionary which describes how the data is stored.
   ///
-  /// *    `databaseName` \- the name of the Glue database used to store the
+  /// *    `databaseName` - the name of the Glue database used to store the
   /// schema.
   final Map<String, String> schemaStorageConfig;
 
@@ -1464,6 +1494,7 @@ class StopDataCollectionByAgentIdsResponse {
       StopDataCollectionByAgentIdsResponse();
 }
 
+/// Metadata that help you categorize IT assets.
 class Tag {
   /// The type of tag on which to filter.
   final String key;
@@ -1477,6 +1508,7 @@ class Tag {
   });
 }
 
+/// The tag filter. Valid names are: `tagKey`, `tagValue`, `configurationId`.
 class TagFilter {
   /// A name of the tag filter.
   final String name;

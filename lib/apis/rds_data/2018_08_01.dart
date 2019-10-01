@@ -7,9 +7,8 @@ import 'dart:typed_data';
 /// Aurora Serverless DB cluster. To run these statements, you work with the
 /// Data Service API.
 ///
-/// For more information about the Data Service API, see [Using the Data API for
-/// Aurora
-/// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
+/// For more information about the Data Service API, see
+/// [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
 /// in the _Amazon Aurora User Guide_.
 class RdsDataApi {
   /// Runs a batch SQL statement over an array of data.
@@ -208,6 +207,7 @@ class RdsDataApi {
   }
 }
 
+/// The result set returned by a SQL statement.
 class ResultFrame {
   /// The records in the result set.
   final List<Record> records;
@@ -222,6 +222,7 @@ class ResultFrame {
   static ResultFrame fromJson(Map<String, dynamic> json) => ResultFrame();
 }
 
+/// The response elements represent the output of a commit transaction request.
 class CommitTransactionResponse {
   /// The status of the commit operation.
   final String transactionStatus;
@@ -233,6 +234,7 @@ class CommitTransactionResponse {
       CommitTransactionResponse();
 }
 
+/// A parameter used in a SQL statement.
 class SqlParameter {
   /// The name of the parameter.
   final String name;
@@ -246,6 +248,7 @@ class SqlParameter {
   });
 }
 
+/// Contains a value.
 class Field {
   /// A value of BLOB data type.
   final Uint8List blobValue;
@@ -276,6 +279,7 @@ class Field {
   static Field fromJson(Map<String, dynamic> json) => Field();
 }
 
+/// A structure value returned by a call.
 class StructValue {
   /// The attributes returned in the record.
   final List<Value> attributes;
@@ -286,6 +290,7 @@ class StructValue {
   static StructValue fromJson(Map<String, dynamic> json) => StructValue();
 }
 
+/// A record returned by a call.
 class Record {
   /// The values returned in the record.
   final List<Value> values;
@@ -296,6 +301,7 @@ class Record {
   static Record fromJson(Map<String, dynamic> json) => Record();
 }
 
+/// Contains the value of a column.
 class Value {
   /// An array of column values.
   final List<Value> arrayValues;
@@ -342,6 +348,8 @@ class Value {
   static Value fromJson(Map<String, dynamic> json) => Value();
 }
 
+/// The response elements represent the output of a request to run a SQL
+/// statement against a database.
 class ExecuteStatementResponse {
   /// Metadata for the columns included in the results.
   final List<ColumnMetadata> columnMetadata;
@@ -365,6 +373,7 @@ class ExecuteStatementResponse {
       ExecuteStatementResponse();
 }
 
+/// The response elements represent the results of an update.
 class UpdateResult {
   /// Values for fields generated during the request.
   final List<Field> generatedFields;
@@ -375,6 +384,8 @@ class UpdateResult {
   static UpdateResult fromJson(Map<String, dynamic> json) => UpdateResult();
 }
 
+/// The response elements represent the output of a request to run one or more
+/// SQL statements.
 class ExecuteSqlResponse {
   /// The results of the SQL statement or statements.
   final List<SqlStatementResult> sqlStatementResults;
@@ -386,6 +397,7 @@ class ExecuteSqlResponse {
       ExecuteSqlResponse();
 }
 
+/// The result of a SQL statement.
 class SqlStatementResult {
   /// The number of records updated by a SQL statement.
   final BigInt numberOfRecordsUpdated;
@@ -401,6 +413,8 @@ class SqlStatementResult {
       SqlStatementResult();
 }
 
+/// The response elements represent the output of a request to perform a
+/// rollback of a transaction.
 class RollbackTransactionResponse {
   /// The status of the rollback operation.
   final String transactionStatus;
@@ -412,6 +426,8 @@ class RollbackTransactionResponse {
       RollbackTransactionResponse();
 }
 
+/// The response elements represent the output of a SQL statement over an array
+/// of data.
 class BatchExecuteStatementResponse {
   /// The execution results of each batch entry.
   final List<UpdateResult> updateResults;
@@ -423,6 +439,7 @@ class BatchExecuteStatementResponse {
       BatchExecuteStatementResponse();
 }
 
+/// The metadata of the result set returned by a SQL statement.
 class ResultSetMetadata {
   /// The number of columns in the result set.
   final BigInt columnCount;
@@ -438,6 +455,8 @@ class ResultSetMetadata {
       ResultSetMetadata();
 }
 
+/// The response elements represent the output of a request to start a SQL
+/// transaction.
 class BeginTransactionResponse {
   /// The transaction ID of the transaction started by the call.
   final String transactionId;
@@ -449,6 +468,7 @@ class BeginTransactionResponse {
       BeginTransactionResponse();
 }
 
+/// Contains the metadata for a column.
 class ColumnMetadata {
   /// The type of the column.
   final int arrayBaseColumnType;

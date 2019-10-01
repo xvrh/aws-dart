@@ -10,9 +10,8 @@ class CloudFrontApi {
   /// Creates a new origin access identity. If you're using Amazon S3 for your
   /// origin, you can use an origin access identity to require users to access
   /// your content using a CloudFront URL instead of the Amazon S3 URL. For more
-  /// information about how to use origin access identities, see [Serving
-  /// Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// information about how to use origin access identities, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// [cloudFrontOriginAccessIdentityConfig]: The current configuration
@@ -37,9 +36,8 @@ class CloudFrontApi {
   /// [UpdateDistribution](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html),
   /// follow the steps included in the documentation to get the current
   /// configuration and then make your updates. This helps to make sure that you
-  /// include all of the required fields. To view a summary, see [Required
-  /// Fields for Create Distribution and Update
-  /// Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html)
+  /// include all of the required fields. To view a summary, see
+  /// [Required Fields for Create Distribution and Update Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// [distributionConfig]: The distribution's configuration information.
@@ -113,8 +111,8 @@ class CloudFrontApi {
   /// `Deployed`, your distribution is ready. A distribution usually deploys in
   /// less than 15 minutes.
   ///
-  /// For more information about web distributions, see [Working with RTMP
-  /// Distributions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html)
+  /// For more information about web distributions, see
+  /// [Working with RTMP Distributions](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-rtmp.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   ///
@@ -231,8 +229,8 @@ class CloudFrontApi {
   ///
   ///
   /// For information about deleting a distribution using the CloudFront
-  /// console, see [Deleting a
-  /// Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowToDeleteDistribution.html)
+  /// console, see
+  /// [Deleting a Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/HowToDeleteDistribution.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// [id]: The distribution ID.
@@ -538,9 +536,8 @@ class CloudFrontApi {
   /// you create a distribution. When you update your distribution by using this
   /// API action, follow the steps here to get the current configuration and
   /// then make your updates, to make sure that you include all of the required
-  /// fields. To view a summary, see [Required Fields for Create Distribution
-  /// and Update
-  /// Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html)
+  /// fields. To view a summary, see
+  /// [Required Fields for Create Distribution and Update Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// The update process includes getting the current distribution
@@ -549,8 +546,8 @@ class CloudFrontApi {
   /// updates.
   ///
   /// For information about updating a distribution using the CloudFront console
-  /// instead, see [Creating a
-  /// Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html)
+  /// instead, see
+  /// [Creating a Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-creating-console.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   ///  **To update a web distribution using the CloudFront API**
@@ -690,6 +687,20 @@ class CloudFrontApi {
   }
 }
 
+/// A complex type that lists the AWS accounts, if any, that you included in the
+/// `TrustedSigners` complex type for this distribution. These are the accounts
+/// that you want to allow to create signed URLs for private content.
+///
+/// The `Signer` complex type lists the AWS account number of the trusted signer
+/// or `self` if the signer is the AWS account that created the distribution.
+/// The `Signer` element also includes the IDs of any active CloudFront key
+/// pairs that are associated with the trusted signer's AWS account. If no
+/// `KeyPairId` element appears for a `Signer`, that signer can't create signed
+/// URLs.
+///
+/// For more information, see
+/// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class ActiveTrustedSigners {
   /// Enabled is `true` if any of the AWS accounts listed in the
   /// `TrustedSigners` complex type for this distribution have active CloudFront
@@ -713,6 +724,16 @@ class ActiveTrustedSigners {
       ActiveTrustedSigners();
 }
 
+/// AWS services in China customers must file for an Internet Content Provider
+/// (ICP) recordal if they want to serve content publicly on an alternate domain
+/// name, also known as a CNAME, that they've added to CloudFront.
+/// AliasICPRecordal provides the ICP recordal status for CNAMEs associated with
+/// distributions. The status is returned in the CloudFront response; you can't
+/// configure it yourself.
+///
+/// For more information about ICP recordals, see
+/// [Signup, Accounts, and Credentials](https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html)
+/// in _Getting Started with AWS services in China_.
 class AliasIcpRecordal {
   /// A domain name associated with a distribution.
   final String cname;
@@ -744,6 +765,8 @@ class AliasIcpRecordal {
       AliasIcpRecordal();
 }
 
+/// A complex type that contains information about CNAMEs (alternate domain
+/// names), if any, for this distribution.
 class Aliases {
   /// The number of CNAME aliases, if any, that you want to associate with this
   /// distribution.
@@ -760,6 +783,22 @@ class Aliases {
   static Aliases fromJson(Map<String, dynamic> json) => Aliases();
 }
 
+/// A complex type that controls which HTTP methods CloudFront processes and
+/// forwards to your Amazon S3 bucket or your custom origin. There are three
+/// choices:
+///
+/// *   CloudFront forwards only `GET` and `HEAD` requests.
+///
+/// *   CloudFront forwards only `GET`, `HEAD`, and `OPTIONS` requests.
+///
+/// *   CloudFront forwards `GET, HEAD, OPTIONS, PUT, PATCH, POST`, and `DELETE`
+/// requests.
+///
+///
+/// If you pick the third choice, you may need to restrict access to your Amazon
+/// S3 bucket or to your custom origin so users can't perform operations that
+/// you don't want them to. For example, you might not want users to have
+/// permissions to delete objects from your origin.
 class AllowedMethods {
   /// The number of HTTP methods that you want CloudFront to forward to your
   /// origin. Valid values are 2 (for `GET` and `HEAD` requests), 3 (for `GET`,
@@ -781,6 +820,36 @@ class AllowedMethods {
   static AllowedMethods fromJson(Map<String, dynamic> json) => AllowedMethods();
 }
 
+/// A complex type that describes how CloudFront processes requests.
+///
+/// You must create at least as many cache behaviors (including the default
+/// cache behavior) as you have origins if you want CloudFront to distribute
+/// objects from all of the origins. Each cache behavior specifies the one
+/// origin from which you want CloudFront to get objects. If you have two
+/// origins and only the default cache behavior, the default cache behavior will
+/// cause CloudFront to get objects from one of the origins, but the other
+/// origin is never used.
+///
+/// For the current limit on the number of cache behaviors that you can add to a
+/// distribution, see
+/// [Amazon CloudFront Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_cloudfront)
+/// in the _AWS General Reference_.
+///
+/// If you don't want to specify any cache behaviors, include only an empty
+/// `CacheBehaviors` element. Don't include an empty `CacheBehavior` element, or
+/// CloudFront returns a `MalformedXML` error.
+///
+/// To delete all cache behaviors in an existing distribution, update the
+/// distribution configuration and include only an empty `CacheBehaviors`
+/// element.
+///
+/// To add, change, or remove one or more cache behaviors, update the
+/// distribution configuration and specify all of the cache behaviors that you
+/// want to include in the updated distribution.
+///
+/// For more information about cache behaviors, see
+/// [Cache Behaviors](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior)
+/// in the _Amazon CloudFront Developer Guide_.
 class CacheBehavior {
   /// The pattern (for example, `images/*.jpg`) that specifies which requests to
   /// apply the behavior to. When CloudFront receives a viewer request, the
@@ -796,8 +865,8 @@ class CacheBehavior {
   /// any cache behaviors, CloudFront applies the behavior in the default cache
   /// behavior.
   ///
-  /// For more information, see [Path
-  /// Pattern](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesPathPattern)
+  /// For more information, see
+  /// [Path Pattern](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesPathPattern)
   /// in the  _Amazon CloudFront Developer Guide_.
   final String pathPattern;
 
@@ -816,8 +885,8 @@ class CacheBehavior {
   /// If you want to require signed URLs in requests for objects in the target
   /// origin that match the `PathPattern` for this cache behavior, specify
   /// `true` for `Enabled`, and specify the applicable values for `Quantity` and
-  /// `Items`. For more information, see [Serving Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// `Items`. For more information, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// If you don't want to require signed URLs in requests for objects that
@@ -845,9 +914,8 @@ class CacheBehavior {
   /// an HTTP status code of 403 (Forbidden).
   ///
   ///
-  /// For more information about requiring the HTTPS protocol, see [Using an
-  /// HTTPS Connection to Access Your
-  /// Objects](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html)
+  /// For more information about requiring the HTTPS protocol, see
+  /// [Using an HTTPS Connection to Access Your Objects](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   ///
@@ -858,17 +926,15 @@ class CacheBehavior {
   /// that you clear your objects' cache because cached objects are protocol
   /// agnostic. That means that an edge location will return an object from the
   /// cache regardless of whether the current request protocol matches the
-  /// protocol used previously. For more information, see [Managing How Long
-  /// Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// protocol used previously. For more information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final String viewerProtocolPolicy;
 
   /// The minimum amount of time that you want objects to stay in CloudFront
   /// caches before CloudFront forwards another request to your origin to
   /// determine whether the object has been updated. For more information, see
-  /// [Managing How Long Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the  _Amazon CloudFront Developer Guide_.
   ///
   /// You must specify `0` for `MinTTL` if you configure CloudFront to forward
@@ -891,9 +957,8 @@ class CacheBehavior {
   /// determine whether the object has been updated. The value that you specify
   /// applies only when your origin does not add HTTP headers such as
   /// `Cache-Control max-age`, `Cache-Control s-maxage`, and `Expires` to
-  /// objects. For more information, see [Managing How Long Content Stays in an
-  /// Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// objects. For more information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final BigInt defaultTtl;
 
@@ -902,15 +967,15 @@ class CacheBehavior {
   /// determine whether the object has been updated. The value that you specify
   /// applies only when your origin adds HTTP headers such as `Cache-Control
   /// max-age`, `Cache-Control s-maxage`, and `Expires` to objects. For more
-  /// information, see [Managing How Long Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final BigInt maxTtl;
 
   /// Whether you want CloudFront to automatically compress certain files for
   /// this cache behavior. If so, specify true; if not, specify false. For more
-  /// information, see [Serving Compressed
-  /// Files](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html)
+  /// information, see
+  /// [Serving Compressed Files](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final bool compress;
 
@@ -941,6 +1006,7 @@ class CacheBehavior {
   static CacheBehavior fromJson(Map<String, dynamic> json) => CacheBehavior();
 }
 
+/// A complex type that contains zero or more `CacheBehavior` elements.
 class CacheBehaviors {
   /// The number of cache behaviors for this distribution.
   final int quantity;
@@ -956,6 +1022,17 @@ class CacheBehaviors {
   static CacheBehaviors fromJson(Map<String, dynamic> json) => CacheBehaviors();
 }
 
+/// A complex type that controls whether CloudFront caches the response to
+/// requests using the specified HTTP methods. There are two choices:
+///
+/// *   CloudFront caches responses to `GET` and `HEAD` requests.
+///
+/// *   CloudFront caches responses to `GET`, `HEAD`, and `OPTIONS` requests.
+///
+///
+/// If you pick the second choice for your Amazon S3 Origin, you may need to
+/// forward Access-Control-Request-Method, Access-Control-Request-Headers, and
+/// Origin headers for the responses to be cached correctly.
 class CachedMethods {
   /// The number of HTTP methods for which you want CloudFront to cache
   /// responses. Valid values are `2` (for caching responses to `GET` and `HEAD`
@@ -974,6 +1051,7 @@ class CachedMethods {
   static CachedMethods fromJson(Map<String, dynamic> json) => CachedMethods();
 }
 
+/// CloudFront origin access identity.
 class CloudFrontOriginAccessIdentity {
   /// The ID for the origin access identity, for example, `E74FTE3AJFJ256A`.
   final String id;
@@ -996,6 +1074,8 @@ class CloudFrontOriginAccessIdentity {
       CloudFrontOriginAccessIdentity();
 }
 
+/// Origin access identity configuration. Send a `GET` request to the
+/// `/_CloudFront API version_/CloudFront/identity ID/config` resource.
 class CloudFrontOriginAccessIdentityConfig {
   /// A unique value (for example, a date-time stamp) that ensures that the
   /// request can't be replayed.
@@ -1028,6 +1108,13 @@ class CloudFrontOriginAccessIdentityConfig {
       CloudFrontOriginAccessIdentityConfig();
 }
 
+/// Lists the origin access identities for CloudFront.Send a `GET` request to
+/// the `/_CloudFront API version_/origin-access-identity/cloudfront` resource.
+/// The response includes a `CloudFrontOriginAccessIdentityList` element with
+/// zero or more `CloudFrontOriginAccessIdentitySummary` child elements. By
+/// default, your entire list of origin access identities is returned in one
+/// single page. If the list is long, you can paginate it using the `MaxItems`
+/// and `Marker` parameters.
 class CloudFrontOriginAccessIdentityList {
   /// Use this when paginating results to indicate where to begin in your list
   /// of origin access identities. The results include identities in the list
@@ -1073,6 +1160,7 @@ class CloudFrontOriginAccessIdentityList {
       CloudFrontOriginAccessIdentityList();
 }
 
+/// Summary of the information about a CloudFront origin access identity.
 class CloudFrontOriginAccessIdentitySummary {
   /// The ID for the origin access identity. For example: `E74FTE3AJFJ256A`.
   final String id;
@@ -1096,6 +1184,7 @@ class CloudFrontOriginAccessIdentitySummary {
       CloudFrontOriginAccessIdentitySummary();
 }
 
+/// A field-level encryption content type profile.
 class ContentTypeProfile {
   /// The format for a field-level encryption content type-profile mapping.
   final String format;
@@ -1116,6 +1205,7 @@ class ContentTypeProfile {
       ContentTypeProfile();
 }
 
+/// The configuration for a field-level encryption content type-profile mapping.
 class ContentTypeProfileConfig {
   /// The setting in a field-level encryption content type-profile mapping that
   /// specifies what to do when an unknown content type is provided for the
@@ -1135,6 +1225,7 @@ class ContentTypeProfileConfig {
       ContentTypeProfileConfig();
 }
 
+/// Field-level encryption content type-profile.
 class ContentTypeProfiles {
   /// The number of field-level encryption content type-profile mappings.
   final int quantity;
@@ -1150,6 +1241,11 @@ class ContentTypeProfiles {
       ContentTypeProfiles();
 }
 
+/// A complex type that specifies whether you want CloudFront to forward cookies
+/// to the origin and, if so, which ones. For more information about forwarding
+/// cookies to the origin, see
+/// [Caching Content Based on Request Headers](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class CookieNames {
   /// The number of different cookies that you want CloudFront to forward to the
   /// origin for this cache behavior.
@@ -1166,6 +1262,11 @@ class CookieNames {
   static CookieNames fromJson(Map<String, dynamic> json) => CookieNames();
 }
 
+/// A complex type that specifies whether you want CloudFront to forward cookies
+/// to the origin and, if so, which ones. For more information about forwarding
+/// cookies to the origin, see
+/// [Caching Content Based on Cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Cookies.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class CookiePreference {
   /// Specifies which cookies to forward to the origin for this cache behavior:
   /// all, none, or the list of cookies specified in the `WhitelistedNames`
@@ -1186,8 +1287,8 @@ class CookiePreference {
   /// child elements, CloudFront deletes them automatically.
   ///
   /// For the current limit on the number of cookie names that you can whitelist
-  /// for each cache behavior, see  [CloudFront
-  /// Limits](https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront)
+  /// for each cache behavior, see
+  /// [CloudFront Limits](https://docs.aws.amazon.com/general/latest/gr/xrefaws_service_limits.html#limits_cloudfront)
   /// in the _AWS General Reference_.
   final CookieNames whitelistedNames;
 
@@ -1199,6 +1300,7 @@ class CookiePreference {
       CookiePreference();
 }
 
+/// The returned result of the corresponding request.
 class CreateCloudFrontOriginAccessIdentityResult {
   /// The origin access identity's information.
   final CloudFrontOriginAccessIdentity cloudFrontOriginAccessIdentity;
@@ -1221,6 +1323,7 @@ class CreateCloudFrontOriginAccessIdentityResult {
       CreateCloudFrontOriginAccessIdentityResult();
 }
 
+/// The returned result of the corresponding request.
 class CreateDistributionResult {
   /// The distribution's information.
   final Distribution distribution;
@@ -1242,6 +1345,7 @@ class CreateDistributionResult {
       CreateDistributionResult();
 }
 
+/// The returned result of the corresponding request.
 class CreateDistributionWithTagsResult {
   /// The distribution's information.
   final Distribution distribution;
@@ -1309,6 +1413,7 @@ class CreateFieldLevelEncryptionProfileResult {
       CreateFieldLevelEncryptionProfileResult();
 }
 
+/// The returned result of the corresponding request.
 class CreateInvalidationResult {
   /// The fully qualified URI of the distribution and invalidation batch
   /// request, including the `Invalidation ID`.
@@ -1346,6 +1451,7 @@ class CreatePublicKeyResult {
       CreatePublicKeyResult();
 }
 
+/// The returned result of the corresponding request.
 class CreateStreamingDistributionResult {
   /// The streaming distribution's information.
   final StreamingDistribution streamingDistribution;
@@ -1368,6 +1474,7 @@ class CreateStreamingDistributionResult {
       CreateStreamingDistributionResult();
 }
 
+/// The returned result of the corresponding request.
 class CreateStreamingDistributionWithTagsResult {
   /// The streaming distribution's information.
   final StreamingDistribution streamingDistribution;
@@ -1390,6 +1497,17 @@ class CreateStreamingDistributionWithTagsResult {
       CreateStreamingDistributionWithTagsResult();
 }
 
+/// A complex type that controls:
+///
+/// *   Whether CloudFront replaces HTTP status codes in the 4xx and 5xx range
+/// with custom error messages before returning the response to the viewer.
+///
+/// *   How long CloudFront caches HTTP status codes in the 4xx and 5xx range.
+///
+///
+/// For more information about custom error pages, see
+/// [Customizing Error Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class CustomErrorResponse {
   /// The HTTP status code for which you want to specify a custom error page
   /// and/or a caching duration.
@@ -1455,8 +1573,8 @@ class CustomErrorResponse {
   /// If you don't want to specify a value, include an empty element,
   /// `<ErrorCachingMinTTL>`, in the XML document.
   ///
-  /// For more information, see [Customizing Error
-  /// Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
+  /// For more information, see
+  /// [Customizing Error Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final BigInt errorCachingMinTtl;
 
@@ -1470,6 +1588,17 @@ class CustomErrorResponse {
       CustomErrorResponse();
 }
 
+/// A complex type that controls:
+///
+/// *   Whether CloudFront replaces HTTP status codes in the 4xx and 5xx range
+/// with custom error messages before returning the response to the viewer.
+///
+/// *   How long CloudFront caches HTTP status codes in the 4xx and 5xx range.
+///
+///
+/// For more information about custom error pages, see
+/// [Customizing Error Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class CustomErrorResponses {
   /// The number of HTTP status codes for which you want to specify a custom
   /// error page and/or a caching duration. If `Quantity` is `0`, you can omit
@@ -1489,6 +1618,7 @@ class CustomErrorResponses {
       CustomErrorResponses();
 }
 
+/// A complex type that contains the list of Custom Headers for each origin.
 class CustomHeaders {
   /// The number of custom headers, if any, for this distribution.
   final int quantity;
@@ -1505,6 +1635,7 @@ class CustomHeaders {
   static CustomHeaders fromJson(Map<String, dynamic> json) => CustomHeaders();
 }
 
+/// A custom origin or an Amazon S3 bucket configured as a website endpoint.
 class CustomOriginConfig {
   /// The HTTP port the custom origin listens on.
   final int httpPort;
@@ -1524,8 +1655,8 @@ class CustomOriginConfig {
   /// configure custom timeout lengths using the CloudFront API. The minimum
   /// timeout length is 4 seconds; the maximum is 60 seconds.
   ///
-  /// If you need to increase the maximum time limit, contact the [AWS Support
-  /// Center](https://console.aws.amazon.com/support/home#/).
+  /// If you need to increase the maximum time limit, contact the
+  /// [AWS Support Center](https://console.aws.amazon.com/support/home#/).
   final int originReadTimeout;
 
   /// You can create a custom keep-alive timeout. All timeout units are in
@@ -1533,8 +1664,8 @@ class CustomOriginConfig {
   /// configure custom timeout lengths using the CloudFront API. The minimum
   /// timeout length is 1 second; the maximum is 60 seconds.
   ///
-  /// If you need to increase the maximum time limit, contact the [AWS Support
-  /// Center](https://console.aws.amazon.com/support/home#/).
+  /// If you need to increase the maximum time limit, contact the
+  /// [AWS Support Center](https://console.aws.amazon.com/support/home#/).
   final int originKeepaliveTimeout;
 
   CustomOriginConfig({
@@ -1549,6 +1680,10 @@ class CustomOriginConfig {
       CustomOriginConfig();
 }
 
+/// A complex type that describes the default cache behavior if you don't
+/// specify a `CacheBehavior` element or if files don't match any of the values
+/// of `PathPattern` in `CacheBehavior` elements. You must create exactly one
+/// default cache behavior.
 class DefaultCacheBehavior {
   /// The value of `ID` for the origin that you want CloudFront to route
   /// requests to when a request matches the path pattern either for a cache
@@ -1565,8 +1700,8 @@ class DefaultCacheBehavior {
   /// If you want to require signed URLs in requests for objects in the target
   /// origin that match the `PathPattern` for this cache behavior, specify
   /// `true` for `Enabled`, and specify the applicable values for `Quantity` and
-  /// `Items`. For more information, see [Serving Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// `Items`. For more information, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the  _Amazon CloudFront Developer Guide_.
   ///
   /// If you don't want to require signed URLs in requests for objects that
@@ -1594,9 +1729,8 @@ class DefaultCacheBehavior {
   /// an HTTP status code of 403 (Forbidden).
   ///
   ///
-  /// For more information about requiring the HTTPS protocol, see [Using an
-  /// HTTPS Connection to Access Your
-  /// Objects](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html)
+  /// For more information about requiring the HTTPS protocol, see
+  /// [Using an HTTPS Connection to Access Your Objects](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   ///
@@ -1607,17 +1741,15 @@ class DefaultCacheBehavior {
   /// that you clear your objects' cache because cached objects are protocol
   /// agnostic. That means that an edge location will return an object from the
   /// cache regardless of whether the current request protocol matches the
-  /// protocol used previously. For more information, see [Managing How Long
-  /// Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// protocol used previously. For more information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final String viewerProtocolPolicy;
 
   /// The minimum amount of time that you want objects to stay in CloudFront
   /// caches before CloudFront forwards another request to your origin to
   /// determine whether the object has been updated. For more information, see
-  /// [Managing How Long Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// You must specify `0` for `MinTTL` if you configure CloudFront to forward
@@ -1640,9 +1772,8 @@ class DefaultCacheBehavior {
   /// determine whether the object has been updated. The value that you specify
   /// applies only when your origin does not add HTTP headers such as
   /// `Cache-Control max-age`, `Cache-Control s-maxage`, and `Expires` to
-  /// objects. For more information, see [Managing How Long Content Stays in an
-  /// Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// objects. For more information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final BigInt defaultTtl;
 
@@ -1651,15 +1782,15 @@ class DefaultCacheBehavior {
   /// determine whether the object has been updated. The value that you specify
   /// applies only when your origin adds HTTP headers such as `Cache-Control
   /// max-age`, `Cache-Control s-maxage`, and `Expires` to objects. For more
-  /// information, see [Managing How Long Content Stays in an Edge Cache
-  /// (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
+  /// information, see
+  /// [Managing How Long Content Stays in an Edge Cache (Expiration)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final BigInt maxTtl;
 
   /// Whether you want CloudFront to automatically compress certain files for
   /// this cache behavior. If so, specify `true`; if not, specify `false`. For
-  /// more information, see [Serving Compressed
-  /// Files](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html)
+  /// more information, see
+  /// [Serving Compressed Files](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/ServingCompressedFiles.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final bool compress;
 
@@ -1690,6 +1821,8 @@ class DefaultCacheBehavior {
       DefaultCacheBehavior();
 }
 
+/// A distribution tells CloudFront where you want content to be delivered from,
+/// and the details about how to track and manage content delivery.
 class Distribution {
   /// The identifier for the distribution. For example: `EDFDVBD632BHDS5`.
   final String id;
@@ -1735,8 +1868,8 @@ class Distribution {
   /// AliasICPRecordal provides the ICP recordal status for CNAMEs associated
   /// with distributions.
   ///
-  /// For more information about ICP recordals, see  [Signup, Accounts, and
-  /// Credentials](https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html)
+  /// For more information about ICP recordals, see
+  /// [Signup, Accounts, and Credentials](https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html)
   /// in _Getting Started with AWS services in China_.
   final List<AliasIcpRecordal> aliasIcpRecordals;
 
@@ -1754,6 +1887,7 @@ class Distribution {
   static Distribution fromJson(Map<String, dynamic> json) => Distribution();
 }
 
+/// A distribution configuration.
 class DistributionConfig {
   /// A unique value (for example, a date-time stamp) that ensures that the
   /// request can't be replayed.
@@ -1790,9 +1924,8 @@ class DistributionConfig {
   /// To replace the default root object, update the distribution configuration
   /// and specify the new object.
   ///
-  /// For more information about the default root object, see [Creating a
-  /// Default Root
-  /// Object](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html)
+  /// For more information about the default root object, see
+  /// [Creating a Default Root Object](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/DefaultRootObject.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final String defaultRootObject;
 
@@ -1821,8 +1954,8 @@ class DistributionConfig {
   /// *   How long CloudFront caches HTTP status codes in the 4xx and 5xx range.
   ///
   ///
-  /// For more information about custom error pages, see [Customizing Error
-  /// Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
+  /// For more information about custom error pages, see
+  /// [Customizing Error Responses](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/custom-error-pages.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final CustomErrorResponses customErrorResponses;
 
@@ -1841,8 +1974,8 @@ class DistributionConfig {
   /// A complex type that controls whether access logs are written for the
   /// distribution.
   ///
-  /// For more information about logging, see [Access
-  /// Logs](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html)
+  /// For more information about logging, see
+  /// [Access Logs](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/AccessLogs.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final LoggingConfig logging;
 
@@ -1856,14 +1989,14 @@ class DistributionConfig {
   /// or near regions that are excluded from your specified price class may
   /// encounter slower performance.
   ///
-  /// For more information about price classes, see [Choosing the Price Class
-  /// for a CloudFront
-  /// Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html)
+  /// For more information about price classes, see
+  /// [Choosing the Price Class for a CloudFront Distribution](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PriceClass.html)
   /// in the _Amazon CloudFront Developer Guide_. For information about
   /// CloudFront pricing, including how price classes (such as Price Class 100)
-  /// map to CloudFront regions, see [Amazon CloudFront
-  /// Pricing](http://aws.amazon.com/cloudfront/pricing/). For price class
-  /// information, scroll down to see the table at the bottom of the page.
+  /// map to CloudFront regions, see
+  /// [Amazon CloudFront Pricing](http://aws.amazon.com/cloudfront/pricing/).
+  /// For price class information, scroll down to see the table at the bottom of
+  /// the page.
   final String priceClass;
 
   /// From this field, you can enable or disable the selected distribution.
@@ -1889,8 +2022,8 @@ class DistributionConfig {
   /// CloudFront responds to requests either with the requested content or with
   /// an HTTP 403 status code (Forbidden). You can also configure CloudFront to
   /// return a custom error page when a request is blocked. For more information
-  /// about AWS WAF, see the [AWS WAF Developer
-  /// Guide](http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html).
+  /// about AWS WAF, see the
+  /// [AWS WAF Developer Guide](http://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html).
   final String webAclId;
 
   /// (Optional) Specify the maximum HTTP version that you want viewers to use
@@ -1920,9 +2053,8 @@ class DistributionConfig {
   /// addresses that can access your content, don't enable IPv6. If you want to
   /// restrict access to some content by IP address and not restrict access to
   /// other content (or restrict access but not by IP address), you can create
-  /// two distributions. For more information, see [Creating a Signed URL Using
-  /// a Custom
-  /// Policy](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-custom-policy.html)
+  /// two distributions. For more information, see
+  /// [Creating a Signed URL Using a Custom Policy](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-creating-signed-url-custom-policy.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// If you're using an Amazon Route 53 alias resource record set to route
@@ -1934,9 +2066,8 @@ class DistributionConfig {
   /// *   You're using alternate domain names in the URLs for your objects
   ///
   ///
-  /// For more information, see [Routing Traffic to an Amazon CloudFront Web
-  /// Distribution by Using Your Domain
-  /// Name](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html)
+  /// For more information, see
+  /// [Routing Traffic to an Amazon CloudFront Web Distribution by Using Your Domain Name](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-to-cloudfront-distribution.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// If you created a CNAME resource record set, either with Amazon Route 53 or
@@ -1968,6 +2099,8 @@ class DistributionConfig {
       DistributionConfig();
 }
 
+/// A distribution Configuration and a list of tags to be associated with the
+/// distribution.
 class DistributionConfigWithTags {
   /// A distribution configuration.
   final DistributionConfig distributionConfig;
@@ -1981,6 +2114,7 @@ class DistributionConfigWithTags {
   });
 }
 
+/// A distribution list.
 class DistributionList {
   /// The value you provided for the `Marker` request parameter.
   final String marker;
@@ -2018,6 +2152,7 @@ class DistributionList {
       DistributionList();
 }
 
+/// A summary of the information about a CloudFront distribution.
 class DistributionSummary {
   /// The identifier for the distribution. For example: `EDFDVBD632BHDS5`.
   final String id;
@@ -2101,8 +2236,8 @@ class DistributionSummary {
   /// AliasICPRecordal provides the ICP recordal status for CNAMEs associated
   /// with distributions.
   ///
-  /// For more information about ICP recordals, see  [Signup, Accounts, and
-  /// Credentials](https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html)
+  /// For more information about ICP recordals, see
+  /// [Signup, Accounts, and Credentials](https://docs.amazonaws.cn/en_us/aws/latest/userguide/accounts-and-credentials.html)
   /// in _Getting Started with AWS services in China_.
   final List<AliasIcpRecordal> aliasIcpRecordals;
 
@@ -2132,6 +2267,8 @@ class DistributionSummary {
       DistributionSummary();
 }
 
+/// Complex data type for field-level encryption profiles that includes all of
+/// the encryption entities.
 class EncryptionEntities {
   /// Number of field pattern items in a field-level encryption content
   /// type-profile mapping.
@@ -2149,6 +2286,8 @@ class EncryptionEntities {
       EncryptionEntities();
 }
 
+/// Complex data type for field-level encryption profiles that includes the
+/// encryption key and field pattern specifications.
 class EncryptionEntity {
   /// The public key associated with a set of field-level encryption patterns,
   /// to be used when encrypting the fields that match the patterns.
@@ -2175,6 +2314,8 @@ class EncryptionEntity {
       EncryptionEntity();
 }
 
+/// A complex data type that includes the profile configurations and other
+/// options specified for field-level encryption.
 class FieldLevelEncryption {
   /// The configuration ID for a field-level encryption configuration which
   /// includes a set of profiles that specify certain selected data fields to be
@@ -2197,6 +2338,8 @@ class FieldLevelEncryption {
       FieldLevelEncryption();
 }
 
+/// A complex data type that includes the profile configurations specified for
+/// field-level encryption.
 class FieldLevelEncryptionConfig {
   /// A unique number that ensures the request can't be replayed.
   final String callerReference;
@@ -2224,6 +2367,7 @@ class FieldLevelEncryptionConfig {
       FieldLevelEncryptionConfig();
 }
 
+/// List of field-level encrpytion configurations.
 class FieldLevelEncryptionList {
   /// If there are more elements to be listed, this element is present and
   /// contains the value that you can use for the `Marker` request parameter to
@@ -2249,6 +2393,7 @@ class FieldLevelEncryptionList {
       FieldLevelEncryptionList();
 }
 
+/// A complex data type for field-level encryption profiles.
 class FieldLevelEncryptionProfile {
   /// The ID for a field-level encryption profile configuration which includes a
   /// set of profiles that specify certain selected data fields to be encrypted
@@ -2271,6 +2416,7 @@ class FieldLevelEncryptionProfile {
       FieldLevelEncryptionProfile();
 }
 
+/// A complex data type of profiles for the field-level encryption.
 class FieldLevelEncryptionProfileConfig {
   /// Profile name for the field-level encryption profile.
   final String name;
@@ -2297,6 +2443,7 @@ class FieldLevelEncryptionProfileConfig {
       FieldLevelEncryptionProfileConfig();
 }
 
+/// List of field-level encryption profiles.
 class FieldLevelEncryptionProfileList {
   /// If there are more elements to be listed, this element is present and
   /// contains the value that you can use for the `Marker` request parameter to
@@ -2323,6 +2470,7 @@ class FieldLevelEncryptionProfileList {
       FieldLevelEncryptionProfileList();
 }
 
+/// The field-level encryption profile summary.
 class FieldLevelEncryptionProfileSummary {
   /// ID for the field-level encryption profile summary.
   final String id;
@@ -2354,6 +2502,7 @@ class FieldLevelEncryptionProfileSummary {
       FieldLevelEncryptionProfileSummary();
 }
 
+/// A summary of a field-level encryption item.
 class FieldLevelEncryptionSummary {
   /// The unique ID of a field-level encryption item.
   final String id;
@@ -2382,6 +2531,8 @@ class FieldLevelEncryptionSummary {
       FieldLevelEncryptionSummary();
 }
 
+/// A complex data type that includes the field patterns to match for
+/// field-level encryption.
 class FieldPatterns {
   /// The number of field-level encryption field patterns.
   final int quantity;
@@ -2396,6 +2547,8 @@ class FieldPatterns {
   static FieldPatterns fromJson(Map<String, dynamic> json) => FieldPatterns();
 }
 
+/// A complex type that specifies how CloudFront handles query strings and
+/// cookies.
 class ForwardedValues {
   /// Indicates whether you want CloudFront to forward query strings to the
   /// origin that is associated with this cache behavior and cache based on the
@@ -2419,17 +2572,15 @@ class ForwardedValues {
   /// query string parameters to the origin, and doesn't cache based on query
   /// string parameters.
   ///
-  /// For more information, see [Configuring CloudFront to Cache Based on Query
-  /// String
-  /// Parameters](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/QueryStringParameters.html)
+  /// For more information, see
+  /// [Configuring CloudFront to Cache Based on Query String Parameters](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/QueryStringParameters.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final bool queryString;
 
   /// A complex type that specifies whether you want CloudFront to forward
   /// cookies to the origin and, if so, which ones. For more information about
-  /// forwarding cookies to the origin, see [How CloudFront Forwards, Caches,
-  /// and Logs
-  /// Cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Cookies.html)
+  /// forwarding cookies to the origin, see
+  /// [How CloudFront Forwards, Caches, and Logs Cookies](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Cookies.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final CookiePreference cookies;
 
@@ -2439,8 +2590,8 @@ class ForwardedValues {
   /// separate versions of a specified object that is based on the header values
   /// in viewer requests.
   ///
-  /// For more information, see  [Caching Content Based on Request
-  /// Headers](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html)
+  /// For more information, see
+  /// [Caching Content Based on Request Headers](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final Headers headers;
 
@@ -2458,6 +2609,9 @@ class ForwardedValues {
       ForwardedValues();
 }
 
+/// A complex type that controls the countries in which your content is
+/// distributed. CloudFront determines the location of your users using
+/// `MaxMind` GeoIP databases.
 class GeoRestriction {
   /// The method that you want to use to restrict distribution of your content
   /// by country:
@@ -2500,6 +2654,7 @@ class GeoRestriction {
   static GeoRestriction fromJson(Map<String, dynamic> json) => GeoRestriction();
 }
 
+/// The returned result of the corresponding request.
 class GetCloudFrontOriginAccessIdentityConfigResult {
   /// The origin access identity's configuration information.
   final CloudFrontOriginAccessIdentityConfig
@@ -2517,6 +2672,7 @@ class GetCloudFrontOriginAccessIdentityConfigResult {
       GetCloudFrontOriginAccessIdentityConfigResult();
 }
 
+/// The returned result of the corresponding request.
 class GetCloudFrontOriginAccessIdentityResult {
   /// The origin access identity's information.
   final CloudFrontOriginAccessIdentity cloudFrontOriginAccessIdentity;
@@ -2534,6 +2690,7 @@ class GetCloudFrontOriginAccessIdentityResult {
       GetCloudFrontOriginAccessIdentityResult();
 }
 
+/// The returned result of the corresponding request.
 class GetDistributionConfigResult {
   /// The distribution's configuration information.
   final DistributionConfig distributionConfig;
@@ -2549,6 +2706,7 @@ class GetDistributionConfigResult {
       GetDistributionConfigResult();
 }
 
+/// The returned result of the corresponding request.
 class GetDistributionResult {
   /// The distribution's information.
   final Distribution distribution;
@@ -2632,10 +2790,10 @@ class GetFieldLevelEncryptionResult {
       GetFieldLevelEncryptionResult();
 }
 
+/// The returned result of the corresponding request.
 class GetInvalidationResult {
-  /// The invalidation's information. For more information, see [Invalidation
-  /// Complex
-  /// Type](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/InvalidationDatatype.html).
+  /// The invalidation's information. For more information, see
+  /// [Invalidation Complex Type](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/InvalidationDatatype.html).
   final Invalidation invalidation;
 
   GetInvalidationResult({
@@ -2676,6 +2834,7 @@ class GetPublicKeyResult {
       GetPublicKeyResult();
 }
 
+/// The returned result of the corresponding request.
 class GetStreamingDistributionConfigResult {
   /// The streaming distribution's configuration information.
   final StreamingDistributionConfig streamingDistributionConfig;
@@ -2692,6 +2851,7 @@ class GetStreamingDistributionConfigResult {
       GetStreamingDistributionConfigResult();
 }
 
+/// The returned result of the corresponding request.
 class GetStreamingDistributionResult {
   /// The streaming distribution's information.
   final StreamingDistribution streamingDistribution;
@@ -2708,6 +2868,19 @@ class GetStreamingDistributionResult {
       GetStreamingDistributionResult();
 }
 
+/// A complex type that specifies the request headers, if any, that you want
+/// CloudFront to base caching on for this cache behavior.
+///
+/// For the headers that you specify, CloudFront caches separate versions of a
+/// specified object based on the header values in viewer requests. For example,
+/// suppose viewer requests for `logo.jpg` contain a custom `product` header
+/// that has a value of either `acme` or `apex`, and you configure CloudFront to
+/// cache your content based on values in the `product` header. CloudFront
+/// forwards the `product` header to the origin and caches the response from the
+/// origin once for each header value. For more information about caching based
+/// on header values, see
+/// [How CloudFront Forwards and Caches Headers](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/header-caching.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class Headers {
   /// The number of different headers that you want CloudFront to base caching
   /// on for this cache behavior. You can configure each cache behavior in a web
@@ -2732,11 +2905,11 @@ class Headers {
   /// origin based on whether the origin is an S3 bucket or a custom origin. See
   /// the following documentation:
   ///
-  /// *    **S3 bucket**: See [HTTP Request Headers That CloudFront Removes or
-  /// Updates](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorS3Origin.html#request-s3-removed-headers)
+  /// *    **S3 bucket**: See
+  /// [HTTP Request Headers That CloudFront Removes or Updates](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorS3Origin.html#request-s3-removed-headers)
   ///
-  /// *    **Custom origin**: See [HTTP Request Headers and CloudFront
-  /// Behavior](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html#request-custom-headers-behavior)
+  /// *    **Custom origin**: See
+  /// [HTTP Request Headers and CloudFront Behavior](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/RequestAndResponseBehaviorCustomOrigin.html#request-custom-headers-behavior)
   final int quantity;
 
   /// A list that contains one `Name` element for each header that you want
@@ -2751,6 +2924,7 @@ class Headers {
   static Headers fromJson(Map<String, dynamic> json) => Headers();
 }
 
+/// An invalidation.
 class Invalidation {
   /// The identifier for the invalidation request. For example:
   /// `IDFDVBD632BHDS5`.
@@ -2775,10 +2949,11 @@ class Invalidation {
   static Invalidation fromJson(Map<String, dynamic> json) => Invalidation();
 }
 
+/// An invalidation batch.
 class InvalidationBatch {
   /// A complex type that contains information about the objects that you want
-  /// to invalidate. For more information, see [Specifying the Objects to
-  /// Invalidate](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects)
+  /// to invalidate. For more information, see
+  /// [Specifying the Objects to Invalidate](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects)
   /// in the _Amazon CloudFront Developer Guide_.
   final Paths paths;
 
@@ -2810,6 +2985,10 @@ class InvalidationBatch {
       InvalidationBatch();
 }
 
+/// The `InvalidationList` complex type describes the list of invalidation
+/// objects. For more information about invalidation, see
+/// [Invalidating Objects (Web Distributions Only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html)
+/// in the _Amazon CloudFront Developer Guide_.
 class InvalidationList {
   /// The value that you provided for the `Marker` request parameter.
   final String marker;
@@ -2848,6 +3027,7 @@ class InvalidationList {
       InvalidationList();
 }
 
+/// A summary of an invalidation request.
 class InvalidationSummary {
   /// The unique ID for an invalidation request.
   final String id;
@@ -2867,6 +3047,11 @@ class InvalidationSummary {
       InvalidationSummary();
 }
 
+/// A complex type that lists the active CloudFront key pairs, if any, that are
+/// associated with `AwsAccountNumber`.
+///
+/// For more information, see
+/// [ActiveTrustedSigners](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ActiveTrustedSigners.html).
 class KeyPairIds {
   /// The number of active CloudFront key pairs for `AwsAccountNumber`.
   ///
@@ -2888,6 +3073,7 @@ class KeyPairIds {
   static KeyPairIds fromJson(Map<String, dynamic> json) => KeyPairIds();
 }
 
+/// A complex type that contains a Lambda function association.
 class LambdaFunctionAssociation {
   /// The ARN of the Lambda function. You must specify the ARN of a function
   /// version; you can't specify a Lambda alias or $LATEST.
@@ -2918,9 +3104,8 @@ class LambdaFunctionAssociation {
   final String eventType;
 
   /// A flag that allows a Lambda function to have read access to the body
-  /// content. For more information, see [Accessing the Request Body by Choosing
-  /// the Include Body
-  /// Option](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-include-body-access.html)
+  /// content. For more information, see
+  /// [Accessing the Request Body by Choosing the Include Body Option](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-include-body-access.html)
   /// in the Amazon CloudFront Developer Guide.
   final bool includeBody;
 
@@ -2933,6 +3118,18 @@ class LambdaFunctionAssociation {
       LambdaFunctionAssociation();
 }
 
+/// A complex type that specifies a list of Lambda functions associations for a
+/// cache behavior.
+///
+/// If you want to invoke one or more Lambda functions triggered by requests
+/// that match the `PathPattern` of the cache behavior, specify the applicable
+/// values for `Quantity` and `Items`. Note that there can be up to 4
+/// `LambdaFunctionAssociation` items in this list (one for each possible value
+/// of `EventType`) and each `EventType` can be associated with the Lambda
+/// function only once.
+///
+/// If you don't want to invoke any Lambda functions for the requests that match
+/// `PathPattern`, specify `0` for `Quantity` and omit `Items`.
 class LambdaFunctionAssociations {
   /// The number of Lambda function associations for this cache behavior.
   final int quantity;
@@ -2949,6 +3146,7 @@ class LambdaFunctionAssociations {
       LambdaFunctionAssociations();
 }
 
+/// The returned result of the corresponding request.
 class ListCloudFrontOriginAccessIdentitiesResult {
   /// The `CloudFrontOriginAccessIdentityList` type.
   final CloudFrontOriginAccessIdentityList cloudFrontOriginAccessIdentityList;
@@ -2961,6 +3159,8 @@ class ListCloudFrontOriginAccessIdentitiesResult {
       ListCloudFrontOriginAccessIdentitiesResult();
 }
 
+/// The response to a request to list the distributions that are associated with
+/// a specified AWS WAF web ACL.
 class ListDistributionsByWebAclIdResult {
   /// The `DistributionList` type.
   final DistributionList distributionList;
@@ -2973,6 +3173,7 @@ class ListDistributionsByWebAclIdResult {
       ListDistributionsByWebAclIdResult();
 }
 
+/// The returned result of the corresponding request.
 class ListDistributionsResult {
   /// The `DistributionList` type.
   final DistributionList distributionList;
@@ -3010,6 +3211,7 @@ class ListFieldLevelEncryptionProfilesResult {
       ListFieldLevelEncryptionProfilesResult();
 }
 
+/// The returned result of the corresponding request.
 class ListInvalidationsResult {
   /// Information about invalidation batches.
   final InvalidationList invalidationList;
@@ -3033,6 +3235,7 @@ class ListPublicKeysResult {
       ListPublicKeysResult();
 }
 
+/// The returned result of the corresponding request.
 class ListStreamingDistributionsResult {
   /// The `StreamingDistributionList` type.
   final StreamingDistributionList streamingDistributionList;
@@ -3044,6 +3247,7 @@ class ListStreamingDistributionsResult {
       ListStreamingDistributionsResult();
 }
 
+///  The returned result of the corresponding request.
 class ListTagsForResourceResult {
   ///  A complex type that contains zero or more `Tag` elements.
   final Tags tags;
@@ -3055,6 +3259,8 @@ class ListTagsForResourceResult {
       ListTagsForResourceResult();
 }
 
+/// A complex type that controls whether access logs are written for the
+/// distribution.
 class LoggingConfig {
   /// Specifies whether you want CloudFront to save access logs to an Amazon S3
   /// bucket. If you don't want to enable logging when you create a distribution
@@ -3092,6 +3298,16 @@ class LoggingConfig {
   static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig();
 }
 
+/// A complex type that describes the Amazon S3 bucket, HTTP server (for
+/// example, a web server), Amazon MediaStore, or other server from which
+/// CloudFront gets your files. This can also be an origin group, if you've
+/// created an origin group. You must specify at least one origin or origin
+/// group.
+///
+/// For the current limit on the number of origins or origin groups that you can
+/// specify for a distribution, see
+/// [Amazon CloudFront Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_cloudfront)
+/// in the _AWS General Reference_.
 class Origin {
   /// A unique identifier for the origin or origin group. The value of `Id` must
   /// be unique within the distribution.
@@ -3101,8 +3317,8 @@ class Origin {
   /// you want the cache behavior to route requests by specifying the value of
   /// the `Id` element for that origin. When a request matches the path pattern
   /// for that cache behavior, CloudFront routes the request to the specified
-  /// origin. For more information, see [Cache Behavior
-  /// Settings](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior)
+  /// origin. For more information, see
+  /// [Cache Behavior Settings](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesCacheBehavior)
   /// in the _Amazon CloudFront Developer Guide_.
   final String id;
 
@@ -3113,8 +3329,8 @@ class Origin {
   /// for the bucket.
   ///
   /// For more information about specifying this value for different types of
-  /// origins, see [Origin Domain
-  /// Name](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesDomainName)
+  /// origins, see
+  /// [Origin Domain Name](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-web-values-specify.html#DownloadDistValuesDomainName)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// Constraints for Amazon S3 origins:
@@ -3190,11 +3406,12 @@ class Origin {
   static Origin fromJson(Map<String, dynamic> json) => Origin();
 }
 
+/// A complex type that contains `HeaderName` and `HeaderValue` elements, if
+/// any, for this distribution.
 class OriginCustomHeader {
   /// The name of a header that you want CloudFront to forward to your origin.
-  /// For more information, see [Forwarding Custom Headers to Your Origin (Web
-  /// Distributions
-  /// Only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html)
+  /// For more information, see
+  /// [Forwarding Custom Headers to Your Origin (Web Distributions Only)](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/forward-custom-headers.html)
   /// in the  _Amazon CloudFront Developer Guide_.
   final String headerName;
 
@@ -3209,6 +3426,12 @@ class OriginCustomHeader {
       OriginCustomHeader();
 }
 
+/// An origin group includes two origins (a primary origin and a second origin
+/// to failover to) and a failover criteria that you specify. You create an
+/// origin group to support origin failover in CloudFront. When you create or
+/// update a distribution, you can specifiy the origin group instead of a single
+/// origin, and CloudFront will failover from the primary origin to the second
+/// origin under the failover conditions that you've chosen.
 class OriginGroup {
   /// The origin group's ID.
   final String id;
@@ -3229,6 +3452,9 @@ class OriginGroup {
   static OriginGroup fromJson(Map<String, dynamic> json) => OriginGroup();
 }
 
+/// A complex data type that includes information about the failover criteria
+/// for an origin group, including the status codes for which CloudFront will
+/// failover from the primary origin to the second origin.
 class OriginGroupFailoverCriteria {
   /// The status codes that, when returned from the primary origin, will trigger
   /// CloudFront to failover to the second origin.
@@ -3241,6 +3467,7 @@ class OriginGroupFailoverCriteria {
       OriginGroupFailoverCriteria();
 }
 
+/// An origin in an origin group.
 class OriginGroupMember {
   /// The ID for an origin in an origin group.
   final String originId;
@@ -3252,6 +3479,7 @@ class OriginGroupMember {
       OriginGroupMember();
 }
 
+/// A complex data type for the origins included in an origin group.
 class OriginGroupMembers {
   /// The number of origins in an origin group.
   final int quantity;
@@ -3267,6 +3495,7 @@ class OriginGroupMembers {
       OriginGroupMembers();
 }
 
+/// A complex data type for the origin groups specified for a distribution.
 class OriginGroups {
   /// The number of origin groups.
   final int quantity;
@@ -3281,6 +3510,8 @@ class OriginGroups {
   static OriginGroups fromJson(Map<String, dynamic> json) => OriginGroups();
 }
 
+/// A complex type that contains information about the SSL/TLS protocols that
+/// CloudFront can use when establishing an HTTPS connection with your origin.
 class OriginSslProtocols {
   /// The number of SSL/TLS protocols that you want to allow CloudFront to use
   /// when establishing an HTTPS connection with this origin.
@@ -3297,6 +3528,8 @@ class OriginSslProtocols {
       OriginSslProtocols();
 }
 
+/// A complex type that contains information about origins and origin groups for
+/// this distribution.
 class Origins {
   /// The number of origins or origin groups for this distribution.
   final int quantity;
@@ -3312,6 +3545,10 @@ class Origins {
   static Origins fromJson(Map<String, dynamic> json) => Origins();
 }
 
+/// A complex type that contains information about the objects that you want to
+/// invalidate. For more information, see
+/// [Specifying the Objects to Invalidate](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation.html#invalidation-specifying-objects)
+/// in the _Amazon CloudFront Developer Guide_.
 class Paths {
   /// The number of invalidation paths specified for the objects that you want
   /// to invalidate.
@@ -3328,6 +3565,8 @@ class Paths {
   static Paths fromJson(Map<String, dynamic> json) => Paths();
 }
 
+/// A complex data type of public keys you add to CloudFront to use with
+/// features like field-level encryption.
 class PublicKey {
   /// A unique ID assigned to a public key you've added to CloudFront.
   final String id;
@@ -3347,6 +3586,8 @@ class PublicKey {
   static PublicKey fromJson(Map<String, dynamic> json) => PublicKey();
 }
 
+/// Information about a public key you add to CloudFront to use with features
+/// like field-level encryption.
 class PublicKeyConfig {
   /// A unique number that ensures that the request can't be replayed.
   final String callerReference;
@@ -3372,6 +3613,8 @@ class PublicKeyConfig {
       PublicKeyConfig();
 }
 
+/// A list of public keys you've added to CloudFront to use with features like
+/// field-level encryption.
 class PublicKeyList {
   /// If there are more elements to be listed, this element is present and
   /// contains the value that you can use for the `Marker` request parameter to
@@ -3398,6 +3641,7 @@ class PublicKeyList {
   static PublicKeyList fromJson(Map<String, dynamic> json) => PublicKeyList();
 }
 
+/// A complex data type for public key information.
 class PublicKeySummary {
   ///  ID for public key information summary.
   final String id;
@@ -3425,6 +3669,7 @@ class PublicKeySummary {
       PublicKeySummary();
 }
 
+/// Query argument-profile mapping for field-level encryption.
 class QueryArgProfile {
   /// Query argument for field-level encryption query argument-profile mapping.
   final String queryArg;
@@ -3441,6 +3686,7 @@ class QueryArgProfile {
       QueryArgProfile();
 }
 
+/// Configuration for query argument-profile mapping for field-level encryption.
 class QueryArgProfileConfig {
   /// Flag to set if you want a request to be forwarded to the origin even if
   /// the profile specified by the field-level encryption query argument,
@@ -3459,6 +3705,7 @@ class QueryArgProfileConfig {
       QueryArgProfileConfig();
 }
 
+/// Query argument-profile mapping for field-level encryption.
 class QueryArgProfiles {
   /// Number of profiles for query argument-profile mapping for field-level
   /// encryption.
@@ -3476,6 +3723,8 @@ class QueryArgProfiles {
       QueryArgProfiles();
 }
 
+/// A complex type that contains information about the query string parameters
+/// that you want CloudFront to use for caching for a cache behavior.
 class QueryStringCacheKeys {
   /// The number of `whitelisted` query string parameters for a cache behavior.
   final int quantity;
@@ -3493,6 +3742,8 @@ class QueryStringCacheKeys {
       QueryStringCacheKeys();
 }
 
+/// A complex type that identifies ways in which you want to restrict
+/// distribution of your content.
 class Restrictions {
   /// A complex type that controls the countries in which your content is
   /// distributed. CloudFront determines the location of your users using
@@ -3505,6 +3756,8 @@ class Restrictions {
   static Restrictions fromJson(Map<String, dynamic> json) => Restrictions();
 }
 
+/// A complex type that contains information about the Amazon S3 bucket from
+/// which you want CloudFront to get your media files for distribution.
 class S3Origin {
   /// The DNS name of the Amazon S3 origin.
   final String domainName;
@@ -3524,9 +3777,8 @@ class S3Origin {
   /// To replace the origin access identity, update the distribution
   /// configuration and specify the new origin access identity.
   ///
-  /// For more information, see [Using an Origin Access Identity to Restrict
-  /// Access to Your Amazon S3
-  /// Content](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
+  /// For more information, see
+  /// [Using an Origin Access Identity to Restrict Access to Your Amazon S3 Content](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/private-content-restricting-access-to-s3.html)
   /// in the  _Amazon CloudFront Developer Guide_.
   final String originAccessIdentity;
 
@@ -3537,6 +3789,8 @@ class S3Origin {
   static S3Origin fromJson(Map<String, dynamic> json) => S3Origin();
 }
 
+/// A complex type that contains information about the Amazon S3 origin. If the
+/// origin is a custom origin, use the `CustomOriginConfig` element instead.
 class S3OriginConfig {
   /// The CloudFront origin access identity to associate with the origin. Use an
   /// origin access identity to configure the origin so that viewers can _only_
@@ -3559,9 +3813,8 @@ class S3OriginConfig {
   /// To replace the origin access identity, update the distribution
   /// configuration and specify the new origin access identity.
   ///
-  /// For more information about the origin access identity, see [Serving
-  /// Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// For more information about the origin access identity, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final String originAccessIdentity;
 
@@ -3571,6 +3824,9 @@ class S3OriginConfig {
   static S3OriginConfig fromJson(Map<String, dynamic> json) => S3OriginConfig();
 }
 
+/// A complex type that lists the AWS accounts that were included in the
+/// `TrustedSigners` complex type, as well as their active CloudFront key pair
+/// IDs, if any.
 class Signer {
   /// An AWS account that is included in the `TrustedSigners` complex type for
   /// this distribution. Valid values include:
@@ -3591,6 +3847,9 @@ class Signer {
   static Signer fromJson(Map<String, dynamic> json) => Signer();
 }
 
+/// A complex data type for the status codes that you specify that, when
+/// returned by a primary origin, trigger CloudFront to failover to a second
+/// origin.
 class StatusCodes {
   /// The number of status codes.
   final int quantity;
@@ -3605,6 +3864,9 @@ class StatusCodes {
   static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes();
 }
 
+/// A streaming distribution tells CloudFront where you want RTMP content to be
+/// delivered from, and the details about how to track and manage content
+/// delivery.
 class StreamingDistribution {
   /// The identifier for the RTMP distribution. For example: `EGTXBD79EXAMPLE`.
   final String id;
@@ -3637,8 +3899,8 @@ class StreamingDistribution {
   /// account. If no `KeyPairId` element appears for a `Signer`, that signer
   /// can't create signed URLs.
   ///
-  /// For more information, see [Serving Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// For more information, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final ActiveTrustedSigners activeTrustedSigners;
 
@@ -3658,6 +3920,7 @@ class StreamingDistribution {
       StreamingDistribution();
 }
 
+/// The RTMP distribution's configuration information.
 class StreamingDistributionConfig {
   /// A unique value (for example, a date-time stamp) that ensures that the
   /// request can't be replayed.
@@ -3689,9 +3952,8 @@ class StreamingDistributionConfig {
   /// A complex type that specifies any AWS accounts that you want to permit to
   /// create signed URLs for private content. If you want the distribution to
   /// use signed URLs, include this element; if you want the distribution to use
-  /// public URLs, remove this element. For more information, see [Serving
-  /// Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// public URLs, remove this element. For more information, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final TrustedSigners trustedSigners;
 
@@ -3717,6 +3979,8 @@ class StreamingDistributionConfig {
       StreamingDistributionConfig();
 }
 
+/// A streaming distribution Configuration and a list of tags to be associated
+/// with the streaming distribution.
 class StreamingDistributionConfigWithTags {
   /// A streaming distribution Configuration.
   final StreamingDistributionConfig streamingDistributionConfig;
@@ -3730,6 +3994,7 @@ class StreamingDistributionConfigWithTags {
   });
 }
 
+/// A streaming distribution list.
 class StreamingDistributionList {
   /// The value you provided for the `Marker` request parameter.
   final String marker;
@@ -3768,6 +4033,7 @@ class StreamingDistributionList {
       StreamingDistributionList();
 }
 
+///  A summary of the information for a CloudFront streaming distribution.
 class StreamingDistributionSummary {
   /// The identifier for the distribution, for example, `EDFDVBD632BHDS5`.
   final String id;
@@ -3810,8 +4076,8 @@ class StreamingDistributionSummary {
   /// specify all of the trusted signers that you want to include in the updated
   /// distribution.
   ///
-  /// For more information, see [Serving Private Content through
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+  /// For more information, see
+  /// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final TrustedSigners trustedSigners;
 
@@ -3843,6 +4109,8 @@ class StreamingDistributionSummary {
       StreamingDistributionSummary();
 }
 
+/// A complex type that controls whether access logs are written for this
+/// streaming distribution.
 class StreamingLoggingConfig {
   /// Specifies whether you want CloudFront to save access logs to an Amazon S3
   /// bucket. If you don't want to enable logging when you create a streaming
@@ -3872,6 +4140,7 @@ class StreamingLoggingConfig {
       StreamingLoggingConfig();
 }
 
+///  A complex type that contains `Tag` key and `Tag` value.
 class Tag {
   ///  A string that contains `Tag` key.
   ///
@@ -3894,6 +4163,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+///  A complex type that contains zero or more `Tag` elements.
 class TagKeys {
   ///  A complex type that contains `Tag` key elements.
   final List<String> items;
@@ -3903,6 +4173,7 @@ class TagKeys {
   });
 }
 
+///  A complex type that contains zero or more `Tag` elements.
 class Tags {
   ///  A complex type that contains `Tag` elements.
   final List<Tag> items;
@@ -3913,6 +4184,28 @@ class Tags {
   static Tags fromJson(Map<String, dynamic> json) => Tags();
 }
 
+/// A complex type that specifies the AWS accounts, if any, that you want to
+/// allow to create signed URLs for private content.
+///
+/// If you want to require signed URLs in requests for objects in the target
+/// origin that match the `PathPattern` for this cache behavior, specify `true`
+/// for `Enabled`, and specify the applicable values for `Quantity` and `Items`.
+/// For more information, see
+/// [Serving Private Content through CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PrivateContent.html)
+/// in the  _Amazon CloudFront Developer Guide_.
+///
+/// If you don't want to require signed URLs in requests for objects that match
+/// `PathPattern`, specify `false` for `Enabled` and `0` for `Quantity`. Omit
+/// `Items`.
+///
+/// To add, change, or remove one or more trusted signers, change `Enabled` to
+/// `true` (if it's currently `false`), change `Quantity` as applicable, and
+/// specify all of the trusted signers that you want to include in the updated
+/// distribution.
+///
+/// For more information about updating the distribution configuration, see
+/// [DistributionConfig](https://docs.aws.amazon.com/cloudfront/latest/APIReference/DistributionConfig.html)
+/// in the _Amazon CloudFront API Reference_.
 class TrustedSigners {
   /// Specifies whether you want to require viewers to use signed URLs to access
   /// the files specified by `PathPattern` and `TargetOriginId`.
@@ -3933,6 +4226,7 @@ class TrustedSigners {
   static TrustedSigners fromJson(Map<String, dynamic> json) => TrustedSigners();
 }
 
+/// The returned result of the corresponding request.
 class UpdateCloudFrontOriginAccessIdentityResult {
   /// The origin access identity's information.
   final CloudFrontOriginAccessIdentity cloudFrontOriginAccessIdentity;
@@ -3949,6 +4243,7 @@ class UpdateCloudFrontOriginAccessIdentityResult {
       UpdateCloudFrontOriginAccessIdentityResult();
 }
 
+/// The returned result of the corresponding request.
 class UpdateDistributionResult {
   /// The distribution's information.
   final Distribution distribution;
@@ -4013,6 +4308,7 @@ class UpdatePublicKeyResult {
       UpdatePublicKeyResult();
 }
 
+/// The returned result of the corresponding request.
 class UpdateStreamingDistributionResult {
   /// The streaming distribution's information.
   final StreamingDistribution streamingDistribution;
@@ -4029,6 +4325,35 @@ class UpdateStreamingDistributionResult {
       UpdateStreamingDistributionResult();
 }
 
+/// A complex type that specifies the following:
+///
+/// *   Whether you want viewers to use HTTP or HTTPS to request your objects.
+///
+/// *   If you want viewers to use HTTPS, whether you're using an alternate
+/// domain name such as `example.com` or the CloudFront domain name for your
+/// distribution, such as `d111111abcdef8.cloudfront.net`.
+///
+/// *   If you're using an alternate domain name, whether AWS Certificate
+/// Manager (ACM) provided the certificate, or you purchased a certificate from
+/// a third-party certificate authority and imported it into ACM or uploaded it
+/// to the IAM certificate store.
+///
+///
+/// Specify only one of the following values:
+///
+/// *
+/// [ACMCertificateArn](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-ACMCertificateArn)
+///
+/// *
+/// [IAMCertificateId](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-IAMCertificateId)
+///
+/// *
+/// [CloudFrontDefaultCertificate](https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_ViewerCertificate.html#cloudfront-Type-ViewerCertificate-CloudFrontDefaultCertificate)
+///
+///
+/// For more information, see
+/// [Using Alternate Domain Names and HTTPS](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/SecureConnections.html#CNAMEsAndHTTPS)
+/// in the _Amazon CloudFront Developer Guide_.
 class ViewerCertificate {
   /// If you're using the CloudFront domain name for your distribution, such as
   /// `d111111abcdef8.cloudfront.net`, specify the following value:
@@ -4075,26 +4400,26 @@ class ViewerCertificate {
   /// *    `sni-only`: CloudFront can respond to HTTPS requests from viewers
   /// that support Server Name Indication (SNI). All modern browsers support
   /// SNI, but there are a few that don't. For a current list of the browsers
-  /// that support SNI, see the [Wikipedia entry Server Name
-  /// Indication](http://en.wikipedia.org/wiki/Server_Name_Indication). To learn
-  /// about options to explore if you have users with browsers that don't
-  /// include SNI support, see [Choosing How CloudFront Serves HTTPS
-  /// Requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html)
+  /// that support SNI, see the
+  /// [Wikipedia entry Server Name Indication](http://en.wikipedia.org/wiki/Server_Name_Indication).
+  /// To learn about options to explore if you have users with browsers that
+  /// don't include SNI support, see
+  /// [Choosing How CloudFront Serves HTTPS Requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// *    `vip`: CloudFront uses dedicated IP addresses for your content and
   /// can respond to HTTPS requests from any viewer. However, there are
   /// additional monthly charges. For details, including specific pricing
-  /// information, see [Custom SSL options for Amazon
-  /// CloudFront](http://aws.amazon.com/cloudfront/custom-ssl-domains/) on the
-  /// AWS marketing site.
+  /// information, see
+  /// [Custom SSL options for Amazon CloudFront](http://aws.amazon.com/cloudfront/custom-ssl-domains/)
+  /// on the AWS marketing site.
   ///
   ///
   /// Don't specify a value for `SSLSupportMethod` if you specified
   /// `<CloudFrontDefaultCertificate>true<CloudFrontDefaultCertificate>`.
   ///
-  /// For more information, see [Choosing How CloudFront Serves HTTPS
-  /// Requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html)
+  /// For more information, see
+  /// [Choosing How CloudFront Serves HTTPS Requests](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cnames-https-dedicated-ip-or-sni.html)
   /// in the _Amazon CloudFront Developer Guide_.
   final String sslSupportMethod;
 
@@ -4128,9 +4453,8 @@ class ViewerCertificate {
   ///
   /// For information about the relationship between the security policy that
   /// you choose and the protocols and ciphers that CloudFront uses to
-  /// communicate with viewers, see  [Supported SSL/TLS Protocols and Ciphers
-  /// for Communication Between Viewers and
-  /// CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html#secure-connections-supported-ciphers)
+  /// communicate with viewers, see
+  /// [Supported SSL/TLS Protocols and Ciphers for Communication Between Viewers and CloudFront](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/secure-connections-supported-viewer-protocols-ciphers.html#secure-connections-supported-ciphers)
   /// in the _Amazon CloudFront Developer Guide_.
   final String minimumProtocolVersion;
 

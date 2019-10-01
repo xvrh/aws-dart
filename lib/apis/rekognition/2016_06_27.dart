@@ -234,14 +234,14 @@ class RekognitionApi {
   ///
   /// [attributes]: An array of facial attributes you want to be returned. This
   /// can be the default list of attributes or all attributes. If you don't
-  /// specify a value for `Attributes` or if you specify `\["DEFAULT"\]`, the
-  /// API returns the following subset of facial attributes: `BoundingBox`,
+  /// specify a value for `Attributes` or if you specify `["DEFAULT"]`, the API
+  /// returns the following subset of facial attributes: `BoundingBox`,
   /// `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you provide
-  /// `\["ALL"\]`, all facial attributes are returned, but the operation takes
+  /// `["ALL"]`, all facial attributes are returned, but the operation takes
   /// longer to complete.
   ///
-  /// If you provide both, `\["ALL", "DEFAULT"\]`, the service uses a logical
-  /// AND operator to determine which attributes to return (in this case, all
+  /// If you provide both, `["ALL", "DEFAULT"]`, the service uses a logical AND
+  /// operator to determine which attributes to return (in this case, all
   /// attributes).
   Future<DetectFacesResponse> detectFaces(Image image,
       {List<String> attributes}) async {
@@ -889,13 +889,13 @@ class RekognitionApi {
   /// [detectionAttributes]: An array of facial attributes that you want to be
   /// returned. This can be the default list of attributes or all attributes. If
   /// you don't specify a value for `Attributes` or if you specify
-  /// `\["DEFAULT"\]`, the API returns the following subset of facial
-  /// attributes: `BoundingBox`, `Confidence`, `Pose`, `Quality`, and
-  /// `Landmarks`. If you provide `\["ALL"\]`, all facial attributes are
-  /// returned, but the operation takes longer to complete.
+  /// `["DEFAULT"]`, the API returns the following subset of facial attributes:
+  /// `BoundingBox`, `Confidence`, `Pose`, `Quality`, and `Landmarks`. If you
+  /// provide `["ALL"]`, all facial attributes are returned, but the operation
+  /// takes longer to complete.
   ///
-  /// If you provide both, `\["ALL", "DEFAULT"\]`, the service uses a logical
-  /// AND operator to determine which attributes to return (in this case, all
+  /// If you provide both, `["ALL", "DEFAULT"]`, the service uses a logical AND
+  /// operator to determine which attributes to return (in this case, all
   /// attributes).
   ///
   /// [maxFaces]: The maximum number of faces to index. The value of `MaxFaces`
@@ -1254,10 +1254,10 @@ class RekognitionApi {
   ///
   /// [faceAttributes]: The face attributes you want returned.
   ///
-  ///  `DEFAULT` \- The following subset of facial attributes are returned:
+  ///  `DEFAULT` - The following subset of facial attributes are returned:
   /// BoundingBox, Confidence, Pose, Quality and Landmarks.
   ///
-  ///  `ALL` \- All facial attributes are returned.
+  ///  `ALL` - All facial attributes are returned.
   ///
   /// [jobTag]: An identifier you specify that's returned in the completion
   /// notification that's published to your Amazon Simple Notification Service
@@ -1428,6 +1428,12 @@ class RekognitionApi {
   }
 }
 
+/// Structure containing the estimated age range, in years, for a face.
+///
+/// Amazon Rekognition estimates an age range for faces detected in the input
+/// image. Estimated age ranges can overlap. A face of a 5-year-old might have
+/// an estimated range of 4-6, while the face of a 6-year-old might have an
+/// estimated range of 4-8.
 class AgeRange {
   /// The lowest estimated age.
   final int low;
@@ -1442,6 +1448,8 @@ class AgeRange {
   static AgeRange fromJson(Map<String, dynamic> json) => AgeRange();
 }
 
+/// Indicates whether or not the face has a beard, and the confidence level in
+/// the determination.
 class Beard {
   /// Boolean value that indicates whether the face has beard or not.
   final bool value;
@@ -1456,6 +1464,26 @@ class Beard {
   static Beard fromJson(Map<String, dynamic> json) => Beard();
 }
 
+/// Identifies the bounding box around the label, face, or text. The `left`
+/// (x-coordinate) and `top` (y-coordinate) are coordinates representing the top
+/// and left sides of the bounding box. Note that the upper-left corner of the
+/// image is the origin (0,0).
+///
+/// The `top` and `left` values returned are ratios of the overall image size.
+/// For example, if the input image is 700x200 pixels, and the top-left
+/// coordinate of the bounding box is 350x50 pixels, the API returns a `left`
+/// value of 0.5 (350/700) and a `top` value of 0.25 (50/200).
+///
+/// The `width` and `height` values represent the dimensions of the bounding box
+/// as a ratio of the overall image dimension. For example, if the input image
+/// is 700x200 pixels, and the bounding box width is 70 pixels, the width
+/// returned is 0.1.
+///
+///   The bounding box coordinates can have negative values. For example, if
+/// Amazon Rekognition is able to detect a face that is at the image edge and is
+/// only partially visible, the service can return coordinates that are outside
+/// the image bounds and, depending on the image edge, you might get negative
+/// values or values greater than 1 for the `left` or `top` values.
 class BoundingBox {
   /// Width of the bounding box as a ratio of the overall image width.
   final double width;
@@ -1478,6 +1506,8 @@ class BoundingBox {
   static BoundingBox fromJson(Map<String, dynamic> json) => BoundingBox();
 }
 
+/// Provides information about a celebrity recognized by the
+/// RecognizeCelebrities operation.
 class Celebrity {
   /// An array of URLs pointing to additional information about the celebrity.
   /// If there is no additional information about the celebrity, this list is
@@ -1508,6 +1538,7 @@ class Celebrity {
   static Celebrity fromJson(Map<String, dynamic> json) => Celebrity();
 }
 
+/// Information about a recognized celebrity.
 class CelebrityDetail {
   /// An array of URLs pointing to additional celebrity information.
   final List<String> urls;
@@ -1540,6 +1571,9 @@ class CelebrityDetail {
       CelebrityDetail();
 }
 
+/// Information about a detected celebrity and the time the celebrity was
+/// detected in a stored video. For more information, see
+/// GetCelebrityRecognition in the Amazon Rekognition Developer Guide.
 class CelebrityRecognition {
   /// The time, in milliseconds from the start of the video, that the celebrity
   /// was recognized.
@@ -1556,6 +1590,11 @@ class CelebrityRecognition {
       CelebrityRecognition();
 }
 
+/// Provides information about a face in a target image that matches the source
+/// image face analyzed by `CompareFaces`. The `Face` property contains the
+/// bounding box of the face in the target image. The `Similarity` property is
+/// the confidence that the source image face matches the face in the bounding
+/// box.
 class CompareFacesMatch {
   /// Level of confidence that the faces match.
   final double similarity;
@@ -1627,6 +1666,8 @@ class CompareFacesResponse {
       CompareFacesResponse();
 }
 
+/// Provides face metadata for target image faces that are analyzed by
+/// `CompareFaces` and `RecognizeCelebrities`.
 class ComparedFace {
   /// Bounding box of the face.
   final BoundingBox boundingBox;
@@ -1653,6 +1694,11 @@ class ComparedFace {
   static ComparedFace fromJson(Map<String, dynamic> json) => ComparedFace();
 }
 
+/// Type that describes the face Amazon Rekognition chose to compare with the
+/// faces in the target. This contains a bounding box for the selected face and
+/// confidence level that the bounding box contains a face. Note that Amazon
+/// Rekognition selects the largest face in the source image for this
+/// comparison.
 class ComparedSourceImageFace {
   /// Bounding box of the face.
   final BoundingBox boundingBox;
@@ -1668,6 +1714,7 @@ class ComparedSourceImageFace {
       ComparedSourceImageFace();
 }
 
+/// Information about an unsafe content label detection in a stored video.
 class ContentModerationDetection {
   /// Time, in milliseconds from the beginning of the video, that the unsafe
   /// content label was detected.
@@ -1913,6 +1960,12 @@ class DetectTextResponse {
       DetectTextResponse();
 }
 
+/// The emotions that appear to be expressed on the face, and the confidence
+/// level in the determination. The API is only making a determination of the
+/// physical appearance of a person's face. It is not a determination of the
+/// person’s internal emotional state and should not be used in such a way. For
+/// example, a person pretending to have a sad face might not be sad
+/// emotionally.
 class Emotion {
   /// Type of emotion detected.
   final String type;
@@ -1927,6 +1980,8 @@ class Emotion {
   static Emotion fromJson(Map<String, dynamic> json) => Emotion();
 }
 
+/// Indicates whether or not the eyes on the face are open, and the confidence
+/// level in the determination.
 class EyeOpen {
   /// Boolean value that indicates whether the eyes on the face are open.
   final bool value;
@@ -1941,6 +1996,8 @@ class EyeOpen {
   static EyeOpen fromJson(Map<String, dynamic> json) => EyeOpen();
 }
 
+/// Indicates whether or not the face is wearing eye glasses, and the confidence
+/// level in the determination.
 class Eyeglasses {
   /// Boolean value that indicates whether the face is wearing eye glasses or
   /// not.
@@ -1956,6 +2013,8 @@ class Eyeglasses {
   static Eyeglasses fromJson(Map<String, dynamic> json) => Eyeglasses();
 }
 
+/// Describes the face properties such as the bounding box, face ID, image ID of
+/// the input image, and external image ID that you assigned.
 class Face {
   /// Unique identifier that Amazon Rekognition assigns to the face.
   final String faceId;
@@ -1983,6 +2042,30 @@ class Face {
   static Face fromJson(Map<String, dynamic> json) => Face();
 }
 
+/// Structure containing attributes of the face that the algorithm detected.
+///
+/// A `FaceDetail` object contains either the default facial attributes or all
+/// facial attributes. The default attributes are `BoundingBox`, `Confidence`,
+/// `Landmarks`, `Pose`, and `Quality`.
+///
+///  GetFaceDetection is the only Amazon Rekognition Video stored video
+/// operation that can return a `FaceDetail` object with all attributes. To
+/// specify which attributes to return, use the `FaceAttributes` input parameter
+/// for StartFaceDetection. The following Amazon Rekognition Video operations
+/// return only the default attributes. The corresponding Start operations don't
+/// have a `FaceAttributes` input parameter.
+///
+/// *   GetCelebrityRecognition
+///
+/// *   GetPersonTracking
+///
+/// *   GetFaceSearch
+///
+///
+/// The Amazon Rekognition Image DetectFaces and IndexFaces operations can
+/// return all facial attributes. To specify which attributes to return, use the
+/// `Attributes` input parameter for `DetectFaces`. For `IndexFaces`, use the
+/// `DetectAttributes` input parameter.
 class FaceDetail {
   /// Bounding box of the face. Default attribute.
   final BoundingBox boundingBox;
@@ -2064,6 +2147,8 @@ class FaceDetail {
   static FaceDetail fromJson(Map<String, dynamic> json) => FaceDetail();
 }
 
+/// Information about a face detected in a video analysis request and the time
+/// the face was detected in the video.
 class FaceDetection {
   /// Time, in milliseconds from the start of the video, that the face was
   /// detected.
@@ -2079,6 +2164,8 @@ class FaceDetection {
   static FaceDetection fromJson(Map<String, dynamic> json) => FaceDetection();
 }
 
+/// Provides face metadata. In addition, it also provides the confidence in the
+/// match of this face with the input face.
 class FaceMatch {
   /// Confidence in the match of this face with the input face.
   final double similarity;
@@ -2094,6 +2181,8 @@ class FaceMatch {
   static FaceMatch fromJson(Map<String, dynamic> json) => FaceMatch();
 }
 
+/// Object containing both the face metadata (stored in the backend database),
+/// and facial attributes that are detected but aren't stored in the database.
 class FaceRecord {
   /// Describes the face properties such as the bounding box, face ID, image ID
   /// of the input image, and external image ID that you assigned.
@@ -2109,6 +2198,9 @@ class FaceRecord {
   static FaceRecord fromJson(Map<String, dynamic> json) => FaceRecord();
 }
 
+/// Input face recognition parameters for an Amazon Rekognition stream
+/// processor. `FaceRecognitionSettings` is a request parameter for
+/// CreateStreamProcessor.
 class FaceSearchSettings {
   /// The ID of a collection that contains faces that you want to search for.
   final String collectionId;
@@ -2126,6 +2218,7 @@ class FaceSearchSettings {
       FaceSearchSettings();
 }
 
+/// Gender of the face and the confidence level in the determination.
 class Gender {
   /// Gender of the face.
   final String value;
@@ -2140,6 +2233,8 @@ class Gender {
   static Gender fromJson(Map<String, dynamic> json) => Gender();
 }
 
+/// Information about where the text detected by DetectText is located on an
+/// image.
 class Geometry {
   /// An axis-aligned coarse representation of the detected text's location on
   /// the image.
@@ -2377,6 +2472,33 @@ class GetPersonTrackingResponse {
       GetPersonTrackingResponse();
 }
 
+/// Provides the input image either as bytes or an S3 object.
+///
+/// You pass image bytes to an Amazon Rekognition API operation by using the
+/// `Bytes` property. For example, you would use the `Bytes` property to pass an
+/// image loaded from a local file system. Image bytes passed by using the
+/// `Bytes` property must be base64-encoded. Your code may not need to encode
+/// image bytes if you are using an AWS SDK to call Amazon Rekognition API
+/// operations.
+///
+/// For more information, see Analyzing an Image Loaded from a Local File System
+/// in the Amazon Rekognition Developer Guide.
+///
+///  You pass images stored in an S3 bucket to an Amazon Rekognition API
+/// operation by using the `S3Object` property. Images stored in an S3 bucket do
+/// not need to be base64-encoded.
+///
+/// The region for the S3 bucket containing the S3 object must match the region
+/// you use for Amazon Rekognition operations.
+///
+/// If you use the AWS CLI to call Amazon Rekognition operations, passing image
+/// bytes using the Bytes property is not supported. You must first upload the
+/// image to an Amazon S3 bucket and then call the operation using the S3Object
+/// property.
+///
+/// For Amazon Rekognition to process an S3 object, the user must have
+/// permission to access the S3 object. For more information, see Resource Based
+/// Policies in the Amazon Rekognition Developer Guide.
 class Image {
   /// Blob of image bytes up to 5 MBs.
   final Uint8List bytes;
@@ -2390,6 +2512,7 @@ class Image {
   });
 }
 
+/// Identifies face image brightness and sharpness.
 class ImageQuality {
   /// Value representing brightness of the face. The service returns a value
   /// between 0 and 100 (inclusive). A higher value indicates a brighter face
@@ -2430,8 +2553,8 @@ class IndexFacesResponse {
   /// Exif metadata. The value of `OrientationCorrection` is null.
   ///
   /// *   If the image doesn't contain orientation information in its Exif
-  /// metadata, Amazon Rekognition returns an estimated orientation (ROTATE\_0,
-  /// ROTATE\_90, ROTATE\_180, ROTATE\_270). Amazon Rekognition doesn’t perform
+  /// metadata, Amazon Rekognition returns an estimated orientation (ROTATE_0,
+  /// ROTATE_90, ROTATE_180, ROTATE_270). Amazon Rekognition doesn’t perform
   /// image correction for images. The bounding box coordinates aren't
   /// translated and represent the object locations before the image is rotated.
   ///
@@ -2460,6 +2583,8 @@ class IndexFacesResponse {
       IndexFacesResponse();
 }
 
+/// An instance of a label returned by Amazon Rekognition Image (DetectLabels)
+/// or by Amazon Rekognition Video (GetLabelDetection).
 class Instance {
   /// The position of the label instance on the image.
   final BoundingBox boundingBox;
@@ -2475,6 +2600,9 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// The Kinesis data stream Amazon Rekognition to which the analysis results of
+/// a Amazon Rekognition stream processor are streamed. For more information,
+/// see CreateStreamProcessor in the Amazon Rekognition Developer Guide.
 class KinesisDataStream {
   /// ARN of the output Amazon Kinesis Data Streams stream.
   final String arn;
@@ -2486,6 +2614,9 @@ class KinesisDataStream {
       KinesisDataStream();
 }
 
+/// Kinesis video stream stream that provides the source streaming video for a
+/// Amazon Rekognition Video stream processor. For more information, see
+/// CreateStreamProcessor in the Amazon Rekognition Developer Guide.
 class KinesisVideoStream {
   /// ARN of the Kinesis video stream stream that streams the source video.
   final String arn;
@@ -2497,6 +2628,8 @@ class KinesisVideoStream {
       KinesisVideoStream();
 }
 
+/// Structure containing details about the detected label, including the name,
+/// detected instances, parent labels, and level of confidence.
 class Label {
   /// The name (label) of the object or scene.
   final String name;
@@ -2521,6 +2654,8 @@ class Label {
   static Label fromJson(Map<String, dynamic> json) => Label();
 }
 
+/// Information about a label detected in a video analysis request and the time
+/// the label was detected in the video.
 class LabelDetection {
   /// Time, in milliseconds from the start of the video, that the label was
   /// detected.
@@ -2536,6 +2671,7 @@ class LabelDetection {
   static LabelDetection fromJson(Map<String, dynamic> json) => LabelDetection();
 }
 
+/// Indicates the location of the landmark on the face.
 class Landmark {
   /// Type of landmark.
   final String type;
@@ -2568,8 +2704,8 @@ class ListCollectionsResponse {
 
   /// Version numbers of the face detection models associated with the
   /// collections in the array `CollectionIds`. For example, the value of
-  /// `FaceModelVersions\[2\]` is the version number for the face detection
-  /// model used by the collection in `CollectionId\[2\]`.
+  /// `FaceModelVersions[2]` is the version number for the face detection model
+  /// used by the collection in `CollectionId[2]`.
   final List<String> faceModelVersions;
 
   ListCollectionsResponse({
@@ -2619,6 +2755,10 @@ class ListStreamProcessorsResponse {
       ListStreamProcessorsResponse();
 }
 
+/// Provides information about a single type of unsafe content found in an image
+/// or video. Each type of moderated content has a label within a hierarchical
+/// taxonomy. For more information, see Detecting Unsafe Content in the Amazon
+/// Rekognition Developer Guide.
 class ModerationLabel {
   /// Specifies the confidence that Amazon Rekognition has that the label has
   /// been correctly identified.
@@ -2644,6 +2784,8 @@ class ModerationLabel {
       ModerationLabel();
 }
 
+/// Indicates whether or not the mouth on the face is open, and the confidence
+/// level in the determination.
 class MouthOpen {
   /// Boolean value that indicates whether the mouth on the face is open or not.
   final bool value;
@@ -2658,6 +2800,8 @@ class MouthOpen {
   static MouthOpen fromJson(Map<String, dynamic> json) => MouthOpen();
 }
 
+/// Indicates whether or not the face has a mustache, and the confidence level
+/// in the determination.
 class Mustache {
   /// Boolean value that indicates whether the face has mustache or not.
   final bool value;
@@ -2672,6 +2816,9 @@ class Mustache {
   static Mustache fromJson(Map<String, dynamic> json) => Mustache();
 }
 
+/// The Amazon Simple Notification Service topic to which Amazon Rekognition
+/// publishes the completion status of a video analysis operation. For more
+/// information, see api-video.
 class NotificationChannel {
   /// The Amazon SNS topic to which Amazon Rekognition to posts the completion
   /// status.
@@ -2687,6 +2834,7 @@ class NotificationChannel {
   });
 }
 
+/// A parent label for a label. A label can have 0, 1, or more parents.
 class Parent {
   /// The name of the parent label.
   final String name;
@@ -2697,6 +2845,7 @@ class Parent {
   static Parent fromJson(Map<String, dynamic> json) => Parent();
 }
 
+/// Details about a person detected in a video analysis request.
 class PersonDetail {
   /// Identifier for the person detected person within a video. Use to keep
   /// track of the person throughout the video. The identifier is not stored by
@@ -2717,6 +2866,13 @@ class PersonDetail {
   static PersonDetail fromJson(Map<String, dynamic> json) => PersonDetail();
 }
 
+/// Details and path tracking information for a single time a person's path is
+/// tracked in a video. Amazon Rekognition operations that track people's paths
+/// return an array of `PersonDetection` objects with elements for each time a
+/// person's path is tracked in a video.
+///
+/// For more information, see GetPersonTracking in the Amazon Rekognition
+/// Developer Guide.
 class PersonDetection {
   /// The time, in milliseconds from the start of the video, that the person's
   /// path was tracked.
@@ -2733,6 +2889,11 @@ class PersonDetection {
       PersonDetection();
 }
 
+/// Information about a person whose face matches a face(s) in an Amazon
+/// Rekognition collection. Includes information about the faces in the Amazon
+/// Rekognition collection (FaceMatch), information about the person
+/// (PersonDetail), and the time stamp for when the person was detected in a
+/// video. An array of `PersonMatch` objects is returned by GetFaceSearch.
 class PersonMatch {
   /// The time, in milliseconds from the beginning of the video, that the person
   /// was matched in the video.
@@ -2753,6 +2914,14 @@ class PersonMatch {
   static PersonMatch fromJson(Map<String, dynamic> json) => PersonMatch();
 }
 
+/// The X and Y coordinates of a point on an image. The X and Y values returned
+/// are ratios of the overall image size. For example, if the input image is
+/// 700x200 and the operation returns X=0.5 and Y=0.25, then the point is at the
+/// (350,50) pixel coordinate on the image.
+///
+/// An array of `Point` objects, `Polygon`, is returned by DetectText. `Polygon`
+/// represents a fine-grained polygon around detected text. For more
+/// information, see Geometry in the Amazon Rekognition Developer Guide.
 class Point {
   /// The value of the X coordinate for a point on a `Polygon`.
   final double x;
@@ -2767,6 +2936,7 @@ class Point {
   static Point fromJson(Map<String, dynamic> json) => Point();
 }
 
+/// Indicates the pose of the face as determined by its pitch, roll, and yaw.
 class Pose {
   /// Value representing the face rotation on the roll axis.
   final double roll;
@@ -2819,6 +2989,14 @@ class RecognizeCelebritiesResponse {
       RecognizeCelebritiesResponse();
 }
 
+/// Provides the S3 bucket name and object name.
+///
+/// The region for the S3 bucket containing the S3 object must match the region
+/// you use for Amazon Rekognition operations.
+///
+/// For Amazon Rekognition to process an S3 object, the user must have
+/// permission to access the S3 object. For more information, see Resource-Based
+/// Policies in the Amazon Rekognition Developer Guide.
 class S3Object {
   /// Name of the S3 bucket.
   final String bucket;
@@ -2884,6 +3062,8 @@ class SearchFacesResponse {
       SearchFacesResponse();
 }
 
+/// Indicates whether or not the face is smiling, and the confidence level in
+/// the determination.
 class Smile {
   /// Boolean value that indicates whether the face is smiling or not.
   final bool value;
@@ -2983,6 +3163,11 @@ class StopStreamProcessorResponse {
       StopStreamProcessorResponse();
 }
 
+/// An object that recognizes faces in a streaming video. An Amazon Rekognition
+/// stream processor is created by a call to CreateStreamProcessor. The request
+/// parameters for `CreateStreamProcessor` describe the Kinesis video stream
+/// source for the streaming video, face recognition parameters, and where to
+/// stream the analysis resullts.
 class StreamProcessor {
   /// Name of the Amazon Rekognition stream processor.
   final String name;
@@ -2998,6 +3183,7 @@ class StreamProcessor {
       StreamProcessor();
 }
 
+/// Information about the source streaming video.
 class StreamProcessorInput {
   /// The Kinesis video stream input stream for the source streaming video.
   final KinesisVideoStream kinesisVideoStream;
@@ -3009,6 +3195,10 @@ class StreamProcessorInput {
       StreamProcessorInput();
 }
 
+/// Information about the Amazon Kinesis Data Streams stream to which a Amazon
+/// Rekognition Video stream processor streams the results of a video analysis.
+/// For more information, see CreateStreamProcessor in the Amazon Rekognition
+/// Developer Guide.
 class StreamProcessorOutput {
   /// The Amazon Kinesis Data Streams stream to which the Amazon Rekognition
   /// stream processor streams the analysis results.
@@ -3021,6 +3211,8 @@ class StreamProcessorOutput {
       StreamProcessorOutput();
 }
 
+/// Input parameters used to recognize faces in a streaming video analyzed by a
+/// Amazon Rekognition stream processor.
 class StreamProcessorSettings {
   /// Face search settings to use on a streaming video.
   final FaceSearchSettings faceSearch;
@@ -3032,6 +3224,8 @@ class StreamProcessorSettings {
       StreamProcessorSettings();
 }
 
+/// Indicates whether or not the face is wearing sunglasses, and the confidence
+/// level in the determination.
 class Sunglasses {
   /// Boolean value that indicates whether the face is wearing sunglasses or
   /// not.
@@ -3047,6 +3241,18 @@ class Sunglasses {
   static Sunglasses fromJson(Map<String, dynamic> json) => Sunglasses();
 }
 
+/// Information about a word or line of text detected by DetectText.
+///
+/// The `DetectedText` field contains the text that Amazon Rekognition detected
+/// in the image.
+///
+/// Every word and line has an identifier (`Id`). Each word belongs to a line
+/// and has a parent identifier (`ParentId`) that identifies the line of text in
+/// which the word appears. The word `Id` is also an index for the word within a
+/// line of words.
+///
+/// For more information, see Detecting Text in the Amazon Rekognition Developer
+/// Guide.
 class TextDetection {
   /// The word or line of text recognized by Amazon Rekognition.
   final String detectedText;
@@ -3083,13 +3289,15 @@ class TextDetection {
   static TextDetection fromJson(Map<String, dynamic> json) => TextDetection();
 }
 
+/// A face that IndexFaces detected, but didn't index. Use the `Reasons`
+/// response attribute to determine why a face wasn't indexed.
 class UnindexedFace {
   /// An array of reasons that specify why a face wasn't indexed.
   ///
   /// *   EXTREME_POSE - The face is at a pose that can't be detected. For
   /// example, the head is turned too far away from the camera.
   ///
-  /// *   EXCEEDS\_MAX\_FACES - The number of faces detected is already higher
+  /// *   EXCEEDS_MAX_FACES - The number of faces detected is already higher
   /// than that specified by the `MaxFaces` input parameter for `IndexFaces`.
   ///
   /// *   LOW_BRIGHTNESS - The image is too dark.
@@ -3098,7 +3306,7 @@ class UnindexedFace {
   ///
   /// *   LOW_CONFIDENCE - The face was detected with a low confidence.
   ///
-  /// *   SMALL\_BOUNDING\_BOX - The bounding box around the face is too small.
+  /// *   SMALL_BOUNDING_BOX - The bounding box around the face is too small.
   final List<String> reasons;
 
   /// The structure that contains attributes of a face that
@@ -3112,6 +3320,9 @@ class UnindexedFace {
   static UnindexedFace fromJson(Map<String, dynamic> json) => UnindexedFace();
 }
 
+/// Video file stored in an Amazon S3 bucket. Amazon Rekognition video start
+/// operations such as StartLabelDetection use `Video` to specify a video for
+/// analysis. The supported file formats are .mp4, .mov and .avi.
 class Video {
   /// The Amazon S3 bucket name and file name for the video.
   final S3Object s3Object;
@@ -3121,6 +3332,9 @@ class Video {
   });
 }
 
+/// Information about a video that Amazon Rekognition analyzed. `Videometadata`
+/// is returned in every page of paginated responses from a Amazon Rekognition
+/// video operation.
 class VideoMetadata {
   /// Type of compression used in the analyzed video.
   final String codec;

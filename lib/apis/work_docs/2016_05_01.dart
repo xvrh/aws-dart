@@ -173,8 +173,8 @@ class WorkDocsApi {
   /// Configure Amazon WorkDocs to use Amazon SNS notifications. The endpoint
   /// receives a confirmation message, and must confirm the subscription.
   ///
-  /// For more information, see [Subscribe to
-  /// Notifications](https://docs.aws.amazon.com/workdocs/latest/developerguide/subscribe-notifications.html)
+  /// For more information, see
+  /// [Subscribe to Notifications](https://docs.aws.amazon.com/workdocs/latest/developerguide/subscribe-notifications.html)
   /// in the _Amazon WorkDocs Developer Guide_.
   ///
   /// [organizationId]: The ID of the organization.
@@ -553,8 +553,8 @@ class WorkDocsApi {
   ///
   /// This action requires an authentication token. To get an authentication
   /// token, register an application with Amazon WorkDocs. For more information,
-  /// see [Authentication and Access Control for User
-  /// Applications](https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html)
+  /// see
+  /// [Authentication and Access Control for User Applications](https://docs.aws.amazon.com/workdocs/latest/developerguide/wd-auth-user.html)
   /// in the _Amazon WorkDocs Developer Guide_.
   ///
   /// [authenticationToken]: Amazon WorkDocs authentication token. Do not set
@@ -740,7 +740,7 @@ class WorkDocsApi {
   }
 
   /// Retrieves a collection of resources, including folders and documents. The
-  /// only `CollectionType` supported is `SHARED\_WITH\_ME`.
+  /// only `CollectionType` supported is `SHARED_WITH_ME`.
   ///
   /// [authenticationToken]: The Amazon WorkDocs authentication token. Do not
   /// set this field when using administrative API actions, as in accessing the
@@ -943,6 +943,7 @@ class ActivateUserResponse {
       ActivateUserResponse();
 }
 
+/// Describes the activity information.
 class Activity {
   /// The activity type.
   final String type;
@@ -963,9 +964,8 @@ class Activity {
   final UserMetadata initiator;
 
   /// The list of users or groups impacted by this action. This is an optional
-  /// field and is filled for the following sharing activities:
-  /// DOCUMENT\_SHARED, DOCUMENT\_SHARED, DOCUMENT\_UNSHARED, FOLDER\_SHARED,
-  /// FOLDER_UNSHARED.
+  /// field and is filled for the following sharing activities: DOCUMENT_SHARED,
+  /// DOCUMENT_SHARED, DOCUMENT_UNSHARED, FOLDER_SHARED, FOLDER_UNSHARED.
   final Participants participants;
 
   /// The metadata of the resource involved in the user action.
@@ -1004,6 +1004,7 @@ class AddResourcePermissionsResponse {
       AddResourcePermissionsResponse();
 }
 
+/// Describes a comment.
 class Comment {
   /// The ID of the comment.
   final String commentId;
@@ -1050,6 +1051,7 @@ class Comment {
   static Comment fromJson(Map<String, dynamic> json) => Comment();
 }
 
+/// Describes the metadata of a comment.
 class CommentMetadata {
   /// The ID of the comment.
   final String commentId;
@@ -1298,6 +1300,7 @@ class DescribeUsersResponse {
       DescribeUsersResponse();
 }
 
+/// Describes the document.
 class DocumentMetadata {
   /// The ID of the document.
   final String id;
@@ -1337,6 +1340,7 @@ class DocumentMetadata {
       DocumentMetadata();
 }
 
+/// Describes a version of a document.
 class DocumentVersionMetadata {
   /// The ID of the version.
   final String id;
@@ -1396,6 +1400,7 @@ class DocumentVersionMetadata {
       DocumentVersionMetadata();
 }
 
+/// Describes a folder.
 class FolderMetadata {
   /// The ID of the folder.
   final String id;
@@ -1545,6 +1550,7 @@ class GetResourcesResponse {
       GetResourcesResponse();
 }
 
+/// Describes the metadata of a user group.
 class GroupMetadata {
   /// The ID of the user group.
   final String id;
@@ -1575,6 +1581,7 @@ class InitiateDocumentVersionUploadResponse {
       InitiateDocumentVersionUploadResponse();
 }
 
+/// Set of options which defines notification preferences of given action.
 class NotificationOptions {
   /// Boolean value to indicate an email notification should be sent to the
   /// receipients.
@@ -1589,6 +1596,7 @@ class NotificationOptions {
   });
 }
 
+/// Describes the users or user groups.
 class Participants {
   /// The list of users.
   final List<UserMetadata> users;
@@ -1603,6 +1611,7 @@ class Participants {
   static Participants fromJson(Map<String, dynamic> json) => Participants();
 }
 
+/// Describes the permissions.
 class PermissionInfo {
   /// The role of the user.
   final String role;
@@ -1617,6 +1626,7 @@ class PermissionInfo {
   static PermissionInfo fromJson(Map<String, dynamic> json) => PermissionInfo();
 }
 
+/// Describes a resource.
 class Principal {
   /// The ID of the resource.
   final String id;
@@ -1635,6 +1645,7 @@ class Principal {
   static Principal fromJson(Map<String, dynamic> json) => Principal();
 }
 
+/// Describes the metadata of a resource.
 class ResourceMetadata {
   /// The type of resource.
   final String type;
@@ -1671,6 +1682,7 @@ class ResourceMetadata {
       ResourceMetadata();
 }
 
+/// Describes the path information of a resource.
 class ResourcePath {
   /// The components of the resource path.
   final List<ResourcePathComponent> components;
@@ -1681,6 +1693,7 @@ class ResourcePath {
   static ResourcePath fromJson(Map<String, dynamic> json) => ResourcePath();
 }
 
+/// Describes the resource path.
 class ResourcePathComponent {
   /// The ID of the resource path.
   final String id;
@@ -1696,6 +1709,7 @@ class ResourcePathComponent {
       ResourcePathComponent();
 }
 
+/// Describes the recipient type and ID, if available.
 class SharePrincipal {
   /// The ID of the recipient.
   final String id;
@@ -1713,6 +1727,7 @@ class SharePrincipal {
   });
 }
 
+/// Describes the share results of a resource.
 class ShareResult {
   /// The ID of the principal.
   final String principalId;
@@ -1743,6 +1758,7 @@ class ShareResult {
   static ShareResult fromJson(Map<String, dynamic> json) => ShareResult();
 }
 
+/// Describes the storage for a user.
 class StorageRuleType {
   /// The amount of storage allocated, in bytes.
   final BigInt storageAllocatedInBytes;
@@ -1758,6 +1774,7 @@ class StorageRuleType {
       StorageRuleType();
 }
 
+/// Describes a subscription.
 class Subscription {
   /// The ID of the subscription.
   final String subscriptionId;
@@ -1787,6 +1804,7 @@ class UpdateUserResponse {
       UpdateUserResponse();
 }
 
+/// Describes the upload.
 class UploadMetadata {
   /// The URL of the upload.
   final String uploadUrl;
@@ -1801,6 +1819,7 @@ class UploadMetadata {
   static UploadMetadata fromJson(Map<String, dynamic> json) => UploadMetadata();
 }
 
+/// Describes a user.
 class User {
   /// The ID of the user.
   final String id;
@@ -1867,6 +1886,7 @@ class User {
   static User fromJson(Map<String, dynamic> json) => User();
 }
 
+/// Describes the metadata of the user.
 class UserMetadata {
   /// The ID of the user.
   final String id;
@@ -1893,6 +1913,7 @@ class UserMetadata {
   static UserMetadata fromJson(Map<String, dynamic> json) => UserMetadata();
 }
 
+/// Describes the storage for a user.
 class UserStorageMetadata {
   /// The amount of storage used, in bytes.
   final BigInt storageUtilizedInBytes;

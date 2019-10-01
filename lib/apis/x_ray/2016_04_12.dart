@@ -194,8 +194,8 @@ class XRayApi {
   ///  `annotation.account = "12345"`
   ///
   /// For a full list of indexed fields and keywords that you can use in filter
-  /// expressions, see [Using Filter
-  /// Expressions](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html)
+  /// expressions, see
+  /// [Using Filter Expressions](https://docs.aws.amazon.com/xray/latest/devguide/xray-console-filters.html)
   /// in the _AWS X-Ray Developer Guide_.
   ///
   /// [startTime]: The start of the time frame for which to retrieve traces.
@@ -232,12 +232,12 @@ class XRayApi {
   /// [keyId]: An AWS KMS customer master key (CMK) in one of the following
   /// formats:
   ///
-  /// *    **Alias** \- The name of the key. For example, `alias/MyKey`.
+  /// *    **Alias** - The name of the key. For example, `alias/MyKey`.
   ///
-  /// *    **Key ID** \- The KMS key ID of the key. For example,
+  /// *    **Key ID** - The KMS key ID of the key. For example,
   /// `ae4aa6d49-a4d8-9df9-a475-4ff6d7898456`.
   ///
-  /// *    **ARN** \- The full Amazon Resource Name of the key ID or alias. For
+  /// *    **ARN** - The full Amazon Resource Name of the key ID or alias. For
   /// example,
   /// `arn:aws:kms:us-east-2:123456789012:key/ae4aa6d49-a4d8-9df9-a475-4ff6d7898456`.
   /// Use this format to specify a key in a different account.
@@ -275,29 +275,29 @@ class XRayApi {
   /// segment, or an array of subsegments.
   ///
   /// Segments must include the following fields. For the full segment document
-  /// schema, see [AWS X-Ray Segment
-  /// Documents](https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html)
+  /// schema, see
+  /// [AWS X-Ray Segment Documents](https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html)
   /// in the _AWS X-Ray Developer Guide_.
   ///
   ///  **Required Segment Document Fields**
   ///
-  /// *    `name` \- The name of the service that handled the request.
+  /// *    `name` - The name of the service that handled the request.
   ///
-  /// *    `id` \- A 64-bit identifier for the segment, unique among segments in
+  /// *    `id` - A 64-bit identifier for the segment, unique among segments in
   /// the same trace, in 16 hexadecimal digits.
   ///
-  /// *    `trace_id` \- A unique identifier that connects all segments and
+  /// *    `trace_id` - A unique identifier that connects all segments and
   /// subsegments originating from a single client request.
   ///
-  /// *    `start_time` \- Time the segment or subsegment was created, in
+  /// *    `start_time` - Time the segment or subsegment was created, in
   /// floating point seconds in epoch time, accurate to milliseconds. For
   /// example, `1480615200.010` or `1.480615200010E9`.
   ///
-  /// *    `end_time` \- Time the segment or subsegment was closed. For example,
+  /// *    `end_time` - Time the segment or subsegment was closed. For example,
   /// `1480615200.090` or `1.480615200090E9`. Specify either an `end_time` or
   /// `in_progress`.
   ///
-  /// *    `in_progress` \- Set to `true` instead of specifying an `end_time` to
+  /// *    `in_progress` - Set to `true` instead of specifying an `end_time` to
   /// record that a segment has been started, but is not complete. Send an in
   /// progress segment when your application receives a request that will take a
   /// long time to serve, to trace the fact that the request was received. When
@@ -348,6 +348,7 @@ class XRayApi {
   }
 }
 
+/// An alias for an edge.
 class Alias {
   /// The canonical name of the alias.
   final String name;
@@ -366,6 +367,8 @@ class Alias {
   static Alias fromJson(Map<String, dynamic> json) => Alias();
 }
 
+/// Value of a segment annotation. Has one of three value types: Number, Boolean
+/// or String.
 class AnnotationValue {
   /// Value for a Number annotation.
   final double numberValue;
@@ -385,6 +388,7 @@ class AnnotationValue {
       AnnotationValue();
 }
 
+/// A list of availability zones corresponding to the segments in a trace.
 class AvailabilityZoneDetail {
   /// The name of a corresponding availability zone.
   final String name;
@@ -479,6 +483,7 @@ class DeleteSamplingRuleResult {
       DeleteSamplingRuleResult();
 }
 
+/// Information about a connection between two services.
 class Edge {
   /// Identifier of the edge. Unique within a service map.
   final int referenceId;
@@ -509,6 +514,7 @@ class Edge {
   static Edge fromJson(Map<String, dynamic> json) => Edge();
 }
 
+/// Response statistics for an edge.
 class EdgeStatistics {
   /// The number of requests that completed with a 2xx Success status code.
   final BigInt okCount;
@@ -537,6 +543,7 @@ class EdgeStatistics {
   static EdgeStatistics fromJson(Map<String, dynamic> json) => EdgeStatistics();
 }
 
+/// A configuration document that specifies encryption configuration settings.
 class EncryptionConfig {
   /// The ID of the customer master key (CMK) used for encryption, if
   /// applicable.
@@ -559,6 +566,7 @@ class EncryptionConfig {
       EncryptionConfig();
 }
 
+/// The root cause of a trace summary error.
 class ErrorRootCause {
   /// A list of services corresponding to an error. A service identifies a
   /// segment and it contains a name, account ID, type, and inferred flag.
@@ -570,6 +578,8 @@ class ErrorRootCause {
   static ErrorRootCause fromJson(Map<String, dynamic> json) => ErrorRootCause();
 }
 
+/// A collection of segments and corresponding subsegments associated to a trace
+/// summary error.
 class ErrorRootCauseEntity {
   /// The name of the entity.
   final String name;
@@ -589,6 +599,7 @@ class ErrorRootCauseEntity {
       ErrorRootCauseEntity();
 }
 
+/// A collection of fields identifying the services in a trace summary error.
 class ErrorRootCauseService {
   /// The service name.
   final String name;
@@ -620,6 +631,7 @@ class ErrorRootCauseService {
       ErrorRootCauseService();
 }
 
+/// Information about requests that failed with a 4xx Client Error status code.
 class ErrorStatistics {
   /// The number of requests that failed with a 419 throttling status code.
   final BigInt throttleCount;
@@ -641,6 +653,7 @@ class ErrorStatistics {
       ErrorStatistics();
 }
 
+/// The root cause information for a trace summary fault.
 class FaultRootCause {
   /// A list of corresponding services. A service identifies a segment and it
   /// contains a name, account ID, type, and inferred flag.
@@ -652,6 +665,8 @@ class FaultRootCause {
   static FaultRootCause fromJson(Map<String, dynamic> json) => FaultRootCause();
 }
 
+/// A collection of segments and corresponding subsegments associated to a trace
+/// summary fault error.
 class FaultRootCauseEntity {
   /// The name of the entity.
   final String name;
@@ -671,6 +686,7 @@ class FaultRootCauseEntity {
       FaultRootCauseEntity();
 }
 
+/// A collection of fields identifying the services in a trace summary fault.
 class FaultRootCauseService {
   /// The service name.
   final String name;
@@ -702,6 +718,7 @@ class FaultRootCauseService {
       FaultRootCauseService();
 }
 
+/// Information about requests that failed with a 5xx Server Error status code.
 class FaultStatistics {
   /// The number of requests that failed with untracked 5xx Server Error status
   /// codes.
@@ -903,6 +920,7 @@ class GetTraceSummariesResult {
       GetTraceSummariesResult();
 }
 
+/// Details and metadata for a group.
 class Group {
   /// The unique case-sensitive name of the group.
   final String groupName;
@@ -921,6 +939,7 @@ class Group {
   static Group fromJson(Map<String, dynamic> json) => Group();
 }
 
+/// Details for a group without metadata.
 class GroupSummary {
   /// The unique case-sensitive name of the group.
   final String groupName;
@@ -939,6 +958,9 @@ class GroupSummary {
   static GroupSummary fromJson(Map<String, dynamic> json) => GroupSummary();
 }
 
+/// An entry in a histogram for a statistic. A histogram maps the range of
+/// observed values on the X axis, and the prevalence of each value on the Y
+/// axis.
 class HistogramEntry {
   /// The value of the entry.
   final double value;
@@ -953,6 +975,7 @@ class HistogramEntry {
   static HistogramEntry fromJson(Map<String, dynamic> json) => HistogramEntry();
 }
 
+/// Information about an HTTP request.
 class Http {
   /// The request URL.
   final String httpUrl;
@@ -979,6 +1002,7 @@ class Http {
   static Http fromJson(Map<String, dynamic> json) => Http();
 }
 
+/// A list of EC2 instance IDs corresponding to the segments in a trace.
 class InstanceIdDetail {
   /// The ID of a corresponding EC2 instance.
   final String id;
@@ -1018,6 +1042,7 @@ class PutTraceSegmentsResult {
       PutTraceSegmentsResult();
 }
 
+/// A list of resources ARNs corresponding to the segments in a trace.
 class ResourceArnDetail {
   /// The ARN of a corresponding resource.
   final String arn;
@@ -1029,6 +1054,7 @@ class ResourceArnDetail {
       ResourceArnDetail();
 }
 
+/// The root cause information for a response time warning.
 class ResponseTimeRootCause {
   /// A list of corresponding services. A service identifies a segment and
   /// contains a name, account ID, type, and inferred flag.
@@ -1041,6 +1067,8 @@ class ResponseTimeRootCause {
       ResponseTimeRootCause();
 }
 
+/// A collection of segments and corresponding subsegments associated to a
+/// response time warning.
 class ResponseTimeRootCauseEntity {
   /// The name of the entity.
   final String name;
@@ -1060,6 +1088,7 @@ class ResponseTimeRootCauseEntity {
       ResponseTimeRootCauseEntity();
 }
 
+/// A collection of fields identifying the service in a response time warning.
 class ResponseTimeRootCauseService {
   /// The service name.
   final String name;
@@ -1091,6 +1120,7 @@ class ResponseTimeRootCauseService {
       ResponseTimeRootCauseService();
 }
 
+/// The exception associated with a root cause.
 class RootCauseException {
   /// The name of the exception.
   final String name;
@@ -1106,6 +1136,9 @@ class RootCauseException {
       RootCauseException();
 }
 
+/// A sampling rule that services use to decide whether to instrument a request.
+/// Rule fields can match properties of the service, or properties of a request.
+/// The service can ignore rules that don't match its properties.
 class SamplingRule {
   /// The name of the sampling rule. Specify a rule by either name or ARN, but
   /// not both.
@@ -1170,6 +1203,7 @@ class SamplingRule {
   static SamplingRule fromJson(Map<String, dynamic> json) => SamplingRule();
 }
 
+/// A SamplingRule and its metadata.
 class SamplingRuleRecord {
   /// The sampling rule.
   final SamplingRule samplingRule;
@@ -1189,6 +1223,7 @@ class SamplingRuleRecord {
       SamplingRuleRecord();
 }
 
+/// A document specifying changes to a sampling rule's configuration.
 class SamplingRuleUpdate {
   /// The name of the sampling rule. Specify a rule by either name or ARN, but
   /// not both.
@@ -1248,6 +1283,8 @@ class SamplingRuleUpdate {
   });
 }
 
+/// Aggregated request sampling data for a sampling rule across all services for
+/// a 10 second window.
 class SamplingStatisticSummary {
   /// The name of the sampling rule.
   final String ruleName;
@@ -1275,6 +1312,9 @@ class SamplingStatisticSummary {
       SamplingStatisticSummary();
 }
 
+/// Request sampling results for a single rule from a service. Results are for
+/// the last 10 seconds unless the service has been assigned a longer reporting
+/// interval after a previous call to GetSamplingTargets.
 class SamplingStatisticsDocument {
   /// The name of the sampling rule.
   final String ruleName;
@@ -1304,6 +1344,7 @@ class SamplingStatisticsDocument {
   });
 }
 
+/// The name and value of a sampling rule to apply to a trace summary.
 class SamplingStrategy {
   /// The name of a sampling rule.
   final String name;
@@ -1317,6 +1358,10 @@ class SamplingStrategy {
   });
 }
 
+/// Temporary changes to a sampling rule configuration. To meet the global
+/// sampling target for a rule, X-Ray calculates a new reservoir for each
+/// service based on the recent sampling results of all services that called
+/// GetSamplingTargets.
 class SamplingTargetDocument {
   /// The name of the sampling rule.
   final String ruleName;
@@ -1346,6 +1391,14 @@ class SamplingTargetDocument {
       SamplingTargetDocument();
 }
 
+/// A segment from a trace that has been ingested by the X-Ray service. The
+/// segment can be compiled from documents uploaded with PutTraceSegments, or an
+/// `inferred` segment for a downstream service, generated from a subsegment
+/// sent by the service that called it.
+///
+/// For the full segment document schema, see
+/// [AWS X-Ray Segment Documents](https://docs.aws.amazon.com/xray/latest/devguide/xray-api-segmentdocuments.html)
+/// in the _AWS X-Ray Developer Guide_.
 class Segment {
   /// The segment's ID.
   final String id;
@@ -1360,6 +1413,9 @@ class Segment {
   static Segment fromJson(Map<String, dynamic> json) => Segment();
 }
 
+/// Information about an application that processed requests, users that made
+/// requests, or downstream services, resources and applications that an
+/// application used.
 class Service {
   /// Identifier for the service. Unique within the service map.
   final int referenceId;
@@ -1387,10 +1443,10 @@ class Service {
   /// for downstream calls to Amazon DynamoDB that didn't target a specific
   /// table.
   ///
-  /// *    `client` \- Represents the clients that sent requests to a root
+  /// *    `client` - Represents the clients that sent requests to a root
   /// service.
   ///
-  /// *    `remote` \- A downstream service of indeterminate type.
+  /// *    `remote` - A downstream service of indeterminate type.
   final String type;
 
   /// The service's state.
@@ -1450,6 +1506,7 @@ class ServiceId {
   static ServiceId fromJson(Map<String, dynamic> json) => ServiceId();
 }
 
+/// Response statistics for a service.
 class ServiceStatistics {
   /// The number of requests that completed with a 2xx Success status code.
   final BigInt okCount;
@@ -1502,6 +1559,7 @@ class TelemetryRecord {
   });
 }
 
+/// A list of TimeSeriesStatistic structures.
 class TimeSeriesServiceStatistics {
   /// Timestamp of the window for which statistics are aggregated.
   final DateTime timestamp;
@@ -1523,6 +1581,7 @@ class TimeSeriesServiceStatistics {
       TimeSeriesServiceStatistics();
 }
 
+/// A collection of segment documents with matching trace IDs.
 class Trace {
   /// The unique identifier for the request that generated the trace's segments
   /// and subsegments.
@@ -1544,6 +1603,7 @@ class Trace {
   static Trace fromJson(Map<String, dynamic> json) => Trace();
 }
 
+/// Metadata generated from the segment documents in a trace.
 class TraceSummary {
   /// The unique identifier for the request that generated the trace's segments
   /// and subsegments.
@@ -1642,6 +1702,7 @@ class TraceSummary {
   static TraceSummary fromJson(Map<String, dynamic> json) => TraceSummary();
 }
 
+/// Information about a user recorded in segment documents.
 class TraceUser {
   /// The user's name.
   final String userName;
@@ -1656,6 +1717,8 @@ class TraceUser {
   static TraceUser fromJson(Map<String, dynamic> json) => TraceUser();
 }
 
+/// Sampling statistics from a call to GetSamplingTargets that X-Ray could not
+/// process.
 class UnprocessedStatistics {
   /// The name of the sampling rule.
   final String ruleName;
@@ -1675,6 +1738,7 @@ class UnprocessedStatistics {
       UnprocessedStatistics();
 }
 
+/// Information about a segment that failed processing.
 class UnprocessedTraceSegment {
   /// The segment's ID.
   final String id;
@@ -1718,6 +1782,7 @@ class UpdateSamplingRuleResult {
       UpdateSamplingRuleResult();
 }
 
+/// Information about a segment annotation.
 class ValueWithServiceIds {
   /// Values of the annotation.
   final AnnotationValue annotationValue;

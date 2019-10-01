@@ -12,8 +12,8 @@ import 'package:meta/meta.dart';
 /// has been applied. In this reference, the parameter descriptions indicate
 /// whether a change is applied immediately, on the next instance reboot, or
 /// during the next maintenance window. For a summary of the Amazon Redshift
-/// cluster management interfaces, go to [Using the Amazon Redshift Management
-/// Interfaces](https://docs.aws.amazon.com/redshift/latest/mgmt/using-aws-sdk.html).
+/// cluster management interfaces, go to
+/// [Using the Amazon Redshift Management Interfaces](https://docs.aws.amazon.com/redshift/latest/mgmt/using-aws-sdk.html).
 ///
 /// Amazon Redshift manages all the work of setting up, operating, and scaling a
 /// data warehouse: provisioning capacity, monitoring and backing up the
@@ -22,13 +22,13 @@ import 'package:meta/meta.dart';
 /// and customers.
 ///
 /// If you are a first-time user of Amazon Redshift, we recommend that you begin
-/// by reading the [Amazon Redshift Getting Started
-/// Guide](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html).
+/// by reading the
+/// [Amazon Redshift Getting Started Guide](https://docs.aws.amazon.com/redshift/latest/gsg/getting-started.html).
 ///
-/// If you are a database developer, the [Amazon Redshift Database Developer
-/// Guide](https://docs.aws.amazon.com/redshift/latest/dg/welcome.html) explains
-/// how to design, build, query, and maintain the databases that make up your
-/// data warehouse.
+/// If you are a database developer, the
+/// [Amazon Redshift Database Developer Guide](https://docs.aws.amazon.com/redshift/latest/dg/welcome.html)
+/// explains how to design, build, query, and maintain the databases that make
+/// up your data warehouse.
 class RedshiftApi {
   /// Exchanges a DC1 Reserved Node for a DC2 Reserved Node with no changes to
   /// the configuration (term, payment type, or number of nodes) and no
@@ -58,15 +58,14 @@ class RedshiftApi {
   /// security group and Amazon Redshift cluster must be in the same AWS Region.
   ///
   /// If you authorize access to a CIDR/IP address range, specify _CIDRIP_. For
-  /// an overview of CIDR blocks, see the Wikipedia article on [Classless
-  /// Inter-Domain
-  /// Routing](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// an overview of CIDR blocks, see the Wikipedia article on
+  /// [Classless Inter-Domain Routing](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// You must also associate the security group with a cluster so that clients
   /// running on these IP addresses or the EC2 instance are authorized to
   /// connect to the cluster. For information about managing security groups, go
-  /// to [Working with Security
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
+  /// to
+  /// [Working with Security Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterSecurityGroupName]: The name of the security group to which the
@@ -93,8 +92,8 @@ class RedshiftApi {
   /// Authorizes the specified AWS customer account to restore the specified
   /// snapshot.
   ///
-  ///  For more information about working with snapshots, go to [Amazon Redshift
-  /// Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
+  ///  For more information about working with snapshots, go to
+  /// [Amazon Redshift Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [snapshotIdentifier]: The identifier of the snapshot the account is
@@ -168,8 +167,8 @@ class RedshiftApi {
   /// snapshot for a longer period, you can make a manual copy of the snapshot.
   /// Manual snapshots are retained until you delete them.
   ///
-  ///  For more information about working with snapshots, go to [Amazon Redshift
-  /// Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
+  ///  For more information about working with snapshots, go to
+  /// [Amazon Redshift Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [sourceSnapshotIdentifier]: The identifier for the source snapshot.
@@ -223,8 +222,8 @@ class RedshiftApi {
   /// To create a cluster in Virtual Private Cloud (VPC), you must provide a
   /// cluster subnet group name. The cluster subnet group identifies the subnets
   /// of your VPC that Amazon Redshift uses when creating the cluster. For more
-  /// information about managing clusters, go to [Amazon Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [dbName]: The name of the first database to be created when the cluster is
@@ -232,8 +231,8 @@ class RedshiftApi {
   ///
   /// To create additional databases after the cluster is created, connect to
   /// the cluster with a SQL client and use SQL commands to create a database.
-  /// For more information, go to [Create a
-  /// Database](https://docs.aws.amazon.com/redshift/latest/dg/t_creating_database.html)
+  /// For more information, go to
+  /// [Create a Database](https://docs.aws.amazon.com/redshift/latest/dg/t_creating_database.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// Default: `dev`
@@ -245,8 +244,8 @@ class RedshiftApi {
   /// *   Must contain only lowercase letters.
   ///
   /// *   Cannot be a word that is reserved by the service. A list of reserved
-  /// words can be found in [Reserved
-  /// Words](https://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
+  /// words can be found in
+  /// [Reserved Words](https://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// [clusterIdentifier]: A unique identifier for the cluster. You use this
@@ -281,8 +280,8 @@ class RedshiftApi {
   /// Default: `multi-node`
   ///
   /// [nodeType]: The node type to be provisioned for the cluster. For
-  /// information about node types, go to  [Working with
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes)
+  /// information about node types, go to
+  /// [Working with Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// Valid Values: `ds2.xlarge` | `ds2.8xlarge` | `ds2.xlarge` | `ds2.8xlarge`
@@ -299,8 +298,7 @@ class RedshiftApi {
   /// *   First character must be a letter.
   ///
   /// *   Cannot be a reserved word. A list of reserved words can be found in
-  /// [Reserved
-  /// Words](https://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
+  /// [Reserved Words](https://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// [masterUserPassword]: The password associated with the master user account
@@ -317,7 +315,7 @@ class RedshiftApi {
   /// *   Must contain one number.
   ///
   /// *   Can be any printable ASCII character (ASCII code 33 to 126) except '
-  /// (single quote), " (double quote), \\, /, @, or space.
+  /// (single quote), " (double quote), , /, @, or space.
   ///
   /// [clusterSecurityGroups]: A list of security groups to be associated with
   /// this cluster.
@@ -356,8 +354,8 @@ class RedshiftApi {
   ///
   ///  Default: A 30-minute window selected at random from an 8-hour block of
   /// time per region, occurring on a random day of the week. For more
-  /// information about the time blocks for each region, see [Maintenance
-  /// Windows](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-maintenance-windows)
+  /// information about the time blocks for each region, see
+  /// [Maintenance Windows](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-maintenance-windows)
   /// in Amazon Redshift Cluster Management Guide.
   ///
   /// Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
@@ -368,9 +366,8 @@ class RedshiftApi {
   /// associated with this cluster.
   ///
   /// Default: The default Amazon Redshift cluster parameter group. For
-  /// information about the default parameter group, go to [Working with Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  /// information about the default parameter group, go to
+  /// [Working with Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   ///
   /// Constraints:
   ///
@@ -430,9 +427,8 @@ class RedshiftApi {
   /// parameter is required when the **ClusterType** parameter is specified as
   /// `multi-node`.
   ///
-  /// For information about determining how many nodes you need, go to  [Working
-  /// with
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes)
+  /// For information about determining how many nodes you need, go to
+  /// [Working with Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#how-many-nodes)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// If you don't specify this parameter, you get a single-node cluster. When
@@ -462,9 +458,8 @@ class RedshiftApi {
   ///
   /// Constraints: The cluster must be provisioned in EC2-VPC and
   /// publicly-accessible through an Internet gateway. For more information
-  /// about provisioning clusters in EC2-VPC, go to [Supported Platforms to
-  /// Launch Your
-  /// Cluster](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#cluster-platforms)
+  /// about provisioning clusters in EC2-VPC, go to
+  /// [Supported Platforms to Launch Your Cluster](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#cluster-platforms)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// [tags]: A list of tag instances.
@@ -475,8 +470,8 @@ class RedshiftApi {
   /// [enhancedVpcRouting]: An option that specifies whether to create the
   /// cluster with enhanced VPC routing enabled. To create a cluster that uses
   /// enhanced VPC routing, the cluster must be in a VPC. For more information,
-  /// see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -541,8 +536,8 @@ class RedshiftApi {
   ///
   /// Parameters in the parameter group define specific behavior that applies to
   /// the databases you create on the cluster. For more information about
-  /// parameters and parameter groups, go to [Amazon Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  /// parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [parameterGroupName]: The name of the cluster parameter group.
@@ -588,9 +583,8 @@ class RedshiftApi {
   /// Creates a new Amazon Redshift security group. You use security groups to
   /// control access to non-VPC clusters.
   ///
-  ///  For information about managing security groups, go to [Amazon Redshift
-  /// Cluster Security
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
+  ///  For information about managing security groups, go to
+  /// [Amazon Redshift Cluster Security Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterSecurityGroupName]: The name for the security group. Amazon
@@ -621,8 +615,8 @@ class RedshiftApi {
   /// Creates a manual snapshot of the specified cluster. The cluster must be in
   /// the `available` state.
   ///
-  ///  For more information about working with snapshots, go to [Amazon Redshift
-  /// Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
+  ///  For more information about working with snapshots, go to
+  /// [Amazon Redshift Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [snapshotIdentifier]: A unique identifier for the snapshot that you are
@@ -665,9 +659,8 @@ class RedshiftApi {
   /// or more subnets in your existing Amazon Virtual Private Cloud (Amazon VPC)
   /// when creating Amazon Redshift subnet group.
   ///
-  ///  For information about subnet groups, go to [Amazon Redshift Cluster
-  /// Subnet
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html)
+  ///  For information about subnet groups, go to
+  /// [Amazon Redshift Cluster Subnet Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-cluster-subnet-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterSubnetGroupName]: The name for the subnet group. Amazon Redshift
@@ -793,8 +786,7 @@ class RedshiftApi {
   /// addition to creating the HSM certificate, you must create an Amazon
   /// Redshift HSM configuration that provides a cluster the information needed
   /// to store and use encryption keys in the HSM. For more information, go to
-  /// [Hardware Security
-  /// Modules](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html)
+  /// [Hardware Security Modules](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// [hsmClientCertificateIdentifier]: The identifier to be assigned to the new
@@ -815,8 +807,8 @@ class RedshiftApi {
   /// then store its encryption keys in the HSM.
   ///
   /// In addition to creating an HSM configuration, you must also create an HSM
-  /// client certificate. For more information, go to [Hardware Security
-  /// Modules](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html)
+  /// client certificate. For more information, go to
+  /// [Hardware Security Modules](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-HSM.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// [hsmConfigurationIdentifier]: The identifier to be assigned to the new
@@ -851,9 +843,8 @@ class RedshiftApi {
   /// customer master key (CMK) from AWS Key Management Service (AWS KMS) to
   /// encrypt copied snapshots in a destination region.
   ///
-  ///  For more information about managing snapshot copy grants, go to [Amazon
-  /// Redshift Database
-  /// Encryption](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html)
+  ///  For more information about managing snapshot copy grants, go to
+  /// [Amazon Redshift Database Encryption](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [snapshotCopyGrantName]: The name of the snapshot copy grant. This name
@@ -934,8 +925,8 @@ class RedshiftApi {
   /// web service indicates that the request was received correctly. Use
   /// DescribeClusters to monitor the status of the deletion. The delete
   /// operation cannot be canceled or reverted once submitted. For more
-  /// information about managing clusters, go to [Amazon Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// If you want to shut down the cluster and retain it for future use, set
@@ -946,8 +937,8 @@ class RedshiftApi {
   /// taken, then it's "deleting" once Amazon Redshift begins deleting the
   /// cluster.
   ///
-  ///  For more information about managing clusters, go to [Amazon Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  ///  For more information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterIdentifier]: The identifier of the cluster to be deleted.
@@ -1018,9 +1009,8 @@ class RedshiftApi {
   ///  You cannot delete a security group that is associated with any clusters.
   /// You cannot delete the default security group.
   ///
-  ///  For information about managing security groups, go to [Amazon Redshift
-  /// Cluster Security
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
+  ///  For information about managing security groups, go to
+  /// [Amazon Redshift Cluster Security Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterSecurityGroupName]: The name of the cluster security group to be
@@ -1149,9 +1139,8 @@ class RedshiftApi {
   /// parameter group family name. You can optionally specify a name to retrieve
   /// the description of a specific parameter group.
   ///
-  ///  For more information about parameters and parameter groups, go to [Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  ///  For more information about parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// If you specify both tag keys and tag values in the same request, Amazon
@@ -1219,9 +1208,8 @@ class RedshiftApi {
   /// action such as from ModifyClusterParameterGroup, you can specify _source_
   /// equal to _user_.
   ///
-  ///  For more information about parameters and parameter groups, go to [Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  ///  For more information about parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [parameterGroupName]: The name of a cluster parameter group for which to
@@ -1263,9 +1251,8 @@ class RedshiftApi {
   /// a security group is specified, the response will contain only information
   /// about only that security group.
   ///
-  ///  For information about managing security groups, go to [Amazon Redshift
-  /// Cluster Security
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
+  ///  For information about managing security groups, go to
+  /// [Amazon Redshift Cluster Security Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// If you specify both tag keys and tag values in the same request, Amazon
@@ -1359,15 +1346,15 @@ class RedshiftApi {
   ///
   /// [startTime]: A value that requests only snapshots created at or after the
   /// specified time. The time value is specified in ISO 8601 format. For more
-  /// information about ISO 8601, go to the [ISO8601 Wikipedia
-  /// page.](http://en.wikipedia.org/wiki/ISO_8601)
+  /// information about ISO 8601, go to the
+  /// [ISO8601 Wikipedia page.](http://en.wikipedia.org/wiki/ISO_8601)
   ///
   /// Example: `2012-07-16T18:00:00Z`
   ///
   /// [endTime]: A time value that requests only snapshots created at or before
   /// the specified time. The time value is specified in ISO 8601 format. For
-  /// more information about ISO 8601, go to the [ISO8601 Wikipedia
-  /// page.](http://en.wikipedia.org/wiki/ISO_8601)
+  /// more information about ISO 8601, go to the
+  /// [ISO8601 Wikipedia page.](http://en.wikipedia.org/wiki/ISO_8601)
   ///
   /// Example: `2012-07-16T18:00:00Z`
   ///
@@ -1523,8 +1510,8 @@ class RedshiftApi {
   /// Returns descriptions of the available Amazon Redshift cluster versions.
   /// You can call this operation even before creating any clusters to learn
   /// more about the Amazon Redshift versions. For more information about
-  /// managing clusters, go to [Amazon Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterVersion]: The specific cluster version to return.
@@ -1569,9 +1556,8 @@ class RedshiftApi {
   /// Returns properties of provisioned clusters including general cluster
   /// properties, cluster database properties, maintenance and backup
   /// properties, and security and access properties. This operation supports
-  /// pagination. For more information about managing clusters, go to [Amazon
-  /// Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// pagination. For more information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// If you specify both tag keys and tag values in the same request, Amazon
@@ -1634,9 +1620,8 @@ class RedshiftApi {
   /// Returns a list of parameter settings for the specified parameter group
   /// family.
   ///
-  ///  For more information about parameters and parameter groups, go to [Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  ///  For more information about parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [parameterGroupFamily]: The name of the cluster parameter group family.
@@ -1665,8 +1650,8 @@ class RedshiftApi {
 
   /// Displays a list of event categories for all event source types, or for a
   /// specified source type. For a list of the event categories and source
-  /// types, go to [Amazon Redshift Event
-  /// Notifications](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html).
+  /// types, go to
+  /// [Amazon Redshift Event Notifications](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-event-notifications.html).
   ///
   /// [sourceType]: The source type, such as cluster or parameter group, to
   /// which the described event categories apply.
@@ -1965,8 +1950,8 @@ class RedshiftApi {
   /// by available storage, memory, CPU and price. With the cost involved you
   /// might want to obtain a list of cluster options in the specific region and
   /// specify values when creating a cluster. For more information about
-  /// managing clusters, go to [Amazon Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterVersion]: The version filter value. Specify this parameter to show
@@ -2012,9 +1997,8 @@ class RedshiftApi {
   /// PurchaseReservedNodeOffering to reserve one or more nodes for your Amazon
   /// Redshift cluster.
   ///
-  ///  For more information about reserved node offerings, go to [Purchasing
-  /// Reserved
-  /// Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html)
+  ///  For more information about reserved node offerings, go to
+  /// [Purchasing Reserved Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [reservedNodeOfferingId]: The unique identifier for the offering.
@@ -2086,9 +2070,8 @@ class RedshiftApi {
   /// Returns a list of snapshot copy grants owned by the AWS account in the
   /// destination region.
   ///
-  ///  For more information about managing snapshot copy grants, go to [Amazon
-  /// Redshift Database
-  /// Encryption](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html)
+  ///  For more information about managing snapshot copy grants, go to
+  /// [Amazon Redshift Database Encryption](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [snapshotCopyGrantName]: The name of the snapshot copy grant.
@@ -2263,8 +2246,8 @@ class RedshiftApi {
   ///
   ///
   /// For more information about Amazon Redshift resource types and constructing
-  /// ARNs, go to [Specifying Policy Elements: Actions, Effects, Resources, and
-  /// Principals](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions)
+  /// ARNs, go to
+  /// [Specifying Policy Elements: Actions, Effects, Resources, and Principals](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// [maxRecords]: The maximum number or response records to return in each
@@ -2356,7 +2339,7 @@ class RedshiftApi {
   /// *   Cannot exceed 512 characters
   ///
   /// *   Cannot contain spaces( ), double quotes ("), single quotes ('), a
-  /// backslash (\\), or control characters. The hexadecimal codes for invalid
+  /// backslash (), or control characters. The hexadecimal codes for invalid
   /// characters are:
   ///
   ///     *   x00 to x20
@@ -2388,8 +2371,8 @@ class RedshiftApi {
   /// snapshots to.
   ///
   /// Constraints: Must be the name of a valid AWS Region. For more information,
-  /// see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#redshift_region)
+  /// see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#redshift_region)
   /// in the Amazon Web Services General Reference.
   ///
   /// [retentionPeriod]: The number of days to retain automated snapshots in the
@@ -2425,16 +2408,15 @@ class RedshiftApi {
   /// database user groups that the user will join at log on. By default, the
   /// temporary credentials expire in 900 seconds. You can optionally specify a
   /// duration between 900 seconds (15 minutes) and 3600 seconds (60 minutes).
-  /// For more information, see [Using IAM Authentication to Generate Database
-  /// User
-  /// Credentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-user-credentials.html)
+  /// For more information, see
+  /// [Using IAM Authentication to Generate Database User Credentials](https://docs.aws.amazon.com/redshift/latest/mgmt/generating-user-credentials.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// The AWS Identity and Access Management (IAM)user or role that executes
   /// GetClusterCredentials must have an IAM policy attached that allows access
   /// to all necessary actions and resources. For more information about
-  /// permissions, see [Resource Policies for
-  /// GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html#redshift-policy-resources.getclustercredentials-resources)
+  /// permissions, see
+  /// [Resource Policies for GetClusterCredentials](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-identity-based.html#redshift-policy-resources.getclustercredentials-resources)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If the `DbGroups` parameter is specified, the IAM policy must allow the
@@ -2455,8 +2437,8 @@ class RedshiftApi {
   /// command succeeds but the connection attempt will fail because the user
   /// doesn't exist in the database.
   ///
-  /// For more information, see [CREATE
-  /// USER](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_USER.html)
+  /// For more information, see
+  /// [CREATE USER](https://docs.aws.amazon.com/redshift/latest/dg/r_CREATE_USER.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// Constraints:
@@ -2472,8 +2454,7 @@ class RedshiftApi {
   /// *   Must not contain a colon ( : ) or slash ( / ).
   ///
   /// *   Cannot be a reserved word. A list of reserved words can be found in
-  /// [Reserved
-  /// Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
+  /// [Reserved Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// [dbName]: The name of a database that `DbUser` is authorized to log on to.
@@ -2492,8 +2473,7 @@ class RedshiftApi {
   /// *   Must not contain a colon ( : ) or slash ( / ).
   ///
   /// *   Cannot be a reserved word. A list of reserved words can be found in
-  /// [Reserved
-  /// Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
+  /// [Reserved Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
   /// in the Amazon Redshift Database Developer Guide.
   ///
   /// [clusterIdentifier]: The unique identifier of the cluster that contains
@@ -2527,8 +2507,7 @@ class RedshiftApi {
   /// *   Must not contain a colon ( : ) or slash ( / ).
   ///
   /// *   Cannot be a reserved word. A list of reserved words can be found in
-  /// [Reserved
-  /// Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
+  /// [Reserved Words](http://docs.aws.amazon.com/redshift/latest/dg/r_pg_keywords.html)
   /// in the Amazon Redshift Database Developer Guide.
   Future<ClusterCredentials> getClusterCredentials(
       {@required String dbUser,
@@ -2562,9 +2541,8 @@ class RedshiftApi {
   /// change the master user password. Resetting a cluster password or modifying
   /// the security groups associated with a cluster do not need a reboot.
   /// However, modifying a parameter group requires a reboot for parameters to
-  /// take effect. For more information about managing clusters, go to [Amazon
-  /// Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// take effect. For more information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// You can also change node type and the number of nodes to scale up or down
@@ -2655,7 +2633,7 @@ class RedshiftApi {
   /// *   Must contain one number.
   ///
   /// *   Can be any printable ASCII character (ASCII code 33 to 126) except '
-  /// (single quote), " (double quote), \\, /, @, or space.
+  /// (single quote), " (double quote), , /, @, or space.
   ///
   /// [clusterParameterGroupName]: The name of the cluster parameter group to
   /// apply to this cluster. This change is applied only after the cluster is
@@ -2713,8 +2691,7 @@ class RedshiftApi {
   /// group family for the new version must be specified. The new cluster
   /// parameter group can be the default for that cluster parameter group
   /// family. For more information about parameters and parameter groups, go to
-  /// [Amazon Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// Example: `1.0`
@@ -2756,16 +2733,15 @@ class RedshiftApi {
   ///
   /// Constraints: The cluster must be provisioned in EC2-VPC and
   /// publicly-accessible through an Internet gateway. For more information
-  /// about provisioning clusters in EC2-VPC, go to [Supported Platforms to
-  /// Launch Your
-  /// Cluster](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#cluster-platforms)
+  /// about provisioning clusters in EC2-VPC, go to
+  /// [Supported Platforms to Launch Your Cluster](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#cluster-platforms)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// [enhancedVpcRouting]: An option that specifies whether to create the
   /// cluster with enhanced VPC routing enabled. To create a cluster that uses
   /// enhanced VPC routing, the cluster must be in a VPC. For more information,
-  /// see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -2884,9 +2860,8 @@ class RedshiftApi {
 
   /// Modifies the parameters of a parameter group.
   ///
-  ///  For more information about parameters and parameter groups, go to [Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  ///  For more information about parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [parameterGroupName]: The name of the parameter group to be modified.
@@ -2899,7 +2874,7 @@ class RedshiftApi {
   /// optional.
   ///
   /// For the workload management (WLM) configuration, you must supply all the
-  /// name-value pairs in the wlm\_json\_configuration parameter.
+  /// name-value pairs in the wlm_json_configuration parameter.
   Future<ClusterParameterGroupNameMessage> modifyClusterParameterGroup(
       {@required String parameterGroupName,
       @required List<Parameter> parameters}) async {
@@ -3080,9 +3055,8 @@ class RedshiftApi {
   /// a specific reserved node offering and the number of nodes you want to
   /// reserve.
   ///
-  ///  For more information about reserved node offerings, go to [Purchasing
-  /// Reserved
-  /// Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html)
+  ///  For more information about reserved node offerings, go to
+  /// [Purchasing Reserved Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/purchase-reserved-node-instance.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [reservedNodeOfferingId]: The unique identifier of the reserved node
@@ -3101,9 +3075,8 @@ class RedshiftApi {
   /// a momentary outage to the cluster, during which the cluster status is set
   /// to `rebooting`. A cluster event is created when the reboot is completed.
   /// Any pending cluster modifications (see ModifyCluster) are applied at this
-  /// reboot. For more information about managing clusters, go to [Amazon
-  /// Redshift
-  /// Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
+  /// reboot. For more information about managing clusters, go to
+  /// [Amazon Redshift Clusters](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterIdentifier]: The cluster identifier.
@@ -3191,8 +3164,8 @@ class RedshiftApi {
   /// If you restore a cluster into a VPC, you must provide a cluster subnet
   /// group where you want the cluster restored.
   ///
-  ///  For more information about working with snapshots, go to [Amazon Redshift
-  /// Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
+  ///  For more information about working with snapshots, go to
+  /// [Amazon Redshift Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterIdentifier]: The identifier of the cluster that will be created
@@ -3266,9 +3239,8 @@ class RedshiftApi {
   /// associated with this cluster.
   ///
   /// Default: The default Amazon Redshift cluster parameter group. For
-  /// information about the default parameter group, go to [Working with Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html).
+  /// information about the default parameter group, go to
+  /// [Working with Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html).
   ///
   /// Constraints:
   ///
@@ -3299,8 +3271,7 @@ class RedshiftApi {
   ///
   ///  Default: The value selected for the cluster from which the snapshot was
   /// taken. For more information about the time blocks for each region, see
-  /// [Maintenance
-  /// Windows](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-maintenance-windows)
+  /// [Maintenance Windows](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-maintenance-windows)
   /// in Amazon Redshift Cluster Management Guide.
   ///
   /// Valid Days: Mon | Tue | Wed | Thu | Fri | Sat | Sun
@@ -3340,15 +3311,15 @@ class RedshiftApi {
   /// dc1.large instance type into another dc1.large instance type or dc2.large
   /// instance type. You can't restore dc1.8xlarge to dc2.8xlarge. First restore
   /// to a dc1.8xlareg cluster, then resize to a dc2.8large cluster. For more
-  /// information about node types, see  [About Clusters and
-  /// Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes)
+  /// information about node types, see
+  /// [About Clusters and Nodes](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-clusters.html#rs-about-clusters-and-nodes)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [enhancedVpcRouting]: An option that specifies whether to create the
   /// cluster with enhanced VPC routing enabled. To create a cluster that uses
   /// enhanced VPC routing, the cluster must be in a VPC. For more information,
-  /// see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -3455,8 +3426,8 @@ class RedshiftApi {
   /// Revokes an ingress rule in an Amazon Redshift security group for a
   /// previously authorized IP range or Amazon EC2 security group. To add an
   /// ingress rule, see AuthorizeClusterSecurityGroupIngress. For information
-  /// about managing security groups, go to [Amazon Redshift Cluster Security
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
+  /// about managing security groups, go to
+  /// [Amazon Redshift Cluster Security Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-security-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [clusterSecurityGroupName]: The name of the security Group from which to
@@ -3491,8 +3462,8 @@ class RedshiftApi {
   /// specified snapshot. If the account is currently restoring the snapshot,
   /// the restore will run to completion.
   ///
-  ///  For more information about working with snapshots, go to [Amazon Redshift
-  /// Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
+  ///  For more information about working with snapshots, go to
+  /// [Amazon Redshift Snapshots](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-snapshots.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   ///
   /// [snapshotIdentifier]: The identifier of the snapshot that the account can
@@ -3536,6 +3507,7 @@ class AcceptReservedNodeExchangeOutputMessage {
       AcceptReservedNodeExchangeOutputMessage();
 }
 
+/// A name value pair that describes an aspect of an account.
 class AccountAttribute {
   /// The name of the attribute.
   final String attributeName;
@@ -3562,6 +3534,7 @@ class AccountAttributeList {
       AccountAttributeList();
 }
 
+/// Describes an AWS customer account authorized to restore a snapshot.
 class AccountWithRestoreAccess {
   /// The identifier of an AWS customer account authorized to restore a
   /// snapshot.
@@ -3579,6 +3552,7 @@ class AccountWithRestoreAccess {
       AccountWithRestoreAccess();
 }
 
+/// Describes an attribute value.
 class AttributeValueTarget {
   /// The value of the attribute.
   final String attributeValue;
@@ -3611,6 +3585,7 @@ class AuthorizeSnapshotAccessResult {
       AuthorizeSnapshotAccessResult();
 }
 
+/// Describes an availability zone.
 class AvailabilityZone {
   /// The name of the availability zone.
   final String name;
@@ -3657,6 +3632,7 @@ class BatchModifyClusterSnapshotsOutputMessage {
       BatchModifyClusterSnapshotsOutputMessage();
 }
 
+/// Describes a cluster.
 class Cluster {
   /// The unique identifier of the cluster.
   final String clusterIdentifier;
@@ -3846,8 +3822,8 @@ class Cluster {
 
   /// An option that specifies whether to create the cluster with enhanced VPC
   /// routing enabled. To create a cluster that uses enhanced VPC routing, the
-  /// cluster must be in a VPC. For more information, see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// cluster must be in a VPC. For more information, see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -3961,6 +3937,8 @@ class ClusterAssociatedToSchedule {
       ClusterAssociatedToSchedule();
 }
 
+/// Temporary credentials with authorization to log on to an Amazon Redshift
+/// database.
 class ClusterCredentials {
   /// A database user name that is authorized to log on to the database `DbName`
   /// using the password `DbPassword`. If the specified DbUser exists in the
@@ -3986,6 +3964,7 @@ class ClusterCredentials {
       ClusterCredentials();
 }
 
+/// Describes a `ClusterDbRevision`.
 class ClusterDbRevision {
   /// The unique identifier of the cluster.
   final String clusterIdentifier;
@@ -4029,6 +4008,8 @@ class ClusterDbRevisionsMessage {
       ClusterDbRevisionsMessage();
 }
 
+/// An AWS Identity and Access Management (IAM) role that can be used by the
+/// associated Amazon Redshift cluster to access other AWS services.
 class ClusterIamRole {
   /// The Amazon Resource Name (ARN) of the IAM role, for example,
   /// `arn:aws:iam::123456789012:role/RedshiftCopyUnload`.
@@ -4055,6 +4036,7 @@ class ClusterIamRole {
   static ClusterIamRole fromJson(Map<String, dynamic> json) => ClusterIamRole();
 }
 
+/// The identifier of a node in a cluster.
 class ClusterNode {
   /// Whether the node is a leader node or a compute node.
   final String nodeRole;
@@ -4073,6 +4055,7 @@ class ClusterNode {
   static ClusterNode fromJson(Map<String, dynamic> json) => ClusterNode();
 }
 
+/// Describes a parameter group.
 class ClusterParameterGroup {
   /// The name of the cluster parameter group.
   final String parameterGroupName;
@@ -4097,6 +4080,7 @@ class ClusterParameterGroup {
       ClusterParameterGroup();
 }
 
+/// Contains the output from the DescribeClusterParameters action.
 class ClusterParameterGroupDetails {
   /// A list of Parameter instances. Each instance lists the parameters of one
   /// cluster parameter group.
@@ -4134,6 +4118,7 @@ class ClusterParameterGroupNameMessage {
       ClusterParameterGroupNameMessage();
 }
 
+/// Describes the status of a parameter group.
 class ClusterParameterGroupStatus {
   /// The name of the cluster parameter group.
   final String parameterGroupName;
@@ -4143,9 +4128,8 @@ class ClusterParameterGroupStatus {
 
   /// The list of parameter statuses.
   ///
-  ///  For more information about parameters and parameter groups, go to [Amazon
-  /// Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  ///  For more information about parameters and parameter groups, go to
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   final List<ClusterParameterStatus> clusterParameterStatusList;
 
@@ -4158,6 +4142,7 @@ class ClusterParameterGroupStatus {
       ClusterParameterGroupStatus();
 }
 
+/// Contains the output from the DescribeClusterParameterGroups action.
 class ClusterParameterGroupsMessage {
   /// A value that indicates the starting point for the next set of response
   /// records in a subsequent request. If a value is returned in a response, you
@@ -4178,6 +4163,7 @@ class ClusterParameterGroupsMessage {
       ClusterParameterGroupsMessage();
 }
 
+/// Describes the status of a parameter group.
 class ClusterParameterStatus {
   /// The name of the parameter.
   final String parameterName;
@@ -4220,6 +4206,7 @@ class ClusterParameterStatus {
       ClusterParameterStatus();
 }
 
+/// Describes a security group.
 class ClusterSecurityGroup {
   /// The name of the cluster security group to which the operation was applied.
   final String clusterSecurityGroupName;
@@ -4249,6 +4236,7 @@ class ClusterSecurityGroup {
       ClusterSecurityGroup();
 }
 
+/// Describes a cluster security group.
 class ClusterSecurityGroupMembership {
   /// The name of the cluster security group.
   final String clusterSecurityGroupName;
@@ -4283,6 +4271,8 @@ class ClusterSecurityGroupMessage {
       ClusterSecurityGroupMessage();
 }
 
+/// Returns the destination region and retention period that are configured for
+/// cross-region snapshot copy.
 class ClusterSnapshotCopyStatus {
   /// The destination region that snapshots are automatically copied to when
   /// cross-region snapshot copy is enabled.
@@ -4312,6 +4302,7 @@ class ClusterSnapshotCopyStatus {
       ClusterSnapshotCopyStatus();
 }
 
+/// Describes a subnet group.
 class ClusterSubnetGroup {
   /// The name of the cluster subnet group.
   final String clusterSubnetGroupName;
@@ -4344,6 +4335,7 @@ class ClusterSubnetGroup {
       ClusterSubnetGroup();
 }
 
+/// Contains the output from the DescribeClusterSubnetGroups action.
 class ClusterSubnetGroupMessage {
   /// A value that indicates the starting point for the next set of response
   /// records in a subsequent request. If a value is returned in a response, you
@@ -4363,6 +4355,8 @@ class ClusterSubnetGroupMessage {
       ClusterSubnetGroupMessage();
 }
 
+/// Describes a cluster version, including the parameter group family and
+/// description of the version.
 class ClusterVersion {
   /// The version number used by the cluster.
   final String clusterVersion;
@@ -4381,6 +4375,7 @@ class ClusterVersion {
   static ClusterVersion fromJson(Map<String, dynamic> json) => ClusterVersion();
 }
 
+/// Contains the output from the DescribeClusterVersions action.
 class ClusterVersionsMessage {
   /// A value that indicates the starting point for the next set of response
   /// records in a subsequent request. If a value is returned in a response, you
@@ -4400,6 +4395,7 @@ class ClusterVersionsMessage {
       ClusterVersionsMessage();
 }
 
+/// Contains the output from the DescribeClusters action.
 class ClustersMessage {
   /// A value that indicates the starting point for the next set of response
   /// records in a subsequent request. If a value is returned in a response, you
@@ -4535,6 +4531,8 @@ class CustomerStorageMessage {
       CustomerStorageMessage();
 }
 
+/// Describes the status of a cluster while it is in the process of resizing
+/// with an incremental resize.
 class DataTransferProgress {
   /// Describes the status of the cluster. While the transfer is in progress the
   /// status is `transferringdata`.
@@ -4569,6 +4567,7 @@ class DataTransferProgress {
       DataTransferProgress();
 }
 
+/// Describes the default cluster parameters for a parameter group family.
 class DefaultClusterParameters {
   /// The name of the cluster parameter group family to which the engine default
   /// parameters apply.
@@ -4593,6 +4592,7 @@ class DefaultClusterParameters {
       DefaultClusterParameters();
 }
 
+/// Describes a deferred maintenance window
 class DeferredMaintenanceWindow {
   /// A unique identifier for the maintenance window.
   final String deferMaintenanceIdentifier;
@@ -4695,6 +4695,7 @@ class DisableSnapshotCopyResult {
       DisableSnapshotCopyResult();
 }
 
+/// Describes an Amazon EC2 security group.
 class Ec2SecurityGroup {
   /// The status of the EC2 security group.
   final String status;
@@ -4719,6 +4720,7 @@ class Ec2SecurityGroup {
       Ec2SecurityGroup();
 }
 
+/// Describes the status of the elastic IP (EIP) address.
 class ElasticIpStatus {
   /// The elastic IP (EIP) address for the cluster.
   final String elasticIp;
@@ -4744,6 +4746,7 @@ class EnableSnapshotCopyResult {
       EnableSnapshotCopyResult();
 }
 
+/// Describes a connection endpoint.
 class Endpoint {
   /// The DNS address of the Cluster.
   final String address;
@@ -4758,6 +4761,7 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Describes an event.
 class Event {
   /// The identifier for the source of the event.
   final String sourceIdentifier;
@@ -4796,6 +4800,7 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Describes event categories.
 class EventCategoriesMap {
   /// The source type, such as cluster or cluster-snapshot, that the returned
   /// categories belong to.
@@ -4823,6 +4828,7 @@ class EventCategoriesMessage {
       EventCategoriesMessage();
 }
 
+/// Describes event information.
 class EventInfoMap {
   /// The identifier of an Amazon Redshift event.
   final String eventId;
@@ -4847,6 +4853,7 @@ class EventInfoMap {
   static EventInfoMap fromJson(Map<String, dynamic> json) => EventInfoMap();
 }
 
+/// Describes event subscriptions.
 class EventSubscription {
   /// The AWS customer account associated with the Amazon Redshift event
   /// notification subscription.
@@ -4978,6 +4985,9 @@ class GetReservedNodeExchangeOfferingsOutputMessage {
       GetReservedNodeExchangeOfferingsOutputMessage();
 }
 
+/// Returns information about an HSM client certificate. The certificate is
+/// stored in a secure Hardware Storage Module (HSM), and used by the Amazon
+/// Redshift cluster to encrypt data files.
 class HsmClientCertificate {
   /// The identifier of the HSM client certificate.
   final String hsmClientCertificateIdentifier;
@@ -5019,6 +5029,9 @@ class HsmClientCertificateMessage {
       HsmClientCertificateMessage();
 }
 
+/// Returns information about an HSM configuration, which is an object that
+/// describes to Amazon Redshift clusters the information they require to
+/// connect to an HSM where they can store database encryption keys.
 class HsmConfiguration {
   /// The name of the Amazon Redshift HSM configuration.
   final String hsmConfigurationIdentifier;
@@ -5067,6 +5080,7 @@ class HsmConfigurationMessage {
       HsmConfigurationMessage();
 }
 
+/// Describes the status of changes to HSM settings.
 class HsmStatus {
   /// Specifies the name of the HSM client certificate the Amazon Redshift
   /// cluster uses to retrieve the data encryption keys stored in an HSM.
@@ -5090,6 +5104,7 @@ class HsmStatus {
   static HsmStatus fromJson(Map<String, dynamic> json) => HsmStatus();
 }
 
+/// Describes an IP range used in a security group.
 class IPRange {
   /// The status of the IP range, for example, "authorized".
   final String status;
@@ -5108,6 +5123,7 @@ class IPRange {
   static IPRange fromJson(Map<String, dynamic> json) => IPRange();
 }
 
+/// Describes the status of logging for a cluster.
 class LoggingStatus {
   ///  `true` if logging is on, `false` if logging is off.
   final bool loggingEnabled;
@@ -5138,6 +5154,11 @@ class LoggingStatus {
   static LoggingStatus fromJson(Map<String, dynamic> json) => LoggingStatus();
 }
 
+/// Defines a maintenance track that determines which Amazon Redshift version to
+/// apply during a maintenance window. If the value for `MaintenanceTrack` is
+/// `current`, the cluster is updated to the most recently certified maintenance
+/// release. If the value is `trailing`, the cluster is updated to the
+/// previously certified maintenance release.
 class MaintenanceTrack {
   /// The name of the maintenance track. Possible values are `current` and
   /// `trailing`.
@@ -5239,6 +5260,7 @@ class ModifySnapshotCopyRetentionPeriodResult {
       ModifySnapshotCopyRetentionPeriodResult();
 }
 
+/// Describes an orderable cluster option.
 class OrderableClusterOption {
   /// The version of the orderable cluster.
   final String clusterVersion;
@@ -5262,6 +5284,7 @@ class OrderableClusterOption {
       OrderableClusterOption();
 }
 
+/// Contains the output from the DescribeOrderableClusterOptions action.
 class OrderableClusterOptionsMessage {
   /// An `OrderableClusterOption` structure containing information about
   /// orderable options for the cluster.
@@ -5282,6 +5305,7 @@ class OrderableClusterOptionsMessage {
       OrderableClusterOptionsMessage();
 }
 
+/// Describes a parameter in a cluster parameter group.
 class Parameter {
   /// The name of the parameter.
   final String parameterName;
@@ -5305,8 +5329,7 @@ class Parameter {
   /// can be applied dynamically, while other properties require that any
   /// associated clusters be rebooted for the configuration changes to be
   /// applied. For more information about parameters and parameter groups, go to
-  /// [Amazon Redshift Parameter
-  /// Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
+  /// [Amazon Redshift Parameter Groups](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-parameter-groups.html)
   /// in the _Amazon Redshift Cluster Management Guide_.
   final String applyType;
 
@@ -5331,6 +5354,8 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// Describes cluster attributes that are in a pending state. A change to one or
+/// more the attributes was requested and is in progress or will be applied.
 class PendingModifiedValues {
   /// The pending or in-progress change of the master user password for the
   /// cluster.
@@ -5361,8 +5386,8 @@ class PendingModifiedValues {
 
   /// An option that specifies whether to create the cluster with enhanced VPC
   /// routing enabled. To create a cluster that uses enhanced VPC routing, the
-  /// cluster must be in a VPC. For more information, see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// cluster must be in a VPC. For more information, see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -5416,6 +5441,7 @@ class RebootClusterResult {
       RebootClusterResult();
 }
 
+/// Describes a recurring charge.
 class RecurringCharge {
   /// The amount charged per the period of time specified by the recurring
   /// charge frequency.
@@ -5432,6 +5458,8 @@ class RecurringCharge {
       RecurringCharge();
 }
 
+/// Describes a reserved node. You can call the DescribeReservedNodeOfferings
+/// API to obtain the available reserved node offerings.
 class ReservedNode {
   /// The unique identifier for the reservation.
   final String reservedNodeId;
@@ -5506,6 +5534,7 @@ class ReservedNode {
   static ReservedNode fromJson(Map<String, dynamic> json) => ReservedNode();
 }
 
+/// Describes a reserved node offering.
 class ReservedNodeOffering {
   /// The offering identifier.
   final String reservedNodeOfferingId;
@@ -5601,6 +5630,7 @@ class ResizeClusterResult {
       ResizeClusterResult();
 }
 
+/// Describes a resize operation.
 class ResizeInfo {
   /// Returns the value `ClassicResize`.
   final String resizeType;
@@ -5615,6 +5645,7 @@ class ResizeInfo {
   static ResizeInfo fromJson(Map<String, dynamic> json) => ResizeInfo();
 }
 
+/// Describes the result of a cluster resize operation.
 class ResizeProgressMessage {
   /// The node type that the cluster will have after the resize operation is
   /// complete.
@@ -5726,6 +5757,8 @@ class RestoreFromClusterSnapshotResult {
       RestoreFromClusterSnapshotResult();
 }
 
+/// Describes the status of a cluster restore action. Returns null if the
+/// cluster was not created by restoring a snapshot.
 class RestoreStatus {
   /// The status of the restore action. Returns starting, restoring, completed,
   /// or failed.
@@ -5771,6 +5804,7 @@ class RestoreTableFromClusterSnapshotResult {
       RestoreTableFromClusterSnapshotResult();
 }
 
+/// Describes a `RevisionTarget`.
 class RevisionTarget {
   /// A unique string that identifies the version to update the cluster to. You
   /// can use this value in ModifyClusterDbRevision.
@@ -5822,6 +5856,7 @@ class RotateEncryptionKeyResult {
       RotateEncryptionKeyResult();
 }
 
+/// Describes a snapshot.
 class Snapshot {
   /// The snapshot identifier that is provided in the request.
   final String snapshotIdentifier;
@@ -5933,8 +5968,8 @@ class Snapshot {
 
   /// An option that specifies whether to create the cluster with enhanced VPC
   /// routing enabled. To create a cluster that uses enhanced VPC routing, the
-  /// cluster must be in a VPC. For more information, see [Enhanced VPC
-  /// Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
+  /// cluster must be in a VPC. For more information, see
+  /// [Enhanced VPC Routing](https://docs.aws.amazon.com/redshift/latest/mgmt/enhanced-vpc-routing.html)
   /// in the Amazon Redshift Cluster Management Guide.
   ///
   /// If this option is `true`, enhanced VPC routing is enabled.
@@ -5996,6 +6031,13 @@ class Snapshot {
   static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
 }
 
+/// The snapshot copy grant that grants Amazon Redshift permission to encrypt
+/// copied snapshots with the specified customer master key (CMK) from AWS KMS
+/// in the destination region.
+///
+///  For more information about managing snapshot copy grants, go to
+/// [Amazon Redshift Database Encryption](https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-db-encryption.html)
+/// in the _Amazon Redshift Cluster Management Guide_.
 class SnapshotCopyGrant {
   /// The name of the snapshot copy grant.
   final String snapshotCopyGrantName;
@@ -6039,6 +6081,7 @@ class SnapshotCopyGrantMessage {
       SnapshotCopyGrantMessage();
 }
 
+/// Describes the errors returned by a snapshot.
 class SnapshotErrorMessage {
   /// A unique identifier for the snapshot returning the error.
   final String snapshotIdentifier;
@@ -6062,6 +6105,7 @@ class SnapshotErrorMessage {
       SnapshotErrorMessage();
 }
 
+/// Contains the output from the DescribeClusterSnapshots action.
 class SnapshotMessage {
   /// A value that indicates the starting point for the next set of response
   /// records in a subsequent request. If a value is returned in a response, you
@@ -6081,6 +6125,8 @@ class SnapshotMessage {
       SnapshotMessage();
 }
 
+/// Describes a snapshot schedule. You can set a regular interval for creating
+/// snapshots of a cluster. You can also schedule snapshots for specific dates.
 class SnapshotSchedule {
   /// A list of ScheduleDefinitions.
   final List<String> scheduleDefinitions;
@@ -6116,6 +6162,7 @@ class SnapshotSchedule {
       SnapshotSchedule();
 }
 
+/// Describes a sorting entity
 class SnapshotSortingEntity {
   /// The category for sorting the snapshots.
   final String attribute;
@@ -6129,6 +6176,7 @@ class SnapshotSortingEntity {
   });
 }
 
+/// Describes a subnet.
 class Subnet {
   /// The identifier of the subnet.
   final String subnetIdentifier;
@@ -6146,6 +6194,7 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// Describes the operations that are allowed on a maintenance track.
 class SupportedOperation {
   /// A list of the supported operations.
   final String operationName;
@@ -6157,6 +6206,7 @@ class SupportedOperation {
       SupportedOperation();
 }
 
+/// A list of supported platforms for orderable clusters.
 class SupportedPlatform {
   final String name;
 
@@ -6167,6 +6217,7 @@ class SupportedPlatform {
       SupportedPlatform();
 }
 
+/// Describes the status of a RestoreTableFromClusterSnapshot operation.
 class TableRestoreStatus {
   /// The unique identifier for the table restore request.
   final String tableRestoreRequestId;
@@ -6251,6 +6302,7 @@ class TableRestoreStatusMessage {
       TableRestoreStatusMessage();
 }
 
+/// A tag consisting of a name/value pair for a resource.
 class Tag {
   /// The key, or name, for the resource tag.
   final String key;
@@ -6265,6 +6317,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// A tag and its associated resource.
 class TaggedResource {
   /// The tag for the resource.
   final Tag tag;
@@ -6296,8 +6349,8 @@ class TaggedResource {
   ///
   ///
   /// For more information about Amazon Redshift resource types and constructing
-  /// ARNs, go to [Constructing an Amazon Redshift Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions)
+  /// ARNs, go to
+  /// [Constructing an Amazon Redshift Amazon Resource Name (ARN)](https://docs.aws.amazon.com/redshift/latest/mgmt/redshift-iam-access-control-overview.html#redshift-iam-access-control-specify-actions)
   /// in the Amazon Redshift Cluster Management Guide.
   final String resourceType;
 
@@ -6346,6 +6399,7 @@ class TrackListMessage {
       TrackListMessage();
 }
 
+/// A maintenance track that you can switch the current track to.
 class UpdateTarget {
   /// The name of the new maintenance track.
   final String maintenanceTrackName;
@@ -6364,6 +6418,7 @@ class UpdateTarget {
   static UpdateTarget fromJson(Map<String, dynamic> json) => UpdateTarget();
 }
 
+/// Describes the members of a VPC security group.
 class VpcSecurityGroupMembership {
   /// The identifier of the VPC security group.
   final String vpcSecurityGroupId;

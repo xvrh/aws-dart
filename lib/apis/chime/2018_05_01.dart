@@ -15,35 +15,34 @@ import 'package:meta/meta.dart';
 ///
 /// You don't need to write code to calculate a signature for request
 /// authentication. The SDK clients authenticate your requests by using access
-/// keys that you provide. For more information about AWS SDKs, see the [AWS
-/// Developer Center](http://aws.amazon.com/developer/).
+/// keys that you provide. For more information about AWS SDKs, see the
+/// [AWS Developer Center](http://aws.amazon.com/developer/).
 ///
 /// Using the AWS CLI
 ///
 /// Use your access keys with the AWS CLI to make API calls. For information
-/// about setting up the AWS CLI, see [Installing the AWS Command Line
-/// Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
+/// about setting up the AWS CLI, see
+/// [Installing the AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/installing.html)
 /// in the _AWS Command Line Interface User Guide_. For a list of available
-/// Amazon Chime commands, see the [Amazon Chime
-/// commands](https://docs.aws.amazon.com/cli/latest/reference/chime/index.html)
+/// Amazon Chime commands, see the
+/// [Amazon Chime commands](https://docs.aws.amazon.com/cli/latest/reference/chime/index.html)
 /// in the _AWS CLI Command Reference_.
 ///
 /// Using REST API
 ///
 /// If you use REST to make API calls, you must authenticate your request by
 /// providing a signature. Amazon Chime supports signature version 4. For more
-/// information, see [Signature Version 4 Signing
-/// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)
+/// information, see
+/// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html)
 /// in the _Amazon Web Services General Reference_.
 ///
 /// When making REST API calls, use the service name `chime` and REST endpoint
 /// `https://service.chime.aws.amazon.com`.
 ///
 /// Administrative permissions are controlled using AWS Identity and Access
-/// Management (IAM). For more information, see [Control Access to the Amazon
-/// Chime
-/// Console](https://docs.aws.amazon.com/chime/latest/ag/control-access.html) in
-/// the _Amazon Chime Administration Guide_.
+/// Management (IAM). For more information, see
+/// [Control Access to the Amazon Chime Console](https://docs.aws.amazon.com/chime/latest/ag/control-access.html)
+/// in the _Amazon Chime Administration Guide_.
 class ChimeApi {
   /// Associates a phone number with the specified Amazon Chime user.
   ///
@@ -84,9 +83,8 @@ class ChimeApi {
   }
 
   /// Suspends up to 50 users from a `Team` or `EnterpriseLWA` Amazon Chime
-  /// account. For more information about different account types, see [Managing
-  /// Your Amazon Chime
-  /// Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
+  /// account. For more information about different account types, see
+  /// [Managing Your Amazon Chime Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
   /// in the _Amazon Chime Administration Guide_.
   ///
   /// Users suspended from a `Team` account are dissasociated from the account,
@@ -112,8 +110,8 @@ class ChimeApi {
   /// Removes the suspension from up to 50 previously suspended users for the
   /// specified Amazon Chime `EnterpriseLWA` account. Only users on
   /// `EnterpriseLWA` accounts can be unsuspended using this action. For more
-  /// information about different account types, see [Managing Your Amazon Chime
-  /// Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
+  /// information about different account types, see
+  /// [Managing Your Amazon Chime Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
   /// in the _Amazon Chime Administration Guide_.
   ///
   /// Previously suspended users who are unsuspended using this action are
@@ -155,9 +153,8 @@ class ChimeApi {
 
   /// Creates an Amazon Chime account under the administrator's AWS account.
   /// Only `Team` account types are currently supported for this action. For
-  /// more information about different account types, see [Managing Your Amazon
-  /// Chime
-  /// Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
+  /// more information about different account types, see
+  /// [Managing Your Amazon Chime Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
   /// in the _Amazon Chime Administration Guide_.
   ///
   /// [name]: The name of the Amazon Chime account.
@@ -311,9 +308,9 @@ class ChimeApi {
 
   /// Retrieves account settings for the specified Amazon Chime account ID, such
   /// as remote control and dial out settings. For more information about these
-  /// settings, see [Use the Policies
-  /// Page](https://docs.aws.amazon.com/chime/latest/ag/policies.html) in the
-  /// _Amazon Chime Administration Guide_.
+  /// settings, see
+  /// [Use the Policies Page](https://docs.aws.amazon.com/chime/latest/ag/policies.html)
+  /// in the _Amazon Chime Administration Guide_.
   ///
   /// [accountId]: The Amazon Chime account ID.
   Future<GetAccountSettingsResponse> getAccountSettings(
@@ -678,9 +675,9 @@ class ChimeApi {
 
   /// Updates the settings for the specified Amazon Chime account. You can
   /// update settings for remote control of shared screens, or for the dial-out
-  /// option. For more information about these settings, see [Use the Policies
-  /// Page](https://docs.aws.amazon.com/chime/latest/ag/policies.html) in the
-  /// _Amazon Chime Administration Guide_.
+  /// option. For more information about these settings, see
+  /// [Use the Policies Page](https://docs.aws.amazon.com/chime/latest/ag/policies.html)
+  /// in the _Amazon Chime Administration Guide_.
   ///
   /// [accountId]: The Amazon Chime account ID.
   ///
@@ -774,6 +771,8 @@ class ChimeApi {
   }
 }
 
+/// The Amazon Chime account details. An AWS account can have multiple Amazon
+/// Chime accounts.
 class Account {
   /// The AWS account ID.
   final String awsAccountId;
@@ -785,8 +784,8 @@ class Account {
   final String name;
 
   /// The Amazon Chime account type. For more information about different
-  /// account types, see [Managing Your Amazon Chime
-  /// Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
+  /// account types, see
+  /// [Managing Your Amazon Chime Accounts](https://docs.aws.amazon.com/chime/latest/ag/manage-chime-account.html)
   /// in the _Amazon Chime Administration Guide_.
   final String accountType;
 
@@ -811,15 +810,20 @@ class Account {
   static Account fromJson(Map<String, dynamic> json) => Account();
 }
 
+/// Settings related to the Amazon Chime account. This includes settings that
+/// start or stop remote control of shared screens, or start or stop the
+/// dial-out option in the Amazon Chime web application. For more information
+/// about these settings, see
+/// [Use the Policies Page](https://docs.aws.amazon.com/chime/latest/ag/policies.html)
+/// in the _Amazon Chime Administration Guide_.
 class AccountSettings {
   /// Setting that stops or starts remote control of shared screens during
   /// meetings.
   final bool disableRemoteControl;
 
   /// Setting that allows meeting participants to choose the **Call me at a
-  /// phone number** option. For more information, see [Join a Meeting without
-  /// the Amazon Chime
-  /// App](https://docs.aws.amazon.com/chime/latest/ug/chime-join-meeting.html).
+  /// phone number** option. For more information, see
+  /// [Join a Meeting without the Amazon Chime App](https://docs.aws.amazon.com/chime/latest/ug/chime-join-meeting.html).
   final bool enableDialOut;
 
   AccountSettings({
@@ -916,6 +920,8 @@ class BatchUpdateUserResponse {
       BatchUpdateUserResponse();
 }
 
+/// A resource that allows Enterprise account administrators to configure an
+/// interface to receive events from Amazon Chime.
 class Bot {
   /// The bot ID.
   final String botId;
@@ -959,6 +965,9 @@ class Bot {
   static Bot fromJson(Map<String, dynamic> json) => Bot();
 }
 
+/// The Amazon Chime Business Calling settings for the administrator's AWS
+/// account. Includes any Amazon S3 buckets designated for storing call detail
+/// records.
 class BusinessCallingSettings {
   /// The Amazon S3 bucket designated for call detail record storage.
   final String cdrBucket;
@@ -1014,6 +1023,8 @@ class CreateVoiceConnectorResponse {
       CreateVoiceConnectorResponse();
 }
 
+/// The SIP credentials used to authenticate requests to your Amazon Chime Voice
+/// Connector.
 class Credential {
   /// The RFC2617 compliant user name associated with the SIP credentials, in
   /// US-ASCII format.
@@ -1056,6 +1067,8 @@ class DisassociatePhoneNumbersFromVoiceConnectorResponse {
       DisassociatePhoneNumbersFromVoiceConnectorResponse();
 }
 
+/// The configuration that allows a bot to receive outgoing events. Can be
+/// either an HTTPS endpoint or a Lambda function ARN.
 class EventsConfiguration {
   /// The bot ID.
   final String botId;
@@ -1224,6 +1237,8 @@ class GetVoiceConnectorTerminationResponse {
       GetVoiceConnectorTerminationResponse();
 }
 
+/// Invitation object returned after emailing users to invite them to join the
+/// Amazon Chime `Team` account.
 class Invite {
   /// The invite ID.
   final String inviteId;
@@ -1365,6 +1380,7 @@ class LogoutUserResponse {
       LogoutUserResponse();
 }
 
+/// A phone number for which an order has been placed.
 class OrderedPhoneNumber {
   /// The phone number, in E.164 format.
   final String e164PhoneNumber;
@@ -1380,6 +1396,8 @@ class OrderedPhoneNumber {
       OrderedPhoneNumber();
 }
 
+/// Origination settings enable your SIP hosts to receive inbound calls using
+/// your Amazon Chime Voice Connector.
 class Origination {
   /// The call distribution properties defined for your SIP hosts. Valid range:
   /// Minimum value of 1. Maximum value of 20.
@@ -1396,6 +1414,9 @@ class Origination {
   static Origination fromJson(Map<String, dynamic> json) => Origination();
 }
 
+/// Origination routes define call distribution properties for your SIP hosts to
+/// receive inbound calls using your Amazon Chime Voice Connector. Limit: 10
+/// origination routes per Amazon Chime Voice Connector.
 class OriginationRoute {
   /// The FODN or IP address to contact for origination traffic.
   final String host;
@@ -1426,6 +1447,8 @@ class OriginationRoute {
       OriginationRoute();
 }
 
+/// A phone number used for Amazon Chime Business Calling or an Amazon Chime
+/// Voice Connector.
 class PhoneNumber {
   /// The phone number ID.
   final String phoneNumberId;
@@ -1472,6 +1495,8 @@ class PhoneNumber {
   static PhoneNumber fromJson(Map<String, dynamic> json) => PhoneNumber();
 }
 
+/// The phone number associations, such as Amazon Chime account ID, Amazon Chime
+/// user ID, or Amazon Chime Voice Connector ID.
 class PhoneNumberAssociation {
   /// Contains the ID for the entity specified in Name.
   final String value;
@@ -1492,6 +1517,8 @@ class PhoneNumberAssociation {
       PhoneNumberAssociation();
 }
 
+/// The phone number capabilities, such as enabled inbound and outbound calling
+/// and text messaging.
 class PhoneNumberCapabilities {
   /// Allows or denies inbound calling for the specified phone number.
   final bool inboundCall;
@@ -1523,6 +1550,9 @@ class PhoneNumberCapabilities {
       PhoneNumberCapabilities();
 }
 
+/// If the phone number action fails for one or more of the phone numbers in the
+/// request, a list of the phone numbers is returned, along with error codes and
+/// error messages.
 class PhoneNumberError {
   /// The phone number ID for which the action failed.
   final String phoneNumberId;
@@ -1542,6 +1572,7 @@ class PhoneNumberError {
       PhoneNumberError();
 }
 
+/// The details of a phone number order created for Amazon Chime.
 class PhoneNumberOrder {
   /// The phone number order ID.
   final String phoneNumberOrderId;
@@ -1652,6 +1683,8 @@ class SearchAvailablePhoneNumbersResponse {
       SearchAvailablePhoneNumbersResponse();
 }
 
+/// Settings that allow management of telephony permissions for an Amazon Chime
+/// user, such as inbound and outbound calling and text messaging.
 class TelephonySettings {
   /// Allows or denies inbound calling.
   final bool inboundCalling;
@@ -1671,6 +1704,8 @@ class TelephonySettings {
       TelephonySettings();
 }
 
+/// Termination settings enable your SIP hosts to make outbound calls using your
+/// Amazon Chime Voice Connector.
 class Termination {
   /// The limit on calls per second. Max value based on account service limit.
   /// Default value of 1.
@@ -1698,6 +1733,9 @@ class Termination {
   static Termination fromJson(Map<String, dynamic> json) => Termination();
 }
 
+/// The termination health details, including the source IP address and
+/// timestamp of the last successful SIP `OPTIONS` message from your SIP
+/// infrastructure.
 class TerminationHealth {
   /// The timestamp, in ISO 8601 format.
   final DateTime timestamp;
@@ -1741,6 +1779,8 @@ class UpdateBotResponse {
       UpdateBotResponse();
 }
 
+/// The phone number ID and product type fields to update, used with the
+/// BatchUpdatePhoneNumber and UpdatePhoneNumber actions.
 class UpdatePhoneNumberRequestItem {
   /// The phone number ID to update.
   final String phoneNumberId;
@@ -1765,6 +1805,7 @@ class UpdatePhoneNumberResponse {
       UpdatePhoneNumberResponse();
 }
 
+/// The user ID and user fields to update, used with the BatchUpdateUser action.
 class UpdateUserRequestItem {
   /// The user ID.
   final String userId;
@@ -1800,6 +1841,7 @@ class UpdateVoiceConnectorResponse {
       UpdateVoiceConnectorResponse();
 }
 
+/// The user on the Amazon Chime account.
 class User {
   /// The user ID.
   final String userId;
@@ -1851,6 +1893,9 @@ class User {
   static User fromJson(Map<String, dynamic> json) => User();
 }
 
+/// The list of errors returned when errors are encountered during the
+/// BatchSuspendUser, BatchUnsuspendUser, or BatchUpdateUser actions. This
+/// includes user IDs, error codes, and error messages.
 class UserError {
   /// The user ID for which the action failed.
   final String userId;
@@ -1869,6 +1914,8 @@ class UserError {
   static UserError fromJson(Map<String, dynamic> json) => UserError();
 }
 
+/// Settings associated with an Amazon Chime user, including inbound and
+/// outbound calling and text messaging.
 class UserSettings {
   /// The telephony settings associated with the user.
   final TelephonySettings telephony;
@@ -1879,6 +1926,8 @@ class UserSettings {
   static UserSettings fromJson(Map<String, dynamic> json) => UserSettings();
 }
 
+/// The Amazon Chime Voice Connector configuration, including outbound host name
+/// and encryption settings.
 class VoiceConnector {
   /// The Amazon Chime Voice Connector ID.
   final String voiceConnectorId;
@@ -1910,6 +1959,8 @@ class VoiceConnector {
   static VoiceConnector fromJson(Map<String, dynamic> json) => VoiceConnector();
 }
 
+/// The Amazon Chime Voice Connector settings. Includes any Amazon S3 buckets
+/// designated for storing call detail records.
 class VoiceConnectorSettings {
   /// The Amazon S3 bucket designated for call detail record storage.
   final String cdrBucket;

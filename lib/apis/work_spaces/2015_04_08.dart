@@ -410,8 +410,8 @@ class WorkSpacesApi {
   /// or `UNHEALTHY`.
   ///
   /// Rebuilding a WorkSpace is a potentially destructive action that can result
-  /// in the loss of data. For more information, see [Rebuild a
-  /// WorkSpace](https://docs.aws.amazon.com/workspaces/latest/adminguide/reset-workspace.html).
+  /// in the loss of data. For more information, see
+  /// [Rebuild a WorkSpace](https://docs.aws.amazon.com/workspaces/latest/adminguide/reset-workspace.html).
   ///
   /// This operation is asynchronous and returns before the WorkSpaces have been
   /// completely rebuilt.
@@ -487,6 +487,8 @@ class WorkSpacesApi {
   }
 }
 
+/// Describes a modification to the configuration of bring your own license
+/// (BYOL) for the specified account.
 class AccountModification {
   /// The state of the modification to the configuration of BYOL.
   final String modificationState;
@@ -533,6 +535,7 @@ class AuthorizeIpRulesResult {
       AuthorizeIpRulesResult();
 }
 
+/// Describes an Amazon WorkSpaces client.
 class ClientProperties {
   /// Specifies whether users can cache their credentials on the Amazon
   /// WorkSpaces client. When enabled, users can choose to reconnect to their
@@ -546,6 +549,7 @@ class ClientProperties {
       ClientProperties();
 }
 
+/// Information about the Amazon WorkSpaces client.
 class ClientPropertiesResult {
   /// The resource identifier, in the form of a directory ID.
   final String resourceId;
@@ -561,6 +565,7 @@ class ClientPropertiesResult {
       ClientPropertiesResult();
 }
 
+/// Describes the compute type.
 class ComputeType {
   /// The compute type.
   final String name;
@@ -619,6 +624,7 @@ class CreateWorkspacesResult {
       CreateWorkspacesResult();
 }
 
+/// Describes the default values used to create a WorkSpace.
 class DefaultWorkspaceCreationProperties {
   /// Specifies whether the directory is enabled for Amazon WorkDocs.
   final bool enableWorkDocs;
@@ -836,6 +842,7 @@ class DisassociateIpGroupsResult {
       DisassociateIpGroupsResult();
 }
 
+/// Describes a WorkSpace that cannot be created.
 class FailedCreateWorkspaceRequest {
   /// Information about the WorkSpace.
   final WorkspaceRequest workspaceRequest;
@@ -856,6 +863,9 @@ class FailedCreateWorkspaceRequest {
       FailedCreateWorkspaceRequest();
 }
 
+/// Describes a WorkSpace that could not be rebooted. (RebootWorkspaces),
+/// rebuilt (RebuildWorkspaces), terminated (TerminateWorkspaces), started
+/// (StartWorkspaces), or stopped (StopWorkspaces).
 class FailedWorkspaceChangeRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -887,6 +897,7 @@ class ImportWorkspaceImageResult {
       ImportWorkspaceImageResult();
 }
 
+/// Describes a rule for an IP access control group.
 class IpRuleItem {
   /// The IP address range, in CIDR notation.
   final String ipRule;
@@ -918,6 +929,7 @@ class ListAvailableManagementCidrRangesResult {
       ListAvailableManagementCidrRangesResult();
 }
 
+/// Describes a WorkSpace modification.
 class ModificationState {
   /// The resource.
   final String resource;
@@ -957,6 +969,7 @@ class ModifyWorkspaceStateResult {
       ModifyWorkspaceStateResult();
 }
 
+/// The operating system that the image is running.
 class OperatingSystem {
   /// The operating system.
   final String type;
@@ -968,6 +981,7 @@ class OperatingSystem {
       OperatingSystem();
 }
 
+/// Describes the information used to reboot a WorkSpace.
 class RebootRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -988,6 +1002,7 @@ class RebootWorkspacesResult {
       RebootWorkspacesResult();
 }
 
+/// Describes the information used to rebuild a WorkSpace.
 class RebuildRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1014,6 +1029,7 @@ class RevokeIpRulesResult {
       RevokeIpRulesResult();
 }
 
+/// Describes the root volume for a WorkSpace bundle.
 class RootStorage {
   /// The size of the root volume.
   final String capacity;
@@ -1024,6 +1040,7 @@ class RootStorage {
   static RootStorage fromJson(Map<String, dynamic> json) => RootStorage();
 }
 
+/// Information used to start a WorkSpace.
 class StartRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1044,6 +1061,7 @@ class StartWorkspacesResult {
       StartWorkspacesResult();
 }
 
+/// Describes the information used to stop a WorkSpace.
 class StopRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1064,6 +1082,7 @@ class StopWorkspacesResult {
       StopWorkspacesResult();
 }
 
+/// Describes a tag.
 class Tag {
   /// The key of the tag.
   final String key;
@@ -1078,6 +1097,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Describes the information used to terminate a WorkSpace.
 class TerminateRequest {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1104,6 +1124,7 @@ class UpdateRulesOfIpGroupResult {
       UpdateRulesOfIpGroupResult();
 }
 
+/// Describes the user storage for a WorkSpace bundle.
 class UserStorage {
   /// The size of the user storage.
   final String capacity;
@@ -1114,6 +1135,7 @@ class UserStorage {
   static UserStorage fromJson(Map<String, dynamic> json) => UserStorage();
 }
 
+/// Describes a WorkSpace.
 class Workspace {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1181,6 +1203,7 @@ class Workspace {
   static Workspace fromJson(Map<String, dynamic> json) => Workspace();
 }
 
+/// Describes a WorkSpace bundle.
 class WorkspaceBundle {
   /// The bundle identifier.
   final String bundleId;
@@ -1201,8 +1224,8 @@ class WorkspaceBundle {
   /// The size of the user storage.
   final UserStorage userStorage;
 
-  /// The compute type. For more information, see [Amazon WorkSpaces
-  /// Bundles](http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles).
+  /// The compute type. For more information, see
+  /// [Amazon WorkSpaces Bundles](http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles).
   final ComputeType computeType;
 
   WorkspaceBundle({
@@ -1218,6 +1241,7 @@ class WorkspaceBundle {
       WorkspaceBundle();
 }
 
+/// Describes the connection status of a WorkSpace.
 class WorkspaceConnectionStatus {
   /// The identifier of the WorkSpace.
   final String workspaceId;
@@ -1242,6 +1266,8 @@ class WorkspaceConnectionStatus {
       WorkspaceConnectionStatus();
 }
 
+/// Describes an AWS Directory Service directory that is used with Amazon
+/// WorkSpaces.
 class WorkspaceDirectory {
   /// The directory identifier.
   final String directoryId;
@@ -1305,6 +1331,7 @@ class WorkspaceDirectory {
       WorkspaceDirectory();
 }
 
+/// Describes a WorkSpace image.
 class WorkspaceImage {
   /// The identifier of the image.
   final String imageId;
@@ -1344,9 +1371,10 @@ class WorkspaceImage {
   static WorkspaceImage fromJson(Map<String, dynamic> json) => WorkspaceImage();
 }
 
+/// Describes a WorkSpace.
 class WorkspaceProperties {
-  /// The running mode. For more information, see [Manage the WorkSpace Running
-  /// Mode](https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html).
+  /// The running mode. For more information, see
+  /// [Manage the WorkSpace Running Mode](https://docs.aws.amazon.com/workspaces/latest/adminguide/running-mode.html).
   final String runningMode;
 
   /// The time after a user logs off when WorkSpaces are automatically stopped.
@@ -1359,8 +1387,8 @@ class WorkspaceProperties {
   /// The size of the user storage.
   final int userVolumeSizeGib;
 
-  /// The compute type. For more information, see [Amazon WorkSpaces
-  /// Bundles](http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles).
+  /// The compute type. For more information, see
+  /// [Amazon WorkSpaces Bundles](http://aws.amazon.com/workspaces/details/#Amazon_WorkSpaces_Bundles).
   final String computeTypeName;
 
   WorkspaceProperties({
@@ -1374,6 +1402,7 @@ class WorkspaceProperties {
       WorkspaceProperties();
 }
 
+/// Describes the information used to create a WorkSpace.
 class WorkspaceRequest {
   /// The identifier of the AWS Directory Service directory for the WorkSpace.
   /// You can use DescribeWorkspaceDirectories to list the available
@@ -1417,6 +1446,7 @@ class WorkspaceRequest {
       WorkspaceRequest();
 }
 
+/// Describes an IP access control group.
 class WorkspacesIpGroup {
   /// The identifier of the group.
   final String groupId;

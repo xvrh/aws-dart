@@ -6,15 +6,14 @@ import 'dart:typed_data';
 ///  **Overview**
 ///
 /// This is the _AWS Lambda API Reference_. The AWS Lambda Developer Guide
-/// provides additional information. For the service overview, see [What is AWS
-/// Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html), and for
-/// information about how the service works, see [AWS Lambda: How it
-/// Works](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
+/// provides additional information. For the service overview, see
+/// [What is AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html),
+/// and for information about how the service works, see
+/// [AWS Lambda: How it Works](https://docs.aws.amazon.com/lambda/latest/dg/lambda-introduction.html)
 /// in the **AWS Lambda Developer Guide**.
 class LambdaApi {
-  /// Adds permissions to the resource-based policy of a version of an [AWS
-  /// Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+  /// Adds permissions to the resource-based policy of a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
   /// Use this action to grant layer usage permission to other accounts. You can
   /// grant permission to a single account, all AWS accounts, or all accounts in
   /// an organization.
@@ -68,21 +67,20 @@ class LambdaApi {
   /// your Lambda function.
   ///
   /// This action adds a statement to a resource-based permission policy for the
-  /// function. For more information about function policies, see [Lambda
-  /// Function
-  /// Policies](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html).
+  /// function. For more information about function policies, see
+  /// [Lambda Function Policies](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html).
   ///
   /// [functionName]: The name of the Lambda function, version, or alias.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -144,12 +142,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -161,8 +159,8 @@ class LambdaApi {
   ///
   /// [description]: A description of the alias.
   ///
-  /// [routingConfig]: The [routing
-  /// configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
+  /// [routingConfig]: The
+  /// [routing configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
   /// of the alias.
   Future<AliasConfiguration> createAlias(
       {@required String functionName,
@@ -178,37 +176,36 @@ class LambdaApi {
   ///
   /// For details about each event source type, see the following topics.
   ///
-  /// *    [Using AWS Lambda with Amazon
-  /// Kinesis](https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html)
+  /// *
+  /// [Using AWS Lambda with Amazon Kinesis](https://docs.aws.amazon.com/lambda/latest/dg/with-kinesis.html)
   ///
-  /// *    [Using AWS Lambda with Amazon
-  /// SQS](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
+  /// *
+  /// [Using AWS Lambda with Amazon SQS](https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html)
   ///
-  /// *    [Using AWS Lambda with Amazon
-  /// DynamoDB](https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html)
+  /// *
+  /// [Using AWS Lambda with Amazon DynamoDB](https://docs.aws.amazon.com/lambda/latest/dg/with-ddb.html)
   ///
   /// [eventSourceArn]: The Amazon Resource Name (ARN) of the event source.
   ///
-  /// *    **Amazon Kinesis** \- The ARN of the data stream or a stream
-  /// consumer.
+  /// *    **Amazon Kinesis** - The ARN of the data stream or a stream consumer.
   ///
-  /// *    **Amazon DynamoDB Streams** \- The ARN of the stream.
+  /// *    **Amazon DynamoDB Streams** - The ARN of the stream.
   ///
-  /// *    **Amazon Simple Queue Service** \- The ARN of the queue.
+  /// *    **Amazon Simple Queue Service** - The ARN of the queue.
   ///
   /// [functionName]: The name of the Lambda function.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Version or Alias ARN** \-
+  /// *    **Version or Alias ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -219,11 +216,11 @@ class LambdaApi {
   ///
   /// [batchSize]: The maximum number of items to retrieve in a single batch.
   ///
-  /// *    **Amazon Kinesis** \- Default 100. Max 10,000.
+  /// *    **Amazon Kinesis** - Default 100. Max 10,000.
   ///
-  /// *    **Amazon DynamoDB Streams** \- Default 100. Max 1,000.
+  /// *    **Amazon DynamoDB Streams** - Default 100. Max 1,000.
   ///
-  /// *    **Amazon Simple Queue Service** \- Default 10. Max 10.
+  /// *    **Amazon Simple Queue Service** - Default 10. Max 10.
   ///
   /// [startingPosition]: The position in a stream from which to start reading.
   /// Required for Amazon Kinesis and Amazon DynamoDB Streams sources.
@@ -242,10 +239,10 @@ class LambdaApi {
     return EventSourceMappingConfiguration.fromJson({});
   }
 
-  /// Creates a Lambda function. To create a function, you need a [deployment
-  /// package](https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html)
-  /// and an [execution
-  /// role](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role).
+  /// Creates a Lambda function. To create a function, you need a
+  /// [deployment package](https://docs.aws.amazon.com/lambda/latest/dg/deployment-package-v2.html)
+  /// and an
+  /// [execution role](https://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html#lambda-intro-execution-role).
   /// The deployment package contains your function code. The execution role
   /// grants the function permission to use AWS services, such as Amazon
   /// CloudWatch Logs for log streaming and AWS X-Ray for request tracing.
@@ -273,19 +270,19 @@ class LambdaApi {
   /// To invoke your function directly, use Invoke. To invoke your function in
   /// response to events in other AWS services, create an event source mapping
   /// (CreateEventSourceMapping), or configure a function trigger in the other
-  /// service. For more information, see [Invoking
-  /// Functions](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-functions.html).
+  /// service. For more information, see
+  /// [Invoking Functions](https://docs.aws.amazon.com/lambda/latest/dg/invoking-lambda-functions.html).
   ///
   /// [functionName]: The name of the Lambda function.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -299,8 +296,8 @@ class LambdaApi {
   /// [handler]: The name of the method within your code that Lambda calls to
   /// execute your function. The format includes the file name. It can also
   /// include namespaces and other qualifiers, depending on the runtime. For
-  /// more information, see [Programming
-  /// Model](https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html).
+  /// more information, see
+  /// [Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html).
   ///
   /// [code]: The code for the function.
   ///
@@ -320,13 +317,13 @@ class LambdaApi {
   /// [vpcConfig]: For network connectivity to AWS resources in a VPC, specify a
   /// list of security groups and subnets in the VPC. When you connect a
   /// function to a VPC, it can only access resources and the internet through
-  /// that VPC. For more information, see [VPC
-  /// Settings](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html).
+  /// that VPC. For more information, see
+  /// [VPC Settings](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html).
   ///
   /// [deadLetterConfig]: A dead letter queue configuration that specifies the
   /// queue or topic where Lambda sends asynchronous events when they fail
-  /// processing. For more information, see [Dead Letter
-  /// Queues](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
+  /// processing. For more information, see
+  /// [Dead Letter Queues](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
   ///
   /// [environment]: Environment variables that are accessible from function
   /// code during execution.
@@ -342,8 +339,8 @@ class LambdaApi {
   /// [tags](https://docs.aws.amazon.com/lambda/latest/dg/tagging.html) to apply
   /// to the function.
   ///
-  /// [layers]: A list of [function
-  /// layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+  /// [layers]: A list of
+  /// [function layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
   /// to add to the function's execution environment. Specify each layer by its
   /// ARN, including the version.
   Future<FunctionConfiguration> createFunction(
@@ -373,12 +370,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -388,8 +385,8 @@ class LambdaApi {
   Future<void> deleteAlias(
       {@required String functionName, @required String name}) async {}
 
-  /// Deletes an [event source
-  /// mapping](https://docs.aws.amazon.com/lambda/latest/dg/intro-invocation-modes.html).
+  /// Deletes an
+  /// [event source mapping](https://docs.aws.amazon.com/lambda/latest/dg/intro-invocation-modes.html).
   /// You can get the identifier of a mapping from the output of
   /// ListEventSourceMappings.
   ///
@@ -411,13 +408,13 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:1` (with
+  /// *    **Function name** - `my-function` (name-only), `my-function:1` (with
   /// version).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -434,20 +431,20 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
   /// the function name, it is limited to 64 characters in length.
   Future<void> deleteFunctionConcurrency(String functionName) async {}
 
-  /// Deletes a version of an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+  /// Deletes a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
   /// Deleted versions can no longer be viewed or added to functions. To avoid
   /// breaking functions, a copy of the version remains in Lambda until no
   /// functions refer to it.
@@ -472,12 +469,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -507,13 +504,13 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -538,13 +535,13 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -558,8 +555,8 @@ class LambdaApi {
     return FunctionConfiguration.fromJson({});
   }
 
-  /// Returns information about a version of an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html),
+  /// Returns information about a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html),
   /// with a link to download the layer archive that's valid for 10 minutes.
   ///
   /// [layerName]: The name or Amazon Resource Name (ARN) of the layer.
@@ -570,8 +567,8 @@ class LambdaApi {
     return GetLayerVersionResponse.fromJson({});
   }
 
-  /// Returns information about a version of an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html),
+  /// Returns information about a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html),
   /// with a link to download the layer archive that's valid for 10 minutes.
   ///
   /// [arn]: The ARN of the layer version.
@@ -579,8 +576,8 @@ class LambdaApi {
     return GetLayerVersionResponse.fromJson({});
   }
 
-  /// Returns the permission policy for a version of an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+  /// Returns the permission policy for a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
   /// For more information, see AddLayerVersionPermission.
   ///
   /// [layerName]: The name or Amazon Resource Name (ARN) of the layer.
@@ -591,21 +588,21 @@ class LambdaApi {
     return GetLayerVersionPolicyResponse.fromJson({});
   }
 
-  /// Returns the [resource-based IAM
-  /// policy](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html)
+  /// Returns the
+  /// [resource-based IAM policy](https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html)
   /// for a function, version, or alias.
   ///
   /// [functionName]: The name of the Lambda function, version, or alias.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -625,25 +622,25 @@ class LambdaApi {
   ///
   /// For synchronous invocation, details about the function response, including
   /// errors, are included in the response body and headers. For either
-  /// invocation type, you can find more information in the [execution
-  /// log](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html)
+  /// invocation type, you can find more information in the
+  /// [execution log](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html)
   /// and [trace](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html). To
   /// record function errors for asynchronous invocations, configure your
-  /// function with a [dead letter
-  /// queue](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
+  /// function with a
+  /// [dead letter queue](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
   ///
   /// When an error occurs, your function may be invoked multiple times. Retry
   /// behavior varies by error type, client, event source, and invocation type.
   /// For example, if you invoke a function asynchronously and it returns an
   /// error, Lambda executes the function up to two more times. For more
-  /// information, see [Retry
-  /// Behavior](https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html).
+  /// information, see
+  /// [Retry Behavior](https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html).
   ///
   /// The status code in the API response doesn't reflect function errors. Error
   /// codes are reserved for errors that prevent your function from executing,
-  /// such as permissions errors, [limit
-  /// errors](https://docs.aws.amazon.com/lambda/latest/dg/limits.html), or
-  /// issues with your function's code and configuration. For example, Lambda
+  /// such as permissions errors,
+  /// [limit errors](https://docs.aws.amazon.com/lambda/latest/dg/limits.html),
+  /// or issues with your function's code and configuration. For example, Lambda
   /// returns `TooManyRequestsException` if executing the function would cause
   /// you to exceed a concurrency limit at either the account level
   /// (`ConcurrentInvocationLimitExceeded`) or function level
@@ -660,13 +657,13 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -679,12 +676,12 @@ class LambdaApi {
   /// the connection open until the function returns a response or times out.
   /// The API response includes the function response and additional data.
   ///
-  /// *    `Event` \- Invoke the function asynchronously. Send events that fail
+  /// *    `Event` - Invoke the function asynchronously. Send events that fail
   /// multiple times to the function's dead-letter queue (if it's configured).
   /// The API response only includes a status code.
   ///
-  /// *    `DryRun` \- Validate parameter values and verify that the user or
-  /// role has permission to invoke the function.
+  /// *    `DryRun` - Validate parameter values and verify that the user or role
+  /// has permission to invoke the function.
   ///
   /// [logType]: Set to `Tail` to include the execution log in the response.
   ///
@@ -713,12 +710,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -739,12 +736,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -767,26 +764,25 @@ class LambdaApi {
   ///
   /// [eventSourceArn]: The Amazon Resource Name (ARN) of the event source.
   ///
-  /// *    **Amazon Kinesis** \- The ARN of the data stream or a stream
-  /// consumer.
+  /// *    **Amazon Kinesis** - The ARN of the data stream or a stream consumer.
   ///
-  /// *    **Amazon DynamoDB Streams** \- The ARN of the stream.
+  /// *    **Amazon DynamoDB Streams** - The ARN of the stream.
   ///
-  /// *    **Amazon Simple Queue Service** \- The ARN of the queue.
+  /// *    **Amazon Simple Queue Service** - The ARN of the queue.
   ///
   /// [functionName]: The name of the Lambda function.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Version or Alias ARN** \-
+  /// *    **Version or Alias ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -830,10 +826,10 @@ class LambdaApi {
     return ListFunctionsResponse.fromJson({});
   }
 
-  /// Lists the versions of an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
-  /// Versions that have been deleted aren't listed. Specify a [runtime
-  /// identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
+  /// Lists the versions of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+  /// Versions that have been deleted aren't listed. Specify a
+  /// [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
   /// to list only versions that indicate that they're compatible with that
   /// runtime.
   ///
@@ -849,10 +845,10 @@ class LambdaApi {
     return ListLayerVersionsResponse.fromJson({});
   }
 
-  /// Lists [AWS Lambda
-  /// layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
-  /// and shows information about the latest version of each. Specify a [runtime
-  /// identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
+  /// Lists
+  /// [AWS Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+  /// and shows information about the latest version of each. Specify a
+  /// [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)
   /// to list only layers that indicate that they're compatible with that
   /// runtime.
   ///
@@ -883,12 +879,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -905,8 +901,8 @@ class LambdaApi {
     return ListVersionsByFunctionResponse.fromJson({});
   }
 
-  /// Creates an [AWS Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+  /// Creates an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
   /// from a ZIP archive. Each time you call `PublishLayerVersion` with the same
   /// version name, a new version is created.
   ///
@@ -919,8 +915,8 @@ class LambdaApi {
   ///
   /// [content]: The function layer archive.
   ///
-  /// [compatibleRuntimes]: A list of compatible [function
-  /// runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
+  /// [compatibleRuntimes]: A list of compatible
+  /// [function runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
   /// Used for filtering with ListLayers and ListLayerVersions.
   ///
   /// [licenseInfo]: The layer's software license. It can be any of the
@@ -960,12 +956,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1000,19 +996,18 @@ class LambdaApi {
   /// reserve concurrency for as many functions as you like, as long as you
   /// leave at least 100 simultaneous executions unreserved for functions that
   /// aren't configured with a per-function limit. For more information, see
-  /// [Managing
-  /// Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
+  /// [Managing Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
   ///
   /// [functionName]: The name of the Lambda function.
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1026,9 +1021,8 @@ class LambdaApi {
     return Concurrency.fromJson({});
   }
 
-  /// Removes a statement from the permissions policy for a version of an [AWS
-  /// Lambda
-  /// layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+  /// Removes a statement from the permissions policy for a version of an
+  /// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
   /// For more information, see AddLayerVersionPermission.
   ///
   /// [layerName]: The name or Amazon Resource Name (ARN) of the layer.
@@ -1054,13 +1048,13 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function` (name-only), `my-function:v1`
-  /// (with alias).
+  /// *    **Function name** - `my-function` (name-only), `my-function:v1` (with
+  /// alias).
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// You can append a version number or alias to any of the formats. The length
@@ -1106,12 +1100,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1123,8 +1117,8 @@ class LambdaApi {
   ///
   /// [description]: A description of the alias.
   ///
-  /// [routingConfig]: The [routing
-  /// configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
+  /// [routingConfig]: The
+  /// [routing configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
   /// of the alias.
   ///
   /// [revisionId]: Only update the alias if the revision ID matches the ID
@@ -1150,15 +1144,15 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `MyFunction`.
+  /// *    **Function name** - `MyFunction`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction`.
   ///
-  /// *    **Version or Alias ARN** \-
+  /// *    **Version or Alias ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:MyFunction`.
+  /// *    **Partial ARN** - `123456789012:function:MyFunction`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1169,11 +1163,11 @@ class LambdaApi {
   ///
   /// [batchSize]: The maximum number of items to retrieve in a single batch.
   ///
-  /// *    **Amazon Kinesis** \- Default 100. Max 10,000.
+  /// *    **Amazon Kinesis** - Default 100. Max 10,000.
   ///
-  /// *    **Amazon DynamoDB Streams** \- Default 100. Max 1,000.
+  /// *    **Amazon DynamoDB Streams** - Default 100. Max 1,000.
   ///
-  /// *    **Amazon Simple Queue Service** \- Default 10. Max 10.
+  /// *    **Amazon Simple Queue Service** - Default 10. Max 10.
   Future<EventSourceMappingConfiguration> updateEventSourceMapping(String uuid,
       {String functionName,
       bool enabled,
@@ -1191,12 +1185,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1247,12 +1241,12 @@ class LambdaApi {
   ///
   ///  **Name formats**
   ///
-  /// *    **Function name** \- `my-function`.
+  /// *    **Function name** - `my-function`.
   ///
-  /// *    **Function ARN** \-
+  /// *    **Function ARN** -
   /// `arn:aws:lambda:us-west-2:123456789012:function:my-function`.
   ///
-  /// *    **Partial ARN** \- `123456789012:function:my-function`.
+  /// *    **Partial ARN** - `123456789012:function:my-function`.
   ///
   ///
   /// The length constraint applies only to the full ARN. If you specify only
@@ -1263,8 +1257,8 @@ class LambdaApi {
   /// [handler]: The name of the method within your code that Lambda calls to
   /// execute your function. The format includes the file name. It can also
   /// include namespaces and other qualifiers, depending on the runtime. For
-  /// more information, see [Programming
-  /// Model](https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html).
+  /// more information, see
+  /// [Programming Model](https://docs.aws.amazon.com/lambda/latest/dg/programming-model-v2.html).
   ///
   /// [description]: A description of the function.
   ///
@@ -1279,8 +1273,8 @@ class LambdaApi {
   /// [vpcConfig]: For network connectivity to AWS resources in a VPC, specify a
   /// list of security groups and subnets in the VPC. When you connect a
   /// function to a VPC, it can only access resources and the internet through
-  /// that VPC. For more information, see [VPC
-  /// Settings](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html).
+  /// that VPC. For more information, see
+  /// [VPC Settings](https://docs.aws.amazon.com/lambda/latest/dg/vpc.html).
   ///
   /// [environment]: Environment variables that are accessible from function
   /// code during execution.
@@ -1290,8 +1284,8 @@ class LambdaApi {
   ///
   /// [deadLetterConfig]: A dead letter queue configuration that specifies the
   /// queue or topic where Lambda sends asynchronous events when they fail
-  /// processing. For more information, see [Dead Letter
-  /// Queues](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
+  /// processing. For more information, see
+  /// [Dead Letter Queues](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html).
   ///
   /// [kmsKeyArn]: The ARN of the AWS Key Management Service (AWS KMS) key
   /// that's used to encrypt your function's environment variables. If it's not
@@ -1304,8 +1298,8 @@ class LambdaApi {
   /// that's specified. Use this option to avoid modifying a function that has
   /// changed since you last read it.
   ///
-  /// [layers]: A list of [function
-  /// layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+  /// [layers]: A list of
+  /// [function layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
   /// to add to the function's execution environment. Specify each layer by its
   /// ARN, including the version.
   Future<FunctionConfiguration> updateFunctionConfiguration(String functionName,
@@ -1326,6 +1320,8 @@ class LambdaApi {
   }
 }
 
+/// Limits that are related to concurrency and code storage. All file and
+/// storage sizes are in bytes.
 class AccountLimit {
   /// The amount of storage space that you can use for all deployment packages
   /// and layer archives.
@@ -1356,6 +1352,7 @@ class AccountLimit {
   static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
 }
 
+/// The number of functions and amount of storage in use.
 class AccountUsage {
   /// The amount of storage space, in bytes, that's being used by deployment
   /// packages and layer archives.
@@ -1398,6 +1395,8 @@ class AddPermissionResponse {
       AddPermissionResponse();
 }
 
+/// Provides configuration information about a Lambda function
+/// [alias](https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html).
 class AliasConfiguration {
   /// The Amazon Resource Name (ARN) of the alias.
   final String aliasArn;
@@ -1411,8 +1410,8 @@ class AliasConfiguration {
   /// A description of the alias.
   final String description;
 
-  /// The [routing
-  /// configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
+  /// The
+  /// [routing configuration](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
   /// of the alias.
   final AliasRoutingConfiguration routingConfig;
 
@@ -1431,6 +1430,9 @@ class AliasConfiguration {
       AliasConfiguration();
 }
 
+/// The
+/// [traffic-shifting](https://docs.aws.amazon.com/lambda/latest/dg/lambda-traffic-shifting-using-aliases.html)
+/// configuration of a Lambda function alias.
 class AliasRoutingConfiguration {
   /// The name of the second alias, and the percentage of traffic that's routed
   /// to it.
@@ -1445,8 +1447,8 @@ class AliasRoutingConfiguration {
 
 class Concurrency {
   /// The number of concurrent executions that are reserved for this function.
-  /// For more information, see [Managing
-  /// Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
+  /// For more information, see
+  /// [Managing Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
   final int reservedConcurrentExecutions;
 
   Concurrency({
@@ -1455,6 +1457,9 @@ class Concurrency {
   static Concurrency fromJson(Map<String, dynamic> json) => Concurrency();
 }
 
+/// The
+/// [dead letter queue](https://docs.aws.amazon.com/lambda/latest/dg/dlq.html)
+/// for failed asynchronous invocations.
 class DeadLetterConfig {
   /// The Amazon Resource Name (ARN) of an Amazon SQS queue or Amazon SNS topic.
   final String targetArn;
@@ -1466,6 +1471,7 @@ class DeadLetterConfig {
       DeadLetterConfig();
 }
 
+/// A function's environment variable settings.
 class Environment {
   /// Environment variable key-value pairs.
   final Map<String, String> variables;
@@ -1475,6 +1481,7 @@ class Environment {
   });
 }
 
+/// Error messages for environment variables that couldn't be applied.
 class EnvironmentError {
   /// The error code.
   final String errorCode;
@@ -1490,6 +1497,7 @@ class EnvironmentError {
       EnvironmentError();
 }
 
+/// The results of a configuration update that applied environment variables.
 class EnvironmentResponse {
   /// Environment variable key-value pairs.
   final Map<String, String> variables;
@@ -1505,6 +1513,8 @@ class EnvironmentResponse {
       EnvironmentResponse();
 }
 
+/// A mapping between an AWS resource and an AWS Lambda function. See
+/// CreateEventSourceMapping for details.
 class EventSourceMappingConfiguration {
   /// The identifier of the event source mapping.
   final String uuid;
@@ -1550,6 +1560,8 @@ class EventSourceMappingConfiguration {
       EventSourceMappingConfiguration();
 }
 
+/// The code for the Lambda function. You can specify either an object in Amazon
+/// S3, or upload a deployment package directly.
 class FunctionCode {
   /// The base64-encoded contents of the deployment package. AWS SDK and AWS CLI
   /// clients handle the encoding for you.
@@ -1574,6 +1586,7 @@ class FunctionCode {
   });
 }
 
+/// Details about a function's deployment package.
 class FunctionCodeLocation {
   /// The service that's hosting the file.
   final String repositoryType;
@@ -1589,6 +1602,7 @@ class FunctionCodeLocation {
       FunctionCodeLocation();
 }
 
+/// Details about a function's configuration.
 class FunctionConfiguration {
   /// The name of the function.
   final String functionName;
@@ -1618,8 +1632,9 @@ class FunctionConfiguration {
   /// The memory that's allocated to the function.
   final int memorySize;
 
-  /// The date and time that the function was last updated, in [ISO-8601
-  /// format](https://www.w3.org/TR/NOTE-datetime) (YYYY-MM-DDThh:mm:ss.sTZD).
+  /// The date and time that the function was last updated, in
+  /// [ISO-8601 format](https://www.w3.org/TR/NOTE-datetime)
+  /// (YYYY-MM-DDThh:mm:ss.sTZD).
   final String lastModified;
 
   /// The SHA256 hash of the function's deployment package.
@@ -1706,8 +1721,8 @@ class GetFunctionResponse {
   /// [tags](https://docs.aws.amazon.com/lambda/latest/dg/tagging.html).
   final Map<String, String> tags;
 
-  /// The function's [reserved
-  /// concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
+  /// The function's
+  /// [reserved concurrency](https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html).
   final Concurrency concurrency;
 
   GetFunctionResponse({
@@ -1748,8 +1763,9 @@ class GetLayerVersionResponse {
   /// The description of the version.
   final String description;
 
-  /// The date that the layer version was created, in [ISO-8601
-  /// format](https://www.w3.org/TR/NOTE-datetime) (YYYY-MM-DDThh:mm:ss.sTZD).
+  /// The date that the layer version was created, in
+  /// [ISO-8601 format](https://www.w3.org/TR/NOTE-datetime)
+  /// (YYYY-MM-DDThh:mm:ss.sTZD).
   final String createdDate;
 
   /// The version number.
@@ -1800,10 +1816,10 @@ class InvocationResponse {
   /// If present, indicates that an error occurred during function execution.
   /// Details about the error are included in the response payload.
   ///
-  /// *    `Handled` \- The runtime caught an error thrown by the function and
+  /// *    `Handled` - The runtime caught an error thrown by the function and
   /// formatted it into a JSON document.
   ///
-  /// *    `Unhandled` \- The runtime didn't handle the error. For example, the
+  /// *    `Unhandled` - The runtime didn't handle the error. For example, the
   /// function ran out of memory or timed out.
   final String functionError;
 
@@ -1828,6 +1844,8 @@ class InvocationResponse {
       InvocationResponse();
 }
 
+/// A success response (`202 Accepted`) indicates that the request is queued for
+/// invocation.
 class InvokeAsyncResponse {
   /// The status code.
   final int status;
@@ -1839,6 +1857,8 @@ class InvokeAsyncResponse {
       InvokeAsyncResponse();
 }
 
+/// An
+/// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
 class Layer {
   /// The Amazon Resource Name (ARN) of the function layer.
   final String arn;
@@ -1853,6 +1873,10 @@ class Layer {
   static Layer fromJson(Map<String, dynamic> json) => Layer();
 }
 
+/// A ZIP archive that contains the contents of an
+/// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+/// You can specify either an Amazon S3 location, or upload a layer archive
+/// directly.
 class LayerVersionContentInput {
   /// The Amazon S3 bucket of the layer archive.
   final String s3Bucket;
@@ -1875,6 +1899,8 @@ class LayerVersionContentInput {
   });
 }
 
+/// Details about a version of an
+/// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
 class LayerVersionContentOutput {
   /// A link to the layer archive in Amazon S3 that is valid for 10 minutes.
   final String location;
@@ -1894,6 +1920,8 @@ class LayerVersionContentOutput {
       LayerVersionContentOutput();
 }
 
+/// Details about a version of an
+/// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
 class LayerVersionsListItem {
   /// The ARN of the layer version.
   final String layerVersionArn;
@@ -1926,6 +1954,8 @@ class LayerVersionsListItem {
       LayerVersionsListItem();
 }
 
+/// Details about an
+/// [AWS Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
 class LayersListItem {
   /// The name of the layer.
   final String layerName;
@@ -1975,6 +2005,7 @@ class ListEventSourceMappingsResponse {
       ListEventSourceMappingsResponse();
 }
 
+/// A list of Lambda functions.
 class ListFunctionsResponse {
   /// The pagination token that's included if more results are available.
   final String nextMarker;
@@ -2060,8 +2091,9 @@ class PublishLayerVersionResponse {
   /// The description of the version.
   final String description;
 
-  /// The date that the layer version was created, in [ISO-8601
-  /// format](https://www.w3.org/TR/NOTE-datetime) (YYYY-MM-DDThh:mm:ss.sTZD).
+  /// The date that the layer version was created, in
+  /// [ISO-8601 format](https://www.w3.org/TR/NOTE-datetime)
+  /// (YYYY-MM-DDThh:mm:ss.sTZD).
   final String createdDate;
 
   /// The version number.
@@ -2087,6 +2119,7 @@ class PublishLayerVersionResponse {
       PublishLayerVersionResponse();
 }
 
+/// The function's AWS X-Ray tracing configuration.
 class TracingConfig {
   /// The tracing mode.
   final String mode;
@@ -2096,6 +2129,7 @@ class TracingConfig {
   });
 }
 
+/// The function's AWS X-Ray tracing configuration.
 class TracingConfigResponse {
   /// The tracing mode.
   final String mode;
@@ -2107,6 +2141,7 @@ class TracingConfigResponse {
       TracingConfigResponse();
 }
 
+/// The VPC security groups and subnets that are attached to a Lambda function.
 class VpcConfig {
   /// A list of VPC subnet IDs.
   final List<String> subnetIds;
@@ -2120,6 +2155,7 @@ class VpcConfig {
   });
 }
 
+/// The VPC security groups and subnets that are attached to a Lambda function.
 class VpcConfigResponse {
   /// A list of VPC subnet IDs.
   final List<String> subnetIds;

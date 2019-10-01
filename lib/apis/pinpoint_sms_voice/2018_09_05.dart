@@ -108,6 +108,8 @@ class PinpointSmsVoiceApi {
   }
 }
 
+/// An object that defines a message that contains text formatted using Amazon
+/// Pinpoint Voice Instructions markup.
 class CallInstructionsMessageType {
   /// The language to use when delivering the message. For a complete list of
   /// supported languages, see the Amazon Polly Developer Guide.
@@ -118,6 +120,8 @@ class CallInstructionsMessageType {
   });
 }
 
+/// An object that contains information about an event destination that sends
+/// data to Amazon CloudWatch Logs.
 class CloudWatchLogsDestination {
   /// The Amazon Resource Name (ARN) of an Amazon Identity and Access Management
   /// (IAM) role that is able to write event data to an Amazon CloudWatch
@@ -136,6 +140,8 @@ class CloudWatchLogsDestination {
       CloudWatchLogsDestination();
 }
 
+/// An empty object that indicates that the event destination was created
+/// successfully.
 class CreateConfigurationSetEventDestinationResponse {
   CreateConfigurationSetEventDestinationResponse();
   static CreateConfigurationSetEventDestinationResponse fromJson(
@@ -143,12 +149,16 @@ class CreateConfigurationSetEventDestinationResponse {
       CreateConfigurationSetEventDestinationResponse();
 }
 
+/// An empty object that indicates that the configuration set was successfully
+/// created.
 class CreateConfigurationSetResponse {
   CreateConfigurationSetResponse();
   static CreateConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
       CreateConfigurationSetResponse();
 }
 
+/// An empty object that indicates that the event destination was deleted
+/// successfully.
 class DeleteConfigurationSetEventDestinationResponse {
   DeleteConfigurationSetEventDestinationResponse();
   static DeleteConfigurationSetEventDestinationResponse fromJson(
@@ -156,12 +166,15 @@ class DeleteConfigurationSetEventDestinationResponse {
       DeleteConfigurationSetEventDestinationResponse();
 }
 
+/// An empty object that indicates that the configuration set was deleted
+/// successfully.
 class DeleteConfigurationSetResponse {
   DeleteConfigurationSetResponse();
   static DeleteConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
       DeleteConfigurationSetResponse();
 }
 
+/// An object that defines an event destination.
 class EventDestination {
   final CloudWatchLogsDestination cloudWatchLogsDestination;
 
@@ -191,6 +204,7 @@ class EventDestination {
       EventDestination();
 }
 
+/// An object that defines a single event destination.
 class EventDestinationDefinition {
   final CloudWatchLogsDestination cloudWatchLogsDestination;
 
@@ -214,6 +228,7 @@ class EventDestinationDefinition {
   });
 }
 
+/// An object that contains information about an event destination.
 class GetConfigurationSetEventDestinationsResponse {
   final List<EventDestination> eventDestinations;
 
@@ -225,6 +240,8 @@ class GetConfigurationSetEventDestinationsResponse {
       GetConfigurationSetEventDestinationsResponse();
 }
 
+/// An object that contains information about an event destination that sends
+/// data to Amazon Kinesis Data Firehose.
 class KinesisFirehoseDestination {
   /// The Amazon Resource Name (ARN) of an IAM role that can write data to an
   /// Amazon Kinesis Data Firehose stream.
@@ -242,6 +259,8 @@ class KinesisFirehoseDestination {
       KinesisFirehoseDestination();
 }
 
+/// An object that contains information about the configuration sets for your
+/// account in the current region.
 class ListConfigurationSetsResponse {
   /// An object that contains a list of configuration sets for your account in
   /// the current region.
@@ -259,6 +278,7 @@ class ListConfigurationSetsResponse {
       ListConfigurationSetsResponse();
 }
 
+/// An object that defines a message that contains unformatted text.
 class PlainTextMessageType {
   /// The language to use when delivering the message. For a complete list of
   /// supported languages, see the Amazon Polly Developer Guide.
@@ -278,6 +298,7 @@ class PlainTextMessageType {
   });
 }
 
+/// An object that defines a message that contains SSML-formatted text.
 class SsmlMessageType {
   /// The language to use when delivering the message. For a complete list of
   /// supported languages, see the Amazon Polly Developer Guide.
@@ -297,6 +318,8 @@ class SsmlMessageType {
   });
 }
 
+/// An object that that contains the Message ID of a Voice message that was sent
+/// successfully.
 class SendVoiceMessageResponse {
   /// A unique identifier for the voice message.
   final String messageId;
@@ -308,6 +331,8 @@ class SendVoiceMessageResponse {
       SendVoiceMessageResponse();
 }
 
+/// An object that contains information about an event destination that sends
+/// data to Amazon SNS.
 class SnsDestination {
   /// The Amazon Resource Name (ARN) of the Amazon SNS topic that you want to
   /// publish events to.
@@ -319,6 +344,8 @@ class SnsDestination {
   static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
 }
 
+/// An empty object that indicates that the event destination was updated
+/// successfully.
 class UpdateConfigurationSetEventDestinationResponse {
   UpdateConfigurationSetEventDestinationResponse();
   static UpdateConfigurationSetEventDestinationResponse fromJson(
@@ -326,6 +353,8 @@ class UpdateConfigurationSetEventDestinationResponse {
       UpdateConfigurationSetEventDestinationResponse();
 }
 
+/// An object that contains a voice message and information about the recipient
+/// that you want to send it to.
 class VoiceMessageContent {
   final CallInstructionsMessageType callInstructionsMessage;
 

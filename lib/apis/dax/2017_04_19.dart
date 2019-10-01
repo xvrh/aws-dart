@@ -493,6 +493,7 @@ class DaxApi {
   }
 }
 
+/// Contains all of the attributes of a specific DAX cluster.
 class Cluster {
   /// The name of the DAX cluster.
   final String clusterName;
@@ -757,6 +758,9 @@ class DescribeSubnetGroupsResponse {
       DescribeSubnetGroupsResponse();
 }
 
+/// Represents the information required for client programs to connect to the
+/// configuration endpoint for a DAX cluster, or to an individual node within
+/// the cluster.
 class Endpoint {
   /// The DNS hostname of the endpoint.
   final String address;
@@ -771,6 +775,9 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Represents a single occurrence of something interesting within the system.
+/// Some examples of events are creating a DAX cluster, adding or removing a
+/// node, or rebooting a node.
 class Event {
   /// The source of the event. For example, if the event occurred at the node
   /// level, the source would be the node ID.
@@ -823,6 +830,7 @@ class ListTagsResponse {
       ListTagsResponse();
 }
 
+/// Represents an individual node within a DAX cluster.
 class Node {
   /// A system-generated identifier for the node.
   final String nodeId;
@@ -857,6 +865,7 @@ class Node {
   static Node fromJson(Map<String, dynamic> json) => Node();
 }
 
+/// Represents a parameter value that is applicable to a particular node type.
 class NodeTypeSpecificValue {
   /// A node type to which the parameter value applies.
   final String nodeType;
@@ -872,6 +881,9 @@ class NodeTypeSpecificValue {
       NodeTypeSpecificValue();
 }
 
+/// Describes a notification topic and its status. Notification topics are used
+/// for publishing DAX events to subscribers using Amazon Simple Notification
+/// Service (SNS).
 class NotificationConfiguration {
   /// The Amazon Resource Name (ARN) that identifies the topic.
   final String topicArn;
@@ -887,6 +899,7 @@ class NotificationConfiguration {
       NotificationConfiguration();
 }
 
+/// Describes an individual setting that controls some aspect of DAX behavior.
 class Parameter {
   /// The name of the parameter.
   final String parameterName;
@@ -937,6 +950,8 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// A named set of parameters that are applied to all of the nodes in a DAX
+/// cluster.
 class ParameterGroup {
   /// The name of the parameter group.
   final String parameterGroupName;
@@ -951,6 +966,7 @@ class ParameterGroup {
   static ParameterGroup fromJson(Map<String, dynamic> json) => ParameterGroup();
 }
 
+/// The status of a parameter group.
 class ParameterGroupStatus {
   /// The name of the parameter group.
   final String parameterGroupName;
@@ -970,6 +986,7 @@ class ParameterGroupStatus {
       ParameterGroupStatus();
 }
 
+/// An individual DAX parameter.
 class ParameterNameValue {
   /// The name of the parameter.
   final String parameterName;
@@ -994,16 +1011,18 @@ class RebootNodeResponse {
       RebootNodeResponse();
 }
 
+/// The description of the server-side encryption status on the specified DAX
+/// cluster.
 class SseDescription {
   /// The current state of server-side encryption:
   ///
-  /// *    `ENABLING` \- Server-side encryption is being enabled.
+  /// *    `ENABLING` - Server-side encryption is being enabled.
   ///
-  /// *    `ENABLED` \- Server-side encryption is enabled.
+  /// *    `ENABLED` - Server-side encryption is enabled.
   ///
-  /// *    `DISABLING` \- Server-side encryption is being disabled.
+  /// *    `DISABLING` - Server-side encryption is being disabled.
   ///
-  /// *    `DISABLED` \- Server-side encryption is disabled.
+  /// *    `DISABLED` - Server-side encryption is disabled.
   final String status;
 
   SseDescription({
@@ -1012,6 +1031,7 @@ class SseDescription {
   static SseDescription fromJson(Map<String, dynamic> json) => SseDescription();
 }
 
+/// Represents the settings used to enable server-side encryption.
 class SseSpecification {
   /// Indicates whether server-side encryption is enabled (true) or disabled
   /// (false) on the cluster.
@@ -1022,6 +1042,7 @@ class SseSpecification {
   });
 }
 
+/// An individual VPC security group and its status.
 class SecurityGroupMembership {
   /// The unique ID for this security group.
   final String securityGroupIdentifier;
@@ -1037,6 +1058,9 @@ class SecurityGroupMembership {
       SecurityGroupMembership();
 }
 
+/// Represents the subnet associated with a DAX cluster. This parameter refers
+/// to subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used
+/// with DAX.
 class Subnet {
   /// The system-assigned identifier for the subnet.
   final String subnetIdentifier;
@@ -1051,6 +1075,11 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// Represents the output of one of the following actions:
+///
+/// *    _CreateSubnetGroup_
+///
+/// *    _ModifySubnetGroup_
 class SubnetGroup {
   /// The name of the subnet group.
   final String subnetGroupName;
@@ -1073,6 +1102,15 @@ class SubnetGroup {
   static SubnetGroup fromJson(Map<String, dynamic> json) => SubnetGroup();
 }
 
+/// A description of a tag. Every tag is a key-value pair. You can add up to 50
+/// tags to a single DAX cluster.
+///
+/// AWS-assigned tag names and values are automatically assigned the `aws:`
+/// prefix, which the user cannot assign. AWS-assigned tag names do not count
+/// towards the tag limit of 50. User-assigned tag names have the prefix
+/// `user:`.
+///
+/// You cannot backdate the application of a tag.
 class Tag {
   /// The key for the tag. Tag keys are case sensitive. Every DAX cluster can
   /// only have one tag with the same key. If you try to add an existing tag

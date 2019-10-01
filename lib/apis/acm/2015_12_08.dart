@@ -6,9 +6,9 @@ import 'dart:typed_data';
 /// Welcome to the AWS Certificate Manager (ACM) API documentation.
 ///
 /// You can use ACM to manage SSL/TLS certificates for your AWS-based websites
-/// and applications. For general information about using ACM, see the  [_AWS
-/// Certificate Manager User
-/// Guide_](https://docs.aws.amazon.com/acm/latest/userguide/) .
+/// and applications. For general information about using ACM, see the
+/// [_AWS Certificate Manager User Guide_](https://docs.aws.amazon.com/acm/latest/userguide/)
+/// .
 class AcmApi {
   /// Adds one or more tags to an ACM certificate. Tags are labels that you can
   /// use to identify and organize your AWS resources. Each tag consists of a
@@ -22,8 +22,8 @@ class AcmApi {
   /// multiple resources if you want to specify a relationship among those
   /// resources. For example, you can add the same tag to an ACM certificate and
   /// an Elastic Load Balancing load balancer to indicate that they are both
-  /// used by the same website. For more information, see [Tagging ACM
-  /// certificates](https://docs.aws.amazon.com/acm/latest/userguide/tags.html).
+  /// used by the same website. For more information, see
+  /// [Tagging ACM certificates](https://docs.aws.amazon.com/acm/latest/userguide/tags.html).
   ///
   /// To remove one or more tags, use the RemoveTagsFromCertificate action. To
   /// view all of the tags that have been applied to the certificate, use the
@@ -35,9 +35,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   ///
   /// [tags]: The key-value pair that defines the tag. The tag value is
   /// optional.
@@ -62,9 +61,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<void> deleteCertificate(String certificateArn) async {}
 
   /// Returns detailed metadata about the specified ACM certificate.
@@ -75,9 +73,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<DescribeCertificateResponse> describeCertificate(
       String certificateArn) async {
     return DescribeCertificateResponse.fromJson({});
@@ -91,7 +88,7 @@ class AcmApi {
   /// private key when exporting it. You can use the following OpenSSL command
   /// to decrypt it later. Provide the passphrase when prompted.
   ///
-  ///  `openssl rsa -in encrypted\_key.pem -out decrypted\_key.pem`
+  ///  `openssl rsa -in encrypted_key.pem -out decrypted_key.pem`
   ///
   /// [certificateArn]: An Amazon Resource Name (ARN) of the issued certificate.
   /// This must be of the form:
@@ -104,7 +101,7 @@ class AcmApi {
   /// passphrase. You can use the following OpenSSL command to decrypt a private
   /// key:
   ///
-  ///  `openssl rsa -in encrypted\_key.pem -out decrypted\_key.pem`
+  ///  `openssl rsa -in encrypted_key.pem -out decrypted_key.pem`
   Future<ExportCertificateResponse> exportCertificate(
       {@required String certificateArn, @required Uint8List passphrase}) async {
     return ExportCertificateResponse.fromJson({});
@@ -123,26 +120,25 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<GetCertificateResponse> getCertificate(String certificateArn) async {
     return GetCertificateResponse.fromJson({});
   }
 
   /// Imports a certificate into AWS Certificate Manager (ACM) to use with
-  /// services that are integrated with ACM. Note that [integrated
-  /// services](https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html)
+  /// services that are integrated with ACM. Note that
+  /// [integrated services](https://docs.aws.amazon.com/acm/latest/userguide/acm-services.html)
   /// allow only certificate types and keys they support to be associated with
   /// their resources. Further, their support differs depending on whether the
   /// certificate is imported into IAM or into ACM. For more information, see
   /// the documentation for each service. For more information about importing
-  /// certificates into ACM, see [Importing
-  /// Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
+  /// certificates into ACM, see
+  /// [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
   /// in the _AWS Certificate Manager User Guide_.
   ///
-  ///  ACM does not provide [managed
-  /// renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
+  ///  ACM does not provide
+  /// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
   /// for certificates that you import.
   ///
   /// Note the following guidelines when importing third party certificates:
@@ -176,21 +172,21 @@ class AcmApi {
   /// *   When you import a certificate by using the CLI, you must specify the
   /// certificate, the certificate chain, and the private key by their file
   /// names preceded by `file://`. For example, you can specify a certificate
-  /// saved in the `C:\\temp` folder as
-  /// `file://C:\\temp\\certificate\_to\_import.pem`. If you are making an HTTP
-  /// or HTTPS Query request, include these arguments as BLOBs.
+  /// saved in the `C:temp` folder as `file://C:tempcertificate_to_import.pem`.
+  /// If you are making an HTTP or HTTPS Query request, include these arguments
+  /// as BLOBs.
   ///
   /// *   When you import a certificate by using an SDK, you must specify the
   /// certificate, the certificate chain, and the private key files in the
   /// manner required by the programming language you're using.
   ///
   ///
-  /// This operation returns the [Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// This operation returns the
+  /// [Amazon Resource Name (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// of the imported certificate.
   ///
-  /// [certificateArn]: The [Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// [certificateArn]: The
+  /// [Amazon Resource Name (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// of an imported certificate to replace. To import a new certificate, omit
   /// this field.
   ///
@@ -245,9 +241,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<ListTagsForCertificateResponse> listTagsForCertificate(
       String certificateArn) async {
     return ListTagsForCertificateResponse.fromJson({});
@@ -269,9 +264,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   ///
   /// [tags]: The key-value pair that defines the tag to remove.
   Future<void> removeTagsFromCertificate(
@@ -279,11 +273,10 @@ class AcmApi {
 
   /// Renews an eligable ACM certificate. At this time, only exported private
   /// certificates can be renewed with this operation. In order to renew your
-  /// ACM PCA certificates with ACM, you must first [grant the ACM service
-  /// principal permission to do
-  /// so](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaPermissions.html).
-  /// For more information, see [Testing Managed
-  /// Renewal](https://docs.aws.amazon.com/acm/latest/userguide/manual-renewal.html)
+  /// ACM PCA certificates with ACM, you must first
+  /// [grant the ACM service principal permission to do so](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaPermissions.html).
+  /// For more information, see
+  /// [Testing Managed Renewal](https://docs.aws.amazon.com/acm/latest/userguide/manual-renewal.html)
   /// in the ACM User Guide.
   ///
   /// [certificateArn]: String that contains the ARN of the ACM certificate to
@@ -292,9 +285,8 @@ class AcmApi {
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<void> renewCertificate(String certificateArn) async {}
 
   /// Requests an ACM certificate for use with other AWS services. To request an
@@ -305,10 +297,10 @@ class AcmApi {
   /// If you are requesting a private certificate, domain validation is not
   /// required. If you are requesting a public certificate, each domain name
   /// that you specify must be validated to verify that you own or control the
-  /// domain. You can use [DNS
-  /// validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
-  /// or [email
-  /// validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html).
+  /// domain. You can use
+  /// [DNS validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
+  /// or
+  /// [email validation](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html).
   /// We recommend that you use DNS validation. ACM issues public certificates
   /// after receiving approval from the domain owner.
   ///
@@ -324,10 +316,9 @@ class AcmApi {
   ///
   /// [validationMethod]: The method you want to use if you are requesting a
   /// public certificate to validate that you own or control domain. You can
-  /// [validate with
-  /// DNS](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
-  /// or [validate with
-  /// email](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html).
+  /// [validate with DNS](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html)
+  /// or
+  /// [validate with email](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-email.html).
   /// We recommend that you use DNS validation.
   ///
   /// [subjectAlternativeNames]: Additional FQDNs to be included in the Subject
@@ -371,16 +362,15 @@ class AcmApi {
   /// transparency makes it possible to detect SSL/TLS certificates that have
   /// been mistakenly or maliciously issued. Certificates that have not been
   /// logged typically produce an error message in a browser. For more
-  /// information, see [Opting Out of Certificate Transparency
-  /// Logging](https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency).
+  /// information, see
+  /// [Opting Out of Certificate Transparency Logging](https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency).
   ///
   /// [certificateAuthorityArn]: The Amazon Resource Name (ARN) of the private
   /// certificate authority (CA) that will be used to issue the certificate. If
   /// you do not provide an ARN and you are trying to request a private
   /// certificate, ACM will attempt to issue a public certificate. For more
-  /// information about private CAs, see the [AWS Certificate Manager Private
-  /// Certificate Authority
-  /// (PCA)](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html)
+  /// information about private CAs, see the
+  /// [AWS Certificate Manager Private Certificate Authority (PCA)](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaWelcome.html)
   /// user guide. The ARN must have the following form:
   ///
   ///
@@ -405,8 +395,8 @@ class AcmApi {
   /// requesting the ACM certificate. If more than 72 hours have elapsed since
   /// your original request or since your last attempt to resend validation
   /// mail, you must request a new certificate. For more information about
-  /// setting up your contact email addresses, see [Configure Email for your
-  /// Domain](https://docs.aws.amazon.com/acm/latest/userguide/setup-email.html).
+  /// setting up your contact email addresses, see
+  /// [Configure Email for your Domain](https://docs.aws.amazon.com/acm/latest/userguide/setup-email.html).
   ///
   /// [certificateArn]: String that contains the ARN of the requested
   /// certificate. The certificate ARN is generated and returned by the
@@ -444,9 +434,8 @@ class AcmApi {
 
   /// Updates a certificate. Currently, you can use this function to specify
   /// whether to opt in to or out of recording your certificate in a certificate
-  /// transparency log. For more information, see  [Opting Out of Certificate
-  /// Transparency
-  /// Logging](https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency).
+  /// transparency log. For more information, see
+  /// [Opting Out of Certificate Transparency Logging](https://docs.aws.amazon.com/acm/latest/userguide/acm-bestpractices.html#best-practices-transparency).
   ///
   /// [certificateArn]: ARN of the requested certificate to update. This must be
   /// of the form:
@@ -464,10 +453,12 @@ class AcmApi {
       @required CertificateOptions options}) async {}
 }
 
+/// Contains metadata about an ACM certificate. This structure is returned in
+/// the response to a DescribeCertificate request.
 class CertificateDetail {
   /// The Amazon Resource Name (ARN) of the certificate. For more information
-  /// about ARNs, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   final String certificateArn;
 
@@ -538,33 +529,31 @@ class CertificateDetail {
   final List<String> inUseBy;
 
   /// The reason the certificate request failed. This value exists only when the
-  /// certificate status is `FAILED`. For more information, see [Certificate
-  /// Request
-  /// Failed](https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed)
+  /// certificate status is `FAILED`. For more information, see
+  /// [Certificate Request Failed](https://docs.aws.amazon.com/acm/latest/userguide/troubleshooting.html#troubleshooting-failed)
   /// in the _AWS Certificate Manager User Guide_.
   final String failureReason;
 
   /// The source of the certificate. For certificates provided by ACM, this
   /// value is `AMAZON_ISSUED`. For certificates that you imported with
-  /// ImportCertificate, this value is `IMPORTED`. ACM does not provide [managed
-  /// renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
+  /// ImportCertificate, this value is `IMPORTED`. ACM does not provide
+  /// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
   /// for imported certificates. For more information about the differences
   /// between certificates that you import and those that ACM provides, see
-  /// [Importing
-  /// Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
+  /// [Importing Certificates](https://docs.aws.amazon.com/acm/latest/userguide/import-certificate.html)
   /// in the _AWS Certificate Manager User Guide_.
   final String type;
 
-  /// Contains information about the status of ACM's [managed
-  /// renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
+  /// Contains information about the status of ACM's
+  /// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
   /// for the certificate. This field exists only when the certificate type is
   /// `AMAZON_ISSUED`.
   final RenewalSummary renewalSummary;
 
   /// A list of Key Usage X.509 v3 extension objects. Each object is a string
   /// value that identifies the purpose of the public key contained in the
-  /// certificate. Possible extension values include DIGITAL\_SIGNATURE,
-  /// KEY\_ENCHIPHERMENT, NON_REPUDIATION, and more.
+  /// certificate. Possible extension values include DIGITAL_SIGNATURE,
+  /// KEY_ENCHIPHERMENT, NON_REPUDIATION, and more.
   final List<KeyUsage> keyUsages;
 
   /// Contains a list of Extended Key Usage X.509 v3 extension objects. Each
@@ -623,6 +612,14 @@ class CertificateDetail {
       CertificateDetail();
 }
 
+/// Structure that contains options for your certificate. Currently, you can use
+/// this only to specify whether to opt in to or out of certificate transparency
+/// logging. Some browsers require that public certificates issued for your
+/// domain be recorded in a log. Certificates that are not logged typically
+/// generate a browser error. Transparency makes it possible for you to detect
+/// SSL/TLS certificates that have been mistakenly or maliciously issued for
+/// your domain. For general information, see
+/// [Certificate Transparency Logging](https://docs.aws.amazon.com/acm/latest/userguide/acm-concepts.html#concept-transparency).
 class CertificateOptions {
   /// You can opt out of certificate transparency logging by specifying the
   /// `DISABLED` option. Opt in by specifying `ENABLED`.
@@ -635,15 +632,16 @@ class CertificateOptions {
       CertificateOptions();
 }
 
+/// This structure is returned in the response object of ListCertificates
+/// action.
 class CertificateSummary {
   /// Amazon Resource Name (ARN) of the certificate. This is of the form:
   ///
   ///
   /// `arn:aws:acm:region:123456789012:certificate/12345678-1234-1234-1234-123456789012`
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   final String certificateArn;
 
   /// Fully qualified domain name (FQDN), such as www.example.com or
@@ -669,6 +667,8 @@ class DescribeCertificateResponse {
       DescribeCertificateResponse();
 }
 
+/// Contains information about the validation of each domain name in the
+/// certificate.
 class DomainValidation {
   /// A fully qualified domain name (FQDN) in the certificate. For example,
   /// `www.example.com` or `example.com`.
@@ -691,8 +691,8 @@ class DomainValidation {
   final String validationStatus;
 
   /// Contains the CNAME record that you add to your DNS database for domain
-  /// validation. For more information, see [Use DNS to Validate Domain
-  /// Ownership](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html).
+  /// validation. For more information, see
+  /// [Use DNS to Validate Domain Ownership](https://docs.aws.amazon.com/acm/latest/userguide/gs-acm-validate-dns.html).
   final ResourceRecord resourceRecord;
 
   /// Specifies the domain validation method.
@@ -710,6 +710,8 @@ class DomainValidation {
       DomainValidation();
 }
 
+/// Contains information about the domain names that you want ACM to use to send
+/// you emails that enable you to validate domain ownership.
 class DomainValidationOption {
   /// A fully qualified domain name (FQDN) in the certificate request.
   final String domainName;
@@ -761,6 +763,9 @@ class ExportCertificateResponse {
       ExportCertificateResponse();
 }
 
+/// The Extended Key Usage X.509 v3 extension defines one or more purposes for
+/// which the public key can be used. This is in addition to or in place of the
+/// basic purposes specified by the Key Usage extension.
 class ExtendedKeyUsage {
   /// The name of an Extended Key Usage value.
   final String name;
@@ -769,9 +774,9 @@ class ExtendedKeyUsage {
   /// numbers separated by periods. The following OIDs are defined in RFC 3280
   /// and RFC 5280.
   ///
-  /// *    `1.3.6.1.5.5.7.3.1 (TLS\_WEB\_SERVER_AUTHENTICATION)`
+  /// *    `1.3.6.1.5.5.7.3.1 (TLS_WEB_SERVER_AUTHENTICATION)`
   ///
-  /// *    `1.3.6.1.5.5.7.3.2 (TLS\_WEB\_CLIENT_AUTHENTICATION)`
+  /// *    `1.3.6.1.5.5.7.3.2 (TLS_WEB_CLIENT_AUTHENTICATION)`
   ///
   /// *    `1.3.6.1.5.5.7.3.3 (CODE_SIGNING)`
   ///
@@ -781,7 +786,7 @@ class ExtendedKeyUsage {
   ///
   /// *    `1.3.6.1.5.5.7.3.9 (OCSP_SIGNING)`
   ///
-  /// *    `1.3.6.1.5.5.7.3.5 (IPSEC\_END\_SYSTEM)`
+  /// *    `1.3.6.1.5.5.7.3.5 (IPSEC_END_SYSTEM)`
   ///
   /// *    `1.3.6.1.5.5.7.3.6 (IPSEC_TUNNEL)`
   ///
@@ -796,6 +801,8 @@ class ExtendedKeyUsage {
       ExtendedKeyUsage();
 }
 
+/// This structure can be used in the ListCertificates action to filter the
+/// output of the certificate list.
 class Filters {
   /// Specify one or more ExtendedKeyUsage extension values.
   final List<String> extendedKeyUsage;
@@ -831,8 +838,8 @@ class GetCertificateResponse {
 }
 
 class ImportCertificateResponse {
-  /// The [Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// The
+  /// [Amazon Resource Name (ARN)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// of the imported certificate.
   final String certificateArn;
 
@@ -843,6 +850,8 @@ class ImportCertificateResponse {
       ImportCertificateResponse();
 }
 
+/// The Key Usage X.509 v3 extension defines the purpose of the public key
+/// contained in the certificate.
 class KeyUsage {
   /// A string value that contains a Key Usage extension name.
   final String name;
@@ -880,15 +889,19 @@ class ListTagsForCertificateResponse {
       ListTagsForCertificateResponse();
 }
 
+/// Contains information about the status of ACM's
+/// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
+/// for the certificate. This structure exists only when the certificate type is
+/// `AMAZON_ISSUED`.
 class RenewalSummary {
-  /// The status of ACM's [managed
-  /// renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
+  /// The status of ACM's
+  /// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html)
   /// of the certificate.
   final String renewalStatus;
 
   /// Contains information about the validation of each domain name in the
-  /// certificate, as it pertains to ACM's [managed
-  /// renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html).
+  /// certificate, as it pertains to ACM's
+  /// [managed renewal](https://docs.aws.amazon.com/acm/latest/userguide/acm-renewal.html).
   /// This is different from the initial validation that occurs as a result of
   /// the RequestCertificate request. This field exists only when the
   /// certificate type is `AMAZON_ISSUED`.
@@ -924,6 +937,9 @@ class RequestCertificateResponse {
       RequestCertificateResponse();
 }
 
+/// Contains a DNS record value that you can use to can use to validate
+/// ownership or control of a domain. This is used by the DescribeCertificate
+/// action.
 class ResourceRecord {
   /// The name of the DNS record to create in your domain. This is supplied by
   /// ACM.
@@ -944,6 +960,8 @@ class ResourceRecord {
   static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord();
 }
 
+/// A key-value pair that identifies or specifies metadata about an ACM
+/// resource.
 class Tag {
   /// The key of the tag.
   final String key;

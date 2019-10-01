@@ -14,8 +14,8 @@ import 'package:meta/meta.dart';
 /// password policy change to reduce password strength. GuardDuty informs you of
 /// the status of your AWS environment by producing security findings that you
 /// can view in the GuardDuty console or through Amazon CloudWatch events. For
-/// more information, see  [Amazon GuardDuty User
-/// Guide](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html).
+/// more information, see
+/// [Amazon GuardDuty User Guide](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html).
 class GuardDutyApi {
   /// Accepts the invitation to be monitored by a master GuardDuty account.
   ///
@@ -738,6 +738,7 @@ class AcceptInvitationResponse {
       AcceptInvitationResponse();
 }
 
+/// Contains information about the access keys.
 class AccessKeyDetails {
   /// Access key ID of the user.
   final String accessKeyId;
@@ -761,6 +762,7 @@ class AccessKeyDetails {
       AccessKeyDetails();
 }
 
+/// Contains information about the account.
 class AccountDetail {
   /// Member account ID.
   final String accountId;
@@ -774,11 +776,12 @@ class AccountDetail {
   });
 }
 
+/// Contains information about action.
 class Action {
   /// GuardDuty Finding activity type.
   final String actionType;
 
-  /// Information about the AWS\_API\_CALL action described in this finding.
+  /// Information about the AWS_API_CALL action described in this finding.
   final AwsApiCallAction awsApiCallAction;
 
   /// Information about the DNS_REQUEST action described in this finding.
@@ -806,6 +809,7 @@ class ArchiveFindingsResponse {
       ArchiveFindingsResponse();
 }
 
+/// Contains information about the API operation.
 class AwsApiCallAction {
   /// AWS API name.
   final String api;
@@ -833,6 +837,7 @@ class AwsApiCallAction {
       AwsApiCallAction();
 }
 
+/// Contains information about the city associated with the IP address.
 class City {
   /// City name of the remote IP address.
   final String cityName;
@@ -843,6 +848,7 @@ class City {
   static City fromJson(Map<String, dynamic> json) => City();
 }
 
+/// Contains information about the condition.
 class Condition {
   /// Deprecated. Represents the equal condition to be applied to a single field
   /// when querying for findings.
@@ -909,6 +915,7 @@ class Condition {
   static Condition fromJson(Map<String, dynamic> json) => Condition();
 }
 
+/// Contains information about the country.
 class Country {
   /// Country code of the remote IP address.
   final String countryCode;
@@ -1063,6 +1070,7 @@ class DisassociateMembersResponse {
       DisassociateMembersResponse();
 }
 
+/// Contains information about the DNS request.
 class DnsRequestAction {
   /// Domain information for the DNS request.
   final String domain;
@@ -1074,6 +1082,7 @@ class DnsRequestAction {
       DnsRequestAction();
 }
 
+/// Contains information about the domain.
 class DomainDetails {
   /// Domain information for the AWS API call.
   final String domain;
@@ -1084,6 +1093,7 @@ class DomainDetails {
   static DomainDetails fromJson(Map<String, dynamic> json) => DomainDetails();
 }
 
+/// Contains information about the reason that the finding was generated.
 class Evidence {
   /// A list of threat intelligence details related to the evidence.
   final List<ThreatIntelligenceDetail> threatIntelligenceDetails;
@@ -1094,6 +1104,7 @@ class Evidence {
   static Evidence fromJson(Map<String, dynamic> json) => Evidence();
 }
 
+/// Contains information about the finding.
 class Finding {
   /// The ID of the account in which the finding was generated.
   final String accountId;
@@ -1158,6 +1169,7 @@ class Finding {
   static Finding fromJson(Map<String, dynamic> json) => Finding();
 }
 
+/// Contains finding criteria information.
 class FindingCriteria {
   /// Represents a map of finding properties that match specified conditions and
   /// values when querying findings.
@@ -1170,6 +1182,7 @@ class FindingCriteria {
       FindingCriteria();
 }
 
+/// Contains information about finding statistics.
 class FindingStatistics {
   /// Represents a map of severity to count statistic for a set of findings
   final Map<String, int> countBySeverity;
@@ -1181,6 +1194,7 @@ class FindingStatistics {
       FindingStatistics();
 }
 
+/// Contains information about the
 class GeoLocation {
   /// Latitude information of remote IP address.
   final double lat;
@@ -1379,6 +1393,7 @@ class GetThreatIntelSetResponse {
       GetThreatIntelSetResponse();
 }
 
+/// Contains information about the instance profile.
 class IamInstanceProfile {
   /// AWS EC2 instance profile ARN.
   final String arn;
@@ -1394,6 +1409,7 @@ class IamInstanceProfile {
       IamInstanceProfile();
 }
 
+/// Contains information about the details of an instance.
 class InstanceDetails {
   /// The availability zone of the EC2 instance.
   final String availabilityZone;
@@ -1449,6 +1465,7 @@ class InstanceDetails {
       InstanceDetails();
 }
 
+/// Contains information about the invitation.
 class Invitation {
   /// Inviter account ID
   final String accountId;
@@ -1606,6 +1623,7 @@ class ListThreatIntelSetsResponse {
       ListThreatIntelSetsResponse();
 }
 
+/// Contains information about the port for the local connection.
 class LocalPortDetails {
   /// Port number of the local connection.
   final int port;
@@ -1621,6 +1639,7 @@ class LocalPortDetails {
       LocalPortDetails();
 }
 
+/// Contains information about the Master account and invitation.
 class Master {
   /// The ID of the account used as the Master account.
   final String accountId;
@@ -1643,6 +1662,7 @@ class Master {
   static Master fromJson(Map<String, dynamic> json) => Master();
 }
 
+/// Continas information about the member account
 class Member {
   /// Member account ID.
   final String accountId;
@@ -1677,6 +1697,7 @@ class Member {
   static Member fromJson(Map<String, dynamic> json) => Member();
 }
 
+/// Contains information about the network connection.
 class NetworkConnectionAction {
   /// Network connection blocked information.
   final bool blocked;
@@ -1708,6 +1729,7 @@ class NetworkConnectionAction {
       NetworkConnectionAction();
 }
 
+/// Contains information about the network interface.
 class NetworkInterface {
   /// A list of EC2 instance IPv6 address information.
   final List<String> ipv6Addresses;
@@ -1755,6 +1777,7 @@ class NetworkInterface {
       NetworkInterface();
 }
 
+/// Continas information about the organization.
 class Organization {
   /// Autonomous system number of the internet provider of the remote IP
   /// address.
@@ -1778,6 +1801,7 @@ class Organization {
   static Organization fromJson(Map<String, dynamic> json) => Organization();
 }
 
+/// Contains information about the port probe.
 class PortProbeAction {
   /// Port probe blocked information.
   final bool blocked;
@@ -1793,6 +1817,7 @@ class PortProbeAction {
       PortProbeAction();
 }
 
+/// Contains information about the port probe details.
 class PortProbeDetail {
   /// Local port information of the connection.
   final LocalPortDetails localPortDetails;
@@ -1808,6 +1833,7 @@ class PortProbeDetail {
       PortProbeDetail();
 }
 
+/// Contains information about the private IP address.
 class PrivateIpAddressDetails {
   /// Private DNS name of the EC2 instance.
   final String privateDnsName;
@@ -1823,6 +1849,7 @@ class PrivateIpAddressDetails {
       PrivateIpAddressDetails();
 }
 
+/// Contains information about the product code.
 class ProductCode {
   /// Product code information.
   final String code;
@@ -1837,6 +1864,7 @@ class ProductCode {
   static ProductCode fromJson(Map<String, dynamic> json) => ProductCode();
 }
 
+/// Continas information about the remote IP address.
 class RemoteIpDetails {
   /// City information of the remote IP address.
   final City city;
@@ -1864,6 +1892,7 @@ class RemoteIpDetails {
       RemoteIpDetails();
 }
 
+/// Contains information about the remote port.
 class RemotePortDetails {
   /// Port number of the remote connection.
   final int port;
@@ -1879,6 +1908,7 @@ class RemotePortDetails {
       RemotePortDetails();
 }
 
+/// Contains information about the resource.
 class Resource {
   /// The IAM access key details (IAM user information) of a user that engaged
   /// in the activity that prompted GuardDuty to generate a finding.
@@ -1899,6 +1929,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// Contains information about the security group.
 class SecurityGroup {
   /// EC2 instance's security group ID.
   final String groupId;
@@ -1913,6 +1944,7 @@ class SecurityGroup {
   static SecurityGroup fromJson(Map<String, dynamic> json) => SecurityGroup();
 }
 
+/// Contains information about the service.
 class Service {
   /// Information about the activity described in a finding.
   final Action action;
@@ -1961,6 +1993,7 @@ class Service {
   static Service fromJson(Map<String, dynamic> json) => Service();
 }
 
+/// Contains information about the criteria for sorting.
 class SortCriteria {
   /// Represents the finding attribute (for example, accountId) by which to sort
   /// findings.
@@ -1999,6 +2032,7 @@ class StopMonitoringMembersResponse {
       StopMonitoringMembersResponse();
 }
 
+/// Contains information about the tag associated with the resource.
 class Tag {
   /// EC2 instance tag key.
   final String key;
@@ -2019,6 +2053,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// An instance of a threat intelligence detail that constitutes evidence for
+/// the finding.
 class ThreatIntelligenceDetail {
   /// The name of the threat intelligence list that triggered the finding.
   final String threatListName;
@@ -2041,6 +2077,7 @@ class UnarchiveFindingsResponse {
       UnarchiveFindingsResponse();
 }
 
+/// Contains information about the accounts that were not processed.
 class UnprocessedAccount {
   /// AWS Account ID.
   final String accountId;

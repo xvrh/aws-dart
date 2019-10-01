@@ -505,8 +505,8 @@ class EcrApi {
   }
 
   /// Creates or updates a lifecycle policy. For information about lifecycle
-  /// policy syntax, see [Lifecycle Policy
-  /// Template](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html).
+  /// policy syntax, see
+  /// [Lifecycle Policy Template](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html).
   ///
   /// [registryId]: The AWS account ID associated with the registry that
   /// contains the repository. If you do
@@ -524,8 +524,8 @@ class EcrApi {
   }
 
   /// Applies a repository policy on a specified repository to control access
-  /// permissions. For more information, see [Amazon ECR Repository
-  /// Policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicies.html)
+  /// permissions. For more information, see
+  /// [Amazon ECR Repository Policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicies.html)
   /// in the _Amazon Elastic Container Registry User Guide_.
   ///
   /// [registryId]: The AWS account ID associated with the registry that
@@ -535,8 +535,8 @@ class EcrApi {
   /// [repositoryName]: The name of the repository to receive the policy.
   ///
   /// [policyText]: The JSON repository policy text to apply to the repository.
-  /// For more information, see [Amazon ECR Repository Policy
-  /// Examples](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicyExamples.html)
+  /// For more information, see
+  /// [Amazon ECR Repository Policy Examples](https://docs.aws.amazon.com/AmazonECR/latest/userguide/RepositoryPolicyExamples.html)
   /// in the _Amazon Elastic Container Registry User Guide_.
   ///
   /// [force]: If the policy you are attempting to set on a repository policy
@@ -631,6 +631,7 @@ class EcrApi {
   }
 }
 
+/// An object representing authorization data for an Amazon ECR registry.
 class AuthorizationData {
   /// A base64-encoded string that contains authorization data for the specified
   /// Amazon ECR registry. When the string is decoded, it is presented in the
@@ -644,7 +645,7 @@ class AuthorizationData {
 
   /// The registry URL to use for this authorization token in a `docker login`
   /// command. The Amazon ECR registry URL format is
-  /// `https://aws\_account\_id.dkr.ecr.region.amazonaws.com`. For example,
+  /// `https://aws_account_id.dkr.ecr.region.amazonaws.com`. For example,
   /// `https://012345678910.dkr.ecr.us-east-1.amazonaws.com`..
   final String proxyEndpoint;
 
@@ -792,6 +793,7 @@ class DeleteRepositoryResponse {
       DeleteRepositoryResponse();
 }
 
+/// An object representing a filter on a DescribeImages operation.
 class DescribeImagesFilter {
   /// The tag status with which to filter your DescribeImages results. You can
   /// filter results based on whether they are `TAGGED` or `UNTAGGED`.
@@ -946,6 +948,7 @@ class GetRepositoryPolicyResponse {
       GetRepositoryPolicyResponse();
 }
 
+/// An object representing an Amazon ECR image.
 class Image {
   /// The AWS account ID associated with the registry containing the image.
   final String registryId;
@@ -969,6 +972,7 @@ class Image {
   static Image fromJson(Map<String, dynamic> json) => Image();
 }
 
+/// An object that describes an image returned by a DescribeImages operation.
 class ImageDetail {
   /// The AWS account ID associated with the registry to which this image
   /// belongs.
@@ -1009,6 +1013,7 @@ class ImageDetail {
   static ImageDetail fromJson(Map<String, dynamic> json) => ImageDetail();
 }
 
+/// An object representing an Amazon ECR image failure.
 class ImageFailure {
   /// The image ID associated with the failure.
   final ImageIdentifier imageId;
@@ -1027,6 +1032,7 @@ class ImageFailure {
   static ImageFailure fromJson(Map<String, dynamic> json) => ImageFailure();
 }
 
+/// An object with identifying information for an Amazon ECR image.
 class ImageIdentifier {
   /// The `sha256` digest of the image manifest.
   final String imageDigest;
@@ -1059,6 +1065,7 @@ class InitiateLayerUploadResponse {
       InitiateLayerUploadResponse();
 }
 
+/// An object representing an Amazon ECR image layer.
 class Layer {
   /// The `sha256` digest of the image layer.
   final String layerDigest;
@@ -1083,6 +1090,7 @@ class Layer {
   static Layer fromJson(Map<String, dynamic> json) => Layer();
 }
 
+/// An object representing an Amazon ECR image layer failure.
 class LayerFailure {
   /// The layer digest associated with the failure.
   final String layerDigest;
@@ -1101,6 +1109,7 @@ class LayerFailure {
   static LayerFailure fromJson(Map<String, dynamic> json) => LayerFailure();
 }
 
+/// The filter for the lifecycle policy preview.
 class LifecyclePolicyPreviewFilter {
   /// The tag status of the image.
   final String tagStatus;
@@ -1110,6 +1119,7 @@ class LifecyclePolicyPreviewFilter {
   });
 }
 
+/// The result of the lifecycle policy preview.
 class LifecyclePolicyPreviewResult {
   /// The list of tags associated with this image.
   final List<String> imageTags;
@@ -1138,6 +1148,7 @@ class LifecyclePolicyPreviewResult {
       LifecyclePolicyPreviewResult();
 }
 
+/// The summary of the lifecycle policy preview request.
 class LifecyclePolicyPreviewSummary {
   /// The number of expiring images.
   final int expiringImageTotalCount;
@@ -1149,6 +1160,7 @@ class LifecyclePolicyPreviewSummary {
       LifecyclePolicyPreviewSummary();
 }
 
+/// The type of action to be taken.
 class LifecyclePolicyRuleAction {
   /// The type of action to be taken.
   final String type;
@@ -1160,6 +1172,7 @@ class LifecyclePolicyRuleAction {
       LifecyclePolicyRuleAction();
 }
 
+/// An object representing a filter on a ListImages operation.
 class ListImagesFilter {
   /// The tag status with which to filter your ListImages results. You can
   /// filter results based on whether they are `TAGGED` or `UNTAGGED`.
@@ -1248,6 +1261,7 @@ class PutLifecyclePolicyResponse {
       PutLifecyclePolicyResponse();
 }
 
+/// An object representing a repository.
 class Repository {
   /// The Amazon Resource Name (ARN) that identifies the repository. The ARN
   /// contains the `arn:aws:ecr` namespace, followed by the region of the
@@ -1328,6 +1342,10 @@ class StartLifecyclePolicyPreviewResponse {
       StartLifecyclePolicyPreviewResponse();
 }
 
+/// The metadata that you apply to a resource to help you categorize and
+/// organize them. Each tag consists of a key and an optional value, both of
+/// which you define. Tag keys can have a maximum character length of 128
+/// characters, and tag values can have a maximum length of 256 characters.
 class Tag {
   /// One part of a key-value pair that make up a tag. A `key` is a general
   /// label that acts like a category for more specific tag values.

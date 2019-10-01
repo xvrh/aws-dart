@@ -34,8 +34,8 @@ class IotDataPlaneApi {
 
   /// Publishes state information.
   ///
-  /// For more information, see [HTTP
-  /// Protocol](http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http)
+  /// For more information, see
+  /// [HTTP Protocol](http://docs.aws.amazon.com/iot/latest/developerguide/protocols.html#http)
   /// in the _AWS IoT Developer Guide_.
   ///
   /// [topic]: The name of the MQTT topic.
@@ -60,6 +60,7 @@ class IotDataPlaneApi {
   }
 }
 
+/// The output from the DeleteThingShadow operation.
 class DeleteThingShadowResponse {
   /// The state information, in JSON format.
   final Uint8List payload;
@@ -71,6 +72,7 @@ class DeleteThingShadowResponse {
       DeleteThingShadowResponse();
 }
 
+/// The output from the GetThingShadow operation.
 class GetThingShadowResponse {
   /// The state information, in JSON format.
   final Uint8List payload;
@@ -82,6 +84,7 @@ class GetThingShadowResponse {
       GetThingShadowResponse();
 }
 
+/// The output from the UpdateThingShadow operation.
 class UpdateThingShadowResponse {
   /// The state information, in JSON format.
   final Uint8List payload;

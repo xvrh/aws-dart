@@ -313,8 +313,8 @@ class CodeStarApi {
   /// change team membership attributes.
   ///
   /// [projectRole]: The role assigned to the user in the project. Project roles
-  /// have different levels of access. For more information, see [Working with
-  /// Teams](http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html)
+  /// have different levels of access. For more information, see
+  /// [Working with Teams](http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html)
   /// in the _AWS CodeStar User Guide_.
   ///
   /// [remoteAccessAllowed]: Whether a team member is allowed to remotely access
@@ -364,6 +364,9 @@ class AssociateTeamMemberResult {
       AssociateTeamMemberResult();
 }
 
+/// Location and destination information about the source code files provided
+/// with the project request. The source code is uploaded to the new project
+/// source repository after project creation.
 class Code {
   /// The location where the source code files provided with the project request
   /// are stored. AWS CodeStar retrieves the files during project creation.
@@ -381,6 +384,9 @@ class Code {
   });
 }
 
+/// Information about the AWS CodeCommit repository to be created in AWS
+/// CodeStar. This is where the source code files provided with the project
+/// request will be uploaded after project creation.
 class CodeCommitCodeDestination {
   /// The name of the AWS CodeCommit repository to be created in AWS CodeStar.
   final String name;
@@ -390,6 +396,10 @@ class CodeCommitCodeDestination {
   });
 }
 
+/// The repository to be created in AWS CodeStar. Valid values are AWS
+/// CodeCommit or GitHub. After AWS CodeStar provisions the new repository, the
+/// source code files provided with the project request are placed in the
+/// repository.
 class CodeDestination {
   /// Information about the AWS CodeCommit repository to be created in AWS
   /// CodeStar. This is where the source code files provided with the project
@@ -407,6 +417,8 @@ class CodeDestination {
   });
 }
 
+/// The location where the source code files provided with the project request
+/// are stored. AWS CodeStar retrieves the files during project creation.
 class CodeSource {
   /// Information about the Amazon S3 location where the source code files
   /// provided with the project request are stored.
@@ -600,6 +612,9 @@ class DisassociateTeamMemberResult {
       DisassociateTeamMemberResult();
 }
 
+/// Information about the GitHub repository to be created in AWS CodeStar. This
+/// is where the source code files provided with the project request will be
+/// uploaded after project creation.
 class GitHubCodeDestination {
   /// Name of the GitHub repository to be created in AWS CodeStar.
   final String name;
@@ -716,6 +731,8 @@ class ListUserProfilesResult {
       ListUserProfilesResult();
 }
 
+/// An indication of whether a project creation or deletion is failed or
+/// successful.
 class ProjectStatus {
   /// The phase of completion for a project creation or deletion.
   final String state;
@@ -731,6 +748,7 @@ class ProjectStatus {
   static ProjectStatus fromJson(Map<String, dynamic> json) => ProjectStatus();
 }
 
+/// Information about the metadata for a project.
 class ProjectSummary {
   /// The ID of the project.
   final String projectId;
@@ -745,6 +763,7 @@ class ProjectSummary {
   static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary();
 }
 
+/// Information about a resource for a project.
 class Resource {
   /// The Amazon Resource Name (ARN) of the resource.
   final String id;
@@ -755,6 +774,8 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// The Amazon S3 location where the source code files provided with the project
+/// request are stored.
 class S3Location {
   /// The Amazon S3 bucket name where the source code files provided with the
   /// project request are stored.
@@ -781,13 +802,14 @@ class TagProjectResult {
       TagProjectResult();
 }
 
+/// Information about a team member in a project.
 class TeamMember {
   /// The Amazon Resource Name (ARN) of the user in IAM.
   final String userArn;
 
   /// The role assigned to the user in the project. Project roles have different
-  /// levels of access. For more information, see [Working with
-  /// Teams](http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html)
+  /// levels of access. For more information, see
+  /// [Working with Teams](http://docs.aws.amazon.com/codestar/latest/userguide/working-with-teams.html)
   /// in the _AWS CodeStar User Guide_.
   final String projectRole;
 
@@ -803,6 +825,8 @@ class TeamMember {
   static TeamMember fromJson(Map<String, dynamic> json) => TeamMember();
 }
 
+/// The toolchain template file provided with the project request. AWS CodeStar
+/// uses the template to provision the toolchain stack in AWS CloudFormation.
 class Toolchain {
   /// The Amazon S3 location where the toolchain template file provided with the
   /// project request is stored. AWS CodeStar retrieves the file during project
@@ -824,6 +848,9 @@ class Toolchain {
   });
 }
 
+/// The Amazon S3 location where the toolchain template file provided with the
+/// project request is stored. AWS CodeStar retrieves the file during project
+/// creation.
 class ToolchainSource {
   /// The Amazon S3 bucket where the toolchain template file provided with the
   /// project request is stored.
@@ -903,6 +930,7 @@ class UpdateUserProfileResult {
       UpdateUserProfileResult();
 }
 
+/// Information about a user's profile in AWS CodeStar.
 class UserProfileSummary {
   /// The Amazon Resource Name (ARN) of the user in IAM.
   final String userArn;

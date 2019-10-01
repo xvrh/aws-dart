@@ -24,12 +24,12 @@ class TranscribeApi {
   ///
   ///  `https://s3-us-east-1.amazonaws.com/examplebucket/vocab.txt`
   ///
-  /// For more information about S3 object names, see [Object
-  /// Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
+  /// For more information about S3 object names, see
+  /// [Object Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
   /// in the _Amazon S3 Developer Guide_.
   ///
-  /// For more information about custom vocabularies, see [Custom
-  /// Vocabularies](http://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary).
+  /// For more information about custom vocabularies, see
+  /// [Custom Vocabularies](http://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary).
   Future<CreateVocabularyResponse> createVocabulary(
       {@required String vocabularyName,
       @required String languageCode,
@@ -153,8 +153,7 @@ class TranscribeApi {
   /// GetTranscriptionJob operation, the operation returns this location in the
   /// `TranscriptFileUri` field. The S3 bucket must have permissions that allow
   /// Amazon Transcribe to put files in the bucket. For more information, see
-  /// [Permissions Required for IAM User
-  /// Roles](https://docs.aws.amazon.com/transcribe/latest/dg/security_iam_id-based-policy-examples.html#auth-role-iam-user).
+  /// [Permissions Required for IAM User Roles](https://docs.aws.amazon.com/transcribe/latest/dg/security_iam_id-based-policy-examples.html#auth-role-iam-user).
   ///
   /// Amazon Transcribe uses the default Amazon S3 key for server-side
   /// encryption of transcripts that are placed in your S3 bucket. You can't
@@ -201,12 +200,12 @@ class TranscribeApi {
   ///
   ///  `https://s3-us-east-1.amazonaws.com/examplebucket/vocab.txt`
   ///
-  /// For more information about S3 object names, see [Object
-  /// Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
+  /// For more information about S3 object names, see
+  /// [Object Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
   /// in the _Amazon S3 Developer Guide_.
   ///
-  /// For more information about custom vocabularies, see [Custom
-  /// Vocabularies](http://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary).
+  /// For more information about custom vocabularies, see
+  /// [Custom Vocabularies](http://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary).
   Future<UpdateVocabularyResponse> updateVocabulary(
       {@required String vocabularyName,
       @required String languageCode,
@@ -337,6 +336,7 @@ class ListVocabulariesResponse {
       ListVocabulariesResponse();
 }
 
+/// Describes the input media file in a transcription request.
 class Media {
   /// The S3 location of the input media file. The URI must be in the same
   /// region as the API endpoint that you are calling. The general form is:
@@ -351,8 +351,8 @@ class Media {
   ///
   ///  `https://s3-us-east-1.amazonaws.com/examplebucket/mediadocs/example.mp4`
   ///
-  /// For more information about S3 object names, see [Object
-  /// Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
+  /// For more information about S3 object names, see
+  /// [Object Keys](http://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys)
   /// in the _Amazon S3 Developer Guide_.
   final String mediaFileUri;
 
@@ -362,6 +362,7 @@ class Media {
   static Media fromJson(Map<String, dynamic> json) => Media();
 }
 
+/// Provides optional settings for the `StartTranscriptionJob` operation.
 class Settings {
   /// The name of a vocabulary to use when processing the transcription job.
   final String vocabularyName;
@@ -417,6 +418,7 @@ class StartTranscriptionJobResponse {
       StartTranscriptionJobResponse();
 }
 
+/// Identifies the location of a transcription.
 class Transcript {
   /// The location where the transcription is stored.
   ///
@@ -432,6 +434,8 @@ class Transcript {
   static Transcript fromJson(Map<String, dynamic> json) => Transcript();
 }
 
+/// Describes an asynchronous transcription job that was created with the
+/// `StartTranscriptionJob` operation.
 class TranscriptionJob {
   /// The name of the transcription job.
   final String transcriptionJobName;
@@ -465,34 +469,34 @@ class TranscriptionJob {
   ///
   /// The `FailureReason` field can contain one of the following values:
   ///
-  /// *    `Unsupported media format` \- The media format specified in the
+  /// *    `Unsupported media format` - The media format specified in the
   /// `MediaFormat` field of the request isn't valid. See the description of the
   /// `MediaFormat` field for a list of valid values.
   ///
   /// *    `The media format provided does not match the detected media format`
-  /// \- The media format of the audio file doesn't match the format specified
-  /// in the `MediaFormat` field in the request. Check the media format of your
+  /// - The media format of the audio file doesn't match the format specified in
+  /// the `MediaFormat` field in the request. Check the media format of your
   /// media file and make sure that the two values match.
   ///
-  /// *    `Invalid sample rate for audio file` \- The sample rate specified in
+  /// *    `Invalid sample rate for audio file` - The sample rate specified in
   /// the `MediaSampleRateHertz` of the request isn't valid. The sample rate
   /// must be between 8000 and 48000 Hertz.
   ///
-  /// *    `The sample rate provided does not match the detected sample rate` \-
+  /// *    `The sample rate provided does not match the detected sample rate` -
   /// The sample rate in the audio file doesn't match the sample rate specified
   /// in the `MediaSampleRateHertz` field in the request. Check the sample rate
   /// of your media file and make sure that the two values match.
   ///
-  /// *    `Invalid file size: file size too large` \- The size of your audio
+  /// *    `Invalid file size: file size too large` - The size of your audio
   /// file is larger than Amazon Transcribe can process. For more information,
   /// see
   /// [Limits](https://docs.aws.amazon.com/transcribe/latest/dg/limits-guidelines.html#limits)
   /// in the _Amazon Transcribe Developer Guide_.
   ///
-  /// *    `Invalid number of channels: number of channels too large` \- Your
+  /// *    `Invalid number of channels: number of channels too large` - Your
   /// audio contains more channels than Amazon Transcribe is configured to
-  /// process. To request additional channels, see [Amazon Transcribe
-  /// Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits-amazon-transcribe)
+  /// process. To request additional channels, see
+  /// [Amazon Transcribe Limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits-amazon-transcribe)
   /// in the _Amazon Web Services General Reference_.
   final String failureReason;
 
@@ -519,6 +523,7 @@ class TranscriptionJob {
       TranscriptionJob();
 }
 
+/// Provides a summary of information about a transcription job. .
 class TranscriptionJobSummary {
   /// The name of the transcription job.
   final String transcriptionJobName;
@@ -590,6 +595,7 @@ class UpdateVocabularyResponse {
       UpdateVocabularyResponse();
 }
 
+/// Provides information about a custom vocabulary.
 class VocabularyInfo {
   /// The name of the vocabulary.
   final String vocabularyName;

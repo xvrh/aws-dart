@@ -281,6 +281,8 @@ class DynamoDBApi {
   }
 }
 
+/// AttributeValue can be `String`, `Number`, `Binary`, `StringSet`,
+/// `NumberSet`, `BinarySet`.
 class AttributeValue {
   /// Strings are Unicode with UTF-8 binary encoding. The maximum size is
   /// limited by the size of the primary key (1024 bytes as a range part of a
@@ -315,6 +317,8 @@ class AttributeValue {
   static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
 }
 
+/// Specifies the attribute to update and how to perform the update. Possible
+/// values: `PUT` (default), `ADD` or `DELETE`.
 class AttributeValueUpdate {
   final AttributeValue value;
 
@@ -345,6 +349,8 @@ class BatchGetItemOutput {
       BatchGetItemOutput();
 }
 
+/// The item attributes from a response in a specific table, along with the read
+/// resources consumed on the table during the request.
 class BatchResponse {
   final List<Map<String, AttributeValue>> items;
 
@@ -357,6 +363,7 @@ class BatchResponse {
   static BatchResponse fromJson(Map<String, dynamic> json) => BatchResponse();
 }
 
+/// A container for `BatchWriteItem` response
 class BatchWriteItemOutput {
   /// The response object as a result of `BatchWriteItem` call. This is
   /// essentially a map of table name to `ConsumedCapacityUnits`.
@@ -422,6 +429,7 @@ class DeleteItemOutput {
       DeleteItemOutput();
 }
 
+/// A container for a Delete BatchWrite request
 class DeleteRequest {
   /// The item's key to be delete
   final Key key;
@@ -452,6 +460,9 @@ class DescribeTableOutput {
       DescribeTableOutput();
 }
 
+/// Allows you to provide an attribute name, and whether or not Amazon DynamoDB
+/// should check to see if the attribute value already exists; or if the
+/// attribute value exists and has a particular value before changing it.
 class ExpectedAttributeValue {
   /// Specify whether or not a value already exists and has a specific content
   /// for the attribute name-value pair.
@@ -480,6 +491,9 @@ class GetItemOutput {
   static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput();
 }
 
+/// The primary key that uniquely identifies each item in a table. A primary key
+/// can be a one attribute (hash) primary key or a two attribute
+/// (hash-and-range) primary key.
 class Key {
   /// A hash key element is treated as the primary key, and can be a string or a
   /// number. Single attribute primary keys have one index value. The value can
@@ -499,6 +513,11 @@ class Key {
   static Key fromJson(Map<String, dynamic> json) => Key();
 }
 
+/// The KeySchema identifies the primary key as a one attribute primary key
+/// (hash) or a composite two attribute (hash-and-range) primary key. Single
+/// attribute primary keys have one index value: a `HashKeyElement`. A composite
+/// hash-and-range primary key contains two attribute values: a `HashKeyElement`
+/// and a `RangeKeyElement`.
 class KeySchema {
   /// A hash key element is treated as the primary key, and can be a string or a
   /// number. Single attribute primary keys have one index value. The value can
@@ -518,6 +537,8 @@ class KeySchema {
   static KeySchema fromJson(Map<String, dynamic> json) => KeySchema();
 }
 
+/// `KeySchemaElement` is the primary key (hash or hash-and-range) structure for
+/// the table.
 class KeySchemaElement {
   /// The `AttributeName` of the `KeySchemaElement`.
   final String attributeName;
@@ -567,6 +588,14 @@ class ListTablesOutput {
       ListTablesOutput();
 }
 
+/// Provisioned throughput reserves the required read and write resources for
+/// your table in terms of `ReadCapacityUnits` and `WriteCapacityUnits`. Values
+/// for provisioned throughput depend upon your expected read/write rates, item
+/// size, and consistency. Provide the expected number of read and write
+/// operations, assuming an item size of 1k and strictly consistent reads. For
+/// 2k item size, double the value. For 3k, triple the value, etc.
+/// Eventually-consistent reads consume half the resources of strictly
+/// consistent reads.
 class ProvisionedThroughput {
   /// `ReadCapacityUnits` are in terms of strictly consistent reads, assuming
   /// items of 1k. 2k items require twice the `ReadCapacityUnits`.
@@ -620,6 +649,7 @@ class PutItemOutput {
   static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput();
 }
 
+/// A container for a Put BatchWrite request
 class PutRequest {
   /// The item to put
   final Map<String, AttributeValue> item;
@@ -737,6 +767,9 @@ class UpdateTableOutput {
       UpdateTableOutput();
 }
 
+/// This structure is a Union of PutRequest and DeleteRequest. It can contain
+/// exactly one of `PutRequest` or `DeleteRequest`. Never Both. This is enforced
+/// in the code.
 class WriteRequest {
   final PutRequest putRequest;
 

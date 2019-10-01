@@ -6,9 +6,9 @@ import 'package:meta/meta.dart';
 ///
 ///  This documentation is for version 1 of the Amazon Kinesis Data Analytics
 /// API, which only supports SQL applications. Version 2 of the API supports SQL
-/// and Java applications. For more information about version 2, see [Amazon
-/// Kinesis Data Analytics API V2
-/// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+/// and Java applications. For more information about version 2, see
+/// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+///
 ///
 /// This is the _Amazon Kinesis Analytics v1 API Reference_. The Amazon Kinesis
 /// Analytics Developer Guide provides additional information.
@@ -16,13 +16,13 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Adds a CloudWatch log stream to monitor application configuration errors.
   /// For more information about using CloudWatch log streams with Amazon
-  /// Kinesis Analytics applications, see [Working with Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
+  /// Kinesis Analytics applications, see
+  /// [Working with Amazon CloudWatch Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
   ///
   /// [applicationName]: The Kinesis Analytics application name.
   ///
@@ -44,12 +44,12 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   ///  Adds a streaming source to your Amazon Kinesis application. For
-  /// conceptual information, see [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  /// conceptual information, see
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   ///
   /// You can add a streaming source either when you create an application or
   /// you can use this operation to add a streaming source after you create an
@@ -85,15 +85,15 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Adds an
   /// [InputProcessingConfiguration](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html)
   /// to an application. An input processor preprocesses records on the input
   /// stream before the application's SQL code executes. Currently, the only
-  /// input processor available is [AWS
-  /// Lambda](https://docs.aws.amazon.com/lambda/).
+  /// input processor available is
+  /// [AWS Lambda](https://docs.aws.amazon.com/lambda/).
   ///
   /// [applicationName]: Name of the application to which you want to add the
   /// input processing configuration.
@@ -131,8 +131,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Adds an external destination to your Amazon Kinesis Analytics application.
   ///
@@ -146,9 +146,8 @@ class KinesisAnalyticsApi {
   ///
   ///  You can use one of the output configurations to deliver data from your
   /// in-application error stream to an external destination so that you can
-  /// analyze the errors. For more information, see [Understanding Application
-  /// Output
-  /// (Destination)](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
+  /// analyze the errors. For more information, see
+  /// [Understanding Application Output (Destination)](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
   ///
   ///  Any configuration update, including adding a streaming source using this
   /// operation, results in a new version of the application. You can use the
@@ -187,8 +186,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Adds a reference data source to an existing application.
   ///
@@ -199,8 +198,8 @@ class KinesisAnalyticsApi {
   /// information that describes how data in Amazon S3 object maps to columns in
   /// the resulting in-application table.
   ///
-  ///  For conceptual information, see [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  ///  For conceptual information, see
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   /// For the limits on data sources you can add to your application, see
   /// [Limits](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html).
   ///
@@ -234,15 +233,15 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   ///  Creates an Amazon Kinesis Analytics application. You can configure each
   /// application with one streaming source as input, application code to
   /// process the input, and up to three destinations where you want Amazon
   /// Kinesis Analytics to write the output data from your application. For an
-  /// overview, see [How it
-  /// Works](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works.html).
+  /// overview, see
+  /// [How it Works](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works.html).
   ///
   /// In the input configuration, you map the streaming source to an
   /// in-application stream, which you can think of as a constantly updating
@@ -264,8 +263,8 @@ class KinesisAnalyticsApi {
   /// perform the `kinesisanalytics:CreateApplication` action.
   ///
   ///  For introductory exercises to create an Amazon Kinesis Analytics
-  /// application, see [Getting
-  /// Started](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html).
+  /// application, see
+  /// [Getting Started](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/getting-started.html).
   ///
   /// [applicationName]: Name of your Amazon Kinesis Analytics application (for
   /// example, `sample-app`).
@@ -311,16 +310,16 @@ class KinesisAnalyticsApi {
   ///
   /// [cloudWatchLoggingOptions]: Use this parameter to configure a CloudWatch
   /// log stream to monitor application configuration errors. For more
-  /// information, see [Working with Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
+  /// information, see
+  /// [Working with Amazon CloudWatch Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
   ///
   /// [applicationCode]: One or more SQL statements that read input data,
   /// transform it, and generate output. For example, you can write a SQL
   /// statement that reads data from one in-application stream, generates a
   /// running average of the number of advertisement clicks by vendor, and
   /// insert resulting rows in another in-application stream using pumps. For
-  /// more information about the typical pattern, see [Application
-  /// Code](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html).
+  /// more information about the typical pattern, see
+  /// [Application Code](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-app-code.html).
   ///
   /// You can provide such series of SQL statements, where output of one
   /// statement can be used as the input for the next statement. You store
@@ -334,8 +333,8 @@ class KinesisAnalyticsApi {
   /// [tags]: A list of one or more tags to assign to the application. A tag is
   /// a key-value pair that identifies an application. Note that the maximum
   /// number of application tags includes system tags. The maximum number of
-  /// user-defined application tags is 50. For more information, see [Using
-  /// Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
+  /// user-defined application tags is 50. For more information, see
+  /// [Using Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
   Future<CreateApplicationResponse> createApplication(String applicationName,
       {String applicationDescription,
       List<Input> inputs,
@@ -349,8 +348,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Deletes the specified application. Amazon Kinesis Analytics halts
   /// application execution and deletes the application, including any
@@ -374,13 +373,13 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Deletes a CloudWatch log stream from an application. For more information
   /// about using CloudWatch log streams with Amazon Kinesis Analytics
-  /// applications, see [Working with Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
+  /// applications, see
+  /// [Working with Amazon CloudWatch Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
   ///
   /// [applicationName]: The Kinesis Analytics application name.
   ///
@@ -403,8 +402,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Deletes an
   /// [InputProcessingConfiguration](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html)
@@ -431,8 +430,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Deletes output destination configuration from your application
   /// configuration. Amazon Kinesis Analytics will no longer write data from the
@@ -469,8 +468,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Deletes a reference data source configuration from the specified
   /// application configuration.
@@ -508,8 +507,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Returns information about a specific Amazon Kinesis Analytics application.
   ///
@@ -532,8 +531,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Infers a schema by evaluating sample records on the specified streaming
   /// source (Amazon Kinesis stream or Amazon Kinesis Firehose delivery stream)
@@ -541,8 +540,8 @@ class KinesisAnalyticsApi {
   /// and also the sample records that the operation used to infer the schema.
   ///
   ///  You can use the inferred schema when configuring a streaming source for
-  /// your application. For conceptual information, see [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  /// your application. For conceptual information, see
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   /// Note that when you create an application using the Amazon Kinesis
   /// Analytics console, the console uses this operation to infer a schema and
   /// show it in the console user interface.
@@ -578,8 +577,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Returns a list of Amazon Kinesis Analytics applications in your account.
   /// For each application, the response includes the application name, Amazon
@@ -607,8 +606,8 @@ class KinesisAnalyticsApi {
   }
 
   /// Retrieves the list of key-value tags assigned to the application. For more
-  /// information, see [Using
-  /// Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
+  /// information, see
+  /// [Using Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
   ///
   /// [resourceArn]: The ARN of the application for which to retrieve tags.
   Future<ListTagsForResourceResponse> listTagsForResource(
@@ -619,8 +618,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Starts the specified Amazon Kinesis Analytics application. After creating
   /// an application, you must exclusively call this operation to start your
@@ -657,8 +656,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Stops the application from processing input data. You can stop an
   /// application only if it is in the running state. You can use the
@@ -680,8 +679,8 @@ class KinesisAnalyticsApi {
   /// Adds one or more key-value tags to a Kinesis Analytics application. Note
   /// that the maximum number of application tags includes system tags. The
   /// maximum number of user-defined application tags is 50. For more
-  /// information, see [Using
-  /// Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
+  /// information, see
+  /// [Using Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
   ///
   /// [resourceArn]: The ARN of the application to assign the tags.
   ///
@@ -692,8 +691,8 @@ class KinesisAnalyticsApi {
   }
 
   /// Removes one or more tags from a Kinesis Analytics application. For more
-  /// information, see [Using
-  /// Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
+  /// information, see
+  /// [Using Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
   ///
   /// [resourceArn]: The ARN of the Kinesis Analytics application from which to
   /// remove the tags.
@@ -708,8 +707,8 @@ class KinesisAnalyticsApi {
   /// This documentation is for version 1 of the Amazon Kinesis Data Analytics
   /// API, which only supports SQL applications. Version 2 of the API supports
   /// SQL and Java applications. For more information about version 2, see
-  /// [Amazon Kinesis Data Analytics API V2
-  /// Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  /// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+  ///
   ///
   /// Updates an existing Amazon Kinesis Analytics application. Using this API,
   /// you can update application code, input configuration, and output
@@ -771,6 +770,15 @@ class AddApplicationReferenceDataSourceResponse {
       AddApplicationReferenceDataSourceResponse();
 }
 
+/// This documentation is for version 1 of the Amazon Kinesis Data Analytics
+/// API, which only supports SQL applications. Version 2 of the API supports SQL
+/// and Java applications. For more information about version 2, see
+/// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+///
+///
+/// Provides a description of the application, including the application Amazon
+/// Resource Name (ARN), status, latest version, and input and output
+/// configuration.
 class ApplicationDetail {
   /// Name of the application.
   final String applicationName;
@@ -791,25 +799,22 @@ class ApplicationDetail {
   final DateTime lastUpdateTimestamp;
 
   /// Describes the application input configuration. For more information, see
-  /// [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   final List<InputDescription> inputDescriptions;
 
   /// Describes the application output configuration. For more information, see
-  /// [Configuring Application
-  /// Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
+  /// [Configuring Application Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
   final List<OutputDescription> outputDescriptions;
 
   /// Describes reference data sources configured for the application. For more
-  /// information, see [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  /// information, see
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   final List<ReferenceDataSourceDescription> referenceDataSourceDescriptions;
 
   /// Describes the CloudWatch log streams that are configured to receive
   /// application messages. For more information about using CloudWatch log
-  /// streams with Amazon Kinesis Analytics applications, see [Working with
-  /// Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
+  /// streams with Amazon Kinesis Analytics applications, see
+  /// [Working with Amazon CloudWatch Logs](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/cloudwatch-logs.html).
   final List<CloudWatchLoggingOptionDescription>
       cloudWatchLoggingOptionDescriptions;
 
@@ -838,6 +843,14 @@ class ApplicationDetail {
       ApplicationDetail();
 }
 
+/// This documentation is for version 1 of the Amazon Kinesis Data Analytics
+/// API, which only supports SQL applications. Version 2 of the API supports SQL
+/// and Java applications. For more information about version 2, see
+/// [Amazon Kinesis Data Analytics API V2 Documentation](/kinesisanalytics/latest/apiv2/Welcome.html).
+///
+///
+/// Provides application summary information, including the application Amazon
+/// Resource Name (ARN), name, and status.
 class ApplicationSummary {
   /// Name of the application.
   final String applicationName;
@@ -857,6 +870,8 @@ class ApplicationSummary {
       ApplicationSummary();
 }
 
+/// Describes updates to apply to an existing Amazon Kinesis Analytics
+/// application.
 class ApplicationUpdate {
   /// Describes application input configuration updates.
   final List<InputUpdate> inputUpdates;
@@ -882,8 +897,16 @@ class ApplicationUpdate {
   });
 }
 
+/// Provides additional mapping information when the record format uses
+/// delimiters, such as CSV. For example, the following sample records use CSV
+/// format, where the records use the _'n'_ as the row delimiter and a comma
+/// (",") as the column delimiter:
+///
+///  `"name1", "address1"`
+///
+///  `"name2", "address2"`
 class CsvMappingParameters {
-  /// Row delimiter. For example, in a CSV format, _'\\n'_ is the typical row
+  /// Row delimiter. For example, in a CSV format, _'n'_ is the typical row
   /// delimiter.
   final String recordRowDelimiter;
 
@@ -899,6 +922,8 @@ class CsvMappingParameters {
       CsvMappingParameters();
 }
 
+/// Provides a description of CloudWatch logging options, including the log
+/// stream Amazon Resource Name (ARN) and the role ARN.
 class CloudWatchLoggingOption {
   /// ARN of the CloudWatch log to receive application messages.
   final String logStreamArn;
@@ -914,6 +939,7 @@ class CloudWatchLoggingOption {
   });
 }
 
+/// Description of the CloudWatch logging option.
 class CloudWatchLoggingOptionDescription {
   /// ID of the CloudWatch logging option description.
   final String cloudWatchLoggingOptionId;
@@ -936,6 +962,7 @@ class CloudWatchLoggingOptionDescription {
       CloudWatchLoggingOptionDescription();
 }
 
+/// Describes CloudWatch logging option updates.
 class CloudWatchLoggingOptionUpdate {
   /// ID of the CloudWatch logging option to update
   final String cloudWatchLoggingOptionId;
@@ -955,6 +982,7 @@ class CloudWatchLoggingOptionUpdate {
   });
 }
 
+/// TBD
 class CreateApplicationResponse {
   /// In response to your `CreateApplication` request, Amazon Kinesis Analytics
   /// returns a response with a summary of the application it created, including
@@ -1014,6 +1042,9 @@ class DescribeApplicationResponse {
       DescribeApplicationResponse();
 }
 
+/// Describes the data format when records are written to the destination. For
+/// more information, see
+/// [Configuring Application Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
 class DestinationSchema {
   /// Specifies the format of the records on the output stream.
   final String recordFormatType;
@@ -1052,12 +1083,16 @@ class DiscoverInputSchemaResponse {
       DiscoverInputSchemaResponse();
 }
 
+/// When you configure the application input, you specify the streaming source,
+/// the in-application stream name that is created, and the mapping between the
+/// two. For more information, see
+/// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
 class Input {
   /// Name prefix to use when creating an in-application stream. Suppose that
   /// you specify a prefix "MyInApplicationStream." Amazon Kinesis Analytics
   /// then creates one or more (as per the `InputParallelism` count you
-  /// specified) in-application streams with names "MyInApplicationStream\_001,"
-  /// "MyInApplicationStream\_002," and so on.
+  /// specified) in-application streams with names "MyInApplicationStream_001,"
+  /// "MyInApplicationStream_002," and so on.
   final String namePrefix;
 
   /// The
@@ -1086,8 +1121,8 @@ class Input {
   ///
   /// Data from your source is routed to these in-application input streams.
   ///
-  ///  (see [Configuring Application
-  /// Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
+  ///  (see
+  /// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
   final InputParallelism inputParallelism;
 
   /// Describes the format of the data in the streaming source, and how each
@@ -1107,6 +1142,9 @@ class Input {
   });
 }
 
+/// When you start your application, you provide this configuration, which
+/// identifies the input source and the point in the input source at which you
+/// want the application to start processing records.
 class InputConfiguration {
   /// Input source ID. You can get this ID by calling the
   /// [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
@@ -1123,6 +1161,8 @@ class InputConfiguration {
   });
 }
 
+/// Describes the application input configuration. For more information, see
+/// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
 class InputDescription {
   /// Input ID associated with the application input. This is the ID that Amazon
   /// Kinesis Analytics assigns to each input configuration you add to your
@@ -1179,6 +1219,10 @@ class InputDescription {
       InputDescription();
 }
 
+/// An object that contains the Amazon Resource Name (ARN) of the
+/// [AWS Lambda](https://docs.aws.amazon.com/lambda/) function that is used to
+/// preprocess records in the stream, and the ARN of the IAM role that is used
+/// to access the AWS Lambda function.
 class InputLambdaProcessor {
   /// The ARN of the [AWS Lambda](https://docs.aws.amazon.com/lambda/) function
   /// that operates on records in the stream.
@@ -1187,8 +1231,8 @@ class InputLambdaProcessor {
   ///
   /// To specify an earlier version of the Lambda function than the latest,
   /// include the Lambda function version in the Lambda function ARN. For more
-  /// information about Lambda ARNs, see [Example ARNs: AWS
-  /// Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
+  /// information about Lambda ARNs, see
+  /// [Example ARNs: AWS Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
   final String resourceArn;
 
   /// The ARN of the IAM role that is used to access the AWS Lambda function.
@@ -1200,6 +1244,10 @@ class InputLambdaProcessor {
   });
 }
 
+/// An object that contains the Amazon Resource Name (ARN) of the
+/// [AWS Lambda](https://docs.aws.amazon.com/lambda/) function that is used to
+/// preprocess records in the stream, and the ARN of the IAM role that is used
+/// to access the AWS Lambda expression.
 class InputLambdaProcessorDescription {
   /// The ARN of the [AWS Lambda](https://docs.aws.amazon.com/lambda/) function
   /// that is used to preprocess the records in the stream.
@@ -1216,17 +1264,20 @@ class InputLambdaProcessorDescription {
       InputLambdaProcessorDescription();
 }
 
+/// Represents an update to the
+/// [InputLambdaProcessor](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html)
+/// that is used to preprocess the records in the stream.
 class InputLambdaProcessorUpdate {
-  /// The Amazon Resource Name (ARN) of the new [AWS
-  /// Lambda](https://docs.aws.amazon.com/lambda/) function that is used to
+  /// The Amazon Resource Name (ARN) of the new
+  /// [AWS Lambda](https://docs.aws.amazon.com/lambda/) function that is used to
   /// preprocess the records in the stream.
   ///
   ///
   ///
   /// To specify an earlier version of the Lambda function than the latest,
   /// include the Lambda function version in the Lambda function ARN. For more
-  /// information about Lambda ARNs, see [Example ARNs: AWS
-  /// Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
+  /// information about Lambda ARNs, see
+  /// [Example ARNs: AWS Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
   final String resourceArnUpdate;
 
   /// The ARN of the new IAM role that is used to access the AWS Lambda
@@ -1239,6 +1290,9 @@ class InputLambdaProcessorUpdate {
   });
 }
 
+/// Describes the number of in-application streams to create for a given
+/// streaming source. For information about parallelism, see
+/// [Configuring Application Input](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-input.html).
 class InputParallelism {
   /// Number of in-application streams to create. For more information, see
   /// [Limits](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html).
@@ -1251,6 +1305,7 @@ class InputParallelism {
       InputParallelism();
 }
 
+/// Provides updates to the parallelism count.
 class InputParallelismUpdate {
   /// Number of in-application streams to create for the specified streaming
   /// source.
@@ -1261,6 +1316,10 @@ class InputParallelismUpdate {
   });
 }
 
+/// Provides a description of a processor that is used to preprocess the records
+/// in the stream before being processed by your application code. Currently,
+/// the only input processor available is
+/// [AWS Lambda](https://docs.aws.amazon.com/lambda/).
 class InputProcessingConfiguration {
   /// The
   /// [InputLambdaProcessor](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html)
@@ -1273,6 +1332,9 @@ class InputProcessingConfiguration {
   });
 }
 
+/// Provides configuration information about an input processor. Currently, the
+/// only input processor available is
+/// [AWS Lambda](https://docs.aws.amazon.com/lambda/).
 class InputProcessingConfigurationDescription {
   /// Provides configuration information about the associated
   /// [InputLambdaProcessorDescription](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessorDescription.html).
@@ -1286,6 +1348,8 @@ class InputProcessingConfigurationDescription {
       InputProcessingConfigurationDescription();
 }
 
+/// Describes updates to an
+/// [InputProcessingConfiguration](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputProcessingConfiguration.html).
 class InputProcessingConfigurationUpdate {
   /// Provides update information for an
   /// [InputLambdaProcessor](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_InputLambdaProcessor.html).
@@ -1296,6 +1360,7 @@ class InputProcessingConfigurationUpdate {
   });
 }
 
+/// Describes updates for the application's input schema.
 class InputSchemaUpdate {
   /// Specifies the format of the records on the streaming source.
   final RecordFormat recordFormatUpdate;
@@ -1316,18 +1381,20 @@ class InputSchemaUpdate {
   });
 }
 
+/// Describes the point at which the application reads from the streaming
+/// source.
 class InputStartingPositionConfiguration {
   /// The starting position on the stream.
   ///
-  /// *    `NOW` \- Start reading just after the most recent record in the
+  /// *    `NOW` - Start reading just after the most recent record in the
   /// stream, start at the request time stamp that the customer issued.
   ///
-  /// *    `TRIM_HORIZON` \- Start reading at the last untrimmed record in the
+  /// *    `TRIM_HORIZON` - Start reading at the last untrimmed record in the
   /// stream, which is the oldest record available in the stream. This option is
   /// not available for an Amazon Kinesis Firehose delivery stream.
   ///
-  /// *    `LAST\_STOPPED\_POINT` \- Resume reading from where the application
-  /// last stopped reading.
+  /// *    `LAST_STOPPED_POINT` - Resume reading from where the application last
+  /// stopped reading.
   final String inputStartingPosition;
 
   InputStartingPositionConfiguration({
@@ -1338,6 +1405,8 @@ class InputStartingPositionConfiguration {
       InputStartingPositionConfiguration();
 }
 
+/// Describes updates to a specific input configuration (identified by the
+/// `InputId` of an application).
 class InputUpdate {
   /// Input ID of the application input to be updated.
   final String inputId;
@@ -1377,6 +1446,8 @@ class InputUpdate {
   });
 }
 
+/// Provides additional mapping information when JSON is the record format on
+/// the streaming source.
 class JsonMappingParameters {
   /// Path to the top-level parent that contains the records.
   final String recordRowPath;
@@ -1388,6 +1459,10 @@ class JsonMappingParameters {
       JsonMappingParameters();
 }
 
+///  Identifies an Amazon Kinesis Firehose delivery stream as the streaming
+/// source. You provide the delivery stream's Amazon Resource Name (ARN) and an
+/// IAM role ARN that enables Amazon Kinesis Analytics to access the stream on
+/// your behalf.
 class KinesisFirehoseInput {
   /// ARN of the input delivery stream.
   final String resourceArn;
@@ -1403,6 +1478,8 @@ class KinesisFirehoseInput {
   });
 }
 
+///  Describes the Amazon Kinesis Firehose delivery stream that is configured as
+/// the streaming source in the application input configuration.
 class KinesisFirehoseInputDescription {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery stream.
   final String resourceArn;
@@ -1419,6 +1496,8 @@ class KinesisFirehoseInputDescription {
       KinesisFirehoseInputDescription();
 }
 
+/// When updating application input configuration, provides information about an
+/// Amazon Kinesis Firehose delivery stream as the streaming source.
 class KinesisFirehoseInputUpdate {
   /// Amazon Resource Name (ARN) of the input Amazon Kinesis Firehose delivery
   /// stream to read.
@@ -1435,6 +1514,10 @@ class KinesisFirehoseInputUpdate {
   });
 }
 
+/// When configuring application output, identifies an Amazon Kinesis Firehose
+/// delivery stream as the destination. You provide the stream Amazon Resource
+/// Name (ARN) and an IAM role that enables Amazon Kinesis Analytics to write to
+/// the stream on your behalf.
 class KinesisFirehoseOutput {
   /// ARN of the destination Amazon Kinesis Firehose delivery stream to write
   /// to.
@@ -1451,6 +1534,8 @@ class KinesisFirehoseOutput {
   });
 }
 
+///  For an application output, describes the Amazon Kinesis Firehose delivery
+/// stream configured as its destination.
 class KinesisFirehoseOutputDescription {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery stream.
   final String resourceArn;
@@ -1467,6 +1552,10 @@ class KinesisFirehoseOutputDescription {
       KinesisFirehoseOutputDescription();
 }
 
+///  When updating an output configuration using the
+/// [UpdateApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html)
+/// operation, provides information about an Amazon Kinesis Firehose delivery
+/// stream configured as the destination.
 class KinesisFirehoseOutputUpdate {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis Firehose delivery stream
   /// to write to.
@@ -1483,6 +1572,9 @@ class KinesisFirehoseOutputUpdate {
   });
 }
 
+///  Identifies an Amazon Kinesis stream as the streaming source. You provide
+/// the stream's Amazon Resource Name (ARN) and an IAM role ARN that enables
+/// Amazon Kinesis Analytics to access the stream on your behalf.
 class KinesisStreamsInput {
   /// ARN of the input Amazon Kinesis stream to read.
   final String resourceArn;
@@ -1498,6 +1590,8 @@ class KinesisStreamsInput {
   });
 }
 
+///  Describes the Amazon Kinesis stream that is configured as the streaming
+/// source in the application input configuration.
 class KinesisStreamsInputDescription {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis stream.
   final String resourceArn;
@@ -1514,6 +1608,8 @@ class KinesisStreamsInputDescription {
       KinesisStreamsInputDescription();
 }
 
+/// When updating application input configuration, provides information about an
+/// Amazon Kinesis stream as the streaming source.
 class KinesisStreamsInputUpdate {
   /// Amazon Resource Name (ARN) of the input Amazon Kinesis stream to read.
   final String resourceArnUpdate;
@@ -1529,6 +1625,10 @@ class KinesisStreamsInputUpdate {
   });
 }
 
+/// When configuring application output, identifies an Amazon Kinesis stream as
+/// the destination. You provide the stream Amazon Resource Name (ARN) and also
+/// an IAM role ARN that Amazon Kinesis Analytics can use to write to the stream
+/// on your behalf.
 class KinesisStreamsOutput {
   /// ARN of the destination Amazon Kinesis stream to write to.
   final String resourceArn;
@@ -1544,6 +1644,8 @@ class KinesisStreamsOutput {
   });
 }
 
+///  For an application output, describes the Amazon Kinesis stream configured
+/// as its destination.
 class KinesisStreamsOutputDescription {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis stream.
   final String resourceArn;
@@ -1560,6 +1662,10 @@ class KinesisStreamsOutputDescription {
       KinesisStreamsOutputDescription();
 }
 
+///  When updating an output configuration using the
+/// [UpdateApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html)
+/// operation, provides information about an Amazon Kinesis stream configured as
+/// the destination.
 class KinesisStreamsOutputUpdate {
   /// Amazon Resource Name (ARN) of the Amazon Kinesis stream where you want to
   /// write the output.
@@ -1576,6 +1682,10 @@ class KinesisStreamsOutputUpdate {
   });
 }
 
+/// When configuring application output, identifies an AWS Lambda function as
+/// the destination. You provide the function Amazon Resource Name (ARN) and
+/// also an IAM role ARN that Amazon Kinesis Analytics can use to write to the
+/// function on your behalf.
 class LambdaOutput {
   /// Amazon Resource Name (ARN) of the destination Lambda function to write to.
   ///
@@ -1583,8 +1693,8 @@ class LambdaOutput {
   ///
   /// To specify an earlier version of the Lambda function than the latest,
   /// include the Lambda function version in the Lambda function ARN. For more
-  /// information about Lambda ARNs, see [Example ARNs: AWS
-  /// Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
+  /// information about Lambda ARNs, see
+  /// [Example ARNs: AWS Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
   final String resourceArn;
 
   /// ARN of the IAM role that Amazon Kinesis Analytics can assume to write to
@@ -1598,6 +1708,8 @@ class LambdaOutput {
   });
 }
 
+/// For an application output, describes the AWS Lambda function configured as
+/// its destination.
 class LambdaOutputDescription {
   /// Amazon Resource Name (ARN) of the destination Lambda function.
   final String resourceArn;
@@ -1614,6 +1726,10 @@ class LambdaOutputDescription {
       LambdaOutputDescription();
 }
 
+/// When updating an output configuration using the
+/// [UpdateApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html)
+/// operation, provides information about an AWS Lambda function configured as
+/// the destination.
 class LambdaOutputUpdate {
   /// Amazon Resource Name (ARN) of the destination Lambda function.
   ///
@@ -1621,8 +1737,8 @@ class LambdaOutputUpdate {
   ///
   /// To specify an earlier version of the Lambda function than the latest,
   /// include the Lambda function version in the Lambda function ARN. For more
-  /// information about Lambda ARNs, see [Example ARNs: AWS
-  /// Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
+  /// information about Lambda ARNs, see
+  /// [Example ARNs: AWS Lambda](/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-lambda)
   final String resourceArnUpdate;
 
   /// ARN of the IAM role that Amazon Kinesis Analytics can assume to write to
@@ -1662,6 +1778,10 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// When configuring application input at the time of creating or updating an
+/// application, provides additional mapping information specific to the record
+/// format (such as JSON, CSV, or record fields delimited by some delimiter) on
+/// the streaming source.
 class MappingParameters {
   /// Provides additional mapping information when JSON is the record format on
   /// the streaming source.
@@ -1679,6 +1799,14 @@ class MappingParameters {
       MappingParameters();
 }
 
+///  Describes application output configuration in which you identify an
+/// in-application stream and a destination where you want the in-application
+/// stream data to be written. The destination can be an Amazon Kinesis stream
+/// or an Amazon Kinesis Firehose delivery stream.
+///
+/// For limits on how many destinations an application can write and other
+/// limitations, see
+/// [Limits](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/limits.html).
 class Output {
   /// Name of the in-application stream.
   final String name;
@@ -1693,8 +1821,8 @@ class Output {
   final LambdaOutput lambdaOutput;
 
   /// Describes the data format when records are written to the destination. For
-  /// more information, see [Configuring Application
-  /// Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
+  /// more information, see
+  /// [Configuring Application Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
   final DestinationSchema destinationSchema;
 
   Output({
@@ -1706,6 +1834,10 @@ class Output {
   });
 }
 
+/// Describes the application output configuration, which includes the
+/// in-application stream name and the destination where the stream data is
+/// written. The destination can be an Amazon Kinesis stream or an Amazon
+/// Kinesis Firehose delivery stream.
 class OutputDescription {
   /// A unique identifier for the output configuration.
   final String outputId;
@@ -1740,6 +1872,7 @@ class OutputDescription {
       OutputDescription();
 }
 
+///  Describes updates to the output configuration identified by the `OutputId`.
 class OutputUpdate {
   /// Identifies the specific output configuration that you want to update.
   final String outputId;
@@ -1760,8 +1893,8 @@ class OutputUpdate {
   final LambdaOutputUpdate lambdaOutputUpdate;
 
   /// Describes the data format when records are written to the destination. For
-  /// more information, see [Configuring Application
-  /// Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
+  /// more information, see
+  /// [Configuring Application Output](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html).
   final DestinationSchema destinationSchemaUpdate;
 
   OutputUpdate({
@@ -1774,6 +1907,10 @@ class OutputUpdate {
   });
 }
 
+/// Describes the mapping of each data element in the streaming source to the
+/// corresponding column in the in-application stream.
+///
+/// Also used to describe the format of the reference data source.
 class RecordColumn {
   /// Name of the column created in the in-application input stream or reference
   /// table.
@@ -1797,6 +1934,8 @@ class RecordColumn {
   static RecordColumn fromJson(Map<String, dynamic> json) => RecordColumn();
 }
 
+///  Describes the record format and relevant mapping information that should be
+/// applied to schematize the records on the stream.
 class RecordFormat {
   /// The type of record format.
   final String recordFormatType;
@@ -1814,6 +1953,10 @@ class RecordFormat {
   static RecordFormat fromJson(Map<String, dynamic> json) => RecordFormat();
 }
 
+/// Describes the reference data source by providing the source information (S3
+/// bucket name and object key name), the resulting in-application table name
+/// that is created, and the necessary schema to map the data elements in the
+/// Amazon S3 object to the in-application table.
 class ReferenceDataSource {
   /// Name of the in-application table to create.
   final String tableName;
@@ -1838,6 +1981,7 @@ class ReferenceDataSource {
   });
 }
 
+/// Describes the reference data source configured for an application.
 class ReferenceDataSourceDescription {
   /// ID of the reference data source. This is the ID that Amazon Kinesis
   /// Analytics assigns when you add the reference data source to your
@@ -1871,6 +2015,11 @@ class ReferenceDataSourceDescription {
       ReferenceDataSourceDescription();
 }
 
+/// When you update a reference data source configuration for an application,
+/// this object provides all the updated values (such as the source bucket name
+/// and object key name), the in-application table name that is created, and
+/// updated mapping information that maps the data in the Amazon S3 object to
+/// the in-application reference table that is created.
 class ReferenceDataSourceUpdate {
   /// ID of the reference data source being updated. You can use the
   /// [DescribeApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_DescribeApplication.html)
@@ -1898,6 +2047,10 @@ class ReferenceDataSourceUpdate {
   });
 }
 
+/// Provides a description of an Amazon S3 data source, including the Amazon
+/// Resource Name (ARN) of the S3 bucket, the ARN of the IAM role that is used
+/// to access the bucket, and the name of the Amazon S3 object that contains the
+/// data.
 class S3Configuration {
   /// IAM ARN of the role used to access the data.
   final String roleArn;
@@ -1915,6 +2068,14 @@ class S3Configuration {
   });
 }
 
+/// Identifies the S3 bucket and object that contains the reference data. Also
+/// identifies the IAM role Amazon Kinesis Analytics can assume to read this
+/// object on your behalf.
+///
+/// An Amazon Kinesis Analytics application loads reference data only once. If
+/// the data changes, you call the
+/// [UpdateApplication](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/API_UpdateApplication.html)
+/// operation to trigger reloading of data into your application.
 class S3ReferenceDataSource {
   /// Amazon Resource Name (ARN) of the S3 bucket.
   final String bucketArn;
@@ -1935,6 +2096,7 @@ class S3ReferenceDataSource {
   });
 }
 
+/// Provides the bucket name and object key name that stores the reference data.
 class S3ReferenceDataSourceDescription {
   /// Amazon Resource Name (ARN) of the S3 bucket.
   final String bucketArn;
@@ -1956,6 +2118,9 @@ class S3ReferenceDataSourceDescription {
       S3ReferenceDataSourceDescription();
 }
 
+/// Describes the S3 bucket name, object key name, and IAM role that Amazon
+/// Kinesis Analytics can assume to read the Amazon S3 object on your behalf and
+/// populate the in-application reference table.
 class S3ReferenceDataSourceUpdate {
   /// Amazon Resource Name (ARN) of the S3 bucket.
   final String bucketArnUpdate;
@@ -1974,6 +2139,8 @@ class S3ReferenceDataSourceUpdate {
   });
 }
 
+/// Describes the format of the data in the streaming source, and how each data
+/// element maps to corresponding columns created in the in-application stream.
 class SourceSchema {
   /// Specifies the format of the records on the streaming source.
   final RecordFormat recordFormat;
@@ -2005,6 +2172,12 @@ class StopApplicationResponse {
       StopApplicationResponse();
 }
 
+/// A key-value pair (the value is optional) that you can define and assign to
+/// AWS resources. If you specify a tag that already exists, the tag value is
+/// replaced with the value that you specify in the request. Note that the
+/// maximum number of application tags includes system tags. The maximum number
+/// of user-defined application tags is 50. For more information, see
+/// [Using Tagging](https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-tagging.html).
 class Tag {
   /// The key of the key-value tag.
   final String key;

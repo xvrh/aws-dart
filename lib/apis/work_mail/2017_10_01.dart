@@ -444,13 +444,13 @@ class WorkMailApi {
   /// [granteeId]: The identifier of the user, group, or resource to which to
   /// grant the permissions.
   ///
-  /// [permissionValues]: The permissions granted to the grantee. SEND\_AS
-  /// allows the grantee to send email as the owner of the mailbox (the grantee
-  /// is not mentioned on these emails). SEND\_ON\_BEHALF allows the grantee to
-  /// send email on behalf of the owner of the mailbox (the grantee is not
-  /// mentioned as the physical sender of these emails). FULL\_ACCESS allows the
-  /// grantee full access to the mailbox, irrespective of other folder-level
-  /// permissions set on the mailbox.
+  /// [permissionValues]: The permissions granted to the grantee. SEND_AS allows
+  /// the grantee to send email as the owner of the mailbox (the grantee is not
+  /// mentioned on these emails). SEND_ON_BEHALF allows the grantee to send
+  /// email on behalf of the owner of the mailbox (the grantee is not mentioned
+  /// as the physical sender of these emails). FULL_ACCESS allows the grantee
+  /// full access to the mailbox, irrespective of other folder-level permissions
+  /// set on the mailbox.
   Future<PutMailboxPermissionsResponse> putMailboxPermissions(
       {@required String organizationId,
       @required String entityId,
@@ -567,6 +567,8 @@ class AssociateMemberToGroupResponse {
       AssociateMemberToGroupResponse();
 }
 
+/// At least one delegate must be associated to the resource to disable
+/// automatic replies from the resource.
 class BookingOptions {
   /// The resource's ability to automatically reply to requests. If disabled,
   /// delegates must be associated to the resource.
@@ -625,6 +627,8 @@ class CreateUserResponse {
       CreateUserResponse();
 }
 
+/// The name of the attribute, which is one of the values defined in the
+/// UserAttribute enumeration.
 class Delegate {
   /// The identifier for the user or group associated as the resource's
   /// delegate.
@@ -870,6 +874,7 @@ class GetMailboxDetailsResponse {
       GetMailboxDetailsResponse();
 }
 
+/// The representation of an Amazon WorkMail group.
 class Group {
   /// The identifier of the group.
   final String id;
@@ -1020,7 +1025,7 @@ class ListUsersResponse {
   final List<User> users;
 
   ///  The token to use to retrieve the next page of results. This value is
-  /// \`null\` when there are no more results to return.
+  /// `null` when there are no more results to return.
   final String nextToken;
 
   ListUsersResponse({
@@ -1031,6 +1036,7 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// The representation of a user or group.
 class Member {
   /// The identifier of the member.
   final String id;
@@ -1061,6 +1067,7 @@ class Member {
   static Member fromJson(Map<String, dynamic> json) => Member();
 }
 
+/// The representation of an organization.
 class OrganizationSummary {
   /// The identifier associated with the organization.
   final String organizationId;
@@ -1086,6 +1093,8 @@ class OrganizationSummary {
       OrganizationSummary();
 }
 
+/// Permission granted to a user, group, or resource to access a certain aspect
+/// of another user, group, or resource mailbox.
 class Permission {
   /// The identifier of the user, group, or resource to which the permissions
   /// are granted.
@@ -1094,12 +1103,12 @@ class Permission {
   /// The type of user, group, or resource referred to in GranteeId.
   final String granteeType;
 
-  /// The permissions granted to the grantee. SEND\_AS allows the grantee to
-  /// send email as the owner of the mailbox (the grantee is not mentioned on
-  /// these emails). SEND\_ON\_BEHALF allows the grantee to send email on behalf
-  /// of the owner of the mailbox (the grantee is not mentioned as the physical
-  /// sender of these emails). FULL\_ACCESS allows the grantee full access to
-  /// the mailbox, irrespective of other folder-level permissions set on the
+  /// The permissions granted to the grantee. SEND_AS allows the grantee to send
+  /// email as the owner of the mailbox (the grantee is not mentioned on these
+  /// emails). SEND_ON_BEHALF allows the grantee to send email on behalf of the
+  /// owner of the mailbox (the grantee is not mentioned as the physical sender
+  /// of these emails). FULL_ACCESS allows the grantee full access to the
+  /// mailbox, irrespective of other folder-level permissions set on the
   /// mailbox.
   final List<String> permissionValues;
 
@@ -1129,6 +1138,7 @@ class ResetPasswordResponse {
       ResetPasswordResponse();
 }
 
+/// The representation of a resource.
 class Resource {
   /// The identifier of the resource.
   final String id;
@@ -1183,6 +1193,7 @@ class UpdateResourceResponse {
       UpdateResourceResponse();
 }
 
+/// The representation of an Amazon WorkMail user.
 class User {
   /// The identifier of the user.
   final String id;

@@ -56,12 +56,11 @@ class KinesisApi {
   /// *   Create more shards than are authorized for your account.
   ///
   ///
-  /// For the default shard limit for an AWS account, see [Amazon Kinesis Data
-  /// Streams
-  /// Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+  /// For the default shard limit for an AWS account, see
+  /// [Amazon Kinesis Data Streams Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_. To increase this
-  /// limit, [contact AWS
-  /// Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
+  /// limit,
+  /// [contact AWS Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
   ///
   /// You can use `DescribeStream` to check the stream status, which is returned
   /// in `StreamStatus`.
@@ -139,9 +138,8 @@ class KinesisApi {
   /// This operation has a limit of five transactions per second per account.
   ///
   /// [streamArn]: The ARN of the Kinesis data stream that the consumer is
-  /// registered with. For more information, see [Amazon Resource Names (ARNs)
-  /// and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// registered with. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   ///
   /// [consumerName]: The name that you gave to the consumer.
   ///
@@ -175,8 +173,8 @@ class KinesisApi {
   /// assigned when the record is put into the stream.
   ///
   /// You can limit the number of shards returned by each call. For more
-  /// information, see [Retrieving Shards from a
-  /// Stream](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-retrieve-shards.html)
+  /// information, see
+  /// [Retrieving Shards from a Stream](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-retrieve-shards.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// There are no guarantees about the chronological order shards returned. To
@@ -209,9 +207,8 @@ class KinesisApi {
   /// This operation has a limit of 20 transactions per second per account.
   ///
   /// [streamArn]: The ARN of the Kinesis data stream that the consumer is
-  /// registered with. For more information, see [Amazon Resource Names (ARNs)
-  /// and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// registered with. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   ///
   /// [consumerName]: The name that you gave to the consumer.
   ///
@@ -262,9 +259,8 @@ class KinesisApi {
   /// *    `ALL`
   ///
   ///
-  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
-  /// Service with Amazon
-  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// For more information, see
+  /// [Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   Future<EnhancedMonitoringOutput> disableEnhancedMonitoring(
       {@required String streamName,
@@ -299,9 +295,8 @@ class KinesisApi {
   /// *    `ALL`
   ///
   ///
-  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
-  /// Service with Amazon
-  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// For more information, see
+  /// [Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   Future<EnhancedMonitoringOutput> enableEnhancedMonitoring(
       {@required String streamName,
@@ -319,8 +314,8 @@ class KinesisApi {
   /// shard that contains records.
   ///
   /// You can scale by provisioning multiple shards per stream while considering
-  /// service limits (for more information, see [Amazon Kinesis Data Streams
-  /// Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+  /// service limits (for more information, see
+  /// [Amazon Kinesis Data Streams Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_). Your application
   /// should have one thread per shard, each reading continuously from its
   /// stream. To read from a stream continually, call GetRecords in a loop. Use
@@ -394,16 +389,16 @@ class KinesisApi {
   ///
   /// You must specify the shard iterator type. For example, you can set the
   /// `ShardIteratorType` parameter to read exactly from the position denoted by
-  /// a specific sequence number by using the `AT\_SEQUENCE\_NUMBER` shard
+  /// a specific sequence number by using the `AT_SEQUENCE_NUMBER` shard
   /// iterator type. Alternatively, the parameter can read right after the
-  /// sequence number by using the `AFTER\_SEQUENCE\_NUMBER` shard iterator
-  /// type, using sequence numbers returned by earlier calls to PutRecord,
-  /// PutRecords, GetRecords, or DescribeStream. In the request, you can specify
-  /// the shard iterator type `AT_TIMESTAMP` to read records from an arbitrary
-  /// point in time, `TRIM_HORIZON` to cause `ShardIterator` to point to the
-  /// last untrimmed record in the shard in the system (the oldest data record
-  /// in the shard), or `LATEST` so that you always read the most recent data in
-  /// the shard.
+  /// sequence number by using the `AFTER_SEQUENCE_NUMBER` shard iterator type,
+  /// using sequence numbers returned by earlier calls to PutRecord, PutRecords,
+  /// GetRecords, or DescribeStream. In the request, you can specify the shard
+  /// iterator type `AT_TIMESTAMP` to read records from an arbitrary point in
+  /// time, `TRIM_HORIZON` to cause `ShardIterator` to point to the last
+  /// untrimmed record in the shard in the system (the oldest data record in the
+  /// shard), or `LATEST` so that you always read the most recent data in the
+  /// shard.
   ///
   /// When you read repeatedly from a stream, use a GetShardIterator request to
   /// get the first shard iterator for use in your first GetRecords request and
@@ -414,8 +409,8 @@ class KinesisApi {
   ///
   /// If a GetShardIterator request is made too often, you receive a
   /// `ProvisionedThroughputExceededException`. For more information about
-  /// throughput limits, see GetRecords, and [Streams
-  /// Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+  /// throughput limits, see GetRecords, and
+  /// [Streams Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// If the shard is closed, GetShardIterator returns a valid iterator for the
@@ -435,11 +430,11 @@ class KinesisApi {
   ///
   /// The following are the valid Amazon Kinesis shard iterator types:
   ///
-  /// *   AT\_SEQUENCE\_NUMBER - Start reading from the position denoted by a
+  /// *   AT_SEQUENCE_NUMBER - Start reading from the position denoted by a
   /// specific sequence number, provided in the value `StartingSequenceNumber`.
   ///
-  /// *   AFTER\_SEQUENCE\_NUMBER - Start reading right after the position
-  /// denoted by a specific sequence number, provided in the value
+  /// *   AFTER_SEQUENCE_NUMBER - Start reading right after the position denoted
+  /// by a specific sequence number, provided in the value
   /// `StartingSequenceNumber`.
   ///
   /// *   AT_TIMESTAMP - Start reading from the position denoted by a specific
@@ -453,7 +448,7 @@ class KinesisApi {
   ///
   /// [startingSequenceNumber]: The sequence number of the data record in the
   /// shard from which to start reading. Used with shard iterator type
-  /// AT\_SEQUENCE\_NUMBER and AFTER\_SEQUENCE\_NUMBER.
+  /// AT_SEQUENCE_NUMBER and AFTER_SEQUENCE_NUMBER.
   ///
   /// [timestamp]: The time stamp of the data record from which to start
   /// reading. Used with shard iterator type AT_TIMESTAMP. A time stamp is the
@@ -500,9 +495,8 @@ class KinesisApi {
   /// This API is a new operation that is used by the Amazon Kinesis Client
   /// Library (KCL). If you have a fine-grained IAM policy that only allows
   /// specific operations, you must update your policy to allow calls to this
-  /// API. For more information, see [Controlling Access to Amazon Kinesis Data
-  /// Streams Resources Using
-  /// IAM](https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html).
+  /// API. For more information, see
+  /// [Controlling Access to Amazon Kinesis Data Streams Resources Using IAM](https://docs.aws.amazon.com/streams/latest/dev/controlling-access.html).
   ///
   /// [streamName]: The name of the data stream whose shards you want to list.
   ///
@@ -573,9 +567,8 @@ class KinesisApi {
   /// This operation has a limit of 10 transactions per second per account.
   ///
   /// [streamArn]: The ARN of the Kinesis data stream for which you want to list
-  /// the registered consumers. For more information, see [Amazon Resource Names
-  /// (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// the registered consumers. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   ///
   /// [nextToken]: When the number of consumers that are registered with the
   /// data stream is greater than the default value for the `MaxResults`
@@ -677,8 +670,8 @@ class KinesisApi {
   ///  `MergeShards` is called when there is a need to reduce the overall
   /// capacity of a stream because of excess capacity that is not being used.
   /// You must specify the shard to be merged and the adjacent shard for a
-  /// stream. For more information about merging shards, see [Merge Two
-  /// Shards](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-merge.html)
+  /// stream. For more information about merging shards, see
+  /// [Merge Two Shards](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-merge.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// If the stream is in the `ACTIVE` state, you can call `MergeShards`. If a
@@ -740,8 +733,7 @@ class KinesisApi {
   /// shards using the hash key ranges of the shards. You can override hashing
   /// the partition key to determine the shard by explicitly specifying a hash
   /// value using the `ExplicitHashKey` parameter. For more information, see
-  /// [Adding Data to a
-  /// Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+  /// [Adding Data to a Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   ///  `PutRecord` returns the shard ID of where the data record was placed and
@@ -750,9 +742,8 @@ class KinesisApi {
   /// Sequence numbers increase over time and are specific to a shard within a
   /// stream, not across all shards within a stream. To guarantee strictly
   /// increasing ordering, write serially to a shard and use the
-  /// `SequenceNumberForOrdering` parameter. For more information, see [Adding
-  /// Data to a
-  /// Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+  /// `SequenceNumberForOrdering` parameter. For more information, see
+  /// [Adding Data to a Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// If a `PutRecord` request cannot be processed because of insufficient
@@ -821,17 +812,15 @@ class KinesisApi {
   /// shard. An MD5 hash function is used to map partition keys to 128-bit
   /// integer values and to map associated data records to shards. As a result
   /// of this hashing mechanism, all data records with the same partition key
-  /// map to the same shard within the stream. For more information, see [Adding
-  /// Data to a
-  /// Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
+  /// map to the same shard within the stream. For more information, see
+  /// [Adding Data to a Stream](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-add-data-to-stream)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// Each record in the `Records` array may include an optional parameter,
   /// `ExplicitHashKey`, which overrides the partition key to shard mapping.
   /// This parameter allows a data producer to determine explicitly the shard
-  /// where the record is stored. For more information, see [Adding Multiple
-  /// Records with
-  /// PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords)
+  /// where the record is stored. For more information, see
+  /// [Adding Multiple Records with PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/developing-producers-with-sdk.html#kinesis-using-sdk-java-putrecords)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// The `PutRecords` response includes an array of response `Records`. Each
@@ -856,9 +845,8 @@ class KinesisApi {
   /// `InternalFailure`. `ErrorMessage` provides more detailed information about
   /// the `ProvisionedThroughputExceededException` exception including the
   /// account ID, stream name, and shard ID of the record that was throttled.
-  /// For more information about partially successful responses, see [Adding
-  /// Multiple Records with
-  /// PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords)
+  /// For more information about partially successful responses, see
+  /// [Adding Multiple Records with PutRecords](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-add-data-to-stream.html#kinesis-using-sdk-java-putrecords)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// By default, data records are accessible for 24 hours from the time that
@@ -885,9 +873,8 @@ class KinesisApi {
   /// This operation has a limit of five transactions per second per account.
   ///
   /// [streamArn]: The ARN of the Kinesis data stream that you want to register
-  /// the consumer with. For more info, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
+  /// the consumer with. For more info, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams).
   ///
   /// [consumerName]: For a given Kinesis data stream, each consumer must have a
   /// unique name. However, consumer names don't have to be unique across data
@@ -929,8 +916,8 @@ class KinesisApi {
   /// position in the shard where the shard gets split in two. In many cases,
   /// the new hash key might be the average of the beginning and ending hash
   /// key, but it can be any hash key value in the range being mapped into the
-  /// shard. For more information, see [Split a
-  /// Shard](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-split.html)
+  /// shard. For more information, see
+  /// [Split a Shard](http://docs.aws.amazon.com/kinesis/latest/dev/kinesis-using-sdk-java-resharding-split.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   ///
   /// You can use DescribeStream to determine the shard ID and hash key values
@@ -952,11 +939,11 @@ class KinesisApi {
   /// `ResourceNotFoundException`. If you try to create more shards than are
   /// authorized for your account, you receive a `LimitExceededException`.
   ///
-  /// For the default shard limit for an AWS account, see [Kinesis Data Streams
-  /// Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+  /// For the default shard limit for an AWS account, see
+  /// [Kinesis Data Streams Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_. To increase this
-  /// limit, [contact AWS
-  /// Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
+  /// limit,
+  /// [contact AWS Support](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html).
   ///
   /// If you try to operate on too many streams simultaneously using
   /// CreateStream, DeleteStream, MergeShards, and/or SplitShard, you receive a
@@ -1108,12 +1095,12 @@ class KinesisApi {
   /// *   Scale up to more than the shard limit for your account
   ///
   ///
-  /// For the default limits for an AWS account, see [Streams
-  /// Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
+  /// For the default limits for an AWS account, see
+  /// [Streams Limits](http://docs.aws.amazon.com/kinesis/latest/dev/service-sizes-and-limits.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_. To request an
   /// increase in the call rate limit, the shard limit for this API, or your
-  /// overall shard limit, use the [limits
-  /// form](https://console.aws.amazon.com/support/v1#/case/create?issueType=service-limit-increase&limitType=service-code-kinesis).
+  /// overall shard limit, use the
+  /// [limits form](https://console.aws.amazon.com/support/v1#/case/create?issueType=service-limit-increase&limitType=service-code-kinesis).
   ///
   /// [streamName]: The name of the stream.
   ///
@@ -1129,6 +1116,7 @@ class KinesisApi {
   }
 }
 
+/// An object that represents the details of the consumer you registered.
 class Consumer {
   /// The name of the consumer is something you choose when you register the
   /// consumer.
@@ -1157,6 +1145,7 @@ class Consumer {
   static Consumer fromJson(Map<String, dynamic> json) => Consumer();
 }
 
+/// An object that represents the details of a registered consumer.
 class ConsumerDescription {
   /// The name of the consumer is something you choose when you register the
   /// consumer.
@@ -1216,6 +1205,7 @@ class DescribeStreamConsumerOutput {
       DescribeStreamConsumerOutput();
 }
 
+/// Represents the output for `DescribeStream`.
 class DescribeStreamOutput {
   /// The current status of the stream, the stream Amazon Resource Name (ARN),
   /// an array of shard objects that comprise the stream, and whether there are
@@ -1240,6 +1230,7 @@ class DescribeStreamSummaryOutput {
       DescribeStreamSummaryOutput();
 }
 
+/// Represents enhanced metrics types.
 class EnhancedMetrics {
   /// List of shard-level metrics.
   ///
@@ -1263,9 +1254,8 @@ class EnhancedMetrics {
   /// *    `ALL`
   ///
   ///
-  /// For more information, see [Monitoring the Amazon Kinesis Data Streams
-  /// Service with Amazon
-  /// CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
+  /// For more information, see
+  /// [Monitoring the Amazon Kinesis Data Streams Service with Amazon CloudWatch](http://docs.aws.amazon.com/kinesis/latest/dev/monitoring-with-cloudwatch.html)
   /// in the _Amazon Kinesis Data Streams Developer Guide_.
   final List<String> shardLevelMetrics;
 
@@ -1276,6 +1266,8 @@ class EnhancedMetrics {
       EnhancedMetrics();
 }
 
+/// Represents the output for EnableEnhancedMonitoring and
+/// DisableEnhancedMonitoring.
 class EnhancedMonitoringOutput {
   /// The name of the Kinesis data stream.
   final String streamName;
@@ -1297,6 +1289,7 @@ class EnhancedMonitoringOutput {
       EnhancedMonitoringOutput();
 }
 
+/// Represents the output for GetRecords.
 class GetRecordsOutput {
   /// The data records retrieved from the shard.
   final List<Record> records;
@@ -1321,6 +1314,7 @@ class GetRecordsOutput {
       GetRecordsOutput();
 }
 
+/// Represents the output for `GetShardIterator`.
 class GetShardIteratorOutput {
   /// The position in the shard from which to start reading data records
   /// sequentially. A shard iterator specifies this position using the sequence
@@ -1334,6 +1328,8 @@ class GetShardIteratorOutput {
       GetShardIteratorOutput();
 }
 
+/// The range of possible hash key values for the shard, which is a set of
+/// ordered contiguous positive integers.
 class HashKeyRange {
   /// The starting hash key of the hash key range.
   final String startingHashKey;
@@ -1409,6 +1405,7 @@ class ListStreamConsumersOutput {
       ListStreamConsumersOutput();
 }
 
+/// Represents the output for `ListStreams`.
 class ListStreamsOutput {
   /// The names of the streams that are associated with the AWS account making
   /// the `ListStreams` request.
@@ -1425,6 +1422,7 @@ class ListStreamsOutput {
       ListStreamsOutput();
 }
 
+/// Represents the output for `ListTagsForStream`.
 class ListTagsForStreamOutput {
   /// A list of tags associated with `StreamName`, starting with the first tag
   /// after `ExclusiveStartTagKey` and up to the specified `Limit`.
@@ -1442,6 +1440,7 @@ class ListTagsForStreamOutput {
       ListTagsForStreamOutput();
 }
 
+/// Represents the output for `PutRecord`.
 class PutRecordOutput {
   /// The shard ID of the shard where the data record was placed.
   final String shardId;
@@ -1470,6 +1469,7 @@ class PutRecordOutput {
       PutRecordOutput();
 }
 
+///  `PutRecords` results.
 class PutRecordsOutput {
   /// The number of unsuccessfully processed records in a `PutRecords` request.
   final int failedRecordCount;
@@ -1499,6 +1499,7 @@ class PutRecordsOutput {
       PutRecordsOutput();
 }
 
+/// Represents the output for `PutRecords`.
 class PutRecordsRequestEntry {
   /// The data blob to put into the record, which is base64-encoded when the
   /// blob is serialized. When the data blob (the payload before
@@ -1527,6 +1528,10 @@ class PutRecordsRequestEntry {
   });
 }
 
+/// Represents the result of an individual record from a `PutRecords` request. A
+/// record that is successfully added to a stream includes `SequenceNumber` and
+/// `ShardId` in the result. A record that fails to be added to the stream
+/// includes `ErrorCode` and `ErrorMessage` in the result.
 class PutRecordsResultEntry {
   /// The sequence number for an individual record result.
   final String sequenceNumber;
@@ -1554,6 +1559,8 @@ class PutRecordsResultEntry {
       PutRecordsResultEntry();
 }
 
+/// The unit of data of the Kinesis data stream, which is composed of a sequence
+/// number, a partition key, and a data blob.
 class Record {
   /// The unique identifier of the record within its shard.
   final String sequenceNumber;
@@ -1603,6 +1610,7 @@ class RegisterStreamConsumerOutput {
       RegisterStreamConsumerOutput();
 }
 
+/// The range of possible sequence numbers for the shard.
 class SequenceNumberRange {
   /// The starting sequence number for the range.
   final String startingSequenceNumber;
@@ -1619,6 +1627,7 @@ class SequenceNumberRange {
       SequenceNumberRange();
 }
 
+/// A uniquely identified group of data records in a Kinesis data stream.
 class Shard {
   /// The unique identifier of the shard within the stream.
   final String shardId;
@@ -1646,6 +1655,7 @@ class Shard {
   static Shard fromJson(Map<String, dynamic> json) => Shard();
 }
 
+/// Represents the output for DescribeStream.
 class StreamDescription {
   /// The name of the stream being described.
   final String streamName;
@@ -1656,19 +1666,19 @@ class StreamDescription {
   /// The current status of the stream being described. The stream status is one
   /// of the following states:
   ///
-  /// *    `CREATING` \- The stream is being created. Kinesis Data Streams
+  /// *    `CREATING` - The stream is being created. Kinesis Data Streams
   /// immediately returns and sets `StreamStatus` to `CREATING`.
   ///
-  /// *    `DELETING` \- The stream is being deleted. The specified stream is in
+  /// *    `DELETING` - The stream is being deleted. The specified stream is in
   /// the `DELETING` state until Kinesis Data Streams completes the deletion.
   ///
-  /// *    `ACTIVE` \- The stream exists and is ready for read and write
+  /// *    `ACTIVE` - The stream exists and is ready for read and write
   /// operations or deletion. You should perform read and write operations only
   /// on an `ACTIVE` stream.
   ///
-  /// *    `UPDATING` \- Shards in the stream are being merged or split. Read
-  /// and write operations continue to work while the stream is in the
-  /// `UPDATING` state.
+  /// *    `UPDATING` - Shards in the stream are being merged or split. Read and
+  /// write operations continue to work while the stream is in the `UPDATING`
+  /// state.
   final String streamStatus;
 
   /// The shards that comprise the stream.
@@ -1730,6 +1740,7 @@ class StreamDescription {
       StreamDescription();
 }
 
+/// Represents the output for DescribeStreamSummary
 class StreamDescriptionSummary {
   /// The name of the stream being described.
   final String streamName;
@@ -1740,19 +1751,19 @@ class StreamDescriptionSummary {
   /// The current status of the stream being described. The stream status is one
   /// of the following states:
   ///
-  /// *    `CREATING` \- The stream is being created. Kinesis Data Streams
+  /// *    `CREATING` - The stream is being created. Kinesis Data Streams
   /// immediately returns and sets `StreamStatus` to `CREATING`.
   ///
-  /// *    `DELETING` \- The stream is being deleted. The specified stream is in
+  /// *    `DELETING` - The stream is being deleted. The specified stream is in
   /// the `DELETING` state until Kinesis Data Streams completes the deletion.
   ///
-  /// *    `ACTIVE` \- The stream exists and is ready for read and write
+  /// *    `ACTIVE` - The stream exists and is ready for read and write
   /// operations or deletion. You should perform read and write operations only
   /// on an `ACTIVE` stream.
   ///
-  /// *    `UPDATING` \- Shards in the stream are being merged or split. Read
-  /// and write operations continue to work while the stream is in the
-  /// `UPDATING` state.
+  /// *    `UPDATING` - Shards in the stream are being merged or split. Read and
+  /// write operations continue to work while the stream is in the `UPDATING`
+  /// state.
   final String streamStatus;
 
   /// The current retention period, in hours.
@@ -1812,6 +1823,7 @@ class StreamDescriptionSummary {
       StreamDescriptionSummary();
 }
 
+/// Metadata assigned to the stream, consisting of a key-value pair.
 class Tag {
   /// A unique identifier for the tag. Maximum length: 128 characters. Valid
   /// characters: Unicode letters, digits, white space, _ . / = + - % @

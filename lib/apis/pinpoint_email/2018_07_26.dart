@@ -3,16 +3,15 @@ import 'dart:typed_data';
 
 /// Amazon Pinpoint Email Service
 ///
-/// This document contains reference information for the [Amazon
-/// Pinpoint](https://aws.amazon.com/pinpoint) Email API, version 1.0. This
-/// document is best used in conjunction with the [Amazon Pinpoint Developer
-/// Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html).
+/// This document contains reference information for the
+/// [Amazon Pinpoint](https://aws.amazon.com/pinpoint) Email API, version 1.0.
+/// This document is best used in conjunction with the
+/// [Amazon Pinpoint Developer Guide](https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html).
 ///
 /// The Amazon Pinpoint Email API is available in several AWS Regions and it
 /// provides an endpoint for each of these Regions. For a list of all the
-/// Regions and endpoints where the API is currently available, see [AWS Regions
-/// and
-/// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#pinpoint_region)
+/// Regions and endpoints where the API is currently available, see
+/// [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#pinpoint_region)
 /// in the _Amazon Web Services General Reference_.
 ///
 /// In each Region, AWS maintains multiple Availability Zones. These
@@ -21,8 +20,8 @@ import 'dart:typed_data';
 /// connections. These Availability Zones enable us to provide very high levels
 /// of availability and redundancy, while also minimizing latency. To learn more
 /// about the number of Availability Zones that are available in each Region,
-/// see [AWS Global
-/// Infrastructure](http://aws.amazon.com/about-aws/global-infrastructure/).
+/// see
+/// [AWS Global Infrastructure](http://aws.amazon.com/about-aws/global-infrastructure/).
 class PinpointEmailApi {
   /// Create a configuration set. _Configuration sets_ are groups of rules that
   /// you can apply to the emails you send using Amazon Pinpoint. You apply a
@@ -296,8 +295,8 @@ class PinpointEmailApi {
   /// When you use the Deliverability dashboard, you pay a monthly subscription
   /// charge, in addition to any other fees that you accrue by using Amazon
   /// Pinpoint. For more information about the features and cost of a
-  /// Deliverability dashboard subscription, see [Amazon Pinpoint
-  /// Pricing](http://aws.amazon.com/pinpoint/pricing/).
+  /// Deliverability dashboard subscription, see
+  /// [Amazon Pinpoint Pricing](http://aws.amazon.com/pinpoint/pricing/).
   Future<GetDeliverabilityDashboardOptionsResponse>
       getDeliverabilityDashboardOptions() async {
     return GetDeliverabilityDashboardOptionsResponse.fromJson({});
@@ -466,9 +465,9 @@ class PinpointEmailApi {
   }
 
   /// Retrieve a list of the tags (keys and values) that are associated with a
-  /// specified resource. A _tag_ is a label that you optionally define and
+  /// specified resource. A _tag_ is a label that you optionally define and
   /// associate with a resource in Amazon Pinpoint. Each tag consists of a
-  /// required _tag key_ and an optional associated _tag value_. A tag key is a
+  /// required _tag key_ and an optional associated _tag value_. A tag key is a
   /// general label that acts as a category for more specific tag values. A tag
   /// value acts as a descriptor within a tag key.
   ///
@@ -610,8 +609,8 @@ class PinpointEmailApi {
   /// When you use the Deliverability dashboard, you pay a monthly subscription
   /// charge, in addition to any other fees that you accrue by using Amazon
   /// Pinpoint. For more information about the features and cost of a
-  /// Deliverability dashboard subscription, see [Amazon Pinpoint
-  /// Pricing](http://aws.amazon.com/pinpoint/pricing/).
+  /// Deliverability dashboard subscription, see
+  /// [Amazon Pinpoint Pricing](http://aws.amazon.com/pinpoint/pricing/).
   ///
   /// [dashboardEnabled]: Specifies whether to enable the Deliverability
   /// dashboard for your Amazon Pinpoint account. To enable the dashboard, set
@@ -760,13 +759,13 @@ class PinpointEmailApi {
     return SendEmailResponse.fromJson({});
   }
 
-  /// Add one or more tags (keys and values) to a specified resource. A _tag_ is
+  /// Add one or more tags (keys and values) to a specified resource. A _tag_ is
   /// a label that you optionally define and associate with a resource in Amazon
   /// Pinpoint. Tags can help you categorize and manage resources in different
   /// ways, such as by purpose, owner, environment, or other criteria. A
   /// resource can have as many as 50 tags.
   ///
-  /// Each tag consists of a required _tag key_ and an associated _tag value_,
+  /// Each tag consists of a required _tag key_ and an associated _tag value_,
   /// both of which you define. A tag key is a general label that acts as a
   /// category for more specific tag values. A tag value acts as a descriptor
   /// within a tag key.
@@ -826,6 +825,8 @@ class PinpointEmailApi {
   }
 }
 
+/// An object that contains information about a blacklisting event that impacts
+/// one of the dedicated IP addresses that is associated with your account.
 class BlacklistEntry {
   /// The name of the blacklist that the IP address appears on.
   final String rblName;
@@ -845,6 +846,7 @@ class BlacklistEntry {
   static BlacklistEntry fromJson(Map<String, dynamic> json) => BlacklistEntry();
 }
 
+/// Represents the body of the email message.
 class Body {
   /// An object that represents the version of the message that is displayed in
   /// email clients that don't support HTML, or clients where the recipient has
@@ -862,6 +864,9 @@ class Body {
   });
 }
 
+/// An object that defines an Amazon CloudWatch destination for email events.
+/// You can use Amazon CloudWatch to monitor and gain insights on your email
+/// sending metrics.
 class CloudWatchDestination {
   /// An array of objects that define the dimensions to use when you send email
   /// events to Amazon CloudWatch.
@@ -874,6 +879,8 @@ class CloudWatchDestination {
       CloudWatchDestination();
 }
 
+/// An object that defines the dimension configuration to use when you send
+/// Amazon Pinpoint email events to Amazon CloudWatch.
 class CloudWatchDimensionConfiguration {
   /// The name of an Amazon CloudWatch dimension associated with an email
   /// sending metric. The name has to meet the following criteria:
@@ -911,6 +918,8 @@ class CloudWatchDimensionConfiguration {
       CloudWatchDimensionConfiguration();
 }
 
+/// An object that represents the content of the email, and optionally a
+/// character set specification.
 class Content {
   /// The content of the message itself.
   final String data;
@@ -928,6 +937,8 @@ class Content {
   });
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class CreateConfigurationSetEventDestinationResponse {
   CreateConfigurationSetEventDestinationResponse();
   static CreateConfigurationSetEventDestinationResponse fromJson(
@@ -935,18 +946,23 @@ class CreateConfigurationSetEventDestinationResponse {
       CreateConfigurationSetEventDestinationResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class CreateConfigurationSetResponse {
   CreateConfigurationSetResponse();
   static CreateConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
       CreateConfigurationSetResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class CreateDedicatedIpPoolResponse {
   CreateDedicatedIpPoolResponse();
   static CreateDedicatedIpPoolResponse fromJson(Map<String, dynamic> json) =>
       CreateDedicatedIpPoolResponse();
 }
 
+/// Information about the predictive inbox placement test that you created.
 class CreateDeliverabilityTestReportResponse {
   /// A unique string that identifies the predictive inbox placement test.
   final String reportId;
@@ -968,14 +984,19 @@ class CreateDeliverabilityTestReportResponse {
       CreateDeliverabilityTestReportResponse();
 }
 
+/// If the email identity is a domain, this object contains tokens that you can
+/// use to create a set of CNAME records. To sucessfully verify your domain, you
+/// have to add these records to the DNS configuration for your domain.
+///
+/// If the email identity is an email address, this object is empty.
 class CreateEmailIdentityResponse {
   /// The email identity type.
   final String identityType;
 
   /// Specifies whether or not the identity is verified. In Amazon Pinpoint, you
   /// can only send email from verified email addresses or domains. For more
-  /// information about verifying identities, see the [Amazon Pinpoint User
-  /// Guide](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html).
+  /// information about verifying identities, see the
+  /// [Amazon Pinpoint User Guide](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html).
   final bool verifiedForSendingStatus;
 
   /// An object that contains information about the DKIM attributes for the
@@ -992,6 +1013,8 @@ class CreateEmailIdentityResponse {
       CreateEmailIdentityResponse();
 }
 
+/// An object that contains information about the volume of email sent on each
+/// day of the analysis period.
 class DailyVolume {
   /// The date that the DailyVolume metrics apply to, in Unix time.
   final DateTime startDate;
@@ -1012,6 +1035,8 @@ class DailyVolume {
   static DailyVolume fromJson(Map<String, dynamic> json) => DailyVolume();
 }
 
+/// Contains information about a dedicated IP address that is associated with
+/// your Amazon Pinpoint account.
 class DedicatedIp {
   /// An IP address that is reserved for use by your Amazon Pinpoint account.
   final String ip;
@@ -1043,6 +1068,8 @@ class DedicatedIp {
   static DedicatedIp fromJson(Map<String, dynamic> json) => DedicatedIp();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class DeleteConfigurationSetEventDestinationResponse {
   DeleteConfigurationSetEventDestinationResponse();
   static DeleteConfigurationSetEventDestinationResponse fromJson(
@@ -1050,24 +1077,32 @@ class DeleteConfigurationSetEventDestinationResponse {
       DeleteConfigurationSetEventDestinationResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class DeleteConfigurationSetResponse {
   DeleteConfigurationSetResponse();
   static DeleteConfigurationSetResponse fromJson(Map<String, dynamic> json) =>
       DeleteConfigurationSetResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class DeleteDedicatedIpPoolResponse {
   DeleteDedicatedIpPoolResponse();
   static DeleteDedicatedIpPoolResponse fromJson(Map<String, dynamic> json) =>
       DeleteDedicatedIpPoolResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class DeleteEmailIdentityResponse {
   DeleteEmailIdentityResponse();
   static DeleteEmailIdentityResponse fromJson(Map<String, dynamic> json) =>
       DeleteEmailIdentityResponse();
 }
 
+/// An object that contains metadata related to a predictive inbox placement
+/// test.
 class DeliverabilityTestReport {
   /// A unique string that identifies the predictive inbox placement test.
   final String reportId;
@@ -1107,6 +1142,7 @@ class DeliverabilityTestReport {
       DeliverabilityTestReport();
 }
 
+/// Used to associate a configuration set with a dedicated IP pool.
 class DeliveryOptions {
   /// Specifies whether Amazon Pinpoint should require that incoming email is
   /// delivered over a connection that’s encrypted by using Transport Layer
@@ -1127,6 +1163,7 @@ class DeliveryOptions {
       DeliveryOptions();
 }
 
+/// An object that describes the recipients for an email.
 class Destination {
   /// An array that contains the email addresses of the "To" recipients for the
   /// email.
@@ -1147,6 +1184,8 @@ class Destination {
   });
 }
 
+/// An object that contains information about the DKIM configuration for an
+/// email identity.
 class DkimAttributes {
   /// If the value is `true`, then the messages that Amazon Pinpoint sends from
   /// the identity are DKIM-signed. If the value is `false`, then the messages
@@ -1191,6 +1230,10 @@ class DkimAttributes {
   static DkimAttributes fromJson(Map<String, dynamic> json) => DkimAttributes();
 }
 
+/// An object that contains the deliverability data for a specific campaign.
+/// This data is available for a campaign only if the campaign sent email by
+/// using a domain that the Deliverability dashboard is enabled for
+/// (`PutDeliverabilityDashboardOption` operation).
 class DomainDeliverabilityCampaign {
   /// The unique identifier for the campaign. Amazon Pinpoint automatically
   /// generates and assigns this identifier to a campaign. This value is not the
@@ -1272,6 +1315,11 @@ class DomainDeliverabilityCampaign {
       DomainDeliverabilityCampaign();
 }
 
+/// An object that contains information about the Deliverability dashboard
+/// subscription for a verified domain that you use to send email and currently
+/// has an active Deliverability dashboard subscription. If a Deliverability
+/// dashboard subscription is active for a domain, you gain access to
+/// reputation, inbox placement, and other metrics for the domain.
 class DomainDeliverabilityTrackingOption {
   /// A verified domain that’s associated with your AWS account and currently
   /// has an active Deliverability dashboard subscription.
@@ -1295,6 +1343,8 @@ class DomainDeliverabilityTrackingOption {
       DomainDeliverabilityTrackingOption();
 }
 
+/// An object that contains inbox placement data for email sent from one of your
+/// email domains to a specific email provider.
 class DomainIspPlacement {
   /// The name of the email provider that the inbox placement data applies to.
   final String ispName;
@@ -1328,6 +1378,12 @@ class DomainIspPlacement {
       DomainIspPlacement();
 }
 
+/// An object that defines the entire content of the email, including the
+/// message headers and the body content. You can create a simple email message,
+/// in which you specify the subject and the text and HTML versions of the
+/// message body. You can also create raw messages, in which you specify a
+/// complete MIME-formatted message. Raw messages can include attachments and
+/// custom headers.
 class EmailContent {
   /// The simple email message. The message consists of a subject and a message
   /// body.
@@ -1352,8 +1408,8 @@ class EmailContent {
   /// to ensure that recipients' email clients render the message properly.
   ///
   /// *   The length of any single line of text in the message can't exceed
-  /// 1,000 characters. This restriction is defined in [RFC
-  /// 5321](https://tools.ietf.org/html/rfc5321).
+  /// 1,000 characters. This restriction is defined in
+  /// [RFC 5321](https://tools.ietf.org/html/rfc5321).
   final RawMessage raw;
 
   EmailContent({
@@ -1362,6 +1418,12 @@ class EmailContent {
   });
 }
 
+/// In Amazon Pinpoint, _events_ include message sends, deliveries, opens,
+/// clicks, bounces, and complaints. _Event destinations_ are places that you
+/// can send information about these events to. For example, you can send event
+/// data to Amazon SNS to receive notifications when you receive bounces or
+/// complaints, or you can use Amazon Kinesis Data Firehose to stream data to
+/// Amazon S3 for long-term storage.
 class EventDestination {
   /// A name that identifies the event destination.
   final String name;
@@ -1411,6 +1473,10 @@ class EventDestination {
       EventDestination();
 }
 
+/// An object that defines the event destination. Specifically, it defines which
+/// services receive events from emails sent using the configuration set that
+/// the event destination is associated with. Also defines the types of events
+/// that are sent to the event destination.
 class EventDestinationDefinition {
   /// If `true`, the event destination is enabled. When the event destination is
   /// enabled, the specified event types are sent to the destinations in this
@@ -1454,6 +1520,8 @@ class EventDestinationDefinition {
   });
 }
 
+/// A list of details about the email-sending capabilities of your Amazon
+/// Pinpoint account in the current AWS Region.
 class GetAccountResponse {
   /// An object that contains information about the per-day and per-second
   /// sending limits for your Amazon Pinpoint account in the current AWS Region.
@@ -1509,6 +1577,7 @@ class GetAccountResponse {
       GetAccountResponse();
 }
 
+/// An object that contains information about blacklist events.
 class GetBlacklistReportsResponse {
   /// An object that contains information about a blacklist that one of your
   /// dedicated IP addresses appears on.
@@ -1521,6 +1590,7 @@ class GetBlacklistReportsResponse {
       GetBlacklistReportsResponse();
 }
 
+/// Information about an event destination for a configuration set.
 class GetConfigurationSetEventDestinationsResponse {
   /// An array that includes all of the events destinations that have been
   /// configured for the configuration set.
@@ -1534,6 +1604,7 @@ class GetConfigurationSetEventDestinationsResponse {
       GetConfigurationSetEventDestinationsResponse();
 }
 
+/// Information about a configuration set.
 class GetConfigurationSetResponse {
   /// The name of the configuration set.
   final String configurationSetName;
@@ -1570,6 +1641,7 @@ class GetConfigurationSetResponse {
       GetConfigurationSetResponse();
 }
 
+/// Information about a dedicated IP address.
 class GetDedicatedIpResponse {
   /// An object that contains information about a dedicated IP address.
   final DedicatedIp dedicatedIp;
@@ -1581,6 +1653,8 @@ class GetDedicatedIpResponse {
       GetDedicatedIpResponse();
 }
 
+/// Information about the dedicated IP addresses that are associated with your
+/// Amazon Pinpoint account.
 class GetDedicatedIpsResponse {
   /// A list of dedicated IP addresses that are reserved for use by your Amazon
   /// Pinpoint account.
@@ -1599,6 +1673,8 @@ class GetDedicatedIpsResponse {
       GetDedicatedIpsResponse();
 }
 
+/// An object that shows the status of the Deliverability dashboard for your
+/// Amazon Pinpoint account.
 class GetDeliverabilityDashboardOptionsResponse {
   /// Specifies whether the Deliverability dashboard is enabled for your Amazon
   /// Pinpoint account. If this value is `true`, the dashboard is enabled.
@@ -1639,6 +1715,7 @@ class GetDeliverabilityDashboardOptionsResponse {
       GetDeliverabilityDashboardOptionsResponse();
 }
 
+/// The results of the predictive inbox placement test.
 class GetDeliverabilityTestReportResponse {
   /// An object that contains the results of the predictive inbox placement
   /// test.
@@ -1674,6 +1751,10 @@ class GetDeliverabilityTestReportResponse {
       GetDeliverabilityTestReportResponse();
 }
 
+/// An object that contains all the deliverability data for a specific campaign.
+/// This data is available for a campaign only if the campaign sent email by
+/// using a domain that the Deliverability dashboard is enabled for
+/// (`PutDeliverabilityDashboardOption` operation).
 class GetDomainDeliverabilityCampaignResponse {
   /// An object that contains the deliverability data for the campaign.
   final DomainDeliverabilityCampaign domainDeliverabilityCampaign;
@@ -1686,6 +1767,8 @@ class GetDomainDeliverabilityCampaignResponse {
       GetDomainDeliverabilityCampaignResponse();
 }
 
+/// An object that includes statistics that are related to the domain that you
+/// specified.
 class GetDomainStatisticsReportResponse {
   /// An object that contains deliverability metrics for the domain that you
   /// specified. The data in this object is a summary of all of the data that
@@ -1706,6 +1789,7 @@ class GetDomainStatisticsReportResponse {
       GetDomainStatisticsReportResponse();
 }
 
+/// Details about an email identity.
 class GetEmailIdentityResponse {
   /// The email identity type.
   final String identityType;
@@ -1728,8 +1812,8 @@ class GetEmailIdentityResponse {
 
   /// Specifies whether or not the identity is verified. In Amazon Pinpoint, you
   /// can only send email from verified email addresses or domains. For more
-  /// information about verifying identities, see the [Amazon Pinpoint User
-  /// Guide](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html).
+  /// information about verifying identities, see the
+  /// [Amazon Pinpoint User Guide](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-manage-verify.html).
   final bool verifiedForSendingStatus;
 
   /// An object that contains information about the DKIM attributes for the
@@ -1757,6 +1841,7 @@ class GetEmailIdentityResponse {
       GetEmailIdentityResponse();
 }
 
+/// Information about an email identity.
 class IdentityInfo {
   /// The email identity type. The identity type can be one of the following:
   ///
@@ -1786,6 +1871,10 @@ class IdentityInfo {
   static IdentityInfo fromJson(Map<String, dynamic> json) => IdentityInfo();
 }
 
+/// An object that contains information about the inbox placement data settings
+/// for a verified domain that’s associated with your AWS account. This data is
+/// available only if you enabled the Deliverability dashboard for the domain
+/// (`PutDeliverabilityDashboardOption` operation).
 class InboxPlacementTrackingOption {
   /// Specifies whether inbox placement data is being tracked for the domain.
   final bool global;
@@ -1802,6 +1891,8 @@ class InboxPlacementTrackingOption {
       InboxPlacementTrackingOption();
 }
 
+/// An object that describes how email sent during the predictive inbox
+/// placement test was handled by a certain email provider.
 class IspPlacement {
   /// The name of the email provider that the inbox placement data applies to.
   final String ispName;
@@ -1817,6 +1908,9 @@ class IspPlacement {
   static IspPlacement fromJson(Map<String, dynamic> json) => IspPlacement();
 }
 
+/// An object that defines an Amazon Kinesis Data Firehose destination for email
+/// events. You can use Amazon Kinesis Data Firehose to stream data to other
+/// services, such as Amazon S3 and Amazon Redshift.
 class KinesisFirehoseDestination {
   /// The Amazon Resource Name (ARN) of the IAM role that Amazon Pinpoint uses
   /// when sending email events to the Amazon Kinesis Data Firehose stream.
@@ -1834,6 +1928,8 @@ class KinesisFirehoseDestination {
       KinesisFirehoseDestination();
 }
 
+/// A list of configuration sets in your Amazon Pinpoint account in the current
+/// AWS Region.
 class ListConfigurationSetsResponse {
   /// An array that contains all of the configuration sets in your Amazon
   /// Pinpoint account in the current AWS Region.
@@ -1852,6 +1948,7 @@ class ListConfigurationSetsResponse {
       ListConfigurationSetsResponse();
 }
 
+/// A list of dedicated IP pools.
 class ListDedicatedIpPoolsResponse {
   /// A list of all of the dedicated IP pools that are associated with your
   /// Amazon Pinpoint account.
@@ -1870,6 +1967,8 @@ class ListDedicatedIpPoolsResponse {
       ListDedicatedIpPoolsResponse();
 }
 
+/// A list of the predictive inbox placement test reports that are available for
+/// your account, regardless of whether or not those tests are complete.
 class ListDeliverabilityTestReportsResponse {
   /// An object that contains a lists of predictive inbox placement tests that
   /// you've performed.
@@ -1890,6 +1989,10 @@ class ListDeliverabilityTestReportsResponse {
       ListDeliverabilityTestReportsResponse();
 }
 
+/// An array of objects that provide deliverability data for all the campaigns
+/// that used a specific domain to send email during a specified time range.
+/// This data is available for a domain only if you enabled the Deliverability
+/// dashboard (`PutDeliverabilityDashboardOption` operation) for the domain.
 class ListDomainDeliverabilityCampaignsResponse {
   /// An array of responses, one for each campaign that used the domain to send
   /// email during the specified time range.
@@ -1909,6 +2012,9 @@ class ListDomainDeliverabilityCampaignsResponse {
       ListDomainDeliverabilityCampaignsResponse();
 }
 
+/// A list of all of the identities that you've attempted to verify for use with
+/// Amazon Pinpoint, regardless of whether or not those identities were
+/// successfully verified.
 class ListEmailIdentitiesResponse {
   /// An array that includes all of the identities associated with your Amazon
   /// Pinpoint account.
@@ -1940,6 +2046,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// A list of attributes that are associated with a MAIL FROM domain.
 class MailFromAttributes {
   /// The name of a domain that an email identity uses as a custom MAIL FROM
   /// domain.
@@ -1981,11 +2088,13 @@ class MailFromAttributes {
       MailFromAttributes();
 }
 
+/// Represents the email message that you're sending. The `Message` object
+/// consists of a subject line and a message body.
 class Message {
   /// The subject line of the email. The subject line can only contain 7-bit
   /// ASCII characters. However, you can specify non-ASCII characters in the
-  /// subject line by using encoded-word syntax, as described in [RFC
-  /// 2047](https://tools.ietf.org/html/rfc2047).
+  /// subject line by using encoded-word syntax, as described in
+  /// [RFC 2047](https://tools.ietf.org/html/rfc2047).
   final Content subject;
 
   /// The body of the message. You can specify an HTML version of the message, a
@@ -1998,6 +2107,8 @@ class Message {
   });
 }
 
+/// Contains the name and value of a tag that you apply to an email. You can use
+/// message tags when you publish email sending events.
 class MessageTag {
   /// The name of the message tag. The message tag name has to meet the
   /// following criteria:
@@ -2023,6 +2134,8 @@ class MessageTag {
   });
 }
 
+/// An object that contains information about email that was sent from the
+/// selected domain.
 class OverallVolume {
   /// An object that contains information about the numbers of messages that
   /// arrived in recipients' inboxes and junk mail folders.
@@ -2044,6 +2157,10 @@ class OverallVolume {
   static OverallVolume fromJson(Map<String, dynamic> json) => OverallVolume();
 }
 
+/// An object that defines a Amazon Pinpoint destination for email events. You
+/// can use Amazon Pinpoint events to create attributes in Amazon Pinpoint
+/// projects. You can use these attributes to create segments for your
+/// campaigns.
 class PinpointDestination {
   /// The Amazon Resource Name (ARN) of the Amazon Pinpoint project that you
   /// want to send email events to.
@@ -2056,6 +2173,7 @@ class PinpointDestination {
       PinpointDestination();
 }
 
+/// An object that contains inbox placement data for an email provider.
 class PlacementStatistics {
   /// The percentage of emails that arrived in recipients' inboxes during the
   /// predictive inbox placement test.
@@ -2088,6 +2206,8 @@ class PlacementStatistics {
       PlacementStatistics();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutAccountDedicatedIpWarmupAttributesResponse {
   PutAccountDedicatedIpWarmupAttributesResponse();
   static PutAccountDedicatedIpWarmupAttributesResponse fromJson(
@@ -2095,6 +2215,8 @@ class PutAccountDedicatedIpWarmupAttributesResponse {
       PutAccountDedicatedIpWarmupAttributesResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutAccountSendingAttributesResponse {
   PutAccountSendingAttributesResponse();
   static PutAccountSendingAttributesResponse fromJson(
@@ -2102,6 +2224,8 @@ class PutAccountSendingAttributesResponse {
       PutAccountSendingAttributesResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutConfigurationSetDeliveryOptionsResponse {
   PutConfigurationSetDeliveryOptionsResponse();
   static PutConfigurationSetDeliveryOptionsResponse fromJson(
@@ -2109,6 +2233,8 @@ class PutConfigurationSetDeliveryOptionsResponse {
       PutConfigurationSetDeliveryOptionsResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutConfigurationSetReputationOptionsResponse {
   PutConfigurationSetReputationOptionsResponse();
   static PutConfigurationSetReputationOptionsResponse fromJson(
@@ -2116,6 +2242,8 @@ class PutConfigurationSetReputationOptionsResponse {
       PutConfigurationSetReputationOptionsResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutConfigurationSetSendingOptionsResponse {
   PutConfigurationSetSendingOptionsResponse();
   static PutConfigurationSetSendingOptionsResponse fromJson(
@@ -2123,6 +2251,8 @@ class PutConfigurationSetSendingOptionsResponse {
       PutConfigurationSetSendingOptionsResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutConfigurationSetTrackingOptionsResponse {
   PutConfigurationSetTrackingOptionsResponse();
   static PutConfigurationSetTrackingOptionsResponse fromJson(
@@ -2130,12 +2260,16 @@ class PutConfigurationSetTrackingOptionsResponse {
       PutConfigurationSetTrackingOptionsResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutDedicatedIpInPoolResponse {
   PutDedicatedIpInPoolResponse();
   static PutDedicatedIpInPoolResponse fromJson(Map<String, dynamic> json) =>
       PutDedicatedIpInPoolResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutDedicatedIpWarmupAttributesResponse {
   PutDedicatedIpWarmupAttributesResponse();
   static PutDedicatedIpWarmupAttributesResponse fromJson(
@@ -2143,6 +2277,8 @@ class PutDedicatedIpWarmupAttributesResponse {
       PutDedicatedIpWarmupAttributesResponse();
 }
 
+/// A response that indicates whether the Deliverability dashboard is enabled
+/// for your Amazon Pinpoint account.
 class PutDeliverabilityDashboardOptionResponse {
   PutDeliverabilityDashboardOptionResponse();
   static PutDeliverabilityDashboardOptionResponse fromJson(
@@ -2150,6 +2286,8 @@ class PutDeliverabilityDashboardOptionResponse {
       PutDeliverabilityDashboardOptionResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutEmailIdentityDkimAttributesResponse {
   PutEmailIdentityDkimAttributesResponse();
   static PutEmailIdentityDkimAttributesResponse fromJson(
@@ -2157,6 +2295,8 @@ class PutEmailIdentityDkimAttributesResponse {
       PutEmailIdentityDkimAttributesResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutEmailIdentityFeedbackAttributesResponse {
   PutEmailIdentityFeedbackAttributesResponse();
   static PutEmailIdentityFeedbackAttributesResponse fromJson(
@@ -2164,6 +2304,8 @@ class PutEmailIdentityFeedbackAttributesResponse {
       PutEmailIdentityFeedbackAttributesResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class PutEmailIdentityMailFromAttributesResponse {
   PutEmailIdentityMailFromAttributesResponse();
   static PutEmailIdentityMailFromAttributesResponse fromJson(
@@ -2171,6 +2313,7 @@ class PutEmailIdentityMailFromAttributesResponse {
       PutEmailIdentityMailFromAttributesResponse();
 }
 
+/// The raw email message.
 class RawMessage {
   /// The raw email message. The message has to meet the following criteria:
   ///
@@ -2190,8 +2333,8 @@ class RawMessage {
   /// to ensure that recipients' email clients render the message properly.
   ///
   /// *   The length of any single line of text in the message can't exceed
-  /// 1,000 characters. This restriction is defined in [RFC
-  /// 5321](https://tools.ietf.org/html/rfc5321).
+  /// 1,000 characters. This restriction is defined in
+  /// [RFC 5321](https://tools.ietf.org/html/rfc5321).
   final Uint8List data;
 
   RawMessage({
@@ -2199,6 +2342,8 @@ class RawMessage {
   });
 }
 
+/// Enable or disable collection of reputation metrics for emails that you send
+/// using this configuration set in the current AWS Region.
 class ReputationOptions {
   /// If `true`, tracking of reputation metrics is enabled for the configuration
   /// set. If `false`, tracking of reputation metrics is disabled for the
@@ -2219,6 +2364,8 @@ class ReputationOptions {
       ReputationOptions();
 }
 
+/// A unique message ID that you receive when Amazon Pinpoint accepts an email
+/// for sending.
 class SendEmailResponse {
   /// A unique identifier for the message that is generated when Amazon Pinpoint
   /// accepts the message.
@@ -2238,6 +2385,8 @@ class SendEmailResponse {
       SendEmailResponse();
 }
 
+/// An object that contains information about the per-day and per-second sending
+/// limits for your Amazon Pinpoint account in the current AWS Region.
 class SendQuota {
   /// The maximum number of emails that you can send in the current AWS Region
   /// over a 24-hour period. This value is also called your _sending quota_.
@@ -2260,6 +2409,8 @@ class SendQuota {
   static SendQuota fromJson(Map<String, dynamic> json) => SendQuota();
 }
 
+/// Used to enable or disable email sending for messages that use this
+/// configuration set in the current AWS Region.
 class SendingOptions {
   /// If `true`, email sending is enabled for the configuration set. If `false`,
   /// email sending is disabled for the configuration set.
@@ -2271,11 +2422,13 @@ class SendingOptions {
   static SendingOptions fromJson(Map<String, dynamic> json) => SendingOptions();
 }
 
+/// An object that defines an Amazon SNS destination for email events. You can
+/// use Amazon SNS to send notification when certain email events occur.
 class SnsDestination {
   /// The Amazon Resource Name (ARN) of the Amazon SNS topic that you want to
   /// publish email events to. For more information about Amazon SNS topics, see
-  /// the [Amazon SNS Developer
-  /// Guide](https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html).
+  /// the
+  /// [Amazon SNS Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/CreateTopic.html).
   final String topicArn;
 
   SnsDestination({
@@ -2284,6 +2437,34 @@ class SnsDestination {
   static SnsDestination fromJson(Map<String, dynamic> json) => SnsDestination();
 }
 
+/// An object that defines the tags that are associated with a resource.
+/// A _tag_ is a label that you optionally define and associate with a resource
+/// in Amazon Pinpoint. Tags can help you categorize and manage resources in
+/// different ways, such as by purpose, owner, environment, or other criteria. A
+/// resource can have as many as 50 tags.
+///
+/// Each tag consists of a required _tag key_ and an associated _tag value_,
+/// both of which you define. A tag key is a general label that acts as a
+/// category for a more specific tag value. A tag value acts as a descriptor
+/// within a tag key. A tag key can contain as many as 128 characters. A tag
+/// value can contain as many as 256 characters. The characters can be Unicode
+/// letters, digits, white space, or one of the following symbols: _ . : / = +
+/// -. The following additional restrictions apply to tags:
+///
+/// *   Tag keys and values are case sensitive.
+///
+/// *   For each associated resource, each tag key must be unique and it can
+/// have only one value.
+///
+/// *   The `aws:` prefix is reserved for use by AWS; you can’t use it in any
+/// tag keys or values that you define. In addition, you can't edit or remove
+/// tag keys or values that use this prefix. Tags that use this prefix don’t
+/// count against the limit of 50 tags per resource.
+///
+/// *   You can associate tags with public or shared resources, but the tags are
+/// available only for your AWS account, not any other accounts that share the
+/// resource. In addition, the tags are available only for resources that are
+/// located in the specified AWS Region for your AWS account.
 class Tag {
   /// One part of a key-value pair that defines a tag. The maximum length of a
   /// tag key is 128 characters. The minimum length is 1 character.
@@ -2292,7 +2473,7 @@ class Tag {
   /// The optional part of a key-value pair that defines a tag. The maximum
   /// length of a tag value is 256 characters. The minimum length is 0
   /// characters. If you don’t want a resource to have a specific tag value,
-  /// don’t specify a value for this parameter. Amazon Pinpoint will set the
+  /// don’t specify a value for this parameter. Amazon Pinpoint will set the
   /// value to an empty string.
   final String value;
 
@@ -2309,6 +2490,15 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// An object that defines the tracking options for a configuration set. When
+/// you use Amazon Pinpoint to send an email, it contains an invisible image
+/// that's used to track when recipients open your email. If your email contains
+/// links, those links are changed slightly in order to track when recipients
+/// click them.
+///
+/// These images and links include references to a domain operated by AWS. You
+/// can optionally configure Amazon Pinpoint to use a domain that you operate
+/// for these images and links.
 class TrackingOptions {
   /// The domain that you want to use for tracking open and click events.
   final String customRedirectDomain;
@@ -2326,6 +2516,8 @@ class UntagResourceResponse {
       UntagResourceResponse();
 }
 
+/// An HTTP 200 response if the request succeeds, or an error message if the
+/// request fails.
 class UpdateConfigurationSetEventDestinationResponse {
   UpdateConfigurationSetEventDestinationResponse();
   static UpdateConfigurationSetEventDestinationResponse fromJson(
@@ -2333,6 +2525,8 @@ class UpdateConfigurationSetEventDestinationResponse {
       UpdateConfigurationSetEventDestinationResponse();
 }
 
+/// An object that contains information about the amount of email that was
+/// delivered to recipients.
 class VolumeStatistics {
   /// The total number of emails that arrived in recipients' inboxes.
   final BigInt inboxRawCount;

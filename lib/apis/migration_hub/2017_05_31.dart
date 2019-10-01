@@ -85,9 +85,9 @@ class MigrationHubApi {
   /// `ListProgressUpdateStreams` call.
   ///
   /// *    `CreateProgressUpdateStream`, `ImportMigrationTask`,
-  /// `NotifyMigrationTaskState`, and all Associate\[*\] APIs realted to the
-  /// tasks belonging to the stream will throw "InvalidInputException" if the
-  /// stream of the same name is in the process of being deleted.
+  /// `NotifyMigrationTaskState`, and all Associate[*] APIs realted to the tasks
+  /// belonging to the stream will throw "InvalidInputException" if the stream
+  /// of the same name is in the process of being deleted.
   ///
   /// *   Once the stream and all of its resources are deleted,
   /// `CreateProgressUpdateStream` for a stream of the same name will succeed,
@@ -282,8 +282,8 @@ class MigrationHubApi {
 
   /// Sets the migration state of an application. For a given application
   /// identified by the value passed to `ApplicationId`, its status is set or
-  /// updated by passing one of three values to `Status`: `NOT\_STARTED |
-  /// IN\_PROGRESS | COMPLETED`.
+  /// updated by passing one of three values to `Status`: `NOT_STARTED |
+  /// IN_PROGRESS | COMPLETED`.
   ///
   /// [applicationId]: The configurationId in ADS that uniquely identifies the
   /// grouped application.
@@ -364,14 +364,14 @@ class MigrationHubApi {
   /// Application Discovery Service (ADS)'s repository.
   ///
   ///  Takes the object array of `ResourceAttribute` where the `Type` field is
-  /// reserved for the following values: `IPV4\_ADDRESS | IPV6\_ADDRESS |
-  /// MAC\_ADDRESS | FQDN | VM\_MANAGER\_ID | VM\_MANAGED\_OBJECT\_REFERENCE |
-  /// VM\_NAME | VM\_PATH | BIOS\_ID | MOTHERBOARD\_SERIAL_NUMBER` where the
-  /// identifying value can be a string up to 256 characters.
+  /// reserved for the following values: `IPV4_ADDRESS | IPV6_ADDRESS |
+  /// MAC_ADDRESS | FQDN | VM_MANAGER_ID | VM_MANAGED_OBJECT_REFERENCE | VM_NAME
+  /// | VM_PATH | BIOS_ID | MOTHERBOARD_SERIAL_NUMBER` where the identifying
+  /// value can be a string up to 256 characters.
   ///
   /// *   If any "VM" related value is set for a `ResourceAttribute` object, it
-  /// is required that `VM\_MANAGER\_ID`, as a minimum, is always set. If
-  /// `VM\_MANAGER\_ID` is not set, then all "VM" fields will be discarded and
+  /// is required that `VM_MANAGER_ID`, as a minimum, is always set. If
+  /// `VM_MANAGER_ID` is not set, then all "VM" fields will be discarded and
   /// "VM" fields will not be used for matching the migration task to a server
   /// in Application Discovery Service (ADS)'s repository. See the
   /// [Example](https://docs.aws.amazon.com/migrationhub/latest/ug/API_PutResourceAttributes.html#API_PutResourceAttributes_Examples)
@@ -412,6 +412,8 @@ class CreateProgressUpdateStreamResult {
       CreateProgressUpdateStreamResult();
 }
 
+/// An ARN of the AWS cloud resource target receiving the migration (e.g., AMI,
+/// EC2 instance, RDS instance, etc.).
 class CreatedArtifact {
   /// An ARN that uniquely identifies the result of a migration task.
   final String name;
@@ -474,6 +476,7 @@ class DisassociateDiscoveredResourceResult {
       DisassociateDiscoveredResourceResult();
 }
 
+/// Object representing the on-premises resource being migrated.
 class DiscoveredResource {
   /// The configurationId in ADS that uniquely identifies the on-premise
   /// resource.
@@ -567,6 +570,7 @@ class ListProgressUpdateStreamsResult {
       ListProgressUpdateStreamsResult();
 }
 
+/// Represents a migration task in a migration tool.
 class MigrationTask {
   /// A name that identifies the vendor of the migration tool being used.
   final String progressUpdateStream;
@@ -592,6 +596,8 @@ class MigrationTask {
   static MigrationTask fromJson(Map<String, dynamic> json) => MigrationTask();
 }
 
+/// MigrationTaskSummary includes `MigrationTaskName`, `ProgressPercent`,
+/// `ProgressUpdateStream`, `Status`, and `UpdateDateTime` for each task.
 class MigrationTaskSummary {
   /// An AWS resource used for access control. It should uniquely identify the
   /// migration tool as it is used for all updates made by the tool.
@@ -635,6 +641,8 @@ class NotifyMigrationTaskStateResult {
       NotifyMigrationTaskStateResult();
 }
 
+/// Summary of the AWS resource used for access control that is implicitly
+/// linked to your AWS account.
 class ProgressUpdateStreamSummary {
   /// The name of the ProgressUpdateStream.
   final String progressUpdateStreamName;
@@ -652,6 +660,29 @@ class PutResourceAttributesResult {
       PutResourceAttributesResult();
 }
 
+/// Attribute associated with a resource.
+///
+/// Note the corresponding format required per type listed below:
+///
+/// IPV4
+///
+///  `x.x.x.x`
+///
+///  _where x is an integer in the range [0,255]_
+///
+/// IPV6
+///
+///  `y : y : y : y : y : y : y : y`
+///
+///  _where y is a hexadecimal between 0 and FFFF. [0, FFFF]_
+///
+/// MAC_ADDRESS
+///
+///  `^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`
+///
+/// FQDN
+///
+///  `^[^<>{}/?,=p{Cntrl}]{1,256}$`
 class ResourceAttribute {
   /// Type of resource.
   final String type;
@@ -667,6 +698,7 @@ class ResourceAttribute {
       ResourceAttribute();
 }
 
+/// Task object encapsulating task information.
 class Task {
   /// Status of the task - Not Started, In-Progress, Complete.
   final String status;

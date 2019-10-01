@@ -16,11 +16,11 @@ import 'package:meta/meta.dart';
 /// credentials.
 ///
 /// For a description of the authentication flow from the Amazon Cognito
-/// Developer Guide see [Authentication
-/// Flow](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html).
+/// Developer Guide see
+/// [Authentication Flow](https://docs.aws.amazon.com/cognito/latest/developerguide/authentication-flow.html).
 ///
-/// For more information see [Amazon Cognito Federated
-/// Identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
+/// For more information see
+/// [Amazon Cognito Federated Identities](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-identity.html).
 class CognitoIdentityApi {
   /// Creates a new identity pool. The identity pool is a store of user identity
   /// information that is specific to your AWS account. The limit on identity
@@ -130,15 +130,15 @@ class CognitoIdentityApi {
   ///
   /// [logins]: A set of optional name-value pairs that map provider names to
   /// provider tokens. The name-value pair will follow the syntax
-  /// "provider\_name": "provider\_user_identifier".
+  /// "provider_name": "provider_user_identifier".
   ///
   /// Logins should not be specified when trying to get credentials for an
   /// unauthenticated identity.
   ///
   /// The Logins parameter is required when using identities associated with
   /// external identity providers such as FaceBook. For examples of `Logins`
-  /// maps, see the code examples in the [External Identity
-  /// Providers](http://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html)
+  /// maps, see the code examples in the
+  /// [External Identity Providers](http://docs.aws.amazon.com/cognito/latest/developerguide/external-identity-providers.html)
   /// section of the Amazon Cognito Developer Guide.
   ///
   /// [customRoleArn]: The Amazon Resource Name (ARN) of the role to be assumed
@@ -167,7 +167,7 @@ class CognitoIdentityApi {
   /// *   Facebook: `graph.facebook.com`
   ///
   /// *   Amazon Cognito user pool:
-  /// `cognito-idp.<region>.amazonaws.com/<YOUR\_USER\_POOL_ID>`, for example,
+  /// `cognito-idp.<region>.amazonaws.com/<YOUR_USER_POOL_ID>`, for example,
   /// `cognito-idp.us-east-1.amazonaws.com/us-east-1_123456789`.
   ///
   /// *   Google: `accounts.google.com`
@@ -236,8 +236,8 @@ class CognitoIdentityApi {
   /// [logins]: A set of optional name-value pairs that map provider names to
   /// provider tokens. Each name-value pair represents a user from a public
   /// provider or developer provider. If the user is from a developer provider,
-  /// the name-value pair will follow the syntax `"developer\_provider\_name":
-  /// "developer\_user\_identifier"`. The developer provider is the "domain" by
+  /// the name-value pair will follow the syntax `"developer_provider_name":
+  /// "developer_user_identifier"`. The developer provider is the "domain" by
   /// which Cognito will refer to your users; you provided this domain while
   /// creating/updating the identity pool. The developer user identifier is an
   /// identifier from your backend that uniquely identifies a user. When you
@@ -408,7 +408,7 @@ class CognitoIdentityApi {
   /// [roleMappings]: How users for a specific identity provider are to mapped
   /// to roles. This is a string to RoleMapping object map. The string
   /// identifies the identity provider, for example, "graph.facebook.com" or
-  /// "cognito-idp-east-1.amazonaws.com/us-east-1\_abcdefghi:app\_client_id".
+  /// "cognito-idp-east-1.amazonaws.com/us-east-1_abcdefghi:app_client_id".
   ///
   /// Up to 25 rules can be specified per identity provider.
   Future<void> setIdentityPoolRoles(
@@ -540,6 +540,7 @@ class CognitoIdentityApi {
   }
 }
 
+/// A provider representing an Amazon Cognito user pool and its client ID.
 class CognitoIdentityProvider {
   /// The provider name for an Amazon Cognito user pool. For example,
   /// `cognito-idp.us-east-1.amazonaws.com/us-east-1_123456789`.
@@ -569,6 +570,7 @@ class CognitoIdentityProvider {
       CognitoIdentityProvider();
 }
 
+/// Credentials for the provided identity ID.
 class Credentials {
   /// The Access Key portion of the credentials.
   final String accessKeyId;
@@ -591,6 +593,7 @@ class Credentials {
   static Credentials fromJson(Map<String, dynamic> json) => Credentials();
 }
 
+/// Returned in response to a successful `DeleteIdentities` operation.
 class DeleteIdentitiesResponse {
   /// An array of UnprocessedIdentityId objects, each of which contains an
   /// ErrorCode and IdentityId.
@@ -603,6 +606,7 @@ class DeleteIdentitiesResponse {
       DeleteIdentitiesResponse();
 }
 
+/// Returned in response to a successful `GetCredentialsForIdentity` operation.
 class GetCredentialsForIdentityResponse {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -619,6 +623,7 @@ class GetCredentialsForIdentityResponse {
       GetCredentialsForIdentityResponse();
 }
 
+/// Returned in response to a GetId request.
 class GetIdResponse {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -629,6 +634,7 @@ class GetIdResponse {
   static GetIdResponse fromJson(Map<String, dynamic> json) => GetIdResponse();
 }
 
+/// Returned in response to a successful `GetIdentityPoolRoles` operation.
 class GetIdentityPoolRolesResponse {
   /// An identity pool ID in the format REGION:GUID.
   final String identityPoolId;
@@ -640,7 +646,7 @@ class GetIdentityPoolRolesResponse {
   /// How users for a specific identity provider are to mapped to roles. This is
   /// a String-to-RoleMapping object map. The string identifies the identity
   /// provider, for example, "graph.facebook.com" or
-  /// "cognito-idp.us-east-1.amazonaws.com/us-east-1\_abcdefghi:app\_client_id".
+  /// "cognito-idp.us-east-1.amazonaws.com/us-east-1_abcdefghi:app_client_id".
   final Map<String, RoleMapping> roleMappings;
 
   GetIdentityPoolRolesResponse({
@@ -652,6 +658,8 @@ class GetIdentityPoolRolesResponse {
       GetIdentityPoolRolesResponse();
 }
 
+/// Returned in response to a successful `GetOpenIdTokenForDeveloperIdentity`
+/// request.
 class GetOpenIdTokenForDeveloperIdentityResponse {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -668,6 +676,7 @@ class GetOpenIdTokenForDeveloperIdentityResponse {
       GetOpenIdTokenForDeveloperIdentityResponse();
 }
 
+/// Returned in response to a successful GetOpenIdToken request.
 class GetOpenIdTokenResponse {
   /// A unique identifier in the format REGION:GUID. Note that the IdentityId
   /// returned may not match the one passed on input.
@@ -684,6 +693,7 @@ class GetOpenIdTokenResponse {
       GetOpenIdTokenResponse();
 }
 
+/// A description of the identity.
 class IdentityDescription {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -707,6 +717,7 @@ class IdentityDescription {
       IdentityDescription();
 }
 
+/// An object representing an Amazon Cognito identity pool.
 class IdentityPool {
   /// An identity pool ID in the format REGION:GUID.
   final String identityPoolId;
@@ -752,6 +763,7 @@ class IdentityPool {
   static IdentityPool fromJson(Map<String, dynamic> json) => IdentityPool();
 }
 
+/// A description of the identity pool.
 class IdentityPoolShortDescription {
   /// An identity pool ID in the format REGION:GUID.
   final String identityPoolId;
@@ -767,6 +779,7 @@ class IdentityPoolShortDescription {
       IdentityPoolShortDescription();
 }
 
+/// The response to a ListIdentities request.
 class ListIdentitiesResponse {
   /// An identity pool ID in the format REGION:GUID.
   final String identityPoolId;
@@ -786,6 +799,7 @@ class ListIdentitiesResponse {
       ListIdentitiesResponse();
 }
 
+/// The result of a successful ListIdentityPools action.
 class ListIdentityPoolsResponse {
   /// The identity pools returned by the ListIdentityPools action.
   final List<IdentityPoolShortDescription> identityPools;
@@ -812,6 +826,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Returned in response to a successful `LookupDeveloperIdentity` action.
 class LookupDeveloperIdentityResponse {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -838,6 +853,8 @@ class LookupDeveloperIdentityResponse {
       LookupDeveloperIdentityResponse();
 }
 
+/// A rule that maps a claim name, a claim value, and a match type to a role
+/// ARN.
 class MappingRule {
   /// The claim name that must be present in the token, for example, "isAdmin"
   /// or "paid".
@@ -862,6 +879,7 @@ class MappingRule {
   static MappingRule fromJson(Map<String, dynamic> json) => MappingRule();
 }
 
+/// Returned in response to a successful `MergeDeveloperIdentities` action.
 class MergeDeveloperIdentitiesResponse {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;
@@ -873,6 +891,7 @@ class MergeDeveloperIdentitiesResponse {
       MergeDeveloperIdentitiesResponse();
 }
 
+/// A role mapping.
 class RoleMapping {
   /// The role mapping type. Token will use `cognito:roles` and
   /// `cognito:preferred_role` claims from the Cognito identity provider token
@@ -902,6 +921,7 @@ class RoleMapping {
   static RoleMapping fromJson(Map<String, dynamic> json) => RoleMapping();
 }
 
+/// A container for rules.
 class RulesConfigurationType {
   /// An array of rules. You can specify up to 25 rules per identity provider.
   ///
@@ -921,6 +941,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// An array of UnprocessedIdentityId objects, each of which contains an
+/// ErrorCode and IdentityId.
 class UnprocessedIdentityId {
   /// A unique identifier in the format REGION:GUID.
   final String identityId;

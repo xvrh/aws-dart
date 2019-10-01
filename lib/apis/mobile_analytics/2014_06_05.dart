@@ -20,6 +20,7 @@ class MobileAnalyticsApi {
       String clientContextEncoding}) async {}
 }
 
+/// A JSON object representing a batch of unique event occurrences in your app.
 class Event {
   /// A name signifying an event that occurred in your app. This is used for
   /// grouping and aggregating like events together for reporting purposes.
@@ -57,6 +58,7 @@ class Event {
   });
 }
 
+/// Describes the session. Session information is required on ALL events.
 class Session {
   /// A unique identifier for the session
   final String id;

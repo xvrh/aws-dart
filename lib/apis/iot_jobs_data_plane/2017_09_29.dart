@@ -150,6 +150,7 @@ class GetPendingJobExecutionsResponse {
       GetPendingJobExecutionsResponse();
 }
 
+/// Contains data about a job execution.
 class JobExecution {
   /// The unique identifier you assigned to this job when it was created.
   final String jobId;
@@ -209,6 +210,7 @@ class JobExecution {
   static JobExecution fromJson(Map<String, dynamic> json) => JobExecution();
 }
 
+/// Contains data about the state of a job execution.
 class JobExecutionState {
   /// The status of the job execution. Can be one of: "QUEUED", "IN_PROGRESS",
   /// "FAILED", "SUCCESS", "CANCELED", "REJECTED", or "REMOVED".
@@ -231,6 +233,7 @@ class JobExecutionState {
       JobExecutionState();
 }
 
+/// Contains a subset of information about a job execution.
 class JobExecutionSummary {
   /// The unique identifier you assigned to this job when it was created.
   final String jobId;

@@ -6,17 +6,17 @@ class ForecastApi {
   /// you provide helps Forecast understand how to consume the data for model
   /// training. This includes the following:
   ///
-  /// *     _`DataFrequency`_  \- How frequently your historical time-series
-  /// data is collected. Amazon Forecast uses this information when training the
+  /// *     _`DataFrequency`_  - How frequently your historical time-series data
+  /// is collected. Amazon Forecast uses this information when training the
   /// model and generating a forecast.
   ///
-  /// *     _`Domain`_  and  _`DatasetType`_  \- Each dataset has an associated
+  /// *     _`Domain`_  and  _`DatasetType`_  - Each dataset has an associated
   /// dataset domain and a type within the domain. Amazon Forecast provides a
   /// list of predefined domains and types within each domain. For each unique
   /// dataset domain and type within the domain, Amazon Forecast requires your
   /// data to include a minimum set of predefined fields.
   ///
-  /// *     _`Schema`_  \- A schema specifies the fields of the dataset,
+  /// *     _`Schema`_  - A schema specifies the fields of the dataset,
   /// including the field name and data type.
   ///
   ///
@@ -36,9 +36,9 @@ class ForecastApi {
   /// [domain]: The domain associated with the dataset. The `Domain` and
   /// `DatasetType` that you choose determine the fields that must be present in
   /// the training data that you import to the dataset. For example, if you
-  /// choose the `RETAIL` domain and `TARGET\_TIME\_SERIES` as the
-  /// `DatasetType`, Amazon Forecast requires `item_id`, `timestamp`, and
-  /// `demand` fields to be present in your data. For more information, see
+  /// choose the `RETAIL` domain and `TARGET_TIME_SERIES` as the `DatasetType`,
+  /// Amazon Forecast requires `item_id`, `timestamp`, and `demand` fields to be
+  /// present in your data. For more information, see
   /// howitworks-datasets-groups.
   ///
   /// [datasetType]: The dataset type. Valid values depend on the chosen
@@ -93,9 +93,9 @@ class ForecastApi {
   /// [domain]: The domain associated with the dataset group. The `Domain` and
   /// `DatasetType` that you choose determine the fields that must be present in
   /// the training data that you import to the dataset. For example, if you
-  /// choose the `RETAIL` domain and `TARGET\_TIME\_SERIES` as the
-  /// `DatasetType`, Amazon Forecast requires `item_id`, `timestamp`, and
-  /// `demand` fields to be present in your data. For more information, see
+  /// choose the `RETAIL` domain and `TARGET_TIME_SERIES` as the `DatasetType`,
+  /// Amazon Forecast requires `item_id`, `timestamp`, and `demand` fields to be
+  /// present in your data. For more information, see
   /// howitworks-datasets-groups.
   ///
   /// [datasetArns]: An array of Amazon Resource Names (ARNs) of the datasets
@@ -173,10 +173,10 @@ class ForecastApi {
     return CreateDatasetImportJobResponse.fromJson({});
   }
 
-  /// Creates a forecast for each item in the `TARGET\_TIME\_SERIES` dataset
-  /// that was used to train the predictor. This is known as inference. To
-  /// retrieve the forecast for a single item at low latency, use the operation.
-  /// To export the complete forecast into your Amazon Simple Storage Service
+  /// Creates a forecast for each item in the `TARGET_TIME_SERIES` dataset that
+  /// was used to train the predictor. This is known as inference. To retrieve
+  /// the forecast for a single item at low latency, use the operation. To
+  /// export the complete forecast into your Amazon Simple Storage Service
   /// (Amazon S3), use the CreateForecastExportJob operation.
   ///
   /// The range of the forecast is determined by the `ForecastHorizon`,
@@ -257,7 +257,7 @@ class ForecastApi {
   /// to generate a forecast.
   ///
   /// Optionally, you can specify a featurization configuration to fill and
-  /// aggragate the data fields in the `TARGET\_TIME\_SERIES` dataset to improve
+  /// aggragate the data fields in the `TARGET_TIME_SERIES` dataset to improve
   /// model training. For more information, see FeaturizationConfig.
   ///
   ///  **AutoML**
@@ -295,9 +295,9 @@ class ForecastApi {
   ///
   /// *    `arn:aws:forecast:::algorithm/ARIMA`
   ///
-  /// *    `arn:aws:forecast:::algorithm/Deep\_AR\_Plus`
+  /// *    `arn:aws:forecast:::algorithm/Deep_AR_Plus`
   ///
-  ///      `\- supports hyperparameter optimization (HPO)`
+  ///      `- supports hyperparameter optimization (HPO)`
   ///
   /// *    `arn:aws:forecast:::algorithm/ETS`
   ///
@@ -453,7 +453,7 @@ class ForecastApi {
   /// `CreateDatasetGroup` request, this operation includes the following
   /// properties:
   ///
-  /// *    `DatasetArns` \- The datasets belonging to the group.
+  /// *    `DatasetArns` - The datasets belonging to the group.
   ///
   /// *    `CreationTime`
   ///
@@ -484,7 +484,7 @@ class ForecastApi {
   ///
   /// *    `Status`
   ///
-  /// *    `Message` \- If an error occurred, information about the error.
+  /// *    `Message` - If an error occurred, information about the error.
   ///
   /// [datasetImportJobArn]: The Amazon Resource Name (ARN) of the dataset
   /// import job.
@@ -499,7 +499,7 @@ class ForecastApi {
   /// `CreateForecast` request, this operation includes the following
   /// properties:
   ///
-  /// *    `DatasetGroupArn` \- The dataset group that provided the training
+  /// *    `DatasetGroupArn` - The dataset group that provided the training
   /// data.
   ///
   /// *    `CreationTime`
@@ -508,7 +508,7 @@ class ForecastApi {
   ///
   /// *    `Status`
   ///
-  /// *    `Message` \- If an error occurred, information about the error.
+  /// *    `Message` - If an error occurred, information about the error.
   ///
   /// [forecastArn]: The Amazon Resource Name (ARN) of the forecast.
   Future<DescribeForecastResponse> describeForecast(String forecastArn) async {
@@ -528,7 +528,7 @@ class ForecastApi {
   ///
   /// *    `Status`
   ///
-  /// *    `Message` \- If an error occurred, information about the error.
+  /// *    `Message` - If an error occurred, information about the error.
   ///
   /// [forecastExportJobArn]: The Amazon Resource Name (ARN) of the forecast
   /// export job.
@@ -543,10 +543,10 @@ class ForecastApi {
   /// `CreatePredictor` request, this operation includes the following
   /// properties:
   ///
-  /// *    `DatasetImportJobArns` \- The dataset import jobs used to import
+  /// *    `DatasetImportJobArns` - The dataset import jobs used to import
   /// training data.
   ///
-  /// *    `AutoMLAlgorithmArns` \- If AutoML is performed, the algorithms
+  /// *    `AutoMLAlgorithmArns` - If AutoML is performed, the algorithms
   /// evaluated.
   ///
   /// *    `CreationTime`
@@ -555,7 +555,7 @@ class ForecastApi {
   ///
   /// *    `Status`
   ///
-  /// *    `Message` \- If an error occurred, information about the error.
+  /// *    `Message` - If an error occurred, information about the error.
   ///
   /// [predictorArn]: The Amazon Resource Name (ARN) of the predictor that you
   /// want information about.
@@ -622,18 +622,18 @@ class ForecastApi {
   /// and a value. In this release, `Name` is the only valid key, which filters
   /// on the `DatasetImportJobName` property.
   ///
-  /// *    `Condition` \- `IS` or `IS_NOT`
+  /// *    `Condition` - `IS` or `IS_NOT`
   ///
-  /// *    `Key` \- `Name`
+  /// *    `Key` - `Name`
   ///
-  /// *    `Value` \- the value to match
+  /// *    `Value` - the value to match
   ///
   ///
   /// For example, to list all dataset import jobs named
-  /// _my\_dataset\_import_job_, you would specify:
+  /// _my_dataset_import_job_, you would specify:
   ///
-  ///  `"Filters": \[ { "Condition": "IS", "Key": "Name", "Value":
-  /// "my\_dataset\_import_job" } \]`
+  ///  `"Filters":
+  /// [ { "Condition": "IS", "Key": "Name", "Value": "my_dataset_import_job" } ]`
   Future<ListDatasetImportJobsResponse> listDatasetImportJobs(
       {String nextToken, int maxResults, List<Filter> filters}) async {
     return ListDatasetImportJobsResponse.fromJson({});
@@ -674,18 +674,18 @@ class ForecastApi {
   /// and a value. In this release, `Name` is the only valid key, which filters
   /// on the `ForecastExportJobName` property.
   ///
-  /// *    `Condition` \- `IS` or `IS_NOT`
+  /// *    `Condition` - `IS` or `IS_NOT`
   ///
-  /// *    `Key` \- `Name`
+  /// *    `Key` - `Name`
   ///
-  /// *    `Value` \- the value to match
+  /// *    `Value` - the value to match
   ///
   ///
   /// For example, to list all forecast export jobs named
-  /// _my\_forecast\_export_job_, you would specify:
+  /// _my_forecast_export_job_, you would specify:
   ///
-  ///  `"Filters": \[ { "Condition": "IS", "Key": "Name", "Value":
-  /// "my\_forecast\_export_job" } \]`
+  ///  `"Filters":
+  /// [ { "Condition": "IS", "Key": "Name", "Value": "my_forecast_export_job" } ]`
   Future<ListForecastExportJobsResponse> listForecastExportJobs(
       {String nextToken, int maxResults, List<Filter> filters}) async {
     return ListForecastExportJobsResponse.fromJson({});
@@ -710,17 +710,17 @@ class ForecastApi {
   /// and a value. In this release, `Name` is the only valid key, which filters
   /// on the `ForecastName` property.
   ///
-  /// *    `Condition` \- `IS` or `IS_NOT`
+  /// *    `Condition` - `IS` or `IS_NOT`
   ///
-  /// *    `Key` \- `Name`
+  /// *    `Key` - `Name`
   ///
-  /// *    `Value` \- the value to match
+  /// *    `Value` - the value to match
   ///
   ///
   /// For example, to list all forecasts named _my_forecast_, you would specify:
   ///
-  ///  `"Filters": \[ { "Condition": "IS", "Key": "Name", "Value": "my_forecast"
-  /// } \]`
+  ///  `"Filters":
+  /// [ { "Condition": "IS", "Key": "Name", "Value": "my_forecast" } ]`
   Future<ListForecastsResponse> listForecasts(
       {String nextToken, int maxResults, List<Filter> filters}) async {
     return ListForecastsResponse.fromJson({});
@@ -745,18 +745,18 @@ class ForecastApi {
   /// and a value. In this release, `Name` is the only valid key, which filters
   /// on the `PredictorName` property.
   ///
-  /// *    `Condition` \- `IS` or `IS_NOT`
+  /// *    `Condition` - `IS` or `IS_NOT`
   ///
-  /// *    `Key` \- `Name`
+  /// *    `Key` - `Name`
   ///
-  /// *    `Value` \- the value to match
+  /// *    `Value` - the value to match
   ///
   ///
   /// For example, to list all predictors named _my_predictor_, you would
   /// specify:
   ///
-  ///  `"Filters": \[ { "Condition": "IS", "Key": "Name", "Value":
-  /// "my_predictor" } \]`
+  ///  `"Filters":
+  /// [ { "Condition": "IS", "Key": "Name", "Value": "my_predictor" } ]`
   Future<ListPredictorsResponse> listPredictors(
       {String nextToken, int maxResults, List<Filter> filters}) async {
     return ListPredictorsResponse.fromJson({});
@@ -782,6 +782,8 @@ class ForecastApi {
   }
 }
 
+/// Specifies a categorical hyperparameter and it's range of tunable values.
+/// This object is part of the ParameterRanges object.
 class CategoricalParameterRange {
   /// The name of the categorical hyperparameter to tune.
   final String name;
@@ -797,6 +799,8 @@ class CategoricalParameterRange {
       CategoricalParameterRange();
 }
 
+/// Specifies a continuous hyperparameter and it's range of tunable values. This
+/// object is part of the ParameterRanges object.
 class ContinuousParameterRange {
   /// The name of the hyperparameter to tune.
   final String name;
@@ -809,8 +813,7 @@ class ContinuousParameterRange {
 
   /// The scale that hyperparameter tuning uses to search the hyperparameter
   /// range. For information about choosing a hyperparameter scale, see
-  /// [Hyperparameter
-  /// Scaling](http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
+  /// [Hyperparameter Scaling](http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
   /// One of the following values:
   ///
   /// Auto
@@ -916,6 +919,8 @@ class CreatePredictorResponse {
       CreatePredictorResponse();
 }
 
+/// The destination of an exported forecast and credentials to access the
+/// location. This object is submitted in the CreateForecastExportJob request.
 class DataDestination {
   /// The path to an Amazon Simple Storage Service (Amazon S3) bucket along with
   /// the credentials to access the bucket.
@@ -928,6 +933,8 @@ class DataDestination {
       DataDestination();
 }
 
+/// The source of your training data and credentials to access the data. This
+/// object is submitted in the CreateDatasetImportJob request.
 class DataSource {
   /// The path to the training data stored in an Amazon Simple Storage Service
   /// (Amazon S3) bucket along with the credentials to access the data.
@@ -939,6 +946,9 @@ class DataSource {
   static DataSource fromJson(Map<String, dynamic> json) => DataSource();
 }
 
+/// Provides a summary of the dataset group properties used in the
+/// ListDatasetGroups operation. To get the complete set of properties, call the
+/// DescribeDatasetGroup operation, and provide the listed `DatasetGroupArn`.
 class DatasetGroupSummary {
   /// The Amazon Resource Name (ARN) of the dataset group.
   final String datasetGroupArn;
@@ -964,6 +974,10 @@ class DatasetGroupSummary {
       DatasetGroupSummary();
 }
 
+/// Provides a summary of the dataset import job properties used in the
+/// ListDatasetImportJobs operation. To get the complete set of properties, call
+/// the DescribeDatasetImportJob operation, and provide the listed
+/// `DatasetImportJobArn`.
 class DatasetImportJobSummary {
   /// The Amazon Resource Name (ARN) of the dataset import job.
   final String datasetImportJobArn;
@@ -976,14 +990,14 @@ class DatasetImportJobSummary {
 
   /// The status of the dataset import job. The status is reflected in the
   /// status of the dataset. For example, when the import job status is
-  /// `CREATE\_IN\_PROGRESS`, the status of the dataset is
-  /// `UPDATE\_IN\_PROGRESS`. States include:
+  /// `CREATE_IN_PROGRESS`, the status of the dataset is `UPDATE_IN_PROGRESS`.
+  /// States include:
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   final String status;
 
   /// If an error occurred, an informational message about the error.
@@ -994,11 +1008,11 @@ class DatasetImportJobSummary {
 
   /// Dependent on the status as follows:
   ///
-  /// *    `CREATE_PENDING` \- same as `CreationTime`
+  /// *    `CREATE_PENDING` - same as `CreationTime`
   ///
-  /// *    `CREATE\_IN\_PROGRESS` \- the current timestamp
+  /// *    `CREATE_IN_PROGRESS` - the current timestamp
   ///
-  /// *    `ACTIVE` or `CREATE_FAILED` \- when the job finished or failed
+  /// *    `ACTIVE` or `CREATE_FAILED` - when the job finished or failed
   final DateTime lastModificationTime;
 
   DatasetImportJobSummary({
@@ -1014,6 +1028,9 @@ class DatasetImportJobSummary {
       DatasetImportJobSummary();
 }
 
+/// Provides a summary of the dataset properties used in the ListDatasets
+/// operation. To get the complete set of properties, call the DescribeDataset
+/// operation, and provide the listed `DatasetArn`.
 class DatasetSummary {
   /// The Amazon Resource Name (ARN) of the dataset.
   final String datasetArn;
@@ -1062,9 +1079,9 @@ class DescribeDatasetGroupResponse {
   /// The domain associated with the dataset group. The `Domain` and
   /// `DatasetType` that you choose determine the fields that must be present in
   /// the training data that you import to the dataset. For example, if you
-  /// choose the `RETAIL` domain and `TARGET\_TIME\_SERIES` as the
-  /// `DatasetType`, Amazon Forecast requires `item_id`, `timestamp`, and
-  /// `demand` fields to be present in your data. For more information, see
+  /// choose the `RETAIL` domain and `TARGET_TIME_SERIES` as the `DatasetType`,
+  /// Amazon Forecast requires `item_id`, `timestamp`, and `demand` fields to be
+  /// present in your data. For more information, see
   /// howitworks-datasets-groups.
   final String domain;
 
@@ -1072,11 +1089,11 @@ class DescribeDatasetGroupResponse {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
-  /// *    `UPDATE_PENDING`, `UPDATE\_IN\_PROGRESS`, `UPDATE_FAILED`
+  /// *    `UPDATE_PENDING`, `UPDATE_IN_PROGRESS`, `UPDATE_FAILED`
   ///
   ///
   /// The `UPDATE` states apply when the UpdateDatasetGroup operation is called.
@@ -1145,14 +1162,14 @@ class DescribeDatasetImportJobResponse {
 
   /// The status of the dataset import job. The status is reflected in the
   /// status of the dataset. For example, when the import job status is
-  /// `CREATE\_IN\_PROGRESS`, the status of the dataset is
-  /// `UPDATE\_IN\_PROGRESS`. States include:
+  /// `CREATE_IN_PROGRESS`, the status of the dataset is `UPDATE_IN_PROGRESS`.
+  /// States include:
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   final String status;
 
   /// If an error occurred, an informational message about the error.
@@ -1163,11 +1180,11 @@ class DescribeDatasetImportJobResponse {
 
   /// Dependent on the status as follows:
   ///
-  /// *    `CREATE_PENDING` \- same as `CreationTime`
+  /// *    `CREATE_PENDING` - same as `CreationTime`
   ///
-  /// *    `CREATE\_IN\_PROGRESS` \- the current timestamp
+  /// *    `CREATE_IN_PROGRESS` - the current timestamp
   ///
-  /// *    `ACTIVE` or `CREATE_FAILED` \- when the job finished or failed
+  /// *    `ACTIVE` or `CREATE_FAILED` - when the job finished or failed
   final DateTime lastModificationTime;
 
   DescribeDatasetImportJobResponse({
@@ -1220,18 +1237,18 @@ class DescribeDatasetResponse {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
-  /// *    `UPDATE_PENDING`, `UPDATE\_IN\_PROGRESS`, `UPDATE_FAILED`
+  /// *    `UPDATE_PENDING`, `UPDATE_IN_PROGRESS`, `UPDATE_FAILED`
   ///
   ///
   /// The `UPDATE` states apply while data is imported to the dataset from a
   /// call to the CreateDatasetImportJob operation. During this time, the status
   /// reflects the status of the dataset import job. For example, when the
-  /// import job status is `CREATE\_IN\_PROGRESS`, the status of the dataset is
-  /// `UPDATE\_IN\_PROGRESS`.
+  /// import job status is `CREATE_IN_PROGRESS`, the status of the dataset is
+  /// `UPDATE_IN_PROGRESS`.
   ///
   ///
   ///
@@ -1285,9 +1302,9 @@ class DescribeForecastExportJobResponse {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
   ///
   ///
@@ -1335,9 +1352,9 @@ class DescribeForecastResponse {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
   ///
   ///
@@ -1354,7 +1371,7 @@ class DescribeForecastResponse {
 
   /// Initially, the same as `CreationTime` (status is `CREATE_PENDING`).
   /// Updated when inference (creating the forecast) starts (status changed to
-  /// `CREATE\_IN\_PROGRESS`), and when inference is complete (status changed to
+  /// `CREATE_IN_PROGRESS`), and when inference is complete (status changed to
   /// `ACTIVE`) or fails (status changed to `CREATE_FAILED`).
   final DateTime lastModificationTime;
 
@@ -1428,11 +1445,11 @@ class DescribePredictorResponse {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
-  /// *    `UPDATE_PENDING`, `UPDATE\_IN\_PROGRESS`, `UPDATE_FAILED`
+  /// *    `UPDATE_PENDING`, `UPDATE_IN_PROGRESS`, `UPDATE_FAILED`
   ///
   ///
   ///
@@ -1448,9 +1465,9 @@ class DescribePredictorResponse {
   final DateTime creationTime;
 
   /// Initially, the same as `CreationTime` (status is `CREATE_PENDING`).
-  /// Updated when training starts (status changed to `CREATE\_IN\_PROGRESS`),
-  /// and when training is complete (status changed to `ACTIVE`) or fails
-  /// (status changed to `CREATE_FAILED`).
+  /// Updated when training starts (status changed to `CREATE_IN_PROGRESS`), and
+  /// when training is complete (status changed to `ACTIVE`) or fails (status
+  /// changed to `CREATE_FAILED`).
   final DateTime lastModificationTime;
 
   DescribePredictorResponse({
@@ -1477,6 +1494,10 @@ class DescribePredictorResponse {
       DescribePredictorResponse();
 }
 
+/// An AWS Key Management Service (KMS) key and an AWS Identity and Access
+/// Management (IAM) role that Amazon Forecast can assume to access the key.
+/// This object is optionally submitted in the CreateDataset and CreatePredictor
+/// requests.
 class EncryptionConfig {
   /// The ARN of the AWS Identity and Access Management (IAM) role that Amazon
   /// Forecast can assume to access the AWS KMS key.
@@ -1496,6 +1517,19 @@ class EncryptionConfig {
       EncryptionConfig();
 }
 
+/// Parameters that define how to split a dataset into training data and testing
+/// data, and the number of iterations to perform. These parameters are
+/// specified in the predefined algorithms and can be overridden in the
+/// CreatePredictor request.
+///
+/// For example, suppose that you have a dataset with data collection frequency
+/// set to every day and you have 200 days worth of data (that is, 200 data
+/// points). Now suppose that you set the `NumberOfBacktestWindows` to 2 and the
+/// `BackTestWindowOffset` parameter to 20. The algorithm splits the data twice.
+/// The first time, the algorithm trains the model using the first 180 data
+/// points and uses the last 20 data points for evaluation. The second time, the
+/// algorithm trains the model using the first 160 data points and uses the last
+/// 40 data points for evaluation.
 class EvaluationParameters {
   /// The number of times to split the input data. The default is 1. The range
   /// is 1 through 5.
@@ -1514,6 +1548,8 @@ class EvaluationParameters {
       EvaluationParameters();
 }
 
+/// The results of evaluating an algorithm. Returned as part of the
+/// GetAccuracyMetrics response.
 class EvaluationResult {
   /// The Amazon Resource Name (ARN) of the algorithm that was evaluated.
   final String algorithmArn;
@@ -1531,10 +1567,28 @@ class EvaluationResult {
       EvaluationResult();
 }
 
+/// Provides featurization (transformation) information for a dataset field.
+/// This object is part of the FeaturizationConfig object.
+///
+/// For example:
+///
+///  `{`
+///
+///  `"AttributeName": "demand",`
+///
+///  `FeaturizationPipeline [ {`
+///
+///  `"FeaturizationMethodName": "filling",`
+///
+///  `"FeaturizationMethodParameters": {"aggregation": "avg", "backfill": "nan"}`
+///
+///  `} ]`
+///
+///  `}`
 class Featurization {
   /// The name of the schema attribute specifying the data field to be
   /// featurized. In this release, only the `target` field of the
-  /// `TARGET\_TIME\_SERIES` dataset type is supported. For example, for the
+  /// `TARGET_TIME_SERIES` dataset type is supported. For example, for the
   /// `RETAIL` domain, the target is `demand`, and for the `CUSTOM` domain, the
   /// target is `target_value`.
   final String attributeName;
@@ -1551,6 +1605,20 @@ class Featurization {
   static Featurization fromJson(Map<String, dynamic> json) => Featurization();
 }
 
+/// In a CreatePredictor operation, the specified algorithm trains a model using
+/// the specified dataset group. You can optionally tell the operation to modify
+/// data fields prior to training a model. These modifications are referred to
+/// as _featurization_.
+///
+/// You define featurization using the `FeaturizationConfig` object. You specify
+/// an array of transformations, one for each field that you want to featurize.
+/// You then include the `FeaturizationConfig` in your `CreatePredictor`
+/// request. Amazon Forecast applies the featurization to the
+/// `TARGET_TIME_SERIES` dataset before model training.
+///
+/// You can create multiple featurization configurations. For example, you might
+/// call the `CreatePredictor` operation twice by specifying different
+/// featurization configurations.
 class FeaturizationConfig {
   /// The frequency of predictions in a forecast.
   ///
@@ -1582,6 +1650,21 @@ class FeaturizationConfig {
       FeaturizationConfig();
 }
 
+/// Provides information about a method that featurizes (transforms) a dataset
+/// field. The method is part of the `FeaturizationPipeline` of the
+/// Featurization object. If `FeaturizationMethodParameters` isn't specified,
+/// Amazon Forecast uses default parameters.
+///
+/// For example:
+///
+///  `{`
+///
+///  `"FeaturizationMethodName": "filling",`
+///
+///  `"FeaturizationMethodParameters": {"aggregation": "avg", "backfill":
+/// "nan"}`
+///
+///  `}`
 class FeaturizationMethod {
   /// The name of the method. In this release, "filling" is the only supported
   /// method.
@@ -1608,6 +1691,10 @@ class FeaturizationMethod {
       FeaturizationMethod();
 }
 
+/// Describes a filter for choosing a subset of objects. Each filter consists of
+/// a condition and a match statement. The condition is either `IS` or `IS_NOT`,
+/// which specifies whether to include or exclude, respectively, the objects
+/// that match the statement. The match statement consists of a key and a value.
 class Filter {
   /// The name of the parameter to filter on.
   final String key;
@@ -1625,6 +1712,10 @@ class Filter {
   });
 }
 
+/// Provides a summary of the forecast export job properties used in the
+/// ListForecastExportJobs operation. To get the complete set of properties,
+/// call the DescribeForecastExportJob operation, and provide the listed
+/// `ForecastExportJobArn`.
 class ForecastExportJobSummary {
   /// The Amazon Resource Name (ARN) of the forecast export job.
   final String forecastExportJobArn;
@@ -1639,9 +1730,9 @@ class ForecastExportJobSummary {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
   ///
   ///
@@ -1672,6 +1763,9 @@ class ForecastExportJobSummary {
       ForecastExportJobSummary();
 }
 
+/// Provides a summary of the forecast properties used in the ListForecasts
+/// operation. To get the complete set of properties, call the DescribeForecast
+/// operation, and provide the listed `ForecastArn`.
 class ForecastSummary {
   /// The ARN of the forecast.
   final String forecastArn;
@@ -1690,9 +1784,9 @@ class ForecastSummary {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
   ///
   ///
@@ -1709,7 +1803,7 @@ class ForecastSummary {
 
   /// Initially, the same as `CreationTime` (status is `CREATE_PENDING`).
   /// Updated when inference (creating the forecast) starts (status changed to
-  /// `CREATE\_IN\_PROGRESS`), and when inference is complete (status changed to
+  /// `CREATE_IN_PROGRESS`), and when inference is complete (status changed to
   /// `ACTIVE`) or fails (status changed to `CREATE_FAILED`).
   final DateTime lastModificationTime;
 
@@ -1738,6 +1832,19 @@ class GetAccuracyMetricsResponse {
       GetAccuracyMetricsResponse();
 }
 
+/// Configuration information for a hyperparameter tuning job. This object is
+/// specified in the CreatePredictor request.
+///
+/// A hyperparameter is a parameter that governs the model training process and
+/// is set before training starts. This is as opposed to a model parameter that
+/// is determined during training. The values of the hyperparameters have an
+/// effect on the chosen model parameters.
+///
+/// A hyperparameter tuning job is the process of choosing the optimum set of
+/// hyperparameter values that optimize a specified metric. This is accomplished
+/// by running many training jobs over a range of hyperparameter values. The
+/// optimum set of values is dependent on the algorithm, the training data, and
+/// the given metric objective.
 class HyperParameterTuningJobConfig {
   /// Specifies the ranges of valid values for the hyperparameters.
   final ParameterRanges parameterRanges;
@@ -1749,6 +1856,9 @@ class HyperParameterTuningJobConfig {
       HyperParameterTuningJobConfig();
 }
 
+/// The data used to train a predictor. The data includes a dataset group and
+/// any supplementary features. This object is specified in the CreatePredictor
+/// request.
 class InputDataConfig {
   /// The Amazon Resource Name (ARN) of the dataset group.
   final String datasetGroupArn;
@@ -1765,6 +1875,8 @@ class InputDataConfig {
       InputDataConfig();
 }
 
+/// Specifies an integer hyperparameter and it's range of tunable values. This
+/// object is part of the ParameterRanges object.
 class IntegerParameterRange {
   /// The name of the hyperparameter to tune.
   final String name;
@@ -1777,8 +1889,7 @@ class IntegerParameterRange {
 
   /// The scale that hyperparameter tuning uses to search the hyperparameter
   /// range. For information about choosing a hyperparameter scale, see
-  /// [Hyperparameter
-  /// Scaling](http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
+  /// [Hyperparameter Scaling](http://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
   /// One of the following values:
   ///
   /// Auto
@@ -1913,6 +2024,8 @@ class ListPredictorsResponse {
       ListPredictorsResponse();
 }
 
+/// Provides metrics used to evaluate the performance of a predictor. This
+/// object is part of the WindowSummary object.
 class Metrics {
   /// The root mean square error (RMSE).
   final double rmse;
@@ -1929,6 +2042,11 @@ class Metrics {
   static Metrics fromJson(Map<String, dynamic> json) => Metrics();
 }
 
+/// Specifies the categorical, continuous, and integer hyperparameters, and
+/// their ranges of tunable values. The range of tunable values determines which
+/// values that a hyperparameter tuning job can choose for the specified
+/// hyperparameter. This object is part of the HyperParameterTuningJobConfig
+/// object.
 class ParameterRanges {
   /// Specifies the tunable range for each categorical hyperparameter.
   final List<CategoricalParameterRange> categoricalParameterRanges;
@@ -1948,6 +2066,9 @@ class ParameterRanges {
       ParameterRanges();
 }
 
+/// Provides a summary of the predictor properties used in the ListPredictors
+/// operation. To get the complete set of properties, call the DescribePredictor
+/// operation, and provide the listed `PredictorArn`.
 class PredictorSummary {
   /// The ARN of the predictor.
   final String predictorArn;
@@ -1963,11 +2084,11 @@ class PredictorSummary {
   ///
   /// *    `ACTIVE`
   ///
-  /// *    `CREATE_PENDING`, `CREATE\_IN\_PROGRESS`, `CREATE_FAILED`
+  /// *    `CREATE_PENDING`, `CREATE_IN_PROGRESS`, `CREATE_FAILED`
   ///
-  /// *    `DELETE_PENDING`, `DELETE\_IN\_PROGRESS`, `DELETE_FAILED`
+  /// *    `DELETE_PENDING`, `DELETE_IN_PROGRESS`, `DELETE_FAILED`
   ///
-  /// *    `UPDATE_PENDING`, `UPDATE\_IN\_PROGRESS`, `UPDATE_FAILED`
+  /// *    `UPDATE_PENDING`, `UPDATE_IN_PROGRESS`, `UPDATE_FAILED`
   ///
   ///
   ///
@@ -1983,9 +2104,9 @@ class PredictorSummary {
   final DateTime creationTime;
 
   /// Initially, the same as `CreationTime` (status is `CREATE_PENDING`).
-  /// Updated when training starts (status changed to `CREATE\_IN\_PROGRESS`),
-  /// and when training is complete (status changed to `ACTIVE`) or fails
-  /// (status changed to `CREATE_FAILED`).
+  /// Updated when training starts (status changed to `CREATE_IN_PROGRESS`), and
+  /// when training is complete (status changed to `ACTIVE`) or fails (status
+  /// changed to `CREATE_FAILED`).
   final DateTime lastModificationTime;
 
   PredictorSummary({
@@ -2001,6 +2122,11 @@ class PredictorSummary {
       PredictorSummary();
 }
 
+/// The path to the file(s) in an Amazon Simple Storage Service (Amazon S3)
+/// bucket, and an AWS Identity and Access Management (IAM) role that Amazon
+/// Forecast can assume to access the file(s). Optionally, includes an AWS Key
+/// Management Service (KMS) key. This object is submitted in the
+/// CreateDatasetImportJob and CreateForecastExportJob requests.
 class S3Config {
   /// The path to an Amazon Simple Storage Service (Amazon S3) bucket or file(s)
   /// in an Amazon S3 bucket.
@@ -2024,6 +2150,8 @@ class S3Config {
   static S3Config fromJson(Map<String, dynamic> json) => S3Config();
 }
 
+/// Defines the fields of a dataset. This object is specified in the
+/// CreateDataset request.
 class Schema {
   /// An array of attributes specifying the name and type of each field in a
   /// dataset.
@@ -2035,6 +2163,9 @@ class Schema {
   static Schema fromJson(Map<String, dynamic> json) => Schema();
 }
 
+/// An attribute of a schema, which defines a field of a dataset. A schema
+/// attribute is required for every field in a dataset. The Schema object
+/// contains an array of `SchemaAttribute` objects.
 class SchemaAttribute {
   /// The name of the dataset field.
   final String attributeName;
@@ -2050,6 +2181,8 @@ class SchemaAttribute {
       SchemaAttribute();
 }
 
+/// Provides statistics for each data field imported to an Amazon Forecast
+/// dataset with the CreateDatasetImportJob operation.
 class Statistics {
   /// The number of values in the field.
   final int count;
@@ -2088,6 +2221,13 @@ class Statistics {
   static Statistics fromJson(Map<String, dynamic> json) => Statistics();
 }
 
+/// Describes a supplementary feature of a dataset group. This object is part of
+/// the InputDataConfig object.
+///
+/// For this release, the only supported feature is a holiday calendar. If the
+/// calendar is used, all data should belong to the same country as the
+/// calendar. For the calendar data, see
+/// [http://jollyday.sourceforge.net/data.html](http://jollyday.sourceforge.net/data.html).
 class SupplementaryFeature {
   /// The name of the feature. This must be "holiday".
   final String name;
@@ -2119,6 +2259,8 @@ class UpdateDatasetGroupResponse {
       UpdateDatasetGroupResponse();
 }
 
+/// The weighted loss value for a quantile. This object is part of the Metrics
+/// object.
 class WeightedQuantileLoss {
   /// The quantile. Quantiles divide a probability distribution into regions of
   /// equal probability. For example, if the distribution was divided into 5
@@ -2138,6 +2280,11 @@ class WeightedQuantileLoss {
       WeightedQuantileLoss();
 }
 
+/// The metrics for a time range within the evaluation portion of a dataset.
+/// This object is part of the EvaluationResult object.
+///
+/// The `TestWindowStart` and `TestWindowEnd` parameters are determined by the
+/// `BackTestWindowOffset` parameter of the EvaluationParameters object.
 class WindowSummary {
   /// The timestamp that defines the start of the window.
   final DateTime testWindowStart;
@@ -2150,9 +2297,9 @@ class WindowSummary {
 
   /// The type of evaluation.
   ///
-  /// *    `SUMMARY` \- The average metrics across all windows.
+  /// *    `SUMMARY` - The average metrics across all windows.
   ///
-  /// *    `COMPUTED` \- The metrics for the specified window.
+  /// *    `COMPUTED` - The metrics for the specified window.
   final String evaluationType;
 
   final Metrics metrics;

@@ -6,9 +6,10 @@ import 'dart:typed_data';
 /// AWS Identity and Access Management (IAM) is a web service that you can use
 /// to manage users and user permissions under your AWS account. This guide
 /// provides descriptions of IAM actions that you can call programmatically. For
-/// general information about IAM, see [AWS Identity and Access Management
-/// (IAM)](http://aws.amazon.com/iam/). For the user guide for IAM, see [Using
-/// IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/).
+/// general information about IAM, see
+/// [AWS Identity and Access Management (IAM)](http://aws.amazon.com/iam/). For
+/// the user guide for IAM, see
+/// [Using IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/).
 ///
 ///  AWS provides SDKs that consist of libraries and sample code for various
 /// programming languages and platforms (Java, Ruby, .NET, iOS, Android, etc.).
@@ -16,13 +17,13 @@ import 'dart:typed_data';
 /// AWS. For example, the SDKs take care of tasks such as cryptographically
 /// signing requests (see below), managing errors, and retrying requests
 /// automatically. For information about the AWS SDKs, including how to download
-/// and install them, see the [Tools for Amazon Web
-/// Services](http://aws.amazon.com/tools/) page.
+/// and install them, see the
+/// [Tools for Amazon Web Services](http://aws.amazon.com/tools/) page.
 ///
 /// We recommend that you use the AWS SDKs to make programmatic API calls to
 /// IAM. However, you can also use the IAM Query API to make direct calls to the
-/// IAM web service. To learn more about the IAM Query API, see [Making Query
-/// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+/// IAM web service. To learn more about the IAM Query API, see
+/// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
 /// in the _Using IAM_ guide. IAM supports GET and POST requests for all
 /// actions. That is, the API does not require you to use GET for some actions
 /// and POST for others. However, GET requests are subject to the limitation
@@ -38,8 +39,8 @@ import 'dart:typed_data';
 /// Service to generate temporary security credentials and use those to sign
 /// requests.
 ///
-/// To sign requests, we recommend that you use [Signature Version
-/// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+/// To sign requests, we recommend that you use
+/// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 /// If you have an existing application that uses Signature Version 2, you do
 /// not have to update it to use Signature Version 4. However, some operations
 /// now require Signature Version 4. The documentation for operations that
@@ -49,18 +50,18 @@ import 'dart:typed_data';
 ///
 /// For more information, see the following:
 ///
-/// *    [AWS Security
-/// Credentials](https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html).
+/// *
+/// [AWS Security Credentials](https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html).
 /// This topic provides general information about the types of credentials used
 /// for accessing AWS.
 ///
-/// *    [IAM Best
-/// Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html).
+/// *
+/// [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAMBestPractices.html).
 /// This topic presents a list of suggestions for using the IAM service to help
 /// secure your AWS resources.
 ///
-/// *    [Signing AWS API
-/// Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html).
+/// *
+/// [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html).
 /// This set of topics walk you through the process of signing a request using
 /// an access key ID and secret access key.
 class IamApi {
@@ -86,33 +87,33 @@ class IamApi {
   /// profile can contain only one role, and this limit cannot be increased. You
   /// can remove the existing role and then add a different role to an instance
   /// profile. You must then wait for the change to appear across all of AWS
-  /// because of [eventual
-  /// consistency](https://en.wikipedia.org/wiki/Eventual_consistency). To force
-  /// the change, you must [disassociate the instance
-  /// profile](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisassociateIamInstanceProfile.html)
-  /// and then [associate the instance
-  /// profile](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AssociateIamInstanceProfile.html),
+  /// because of
+  /// [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency).
+  /// To force the change, you must
+  /// [disassociate the instance profile](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DisassociateIamInstanceProfile.html)
+  /// and then
+  /// [associate the instance profile](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_AssociateIamInstanceProfile.html),
   /// or you can stop your instance and then restart it.
   ///
   ///  The caller of this API must be granted the `PassRole` permission on the
   /// IAM role by a permissions policy.
   ///
-  /// For more information about roles, go to [Working with
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
-  /// For more information about instance profiles, go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about roles, go to
+  /// [Working with Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// For more information about instance profiles, go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   /// [instanceProfileName]: The name of the instance profile to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [roleName]: The name of the role to add.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> addRoleToInstanceProfile(
@@ -123,15 +124,15 @@ class IamApi {
   ///
   /// [groupName]: The name of the group to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [userName]: The name of the user to add.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> addUserToGroup(
@@ -142,24 +143,23 @@ class IamApi {
   /// You use this API to attach a managed policy to a group. To embed an inline
   /// policy in a group, use PutGroupPolicy.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [groupName]: The name (friendly name, not ARN) of the group to attach the
   /// policy to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// attach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachGroupPolicy(
       {@required String groupName, @required String policyArn}) async {}
@@ -174,24 +174,23 @@ class IamApi {
   ///
   /// Use this API to attach a _managed_ policy to a role. To embed an inline
   /// policy in a role, use PutRolePolicy. For more information about policies,
-  /// see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name (friendly name, not ARN) of the role to attach the
   /// policy to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// attach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachRolePolicy(
       {@required String roleName, @required String policyArn}) async {}
@@ -201,24 +200,23 @@ class IamApi {
   /// You use this API to attach a _managed_ policy to a user. To embed an
   /// inline policy in a user, use PutUserPolicy.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name (friendly name, not ARN) of the IAM user to attach
   /// the policy to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// attach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> attachUserPolicy(
       {@required String userName, @required String policyArn}) async {}
@@ -227,8 +225,8 @@ class IamApi {
   /// AWS account root user password is not affected by this operation.
   ///
   /// To change the password for a different user, see UpdateLoginProfile. For
-  /// more information about modifying passwords, see [Managing
-  /// Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
+  /// more information about modifying passwords, see
+  /// [Managing Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
   /// in the _IAM User Guide_.
   ///
   /// [oldPassword]: The IAM user's current password.
@@ -238,11 +236,11 @@ class IamApi {
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
   /// validate this parameter is a string of characters. That string can include
-  /// almost any printable ASCII character from the space (\\u0020) through the
-  /// end of the ASCII character range (\\u00FF). You can also include the tab
-  /// (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters.
-  /// Any of these characters are valid in a password. However, many tools, such
-  /// as the AWS Management Console, might restrict the ability to type certain
+  /// almost any printable ASCII character from the space (u0020) through the
+  /// end of the ASCII character range (u00FF). You can also include the tab
+  /// (u0009), line feed (u000A), and carriage return (u000D) characters. Any of
+  /// these characters are valid in a password. However, many tools, such as the
+  /// AWS Management Console, might restrict the ability to type certain
   /// characters because they have special meaning within that tool.
   Future<void> changePassword(
       {@required String oldPassword, @required String newPassword}) async {}
@@ -257,8 +255,7 @@ class IamApi {
   /// if the AWS account has no associated users.
   ///
   ///  For information about limits on the number of keys you can create, see
-  /// [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -271,8 +268,8 @@ class IamApi {
   ///
   /// [userName]: The name of the IAM user that the new key will belong to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<CreateAccessKeyResponse> createAccessKey({String userName}) async {
@@ -280,14 +277,14 @@ class IamApi {
   }
 
   /// Creates an alias for your AWS account. For information about using an AWS
-  /// account alias, see [Using an Alias for Your AWS Account
-  /// ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in
-  /// the _IAM User Guide_.
+  /// account alias, see
+  /// [Using an Alias for Your AWS Account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html)
+  /// in the _IAM User Guide_.
   ///
   /// [accountAlias]: The account alias to create.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of lowercase letters, digits, and dashes. You cannot start or
   /// finish with a dash, nor can you have two dashes in a row.
   Future<void> createAccountAlias(String accountAlias) async {}
@@ -295,24 +292,22 @@ class IamApi {
   /// Creates a new group.
   ///
   ///  For information about the number of groups you can create, see
-  /// [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
-  /// [path]:  The path to the group. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// [path]:  The path to the group. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [groupName]: The name of the group to create. Do not include the path in
   /// this value.
@@ -326,36 +321,34 @@ class IamApi {
   }
 
   ///  Creates a new instance profile. For information about instance profiles,
-  /// go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   ///  For information about the number of instance profiles you can create, see
-  /// [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   /// [instanceProfileName]: The name of the instance profile to create.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [path]:  The path to the instance profile. For more information about
-  /// paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   Future<CreateInstanceProfileResponse> createInstanceProfile(
       String instanceProfileName,
       {String path}) async {
@@ -364,15 +357,15 @@ class IamApi {
 
   ///  Creates a password for the specified user, giving the user the ability to
   /// access AWS services through the AWS Management Console. For more
-  /// information about managing passwords, see [Managing
-  /// Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
+  /// information about managing passwords, see
+  /// [Managing Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the IAM user to create a password for. The user
   /// must already exist.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -380,11 +373,11 @@ class IamApi {
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
   /// validate this parameter is a string of characters. That string can include
-  /// almost any printable ASCII character from the space (\\u0020) through the
-  /// end of the ASCII character range (\\u00FF). You can also include the tab
-  /// (\\u0009), line feed (\\u000A), and carriage return (\\u000D) characters.
-  /// Any of these characters are valid in a password. However, many tools, such
-  /// as the AWS Management Console, might restrict the ability to type certain
+  /// almost any printable ASCII character from the space (u0020) through the
+  /// end of the ASCII character range (u00FF). You can also include the tab
+  /// (u0009), line feed (u000A), and carriage return (u000D) characters. Any of
+  /// these characters are valid in a password. However, many tools, such as the
+  /// AWS Management Console, might restrict the ability to type certain
   /// characters because they have special meaning within that tool.
   ///
   /// [passwordResetRequired]: Specifies whether the user is required to set a
@@ -464,8 +457,7 @@ class IamApi {
   /// certificate used by https://keys.server.example.com.
   ///
   /// For more information about obtaining the OIDC provider's thumbprint, see
-  /// [Obtaining the Thumbprint for an OpenID Connect
-  /// Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-oidc-obtain-thumbprint.html)
+  /// [Obtaining the Thumbprint for an OpenID Connect Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/identity-providers-oidc-obtain-thumbprint.html)
   /// in the _IAM User Guide_.
   Future<CreateOpenIDConnectProviderResponse> createOpenIDConnectProvider(
       {@required String url,
@@ -478,13 +470,12 @@ class IamApi {
   ///
   /// This operation creates a policy version with a version identifier of `v1`
   /// and sets v1 as the policy's default version. For more information about
-  /// policy versions, see [Versioning for Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   ///
-  /// For more information about managed policies in general, see [Managed
-  /// Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about managed policies in general, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyName]: The friendly name of the policy.
@@ -495,20 +486,19 @@ class IamApi {
   ///
   /// [path]: The path for the policy.
   ///
-  /// For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [policyDocument]: The JSON policy document that you want to use as the
   /// content for the new policy.
@@ -521,14 +511,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [description]: A friendly description of the policy.
   ///
@@ -555,17 +545,15 @@ class IamApi {
   /// The default version is the version that is in effect for the IAM users,
   /// groups, and roles to which the policy is attached.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy to which you
   /// want to add a new version.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [policyDocument]: The JSON policy document that you want to use as the
@@ -579,14 +567,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [setAsDefault]: Specifies whether to set this version as the policy's
   /// default version.
@@ -595,9 +583,8 @@ class IamApi {
   /// operative version. That is, it becomes the version that is in effect for
   /// the IAM users, groups, and roles that the policy is attached to.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   Future<CreatePolicyVersionResponse> createPolicyVersion(
       {@required String policyArn,
@@ -607,27 +594,26 @@ class IamApi {
   }
 
   /// Creates a new role for your AWS account. For more information about roles,
-  /// go to [IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// go to
+  /// [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   /// For information about limitations on role names and the number of roles
-  /// you can create, go to [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// you can create, go to
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
-  /// [path]:  The path to the role. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// [path]:  The path to the role. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [roleName]: The name of the role to create.
   ///
@@ -646,14 +632,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   ///
   ///  Upon success, the response includes the same trust policy as a
@@ -674,8 +660,8 @@ class IamApi {
   /// parameter, their security credentials are valid for one hour by default.
   /// This applies when you use the `AssumeRole*` API operations or the
   /// `assume-role*` CLI operations but does not apply when you use those
-  /// operations to create a console URL. For more information, see [Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
+  /// operations to create a console URL. For more information, see
+  /// [Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
   /// in the _IAM User Guide_.
   ///
   /// [permissionsBoundary]: The ARN of the policy that is used to set the
@@ -683,8 +669,8 @@ class IamApi {
   ///
   /// [tags]: A list of tags that you want to attach to the newly created role.
   /// Each tag consists of a key name and an associated value. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -718,15 +704,14 @@ class IamApi {
   /// generate the metadata document using the identity management software that
   /// is used as your organization's IdP.
   ///
-  ///   This operation requires [Signature Version
-  /// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  ///   This operation requires
+  /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   ///
-  ///  For more information, see [Enabling SAML 2.0 Federated Users to Access
-  /// the AWS Management
-  /// Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html)
-  /// and [About SAML 2.0-based
-  /// Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
+  ///  For more information, see
+  /// [Enabling SAML 2.0 Federated Users to Access the AWS Management Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-saml.html)
+  /// and
+  /// [About SAML 2.0-based Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
   /// in the _IAM User Guide_.
   ///
   /// [samlMetadataDocument]: An XML document generated by an identity provider
@@ -736,14 +721,14 @@ class IamApi {
   /// must generate the metadata document using the identity management software
   /// that is used as your organization's IdP.
   ///
-  /// For more information, see [About SAML 2.0-based
-  /// Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
+  /// For more information, see
+  /// [About SAML 2.0-based Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
   /// in the _IAM User Guide_
   ///
   /// [name]: The name of the provider to create.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<CreateSamlProviderResponse> createSamlProvider(
@@ -757,8 +742,8 @@ class IamApi {
   /// deleted role, which could put your AWS resources into an unknown state.
   /// Allowing the service to control the role helps improve service stability
   /// and proper cleanup when a service and its role are no longer needed. For
-  /// more information, see [Using Service-Linked
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
+  /// more information, see
+  /// [Using Service-Linked Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
   /// in the _IAM User Guide_.
   ///
   /// To attach a policy to this service-linked role, you must make the request
@@ -769,9 +754,8 @@ class IamApi {
   /// http:// in front. For example: `elasticbeanstalk.amazonaws.com`.
   ///
   /// Service principals are unique and case-sensitive. To find the exact
-  /// service principal for your service-linked role, see [AWS Services That
-  /// Work with
-  /// IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)
+  /// service principal for your service-linked role, see
+  /// [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)
   /// in the _IAM User Guide_. Look for the services that have **Yes** in the
   /// **Service-Linked Role** column. Choose the **Yes** link to view the
   /// service-linked role documentation for that service.
@@ -808,9 +792,8 @@ class IamApi {
   /// You can reset the password to a new service-generated value by calling
   /// ResetServiceSpecificCredential.
   ///
-  /// For more information about service-specific credentials, see [Using IAM
-  /// with AWS CodeCommit: Git Credentials, SSH Keys, and AWS Access
-  /// Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html)
+  /// For more information about service-specific credentials, see
+  /// [Using IAM with AWS CodeCommit: Git Credentials, SSH Keys, and AWS Access Keys](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_ssh-keys.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the IAM user that is to be associated with the
@@ -818,8 +801,8 @@ class IamApi {
   /// permissions as the associated user except that they can be used only to
   /// access the specified service.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -835,25 +818,23 @@ class IamApi {
   /// Creates a new IAM user for your AWS account.
   ///
   ///  For information about limitations on the number of IAM users you can
-  /// create, see [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// create, see
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   /// [path]:  The path for the user name. For more information about paths, see
-  /// [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [userName]: The name of the user to create.
   ///
@@ -866,8 +847,8 @@ class IamApi {
   ///
   /// [tags]: A list of tags that you want to attach to the newly created user.
   /// Each tag consists of a key name and an associated value. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -882,13 +863,13 @@ class IamApi {
   /// Creates a new virtual MFA device for the AWS account. After creating the
   /// virtual MFA, use EnableMFADevice to attach the MFA device to an IAM user.
   /// For more information about creating and working with virtual MFA devices,
-  /// go to [Using a Virtual MFA
-  /// Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
+  /// go to
+  /// [Using a Virtual MFA Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
   /// in the _IAM User Guide_.
   ///
   /// For information about limits on the number of MFA devices you can create,
-  /// see [Limitations on
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// see
+  /// [Limitations on Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -900,26 +881,25 @@ class IamApi {
   /// the information is destroyed following secure procedures.
   ///
   /// [path]:  The path for the virtual MFA device. For more information about
-  /// paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/).
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [virtualMfaDeviceName]: The name of the virtual MFA device. Use with path
   /// to uniquely identify a virtual MFA device.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<CreateVirtualMfaDeviceResponse> createVirtualMfaDevice(
@@ -932,22 +912,22 @@ class IamApi {
   /// the user name for which it was originally enabled.
   ///
   /// For more information about creating and working with virtual MFA devices,
-  /// go to [Enabling a Virtual Multi-factor Authentication (MFA)
-  /// Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
+  /// go to
+  /// [Enabling a Virtual Multi-factor Authentication (MFA) Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user whose MFA device you want to deactivate.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [serialNumber]: The serial number that uniquely identifies the MFA device.
   /// For virtual MFA devices, the serial number is the device ARN.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: =,.@:/-
   Future<void> deactivateMfaDevice(
@@ -963,28 +943,28 @@ class IamApi {
   ///
   /// [userName]: The name of the user whose access key pair you want to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [accessKeyId]: The access key ID for the access key ID and secret access
   /// key you want to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   Future<void> deleteAccessKey(String accessKeyId, {String userName}) async {}
 
   ///  Deletes the specified AWS account alias. For information about using an
-  /// AWS account alias, see [Using an Alias for Your AWS Account
-  /// ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in
-  /// the _IAM User Guide_.
+  /// AWS account alias, see
+  /// [Using an Alias for Your AWS Account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html)
+  /// in the _IAM User Guide_.
   ///
   /// [accountAlias]: The name of the account alias to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of lowercase letters, digits, and dashes. You cannot start or
   /// finish with a dash, nor can you have two dashes in a row.
   Future<void> deleteAccountAlias(String accountAlias) async {}
@@ -997,8 +977,8 @@ class IamApi {
   ///
   /// [groupName]: The name of the IAM group to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteGroup(String groupName) async {}
@@ -1008,22 +988,22 @@ class IamApi {
   ///
   /// A group can also have managed policies attached to it. To detach a managed
   /// policy from a group, use DetachGroupPolicy. For more information about
-  /// policies, refer to [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// policies, refer to
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [groupName]: The name (friendly name, not ARN) identifying the group that
   /// the policy is embedded in.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name identifying the policy document to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteGroupPolicy(
@@ -1037,13 +1017,13 @@ class IamApi {
   /// profile that is associated with a running instance will break any
   /// applications running on the instance.
   ///
-  /// For more information about instance profiles, go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// For more information about instance profiles, go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   /// [instanceProfileName]: The name of the instance profile to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteInstanceProfile(String instanceProfileName) async {}
@@ -1059,8 +1039,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user whose password you want to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteLoginProfile(String userName) async {}
@@ -1103,16 +1083,15 @@ class IamApi {
   /// version) using this API.
   ///
   ///
-  /// For information about managed policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For information about managed policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// delete.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> deletePolicy(String policyArn) async {}
 
@@ -1123,36 +1102,34 @@ class IamApi {
   /// which version of a policy is marked as the default version, use
   /// ListPolicyVersions.
   ///
-  /// For information about versions for managed policies, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For information about versions for managed policies, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy from which
   /// you want to delete a version.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [versionId]: The policy version to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consists of the lowercase letter 'v' followed by one or two digits, and
-  /// optionally followed by a period '.' and a string of letters and digits.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consists of the lowercase letter 'v' followed by one or two digits,
+  /// and optionally followed by a period '.' and a string of letters and
+  /// digits.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   Future<void> deletePolicyVersion(
       {@required String policyArn, @required String versionId}) async {}
 
   /// Deletes the specified role. The role must not have any policies attached.
-  /// For more information about roles, go to [Working with
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// For more information about roles, go to
+  /// [Working with Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
   ///
   ///
@@ -1163,8 +1140,8 @@ class IamApi {
   ///
   /// [roleName]: The name of the role to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteRole(String roleName) async {}
@@ -1186,23 +1163,23 @@ class IamApi {
   ///
   /// A role can also have managed policies attached to it. To detach a managed
   /// policy from a role, use DetachRolePolicy. For more information about
-  /// policies, refer to [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// policies, refer to
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name (friendly name, not ARN) identifying the role that
   /// the policy is embedded in.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the inline policy to delete from the specified
   /// IAM role.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteRolePolicy(
@@ -1215,8 +1192,8 @@ class IamApi {
   /// policies. Any attempt to assume a role that references a non-existent
   /// provider resource ARN fails.
   ///
-  ///   This operation requires [Signature Version
-  /// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  ///   This operation requires
+  /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// [samlProviderArn]: The Amazon Resource Name (ARN) of the SAML provider to
   /// delete.
@@ -1227,30 +1204,29 @@ class IamApi {
   /// The SSH public key deleted by this operation is used only for
   /// authenticating the associated IAM user to an AWS CodeCommit repository.
   /// For more information about using SSH keys to authenticate to an AWS
-  /// CodeCommit repository, see [Set up AWS CodeCommit for SSH
-  /// Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
+  /// CodeCommit repository, see
+  /// [Set up AWS CodeCommit for SSH Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
   /// in the _AWS CodeCommit User Guide_.
   ///
   /// [userName]: The name of the IAM user associated with the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [sshPublicKeyId]: The unique identifier for the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   Future<void> deleteSshPublicKey(
       {@required String userName, @required String sshPublicKeyId}) async {}
 
   /// Deletes the specified server certificate.
   ///
-  /// For more information about working with server certificates, see [Working
-  /// with Server
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
+  /// For more information about working with server certificates, see
+  /// [Working with Server Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
   /// in the _IAM User Guide_. This topic also includes a list of AWS services
   /// that can use the server certificates that you manage with IAM.
   ///
@@ -1267,8 +1243,8 @@ class IamApi {
   /// [serverCertificateName]: The name of the server certificate you want to
   /// delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteServerCertificate(String serverCertificateName) async {}
@@ -1288,12 +1264,11 @@ class IamApi {
   /// deleted. To delete the service-linked role, you must first remove those
   /// resources from the linked service and then submit the deletion request
   /// again. Resources are specific to the service that is linked to the role.
-  /// For more information about removing resources from a service, see the [AWS
-  /// documentation](http://docs.aws.amazon.com/) for your service.
+  /// For more information about removing resources from a service, see the
+  /// [AWS documentation](http://docs.aws.amazon.com/) for your service.
   ///
-  /// For more information about service-linked roles, see [Roles Terms and
-  /// Concepts: AWS Service-Linked
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role)
+  /// For more information about service-linked roles, see
+  /// [Roles Terms and Concepts: AWS Service-Linked Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name of the service-linked role to be deleted.
@@ -1308,8 +1283,8 @@ class IamApi {
   /// credential. If this value is not specified, then the operation assumes the
   /// user whose credentials are used to call the operation.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -1317,9 +1292,9 @@ class IamApi {
   /// service-specific credential. You can get this value by calling
   /// ListServiceSpecificCredentials.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   Future<void> deleteServiceSpecificCredential(
       String serviceSpecificCredentialId,
       {String userName}) async {}
@@ -1334,8 +1309,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user the signing certificate belongs to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -1350,8 +1325,7 @@ class IamApi {
   /// Deletes the specified IAM user. Unlike the AWS Management Console, when
   /// you delete a user programmatically, you must delete the items attached to
   /// the user manually, or the deletion fails. For more information, see
-  /// [Deleting an IAM
-  /// User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli).
+  /// [Deleting an IAM User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_deleting_cli).
   /// Before attempting to delete a user, remove the following items:
   ///
   /// *   Password (DeleteLoginProfile)
@@ -1375,8 +1349,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteUser(String userName) async {}
@@ -1398,22 +1372,22 @@ class IamApi {
   ///
   /// A user can also have managed policies attached to it. To detach a managed
   /// policy from a user, use DetachUserPolicy. For more information about
-  /// policies, refer to [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// policies, refer to
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name (friendly name, not ARN) identifying the user that
   /// the policy is embedded in.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name identifying the policy document to delete.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> deleteUserPolicy(
@@ -1428,8 +1402,8 @@ class IamApi {
   /// [serialNumber]: The serial number that uniquely identifies the MFA device.
   /// For virtual MFA devices, the serial number is the same as the ARN.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: =,.@:/-
   Future<void> deleteVirtualMfaDevice(String serialNumber) async {}
@@ -1438,24 +1412,23 @@ class IamApi {
   ///
   /// A group can also have inline policies embedded with it. To delete an
   /// inline policy, use the DeleteGroupPolicy API. For information about
-  /// policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [groupName]: The name (friendly name, not ARN) of the IAM group to detach
   /// the policy from.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// detach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachGroupPolicy(
       {@required String groupName, @required String policyArn}) async {}
@@ -1464,24 +1437,22 @@ class IamApi {
   ///
   /// A role can also have inline policies embedded with it. To delete an inline
   /// policy, use the DeleteRolePolicy API. For information about policies, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name (friendly name, not ARN) of the IAM role to detach
   /// the policy from.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// detach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachRolePolicy(
       {@required String roleName, @required String policyArn}) async {}
@@ -1490,24 +1461,22 @@ class IamApi {
   ///
   /// A user can also have inline policies embedded with it. To delete an inline
   /// policy, use the DeleteUserPolicy API. For information about policies, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name (friendly name, not ARN) of the IAM user to detach
   /// the policy from.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy you want to
   /// detach.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<void> detachUserPolicy(
       {@required String userName, @required String policyArn}) async {}
@@ -1519,16 +1488,16 @@ class IamApi {
   /// [userName]: The name of the IAM user for whom you want to enable the MFA
   /// device.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [serialNumber]: The serial number that uniquely identifies the MFA device.
   /// For virtual MFA devices, the serial number is the device ARN.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: =,.@:/-
   ///
@@ -1543,8 +1512,7 @@ class IamApi {
   /// the MFA device successfully associates with the user but the MFA device
   /// becomes out of sync. This happens because time-based one-time passwords
   /// (TOTP) expire after a short period of time. If this happens, you can
-  /// [resync the
-  /// device](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_sync.html).
+  /// [resync the device](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_sync.html).
   ///
   /// [authenticationCode2]: A subsequent authentication code emitted by the
   /// device.
@@ -1558,8 +1526,7 @@ class IamApi {
   /// the MFA device successfully associates with the user but the MFA device
   /// becomes out of sync. This happens because time-based one-time passwords
   /// (TOTP) expire after a short period of time. If this happens, you can
-  /// [resync the
-  /// device](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_sync.html).
+  /// [resync the device](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa_sync.html).
   Future<void> enableMfaDevice(
       {@required String userName,
       @required String serialNumber,
@@ -1567,8 +1534,8 @@ class IamApi {
       @required String authenticationCode2}) async {}
 
   ///  Generates a credential report for the AWS account. For more information
-  /// about the credential report, see [Getting Credential
-  /// Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
+  /// about the credential report, see
+  /// [Getting Credential Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
   /// in the _IAM User Guide_.
   Future<GenerateCredentialReportResponse> generateCredentialReport() async {
     return GenerateCredentialReportResponse.fromJson({});
@@ -1582,9 +1549,8 @@ class IamApi {
   /// master account credentials. You can use your long-term IAM user or root
   /// user credentials, or temporary credentials from assuming an IAM role. SCPs
   /// must be enabled for your organization root. You must have the required IAM
-  /// and AWS Organizations permissions. For more information, see [Refining
-  /// Permissions Using Service Last Accessed
-  /// Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
+  /// and AWS Organizations permissions. For more information, see
+  /// [Refining Permissions Using Service Last Accessed Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
   /// in the _IAM User Guide_.
   ///
   /// You can generate a service last accessed data report for entities by
@@ -1601,19 +1567,19 @@ class IamApi {
   /// account activity that the policy allows to account principals in the
   /// entity or the entity's children. For important information about the data,
   /// reporting period, permissions required, troubleshooting, and supported
-  /// Regions see [Reducing Permissions Using Service Last Accessed
-  /// Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
+  /// Regions see
+  /// [Reducing Permissions Using Service Last Accessed Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
   /// in the _IAM User Guide_.
   ///
-  ///  The data includes all attempts to access AWS, not just the successful
+  ///  The data includes all attempts to access AWS, not just the successful
   /// ones. This includes all attempts that were made using the AWS Management
   /// Console, the AWS API through any of the SDKs, or any of the command line
   /// tools. An unexpected entry in the service last accessed data does not mean
   /// that an account has been compromised, because the request might have been
   /// denied. Refer to your CloudTrail logs as the authoritative source for
   /// information about all API calls and whether they were successful or denied
-  /// access. For more information, see [Logging IAM Events with
-  /// CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html)
+  /// access. For more information,
+  /// see [Logging IAM Events with CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html)
   /// in the _IAM User Guide_.
   ///
   /// This operation returns a `JobId`. Use this parameter in the
@@ -1692,13 +1658,12 @@ class IamApi {
   /// types include identity-based policies, resource-based policies, access
   /// control lists, IAM permissions boundaries, and STS assume role policies.
   /// It only applies SCP logic. For more about the evaluation of policy types,
-  /// see [Evaluating
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
+  /// see
+  /// [Evaluating Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
   /// in the _IAM User Guide_.
   ///
-  /// For more information about service last accessed data, see [Reducing
-  /// Policy Scope by Viewing User
-  /// Activity](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
+  /// For more information about service last accessed data, see
+  /// [Reducing Policy Scope by Viewing User Activity](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
   /// in the _IAM User Guide_.
   ///
   /// [entityPath]: The path of the AWS Organizations entity (root, OU, or
@@ -1724,11 +1689,10 @@ class IamApi {
   /// group, role, or policy) was last used in an attempt to access AWS
   /// services. Recent activity usually appears within four hours. IAM reports
   /// activity for the last 365 days, or less if your Region began supporting
-  /// this feature within the last year. For more information, see [Regions
-  /// Where Data Is
-  /// Tracked](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period).
+  /// this feature within the last year. For more information, see
+  /// [Regions Where Data Is Tracked](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#access-advisor_tracking-period).
   ///
-  ///  The service last accessed data includes all attempts to access an AWS
+  ///  The service last accessed data includes all attempts to access an AWS
   /// API, not just the successful ones. This includes all attempts that were
   /// made using the AWS Management Console, the AWS API through any of the
   /// SDKs, or any of the command line tools. An unexpected entry in the service
@@ -1736,8 +1700,7 @@ class IamApi {
   /// because the request might have been denied. Refer to your CloudTrail logs
   /// as the authoritative source for information about all API calls and
   /// whether they were successful or denied access. For more information,
-  /// see [Logging IAM Events with
-  /// CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html)
+  /// see [Logging IAM Events with CloudTrail](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html)
   /// in the _IAM User Guide_.
   ///
   /// The `GenerateServiceLastAccessedDetails` operation returns a `JobId`. Use
@@ -1767,13 +1730,12 @@ class IamApi {
   /// types include resource-based policies, access control lists, AWS
   /// Organizations policies, IAM permissions boundaries, and AWS STS assume
   /// role policies. It only applies permissions policy logic. For more about
-  /// the evaluation of policy types, see [Evaluating
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
+  /// the evaluation of policy types, see
+  /// [Evaluating Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
   /// in the _IAM User Guide_.
   ///
-  /// For more information about service last accessed data, see [Reducing
-  /// Policy Scope by Viewing User
-  /// Activity](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
+  /// For more information about service last accessed data, see
+  /// [Reducing Policy Scope by Viewing User Activity](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
   /// in the _IAM User Guide_.
   ///
   /// [arn]: The ARN of the IAM resource (user, group, role, or managed policy)
@@ -1791,9 +1753,9 @@ class IamApi {
   ///
   /// [accessKeyId]: The identifier of an access key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   Future<GetAccessKeyLastUsedResponse> getAccessKeyLastUsed(
       String accessKeyId) async {
     return GetAccessKeyLastUsedResponse.fromJson({});
@@ -1804,12 +1766,12 @@ class IamApi {
   /// API to obtain a snapshot of the configuration of IAM permissions (users,
   /// groups, roles, and policies) in your account.
   ///
-  ///  Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  ///  Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// You can optionally filter the results using the `Filter` parameter. You
   /// can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -1842,8 +1804,8 @@ class IamApi {
   }
 
   /// Retrieves the password policy for the AWS account. For more information
-  /// about using a password policy, go to [Managing an IAM Password
-  /// Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html).
+  /// about using a password policy, go to
+  /// [Managing an IAM Password Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html).
   Future<GetAccountPasswordPolicyResponse> getAccountPasswordPolicy() async {
     return GetAccountPasswordPolicyResponse.fromJson({});
   }
@@ -1851,9 +1813,8 @@ class IamApi {
   /// Retrieves information about IAM entity usage and IAM quotas in the AWS
   /// account.
   ///
-  ///  For information about limitations on IAM entities, see [Limitations on
-  /// IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  ///  For information about limitations on IAM entities, see
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   Future<GetAccountSummaryResponse> getAccountSummary() async {
     return GetAccountSummaryResponse.fromJson({});
@@ -1879,14 +1840,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<GetContextKeysForPolicyResponse> getContextKeysForCustomPolicy(
       List<String> policyInputList) async {
     return GetContextKeysForPolicyResponse.fromJson({});
@@ -1921,9 +1882,8 @@ class IamApi {
   /// all parameters are shown in unencoded form here for clarity, but must be
   /// URL encoded to be included as a part of a real HTML request.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [policyInputList]: An optional list of additional policies for which you
@@ -1932,14 +1892,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<GetContextKeysForPolicyResponse> getContextKeysForPrincipalPolicy(
       String policySourceArn,
       {List<String> policyInputList}) async {
@@ -1947,8 +1907,8 @@ class IamApi {
   }
 
   ///  Retrieves a credential report for the AWS account. For more information
-  /// about the credential report, see [Getting Credential
-  /// Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
+  /// about the credential report, see
+  /// [Getting Credential Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
   /// in the _IAM User Guide_.
   Future<GetCredentialReportResponse> getCredentialReport() async {
     return GetCredentialReportResponse.fromJson({});
@@ -1959,8 +1919,8 @@ class IamApi {
   ///
   /// [groupName]: The name of the group.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -1986,33 +1946,33 @@ class IamApi {
   /// Retrieves the specified inline policy document that is embedded in the
   /// specified IAM group.
   ///
-  ///  Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  ///  Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// An IAM group can also have managed policies attached to it. To retrieve a
   /// managed policy document that is attached to a group, use GetPolicy to
   /// determine the policy's default version, then use GetPolicyVersion to
   /// retrieve the policy document.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [groupName]: The name of the group the policy is associated with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the policy document to get.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetGroupPolicyResponse> getGroupPolicy(
@@ -2022,15 +1982,15 @@ class IamApi {
 
   ///  Retrieves information about the specified instance profile, including the
   /// instance profile's path, GUID, ARN, and role. For more information about
-  /// instance profiles, see [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html)
+  /// instance profiles, see
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html)
   /// in the _IAM User Guide_.
   ///
   /// [instanceProfileName]: The name of the instance profile to get information
   /// about.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetInstanceProfileResponse> getInstanceProfile(
@@ -2044,8 +2004,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user whose login profile you want to retrieve.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetLoginProfileResponse> getLoginProfile(String userName) async {
@@ -2060,9 +2020,8 @@ class IamApi {
   /// of OIDC provider resource ARNs by using the ListOpenIDConnectProviders
   /// operation.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<GetOpenIDConnectProviderResponse> getOpenIDConnectProvider(
       String openIDConnectProviderArn) async {
@@ -2081,8 +2040,7 @@ class IamApi {
   /// To call this operation, you must be signed in to the master account in
   /// your organization. SCPs must be enabled for your organization root. You
   /// must have permissions to perform this operation. For more information, see
-  /// [Refining Permissions Using Service Last Accessed
-  /// Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
+  /// [Refining Permissions Using Service Last Accessed Data](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html)
   /// in the _IAM User Guide_.
   ///
   /// For each service that principals in an account (root users, IAM users, or
@@ -2136,16 +2094,15 @@ class IamApi {
   /// group, or role, use the GetUserPolicy, GetGroupPolicy, or GetRolePolicy
   /// API.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the managed policy that you
   /// want information about.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<GetPolicyResponse> getPolicy(String policyArn) async {
     return GetPolicyResponse.fromJson({});
@@ -2154,12 +2111,12 @@ class IamApi {
   /// Retrieves information about the specified version of the specified managed
   /// policy, including the policy document.
   ///
-  ///  Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  ///  Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// To list the available versions for a policy, use ListPolicyVersions.
   ///
@@ -2167,30 +2124,28 @@ class IamApi {
   /// information about an inline policy that is embedded in a user, group, or
   /// role, use the GetUserPolicy, GetGroupPolicy, or GetRolePolicy API.
   ///
-  /// For more information about the types of policies, see [Managed Policies
-  /// and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about the types of policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the managed policy that you
   /// want information about.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [versionId]: Identifies the policy version to retrieve.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consists of the lowercase letter 'v' followed by one or two digits, and
-  /// optionally followed by a period '.' and a string of letters and digits.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consists of the lowercase letter 'v' followed by one or two digits,
+  /// and optionally followed by a period '.' and a string of letters and
+  /// digits.
   Future<GetPolicyVersionResponse> getPolicyVersion(
       {@required String policyArn, @required String versionId}) async {
     return GetPolicyVersionResponse.fromJson({});
@@ -2198,22 +2153,22 @@ class IamApi {
 
   /// Retrieves information about the specified role, including the role's path,
   /// GUID, ARN, and the role's trust policy that grants permission to assume
-  /// the role. For more information about roles, see [Working with
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// the role. For more information about roles, see
+  /// [Working with Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
   ///
   ///
-  /// Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  /// Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// [roleName]: The name of the IAM role to get information about.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetRoleResponse> getRole(String roleName) async {
@@ -2223,37 +2178,36 @@ class IamApi {
   /// Retrieves the specified inline policy document that is embedded with the
   /// specified IAM role.
   ///
-  ///  Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  ///  Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// An IAM role can also have managed policies attached to it. To retrieve a
   /// managed policy document that is attached to a role, use GetPolicy to
   /// determine the policy's default version, then use GetPolicyVersion to
   /// retrieve the policy document.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
-  /// For more information about roles, see [Using Roles to Delegate Permissions
-  /// and Federate
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// For more information about roles, see
+  /// [Using Roles to Delegate Permissions and Federate Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
   ///
   /// [roleName]: The name of the role associated with the policy.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the policy document to get.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetRolePolicyResponse> getRolePolicy(
@@ -2266,15 +2220,14 @@ class IamApi {
   ///
   ///
   ///
-  /// This operation requires [Signature Version
-  /// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// This operation requires
+  /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// [samlProviderArn]: The Amazon Resource Name (ARN) of the SAML provider
   /// resource object in IAM to get information about.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<GetSamlProviderResponse> getSamlProvider(
       String samlProviderArn) async {
@@ -2286,22 +2239,22 @@ class IamApi {
   /// The SSH public key retrieved by this operation is used only for
   /// authenticating the associated IAM user to an AWS CodeCommit repository.
   /// For more information about using SSH keys to authenticate to an AWS
-  /// CodeCommit repository, see [Set up AWS CodeCommit for SSH
-  /// Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
+  /// CodeCommit repository, see
+  /// [Set up AWS CodeCommit for SSH Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
   /// in the _AWS CodeCommit User Guide_.
   ///
   /// [userName]: The name of the IAM user associated with the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [sshPublicKeyId]: The unique identifier for the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   ///
   /// [encoding]: Specifies the public key encoding format to use in the
   /// response. To retrieve the public key in ssh-rsa format, use `SSH`. To
@@ -2316,17 +2269,16 @@ class IamApi {
   /// Retrieves information about the specified server certificate stored in
   /// IAM.
   ///
-  /// For more information about working with server certificates, see [Working
-  /// with Server
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
+  /// For more information about working with server certificates, see
+  /// [Working with Server Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
   /// in the _IAM User Guide_. This topic includes a list of AWS services that
   /// can use the server certificates that you manage with IAM.
   ///
   /// [serverCertificateName]: The name of the server certificate you want to
   /// retrieve information about.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetServerCertificateResponse> getServerCertificate(
@@ -2346,8 +2298,8 @@ class IamApi {
   /// types include resource-based policies, access control lists, AWS
   /// Organizations policies, IAM permissions boundaries, and AWS STS assume
   /// role policies. It only applies permissions policy logic. For more about
-  /// the evaluation of policy types, see [Evaluating
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
+  /// the evaluation of policy types, see
+  /// [Evaluating Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
   /// in the _IAM User Guide_.
   ///
   /// For each service that the resource could access using permissions
@@ -2431,15 +2383,14 @@ class IamApi {
   /// service namespace to learn when the IAM entity last attempted to access
   /// the specified service.
   ///
-  /// To learn the service namespace for a service, go to [Actions, Resources,
-  /// and Condition Keys for AWS
-  /// Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
+  /// To learn the service namespace for a service, go to
+  /// [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   /// in the _IAM User Guide_. Choose the name of the service to view details
   /// for that service. In the first paragraph, find the service prefix. For
   /// example, `(service prefix: a4b)`. For more information about service
-  /// namespaces, see [AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
-  /// in the _AWS General Reference_.
+  /// namespaces, see
+  /// [AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _AWS General Reference_.
   ///
   /// [maxItems]: Use this only when paginating results to indicate the maximum
   /// number of items you want in the response. If additional items exist beyond
@@ -2488,8 +2439,8 @@ class IamApi {
   /// [userName]: The name of the user to get information about.
   ///
   /// This parameter is optional. If it is not included, it defaults to the user
-  /// making the request. This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// making the request. This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetUserResponse> getUser({String userName}) async {
@@ -2499,33 +2450,33 @@ class IamApi {
   /// Retrieves the specified inline policy document that is embedded in the
   /// specified IAM user.
   ///
-  ///  Policies returned by this API are URL-encoded compliant with [RFC
-  /// 3986](https://tools.ietf.org/html/rfc3986). You can use a URL decoding
-  /// method to convert the policy back to plain JSON text. For example, if you
-  /// use Java, you can use the `decode` method of the `java.net.URLDecoder`
-  /// utility class in the Java SDK. Other languages and SDKs provide similar
-  /// functionality.
+  ///  Policies returned by this API are URL-encoded compliant with
+  /// [RFC 3986](https://tools.ietf.org/html/rfc3986). You can use a URL
+  /// decoding method to convert the policy back to plain JSON text. For
+  /// example, if you use Java, you can use the `decode` method of the
+  /// `java.net.URLDecoder` utility class in the Java SDK. Other languages and
+  /// SDKs provide similar functionality.
   ///
   /// An IAM user can also have managed policies attached to it. To retrieve a
   /// managed policy document that is attached to a user, use GetPolicy to
   /// determine the policy's default version. Then use GetPolicyVersion to
   /// retrieve the policy document.
   ///
-  /// For more information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user who the policy is associated with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the policy document to get.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<GetUserPolicyResponse> getUserPolicy(
@@ -2552,8 +2503,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2578,9 +2529,8 @@ class IamApi {
 
   /// Lists the account alias associated with the AWS account (Note: you can
   /// have only one). For information about using an AWS account alias, see
-  /// [Using an Alias for Your AWS Account
-  /// ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html) in
-  /// the _IAM User Guide_.
+  /// [Using an Alias for Your AWS Account ID](https://docs.aws.amazon.com/IAM/latest/UserGuide/AccountAlias.html)
+  /// in the _IAM User Guide_.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2605,8 +2555,8 @@ class IamApi {
   ///
   /// An IAM group can also have inline policies embedded with it. To list the
   /// inline policies for a group, use the ListGroupPolicies API. For
-  /// information about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -2618,8 +2568,8 @@ class IamApi {
   /// [groupName]: The name (friendly name, not ARN) of the group to list
   /// attached policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2627,13 +2577,12 @@ class IamApi {
   /// optional. If it is not included, it defaults to a slash (/), listing all
   /// policies.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2661,8 +2610,8 @@ class IamApi {
   ///
   /// An IAM role can also have inline policies embedded with it. To list the
   /// inline policies for a role, use the ListRolePolicies API. For information
-  /// about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -2674,8 +2623,8 @@ class IamApi {
   /// [roleName]: The name (friendly name, not ARN) of the role to list attached
   /// policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2683,13 +2632,12 @@ class IamApi {
   /// optional. If it is not included, it defaults to a slash (/), listing all
   /// policies.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2717,8 +2665,8 @@ class IamApi {
   ///
   /// An IAM user can also have inline policies embedded with it. To list the
   /// inline policies for a user, use the ListUserPolicies API. For information
-  /// about policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -2730,8 +2678,8 @@ class IamApi {
   /// [userName]: The name (friendly name, not ARN) of the user to list attached
   /// policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2739,13 +2687,12 @@ class IamApi {
   /// optional. If it is not included, it defaults to a slash (/), listing all
   /// policies.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2782,9 +2729,8 @@ class IamApi {
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy for which
   /// you want the versions.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [entityFilter]: The entity type to use for filtering the results.
@@ -2799,21 +2745,20 @@ class IamApi {
   /// optional. If it is not included, it defaults to a slash (/), listing all
   /// entities.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [policyUsageFilter]: The policy usage method to use for filtering the
   /// results.
   ///
   /// To list only permissions policies,
-  /// set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies
-  /// used to set permissions boundaries, set the value
-  /// to `PermissionsBoundary`.
+  /// set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies
+  /// used to set permissions boundaries, set the value
+  /// to `PermissionsBoundary`.
   ///
   /// This parameter is optional. If it is not included, all policies are
   /// returned.
@@ -2847,8 +2792,7 @@ class IamApi {
   /// An IAM group can also have managed policies attached to it. To list the
   /// managed policies that are attached to a group, use
   /// ListAttachedGroupPolicies. For more information about policies, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -2857,8 +2801,8 @@ class IamApi {
   ///
   /// [groupName]: The name of the group to list policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2887,17 +2831,16 @@ class IamApi {
   /// parameters.
   ///
   /// [pathPrefix]:  The path prefix for filtering the results. For example, the
-  /// prefix `/division\_abc/subdivision\_xyz/` gets all groups whose path
-  /// starts with `/division\_abc/subdivision\_xyz/`.
+  /// prefix `/division_abc/subdivision_xyz/` gets all groups whose path starts
+  /// with `/division_abc/subdivision_xyz/`.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
-  /// (/), listing all groups. This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// (/), listing all groups. This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2924,8 +2867,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user to list groups for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -2950,23 +2893,22 @@ class IamApi {
 
   /// Lists the instance profiles that have the specified path prefix. If there
   /// are none, the operation returns an empty list. For more information about
-  /// instance profiles, go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// instance profiles, go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ///
   /// [pathPrefix]:  The path prefix for filtering the results. For example, the
-  /// prefix `/application\_abc/component\_xyz/` gets all instance profiles
-  /// whose path starts with `/application\_abc/component\_xyz/`.
+  /// prefix `/application_abc/component_xyz/` gets all instance profiles whose
+  /// path starts with `/application_abc/component_xyz/`.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
   /// (/), listing all instance profiles. This parameter allows (through its
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -2989,15 +2931,15 @@ class IamApi {
 
   /// Lists the instance profiles that have the specified associated IAM role.
   /// If there are none, the operation returns an empty list. For more
-  /// information about instance profiles, go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  /// information about instance profiles, go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ///
   /// [roleName]: The name of the role to list instance profiles for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3032,8 +2974,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user whose MFA devices you want to list.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3074,9 +3016,8 @@ class IamApi {
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ///
-  /// For more information about managed policies, see [Managed Policies and
-  /// Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about managed policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [scope]: The scope to use for filtering the results.
@@ -3097,21 +3038,20 @@ class IamApi {
   ///
   /// [pathPrefix]: The path prefix for filtering the results. This parameter is
   /// optional. If it is not included, it defaults to a slash (/), listing all
-  /// policies. This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// policies. This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [policyUsageFilter]: The policy usage method to use for filtering the
   /// results.
   ///
   /// To list only permissions policies,
-  /// set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies
-  /// used to set permissions boundaries, set the value
-  /// to `PermissionsBoundary`.
+  /// set `PolicyUsageFilter` to `PermissionsPolicy`. To list only the policies
+  /// used to set permissions boundaries, set the value
+  /// to `PermissionsBoundary`.
   ///
   /// This parameter is optional. If it is not included, all policies are
   /// returned.
@@ -3148,8 +3088,8 @@ class IamApi {
   /// resource-based policies, access control lists, AWS Organizations policies,
   /// IAM permissions boundaries, and AWS STS assume role policies. It only
   /// applies permissions policy logic. For more about the evaluation of policy
-  /// types, see [Evaluating
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
+  /// types, see
+  /// [Evaluating Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-basics)
   /// in the _IAM User Guide_.
   ///
   /// The list of policies returned by the operation depends on the ARN of the
@@ -3171,8 +3111,8 @@ class IamApi {
   /// For each managed policy, this operation returns the ARN and policy name.
   /// For each inline policy, it returns the policy name and the entity to which
   /// it is attached. Inline policies do not have an ARN. For more information
-  /// about these policy types, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
+  /// about these policy types, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// Policies that are attached to users and roles as permissions boundaries
@@ -3191,15 +3131,14 @@ class IamApi {
   /// [serviceNamespaces]: The service namespace for the AWS services whose
   /// policies you want to list.
   ///
-  /// To learn the service namespace for a service, go to [Actions, Resources,
-  /// and Condition Keys for AWS
-  /// Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
+  /// To learn the service namespace for a service, go to
+  /// [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   /// in the _IAM User Guide_. Choose the name of the service to view details
   /// for that service. In the first paragraph, find the service prefix. For
   /// example, `(service prefix: a4b)`. For more information about service
-  /// namespaces, see [AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
-  /// in the _AWS General Reference_.
+  /// namespaces, see
+  /// [AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _AWS General Reference_.
   Future<ListPoliciesGrantingServiceAccessResponse>
       listPoliciesGrantingServiceAccess(
           {String marker,
@@ -3212,17 +3151,15 @@ class IamApi {
   /// including the version that is currently set as the policy's default
   /// version.
   ///
-  /// For more information about managed policies, see [Managed Policies and
-  /// Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For more information about managed policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy for which
   /// you want the versions.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
@@ -3250,8 +3187,7 @@ class IamApi {
   /// An IAM role can also have managed policies attached to it. To list the
   /// managed policies that are attached to a role, use
   /// ListAttachedRolePolicies. For more information about policies, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -3260,8 +3196,8 @@ class IamApi {
   ///
   /// [roleName]: The name of the role to list policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3286,17 +3222,16 @@ class IamApi {
 
   /// Lists the tags that are attached to the specified role. The returned list
   /// of tags is sorted by tag key. For more information about tagging, see
-  /// [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name of the IAM role for which you want to see the list of
   /// tags.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: _+=,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: _+=,.@-
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -3320,23 +3255,22 @@ class IamApi {
 
   /// Lists the IAM roles that have the specified path prefix. If there are
   /// none, the operation returns an empty list. For more information about
-  /// roles, go to [Working with
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// roles, go to
+  /// [Working with Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ///
   /// [pathPrefix]:  The path prefix for filtering the results. For example, the
-  /// prefix `/application\_abc/component\_xyz/` gets all roles whose path
-  /// starts with `/application\_abc/component\_xyz/`.
+  /// prefix `/application_abc/component_xyz/` gets all roles whose path starts
+  /// with `/application_abc/component_xyz/`.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
-  /// (/), listing all roles. This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// (/), listing all roles. This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -3359,8 +3293,8 @@ class IamApi {
 
   /// Lists the SAML provider resource objects defined in IAM in the account.
   ///
-  ///   This operation requires [Signature Version
-  /// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  ///   This operation requires
+  /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   Future<ListSamlProvidersResponse> listSamlProviders() async {
     return ListSamlProvidersResponse.fromJson({});
   }
@@ -3371,8 +3305,8 @@ class IamApi {
   /// The SSH public keys returned by this operation are used only for
   /// authenticating the IAM user to an AWS CodeCommit repository. For more
   /// information about using SSH keys to authenticate to an AWS CodeCommit
-  /// repository, see [Set up AWS CodeCommit for SSH
-  /// Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
+  /// repository, see
+  /// [Set up AWS CodeCommit for SSH Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
   /// in the _AWS CodeCommit User Guide_.
   ///
   /// Although each user is limited to a small number of keys, you can still
@@ -3382,8 +3316,8 @@ class IamApi {
   /// is specified, the `UserName` field is determined implicitly based on the
   /// AWS access key used to sign the request.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3412,9 +3346,8 @@ class IamApi {
   ///  You can paginate the results using the `MaxItems` and `Marker`
   /// parameters.
   ///
-  /// For more information about working with server certificates, see [Working
-  /// with Server
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
+  /// For more information about working with server certificates, see
+  /// [Working with Server Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
   /// in the _IAM User Guide_. This topic also includes a list of AWS services
   /// that can use the server certificates that you manage with IAM.
   ///
@@ -3427,9 +3360,8 @@ class IamApi {
   /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -3455,16 +3387,16 @@ class IamApi {
   /// list. The service-specific credentials returned by this operation are used
   /// only for authenticating the IAM user to a specific service. For more
   /// information about using service-specific credentials to authenticate to an
-  /// AWS service, see [Set Up service-specific
-  /// credentials](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html)
+  /// AWS service, see
+  /// [Set Up service-specific credentials](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-gc.html)
   /// in the AWS CodeCommit User Guide.
   ///
   /// [userName]: The name of the user whose service-specific credentials you
   /// want information about. If this value is not specified, then the operation
   /// assumes the user whose credentials are used to call the operation.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3492,8 +3424,8 @@ class IamApi {
   /// [userName]: The name of the IAM user whose signing certificates you want
   /// to examine.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3521,8 +3453,7 @@ class IamApi {
   /// An IAM user can also have managed policies attached to it. To list the
   /// managed policies that are attached to a user, use
   /// ListAttachedUserPolicies. For more information about policies, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
@@ -3531,8 +3462,8 @@ class IamApi {
   ///
   /// [userName]: The name of the user to list policies for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3557,16 +3488,15 @@ class IamApi {
 
   /// Lists the tags that are attached to the specified user. The returned list
   /// of tags is sorted by tag key. For more information about tagging, see
-  /// [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the IAM user whose tags you want to see.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: =,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: =,.@-
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -3595,17 +3525,16 @@ class IamApi {
   /// You can paginate the results using the `MaxItems` and `Marker` parameters.
   ///
   /// [pathPrefix]:  The path prefix for filtering the results. For example:
-  /// `/division\_abc/subdivision\_xyz/`, which would get all user names whose
-  /// path starts with `/division\_abc/subdivision\_xyz/`.
+  /// `/division_abc/subdivision_xyz/`, which would get all user names whose
+  /// path starts with `/division_abc/subdivision_xyz/`.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
-  /// (/), listing all user names. This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// (/), listing all user names. This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [marker]: Use this parameter only when paginating results and only after
   /// you receive a response indicating that the results are truncated. Set it
@@ -3662,35 +3591,34 @@ class IamApi {
   ///
   /// A user can also have managed policies attached to it. To attach a managed
   /// policy to a group, use AttachGroupPolicy. To create a new managed policy,
-  /// use CreatePolicy. For information about policies, see [Managed Policies
-  /// and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// use CreatePolicy. For information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// For information about limits on the number of inline policies that you can
-  /// embed in a group, see [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// embed in a group, see
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   ///
   ///
   /// Because policy documents can be large, you should use POST rather than GET
   /// when calling `PutGroupPolicy`. For general information about using the
-  /// Query API with IAM, go to [Making Query
-  /// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+  /// Query API with IAM, go to
+  /// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
   /// in the _IAM User Guide_.
   ///
   /// [groupName]: The name of the group to associate the policy with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-.
   ///
   /// [policyName]: The name of the policy document.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3704,14 +3632,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<void> putGroupPolicy(
       {@required String groupName,
       @required String policyName,
@@ -3729,9 +3657,8 @@ class IamApi {
   ///
   /// Policies used as permissions boundaries do not provide permissions. You
   /// must also attach a permissions policy to the role. To learn how the
-  /// effective permissions for a role are evaluated, see [IAM JSON Policy
-  /// Evaluation
-  /// Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
+  /// effective permissions for a role are evaluated, see
+  /// [IAM JSON Policy Evaluation Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
   /// in the IAM User Guide.
   ///
   /// [roleName]: The name (friendly name, not ARN) of the IAM role for which
@@ -3750,40 +3677,39 @@ class IamApi {
   /// part of the role's access (permissions) policy. The role's trust policy is
   /// created at the same time as the role, using CreateRole. You can update a
   /// role's trust policy using UpdateAssumeRolePolicy. For more information
-  /// about IAM roles, go to [Using Roles to Delegate Permissions and Federate
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// about IAM roles, go to
+  /// [Using Roles to Delegate Permissions and Federate Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
   ///
   /// A role can also have a managed policy attached to it. To attach a managed
   /// policy to a role, use AttachRolePolicy. To create a new managed policy,
-  /// use CreatePolicy. For information about policies, see [Managed Policies
-  /// and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// use CreatePolicy. For information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// For information about limits on the number of inline policies that you can
-  /// embed with a role, see [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// embed with a role, see
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   ///
   ///
   /// Because policy documents can be large, you should use POST rather than GET
   /// when calling `PutRolePolicy`. For general information about using the
-  /// Query API with IAM, go to [Making Query
-  /// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+  /// Query API with IAM, go to
+  /// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name of the role to associate the policy with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the policy document.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3797,14 +3723,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<void> putRolePolicy(
       {@required String roleName,
       @required String policyName,
@@ -3820,9 +3746,8 @@ class IamApi {
   ///
   /// Policies that are used as permissions boundaries do not provide
   /// permissions. You must also attach a permissions policy to the user. To
-  /// learn how the effective permissions for a user are evaluated, see [IAM
-  /// JSON Policy Evaluation
-  /// Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
+  /// learn how the effective permissions for a user are evaluated, see
+  /// [IAM JSON Policy Evaluation Logic](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html)
   /// in the IAM User Guide.
   ///
   /// [userName]: The name (friendly name, not ARN) of the IAM user for which
@@ -3839,35 +3764,34 @@ class IamApi {
   ///
   /// An IAM user can also have a managed policy attached to it. To attach a
   /// managed policy to a user, use AttachUserPolicy. To create a new managed
-  /// policy, use CreatePolicy. For information about policies, see [Managed
-  /// Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// policy, use CreatePolicy. For information about policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// For information about limits on the number of inline policies that you can
-  /// embed in a user, see [Limitations on IAM
-  /// Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
+  /// embed in a user, see
+  /// [Limitations on IAM Entities](https://docs.aws.amazon.com/IAM/latest/UserGuide/LimitationsOnEntities.html)
   /// in the _IAM User Guide_.
   ///
   ///
   ///
   /// Because policy documents can be large, you should use POST rather than GET
   /// when calling `PutUserPolicy`. For general information about using the
-  /// Query API with IAM, go to [Making Query
-  /// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+  /// Query API with IAM, go to
+  /// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user to associate the policy with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [policyName]: The name of the policy document.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -3881,14 +3805,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<void> putUserPolicy(
       {@required String userName,
       @required String policyName,
@@ -3905,9 +3829,8 @@ class IamApi {
   /// provider resource to remove the client ID from. You can get a list of OIDC
   /// provider ARNs by using the ListOpenIDConnectProviders operation.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [clientID]: The client ID (also known as audience) to remove from the IAM
@@ -3924,22 +3847,22 @@ class IamApi {
   /// from an instance profile that is associated with a running instance might
   /// break any applications running on the instance.
   ///
-  ///  For more information about IAM roles, go to [Working with
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
-  /// For more information about instance profiles, go to [About Instance
-  /// Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
+  ///  For more information about IAM roles, go to
+  /// [Working with Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/WorkingWithRoles.html).
+  /// For more information about instance profiles, go to
+  /// [About Instance Profiles](https://docs.aws.amazon.com/IAM/latest/UserGuide/AboutInstanceProfiles.html).
   ///
   /// [instanceProfileName]: The name of the instance profile to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [roleName]: The name of the role to remove.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> removeRoleFromInstanceProfile(
@@ -3950,15 +3873,15 @@ class IamApi {
   ///
   /// [groupName]: The name of the group to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [userName]: The name of the user to remove.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> removeUserFromGroup(
@@ -3973,17 +3896,17 @@ class IamApi {
   /// credential. If this value is not specified, then the operation assumes the
   /// user whose credentials are used to call the operation.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [serviceSpecificCredentialId]: The unique identifier of the
   /// service-specific credential.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   Future<ResetServiceSpecificCredentialResponse> resetServiceSpecificCredential(
       String serviceSpecificCredentialId,
       {String userName}) async {
@@ -3994,22 +3917,22 @@ class IamApi {
   /// AWS servers.
   ///
   /// For more information about creating and working with virtual MFA devices,
-  /// go to [Using a Virtual MFA
-  /// Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
+  /// go to
+  /// [Using a Virtual MFA Device](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_VirtualMFA.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user whose MFA device you want to
   /// resynchronize.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [serialNumber]: Serial number that uniquely identifies the MFA device.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -4034,24 +3957,22 @@ class IamApi {
   /// attached to. To list the users, groups, and roles that the policy is
   /// attached to, use the ListEntitiesForPolicy API.
   ///
-  /// For information about managed policies, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+  /// For information about managed policies, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArn]: The Amazon Resource Name (ARN) of the IAM policy whose
   /// default version you want to set.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [versionId]: The version of the policy to set as the default (operative)
   /// version.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   Future<void> setDefaultPolicyVersion(
       {@required String policyArn, @required String versionId}) async {}
@@ -4063,9 +3984,8 @@ class IamApi {
   /// service, and all STS requests go to a single endpoint at
   /// `https://sts.amazonaws.com`. AWS recommends using Regional STS endpoints
   /// to reduce latency, build in redundancy, and increase session token
-  /// availability. For information about Regional endpoints for STS, see [AWS
-  /// Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region)
+  /// availability. For information about Regional endpoints for STS, see
+  /// [AWS Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region)
   /// in the _AWS General Reference_.
   ///
   /// If you make an STS call to the global endpoint, the resulting session
@@ -4075,8 +3995,8 @@ class IamApi {
   /// manually enabled Regions, such as Asia Pacific (Hong Kong). Version 2
   /// tokens are valid in all Regions. However, version 2 tokens are longer and
   /// might affect systems where you temporarily store tokens. For information,
-  /// see [Activating and Deactivating STS in an AWS
-  /// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// see
+  /// [Activating and Deactivating STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _IAM User Guide_.
   ///
   /// To view the current session token version, see the
@@ -4090,8 +4010,8 @@ class IamApi {
   /// However, version 2 tokens are longer and might affect systems where you
   /// temporarily store tokens.
   ///
-  /// For information, see [Activating and Deactivating STS in an AWS
-  /// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// For information, see
+  /// [Activating and Deactivating STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _IAM User Guide_.
   Future<void> setSecurityTokenServicePreferences(
       String globalEndpointTokenVersion) async {}
@@ -4131,14 +4051,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [actionNames]: A list of names of API operations to evaluate in the
   /// simulation. Each operation is evaluated against each resource. Each
@@ -4161,9 +4081,8 @@ class IamApi {
   /// the resources included in the simulation or you receive an invalid input
   /// error.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [resourcePolicy]: A resource-based policy to include in the simulation
@@ -4174,14 +4093,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [resourceOwner]: An ARN representing the AWS account ID that specifies the
   /// owner of any simulated resource that does not identify its owner in the
@@ -4226,8 +4145,8 @@ class IamApi {
   /// you must specify that volume as a resource. If the EC2 scenario includes
   /// VPC, then you must supply the network-interface resource. If it includes
   /// an IP subnet, then you must specify the subnet resource. For more
-  /// information on the EC2 scenario options, see [Supported
-  /// Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html)
+  /// information on the EC2 scenario options, see
+  /// [Supported Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html)
   /// in the _Amazon EC2 User Guide_.
   ///
   /// *    **EC2-Classic-InstanceStore**
@@ -4318,9 +4237,8 @@ class IamApi {
   /// associated with that entity. If you specify a user, the simulation also
   /// includes all policies that are attached to any groups the user belongs to.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [policyInputList]: An optional list of additional policy documents to
@@ -4330,14 +4248,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [actionNames]: A list of names of API operations to evaluate in the
   /// simulation. Each operation is evaluated for each resource. Each operation
@@ -4355,9 +4273,8 @@ class IamApi {
   /// then you must include the policy as a string in the `ResourcePolicy`
   /// parameter.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [resourcePolicy]: A resource-based policy to include in the simulation
@@ -4368,14 +4285,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [resourceOwner]: An AWS account ID that specifies the owner of any
   /// simulated resource that does not identify its owner in the resource ARN.
@@ -4405,9 +4322,8 @@ class IamApi {
   /// the resource-based policy's `Principal` element has a value to use in
   /// evaluating the policy.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [contextEntries]: A list of context keys and corresponding values for the
@@ -4429,8 +4345,8 @@ class IamApi {
   /// you must specify that volume as a resource. If the EC2 scenario includes
   /// VPC, then you must supply the network interface resource. If it includes
   /// an IP subnet, then you must specify the subnet resource. For more
-  /// information on the EC2 scenario options, see [Supported
-  /// Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html)
+  /// information on the EC2 scenario options, see
+  /// [Supported Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html)
   /// in the _Amazon EC2 User Guide_.
   ///
   /// *    **EC2-Classic-InstanceStore**
@@ -4493,22 +4409,21 @@ class IamApi {
   /// A tag consists of a key name and an associated value. By assigning tags to
   /// your resources, you can do the following:
   ///
-  /// *    **Administrative grouping and discovery** \- Attach tags to resources
+  /// *    **Administrative grouping and discovery** - Attach tags to resources
   /// to aid in organization and search. For example, you could search for all
   /// resources with the key name _Project_ and the value _MyImportantProject_.
   /// Or search for all resources with the key name _Cost Center_ and the value
   /// _41200_.
   ///
-  /// *    **Access control** \- Reference tags in IAM user-based and
+  /// *    **Access control** - Reference tags in IAM user-based and
   /// resource-based policies. You can use tags to restrict access to only an
   /// IAM user or role that has a specified tag attached. You can also restrict
   /// access to only those resources that have a certain tag attached. For
   /// examples of policies that show how to use tags to control access, see
-  /// [Control Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)
+  /// [Control Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)
   /// in the _IAM User Guide_.
   ///
-  /// *    **Cost allocation** \- Use tags to help track which individuals and
+  /// *    **Cost allocation** - Use tags to help track which individuals and
   /// teams are using which AWS resources.
   ///
   ///
@@ -4520,16 +4435,16 @@ class IamApi {
   /// to store an array, you can store comma-separated values in the string.
   /// However, you must interpret the value in your code.
   ///
-  /// For more information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// For more information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name of the role that you want to add tags to.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: _+=,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: _+=,.@-
   ///
   /// [tags]: The list of tags that you want to attach to the role. Each tag
   /// consists of a key name and an associated value. You can specify this with
@@ -4543,22 +4458,22 @@ class IamApi {
   /// A tag consists of a key name and an associated value. By assigning tags to
   /// your resources, you can do the following:
   ///
-  /// *    **Administrative grouping and discovery** \- Attach tags to resources
+  /// *    **Administrative grouping and discovery** - Attach tags to resources
   /// to aid in organization and search. For example, you could search for all
   /// resources with the key name _Project_ and the value _MyImportantProject_.
   /// Or search for all resources with the key name _Cost Center_ and the value
   /// _41200_.
   ///
-  /// *    **Access control** \- Reference tags in IAM user-based and
+  /// *    **Access control** - Reference tags in IAM user-based and
   /// resource-based policies. You can use tags to restrict access to only an
   /// IAM requesting user or to a role that has a specified tag attached. You
   /// can also restrict access to only those resources that have a certain tag
   /// attached. For examples of policies that show how to use tags to control
-  /// access, see [Control Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)
+  /// access, see
+  /// [Control Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_tags.html)
   /// in the _IAM User Guide_.
   ///
-  /// *    **Cost allocation** \- Use tags to help track which individuals and
+  /// *    **Cost allocation** - Use tags to help track which individuals and
   /// teams are using which AWS resources.
   ///
   ///
@@ -4570,16 +4485,16 @@ class IamApi {
   /// to store an array, you can store comma-separated values in the string.
   /// However, you must interpret the value in your code.
   ///
-  /// For more information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// For more information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user that you want to add tags to.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: =,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: =,.@-
   ///
   /// [tags]: The list of tags that you want to attach to the user. Each tag
   /// consists of a key name and an associated value.
@@ -4587,16 +4502,16 @@ class IamApi {
       {@required String userName, @required List<Tag> tags}) async {}
 
   /// Removes the specified tags from the role. For more information about
-  /// tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleName]: The name of the IAM role from which you want to remove tags.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: _+=,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: _+=,.@-
   ///
   /// [tagKeys]: A list of key names as a simple array of strings. The tags with
   /// matching keys are removed from the specified role.
@@ -4604,16 +4519,16 @@ class IamApi {
       {@required String roleName, @required List<String> tagKeys}) async {}
 
   /// Removes the specified tags from the user. For more information about
-  /// tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the IAM user from which you want to remove tags.
   ///
-  /// This parameter accepts (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that
-  /// consist of upper and lowercase alphanumeric characters with no spaces. You
-  /// can also include any of the following characters: =,.@-
+  /// This parameter accepts (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that consist of upper and lowercase alphanumeric characters with no
+  /// spaces. You can also include any of the following characters: =,.@-
   ///
   /// [tagKeys]: A list of key names as a simple array of strings. The tags with
   /// matching keys are removed from the specified user.
@@ -4630,23 +4545,23 @@ class IamApi {
   /// this operation to manage AWS account root user credentials even if the AWS
   /// account has no associated users.
   ///
-  /// For information about rotating keys, see [Managing Keys and
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html)
+  /// For information about rotating keys, see
+  /// [Managing Keys and Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/ManagingCredentials.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user whose key you want to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [accessKeyId]: The access key ID of the secret access key you want to
   /// update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   ///
   /// [status]:  The status you want to assign to the secret access key.
   /// `Active` means that the key can be used for API calls to AWS, while
@@ -4666,9 +4581,8 @@ class IamApi {
   /// default value, do not include that parameter when you invoke the
   /// operation.
   ///
-  ///  For more information about using a password policy, see [Managing an IAM
-  /// Password
-  /// Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html)
+  ///  For more information about using a password policy, see
+  /// [Managing an IAM Password Policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingPasswordPolicies.html)
   /// in the _IAM User Guide_.
   ///
   /// [minimumPasswordLength]: The minimum number of characters allowed in an
@@ -4680,7 +4594,7 @@ class IamApi {
   /// [requireSymbols]: Specifies whether IAM user passwords must contain at
   /// least one of the following non-alphanumeric characters:
   ///
-  /// ! @ # $ % ^ & \* ( ) _ + - = \[ \] { } | '
+  /// ! @ # $ % ^ & * ( ) _ + - = [ ] { } | '
   ///
   /// If you do not specify a value for this parameter, then the operation uses
   /// the default value of `false`. The result is that passwords do not require
@@ -4711,8 +4625,8 @@ class IamApi {
   ///
   /// [allowUsersToChangePassword]:  Allows all IAM users in your account to use
   /// the AWS Management Console to change their own passwords. For more
-  /// information, see [Letting IAM Users Change Their Own
-  /// Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/HowToPwdIAMUser.html)
+  /// information, see
+  /// [Letting IAM Users Change Their Own Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/HowToPwdIAMUser.html)
   /// in the _IAM User Guide_.
   ///
   /// If you do not specify a value for this parameter, then the operation uses
@@ -4752,14 +4666,13 @@ class IamApi {
 
   /// Updates the policy that grants an IAM entity permission to assume a role.
   /// This is typically referred to as the "role trust policy". For more
-  /// information about roles, go to [Using Roles to Delegate Permissions and
-  /// Federate
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
+  /// information about roles, go to
+  /// [Using Roles to Delegate Permissions and Federate Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/roles-toplevel.html).
   ///
   /// [roleName]: The name of the role to update with the new policy.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -4774,22 +4687,22 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<void> updateAssumeRolePolicy(
       {@required String roleName, @required String policyDocument}) async {}
 
   /// Updates the name and/or the path of the specified IAM group.
   ///
   ///   You should understand the implications of changing a group's path or
-  /// name. For more information, see [Renaming Users and
-  /// Groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_WorkingWithGroupsAndUsers.html)
+  /// name. For more information, see
+  /// [Renaming Users and Groups](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_WorkingWithGroupsAndUsers.html)
   /// in the _IAM User Guide_.
   ///
   /// The person making the request (the principal), must have permission to
@@ -4797,27 +4710,26 @@ class IamApi {
   /// change the group named `Managers` to `MGRs`, the principal must have a
   /// policy that allows them to update both groups. If the principal has
   /// permission to update the `Managers` group, but not the `MGRs` group, then
-  /// the update fails. For more information about permissions, see [Access
-  /// Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
+  /// the update fails. For more information about permissions, see
+  /// [Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html).
   ///
   /// [groupName]: Name of the IAM group to update. If you're changing the name
   /// of the group, this is the original name.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [newPath]: New path for the IAM group. Only include this if changing the
   /// group's path.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [newGroupName]: New name for the IAM group. Only include this if changing
   /// the group's name.
@@ -4831,14 +4743,14 @@ class IamApi {
   /// Changes the password for the specified IAM user.
   ///
   /// IAM users can change their own passwords by calling ChangePassword. For
-  /// more information about modifying passwords, see [Managing
-  /// Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
+  /// more information about modifying passwords, see
+  /// [Managing Passwords](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_ManagingLogins.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user whose password you want to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -4847,14 +4759,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   ///
   /// However, the format can be further restricted by the account administrator
@@ -4891,9 +4803,8 @@ class IamApi {
   /// can get a list of OIDC provider ARNs by using the
   /// ListOpenIDConnectProviders operation.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [thumbprintList]: A list of certificate thumbprints that are associated
@@ -4923,8 +4834,8 @@ class IamApi {
   /// parameter, their security credentials are valid for one hour by default.
   /// This applies when you use the `AssumeRole*` API operations or the
   /// `assume-role*` CLI operations but does not apply when you use those
-  /// operations to create a console URL. For more information, see [Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
+  /// operations to create a console URL. For more information, see
+  /// [Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
   /// in the _IAM User Guide_.
   Future<UpdateRoleResponse> updateRole(String roleName,
       {String description, int maxSessionDuration}) async {
@@ -4950,8 +4861,8 @@ class IamApi {
   ///
   ///
   ///
-  /// This operation requires [Signature Version
-  /// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// This operation requires
+  /// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// [samlMetadataDocument]: An XML document generated by an identity provider
   /// (IdP) that supports SAML 2.0. The document includes the issuer's name,
@@ -4963,9 +4874,8 @@ class IamApi {
   /// [samlProviderArn]: The Amazon Resource Name (ARN) of the SAML provider to
   /// update.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   Future<UpdateSamlProviderResponse> updateSamlProvider(
       {@required String samlMetadataDocument,
@@ -4981,22 +4891,22 @@ class IamApi {
   /// The SSH public key affected by this operation is used only for
   /// authenticating the associated IAM user to an AWS CodeCommit repository.
   /// For more information about using SSH keys to authenticate to an AWS
-  /// CodeCommit repository, see [Set up AWS CodeCommit for SSH
-  /// Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
+  /// CodeCommit repository, see
+  /// [Set up AWS CodeCommit for SSH Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
   /// in the _AWS CodeCommit User Guide_.
   ///
   /// [userName]: The name of the IAM user associated with the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [sshPublicKeyId]: The unique identifier for the SSH public key.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   ///
   /// [status]: The status to assign to the SSH public key. `Active` means that
   /// the key can be used for authentication with an AWS CodeCommit repository.
@@ -5009,15 +4919,14 @@ class IamApi {
   /// Updates the name and/or the path of the specified server certificate
   /// stored in IAM.
   ///
-  /// For more information about working with server certificates, see [Working
-  /// with Server
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
+  /// For more information about working with server certificates, see
+  /// [Working with Server Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
   /// in the _IAM User Guide_. This topic also includes a list of AWS services
   /// that can use the server certificates that you manage with IAM.
   ///
   ///  You should understand the implications of changing a server certificate's
-  /// path or name. For more information, see [Renaming a Server
-  /// Certificate](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#RenamingServerCerts)
+  /// path or name. For more information, see
+  /// [Renaming a Server Certificate](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#RenamingServerCerts)
   /// in the _IAM User Guide_.
   ///
   /// The person making the request (the principal), must have permission to
@@ -5026,35 +4935,34 @@ class IamApi {
   /// the principal must have a policy that allows them to update both
   /// certificates. If the principal has permission to update the
   /// `ProductionCert` group, but not the `ProdCert` certificate, then the
-  /// update fails. For more information about permissions, see [Access
-  /// Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html)
+  /// update fails. For more information about permissions, see
+  /// [Access Management](https://docs.aws.amazon.com/IAM/latest/UserGuide/access.html)
   /// in the _IAM User Guide_.
   ///
   /// [serverCertificateName]: The name of the server certificate that you want
   /// to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [newPath]: The new path for the server certificate. Include this only if
   /// you are updating the server certificate's path.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [newServerCertificateName]: The new name for the server certificate.
   /// Include this only if you are updating the server certificate's name. The
   /// name of the certificate cannot contain any spaces.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   Future<void> updateServerCertificate(String serverCertificateName,
@@ -5070,17 +4978,17 @@ class IamApi {
   /// credential. If you do not specify this value, then the operation assumes
   /// the user whose credentials are used to call the operation.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [serviceSpecificCredentialId]: The unique identifier of the
   /// service-specific credential.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   ///
   /// [status]: The status to be assigned to the service-specific credential.
   Future<void> updateServiceSpecificCredential(
@@ -5100,16 +5008,16 @@ class IamApi {
   ///
   /// [userName]: The name of the IAM user the signing certificate belongs to.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [certificateId]: The ID of the signing certificate you want to update.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters that can
-  /// consist of any upper or lowercased letter or digit.
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// that can consist of any upper or lowercased letter or digit.
   ///
   /// [status]:  The status you want to assign to the certificate. `Active`
   /// means that the certificate can be used for API calls to AWS `Inactive`
@@ -5122,35 +5030,34 @@ class IamApi {
   /// Updates the name and/or the path of the specified IAM user.
   ///
   ///   You should understand the implications of changing an IAM user's path or
-  /// name. For more information, see [Renaming an IAM
-  /// User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_renaming)
-  /// and [Renaming an IAM
-  /// Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_rename.html)
+  /// name. For more information, see
+  /// [Renaming an IAM User](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_manage.html#id_users_renaming)
+  /// and
+  /// [Renaming an IAM Group](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_groups_manage_rename.html)
   /// in the _IAM User Guide_.   To change a user name, the requester must have
   /// appropriate permissions on both the source object and the target object.
   /// For example, to change Bob to Robert, the entity making the request must
   /// have permission on Bob and Robert, or must have permission on all (*). For
-  /// more information about permissions, see [Permissions and
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html).
+  /// more information about permissions, see
+  /// [Permissions and Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/PermissionsAndPolicies.html).
   ///
   /// [userName]: Name of the user to update. If you're changing the name of the
   /// user, this is the original user name.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
   /// [newPath]: New path for the IAM user. Include this parameter only if
   /// you're changing the user's path.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   /// [newUserName]: New name for the user. Include this parameter only if
   /// you're changing the user's name.
@@ -5166,14 +5073,14 @@ class IamApi {
   /// The SSH public key uploaded by this operation can be used only for
   /// authenticating the associated IAM user to an AWS CodeCommit repository.
   /// For more information about using SSH keys to authenticate to an AWS
-  /// CodeCommit repository, see [Set up AWS CodeCommit for SSH
-  /// Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
+  /// CodeCommit repository, see
+  /// [Set up AWS CodeCommit for SSH Connections](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-credentials-ssh.html)
   /// in the _AWS CodeCommit User Guide_.
   ///
   /// [userName]: The name of the IAM user to associate the SSH public key with.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -5185,14 +5092,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<UploadSshPublicKeyResponse> uploadSshPublicKey(
       {@required String userName, @required String sshPublicKeyBody}) async {
     return UploadSshPublicKeyResponse.fromJson({});
@@ -5202,23 +5109,22 @@ class IamApi {
   /// certificate entity includes a public key certificate, a private key, and
   /// an optional certificate chain, which should all be PEM-encoded.
   ///
-  /// We recommend that you use [AWS Certificate
-  /// Manager](https://docs.aws.amazon.com/acm/) to provision, manage, and
-  /// deploy your server certificates. With ACM you can request a certificate,
-  /// deploy it to AWS resources, and let ACM handle certificate renewals for
-  /// you. Certificates provided by ACM are free. For more information about
-  /// using ACM, see the [AWS Certificate Manager User
-  /// Guide](https://docs.aws.amazon.com/acm/latest/userguide/).
+  /// We recommend that you use
+  /// [AWS Certificate Manager](https://docs.aws.amazon.com/acm/) to provision,
+  /// manage, and deploy your server certificates. With ACM you can request a
+  /// certificate, deploy it to AWS resources, and let ACM handle certificate
+  /// renewals for you. Certificates provided by ACM are free. For more
+  /// information about using ACM, see the
+  /// [AWS Certificate Manager User Guide](https://docs.aws.amazon.com/acm/latest/userguide/).
   ///
-  /// For more information about working with server certificates, see [Working
-  /// with Server
-  /// Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
+  /// For more information about working with server certificates, see
+  /// [Working with Server Certificates](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html)
   /// in the _IAM User Guide_. This topic includes a list of AWS services that
   /// can use the server certificates that you manage with IAM.
   ///
   /// For information about the number of server certificates you can upload,
-  /// see [Limitations on IAM Entities and
-  /// Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
+  /// see
+  /// [Limitations on IAM Entities and Objects](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -5226,26 +5132,25 @@ class IamApi {
   /// Because the body of the public key certificate, private key, and the
   /// certificate chain can be large, you should use POST rather than GET when
   /// calling `UploadServerCertificate`. For information about setting up
-  /// signatures and authorization through the API, go to [Signing AWS API
-  /// Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
+  /// signatures and authorization through the API, go to
+  /// [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
   /// in the _AWS General Reference_. For general information about using the
-  /// Query API with IAM, go to [Calling the API by Making HTTP Query
-  /// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html)
+  /// Query API with IAM, go to
+  /// [Calling the API by Making HTTP Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/programming.html)
   /// in the _IAM User Guide_.
   ///
   /// [path]: The path for the server certificate. For more information about
-  /// paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_.
   ///
   /// This parameter is optional. If it is not included, it defaults to a slash
-  /// (/). This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// (/). This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of either a forward slash (/) by itself or a string that must
   /// begin and end with forward slashes. In addition, it can contain any ASCII
-  /// character from the ! (\\u0021) through the DEL character (\\u007F),
-  /// including most punctuation characters, digits, and upper and lowercased
-  /// letters.
+  /// character from the ! (u0021) through the DEL character (u007F), including
+  /// most punctuation characters, digits, and upper and lowercased letters.
   ///
   ///   If you are uploading a server certificate specifically for use with
   /// Amazon CloudFront distributions, you must specify a path using the `path`
@@ -5256,8 +5161,8 @@ class IamApi {
   /// include the path in this value. The name of the certificate cannot contain
   /// any spaces.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -5267,28 +5172,28 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [privateKey]: The contents of the private key in PEM-encoded format.
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   ///
   /// [certificateChain]: The contents of the certificate chain. This is
   /// typically a concatenation of the PEM-encoded public key certificates of
@@ -5297,14 +5202,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<UploadServerCertificateResponse> uploadServerCertificate(
       {String path,
       @required String serverCertificateName,
@@ -5330,17 +5235,16 @@ class IamApi {
   /// Because the body of an X.509 certificate can be large, you should use POST
   /// rather than GET when calling `UploadSigningCertificate`. For information
   /// about setting up signatures and authorization through the API, go to
-  /// [Signing AWS API
-  /// Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
+  /// [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
   /// in the _AWS General Reference_. For general information about using the
-  /// Query API with IAM, go to [Making Query
-  /// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+  /// Query API with IAM, go to
+  /// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
   /// in the _IAM User Guide_.
   ///
   /// [userName]: The name of the user the signing certificate is for.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   ///
@@ -5349,14 +5253,14 @@ class IamApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) used to validate this
   /// parameter is a string of characters consisting of the following:
   ///
-  /// *   Any printable ASCII character ranging from the space character
-  /// (\\u0020) through the end of the ASCII character range
+  /// *   Any printable ASCII character ranging from the space character (u0020)
+  /// through the end of the ASCII character range
   ///
   /// *   The printable characters in the Basic Latin and Latin-1 Supplement
-  /// character set (through \\u00FF)
+  /// character set (through u00FF)
   ///
-  /// *   The special characters tab (\\u0009), line feed (\\u000A), and
-  /// carriage return (\\u000D)
+  /// *   The special characters tab (u0009), line feed (u000A), and carriage
+  /// return (u000D)
   Future<UploadSigningCertificateResponse> uploadSigningCertificate(
       String certificateBody,
       {String userName}) async {
@@ -5364,28 +5268,34 @@ class IamApi {
   }
 }
 
+/// An object that contains details about when a principal in the reported AWS
+/// Organizations entity last attempted to access an AWS service. A principal
+/// can be an IAM user, an IAM role, or the AWS account root user within the
+/// reported Organizations entity.
+///
+/// This data type is a response element in the GetOrganizationsAccessReport
+/// operation.
 class AccessDetail {
   /// The name of the service in which access was attempted.
   final String serviceName;
 
   /// The namespace of the service in which access was attempted.
   ///
-  /// To learn the service namespace of a service, go to [Actions, Resources,
-  /// and Condition Keys for AWS
-  /// Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
+  /// To learn the service namespace of a service, go to
+  /// [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   /// in the _IAM User Guide_. Choose the name of the service to view details
   /// for that service. In the first paragraph, find the service prefix. For
   /// example, `(service prefix: a4b)`. For more information about service
-  /// namespaces, see [AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
-  /// in the _AWS General Reference_.
+  /// namespaces, see
+  /// [AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _AWS General Reference_.
   final String serviceNamespace;
 
   /// The Region where the last service access attempt occurred.
   ///
   /// This field is null if no principals in the reported Organizations entity
-  /// attempted to access the service within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// attempted to access the service within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final String region;
 
   /// The path of the Organizations entity (root, organizational unit, or
@@ -5394,18 +5304,18 @@ class AccessDetail {
   ///
   /// This field is null if no principals (IAM users, IAM roles, or root users)
   /// in the reported Organizations entity attempted to access the service
-  /// within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final String entityPath;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when an authenticated principal
-  /// most recently attempted to access the service. AWS does not report
-  /// unauthenticated requests.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when an
+  /// authenticated principal most recently attempted to access the service. AWS
+  /// does not report unauthenticated requests.
   ///
   /// This field is null if no principals in the reported Organizations entity
-  /// attempted to access the service within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// attempted to access the service within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final DateTime lastAuthenticatedTime;
 
   /// The number of accounts with authenticated principals (root users, IAM
@@ -5424,6 +5334,17 @@ class AccessDetail {
   static AccessDetail fromJson(Map<String, dynamic> json) => AccessDetail();
 }
 
+/// Contains information about an AWS access key.
+///
+///  This data type is used as a response element in the CreateAccessKey and
+/// ListAccessKeys operations.
+///
+///
+///
+/// The `SecretAccessKey` value is returned only in response to CreateAccessKey.
+/// You can get a secret access key only when you first create an access key;
+/// you cannot recover the secret access key later. If you lose a secret access
+/// key, you must create a new access key.
 class AccessKey {
   /// The name of the IAM user that the access key is associated with.
   final String userName;
@@ -5451,10 +5372,16 @@ class AccessKey {
   static AccessKey fromJson(Map<String, dynamic> json) => AccessKey();
 }
 
+/// Contains information about the last time an AWS access key was used since
+/// IAM began tracking this information on April 22, 2015.
+///
+/// This data type is used as a response element in the GetAccessKeyLastUsed
+/// operation.
 class AccessKeyLastUsed {
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the access key was most
-  /// recently used. This field is null in the following situations:
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// access key was most recently used. This field is null in the following
+  /// situations:
   ///
   /// *   The user does not have an access key.
   ///
@@ -5486,9 +5413,9 @@ class AccessKeyLastUsed {
   /// *   There is no sign-in data associated with the user.
   ///
   ///
-  /// For more information about AWS Regions, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html) in
-  /// the Amazon Web Services General Reference.
+  /// For more information about AWS Regions, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html)
+  /// in the Amazon Web Services General Reference.
   final String region;
 
   AccessKeyLastUsed({
@@ -5500,6 +5427,10 @@ class AccessKeyLastUsed {
       AccessKeyLastUsed();
 }
 
+/// Contains information about an AWS access key, without its secret key.
+///
+/// This data type is used as a response element in the ListAccessKeys
+/// operation.
 class AccessKeyMetadata {
   /// The name of the IAM user that the key is associated with.
   final String userName;
@@ -5524,6 +5455,14 @@ class AccessKeyMetadata {
       AccessKeyMetadata();
 }
 
+/// Contains information about an attached permissions boundary.
+///
+/// An attached permissions boundary is a managed policy that has been attached
+/// to a user or role to set the permissions boundary.
+///
+/// For more information about permissions boundaries, see
+/// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+///  in the _IAM User Guide_.
 class AttachedPermissionsBoundary {
   ///  The permissions boundary usage type that indicates what type of IAM
   /// resource is used as the permissions boundary for an entity. This data type
@@ -5542,6 +5481,16 @@ class AttachedPermissionsBoundary {
       AttachedPermissionsBoundary();
 }
 
+/// Contains information about an attached policy.
+///
+/// An attached policy is a managed policy that has been attached to a user,
+/// group, or role. This data type is used as a response element in the
+/// ListAttachedGroupPolicies, ListAttachedRolePolicies,
+/// ListAttachedUserPolicies, and GetAccountAuthorizationDetails operations.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class AttachedPolicy {
   /// The friendly name of the attached policy.
   final String policyName;
@@ -5555,6 +5504,13 @@ class AttachedPolicy {
   static AttachedPolicy fromJson(Map<String, dynamic> json) => AttachedPolicy();
 }
 
+/// Contains information about a condition context key. It includes the name of
+/// the key and specifies the value (or values, if the context key supports
+/// multiple values) to use in the simulation. This information is used when
+/// evaluating the `Condition` elements of the input policies.
+///
+/// This data type is used as an input parameter to  `SimulateCustomPolicy`  and
+///  `SimulateCustomPolicy` .
 class ContextEntry {
   /// The full name of a condition context key, including the service prefix.
   /// For example, `aws:SourceIp` or `s3:VersionId`.
@@ -5576,6 +5532,7 @@ class ContextEntry {
   });
 }
 
+/// Contains the response to a successful CreateAccessKey request.
 class CreateAccessKeyResponse {
   /// A structure with details about the access key.
   final AccessKey accessKey;
@@ -5587,6 +5544,7 @@ class CreateAccessKeyResponse {
       CreateAccessKeyResponse();
 }
 
+/// Contains the response to a successful CreateGroup request.
 class CreateGroupResponse {
   /// A structure containing details about the new group.
   final Group group;
@@ -5598,6 +5556,7 @@ class CreateGroupResponse {
       CreateGroupResponse();
 }
 
+/// Contains the response to a successful CreateInstanceProfile request.
 class CreateInstanceProfileResponse {
   /// A structure containing details about the new instance profile.
   final InstanceProfile instanceProfile;
@@ -5609,6 +5568,7 @@ class CreateInstanceProfileResponse {
       CreateInstanceProfileResponse();
 }
 
+/// Contains the response to a successful CreateLoginProfile request.
 class CreateLoginProfileResponse {
   /// A structure containing the user name and password create date.
   final LoginProfile loginProfile;
@@ -5620,6 +5580,7 @@ class CreateLoginProfileResponse {
       CreateLoginProfileResponse();
 }
 
+/// Contains the response to a successful CreateOpenIDConnectProvider request.
 class CreateOpenIDConnectProviderResponse {
   /// The Amazon Resource Name (ARN) of the new IAM OpenID Connect provider that
   /// is created. For more information, see OpenIDConnectProviderListEntry.
@@ -5633,6 +5594,7 @@ class CreateOpenIDConnectProviderResponse {
       CreateOpenIDConnectProviderResponse();
 }
 
+/// Contains the response to a successful CreatePolicy request.
 class CreatePolicyResponse {
   /// A structure containing details about the new policy.
   final Policy policy;
@@ -5644,6 +5606,7 @@ class CreatePolicyResponse {
       CreatePolicyResponse();
 }
 
+/// Contains the response to a successful CreatePolicyVersion request.
 class CreatePolicyVersionResponse {
   /// A structure containing details about the new policy version.
   final PolicyVersion policyVersion;
@@ -5655,6 +5618,7 @@ class CreatePolicyVersionResponse {
       CreatePolicyVersionResponse();
 }
 
+/// Contains the response to a successful CreateRole request.
 class CreateRoleResponse {
   /// A structure containing details about the new role.
   final Role role;
@@ -5666,6 +5630,7 @@ class CreateRoleResponse {
       CreateRoleResponse();
 }
 
+/// Contains the response to a successful CreateSAMLProvider request.
 class CreateSamlProviderResponse {
   /// The Amazon Resource Name (ARN) of the new SAML provider resource in IAM.
   final String samlProviderArn;
@@ -5707,6 +5672,7 @@ class CreateServiceSpecificCredentialResponse {
       CreateServiceSpecificCredentialResponse();
 }
 
+/// Contains the response to a successful CreateUser request.
 class CreateUserResponse {
   /// A structure with details about the new IAM user.
   final User user;
@@ -5718,6 +5684,7 @@ class CreateUserResponse {
       CreateUserResponse();
 }
 
+/// Contains the response to a successful CreateVirtualMFADevice request.
 class CreateVirtualMfaDeviceResponse {
   /// A structure containing details about the new virtual MFA device.
   final VirtualMfaDevice virtualMfaDevice;
@@ -5742,6 +5709,10 @@ class DeleteServiceLinkedRoleResponse {
       DeleteServiceLinkedRoleResponse();
 }
 
+/// The reason that the service-linked role deletion failed.
+///
+/// This data type is used as a response element in the
+/// GetServiceLinkedRoleDeletionStatus operation.
 class DeletionTaskFailureReasonType {
   /// A short description of the reason that the service-linked role deletion
   /// failed.
@@ -5764,19 +5735,24 @@ class DeletionTaskFailureReasonType {
       DeletionTaskFailureReasonType();
 }
 
+/// An object that contains details about when the IAM entities (users or roles)
+/// were last used in an attempt to access the specified AWS service.
+///
+/// This data type is a response element in the
+/// GetServiceLastAccessedDetailsWithEntities operation.
 class EntityDetails {
-  /// The `EntityInfo` object that contains details about the entity (user or
+  /// The `EntityInfo` object that contains details about the entity (user or
   /// role).
   final EntityInfo entityInfo;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the authenticated entity
-  /// last attempted to access AWS. AWS does not report unauthenticated
-  /// requests.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// authenticated entity last attempted to access AWS. AWS does not report
+  /// unauthenticated requests.
   ///
   /// This field is null if no IAM entities attempted to access the service
-  /// within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final DateTime lastAuthenticated;
 
   EntityDetails({
@@ -5786,6 +5762,9 @@ class EntityDetails {
   static EntityDetails fromJson(Map<String, dynamic> json) => EntityDetails();
 }
 
+/// Contains details about the specified entity (user or role).
+///
+/// This data type is an element of the EntityDetails object.
 class EntityInfo {
   final String arn;
 
@@ -5799,8 +5778,8 @@ class EntityInfo {
   final String id;
 
   /// The path to the entity (user or role). For more information about paths,
-  /// see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -5814,6 +5793,11 @@ class EntityInfo {
   static EntityInfo fromJson(Map<String, dynamic> json) => EntityInfo();
 }
 
+/// Contains information about the reason that the operation failed.
+///
+/// This data type is used as a response element in the
+/// GetOrganizationsAccessReport, GetServiceLastAccessedDetails, and
+/// GetServiceLastAccessedDetailsWithEntities operations.
 class ErrorDetails {
   /// Detailed information about the reason that the operation failed.
   final String message;
@@ -5828,6 +5812,10 @@ class ErrorDetails {
   static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails();
 }
 
+/// Contains the results of a simulation.
+///
+/// This data type is used by the return parameter of  `SimulateCustomPolicy`
+/// and  `SimulatePrincipalPolicy` .
 class EvaluationResult {
   /// The name of the API operation tested on the indicated resource.
   final String evalActionName;
@@ -5865,8 +5853,7 @@ class EvaluationResult {
   /// how each set of policies contributes to the final evaluation decision.
   /// When simulating cross-account access to a resource, both the
   /// resource-based policy and the caller's IAM policy must grant access. See
-  /// [How IAM Roles Differ from Resource-based
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
+  /// [How IAM Roles Differ from Resource-based Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_compare-resource-policies.html)
   final Map<String, String> evalDecisionDetails;
 
   /// The individual results of the simulation of the API operation specified in
@@ -5887,6 +5874,7 @@ class EvaluationResult {
       EvaluationResult();
 }
 
+/// Contains the response to a successful GenerateCredentialReport request.
 class GenerateCredentialReportResponse {
   /// Information about the state of the credential report.
   final String state;
@@ -5928,6 +5916,9 @@ class GenerateServiceLastAccessedDetailsResponse {
       GenerateServiceLastAccessedDetailsResponse();
 }
 
+/// Contains the response to a successful GetAccessKeyLastUsed request. It is
+/// also returned as a member of the AccessKeyMetaData structure returned by the
+/// ListAccessKeys action.
 class GetAccessKeyLastUsedResponse {
   /// The name of the AWS IAM user that owns this access key.
   final String userName;
@@ -5943,6 +5934,8 @@ class GetAccessKeyLastUsedResponse {
       GetAccessKeyLastUsedResponse();
 }
 
+/// Contains the response to a successful GetAccountAuthorizationDetails
+/// request.
 class GetAccountAuthorizationDetailsResponse {
   /// A list containing information about IAM users.
   final List<UserDetail> userDetailList;
@@ -5982,6 +5975,7 @@ class GetAccountAuthorizationDetailsResponse {
       GetAccountAuthorizationDetailsResponse();
 }
 
+/// Contains the response to a successful GetAccountPasswordPolicy request.
 class GetAccountPasswordPolicyResponse {
   /// A structure that contains details about the account's password policy.
   final PasswordPolicy passwordPolicy;
@@ -5993,6 +5987,7 @@ class GetAccountPasswordPolicyResponse {
       GetAccountPasswordPolicyResponse();
 }
 
+/// Contains the response to a successful GetAccountSummary request.
 class GetAccountSummaryResponse {
   /// A set of key–value pairs containing information about IAM entity usage and
   /// IAM quotas.
@@ -6005,6 +6000,8 @@ class GetAccountSummaryResponse {
       GetAccountSummaryResponse();
 }
 
+/// Contains the response to a successful GetContextKeysForPrincipalPolicy or
+/// GetContextKeysForCustomPolicy request.
 class GetContextKeysForPolicyResponse {
   /// The list of context keys that are referenced in the input policies.
   final List<String> contextKeyNames;
@@ -6016,6 +6013,7 @@ class GetContextKeysForPolicyResponse {
       GetContextKeysForPolicyResponse();
 }
 
+/// Contains the response to a successful GetCredentialReport request.
 class GetCredentialReportResponse {
   /// Contains the credential report. The report is Base64-encoded.
   final Uint8List content;
@@ -6023,8 +6021,8 @@ class GetCredentialReportResponse {
   /// The format (MIME type) of the credential report.
   final String reportFormat;
 
-  ///  The date and time when the credential report was created, in [ISO 8601
-  /// date-time format](http://www.iso.org/iso/iso8601).
+  ///  The date and time when the credential report was created, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601).
   final DateTime generatedTime;
 
   GetCredentialReportResponse({
@@ -6036,6 +6034,7 @@ class GetCredentialReportResponse {
       GetCredentialReportResponse();
 }
 
+/// Contains the response to a successful GetGroupPolicy request.
 class GetGroupPolicyResponse {
   /// The group the policy is associated with.
   final String groupName;
@@ -6060,6 +6059,7 @@ class GetGroupPolicyResponse {
       GetGroupPolicyResponse();
 }
 
+/// Contains the response to a successful GetGroup request.
 class GetGroupResponse {
   /// A structure that contains details about the group.
   final Group group;
@@ -6090,6 +6090,7 @@ class GetGroupResponse {
       GetGroupResponse();
 }
 
+/// Contains the response to a successful GetInstanceProfile request.
 class GetInstanceProfileResponse {
   /// A structure containing details about the instance profile.
   final InstanceProfile instanceProfile;
@@ -6101,6 +6102,7 @@ class GetInstanceProfileResponse {
       GetInstanceProfileResponse();
 }
 
+/// Contains the response to a successful GetLoginProfile request.
 class GetLoginProfileResponse {
   /// A structure containing the user name and password create date for the
   /// user.
@@ -6113,6 +6115,7 @@ class GetLoginProfileResponse {
       GetLoginProfileResponse();
 }
 
+/// Contains the response to a successful GetOpenIDConnectProvider request.
 class GetOpenIDConnectProviderResponse {
   /// The URL that the IAM OIDC provider resource object is associated with. For
   /// more information, see CreateOpenIDConnectProvider.
@@ -6146,13 +6149,14 @@ class GetOrganizationsAccessReportResponse {
   /// The status of the job.
   final String jobStatus;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the report job was created.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// report job was created.
   final DateTime jobCreationDate;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the generated report job was
-  /// completed or failed.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// generated report job was completed or failed.
   ///
   /// This field is null if the job is still in progress, as indicated by a job
   /// status value of `IN_PROGRESS`.
@@ -6166,7 +6170,7 @@ class GetOrganizationsAccessReportResponse {
   /// attempt to access.
   final int numberOfServicesNotAccessed;
 
-  /// An object that contains details about the most recent attempt to access
+  /// An object that contains details about the most recent attempt to access
   /// the service.
   final List<AccessDetail> accessDetails;
 
@@ -6201,6 +6205,7 @@ class GetOrganizationsAccessReportResponse {
       GetOrganizationsAccessReportResponse();
 }
 
+/// Contains the response to a successful GetPolicy request.
 class GetPolicyResponse {
   /// A structure containing details about the policy.
   final Policy policy;
@@ -6212,6 +6217,7 @@ class GetPolicyResponse {
       GetPolicyResponse();
 }
 
+/// Contains the response to a successful GetPolicyVersion request.
 class GetPolicyVersionResponse {
   /// A structure containing details about the policy version.
   final PolicyVersion policyVersion;
@@ -6223,6 +6229,7 @@ class GetPolicyVersionResponse {
       GetPolicyVersionResponse();
 }
 
+/// Contains the response to a successful GetRolePolicy request.
 class GetRolePolicyResponse {
   /// The role the policy is associated with.
   final String roleName;
@@ -6247,6 +6254,7 @@ class GetRolePolicyResponse {
       GetRolePolicyResponse();
 }
 
+/// Contains the response to a successful GetRole request.
 class GetRoleResponse {
   /// A structure containing details about the IAM role.
   final Role role;
@@ -6258,6 +6266,7 @@ class GetRoleResponse {
       GetRoleResponse();
 }
 
+/// Contains the response to a successful GetSAMLProvider request.
 class GetSamlProviderResponse {
   /// The XML metadata document that includes information about an identity
   /// provider.
@@ -6278,6 +6287,7 @@ class GetSamlProviderResponse {
       GetSamlProviderResponse();
 }
 
+/// Contains the response to a successful GetSSHPublicKey request.
 class GetSshPublicKeyResponse {
   /// A structure containing details about the SSH public key.
   final SshPublicKey sshPublicKey;
@@ -6289,6 +6299,7 @@ class GetSshPublicKeyResponse {
       GetSshPublicKeyResponse();
 }
 
+/// Contains the response to a successful GetServerCertificate request.
 class GetServerCertificateResponse {
   /// A structure containing details about the server certificate.
   final ServerCertificate serverCertificate;
@@ -6304,17 +6315,18 @@ class GetServiceLastAccessedDetailsResponse {
   /// The status of the job.
   final String jobStatus;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the report job was created.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// report job was created.
   final DateTime jobCreationDate;
 
-  ///  A `ServiceLastAccessed` object that contains details about the most
+  ///  A `ServiceLastAccessed` object that contains details about the most
   /// recent attempt to access the service.
   final List<ServiceLastAccessed> servicesLastAccessed;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the generated report job was
-  /// completed or failed.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// generated report job was completed or failed.
   ///
   /// This field is null if the job is still in progress, as indicated by a job
   /// status value of `IN_PROGRESS`.
@@ -6354,19 +6366,20 @@ class GetServiceLastAccessedDetailsWithEntitiesResponse {
   /// The status of the job.
   final String jobStatus;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the report job was created.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// report job was created.
   final DateTime jobCreationDate;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the generated report job was
-  /// completed or failed.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// generated report job was completed or failed.
   ///
   /// This field is null if the job is still in progress, as indicated by a job
   /// status value of `IN_PROGRESS`.
   final DateTime jobCompletionDate;
 
-  /// An `EntityDetailsList` object that contains details about when an IAM
+  /// An `EntityDetailsList` object that contains details about when an IAM
   /// entity (user or role) used group or policy permissions in an attempt to
   /// access the specified AWS service.
   final List<EntityDetails> entityDetailsList;
@@ -6417,6 +6430,7 @@ class GetServiceLinkedRoleDeletionStatusResponse {
       GetServiceLinkedRoleDeletionStatusResponse();
 }
 
+/// Contains the response to a successful GetUserPolicy request.
 class GetUserPolicyResponse {
   /// The user the policy is associated with.
   final String userName;
@@ -6441,6 +6455,7 @@ class GetUserPolicyResponse {
       GetUserPolicyResponse();
 }
 
+/// Contains the response to a successful GetUser request.
 class GetUserResponse {
   /// A structure containing details about the IAM user.
   ///
@@ -6448,11 +6463,9 @@ class GetUserResponse {
   ///
   /// Due to a service issue, password last used data does not include password
   /// use from May 3, 2018 22:50 PDT to May 23, 2018 14:08 PDT. This affects
-  /// [last
-  /// sign-in](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html)
-  /// dates shown in the IAM console and password last used dates in the [IAM
-  /// credential
-  /// report](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html),
+  /// [last sign-in](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_finding-unused.html)
+  /// dates shown in the IAM console and password last used dates in the
+  /// [IAM credential report](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html),
   /// and returned by this GetUser API. If users signed in during the affected
   /// time, the password last used date that is returned is the date the user
   /// last signed in before May 3, 2018. For users that signed in after May 23,
@@ -6473,9 +6486,18 @@ class GetUserResponse {
       GetUserResponse();
 }
 
+/// Contains information about an IAM group entity.
+///
+/// This data type is used as a response element in the following operations:
+///
+/// *    CreateGroup
+///
+/// *    GetGroup
+///
+/// *    ListGroups
 class Group {
-  /// The path to the group. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// The path to the group. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -6483,19 +6505,20 @@ class Group {
   final String groupName;
 
   ///  The stable and unique string identifying the group. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String groupId;
 
   ///  The Amazon Resource Name (ARN) specifying the group. For more information
-  /// about ARNs and how to use them in policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about ARNs and how to use them in policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the group was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// group was created.
   final DateTime createDate;
 
   Group({
@@ -6508,9 +6531,14 @@ class Group {
   static Group fromJson(Map<String, dynamic> json) => Group();
 }
 
+/// Contains information about an IAM group, including all of the group's
+/// policies.
+///
+/// This data type is used as a response element in the
+/// GetAccountAuthorizationDetails operation.
 class GroupDetail {
-  /// The path to the group. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// The path to the group. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -6518,15 +6546,16 @@ class GroupDetail {
   final String groupName;
 
   /// The stable and unique string identifying the group. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String groupId;
 
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the group was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// group was created.
   final DateTime createDate;
 
   /// A list of the inline policies embedded in the group.
@@ -6547,10 +6576,20 @@ class GroupDetail {
   static GroupDetail fromJson(Map<String, dynamic> json) => GroupDetail();
 }
 
+/// Contains information about an instance profile.
+///
+/// This data type is used as a response element in the following operations:
+///
+/// *    CreateInstanceProfile
+///
+/// *    GetInstanceProfile
+///
+/// *    ListInstanceProfiles
+///
+/// *    ListInstanceProfilesForRole
 class InstanceProfile {
   ///  The path to the instance profile. For more information about paths, see
-  /// [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -6558,14 +6597,14 @@ class InstanceProfile {
   final String instanceProfileName;
 
   ///  The stable and unique string identifying the instance profile. For more
-  /// information about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// information about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String instanceProfileId;
 
   ///  The Amazon Resource Name (ARN) specifying the instance profile. For more
-  /// information about ARNs and how to use them in policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// information about ARNs and how to use them in policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String arn;
 
@@ -6587,6 +6626,7 @@ class InstanceProfile {
       InstanceProfile();
 }
 
+/// Contains the response to a successful ListAccessKeys request.
 class ListAccessKeysResponse {
   /// A list of objects containing metadata about the access keys.
   final List<AccessKeyMetadata> accessKeyMetadata;
@@ -6613,6 +6653,7 @@ class ListAccessKeysResponse {
       ListAccessKeysResponse();
 }
 
+/// Contains the response to a successful ListAccountAliases request.
 class ListAccountAliasesResponse {
   /// A list of aliases associated with the account. AWS supports only one alias
   /// per account.
@@ -6640,6 +6681,7 @@ class ListAccountAliasesResponse {
       ListAccountAliasesResponse();
 }
 
+/// Contains the response to a successful ListAttachedGroupPolicies request.
 class ListAttachedGroupPoliciesResponse {
   /// A list of the attached policies.
   final List<AttachedPolicy> attachedPolicies;
@@ -6667,6 +6709,7 @@ class ListAttachedGroupPoliciesResponse {
       ListAttachedGroupPoliciesResponse();
 }
 
+/// Contains the response to a successful ListAttachedRolePolicies request.
 class ListAttachedRolePoliciesResponse {
   /// A list of the attached policies.
   final List<AttachedPolicy> attachedPolicies;
@@ -6693,6 +6736,7 @@ class ListAttachedRolePoliciesResponse {
       ListAttachedRolePoliciesResponse();
 }
 
+/// Contains the response to a successful ListAttachedUserPolicies request.
 class ListAttachedUserPoliciesResponse {
   /// A list of the attached policies.
   final List<AttachedPolicy> attachedPolicies;
@@ -6719,6 +6763,7 @@ class ListAttachedUserPoliciesResponse {
       ListAttachedUserPoliciesResponse();
 }
 
+/// Contains the response to a successful ListEntitiesForPolicy request.
 class ListEntitiesForPolicyResponse {
   /// A list of IAM groups that the policy is attached to.
   final List<PolicyGroup> policyGroups;
@@ -6753,11 +6798,12 @@ class ListEntitiesForPolicyResponse {
       ListEntitiesForPolicyResponse();
 }
 
+/// Contains the response to a successful ListGroupPolicies request.
 class ListGroupPoliciesResponse {
   /// A list of policy names.
   ///
-  /// This parameter allows (through its [regex
-  /// pattern](http://wikipedia.org/wiki/regex)) a string of characters
+  /// This parameter allows (through its
+  /// [regex pattern](http://wikipedia.org/wiki/regex)) a string of characters
   /// consisting of upper and lowercase alphanumeric characters with no spaces.
   /// You can also include any of the following characters: _+=,.@-
   final List<String> policyNames;
@@ -6784,6 +6830,7 @@ class ListGroupPoliciesResponse {
       ListGroupPoliciesResponse();
 }
 
+/// Contains the response to a successful ListGroupsForUser request.
 class ListGroupsForUserResponse {
   /// A list of groups.
   final List<Group> groups;
@@ -6810,6 +6857,7 @@ class ListGroupsForUserResponse {
       ListGroupsForUserResponse();
 }
 
+/// Contains the response to a successful ListGroups request.
 class ListGroupsResponse {
   /// A list of groups.
   final List<Group> groups;
@@ -6836,6 +6884,7 @@ class ListGroupsResponse {
       ListGroupsResponse();
 }
 
+/// Contains the response to a successful ListInstanceProfilesForRole request.
 class ListInstanceProfilesForRoleResponse {
   /// A list of instance profiles.
   final List<InstanceProfile> instanceProfiles;
@@ -6863,6 +6912,7 @@ class ListInstanceProfilesForRoleResponse {
       ListInstanceProfilesForRoleResponse();
 }
 
+/// Contains the response to a successful ListInstanceProfiles request.
 class ListInstanceProfilesResponse {
   /// A list of instance profiles.
   final List<InstanceProfile> instanceProfiles;
@@ -6889,6 +6939,7 @@ class ListInstanceProfilesResponse {
       ListInstanceProfilesResponse();
 }
 
+/// Contains the response to a successful ListMFADevices request.
 class ListMfaDevicesResponse {
   /// A list of MFA devices.
   final List<MfaDevice> mfaDevices;
@@ -6915,6 +6966,7 @@ class ListMfaDevicesResponse {
       ListMfaDevicesResponse();
 }
 
+/// Contains the response to a successful ListOpenIDConnectProviders request.
 class ListOpenIDConnectProvidersResponse {
   /// The list of IAM OIDC provider resource objects defined in the AWS account.
   final List<OpenIDConnectProviderListEntry> openIDConnectProviderList;
@@ -6927,21 +6979,25 @@ class ListOpenIDConnectProvidersResponse {
       ListOpenIDConnectProvidersResponse();
 }
 
+/// Contains details about the permissions policies that are attached to the
+/// specified identity (user, group, or role).
+///
+/// This data type is used as a response element in the
+/// ListPoliciesGrantingServiceAccess operation.
 class ListPoliciesGrantingServiceAccessEntry {
   /// The namespace of the service that was accessed.
   ///
-  /// To learn the service namespace of a service, go to [Actions, Resources,
-  /// and Condition Keys for AWS
-  /// Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
+  /// To learn the service namespace of a service, go to
+  /// [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   /// in the _IAM User Guide_. Choose the name of the service to view details
   /// for that service. In the first paragraph, find the service prefix. For
   /// example, `(service prefix: a4b)`. For more information about service
-  /// namespaces, see [AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
-  /// in the _AWS General Reference_.
+  /// namespaces, see
+  /// [AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _AWS General Reference_.
   final String serviceNamespace;
 
-  /// The `PoliciesGrantingServiceAccess` object that contains details about the
+  /// The `PoliciesGrantingServiceAccess` object that contains details about the
   /// policy.
   final List<PolicyGrantingServiceAccess> policies;
 
@@ -6955,7 +7011,7 @@ class ListPoliciesGrantingServiceAccessEntry {
 }
 
 class ListPoliciesGrantingServiceAccessResponse {
-  /// A `ListPoliciesGrantingServiceAccess` object that contains details about
+  /// A `ListPoliciesGrantingServiceAccess` object that contains details about
   /// the permissions policies attached to the specified identity (user, group,
   /// or role).
   final List<ListPoliciesGrantingServiceAccessEntry>
@@ -6983,6 +7039,7 @@ class ListPoliciesGrantingServiceAccessResponse {
       ListPoliciesGrantingServiceAccessResponse();
 }
 
+/// Contains the response to a successful ListPolicies request.
 class ListPoliciesResponse {
   /// A list of policies.
   final List<Policy> policies;
@@ -7009,12 +7066,12 @@ class ListPoliciesResponse {
       ListPoliciesResponse();
 }
 
+/// Contains the response to a successful ListPolicyVersions request.
 class ListPolicyVersionsResponse {
   /// A list of policy versions.
   ///
-  /// For more information about managed policy versions, see [Versioning for
-  /// Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about managed policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _IAM User Guide_.
   final List<PolicyVersion> versions;
 
@@ -7040,6 +7097,7 @@ class ListPolicyVersionsResponse {
       ListPolicyVersionsResponse();
 }
 
+/// Contains the response to a successful ListRolePolicies request.
 class ListRolePoliciesResponse {
   /// A list of policy names.
   final List<String> policyNames;
@@ -7094,6 +7152,7 @@ class ListRoleTagsResponse {
       ListRoleTagsResponse();
 }
 
+/// Contains the response to a successful ListRoles request.
 class ListRolesResponse {
   /// A list of roles.
   final List<Role> roles;
@@ -7120,6 +7179,7 @@ class ListRolesResponse {
       ListRolesResponse();
 }
 
+/// Contains the response to a successful ListSAMLProviders request.
 class ListSamlProvidersResponse {
   /// The list of SAML provider resource objects defined in IAM for this AWS
   /// account.
@@ -7132,6 +7192,7 @@ class ListSamlProvidersResponse {
       ListSamlProvidersResponse();
 }
 
+/// Contains the response to a successful ListSSHPublicKeys request.
 class ListSshPublicKeysResponse {
   /// A list of the SSH public keys assigned to IAM user.
   final List<SshPublicKeyMetadata> sshPublicKeys;
@@ -7158,6 +7219,7 @@ class ListSshPublicKeysResponse {
       ListSshPublicKeysResponse();
 }
 
+/// Contains the response to a successful ListServerCertificates request.
 class ListServerCertificatesResponse {
   /// A list of server certificates.
   final List<ServerCertificateMetadata> serverCertificateMetadataList;
@@ -7197,6 +7259,7 @@ class ListServiceSpecificCredentialsResponse {
       ListServiceSpecificCredentialsResponse();
 }
 
+/// Contains the response to a successful ListSigningCertificates request.
 class ListSigningCertificatesResponse {
   /// A list of the user's signing certificate information.
   final List<SigningCertificate> certificates;
@@ -7223,6 +7286,7 @@ class ListSigningCertificatesResponse {
       ListSigningCertificatesResponse();
 }
 
+/// Contains the response to a successful ListUserPolicies request.
 class ListUserPoliciesResponse {
   /// A list of policy names.
   final List<String> policyNames;
@@ -7277,6 +7341,7 @@ class ListUserTagsResponse {
       ListUserTagsResponse();
 }
 
+/// Contains the response to a successful ListUsers request.
 class ListUsersResponse {
   /// A list of users.
   final List<User> users;
@@ -7303,6 +7368,7 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// Contains the response to a successful ListVirtualMFADevices request.
 class ListVirtualMfaDevicesResponse {
   ///  The list of virtual MFA devices in the current account that match the
   /// `AssignmentStatus` value that was passed in the request.
@@ -7330,6 +7396,10 @@ class ListVirtualMfaDevicesResponse {
       ListVirtualMfaDevicesResponse();
 }
 
+/// Contains the user name and password create date for a user.
+///
+///  This data type is used as a response element in the CreateLoginProfile and
+/// GetLoginProfile operations.
 class LoginProfile {
   /// The name of the user, which can be used for signing in to the AWS
   /// Management Console.
@@ -7350,6 +7420,10 @@ class LoginProfile {
   static LoginProfile fromJson(Map<String, dynamic> json) => LoginProfile();
 }
 
+/// Contains information about an MFA device.
+///
+/// This data type is used as a response element in the ListMFADevices
+/// operation.
 class MfaDevice {
   /// The user with whom the MFA device is associated.
   final String userName;
@@ -7369,14 +7443,24 @@ class MfaDevice {
   static MfaDevice fromJson(Map<String, dynamic> json) => MfaDevice();
 }
 
+/// Contains information about a managed policy, including the policy's ARN,
+/// versions, and the number of principal entities (users, groups, and roles)
+/// that the policy is attached to.
+///
+/// This data type is used as a response element in the
+/// GetAccountAuthorizationDetails operation.
+///
+/// For more information about managed policies, see
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class ManagedPolicyDetail {
   /// The friendly name (not ARN) identifying the policy.
   final String policyName;
 
   /// The stable and unique string identifying the policy.
   ///
-  /// For more information about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// For more information about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String policyId;
 
@@ -7384,16 +7468,16 @@ class ManagedPolicyDetail {
 
   /// The path to the policy.
   ///
-  /// For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
   /// The identifier for the version of the policy that is set as the default
   /// (operative) version.
   ///
-  /// For more information about policy versions, see [Versioning for Managed
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
+  /// For more information about policy versions, see
+  /// [Versioning for Managed Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-versions.html)
   /// in the _Using IAM_ guide.
   final String defaultVersionId;
 
@@ -7404,9 +7488,8 @@ class ManagedPolicyDetail {
   /// The number of entities (users and roles) for which the policy is used as
   /// the permissions boundary.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final int permissionsBoundaryUsageCount;
 
@@ -7417,12 +7500,14 @@ class ManagedPolicyDetail {
   /// A friendly description of the policy.
   final String description;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the policy was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// policy was created.
   final DateTime createDate;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the policy was last updated.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// policy was last updated.
   ///
   /// When a policy has only one version, this field contains the date and time
   /// when the policy was created. When a policy has more than one version, this
@@ -7451,6 +7536,7 @@ class ManagedPolicyDetail {
       ManagedPolicyDetail();
 }
 
+/// Contains the Amazon Resource Name (ARN) for an IAM OpenID Connect provider.
 class OpenIDConnectProviderListEntry {
   final String arn;
 
@@ -7461,6 +7547,8 @@ class OpenIDConnectProviderListEntry {
       OpenIDConnectProviderListEntry();
 }
 
+/// Contains information about the effect that Organizations has on a policy
+/// simulation.
 class OrganizationsDecisionDetail {
   /// Specifies whether the simulated operation is allowed by the Organizations
   /// service control policies that impact the simulated user's account.
@@ -7473,6 +7561,10 @@ class OrganizationsDecisionDetail {
       OrganizationsDecisionDetail();
 }
 
+/// Contains information about the account password policy.
+///
+///  This data type is used as a response element in the
+/// GetAccountPasswordPolicy operation.
 class PasswordPolicy {
   /// Minimum length to require for IAM user passwords.
   final int minimumPasswordLength;
@@ -7523,14 +7615,22 @@ class PasswordPolicy {
   static PasswordPolicy fromJson(Map<String, dynamic> json) => PasswordPolicy();
 }
 
+/// Contains information about a managed policy.
+///
+/// This data type is used as a response element in the CreatePolicy, GetPolicy,
+/// and ListPolicies operations.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class Policy {
   /// The friendly name (not ARN) identifying the policy.
   final String policyName;
 
   /// The stable and unique string identifying the policy.
   ///
-  /// For more information about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// For more information about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String policyId;
 
@@ -7538,8 +7638,8 @@ class Policy {
 
   /// The path to the policy.
   ///
-  /// For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -7554,9 +7654,8 @@ class Policy {
   /// The number of entities (users and roles) for which the policy is used to
   /// set the permissions boundary.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final int permissionsBoundaryUsageCount;
 
@@ -7570,12 +7669,14 @@ class Policy {
   /// not included in the response to the ListPolicies operation.
   final String description;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the policy was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// policy was created.
   final DateTime createDate;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the policy was last updated.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// policy was last updated.
   ///
   /// When a policy has only one version, this field contains the date and time
   /// when the policy was created. When a policy has more than one version, this
@@ -7599,6 +7700,10 @@ class Policy {
   static Policy fromJson(Map<String, dynamic> json) => Policy();
 }
 
+/// Contains information about an IAM policy, including the policy document.
+///
+/// This data type is used as a response element in the
+/// GetAccountAuthorizationDetails operation.
 class PolicyDetail {
   /// The name of the policy.
   final String policyName;
@@ -7613,13 +7718,17 @@ class PolicyDetail {
   static PolicyDetail fromJson(Map<String, dynamic> json) => PolicyDetail();
 }
 
+/// Contains details about the permissions policies that are attached to the
+/// specified identity (user, group, or role).
+///
+/// This data type is an element of the ListPoliciesGrantingServiceAccessEntry
+/// object.
 class PolicyGrantingServiceAccess {
   /// The policy name.
   final String policyName;
 
   /// The policy type. For more information about these policy types, see
-  /// [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
   /// in the _IAM User Guide_.
   final String policyType;
 
@@ -7629,8 +7738,8 @@ class PolicyGrantingServiceAccess {
   /// service to which the inline policy is attached.
   ///
   /// This field is null for managed policies. For more information about these
-  /// policy types, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
+  /// policy types, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
   /// in the _IAM User Guide_.
   final String entityType;
 
@@ -7638,8 +7747,8 @@ class PolicyGrantingServiceAccess {
   /// attached.
   ///
   /// This field is null for managed policies. For more information about these
-  /// policy types, see [Managed Policies and Inline
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
+  /// policy types, see
+  /// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_managed-vs-inline.html)
   /// in the _IAM User Guide_.
   final String entityName;
 
@@ -7654,13 +7763,21 @@ class PolicyGrantingServiceAccess {
       PolicyGrantingServiceAccess();
 }
 
+/// Contains information about a group that a managed policy is attached to.
+///
+/// This data type is used as a response element in the ListEntitiesForPolicy
+/// operation.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class PolicyGroup {
   /// The name (friendly name, not ARN) identifying the group.
   final String groupName;
 
   /// The stable and unique string identifying the group. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
   /// in the _IAM User Guide_.
   final String groupId;
 
@@ -7671,13 +7788,21 @@ class PolicyGroup {
   static PolicyGroup fromJson(Map<String, dynamic> json) => PolicyGroup();
 }
 
+/// Contains information about a role that a managed policy is attached to.
+///
+/// This data type is used as a response element in the ListEntitiesForPolicy
+/// operation.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class PolicyRole {
   /// The name (friendly name, not ARN) identifying the role.
   final String roleName;
 
   /// The stable and unique string identifying the role. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
   /// in the _IAM User Guide_.
   final String roleId;
 
@@ -7688,13 +7813,21 @@ class PolicyRole {
   static PolicyRole fromJson(Map<String, dynamic> json) => PolicyRole();
 }
 
+/// Contains information about a user that a managed policy is attached to.
+///
+/// This data type is used as a response element in the ListEntitiesForPolicy
+/// operation.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class PolicyUser {
   /// The name (friendly name, not ARN) identifying the user.
   final String userName;
 
   /// The stable and unique string identifying the user. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
   /// in the _IAM User Guide_.
   final String userId;
 
@@ -7705,6 +7838,15 @@ class PolicyUser {
   static PolicyUser fromJson(Map<String, dynamic> json) => PolicyUser();
 }
 
+/// Contains information about a version of a managed policy.
+///
+/// This data type is used as a response element in the CreatePolicyVersion,
+/// GetPolicyVersion, ListPolicyVersions, and GetAccountAuthorizationDetails
+/// operations.
+///
+/// For more information about managed policies, refer to
+/// [Managed Policies and Inline Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies-managed-vs-inline.html)
+/// in the _Using IAM_ guide.
 class PolicyVersion {
   /// The policy document.
   ///
@@ -7730,9 +7872,9 @@ class PolicyVersion {
   /// version.
   final bool isDefaultVersion;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the policy version was
-  /// created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// policy version was created.
   final DateTime createDate;
 
   PolicyVersion({
@@ -7744,6 +7886,10 @@ class PolicyVersion {
   static PolicyVersion fromJson(Map<String, dynamic> json) => PolicyVersion();
 }
 
+/// Contains the row and column of a location of a `Statement` element in a
+/// policy document.
+///
+/// This data type is used as a member of the  `Statement`  type.
 class Position {
   /// The line containing the specified position in the document.
   final int line;
@@ -7776,6 +7922,10 @@ class ResetServiceSpecificCredentialResponse {
       ResetServiceSpecificCredentialResponse();
 }
 
+/// Contains the result of the simulation of a single API operation call on a
+/// single resource.
+///
+/// This data type is used by a member of the EvaluationResult data type.
 class ResourceSpecificResult {
   /// The name of the simulated resource, in Amazon Resource Name (ARN) format.
   final String evalResourceName;
@@ -7820,9 +7970,11 @@ class ResourceSpecificResult {
       ResourceSpecificResult();
 }
 
+/// Contains information about an IAM role. This structure is returned as a
+/// response element in several API operations that interact with roles.
 class Role {
-  ///  The path to the role. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  ///  The path to the role. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -7830,19 +7982,20 @@ class Role {
   final String roleName;
 
   ///  The stable and unique string identifying the role. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String roleId;
 
   ///  The Amazon Resource Name (ARN) specifying the role. For more information
-  /// about ARNs and how to use them in policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about ARNs and how to use them in policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _IAM User Guide_ guide.
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the role was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the role
+  /// was created.
   final DateTime createDate;
 
   /// The policy that grants an entity permission to assume the role.
@@ -7859,15 +8012,14 @@ class Role {
 
   /// The ARN of the policy used to set the permissions boundary for the role.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final AttachedPermissionsBoundary permissionsBoundary;
 
   /// A list of tags that are attached to the specified role. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   final List<Tag> tags;
 
@@ -7886,9 +8038,14 @@ class Role {
   static Role fromJson(Map<String, dynamic> json) => Role();
 }
 
+/// Contains information about an IAM role, including all of the role's
+/// policies.
+///
+/// This data type is used as a response element in the
+/// GetAccountAuthorizationDetails operation.
 class RoleDetail {
-  /// The path to the role. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// The path to the role. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -7896,15 +8053,16 @@ class RoleDetail {
   final String roleName;
 
   /// The stable and unique string identifying the role. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String roleId;
 
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the role was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the role
+  /// was created.
   final DateTime createDate;
 
   /// The trust policy that grants permission to assume the role.
@@ -7923,15 +8081,14 @@ class RoleDetail {
 
   /// The ARN of the policy used to set the permissions boundary for the role.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final AttachedPermissionsBoundary permissionsBoundary;
 
   /// A list of tags that are attached to the specified role. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   final List<Tag> tags;
 
@@ -7951,6 +8108,11 @@ class RoleDetail {
   static RoleDetail fromJson(Map<String, dynamic> json) => RoleDetail();
 }
 
+/// An object that contains details about how a service-linked role is used, if
+/// that information is returned by the service.
+///
+/// This data type is used as a response element in the
+/// GetServiceLinkedRoleDeletionStatus operation.
 class RoleUsageType {
   /// The name of the Region where the service-linked role is being used.
   final String region;
@@ -7965,6 +8127,7 @@ class RoleUsageType {
   static RoleUsageType fromJson(Map<String, dynamic> json) => RoleUsageType();
 }
 
+/// Contains the list of SAML providers for this account.
 class SamlProviderListEntry {
   /// The Amazon Resource Name (ARN) of the SAML provider.
   final String arn;
@@ -7984,6 +8147,10 @@ class SamlProviderListEntry {
       SamlProviderListEntry();
 }
 
+/// Contains information about an SSH public key.
+///
+/// This data type is used as a response element in the GetSSHPublicKey and
+/// UploadSSHPublicKey operations.
 class SshPublicKey {
   /// The name of the IAM user associated with the SSH public key.
   final String userName;
@@ -8002,9 +8169,9 @@ class SshPublicKey {
   /// that the key cannot be used.
   final String status;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the SSH public key was
-  /// uploaded.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the SSH
+  /// public key was uploaded.
   final DateTime uploadDate;
 
   SshPublicKey({
@@ -8018,6 +8185,11 @@ class SshPublicKey {
   static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey();
 }
 
+/// Contains information about an SSH public key, without the key's body or
+/// fingerprint.
+///
+/// This data type is used as a response element in the ListSSHPublicKeys
+/// operation.
 class SshPublicKeyMetadata {
   /// The name of the IAM user associated with the SSH public key.
   final String userName;
@@ -8030,9 +8202,9 @@ class SshPublicKeyMetadata {
   /// that the key cannot be used.
   final String status;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the SSH public key was
-  /// uploaded.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the SSH
+  /// public key was uploaded.
   final DateTime uploadDate;
 
   SshPublicKeyMetadata({
@@ -8045,6 +8217,10 @@ class SshPublicKeyMetadata {
       SshPublicKeyMetadata();
 }
 
+/// Contains information about a server certificate.
+///
+///  This data type is used as a response element in the GetServerCertificate
+/// operation.
 class ServerCertificate {
   /// The meta information of the server certificate, such as its name, path,
   /// ID, and ARN.
@@ -8065,10 +8241,14 @@ class ServerCertificate {
       ServerCertificate();
 }
 
+/// Contains information about a server certificate without its certificate
+/// body, certificate chain, and private key.
+///
+///  This data type is used as a response element in the UploadServerCertificate
+/// and ListServerCertificates operations.
 class ServerCertificateMetadata {
   ///  The path to the server certificate. For more information about paths, see
-  /// [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -8076,14 +8256,14 @@ class ServerCertificateMetadata {
   final String serverCertificateName;
 
   ///  The stable and unique string identifying the server certificate. For more
-  /// information about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// information about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String serverCertificateId;
 
   ///  The Amazon Resource Name (ARN) specifying the server certificate. For
-  /// more information about ARNs and how to use them in policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// more information about ARNs and how to use them in policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String arn;
 
@@ -8105,47 +8285,50 @@ class ServerCertificateMetadata {
       ServerCertificateMetadata();
 }
 
+/// Contains details about the most recent attempt to access the service.
+///
+/// This data type is used as a response element in the
+/// GetServiceLastAccessedDetails operation.
 class ServiceLastAccessed {
   /// The name of the service in which access was attempted.
   final String serviceName;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when an authenticated entity most
-  /// recently attempted to access the service. AWS does not report
-  /// unauthenticated requests.
+  /// The date and time,
+  /// in [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when an
+  /// authenticated entity most recently attempted to access the service. AWS
+  /// does not report unauthenticated requests.
   ///
   /// This field is null if no IAM entities attempted to access the service
-  /// within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final DateTime lastAuthenticated;
 
   /// The namespace of the service in which access was attempted.
   ///
-  /// To learn the service namespace of a service, go to [Actions, Resources,
-  /// and Condition Keys for AWS
-  /// Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
+  /// To learn the service namespace of a service, go to
+  /// [Actions, Resources, and Condition Keys for AWS Services](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_actions-resources-contextkeys.html)
   /// in the _IAM User Guide_. Choose the name of the service to view details
   /// for that service. In the first paragraph, find the service prefix. For
   /// example, `(service prefix: a4b)`. For more information about service
-  /// namespaces, see [AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
-  /// in the _AWS General Reference_.
+  /// namespaces, see
+  /// [AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces)
+  /// in the _AWS General Reference_.
   final String serviceNamespace;
 
   /// The ARN of the authenticated entity (user or role) that last attempted to
   /// access the service. AWS does not report unauthenticated requests.
   ///
   /// This field is null if no IAM entities attempted to access the service
-  /// within the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// within the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final String lastAuthenticatedEntity;
 
   /// The total number of authenticated principals (root user, IAM users, or IAM
   /// roles) that have attempted to access the service.
   ///
   /// This field is null if no principals attempted to access the service within
-  /// the [reporting
-  /// period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
+  /// the
+  /// [reporting period](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period).
   final int totalAuthenticatedEntities;
 
   ServiceLastAccessed({
@@ -8159,10 +8342,11 @@ class ServiceLastAccessed {
       ServiceLastAccessed();
 }
 
+/// Contains the details of a service-specific credential.
 class ServiceSpecificCredential {
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the service-specific
-  /// credential were created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// service-specific credential were created.
   final DateTime createDate;
 
   /// The name of the service associated with the service-specific credential.
@@ -8200,6 +8384,7 @@ class ServiceSpecificCredential {
       ServiceSpecificCredential();
 }
 
+/// Contains additional details about a service-specific credential.
 class ServiceSpecificCredentialMetadata {
   /// The name of the IAM user associated with the service-specific credential.
   final String userName;
@@ -8211,9 +8396,9 @@ class ServiceSpecificCredentialMetadata {
   /// The generated user name for the service-specific credential.
   final String serviceUserName;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the service-specific
-  /// credential were created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// service-specific credential were created.
   final DateTime createDate;
 
   /// The unique identifier for the service-specific credential.
@@ -8235,6 +8420,10 @@ class ServiceSpecificCredentialMetadata {
       ServiceSpecificCredentialMetadata();
 }
 
+/// Contains information about an X.509 signing certificate.
+///
+/// This data type is used as a response element in the UploadSigningCertificate
+/// and ListSigningCertificates operations.
 class SigningCertificate {
   /// The name of the user the signing certificate is associated with.
   final String userName;
@@ -8263,6 +8452,8 @@ class SigningCertificate {
       SigningCertificate();
 }
 
+/// Contains the response to a successful SimulatePrincipalPolicy or
+/// SimulateCustomPolicy request.
 class SimulatePolicyResponse {
   /// The results of the simulation.
   final List<EvaluationResult> evaluationResults;
@@ -8289,6 +8480,11 @@ class SimulatePolicyResponse {
       SimulatePolicyResponse();
 }
 
+/// Contains a reference to a `Statement` element in a policy document that
+/// determines the result of the simulation.
+///
+/// This data type is used by the `MatchedStatements` member of the
+/// `EvaluationResult`  type.
 class Statement {
   /// The identifier of the policy that was provided as an input.
   final String sourcePolicyId;
@@ -8311,6 +8507,11 @@ class Statement {
   static Statement fromJson(Map<String, dynamic> json) => Statement();
 }
 
+/// A structure that represents user-provided metadata that can be associated
+/// with a resource such as an IAM user or role. For more information about
+/// tagging, see
+/// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+/// in the _IAM User Guide_.
 class Tag {
   /// The key name that can be used to look up or retrieve the associated value.
   /// For example, `Department` or `Cost Center` are common choices.
@@ -8354,6 +8555,7 @@ class UpdateRoleResponse {
       UpdateRoleResponse();
 }
 
+/// Contains the response to a successful UpdateSAMLProvider request.
 class UpdateSamlProviderResponse {
   /// The Amazon Resource Name (ARN) of the SAML provider that was updated.
   final String samlProviderArn;
@@ -8365,6 +8567,7 @@ class UpdateSamlProviderResponse {
       UpdateSamlProviderResponse();
 }
 
+/// Contains the response to a successful UploadSSHPublicKey request.
 class UploadSshPublicKeyResponse {
   /// Contains information about the SSH public key.
   final SshPublicKey sshPublicKey;
@@ -8376,6 +8579,7 @@ class UploadSshPublicKeyResponse {
       UploadSshPublicKeyResponse();
 }
 
+/// Contains the response to a successful UploadServerCertificate request.
 class UploadServerCertificateResponse {
   /// The meta information of the uploaded server certificate without its
   /// certificate body, certificate chain, and private key.
@@ -8388,6 +8592,7 @@ class UploadServerCertificateResponse {
       UploadServerCertificateResponse();
 }
 
+/// Contains the response to a successful UploadSigningCertificate request.
 class UploadSigningCertificateResponse {
   /// Information about the certificate.
   final SigningCertificate certificate;
@@ -8399,9 +8604,18 @@ class UploadSigningCertificateResponse {
       UploadSigningCertificateResponse();
 }
 
+/// Contains information about an IAM user entity.
+///
+/// This data type is used as a response element in the following operations:
+///
+/// *    CreateUser
+///
+/// *    GetUser
+///
+/// *    ListUsers
 class User {
-  /// The path to the user. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// The path to the user. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -8409,26 +8623,27 @@ class User {
   final String userName;
 
   /// The stable and unique string identifying the user. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String userId;
 
   /// The Amazon Resource Name (ARN) that identifies the user. For more
-  /// information about ARNs and how to use ARNs in policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// information about ARNs and how to use ARNs in policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the user was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the user
+  /// was created.
   final DateTime createDate;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the user's password was last
-  /// used to sign in to an AWS website. For a list of AWS websites that capture
-  /// a user's last sign-in time, see the [Credential
-  /// Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the
+  /// user's password was last used to sign in to an AWS website. For a list of
+  /// AWS websites that capture a user's last sign-in time, see the
+  /// [Credential Reports](https://docs.aws.amazon.com/IAM/latest/UserGuide/credential-reports.html)
   /// topic in the _Using IAM_ guide. If a password is used more than once in a
   /// five-minute span, only the first use is returned in this field. If the
   /// field is null (no value), then it indicates that they never signed in with
@@ -8449,15 +8664,14 @@ class User {
 
   /// The ARN of the policy used to set the permissions boundary for the user.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final AttachedPermissionsBoundary permissionsBoundary;
 
   /// A list of tags that are associated with the specified user. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   final List<Tag> tags;
 
@@ -8474,9 +8688,14 @@ class User {
   static User fromJson(Map<String, dynamic> json) => User();
 }
 
+/// Contains information about an IAM user, including all the user's policies
+/// and all the IAM groups the user is in.
+///
+/// This data type is used as a response element in the
+/// GetAccountAuthorizationDetails operation.
 class UserDetail {
-  /// The path to the user. For more information about paths, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// The path to the user. For more information about paths, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String path;
 
@@ -8484,15 +8703,16 @@ class UserDetail {
   final String userName;
 
   /// The stable and unique string identifying the user. For more information
-  /// about IDs, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
+  /// about IDs, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html)
   /// in the _Using IAM_ guide.
   final String userId;
 
   final String arn;
 
-  /// The date and time, in [ISO 8601 date-time
-  /// format](http://www.iso.org/iso/iso8601), when the user was created.
+  /// The date and time, in
+  /// [ISO 8601 date-time format](http://www.iso.org/iso/iso8601), when the user
+  /// was created.
   final DateTime createDate;
 
   /// A list of the inline policies embedded in the user.
@@ -8506,15 +8726,14 @@ class UserDetail {
 
   /// The ARN of the policy used to set the permissions boundary for the user.
   ///
-  /// For more information about permissions boundaries, see [Permissions
-  /// Boundaries for IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
+  /// For more information about permissions boundaries, see
+  /// [Permissions Boundaries for IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_boundaries.html)
   ///  in the _IAM User Guide_.
   final AttachedPermissionsBoundary permissionsBoundary;
 
   /// A list of tags that are associated with the specified user. For more
-  /// information about tagging, see [Tagging IAM
-  /// Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
+  /// information about tagging, see
+  /// [Tagging IAM Identities](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_tags.html)
   /// in the _IAM User Guide_.
   final List<Tag> tags;
 
@@ -8533,6 +8752,7 @@ class UserDetail {
   static UserDetail fromJson(Map<String, dynamic> json) => UserDetail();
 }
 
+/// Contains information about a virtual MFA device.
 class VirtualMfaDevice {
   /// The serial number associated with `VirtualMFADevice`.
   final String serialNumber;

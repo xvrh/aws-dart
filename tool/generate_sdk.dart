@@ -68,6 +68,7 @@ main() {
     code.writeln('}');
 
     for (var declaration in api.declarations) {
+      code.writeln(documentationComment(declaration.documentation, indent: 0));
       code.writeln('class ${declaration.className} {');
       var properties = declaration.properties;
       for (var property in properties) {

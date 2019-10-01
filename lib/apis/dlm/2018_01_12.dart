@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 /// operations on the specified resources.
 ///
 /// Amazon DLM supports Amazon EBS volumes and snapshots. For information about
-/// using Amazon DLM with Amazon EBS, see [Automating the Amazon EBS Snapshot
-/// Lifecycle](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html)
+/// using Amazon DLM with Amazon EBS, see
+/// [Automating the Amazon EBS Snapshot Lifecycle](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html)
 /// in the _Amazon EC2 User Guide_.
 class DlmApi {
   /// Creates a policy to manage the lifecycle of the specified AWS resources.
@@ -18,7 +18,7 @@ class DlmApi {
   /// run the operations specified by the lifecycle policy.
   ///
   /// [description]: A description of the lifecycle policy. The characters
-  /// ^\[0-9A-Za-z _-\]+$ are supported.
+  /// ^[0-9A-Za-z _-]+$ are supported.
   ///
   /// [state]: The desired activation state of the lifecycle policy after
   /// creation.
@@ -115,6 +115,7 @@ class CreateLifecyclePolicyResponse {
       CreateLifecyclePolicyResponse();
 }
 
+/// Specifies when to create snapshots of EBS volumes.
 class CreateRule {
   /// The interval between snapshots. The supported values are 2, 3, 4, 6, 8,
   /// 12, and 24.
@@ -165,6 +166,7 @@ class GetLifecyclePolicyResponse {
       GetLifecyclePolicyResponse();
 }
 
+/// Detailed information about a lifecycle policy.
 class LifecyclePolicy {
   /// The identifier of the lifecycle policy.
   final String policyId;
@@ -201,6 +203,7 @@ class LifecyclePolicy {
       LifecyclePolicy();
 }
 
+/// Summary information about a lifecycle policy.
 class LifecyclePolicySummary {
   /// The identifier of the lifecycle policy.
   final String policyId;
@@ -220,6 +223,9 @@ class LifecyclePolicySummary {
       LifecyclePolicySummary();
 }
 
+/// Optional parameters that can be added to the policy. The set of valid
+/// parameters depends on the combination of `policyType` and `resourceType`
+/// values.
 class Parameters {
   /// When executing an EBS Snapshot Management – Instance policy, execute all
   /// CreateSnapshots calls with the `excludeBootVolume` set to the supplied
@@ -233,10 +239,10 @@ class Parameters {
   static Parameters fromJson(Map<String, dynamic> json) => Parameters();
 }
 
+/// Specifies the configuration of a lifecycle policy.
 class PolicyDetails {
   /// This field determines the valid target resource types and actions a policy
-  /// can manage. This field defaults to EBS\_SNAPSHOT\_MANAGEMENT if not
-  /// present.
+  /// can manage. This field defaults to EBS_SNAPSHOT_MANAGEMENT if not present.
   final String policyType;
 
   /// The resource type.
@@ -261,6 +267,7 @@ class PolicyDetails {
   static PolicyDetails fromJson(Map<String, dynamic> json) => PolicyDetails();
 }
 
+/// Specifies the number of snapshots to keep for each EBS volume.
 class RetainRule {
   /// The number of snapshots to keep for each volume, up to a maximum of 1000.
   final int count;
@@ -271,6 +278,7 @@ class RetainRule {
   static RetainRule fromJson(Map<String, dynamic> json) => RetainRule();
 }
 
+/// Specifies a schedule.
 class Schedule {
   /// The name of the schedule.
   final String name;
@@ -307,6 +315,7 @@ class Schedule {
   static Schedule fromJson(Map<String, dynamic> json) => Schedule();
 }
 
+/// Specifies a tag for a resource.
 class Tag {
   /// The tag key.
   final String key;

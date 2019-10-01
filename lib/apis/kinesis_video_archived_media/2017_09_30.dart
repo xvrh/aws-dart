@@ -23,15 +23,16 @@ class KinesisVideoArchivedMediaApi {
   ///
   /// *   The video track of each fragment must contain codec private data in
   /// the Advanced Video Coding (AVC) for H.264 format and HEVC for H.265
-  /// format. For more information, see [MPEG-4 specification ISO/IEC
-  /// 14496-15](https://www.iso.org/standard/55980.html). For information about
-  /// adapting stream data to a given format, see [NAL Adaptation
-  /// Flags](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html).
+  /// format. For more information, see
+  /// [MPEG-4 specification ISO/IEC 14496-15](https://www.iso.org/standard/55980.html).
+  /// For information about adapting stream data to a given format, see
+  /// [NAL Adaptation Flags](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html).
   ///
   /// *   The audio track (if present) of each fragment must contain codec
-  /// private data in the AAC format ([AAC specification ISO/IEC
-  /// 13818-7](https://www.iso.org/standard/43345.html)) or the [MS Wave
-  /// format](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html).
+  /// private data in the AAC format
+  /// ([AAC specification ISO/IEC 13818-7](https://www.iso.org/standard/43345.html))
+  /// or the
+  /// [MS Wave format](http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html).
   ///
   ///
   /// The following procedure shows how to use MPEG-DASH with Kinesis Video
@@ -39,8 +40,7 @@ class KinesisVideoArchivedMediaApi {
   ///
   /// 1.  Get an endpoint using
   /// [GetDataEndpoint](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_GetDataEndpoint.html),
-  /// specifying `GET\_DASH\_STREAMING\_SESSION\_URL` for the `APIName`
-  /// parameter.
+  /// specifying `GET_DASH_STREAMING_SESSION_URL` for the `APIName` parameter.
   ///
   /// 2.  Retrieve the MPEG-DASH URL using `GetDASHStreamingSessionURL`. Kinesis
   /// Video Streams creates an MPEG-DASH streaming session to be used for
@@ -108,8 +108,8 @@ class KinesisVideoArchivedMediaApi {
   ///
   /// *   A streaming session URL should not be shared between players. The
   /// service might throttle a session if multiple media players are sharing it.
-  /// For connection limits, see [Kinesis Video Streams
-  /// Limits](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html).
+  /// For connection limits, see
+  /// [Kinesis Video Streams Limits](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html).
   ///
   /// *   A Kinesis video stream can have a maximum of ten active MPEG-DASH
   /// streaming sessions. If a new session is created when the maximum number of
@@ -125,16 +125,16 @@ class KinesisVideoArchivedMediaApi {
   /// You can monitor the amount of data that the media player consumes by
   /// monitoring the `GetMP4MediaFragment.OutgoingBytes` Amazon CloudWatch
   /// metric. For information about using CloudWatch to monitor Kinesis Video
-  /// Streams, see [Monitoring Kinesis Video
-  /// Streams](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html).
-  /// For pricing information, see [Amazon Kinesis Video Streams
-  /// Pricing](https://aws.amazon.com/kinesis/video-streams/pricing/) and [AWS
-  /// Pricing](https://aws.amazon.com/pricing/). Charges for both HLS sessions
-  /// and outgoing AWS data apply.
+  /// Streams, see
+  /// [Monitoring Kinesis Video Streams](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html).
+  /// For pricing information, see
+  /// [Amazon Kinesis Video Streams Pricing](https://aws.amazon.com/kinesis/video-streams/pricing/)
+  /// and [AWS Pricing](https://aws.amazon.com/pricing/). Charges for both HLS
+  /// sessions and outgoing AWS data apply.
   ///
-  /// For more information about HLS, see [HTTP Live
-  /// Streaming](https://developer.apple.com/streaming/) on the [Apple Developer
-  /// site](https://developer.apple.com).
+  /// For more information about HLS, see
+  /// [HTTP Live Streaming](https://developer.apple.com/streaming/) on the
+  /// [Apple Developer site](https://developer.apple.com).
   ///
   ///
   ///
@@ -156,8 +156,8 @@ class KinesisVideoArchivedMediaApi {
   /// programmer might need to take in order to successfully try again.
   ///
   /// For more information, see the **Errors** section at the bottom of this
-  /// topic, as well as [Common
-  /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
+  /// topic, as well as
+  /// [Common Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
   ///
   /// [streamName]: The name of the stream for which to retrieve the MPEG-DASH
   /// manifest URL.
@@ -316,28 +316,26 @@ class KinesisVideoArchivedMediaApi {
   ///
   /// *   The video track of each fragment must contain codec private data in
   /// the Advanced Video Coding (AVC) for H.264 format or HEVC for H.265 format
-  /// ([MPEG-4 specification ISO/IEC
-  /// 14496-15](https://www.iso.org/standard/55980.html)). For information about
-  /// adapting stream data to a given format, see [NAL Adaptation
-  /// Flags](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html).
+  /// ([MPEG-4 specification ISO/IEC 14496-15](https://www.iso.org/standard/55980.html)).
+  /// For information about adapting stream data to a given format, see
+  /// [NAL Adaptation Flags](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/producer-reference-nal.html).
   ///
   /// *   The audio track (if present) of each fragment must contain codec
-  /// private data in the AAC format ([AAC specification ISO/IEC
-  /// 13818-7](https://www.iso.org/standard/43345.html)).
+  /// private data in the AAC format
+  /// ([AAC specification ISO/IEC 13818-7](https://www.iso.org/standard/43345.html)).
   ///
   ///
   /// Kinesis Video Streams HLS sessions contain fragments in the fragmented
   /// MPEG-4 form (also called fMP4 or CMAF) or the MPEG-2 form (also called TS
   /// chunks, which the HLS specification also supports). For more information
-  /// about HLS fragment types, see the [HLS
-  /// specification](https://tools.ietf.org/html/draft-pantos-http-live-streaming-23).
+  /// about HLS fragment types, see the
+  /// [HLS specification](https://tools.ietf.org/html/draft-pantos-http-live-streaming-23).
   ///
   /// The following procedure shows how to use HLS with Kinesis Video Streams:
   ///
   /// 1.  Get an endpoint using
   /// [GetDataEndpoint](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/API_GetDataEndpoint.html),
-  /// specifying `GET\_HLS\_STREAMING\_SESSION\_URL` for the `APIName`
-  /// parameter.
+  /// specifying `GET_HLS_STREAMING_SESSION_URL` for the `APIName` parameter.
   ///
   /// 2.  Retrieve the HLS URL using `GetHLSStreamingSessionURL`. Kinesis Video
   /// Streams creates an HLS streaming session to be used for accessing content
@@ -422,8 +420,8 @@ class KinesisVideoArchivedMediaApi {
   /// media.
   ///
   ///         Data retrieved with this action is billable. For more information,
-  /// see [Kinesis Video Streams
-  /// pricing](https://aws.amazon.com/kinesis/video-streams/pricing/).
+  /// see
+  /// [Kinesis Video Streams pricing](https://aws.amazon.com/kinesis/video-streams/pricing/).
   ///
   ///
   ///
@@ -431,8 +429,8 @@ class KinesisVideoArchivedMediaApi {
   ///
   /// *   A streaming session URL should not be shared between players. The
   /// service might throttle a session if multiple media players are sharing it.
-  /// For connection limits, see [Kinesis Video Streams
-  /// Limits](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html).
+  /// For connection limits, see
+  /// [Kinesis Video Streams Limits](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/limits.html).
   ///
   /// *   A Kinesis video stream can have a maximum of ten active HLS streaming
   /// sessions. If a new session is created when the maximum number of sessions
@@ -447,16 +445,16 @@ class KinesisVideoArchivedMediaApi {
   /// You can monitor the amount of data that the media player consumes by
   /// monitoring the `GetMP4MediaFragment.OutgoingBytes` Amazon CloudWatch
   /// metric. For information about using CloudWatch to monitor Kinesis Video
-  /// Streams, see [Monitoring Kinesis Video
-  /// Streams](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html).
-  /// For pricing information, see [Amazon Kinesis Video Streams
-  /// Pricing](https://aws.amazon.com/kinesis/video-streams/pricing/) and [AWS
-  /// Pricing](https://aws.amazon.com/pricing/). Charges for both HLS sessions
-  /// and outgoing AWS data apply.
+  /// Streams, see
+  /// [Monitoring Kinesis Video Streams](http://docs.aws.amazon.com/kinesisvideostreams/latest/dg/monitoring.html).
+  /// For pricing information, see
+  /// [Amazon Kinesis Video Streams Pricing](https://aws.amazon.com/kinesis/video-streams/pricing/)
+  /// and [AWS Pricing](https://aws.amazon.com/pricing/). Charges for both HLS
+  /// sessions and outgoing AWS data apply.
   ///
-  /// For more information about HLS, see [HTTP Live
-  /// Streaming](https://developer.apple.com/streaming/) on the [Apple Developer
-  /// site](https://developer.apple.com).
+  /// For more information about HLS, see
+  /// [HTTP Live Streaming](https://developer.apple.com/streaming/) on the
+  /// [Apple Developer site](https://developer.apple.com).
   ///
   ///
   ///
@@ -478,8 +476,8 @@ class KinesisVideoArchivedMediaApi {
   /// programmer might need to take in order to successfully try again.
   ///
   /// For more information, see the **Errors** section at the bottom of this
-  /// topic, as well as [Common
-  /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
+  /// topic, as well as
+  /// [Common Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
   ///
   /// [streamName]: The name of the stream for which to retrieve the HLS master
   /// playlist URL.
@@ -642,8 +640,8 @@ class KinesisVideoArchivedMediaApi {
   ///
   ///  You must first call the `GetDataEndpoint` API to get an endpoint. Then
   /// send the `GetMediaForFragmentList` requests to this endpoint using the
-  /// [--endpoint-url
-  /// parameter](https://docs.aws.amazon.com/cli/latest/reference/).
+  /// [--endpoint-url parameter](https://docs.aws.amazon.com/cli/latest/reference/).
+  ///
   ///
   /// The following limits apply when using the `GetMediaForFragmentList` API:
   ///
@@ -675,8 +673,8 @@ class KinesisVideoArchivedMediaApi {
   /// programmer might need to take in order to successfully try again.
   ///
   /// For more information, see the **Errors** section at the bottom of this
-  /// topic, as well as [Common
-  /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
+  /// topic, as well as
+  /// [Common Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
   ///
   /// [streamName]: The name of the stream from which to retrieve fragment
   /// media.
@@ -699,8 +697,8 @@ class KinesisVideoArchivedMediaApi {
   ///
   ///  You must first call the `GetDataEndpoint` API to get an endpoint. Then
   /// send the `ListFragments` requests to this endpoint using the
-  /// [--endpoint-url
-  /// parameter](https://docs.aws.amazon.com/cli/latest/reference/).
+  /// [--endpoint-url parameter](https://docs.aws.amazon.com/cli/latest/reference/).
+  ///
   ///
   /// If an error is thrown after invoking a Kinesis Video Streams archived
   /// media API, in addition to the HTTP status code and the response body, it
@@ -720,8 +718,8 @@ class KinesisVideoArchivedMediaApi {
   /// programmer might need to take in order to successfully try again.
   ///
   /// For more information, see the **Errors** section at the bottom of this
-  /// topic, as well as [Common
-  /// Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
+  /// topic, as well as
+  /// [Common Errors](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/CommonErrors.html).
   ///
   /// [streamName]: The name of the stream from which to retrieve a fragment
   /// list.
@@ -744,6 +742,8 @@ class KinesisVideoArchivedMediaApi {
   }
 }
 
+/// Contains the range of timestamps for the requested media, and the source of
+/// the timestamps.
 class DashFragmentSelector {
   /// The source of the timestamps for the requested media.
   ///
@@ -786,6 +786,15 @@ class DashFragmentSelector {
   });
 }
 
+/// The start and end of the timestamp range for the requested media.
+///
+/// This value should not be present if `PlaybackType` is `LIVE`.
+///
+///
+///
+/// The values in the `DASHimestampRange` are inclusive. Fragments that begin
+/// before the start time but continue past it, or fragments that begin before
+/// the end time but continue past it, are included in the session.
 class DashTimestampRange {
   /// The start of the timestamp range for the requested media.
   ///
@@ -825,6 +834,7 @@ class DashTimestampRange {
   });
 }
 
+/// Represents a segment of video or other time-delimited data.
 class Fragment {
   /// The unique identifier of the fragment. This value monotonically increases
   /// based on the ingestion order.
@@ -853,6 +863,24 @@ class Fragment {
   static Fragment fromJson(Map<String, dynamic> json) => Fragment();
 }
 
+/// Describes the timestamp range and timestamp origin of a range of fragments.
+///
+/// Only fragments with a start timestamp greater than or equal to the given
+/// start time and less than or equal to the end time are returned. For example,
+/// if a stream contains fragments with the following start timestamps:
+///
+/// *   00:00:00
+///
+/// *   00:00:02
+///
+/// *   00:00:04
+///
+/// *   00:00:06
+///
+///
+///  A fragment selector range with a start time of 00:00:01 and end time of
+/// 00:00:04 would return the fragments with start times of 00:00:02 and
+/// 00:00:04.
 class FragmentSelector {
   /// The origin of the timestamps to use (Server or Producer).
   final String fragmentSelectorType;
@@ -901,25 +929,25 @@ class GetMediaForFragmentListOutput {
   /// `GetMediaForFragmentList` call also include the following additional
   /// Matroska (MKV) tags:
   ///
-  /// *   AWS\_KINESISVIDEO\_FRAGMENT_NUMBER - Fragment number returned in the
+  /// *   AWS_KINESISVIDEO_FRAGMENT_NUMBER - Fragment number returned in the
   /// chunk.
   ///
-  /// *   AWS\_KINESISVIDEO\_SERVER\_SIDE\_TIMESTAMP - Server-side timestamp of
-  /// the fragment.
+  /// *   AWS_KINESISVIDEO_SERVER_SIDE_TIMESTAMP - Server-side timestamp of the
+  /// fragment.
   ///
-  /// *   AWS\_KINESISVIDEO\_PRODUCER\_SIDE\_TIMESTAMP - Producer-side timestamp
-  /// of the fragment.
+  /// *   AWS_KINESISVIDEO_PRODUCER_SIDE_TIMESTAMP - Producer-side timestamp of
+  /// the fragment.
   ///
   ///
   /// The following tags will be included if an exception occurs:
   ///
-  /// *   AWS\_KINESISVIDEO\_FRAGMENT_NUMBER - The number of the fragment that
+  /// *   AWS_KINESISVIDEO_FRAGMENT_NUMBER - The number of the fragment that
   /// threw the exception
   ///
-  /// *   AWS\_KINESISVIDEO\_EXCEPTION\_ERROR\_CODE - The integer code of the
+  /// *   AWS_KINESISVIDEO_EXCEPTION_ERROR_CODE - The integer code of the
   /// exception
   ///
-  /// *   AWS\_KINESISVIDEO\_EXCEPTION_MESSAGE - A text description of the
+  /// *   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
   /// exception
   final Uint8List payload;
 
@@ -931,6 +959,8 @@ class GetMediaForFragmentListOutput {
       GetMediaForFragmentListOutput();
 }
 
+/// Contains the range of timestamps for the requested media, and the source of
+/// the timestamps.
 class HlsFragmentSelector {
   /// The source of the timestamps for the requested media.
   ///
@@ -973,6 +1003,15 @@ class HlsFragmentSelector {
   });
 }
 
+/// The start and end of the timestamp range for the requested media.
+///
+/// This value should not be present if `PlaybackType` is `LIVE`.
+///
+///
+///
+/// The values in the `HLSTimestampRange` are inclusive. Fragments that begin
+/// before the start time but continue past it, or fragments that begin before
+/// the end time but continue past it, are included in the session.
 class HlsTimestampRange {
   /// The start of the timestamp range for the requested media.
   ///
@@ -1030,6 +1069,7 @@ class ListFragmentsOutput {
       ListFragmentsOutput();
 }
 
+/// The range of timestamps for which to return fragments.
 class TimestampRange {
   /// The starting timestamp in the range of timestamps for which to return
   /// fragments.

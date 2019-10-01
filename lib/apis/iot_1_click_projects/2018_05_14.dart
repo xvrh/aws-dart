@@ -55,8 +55,8 @@ class Iot1ClickProjectsApi {
   ///
   /// [tags]: Optional tags (metadata key/value pairs) to be associated with the
   /// project. For example, `{ {"key1": "value1", "key2": "value2"} }`. For more
-  /// information, see [AWS Tagging
-  /// Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
+  /// information, see
+  /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   Future<CreateProjectResponse> createProject(String projectName,
       {String description,
       PlacementTemplate placementTemplate,
@@ -171,15 +171,14 @@ class Iot1ClickProjectsApi {
 
   /// Creates or modifies tags for a resource. Tags are key/value pairs
   /// (metadata) that can be used to manage a resource. For more information,
-  /// see [AWS Tagging
-  /// Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
+  /// see
+  /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   ///
   /// [resourceArn]: The ARN of the resouce for which tag(s) should be added or
   /// modified.
   ///
-  /// [tags]: The new or modifying tag(s) for the resource. See [AWS IoT 1-Click
-  /// Service
-  /// Limits](https://docs.aws.amazon.com/iot-1-click/latest/developerguide/1click-appendix.html#1click-limits)
+  /// [tags]: The new or modifying tag(s) for the resource. See
+  /// [AWS IoT 1-Click Service Limits](https://docs.aws.amazon.com/iot-1-click/latest/developerguide/1click-appendix.html#1click-limits)
   /// for the maximum number of tags allowed per resource.
   Future<TagResourceResponse> tagResource(
       {@required String resourceArn,
@@ -286,6 +285,8 @@ class DescribeProjectResponse {
       DescribeProjectResponse();
 }
 
+/// An object representing a device for a placement template (see
+/// PlacementTemplate).
 class DeviceTemplate {
   /// The device type, which currently must be `"button"`.
   final String deviceType;
@@ -363,6 +364,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// An object describing a project's placement.
 class PlacementDescription {
   /// The name of the project containing the placement.
   final String projectName;
@@ -393,6 +395,7 @@ class PlacementDescription {
       PlacementDescription();
 }
 
+/// An object providing summary information for a particular placement.
 class PlacementSummary {
   /// The name of the project containing the placement.
   final String projectName;
@@ -419,6 +422,7 @@ class PlacementSummary {
       PlacementSummary();
 }
 
+/// An object defining the template for a placement.
 class PlacementTemplate {
   /// The default attributes (key/value pairs) to be applied to all placements
   /// using this template.
@@ -436,6 +440,8 @@ class PlacementTemplate {
       PlacementTemplate();
 }
 
+/// An object providing detailed information for a particular project associated
+/// with an AWS account and region.
 class ProjectDescription {
   /// The ARN of the project.
   final String arn;
@@ -474,6 +480,8 @@ class ProjectDescription {
       ProjectDescription();
 }
 
+/// An object providing summary information for a particular project for an
+/// associated AWS account and region.
 class ProjectSummary {
   /// The ARN of the project.
   final String arn;

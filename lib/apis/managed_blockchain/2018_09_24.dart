@@ -346,6 +346,10 @@ class ManagedBlockchainApi {
   }
 }
 
+/// A policy type that defines the voting rules for the network. The rules
+/// decide if a proposal is approved. Approval may be based on criteria such as
+/// the percentage of `YES` votes and the duration of the proposal. The policy
+/// applies to all proposals and is specified when the network is created.
 class ApprovalThresholdPolicy {
   /// The percentage of votes among all members that must be `YES` for a
   /// proposal to be approved. For example, a `ThresholdPercentage` value of
@@ -480,6 +484,7 @@ class GetProposalOutput {
       GetProposalOutput();
 }
 
+/// An invitation to an AWS account to create a member and join the network.
 class Invitation {
   /// The unique identifier for the invitation.
   final String invitationId;
@@ -495,18 +500,18 @@ class Invitation {
 
   /// The status of the invitation:
   ///
-  /// *    `PENDING` \- The invitee has not created a member to join the
-  /// network, and the invitation has not yet expired.
+  /// *    `PENDING` - The invitee has not created a member to join the network,
+  /// and the invitation has not yet expired.
   ///
-  /// *    `ACCEPTING` \- The invitee has begun creating a member, and creation
+  /// *    `ACCEPTING` - The invitee has begun creating a member, and creation
   /// has not yet completed.
   ///
-  /// *    `ACCEPTED` \- The invitee created a member and joined the network
+  /// *    `ACCEPTED` - The invitee created a member and joined the network
   /// using the `InvitationID`.
   ///
-  /// *    `REJECTED` \- The invitee rejected the invitation.
+  /// *    `REJECTED` - The invitee rejected the invitation.
   ///
-  /// *    `EXPIRED` \- The invitee neither created a member nor rejected the
+  /// *    `EXPIRED` - The invitee neither created a member nor rejected the
   /// invitation before the `ExpirationDate`.
   final String status;
 
@@ -522,6 +527,8 @@ class Invitation {
   static Invitation fromJson(Map<String, dynamic> json) => Invitation();
 }
 
+/// An action to invite a specific AWS account to create a member and join the
+/// network. The `InviteAction` is carried out when a `Proposal` is `APPROVED`.
 class InviteAction {
   /// The AWS account ID to invite.
   final String principal;
@@ -625,6 +632,7 @@ class ListProposalsOutput {
       ListProposalsOutput();
 }
 
+/// Member configuration properties.
 class Member {
   /// The unique identifier of the network to which the member belongs.
   final String networkId;
@@ -644,20 +652,20 @@ class Member {
 
   /// The status of a member.
   ///
-  /// *    `CREATING` \- The AWS account is in the process of creating a member.
+  /// *    `CREATING` - The AWS account is in the process of creating a member.
   ///
-  /// *    `AVAILABLE` \- The member has been created and can participate in the
+  /// *    `AVAILABLE` - The member has been created and can participate in the
   /// network.
   ///
-  /// *    `CREATE_FAILED` \- The AWS account attempted to create a member and
+  /// *    `CREATE_FAILED` - The AWS account attempted to create a member and
   /// creation failed.
   ///
-  /// *    `DELETING` \- The member and all associated resources are in the
+  /// *    `DELETING` - The member and all associated resources are in the
   /// process of being deleted. Either the AWS account that owns the member
   /// deleted it, or the member is being deleted as the result of an `APPROVED`
   /// `PROPOSAL` to remove the member.
   ///
-  /// *    `DELETED` \- The member can no longer participate on the network and
+  /// *    `DELETED` - The member can no longer participate on the network and
   /// all associated resources are deleted. Either the AWS account that owns the
   /// member deleted it, or the member is being deleted as the result of an
   /// `APPROVED` `PROPOSAL` to remove the member.
@@ -678,6 +686,7 @@ class Member {
   static Member fromJson(Map<String, dynamic> json) => Member();
 }
 
+/// Configuration properties of the member.
 class MemberConfiguration {
   /// The name of the member.
   final String name;
@@ -696,6 +705,8 @@ class MemberConfiguration {
   });
 }
 
+/// Attributes of Hyperledger Fabric for a member in a Managed Blockchain
+/// network using the Hyperledger Fabric framework.
 class MemberFabricAttributes {
   /// The user name for the initial administrator user for the member.
   final String adminUsername;
@@ -711,6 +722,8 @@ class MemberFabricAttributes {
       MemberFabricAttributes();
 }
 
+/// Configuration properties for Hyperledger Fabric for a member in a Managed
+/// Blockchain network using the Hyperledger Fabric framework.
 class MemberFabricConfiguration {
   /// The user name for the member's initial administrative user.
   final String adminUsername;
@@ -719,7 +732,7 @@ class MemberFabricConfiguration {
   /// `AdminPassword` must be at least eight characters long and no more than 32
   /// characters. It must contain at least one uppercase letter, one lowercase
   /// letter, and one digit. It cannot have a single quote(‘), double quote(“),
-  /// forward slash(/), backward slash(\\), @, or a space.
+  /// forward slash(/), backward slash(), @, or a space.
   final String adminPassword;
 
   MemberFabricConfiguration({
@@ -728,6 +741,8 @@ class MemberFabricConfiguration {
   });
 }
 
+/// Attributes relevant to a member for the blockchain framework that the
+/// Managed Blockchain network uses.
 class MemberFrameworkAttributes {
   /// Attributes of Hyperledger Fabric relevant to a member on a Managed
   /// Blockchain network that uses Hyperledger Fabric.
@@ -740,6 +755,8 @@ class MemberFrameworkAttributes {
       MemberFrameworkAttributes();
 }
 
+/// Configuration properties relevant to a member for the blockchain framework
+/// that the Managed Blockchain network uses.
 class MemberFrameworkConfiguration {
   /// Attributes of Hyperledger Fabric for a member on a Managed Blockchain
   /// network that uses Hyperledger Fabric.
@@ -750,6 +767,7 @@ class MemberFrameworkConfiguration {
   });
 }
 
+/// A summary of configuration properties for a member.
 class MemberSummary {
   /// The unique identifier of the member.
   final String id;
@@ -762,20 +780,20 @@ class MemberSummary {
 
   /// The status of the member.
   ///
-  /// *    `CREATING` \- The AWS account is in the process of creating a member.
+  /// *    `CREATING` - The AWS account is in the process of creating a member.
   ///
-  /// *    `AVAILABLE` \- The member has been created and can participate in the
+  /// *    `AVAILABLE` - The member has been created and can participate in the
   /// network.
   ///
-  /// *    `CREATE_FAILED` \- The AWS account attempted to create a member and
+  /// *    `CREATE_FAILED` - The AWS account attempted to create a member and
   /// creation failed.
   ///
-  /// *    `DELETING` \- The member and all associated resources are in the
+  /// *    `DELETING` - The member and all associated resources are in the
   /// process of being deleted. Either the AWS account that owns the member
   /// deleted it, or the member is being deleted as the result of an `APPROVED`
   /// `PROPOSAL` to remove the member.
   ///
-  /// *    `DELETED` \- The member can no longer participate on the network and
+  /// *    `DELETED` - The member can no longer participate on the network and
   /// all associated resources are deleted. Either the AWS account that owns the
   /// member deleted it, or the member is being deleted as the result of an
   /// `APPROVED` `PROPOSAL` to remove the member.
@@ -799,6 +817,7 @@ class MemberSummary {
   static MemberSummary fromJson(Map<String, dynamic> json) => MemberSummary();
 }
 
+/// Network configuration properties.
 class Network {
   /// The unique identifier of the network.
   final String id;
@@ -847,13 +866,14 @@ class Network {
   static Network fromJson(Map<String, dynamic> json) => Network();
 }
 
+/// Attributes of Hyperledger Fabric for a network.
 class NetworkFabricAttributes {
   /// The endpoint of the ordering service for the network.
   final String orderingServiceEndpoint;
 
   /// The edition of Amazon Managed Blockchain that Hyperledger Fabric uses. For
-  /// more information, see [Amazon Managed Blockchain
-  /// Pricing](https://aws.amazon.com/managed-blockchain/pricing/).
+  /// more information, see
+  /// [Amazon Managed Blockchain Pricing](https://aws.amazon.com/managed-blockchain/pricing/).
   final String edition;
 
   NetworkFabricAttributes({
@@ -864,10 +884,11 @@ class NetworkFabricAttributes {
       NetworkFabricAttributes();
 }
 
+/// Hyperledger Fabric configuration properties for the network.
 class NetworkFabricConfiguration {
   /// The edition of Amazon Managed Blockchain that the network uses. For more
-  /// information, see [Amazon Managed Blockchain
-  /// Pricing](https://aws.amazon.com/managed-blockchain/pricing/).
+  /// information, see
+  /// [Amazon Managed Blockchain Pricing](https://aws.amazon.com/managed-blockchain/pricing/).
   final String edition;
 
   NetworkFabricConfiguration({
@@ -875,6 +896,8 @@ class NetworkFabricConfiguration {
   });
 }
 
+/// Attributes relevant to the network for the blockchain framework that the
+/// network uses.
 class NetworkFrameworkAttributes {
   /// Attributes of Hyperledger Fabric for a Managed Blockchain network that
   /// uses Hyperledger Fabric.
@@ -887,6 +910,8 @@ class NetworkFrameworkAttributes {
       NetworkFrameworkAttributes();
 }
 
+///  Configuration properties relevant to the network for the blockchain
+/// framework that the network uses.
 class NetworkFrameworkConfiguration {
   ///  Hyperledger Fabric configuration properties for a Managed Blockchain
   /// network that uses Hyperledger Fabric.
@@ -897,6 +922,7 @@ class NetworkFrameworkConfiguration {
   });
 }
 
+/// A summary of network configuration properties.
 class NetworkSummary {
   /// The unique identifier of the network.
   final String id;
@@ -931,6 +957,7 @@ class NetworkSummary {
   static NetworkSummary fromJson(Map<String, dynamic> json) => NetworkSummary();
 }
 
+/// Configuration properties of a peer node.
 class Node {
   /// The unique identifier of the network that the node is in.
   final String networkId;
@@ -969,6 +996,7 @@ class Node {
   static Node fromJson(Map<String, dynamic> json) => Node();
 }
 
+/// Configuration properties of a peer node.
 class NodeConfiguration {
   /// The Amazon Managed Blockchain instance type for the node.
   final String instanceType;
@@ -982,6 +1010,8 @@ class NodeConfiguration {
   });
 }
 
+/// Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
+/// network that uses Hyperledger Fabric.
 class NodeFabricAttributes {
   /// The endpoint that identifies the peer node for all services except peer
   /// channel-based event services.
@@ -999,6 +1029,8 @@ class NodeFabricAttributes {
       NodeFabricAttributes();
 }
 
+/// Attributes relevant to a peer node on a Managed Blockchain network for the
+/// blockchain framework that the network uses.
 class NodeFrameworkAttributes {
   /// Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
   /// network that uses Hyperledger Fabric.
@@ -1011,6 +1043,7 @@ class NodeFrameworkAttributes {
       NodeFrameworkAttributes();
 }
 
+/// A summary of configuration properties for a peer node.
 class NodeSummary {
   /// The unique identifier of the node.
   final String id;
@@ -1037,6 +1070,7 @@ class NodeSummary {
   static NodeSummary fromJson(Map<String, dynamic> json) => NodeSummary();
 }
 
+/// Properties of a proposal on a Managed Blockchain network.
 class Proposal {
   /// The unique identifier of the proposal.
   final String proposalId;
@@ -1058,22 +1092,22 @@ class Proposal {
 
   /// The status of the proposal. Values are as follows:
   ///
-  /// *    `IN_PROGRESS` \- The proposal is active and open for member voting.
+  /// *    `IN_PROGRESS` - The proposal is active and open for member voting.
   ///
-  /// *    `APPROVED` \- The proposal was approved with sufficient `YES` votes
+  /// *    `APPROVED` - The proposal was approved with sufficient `YES` votes
   /// among members according to the `VotingPolicy` specified for the `Network`.
   /// The specified proposal actions are carried out.
   ///
-  /// *    `REJECTED` \- The proposal was rejected with insufficient `YES` votes
+  /// *    `REJECTED` - The proposal was rejected with insufficient `YES` votes
   /// among members according to the `VotingPolicy` specified for the `Network`.
   /// The specified `ProposalActions` are not carried out.
   ///
-  /// *    `EXPIRED` \- Members did not cast the number of votes required to
+  /// *    `EXPIRED` - Members did not cast the number of votes required to
   /// determine the proposal outcome before the proposal expired. The specified
   /// `ProposalActions` are not carried out.
   ///
-  /// *    `ACTION_FAILED` \- One or more of the specified `ProposalActions` in
-  /// a proposal that was approved could not be completed because of an error.
+  /// *    `ACTION_FAILED` - One or more of the specified `ProposalActions` in a
+  /// proposal that was approved could not be completed because of an error.
   final String status;
 
   ///  The date and time that the proposal was created.
@@ -1114,6 +1148,7 @@ class Proposal {
   static Proposal fromJson(Map<String, dynamic> json) => Proposal();
 }
 
+///  The actions to carry out if a proposal is `APPROVED`.
 class ProposalActions {
   ///  The actions to perform for an `APPROVED` proposal to invite an AWS
   /// account to create a member and join the network.
@@ -1132,6 +1167,7 @@ class ProposalActions {
       ProposalActions();
 }
 
+/// Properties of a proposal.
 class ProposalSummary {
   ///  The unique identifier of the proposal.
   final String proposalId;
@@ -1147,22 +1183,22 @@ class ProposalSummary {
 
   /// The status of the proposal. Values are as follows:
   ///
-  /// *    `IN_PROGRESS` \- The proposal is active and open for member voting.
+  /// *    `IN_PROGRESS` - The proposal is active and open for member voting.
   ///
-  /// *    `APPROVED` \- The proposal was approved with sufficient `YES` votes
+  /// *    `APPROVED` - The proposal was approved with sufficient `YES` votes
   /// among members according to the `VotingPolicy` specified for the `Network`.
   /// The specified proposal actions are carried out.
   ///
-  /// *    `REJECTED` \- The proposal was rejected with insufficient `YES` votes
+  /// *    `REJECTED` - The proposal was rejected with insufficient `YES` votes
   /// among members according to the `VotingPolicy` specified for the `Network`.
   /// The specified `ProposalActions` are not carried out.
   ///
-  /// *    `EXPIRED` \- Members did not cast the number of votes required to
+  /// *    `EXPIRED` - Members did not cast the number of votes required to
   /// determine the proposal outcome before the proposal expired. The specified
   /// `ProposalActions` are not carried out.
   ///
-  /// *    `ACTION_FAILED` \- One or more of the specified `ProposalActions` in
-  /// a proposal that was approved could not be completed because of an error.
+  /// *    `ACTION_FAILED` - One or more of the specified `ProposalActions` in a
+  /// proposal that was approved could not be completed because of an error.
   final String status;
 
   ///  The date and time that the proposal was created.
@@ -1194,6 +1230,9 @@ class RejectInvitationOutput {
       RejectInvitationOutput();
 }
 
+/// An action to remove a member from a Managed Blockchain network as the result
+/// of a removal proposal that is `APPROVED`. The member and all associated
+/// resources are deleted from the network.
 class RemoveAction {
   /// The unique identifier of the member to remove.
   final String memberId;
@@ -1210,6 +1249,7 @@ class VoteOnProposalOutput {
       VoteOnProposalOutput();
 }
 
+///  Properties of an individual vote that a member cast for a proposal.
 class VoteSummary {
   ///  The vote value, either `YES` or `NO`.
   final String vote;
@@ -1228,6 +1268,7 @@ class VoteSummary {
   static VoteSummary fromJson(Map<String, dynamic> json) => VoteSummary();
 }
 
+///  The voting rules for the network to decide if a proposal is accepted
 class VotingPolicy {
   /// Defines the rules for the network for voting on proposals, such as the
   /// percentage of `YES` votes required for the proposal to be approved and the

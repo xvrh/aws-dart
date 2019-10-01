@@ -44,7 +44,7 @@ class IotAnalyticsApi {
   /// *   Cannot contain hyphens (-).
   ///
   /// *   In regular expression terms:
-  /// "^\[A-Za-z_\](\[A-Za-z0-9\]*|\[A-Za-z0-9\]\[A-Za-z0-9_\]*)$".
+  /// "^[A-Za-z_]([A-Za-z0-9]*|[A-Za-z0-9][A-Za-z0-9_]*)$".
   ///
   /// *   Cannot be greater than 255 characters.
   ///
@@ -52,8 +52,8 @@ class IotAnalyticsApi {
   /// payload are considered duplicates.)
   ///
   ///
-  /// For example, {"temp\_01": 29} or {"\_temp\_01": 29} are valid, but
-  /// {"temp-01": 29}, {"01\_temp": 29} or {"\_\_temp\_01": 29} are invalid in
+  /// For example, {"temp_01": 29} or {"_temp_01": 29} are valid, but
+  /// {"temp-01": 29}, {"01_temp": 29} or {"__temp_01": 29} are invalid in
   /// message payloads.
   Future<BatchPutMessageResponse> batchPutMessage(
       {@required String channelName, @required List<Message> messages}) async {
@@ -109,14 +109,14 @@ class IotAnalyticsApi {
   /// [contentDeliveryRules]: When data set contents are created they are
   /// delivered to destinations specified here.
   ///
-  /// [retentionPeriod]: \[Optional\] How long, in days, versions of data set
+  /// [retentionPeriod]: [Optional] How long, in days, versions of data set
   /// contents are kept for the data set. If not specified or set to null,
   /// versions of data set contents are retained for at most 90 days. The number
   /// of versions of data set contents retained is determined by the
   /// `versioningConfiguration` parameter. (For more information, see
   /// https://docs.aws.amazon.com/iotanalytics/latest/userguide/getting-started.html#aws-iot-analytics-dataset-versions)
   ///
-  /// [versioningConfiguration]: \[Optional\] How many versions of data set
+  /// [versioningConfiguration]: [Optional] How many versions of data set
   /// contents are kept. If not specified or set to null, only the latest
   /// version plus the latest succeeded version (if they are different) are kept
   /// for the time period specified by the "retentionPeriod" parameter. (For
@@ -179,8 +179,8 @@ class IotAnalyticsApi {
   /// `channel` and a `datastore` activity. Each entry in the list must contain
   /// only one activity, for example:
   ///
-  ///  `pipelineActivities = \[ { "channel": { ... } }, { "lambda": { ... } },
-  /// ... \]`
+  ///  `pipelineActivities =
+  /// [ { "channel": { ... } }, { "lambda": { ... } }, ... ]`
   ///
   /// [tags]: Metadata which can be used to manage the pipeline.
   Future<CreatePipelineResponse> createPipeline(
@@ -208,9 +208,9 @@ class IotAnalyticsApi {
   /// [datasetName]: The name of the data set whose content is deleted.
   ///
   /// [versionId]: The version of the data set whose content is deleted. You can
-  /// also use the strings "$LATEST" or "$LATEST\_SUCCEEDED" to delete the
-  /// latest or latest successfully completed data set. If not specified,
-  /// "$LATEST\_SUCCEEDED" is the default.
+  /// also use the strings "$LATEST" or "$LATEST_SUCCEEDED" to delete the latest
+  /// or latest successfully completed data set. If not specified,
+  /// "$LATEST_SUCCEEDED" is the default.
   Future<void> deleteDatasetContent(String datasetName,
       {String versionId}) async {}
 
@@ -270,9 +270,9 @@ class IotAnalyticsApi {
   /// [datasetName]: The name of the data set whose contents are retrieved.
   ///
   /// [versionId]: The version of the data set whose contents are retrieved. You
-  /// can also use the strings "$LATEST" or "$LATEST\_SUCCEEDED" to retrieve the
+  /// can also use the strings "$LATEST" or "$LATEST_SUCCEEDED" to retrieve the
   /// contents of the latest or latest successfully completed data set. If not
-  /// specified, "$LATEST\_SUCCEEDED" is the default.
+  /// specified, "$LATEST_SUCCEEDED" is the default.
   Future<GetDatasetContentResponse> getDatasetContent(String datasetName,
       {String versionId}) async {
     return GetDatasetContentResponse.fromJson({});
@@ -468,7 +468,7 @@ class IotAnalyticsApi {
   /// [retentionPeriod]: How long, in days, data set contents are kept for the
   /// data set.
   ///
-  /// [versioningConfiguration]: \[Optional\] How many versions of data set
+  /// [versioningConfiguration]: [Optional] How many versions of data set
   /// contents are kept. If not specified or set to null, only the latest
   /// version plus the latest succeeded version (if they are different) are kept
   /// for the time period specified by the "retentionPeriod" parameter. (For
@@ -510,13 +510,15 @@ class IotAnalyticsApi {
   /// `channel` and a `datastore` activity. Each entry in the list must contain
   /// only one activity, for example:
   ///
-  ///  `pipelineActivities = \[ { "channel": { ... } }, { "lambda": { ... } },
-  /// ... \]`
+  ///  `pipelineActivities =
+  /// [ { "channel": { ... } }, { "lambda": { ... } }, ... ]`
   Future<void> updatePipeline(
       {@required String pipelineName,
       @required List<PipelineActivity> pipelineActivities}) async {}
 }
 
+/// An activity that adds other attributes based on existing attributes in the
+/// message.
 class AddAttributesActivity {
   /// The name of the 'addAttributes' activity.
   final String name;
@@ -542,6 +544,7 @@ class AddAttributesActivity {
       AddAttributesActivity();
 }
 
+/// Contains informations about errors.
 class BatchPutMessageErrorEntry {
   /// The ID of the message that caused the error. (See the value corresponding
   /// to the "messageId" key in the message object.)
@@ -580,6 +583,8 @@ class CancelPipelineReprocessingResponse {
       CancelPipelineReprocessingResponse();
 }
 
+/// A collection of data from an MQTT topic. Channels archive the raw,
+/// unprocessed messages before publishing the data to a pipeline.
 class Channel {
   /// The name of the channel.
   final String name;
@@ -614,6 +619,7 @@ class Channel {
   static Channel fromJson(Map<String, dynamic> json) => Channel();
 }
 
+/// The activity that determines the source of the messages to be processed.
 class ChannelActivity {
   /// The name of the 'channel' activity.
   final String name;
@@ -633,6 +639,7 @@ class ChannelActivity {
       ChannelActivity();
 }
 
+/// Statistics information about the channel.
 class ChannelStatistics {
   /// The estimated size of the channel.
   final EstimatedResourceSize size;
@@ -644,6 +651,7 @@ class ChannelStatistics {
       ChannelStatistics();
 }
 
+/// Where channel data is stored.
 class ChannelStorage {
   /// Use this to store channel data in an S3 bucket managed by the AWS IoT
   /// Analytics service.
@@ -659,6 +667,7 @@ class ChannelStorage {
   static ChannelStorage fromJson(Map<String, dynamic> json) => ChannelStorage();
 }
 
+/// Where channel data is stored.
 class ChannelStorageSummary {
   /// Used to store channel data in an S3 bucket managed by the AWS IoT
   /// Analytics service.
@@ -675,6 +684,7 @@ class ChannelStorageSummary {
       ChannelStorageSummary();
 }
 
+/// A summary of information about a channel.
 class ChannelSummary {
   /// The name of the channel.
   final String channelName;
@@ -701,6 +711,8 @@ class ChannelSummary {
   static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary();
 }
 
+/// Information needed to run the "containerAction" to produce data set
+/// contents.
 class ContainerDatasetAction {
   /// The ARN of the Docker container stored in your account. The Docker
   /// container contains an application and needed support libraries and is used
@@ -815,6 +827,7 @@ class CreatePipelineResponse {
       CreatePipelineResponse();
 }
 
+/// Use this to store channel data in an S3 bucket that you manage.
 class CustomerManagedChannelS3Storage {
   /// The name of the Amazon S3 bucket in which channel data is stored.
   final String bucket;
@@ -837,6 +850,7 @@ class CustomerManagedChannelS3Storage {
       CustomerManagedChannelS3Storage();
 }
 
+/// Used to store channel data in an S3 bucket that you manage.
 class CustomerManagedChannelS3StorageSummary {
   /// The name of the Amazon S3 bucket in which channel data is stored.
   final String bucket;
@@ -860,6 +874,7 @@ class CustomerManagedChannelS3StorageSummary {
       CustomerManagedChannelS3StorageSummary();
 }
 
+/// Use this to store data store data in an S3 bucket that you manage.
 class CustomerManagedDatastoreS3Storage {
   /// The name of the Amazon S3 bucket in which data store data is stored.
   final String bucket;
@@ -883,6 +898,7 @@ class CustomerManagedDatastoreS3Storage {
       CustomerManagedDatastoreS3Storage();
 }
 
+/// Used to store data store data in an S3 bucket that you manage.
 class CustomerManagedDatastoreS3StorageSummary {
   /// The name of the Amazon S3 bucket in which data store data is stored.
   final String bucket;
@@ -906,6 +922,7 @@ class CustomerManagedDatastoreS3StorageSummary {
       CustomerManagedDatastoreS3StorageSummary();
 }
 
+/// Information about a data set.
 class Dataset {
   /// The name of the data set.
   final String name;
@@ -934,10 +951,10 @@ class Dataset {
   /// The last time the data set was updated.
   final DateTime lastUpdateTime;
 
-  /// \[Optional\] How long, in days, message data is kept for the data set.
+  /// [Optional] How long, in days, message data is kept for the data set.
   final RetentionPeriod retentionPeriod;
 
-  /// \[Optional\] How many versions of data set contents are kept. If not
+  /// [Optional] How many versions of data set contents are kept. If not
   /// specified or set to null, only the latest version plus the latest
   /// succeeded version (if they are different) are kept for the time period
   /// specified by the "retentionPeriod" parameter. (For more information, see
@@ -959,6 +976,8 @@ class Dataset {
   static Dataset fromJson(Map<String, dynamic> json) => Dataset();
 }
 
+/// A "DatasetAction" object that specifies how data set contents are
+/// automatically created.
 class DatasetAction {
   /// The name of the data set action by which data set contents are
   /// automatically created.
@@ -981,6 +1000,8 @@ class DatasetAction {
   static DatasetAction fromJson(Map<String, dynamic> json) => DatasetAction();
 }
 
+/// Information about the action which automatically creates the data set's
+/// contents.
 class DatasetActionSummary {
   /// The name of the action which automatically creates the data set's
   /// contents.
@@ -998,6 +1019,7 @@ class DatasetActionSummary {
       DatasetActionSummary();
 }
 
+/// The destination to which data set contents are delivered.
 class DatasetContentDeliveryDestination {
   /// Configuration information for delivery of data set contents to AWS IoT
   /// Events.
@@ -1015,6 +1037,8 @@ class DatasetContentDeliveryDestination {
       DatasetContentDeliveryDestination();
 }
 
+/// When data set contents are created they are delivered to destination
+/// specified here.
 class DatasetContentDeliveryRule {
   /// The name of the data set content delivery rules entry.
   final String entryName;
@@ -1030,6 +1054,7 @@ class DatasetContentDeliveryRule {
       DatasetContentDeliveryRule();
 }
 
+/// The state of the data set contents and the reason they are in this state.
 class DatasetContentStatus {
   /// The state of the data set contents. Can be one of "READY", "CREATING",
   /// "SUCCEEDED" or "FAILED".
@@ -1046,6 +1071,7 @@ class DatasetContentStatus {
       DatasetContentStatus();
 }
 
+/// Summary information about data set contents.
 class DatasetContentSummary {
   /// The version of the data set contents.
   final String version;
@@ -1069,6 +1095,8 @@ class DatasetContentSummary {
       DatasetContentSummary();
 }
 
+/// The data set whose latest contents are used as input to the notebook or
+/// application.
 class DatasetContentVersionValue {
   /// The name of the data set whose latest contents are used as input to the
   /// notebook or application.
@@ -1081,6 +1109,7 @@ class DatasetContentVersionValue {
       DatasetContentVersionValue();
 }
 
+/// The reference to a data set entry.
 class DatasetEntry {
   /// The name of the data set item.
   final String entryName;
@@ -1095,6 +1124,7 @@ class DatasetEntry {
   static DatasetEntry fromJson(Map<String, dynamic> json) => DatasetEntry();
 }
 
+/// A summary of information about a data set.
 class DatasetSummary {
   /// The name of the data set.
   final String datasetName;
@@ -1127,6 +1157,8 @@ class DatasetSummary {
   static DatasetSummary fromJson(Map<String, dynamic> json) => DatasetSummary();
 }
 
+/// The "DatasetTrigger" that specifies when the data set is automatically
+/// updated.
 class DatasetTrigger {
   /// The "Schedule" when the trigger is initiated.
   final Schedule schedule;
@@ -1142,6 +1174,7 @@ class DatasetTrigger {
   static DatasetTrigger fromJson(Map<String, dynamic> json) => DatasetTrigger();
 }
 
+/// Information about a data store.
 class Datastore {
   /// The name of the data store.
   final String name;
@@ -1188,6 +1221,7 @@ class Datastore {
   static Datastore fromJson(Map<String, dynamic> json) => Datastore();
 }
 
+/// The 'datastore' activity that specifies where to store the processed data.
 class DatastoreActivity {
   /// The name of the 'datastore' activity.
   final String name;
@@ -1203,6 +1237,7 @@ class DatastoreActivity {
       DatastoreActivity();
 }
 
+/// Statistical information about the data store.
 class DatastoreStatistics {
   /// The estimated size of the data store.
   final EstimatedResourceSize size;
@@ -1214,6 +1249,7 @@ class DatastoreStatistics {
       DatastoreStatistics();
 }
 
+/// Where data store data is stored.
 class DatastoreStorage {
   /// Use this to store data store data in an S3 bucket managed by the AWS IoT
   /// Analytics service.
@@ -1230,6 +1266,7 @@ class DatastoreStorage {
       DatastoreStorage();
 }
 
+/// Where data store data is stored.
 class DatastoreStorageSummary {
   /// Used to store data store data in an S3 bucket managed by the AWS IoT
   /// Analytics service.
@@ -1246,6 +1283,7 @@ class DatastoreStorageSummary {
       DatastoreStorageSummary();
 }
 
+/// A summary of information about a data store.
 class DatastoreSummary {
   /// The name of the data store.
   final String datastoreName;
@@ -1273,6 +1311,8 @@ class DatastoreSummary {
       DatastoreSummary();
 }
 
+/// Used to limit data to that which has arrived since the last execution of the
+/// action.
 class DeltaTime {
   /// The number of seconds of estimated "in flight" lag time of message data.
   /// When you create data set contents using message data from a specified time
@@ -1362,6 +1402,7 @@ class DescribePipelineResponse {
       DescribePipelineResponse();
 }
 
+/// An activity that adds data from the AWS IoT device registry to your message.
 class DeviceRegistryEnrichActivity {
   /// The name of the 'deviceRegistryEnrich' activity.
   final String name;
@@ -1391,6 +1432,8 @@ class DeviceRegistryEnrichActivity {
       DeviceRegistryEnrichActivity();
 }
 
+/// An activity that adds information from the AWS IoT Device Shadows service to
+/// a message.
 class DeviceShadowEnrichActivity {
   /// The name of the 'deviceShadowEnrich' activity.
   final String name;
@@ -1419,6 +1462,7 @@ class DeviceShadowEnrichActivity {
       DeviceShadowEnrichActivity();
 }
 
+/// The estimated size of the resource.
 class EstimatedResourceSize {
   /// The estimated size of the resource in bytes.
   final double estimatedSizeInBytes;
@@ -1434,6 +1478,7 @@ class EstimatedResourceSize {
       EstimatedResourceSize();
 }
 
+/// An activity that filters a message based on its attributes.
 class FilterActivity {
   /// The name of the 'filter' activity.
   final String name;
@@ -1472,6 +1517,8 @@ class GetDatasetContentResponse {
       GetDatasetContentResponse();
 }
 
+/// Configuration information for coordination with the AWS Glue ETL (extract,
+/// transform and load) service.
 class GlueConfiguration {
   /// The name of the table in your AWS Glue Data Catalog which is used to
   /// perform the ETL (extract, transform and load) operations. (An AWS Glue
@@ -1491,6 +1538,8 @@ class GlueConfiguration {
       GlueConfiguration();
 }
 
+/// Configuration information for delivery of data set contents to AWS IoT
+/// Events.
 class IotEventsDestinationConfiguration {
   /// The name of the AWS IoT Events input to which data set contents are
   /// delivered.
@@ -1509,6 +1558,7 @@ class IotEventsDestinationConfiguration {
       IotEventsDestinationConfiguration();
 }
 
+/// An activity that runs a Lambda function to modify the message.
 class LambdaActivity {
   /// The name of the 'lambda' activity.
   final String name;
@@ -1626,6 +1676,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Information about logging options.
 class LoggingOptions {
   /// The ARN of the role that grants permission to AWS IoT Analytics to perform
   /// logging.
@@ -1645,6 +1696,8 @@ class LoggingOptions {
   static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions();
 }
 
+/// An activity that computes an arithmetic expression using the message's
+/// attributes.
 class MathActivity {
   /// The name of the 'math' activity.
   final String name;
@@ -1668,6 +1721,7 @@ class MathActivity {
   static MathActivity fromJson(Map<String, dynamic> json) => MathActivity();
 }
 
+/// Information about a message.
 class Message {
   /// The ID you wish to assign to the message. Each "messageId" must be unique
   /// within each batch sent.
@@ -1684,6 +1738,7 @@ class Message {
   });
 }
 
+/// The value of the variable as a structure that specifies an output file URI.
 class OutputFileUriValue {
   /// The URI of the location where data set contents are stored, usually the
   /// URI of a file in an S3 bucket.
@@ -1696,6 +1751,7 @@ class OutputFileUriValue {
       OutputFileUriValue();
 }
 
+/// Contains information about a pipeline.
 class Pipeline {
   /// The name of the pipeline.
   final String name;
@@ -1726,6 +1782,7 @@ class Pipeline {
   static Pipeline fromJson(Map<String, dynamic> json) => Pipeline();
 }
 
+/// An activity that performs a transformation on a message.
 class PipelineActivity {
   /// Determines the source of the messages to be processed.
   final ChannelActivity channel;
@@ -1775,6 +1832,7 @@ class PipelineActivity {
       PipelineActivity();
 }
 
+/// A summary of information about a pipeline.
 class PipelineSummary {
   /// The name of the pipeline.
   final String pipelineName;
@@ -1798,6 +1856,8 @@ class PipelineSummary {
       PipelineSummary();
 }
 
+/// Information which is used to filter message data, to segregate it according
+/// to the time frame in which it arrives.
 class QueryFilter {
   /// Used to limit data to that which has arrived since the last execution of
   /// the action.
@@ -1809,6 +1869,7 @@ class QueryFilter {
   static QueryFilter fromJson(Map<String, dynamic> json) => QueryFilter();
 }
 
+/// An activity that removes attributes from a message.
 class RemoveAttributesActivity {
   /// The name of the 'removeAttributes' activity.
   final String name;
@@ -1828,6 +1889,7 @@ class RemoveAttributesActivity {
       RemoveAttributesActivity();
 }
 
+/// Information about pipeline reprocessing.
 class ReprocessingSummary {
   /// The 'reprocessingId' returned by "StartPipelineReprocessing".
   final String id;
@@ -1847,9 +1909,10 @@ class ReprocessingSummary {
       ReprocessingSummary();
 }
 
+/// The configuration of the resource used to execute the "containerAction".
 class ResourceConfiguration {
   /// The type of the compute resource used to execute the "containerAction".
-  /// Possible values are: ACU\_1 (vCPU=4, memory=16GiB) or ACU\_2 (vCPU=8,
+  /// Possible values are: ACU_1 (vCPU=4, memory=16GiB) or ACU_2 (vCPU=8,
   /// memory=32GiB).
   final String computeType;
 
@@ -1865,6 +1928,7 @@ class ResourceConfiguration {
       ResourceConfiguration();
 }
 
+/// How long, in days, message data is kept.
 class RetentionPeriod {
   /// If true, message data is kept indefinitely.
   final bool unlimited;
@@ -1898,6 +1962,7 @@ class RunPipelineActivityResponse {
       RunPipelineActivityResponse();
 }
 
+/// Configuration information for delivery of data set contents to Amazon S3.
 class S3DestinationConfiguration {
   /// The name of the Amazon S3 bucket to which data set contents are delivered.
   final String bucket;
@@ -1937,10 +2002,11 @@ class SampleChannelDataResponse {
       SampleChannelDataResponse();
 }
 
+/// The schedule for when to trigger an update.
 class Schedule {
   /// The expression that defines when to trigger an update. For more
-  /// information, see  [Schedule Expressions for
-  /// Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
+  /// information, see
+  /// [Schedule Expressions for Rules](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html)
   /// in the Amazon CloudWatch Events User Guide.
   final String expression;
 
@@ -1950,6 +2016,8 @@ class Schedule {
   static Schedule fromJson(Map<String, dynamic> json) => Schedule();
 }
 
+/// Creates a new message using only the specified attributes from the original
+/// message.
 class SelectAttributesActivity {
   /// The name of the 'selectAttributes' activity.
   final String name;
@@ -1969,12 +2037,16 @@ class SelectAttributesActivity {
       SelectAttributesActivity();
 }
 
+/// Use this to store channel data in an S3 bucket managed by the AWS IoT
+/// Analytics service.
 class ServiceManagedChannelS3Storage {
   ServiceManagedChannelS3Storage();
   static ServiceManagedChannelS3Storage fromJson(Map<String, dynamic> json) =>
       ServiceManagedChannelS3Storage();
 }
 
+/// Used to store channel data in an S3 bucket managed by the AWS IoT Analytics
+/// service.
 class ServiceManagedChannelS3StorageSummary {
   ServiceManagedChannelS3StorageSummary();
   static ServiceManagedChannelS3StorageSummary fromJson(
@@ -1982,12 +2054,16 @@ class ServiceManagedChannelS3StorageSummary {
       ServiceManagedChannelS3StorageSummary();
 }
 
+/// Use this to store data store data in an S3 bucket managed by the AWS IoT
+/// Analytics service.
 class ServiceManagedDatastoreS3Storage {
   ServiceManagedDatastoreS3Storage();
   static ServiceManagedDatastoreS3Storage fromJson(Map<String, dynamic> json) =>
       ServiceManagedDatastoreS3Storage();
 }
 
+/// Used to store data store data in an S3 bucket managed by the AWS IoT
+/// Analytics service.
 class ServiceManagedDatastoreS3StorageSummary {
   ServiceManagedDatastoreS3StorageSummary();
   static ServiceManagedDatastoreS3StorageSummary fromJson(
@@ -1995,6 +2071,7 @@ class ServiceManagedDatastoreS3StorageSummary {
       ServiceManagedDatastoreS3StorageSummary();
 }
 
+/// The SQL query to modify the message.
 class SqlQueryDatasetAction {
   /// A SQL query string.
   final String sqlQuery;
@@ -2022,6 +2099,7 @@ class StartPipelineReprocessingResponse {
       StartPipelineReprocessingResponse();
 }
 
+/// A set of key/value pairs which are used to manage the resource.
 class Tag {
   /// The tag's key.
   final String key;
@@ -2042,6 +2120,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Information about the data set whose content generation triggers the new
+/// data set content generation.
 class TriggeringDataset {
   /// The name of the data set whose content generation triggers the new data
   /// set content generation.
@@ -2060,6 +2140,9 @@ class UntagResourceResponse {
       UntagResourceResponse();
 }
 
+/// An instance of a variable to be passed to the "containerAction" execution.
+/// Each variable must have a name and a value given by one of "stringValue",
+/// "datasetContentVersionValue", or "outputFileUriValue".
 class Variable {
   /// The name of the variable.
   final String name;
@@ -2088,6 +2171,7 @@ class Variable {
   static Variable fromJson(Map<String, dynamic> json) => Variable();
 }
 
+/// Information about the versioning of data set contents.
 class VersioningConfiguration {
   /// If true, unlimited versions of data set contents will be kept.
   final bool unlimited;

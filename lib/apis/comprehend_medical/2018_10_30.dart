@@ -25,6 +25,10 @@ class ComprehendMedicalApi {
   }
 }
 
+///  An extracted segment of the text that is an attribute of an entity, or
+/// otherwise related to an entity, such as the dosage of a medication taken. It
+/// contains information about the attribute such as id, begin and end offset
+/// within the input text, and the segment of the input text.
 class Attribute {
   ///  The type of attribute.
   final String type;
@@ -113,6 +117,7 @@ class DetectPhiResponse {
       DetectPhiResponse();
 }
 
+///  Provides information about an extracted medical entity.
 class Entity {
   ///  The numeric identifier for the entity. This is a monotonically increasing
   /// id unique within this response rather than a global unique identifier.
@@ -159,6 +164,7 @@ class Entity {
   static Entity fromJson(Map<String, dynamic> json) => Entity();
 }
 
+///  Provides contextual information about the extracted entity.
 class Trait {
   ///  Provides a name or contextual description about the trait.
   final String name;
@@ -174,10 +180,11 @@ class Trait {
   static Trait fromJson(Map<String, dynamic> json) => Trait();
 }
 
+///  An attribute that we extracted, but were unable to relate to an entity.
 class UnmappedAttribute {
   ///  The type of the attribute, could be one of the following values:
-  /// "MEDICATION", "MEDICAL\_CONDITION", "ANATOMY",
-  /// "TEST\_AND\_TREATMENT\_PROCEDURE" or "PERSONAL\_HEALTH\_INFORMATION".
+  /// "MEDICATION", "MEDICAL_CONDITION", "ANATOMY",
+  /// "TEST_AND_TREATMENT_PROCEDURE" or "PERSONAL_HEALTH_INFORMATION".
   final String type;
 
   ///  The specific attribute that has been extracted but not mapped to an

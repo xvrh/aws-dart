@@ -191,9 +191,8 @@ import 'dart:typed_data';
 /// trigger by sending data to the trigger target.
 ///
 ///
-/// For information about how to use AWS CodeCommit, see the [AWS CodeCommit
-/// User
-/// Guide](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html).
+/// For information about how to use AWS CodeCommit, see the
+/// [AWS CodeCommit User Guide](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html).
 class CodeCommitApi {
   /// Returns information about one or more merge conflicts in the attempted
   /// merge of two commit specifiers using the squash or three-way merge
@@ -222,9 +221,9 @@ class CodeCommitApi {
   /// If not specified, the default is all conflict files.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -434,9 +433,9 @@ class CodeCommitApi {
   /// code.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -564,7 +563,7 @@ class CodeCommitApi {
   /// Returns information about one or more merge conflicts in the attempted
   /// merge of two commit specifiers using the squash or three-way merge
   /// strategy. If the merge option for the attempted merge is specified as
-  /// FAST\_FORWARD\_MERGE, an exception will be thrown.
+  /// FAST_FORWARD_MERGE, an exception will be thrown.
   ///
   /// [repositoryName]: The name of the repository where you want to get
   /// information about a merge conflict.
@@ -586,9 +585,9 @@ class CodeCommitApi {
   /// [filePath]: The path of the target files used to describe the conflicts.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -836,9 +835,9 @@ class CodeCommitApi {
   /// or a full commit ID.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -872,9 +871,9 @@ class CodeCommitApi {
   /// code.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [maxConflictFiles]: The maximum number of files to include in the output.
@@ -914,9 +913,9 @@ class CodeCommitApi {
   /// or a full commit ID.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -1022,8 +1021,7 @@ class CodeCommitApi {
 
   /// Gets information about AWS tags for a specified Amazon Resource Name (ARN)
   /// in AWS CodeCommit. For a list of valid resources in AWS CodeCommit, see
-  /// [CodeCommit Resources and
-  /// Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
+  /// [CodeCommit Resources and Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
   /// in the AWS CodeCommit User Guide.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource for which
@@ -1074,9 +1072,9 @@ class CodeCommitApi {
   /// [targetBranch]: The branch where the merge will be applied.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -1130,9 +1128,9 @@ class CodeCommitApi {
   /// [targetBranch]: The branch where the merge will be applied.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -1210,9 +1208,9 @@ class CodeCommitApi {
   /// match this commit ID.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -1267,9 +1265,9 @@ class CodeCommitApi {
   /// match this commit ID.
   ///
   /// [conflictDetailLevel]: The level of conflict detail to use. If
-  /// unspecified, the default FILE\_LEVEL is used, which will return a not
+  /// unspecified, the default FILE_LEVEL is used, which will return a not
   /// mergeable result if the same file has differences in both branches. If
-  /// LINE\_LEVEL is specified, a conflict will be considered not mergeable if
+  /// LINE_LEVEL is specified, a conflict will be considered not mergeable if
   /// the same file in both branches has differences on the same line.
   ///
   /// [conflictResolutionStrategy]: Specifies which branch to use when resolving
@@ -1469,8 +1467,8 @@ class CodeCommitApi {
   }
 
   /// Adds or updates tags for a resource in AWS CodeCommit. For a list of valid
-  /// resources in AWS CodeCommit, see [CodeCommit Resources and
-  /// Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
+  /// resources in AWS CodeCommit, see
+  /// [CodeCommit Resources and Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
   /// in the AWS CodeCommit User Guide.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource to which you
@@ -1497,8 +1495,8 @@ class CodeCommitApi {
   }
 
   /// Removes tags for a resource in AWS CodeCommit. For a list of valid
-  /// resources in AWS CodeCommit, see [CodeCommit Resources and
-  /// Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
+  /// resources in AWS CodeCommit, see
+  /// [CodeCommit Resources and Operations](https://docs.aws.amazon.com/codecommit/latest/userguide/auth-and-access-control-iam-access-control-identity-based.html#arn-formats)
   /// in the AWS CodeCommit User Guide.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resource to which you
@@ -1610,6 +1608,7 @@ class CodeCommitApi {
       {@required String oldName, @required String newName}) async {}
 }
 
+/// Information about errors in a BatchDescribeMergeConflicts operation.
 class BatchDescribeMergeConflictsError {
   /// The path to the file.
   final String filePath;
@@ -1666,6 +1665,7 @@ class BatchDescribeMergeConflictsOutput {
       BatchDescribeMergeConflictsOutput();
 }
 
+/// Returns information about errors in a BatchGetCommits operation.
 class BatchGetCommitsError {
   /// A commit ID that either could not be found or was not in a valid format.
   final String commitId;
@@ -1706,6 +1706,7 @@ class BatchGetCommitsOutput {
       BatchGetCommitsOutput();
 }
 
+/// Represents the output of a batch get repositories operation.
 class BatchGetRepositoriesOutput {
   /// A list of repositories returned by the batch get repositories operation.
   final List<RepositoryMetadata> repositories;
@@ -1722,6 +1723,7 @@ class BatchGetRepositoriesOutput {
       BatchGetRepositoriesOutput();
 }
 
+/// Returns information about a specific Git blob object.
 class BlobMetadata {
   /// The full ID of the blob.
   final String blobId;
@@ -1748,6 +1750,7 @@ class BlobMetadata {
   static BlobMetadata fromJson(Map<String, dynamic> json) => BlobMetadata();
 }
 
+/// Returns information about a branch.
 class BranchInfo {
   /// The name of the branch.
   final String branchName;
@@ -1762,6 +1765,7 @@ class BranchInfo {
   static BranchInfo fromJson(Map<String, dynamic> json) => BranchInfo();
 }
 
+/// Returns information about a specific comment.
 class Comment {
   /// The system-generated comment ID.
   final String commentId;
@@ -1805,6 +1809,7 @@ class Comment {
   static Comment fromJson(Map<String, dynamic> json) => Comment();
 }
 
+/// Returns information about comments on the comparison between two commits.
 class CommentsForComparedCommit {
   /// The name of the repository that contains the compared commits.
   final String repositoryName;
@@ -1847,6 +1852,7 @@ class CommentsForComparedCommit {
       CommentsForComparedCommit();
 }
 
+/// Returns information about comments on a pull request.
 class CommentsForPullRequest {
   /// The system-generated ID of the pull request.
   final String pullRequestId;
@@ -1896,6 +1902,7 @@ class CommentsForPullRequest {
       CommentsForPullRequest();
 }
 
+/// Returns information about a specific commit.
 class Commit {
   /// The full SHA of the specified commit.
   final String commitId;
@@ -1921,9 +1928,9 @@ class Commit {
   /// committer, as configured in Git.
   ///
   /// For more information about the difference between an author and a
-  /// committer in Git, see [Viewing the Commit
-  /// History](http://git-scm.com/book/ch2-3.html) in Pro Git by Scott Chacon
-  /// and Ben Straub.
+  /// committer in Git, see
+  /// [Viewing the Commit History](http://git-scm.com/book/ch2-3.html) in Pro
+  /// Git by Scott Chacon and Ben Straub.
   final UserInfo committer;
 
   /// Any additional data associated with the specified commit.
@@ -1941,6 +1948,7 @@ class Commit {
   static Commit fromJson(Map<String, dynamic> json) => Commit();
 }
 
+/// Information about conflicts in a merge operation.
 class Conflict {
   /// Metadata about a conflict in a merge operation.
   final ConflictMetadata conflictMetadata;
@@ -1956,6 +1964,7 @@ class Conflict {
   static Conflict fromJson(Map<String, dynamic> json) => Conflict();
 }
 
+/// Information about the metadata for a conflict in a merge operation.
 class ConflictMetadata {
   /// The path of the file that contains conflicts.
   final String filePath;
@@ -2011,6 +2020,8 @@ class ConflictMetadata {
       ConflictMetadata();
 }
 
+/// A list of inputs to use when resolving conflicts during a merge if AUTOMERGE
+/// is chosen as the conflict resolution strategy.
 class ConflictResolution {
   /// Files that will have content replaced as part of the merge conflict
   /// resolution.
@@ -2069,6 +2080,7 @@ class CreatePullRequestOutput {
       CreatePullRequestOutput();
 }
 
+/// Represents the output of a create repository operation.
 class CreateRepositoryOutput {
   /// Information about the newly created repository.
   final RepositoryMetadata repositoryMetadata;
@@ -2097,6 +2109,7 @@ class CreateUnreferencedMergeCommitOutput {
       CreateUnreferencedMergeCommitOutput();
 }
 
+/// Represents the output of a delete branch operation.
 class DeleteBranchOutput {
   /// Information about the branch deleted by the operation, including the
   /// branch name and the commit ID that was the tip of the branch.
@@ -2120,6 +2133,7 @@ class DeleteCommentContentOutput {
       DeleteCommentContentOutput();
 }
 
+/// A file that will be deleted as part of a commit.
 class DeleteFileEntry {
   /// The full path of the file that will be deleted, including the name of the
   /// file.
@@ -2156,6 +2170,7 @@ class DeleteFileOutput {
       DeleteFileOutput();
 }
 
+/// Represents the output of a delete repository operation.
 class DeleteRepositoryOutput {
   /// The ID of the repository that was deleted.
   final String repositoryId;
@@ -2217,6 +2232,7 @@ class DescribePullRequestEventsOutput {
       DescribePullRequestEventsOutput();
 }
 
+/// Returns information about a set of differences for a commit specifier.
 class Difference {
   /// Information about a `beforeBlob` data type object, including the ID, the
   /// file mode permission code, and the path.
@@ -2238,6 +2254,7 @@ class Difference {
   static Difference fromJson(Map<String, dynamic> json) => Difference();
 }
 
+/// Returns information about a file in a repository.
 class File {
   /// The blob ID that contains the file information.
   final String blobId;
@@ -2261,6 +2278,7 @@ class File {
   static File fromJson(Map<String, dynamic> json) => File();
 }
 
+/// A file that will be added, updated, or deleted as part of a commit.
 class FileMetadata {
   /// The full path to the file that will be added or updated, including the
   /// name of the file.
@@ -2281,6 +2299,7 @@ class FileMetadata {
   static FileMetadata fromJson(Map<String, dynamic> json) => FileMetadata();
 }
 
+/// Information about file modes in a merge or pull request.
 class FileModes {
   /// The file mode of a file in the source of a merge or pull request.
   final String source;
@@ -2299,6 +2318,7 @@ class FileModes {
   static FileModes fromJson(Map<String, dynamic> json) => FileModes();
 }
 
+/// Information about the size of files in a merge or pull request.
 class FileSizes {
   /// The size of a file in the source of a merge or pull request.
   final BigInt source;
@@ -2317,6 +2337,7 @@ class FileSizes {
   static FileSizes fromJson(Map<String, dynamic> json) => FileSizes();
 }
 
+/// Returns information about a folder in a repository.
 class Folder {
   /// The full SHA-1 pointer of the tree information for the commit that
   /// contains the folder.
@@ -2337,6 +2358,7 @@ class Folder {
   static Folder fromJson(Map<String, dynamic> json) => Folder();
 }
 
+/// Represents the output of a get blob operation.
 class GetBlobOutput {
   /// The content of the blob, usually a file.
   final Uint8List content;
@@ -2347,6 +2369,7 @@ class GetBlobOutput {
   static GetBlobOutput fromJson(Map<String, dynamic> json) => GetBlobOutput();
 }
 
+/// Represents the output of a get branch operation.
 class GetBranchOutput {
   /// The name of the branch.
   final BranchInfo branch;
@@ -2402,6 +2425,7 @@ class GetCommentsForPullRequestOutput {
       GetCommentsForPullRequestOutput();
 }
 
+/// Represents the output of a get commit operation.
 class GetCommitOutput {
   /// A commit data type object that contains information about the specified
   /// commit.
@@ -2554,7 +2578,7 @@ class GetMergeConflictsOutput {
   final String baseCommitId;
 
   /// A list of metadata for any conflicting files. If the specified merge
-  /// strategy is FAST\_FORWARD\_MERGE, this list will always be empty.
+  /// strategy is FAST_FORWARD_MERGE, this list will always be empty.
   final List<ConflictMetadata> conflictMetadataList;
 
   /// An enumeration token that can be used in a request to return the next
@@ -2609,6 +2633,7 @@ class GetPullRequestOutput {
       GetPullRequestOutput();
 }
 
+/// Represents the output of a get repository operation.
 class GetRepositoryOutput {
   /// Information about the repository.
   final RepositoryMetadata repositoryMetadata;
@@ -2620,6 +2645,7 @@ class GetRepositoryOutput {
       GetRepositoryOutput();
 }
 
+/// Represents the output of a get repository triggers operation.
 class GetRepositoryTriggersOutput {
   /// The system-generated unique ID for the trigger.
   final String configurationId;
@@ -2635,6 +2661,8 @@ class GetRepositoryTriggersOutput {
       GetRepositoryTriggersOutput();
 }
 
+/// Information about whether a file is binary or textual in a merge or pull
+/// request operation.
 class IsBinaryFile {
   /// The binary or non-binary status of file in the source of a merge or pull
   /// request.
@@ -2656,6 +2684,7 @@ class IsBinaryFile {
   static IsBinaryFile fromJson(Map<String, dynamic> json) => IsBinaryFile();
 }
 
+/// Represents the output of a list branches operation.
 class ListBranchesOutput {
   /// The list of branch names.
   final List<String> branches;
@@ -2687,6 +2716,7 @@ class ListPullRequestsOutput {
       ListPullRequestsOutput();
 }
 
+/// Represents the output of a list repositories operation.
 class ListRepositoriesOutput {
   /// Lists the repositories called by the list repositories operation.
   final List<RepositoryNameIdPair> repositories;
@@ -2721,6 +2751,8 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// Returns information about the location of a change or comment in the
+/// comparison between two commits or a pull request.
 class Location {
   /// The name of the file being compared, including its extension and
   /// subdirectory, if any.
@@ -2786,6 +2818,7 @@ class MergeBranchesByThreeWayOutput {
       MergeBranchesByThreeWayOutput();
 }
 
+/// Information about merge hunks in a merge or pull request operation.
 class MergeHunk {
   /// A Boolean value indicating whether a combination of hunks contains a
   /// conflict. Conflicts occur when the same file or the same lines in a file
@@ -2814,6 +2847,8 @@ class MergeHunk {
   static MergeHunk fromJson(Map<String, dynamic> json) => MergeHunk();
 }
 
+/// Information about the details of a merge hunk that contains a conflict in a
+/// merge or pull request operation.
 class MergeHunkDetail {
   /// The start position of the hunk in the merge result.
   final int startLine;
@@ -2834,6 +2869,8 @@ class MergeHunkDetail {
       MergeHunkDetail();
 }
 
+/// Returns information about a merge or potential merge between a source
+/// reference and a destination reference in a pull request.
 class MergeMetadata {
   /// A Boolean value indicating whether the merge has been made.
   final bool isMerged;
@@ -2856,6 +2893,7 @@ class MergeMetadata {
   static MergeMetadata fromJson(Map<String, dynamic> json) => MergeMetadata();
 }
 
+/// Information about the file operation conflicts in a merge operation.
 class MergeOperations {
   /// The operation on a file (add, modify, or delete) of a file in the source
   /// of a merge or pull request.
@@ -2905,6 +2943,7 @@ class MergePullRequestByThreeWayOutput {
       MergePullRequestByThreeWayOutput();
 }
 
+/// Information about the type of an object in a merge operation.
 class ObjectTypes {
   /// The type of the object in the source branch.
   final String source;
@@ -3017,6 +3056,7 @@ class PostCommentReplyOutput {
       PostCommentReplyOutput();
 }
 
+/// Returns information about a pull request.
 class PullRequest {
   /// The system-generated ID of the pull request.
   final String pullRequestId;
@@ -3069,6 +3109,8 @@ class PullRequest {
   static PullRequest fromJson(Map<String, dynamic> json) => PullRequest();
 }
 
+/// Metadata about the pull request that is used when comparing the pull request
+/// source with its destination.
 class PullRequestCreatedEventMetadata {
   /// The name of the repository where the pull request was created.
   final String repositoryName;
@@ -3094,6 +3136,7 @@ class PullRequestCreatedEventMetadata {
       PullRequestCreatedEventMetadata();
 }
 
+/// Returns information about a pull request event.
 class PullRequestEvent {
   /// The system-generated ID of the pull request.
   final String pullRequestId;
@@ -3102,8 +3145,8 @@ class PullRequestEvent {
   final DateTime eventDate;
 
   /// The type of the pull request event, for example a status change event
-  /// (PULL\_REQUEST\_STATUS\_CHANGED) or update event
-  /// (PULL\_REQUEST\_SOURCE\_REFERENCE_UPDATED).
+  /// (PULL_REQUEST_STATUS_CHANGED) or update event
+  /// (PULL_REQUEST_SOURCE_REFERENCE_UPDATED).
   final String pullRequestEventType;
 
   /// The Amazon Resource Name (ARN) of the user whose actions resulted in the
@@ -3142,6 +3185,8 @@ class PullRequestEvent {
       PullRequestEvent();
 }
 
+/// Returns information about the change in the merge state for a pull request
+/// event.
 class PullRequestMergedStateChangedEventMetadata {
   /// The name of the repository where the pull request was created.
   final String repositoryName;
@@ -3162,6 +3207,7 @@ class PullRequestMergedStateChangedEventMetadata {
       PullRequestMergedStateChangedEventMetadata();
 }
 
+/// Information about an update to the source branch of a pull request.
 class PullRequestSourceReferenceUpdatedEventMetadata {
   /// The name of the repository where the pull request was updated.
   final String repositoryName;
@@ -3189,6 +3235,7 @@ class PullRequestSourceReferenceUpdatedEventMetadata {
       PullRequestSourceReferenceUpdatedEventMetadata();
 }
 
+/// Information about a change to the status of a pull request.
 class PullRequestStatusChangedEventMetadata {
   /// The changed status of the pull request.
   final String pullRequestStatus;
@@ -3201,6 +3248,7 @@ class PullRequestStatusChangedEventMetadata {
       PullRequestStatusChangedEventMetadata();
 }
 
+/// Returns information about a pull request target.
 class PullRequestTarget {
   /// The name of the repository that contains the pull request source and
   /// destination branches.
@@ -3245,6 +3293,7 @@ class PullRequestTarget {
       PullRequestTarget();
 }
 
+/// Information about a file that will be added or updated as part of a commit.
 class PutFileEntry {
   /// The full path to the file in the repository, including the name of the
   /// file.
@@ -3289,6 +3338,7 @@ class PutFileOutput {
   static PutFileOutput fromJson(Map<String, dynamic> json) => PutFileOutput();
 }
 
+/// Represents the output of a put repository triggers operation.
 class PutRepositoryTriggersOutput {
   /// The system-generated unique ID for the create or update operation.
   final String configurationId;
@@ -3300,6 +3350,8 @@ class PutRepositoryTriggersOutput {
       PutRepositoryTriggersOutput();
 }
 
+/// Information about a replacement content entry in the conflict of a merge or
+/// pull request operation.
 class ReplaceContentEntry {
   /// The path of the conflicting file.
   final String filePath;
@@ -3308,7 +3360,7 @@ class ReplaceContentEntry {
   final String replacementType;
 
   /// The base-64 encoded content to use when the replacement type is
-  /// USE\_NEW\_CONTENT.
+  /// USE_NEW_CONTENT.
   final Uint8List content;
 
   /// The file mode to apply during conflict resoltion.
@@ -3322,6 +3374,7 @@ class ReplaceContentEntry {
   });
 }
 
+/// Information about a repository.
 class RepositoryMetadata {
   /// The ID of the AWS account associated with the repository.
   final String accountId;
@@ -3369,6 +3422,7 @@ class RepositoryMetadata {
       RepositoryMetadata();
 }
 
+/// Information about a repository name and ID.
 class RepositoryNameIdPair {
   /// The name associated with the repository.
   final String repositoryName;
@@ -3384,6 +3438,7 @@ class RepositoryNameIdPair {
       RepositoryNameIdPair();
 }
 
+/// Information about a trigger for a repository.
 class RepositoryTrigger {
   /// The name of the trigger.
   final String name;
@@ -3424,6 +3479,7 @@ class RepositoryTrigger {
       RepositoryTrigger();
 }
 
+/// A trigger failed to run.
 class RepositoryTriggerExecutionFailure {
   /// The name of the trigger that did not run.
   final String trigger;
@@ -3440,6 +3496,7 @@ class RepositoryTriggerExecutionFailure {
       RepositoryTriggerExecutionFailure();
 }
 
+/// Information about the file mode changes.
 class SetFileModeEntry {
   /// The full path to the file, including the name of the file.
   final String filePath;
@@ -3453,6 +3510,7 @@ class SetFileModeEntry {
   });
 }
 
+/// Information about a source file that is part of changes made in a commit.
 class SourceFileSpecifier {
   /// The full path to the file, including the name of the file.
   final String filePath;
@@ -3466,6 +3524,7 @@ class SourceFileSpecifier {
   });
 }
 
+/// Returns information about a submodule reference in a repository folder.
 class SubModule {
   /// The commit ID that contains the reference to the submodule.
   final String commitId;
@@ -3486,6 +3545,7 @@ class SubModule {
   static SubModule fromJson(Map<String, dynamic> json) => SubModule();
 }
 
+/// Returns information about a symbolic link in a repository folder.
 class SymbolicLink {
   /// The blob ID that contains the information about the symbolic link.
   final String blobId;
@@ -3510,6 +3570,7 @@ class SymbolicLink {
   static SymbolicLink fromJson(Map<String, dynamic> json) => SymbolicLink();
 }
 
+/// Returns information about a target for a pull request.
 class Target {
   /// The name of the repository that contains the pull request.
   final String repositoryName;
@@ -3529,6 +3590,7 @@ class Target {
   });
 }
 
+/// Represents the output of a test repository triggers operation.
 class TestRepositoryTriggersOutput {
   /// The list of triggers that were successfully tested. This list provides the
   /// names of the triggers that were successfully tested, separated by commas.
@@ -3591,6 +3653,7 @@ class UpdatePullRequestTitleOutput {
       UpdatePullRequestTitleOutput();
 }
 
+/// Information about the user who made a specified commit.
 class UserInfo {
   /// The name of the user who made the specified commit.
   final String name;

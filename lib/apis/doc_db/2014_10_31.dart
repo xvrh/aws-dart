@@ -29,12 +29,12 @@ class DocDBApi {
   ///
   /// Valid values:
   ///
-  /// *    `immediate` \- Apply the maintenance action immediately.
+  /// *    `immediate` - Apply the maintenance action immediately.
   ///
-  /// *    `next-maintenance` \- Apply the maintenance action during the next
+  /// *    `next-maintenance` - Apply the maintenance action during the next
   /// maintenance window for the resource.
   ///
-  /// *    `undo-opt-in` \- Cancel any existing `next-maintenance` opt-in
+  /// *    `undo-opt-in` - Cancel any existing `next-maintenance` opt-in
   /// requests.
   Future<ApplyPendingMaintenanceActionResult> applyPendingMaintenanceAction(
       {@required String resourceIdentifier,
@@ -165,16 +165,16 @@ class DocDBApi {
   /// encrypted DB cluster snapshot to be copied. The presigned URL request must
   /// contain the following parameter values:
   ///
-  /// *    `KmsKeyId` \- The AWS KMS key identifier for the key to use to
-  /// encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-  /// This is the same identifier for both the `CopyDBClusterSnapshot` action
-  /// that is called in the destination AWS Region, and the action contained in
-  /// the presigned URL.
+  /// *    `KmsKeyId` - The AWS KMS key identifier for the key to use to encrypt
+  /// the copy of the DB cluster snapshot in the destination AWS Region. This is
+  /// the same identifier for both the `CopyDBClusterSnapshot` action that is
+  /// called in the destination AWS Region, and the action contained in the
+  /// presigned URL.
   ///
-  /// *    `DestinationRegion` \- The name of the AWS Region that the DB cluster
+  /// *    `DestinationRegion` - The name of the AWS Region that the DB cluster
   /// snapshot will be created in.
   ///
-  /// *    `SourceDBClusterSnapshotIdentifier` \- The DB cluster snapshot
+  /// *    `SourceDBClusterSnapshotIdentifier` - The DB cluster snapshot
   /// identifier for the encrypted DB cluster snapshot to be copied. This
   /// identifier must be in the Amazon Resource Name (ARN) format for the source
   /// AWS Region. For example, if you are copying an encrypted DB cluster
@@ -373,7 +373,7 @@ class DocDBApi {
   /// parameter group is used as the default for a new DB cluster. This step is
   /// especially important for parameters that are critical when creating the
   /// default database for a DB cluster, such as the character set for the
-  /// default database defined by the `character\_set\_database` parameter.
+  /// default database defined by the `character_set_database` parameter.
   ///
   /// [dbClusterParameterGroupName]: The name of the DB cluster parameter group.
   ///
@@ -754,16 +754,16 @@ class DocDBApi {
   /// [snapshotType]: The type of DB cluster snapshots to be returned. You can
   /// specify one of the following values:
   ///
-  /// *    `automated` \- Return all DB cluster snapshots that Amazon DocumentDB
+  /// *    `automated` - Return all DB cluster snapshots that Amazon DocumentDB
   /// has automatically created for your AWS account.
   ///
-  /// *    `manual` \- Return all DB cluster snapshots that you have manually
+  /// *    `manual` - Return all DB cluster snapshots that you have manually
   /// created for your AWS account.
   ///
-  /// *    `shared` \- Return all manual DB cluster snapshots that have been
+  /// *    `shared` - Return all manual DB cluster snapshots that have been
   /// shared to your AWS account.
   ///
-  /// *    `public` \- Return all DB cluster snapshots that have been marked as
+  /// *    `public` - Return all DB cluster snapshots that have been marked as
   /// public.
   ///
   ///
@@ -829,7 +829,7 @@ class DocDBApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list only includes information
   /// about the DB clusters identified by these ARNs.
   ///
@@ -922,12 +922,12 @@ class DocDBApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list includes only the
   /// information about the DB instances that are associated with the DB
   /// clusters that are identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// ARNs. The results list includes only the information about the DB
   /// instances that are identified by these ARNs.
   ///
@@ -1150,11 +1150,11 @@ class DocDBApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list includes only pending
   /// maintenance actions for the DB clusters identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// ARNs. The results list includes only pending maintenance actions for the
   /// DB instances identified by these ARNs.
   ///
@@ -1358,7 +1358,7 @@ class DocDBApi {
   /// is used as the default for a new DB cluster. This step is especially
   /// important for parameters that are critical when creating the default
   /// database for a DB cluster, such as the character set for the default
-  /// database defined by the `character\_set\_database` parameter.
+  /// database defined by the `character_set_database` parameter.
   ///
   /// [dbClusterParameterGroupName]: The name of the DB cluster parameter group
   /// to modify.
@@ -1829,8 +1829,8 @@ class DocDBApi {
   }
 
   /// Restarts the stopped cluster that is specified by `DBClusterIdentifier`.
-  /// For more information, see [Stopping and Starting an Amazon DocumentDB
-  /// Cluster](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-stop-start.html).
+  /// For more information, see
+  /// [Stopping and Starting an Amazon DocumentDB Cluster](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-stop-start.html).
   ///
   /// [dbClusterIdentifier]: The identifier of the cluster to restart. Example:
   /// `docdb-2019-05-28-15-24-52`
@@ -1841,8 +1841,7 @@ class DocDBApi {
 
   /// Stops the running cluster that is specified by `DBClusterIdentifier`. The
   /// cluster must be in the _available_ state. For more information, see
-  /// [Stopping and Starting an Amazon DocumentDB
-  /// Cluster](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-stop-start.html).
+  /// [Stopping and Starting an Amazon DocumentDB Cluster](https://docs.aws.amazon.com/documentdb/latest/developerguide/db-cluster-stop-start.html).
   ///
   /// [dbClusterIdentifier]: The identifier of the cluster to stop. Example:
   /// `docdb-2019-05-28-15-24-52`
@@ -1862,6 +1861,7 @@ class ApplyPendingMaintenanceActionResult {
       ApplyPendingMaintenanceActionResult();
 }
 
+/// Information about an Availability Zone.
 class AvailabilityZone {
   /// The name of the Availability Zone.
   final String name;
@@ -1873,6 +1873,12 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// The configuration setting for the log types to be enabled for export to
+/// Amazon CloudWatch Logs for a specific DB instance or DB cluster.
+///
+/// The `EnableLogTypes` and `DisableLogTypes` arrays determine which logs are
+/// exported (or not exported) to CloudWatch Logs. The values within these
+/// arrays depend on the DB engine that is being used.
 class CloudwatchLogsExportConfiguration {
   /// The list of log types to enable.
   final List<String> enableLogTypes;
@@ -1958,6 +1964,7 @@ class CreateDBSubnetGroupResult {
       CreateDBSubnetGroupResult();
 }
 
+/// Detailed information about a DB cluster.
 class DBCluster {
   /// Provides the list of Amazon EC2 Availability Zones that instances in the
   /// DB cluster can be created in.
@@ -2115,6 +2122,7 @@ class DBCluster {
   static DBCluster fromJson(Map<String, dynamic> json) => DBCluster();
 }
 
+/// Contains information about an instance that is part of a DB cluster.
 class DBClusterMember {
   /// Specifies the instance identifier for this member of the DB cluster.
   final String dbInstanceIdentifier;
@@ -2142,6 +2150,7 @@ class DBClusterMember {
       DBClusterMember();
 }
 
+/// Represents the output of DescribeDBClusters.
 class DBClusterMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2159,6 +2168,7 @@ class DBClusterMessage {
       DBClusterMessage();
 }
 
+/// Detailed information about a DB cluster parameter group.
 class DBClusterParameterGroup {
   /// Provides the name of the DB cluster parameter group.
   final String dbClusterParameterGroupName;
@@ -2184,6 +2194,7 @@ class DBClusterParameterGroup {
       DBClusterParameterGroup();
 }
 
+/// Represents the output of DBClusterParameterGroup.
 class DBClusterParameterGroupDetails {
   /// Provides a list of parameters for the DB cluster parameter group.
   final List<Parameter> parameters;
@@ -2201,6 +2212,7 @@ class DBClusterParameterGroupDetails {
       DBClusterParameterGroupDetails();
 }
 
+/// Contains the name of a DB cluster parameter group.
 class DBClusterParameterGroupNameMessage {
   /// The name of a DB cluster parameter group.
   ///
@@ -2226,6 +2238,7 @@ class DBClusterParameterGroupNameMessage {
       DBClusterParameterGroupNameMessage();
 }
 
+/// Represents the output of DBClusterParameterGroups.
 class DBClusterParameterGroupsMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2243,6 +2256,8 @@ class DBClusterParameterGroupsMessage {
       DBClusterParameterGroupsMessage();
 }
 
+/// Describes an AWS Identity and Access Management (IAM) role that is
+/// associated with a DB cluster.
 class DBClusterRole {
   /// The Amazon Resource Name (ARN) of the IAM role that is associated with the
   /// DB cluster.
@@ -2251,13 +2266,12 @@ class DBClusterRole {
   /// Describes the state of association between the IAM role and the DB
   /// cluster. The `Status` property returns one of the following values:
   ///
-  /// *    `ACTIVE` \- The IAM role ARN is associated with the DB cluster and
-  /// can be used to access other AWS services on your behalf.
+  /// *    `ACTIVE` - The IAM role ARN is associated with the DB cluster and can
+  /// be used to access other AWS services on your behalf.
   ///
-  /// *    `PENDING` \- The IAM role ARN is being associated with the DB
-  /// cluster.
+  /// *    `PENDING` - The IAM role ARN is being associated with the DB cluster.
   ///
-  /// *    `INVALID` \- The IAM role ARN is associated with the DB cluster, but
+  /// *    `INVALID` - The IAM role ARN is associated with the DB cluster, but
   /// the DB cluster cannot assume the IAM role to access other AWS services on
   /// your behalf.
   final String status;
@@ -2269,6 +2283,7 @@ class DBClusterRole {
   static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole();
 }
 
+/// Detailed information about a DB cluster snapshot.
 class DBClusterSnapshot {
   /// Provides the list of Amazon EC2 Availability Zones that instances in the
   /// DB cluster snapshot can be restored in.
@@ -2351,6 +2366,10 @@ class DBClusterSnapshot {
       DBClusterSnapshot();
 }
 
+/// Contains the name and values of a manual DB cluster snapshot attribute.
+///
+/// Manual DB cluster snapshot attributes are used to authorize other AWS
+/// accounts to restore a manual DB cluster snapshot.
 class DBClusterSnapshotAttribute {
   /// The name of the manual DB cluster snapshot attribute.
   ///
@@ -2375,6 +2394,8 @@ class DBClusterSnapshotAttribute {
       DBClusterSnapshotAttribute();
 }
 
+/// Detailed information about the attributes that are associated with a DB
+/// cluster snapshot.
 class DBClusterSnapshotAttributesResult {
   /// The identifier of the DB cluster snapshot that the attributes apply to.
   final String dbClusterSnapshotIdentifier;
@@ -2391,6 +2412,7 @@ class DBClusterSnapshotAttributesResult {
       DBClusterSnapshotAttributesResult();
 }
 
+/// Represents the output of DescribeDBClusterSnapshots.
 class DBClusterSnapshotMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2408,6 +2430,7 @@ class DBClusterSnapshotMessage {
       DBClusterSnapshotMessage();
 }
 
+///  Detailed information about a DB engine version.
 class DBEngineVersion {
   /// The name of the database engine.
   final String engine;
@@ -2450,6 +2473,7 @@ class DBEngineVersion {
       DBEngineVersion();
 }
 
+/// Represents the output of DescribeDBEngineVersions.
 class DBEngineVersionMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2467,6 +2491,7 @@ class DBEngineVersionMessage {
       DBEngineVersionMessage();
 }
 
+/// Detailed information about a DB instance.
 class DBInstance {
   /// Contains a user-provided database identifier. This identifier is the
   /// unique key that identifies a DB instance.
@@ -2597,6 +2622,7 @@ class DBInstance {
   static DBInstance fromJson(Map<String, dynamic> json) => DBInstance();
 }
 
+/// Represents the output of DescribeDBInstances.
 class DBInstanceMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2614,6 +2640,7 @@ class DBInstanceMessage {
       DBInstanceMessage();
 }
 
+/// Provides a list of status information for a DB instance.
 class DBInstanceStatusInfo {
   /// This value is currently "`read replication`."
   final String statusType;
@@ -2640,6 +2667,7 @@ class DBInstanceStatusInfo {
       DBInstanceStatusInfo();
 }
 
+/// Detailed information about a DB subnet group.
 class DBSubnetGroup {
   /// The name of the DB subnet group.
   final String dbSubnetGroupName;
@@ -2670,6 +2698,7 @@ class DBSubnetGroup {
   static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup();
 }
 
+/// Represents the output of DescribeDBSubnetGroups.
 class DBSubnetGroupMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2739,6 +2768,9 @@ class DescribeEngineDefaultClusterParametersResult {
       DescribeEngineDefaultClusterParametersResult();
 }
 
+/// Network information for accessing a DB cluster or DB instance. Client
+/// programs must specify a valid endpoint to access these Amazon DocumentDB
+/// resources.
 class Endpoint {
   /// Specifies the DNS address of the DB instance.
   final String address;
@@ -2758,6 +2790,8 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Contains the result of a successful invocation of the
+/// `DescribeEngineDefaultClusterParameters` operation.
 class EngineDefaults {
   /// The name of the DB cluster parameter group family to return the engine
   /// parameter information for.
@@ -2779,6 +2813,7 @@ class EngineDefaults {
   static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
 }
 
+/// Detailed information about an event.
 class Event {
   /// Provides the identifier for the source of the event.
   final String sourceIdentifier;
@@ -2809,6 +2844,7 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// An event source type, accompanied by one or more event category names.
 class EventCategoriesMap {
   /// The source type that the returned categories belong to.
   final String sourceType;
@@ -2824,6 +2860,7 @@ class EventCategoriesMap {
       EventCategoriesMap();
 }
 
+/// Represents the output of DescribeEventCategories.
 class EventCategoriesMessage {
   /// A list of event category maps.
   final List<EventCategoriesMap> eventCategoriesMapList;
@@ -2835,6 +2872,7 @@ class EventCategoriesMessage {
       EventCategoriesMessage();
 }
 
+/// Represents the output of DescribeEvents.
 class EventsMessage {
   /// An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -2861,6 +2899,11 @@ class FailoverDBClusterResult {
       FailoverDBClusterResult();
 }
 
+/// A named set of filter values, used to return a more specific list of
+/// results. You can use a filter to match a set of resources by specific
+/// criteria, such as IDs.
+///
+/// Wildcards are not supported in filters.
 class Filter {
   /// The name of the filter. Filter names are case sensitive.
   final String name;
@@ -2915,6 +2958,7 @@ class ModifyDBSubnetGroupResult {
       ModifyDBSubnetGroupResult();
 }
 
+/// The options that are available for a DB instance.
 class OrderableDBInstanceOption {
   /// The engine type of a DB instance.
   final String engine;
@@ -2946,6 +2990,7 @@ class OrderableDBInstanceOption {
       OrderableDBInstanceOption();
 }
 
+/// Represents the output of DescribeOrderableDBInstanceOptions.
 class OrderableDBInstanceOptionsMessage {
   /// The options that are available for a particular orderable DB instance.
   final List<OrderableDBInstanceOption> orderableDBInstanceOptions;
@@ -2964,6 +3009,7 @@ class OrderableDBInstanceOptionsMessage {
       OrderableDBInstanceOptionsMessage();
 }
 
+/// Detailed information about an individual parameter.
 class Parameter {
   /// Specifies the name of the parameter.
   final String parameterName;
@@ -3012,6 +3058,8 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// A list of the log types whose configuration is still pending. These log
+/// types are in the process of being activated or deactivated.
 class PendingCloudwatchLogsExports {
   /// Log types that are in the process of being deactivated. After they are
   /// deactivated, these log types aren't exported to CloudWatch Logs.
@@ -3029,6 +3077,7 @@ class PendingCloudwatchLogsExports {
       PendingCloudwatchLogsExports();
 }
 
+/// Provides information about a pending maintenance action for a resource.
 class PendingMaintenanceAction {
   /// The type of pending maintenance action that is available for the resource.
   final String action;
@@ -3068,6 +3117,7 @@ class PendingMaintenanceAction {
       PendingMaintenanceAction();
 }
 
+/// Represents the output of DescribePendingMaintenanceActions.
 class PendingMaintenanceActionsMessage {
   /// The maintenance actions to be applied.
   final List<ResourcePendingMaintenanceActions> pendingMaintenanceActions;
@@ -3085,6 +3135,8 @@ class PendingMaintenanceActionsMessage {
       PendingMaintenanceActionsMessage();
 }
 
+///  One or more modified settings for a DB instance. These modified settings
+/// have been requested, but haven't been applied yet.
 class PendingModifiedValues {
   ///  Contains the new `DBInstanceClass` for the DB instance that will be
   /// applied or is currently being applied.
@@ -3170,6 +3222,7 @@ class RebootDBInstanceResult {
       RebootDBInstanceResult();
 }
 
+/// Represents the output of ApplyPendingMaintenanceAction.
 class ResourcePendingMaintenanceActions {
   /// The Amazon Resource Name (ARN) of the resource that has pending
   /// maintenance actions.
@@ -3230,6 +3283,7 @@ class StopDBClusterResult {
       StopDBClusterResult();
 }
 
+///  Detailed information about a subnet.
 class Subnet {
   /// Specifies the identifier of the subnet.
   final String subnetIdentifier;
@@ -3248,19 +3302,21 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// Metadata assigned to an Amazon DocumentDB resource consisting of a key-value
+/// pair.
 class Tag {
   /// The required name of the tag. The string value can be from 1 to 128
   /// Unicode characters in length and can't be prefixed with "aws:" or "rds:".
   /// The string can contain only the set of Unicode letters, digits, white
   /// space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String key;
 
   /// The optional value of the tag. The string value can be from 1 to 256
   /// Unicode characters in length and can't be prefixed with "aws:" or "rds:".
   /// The string can contain only the set of Unicode letters, digits, white
   /// space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String value;
 
   Tag({
@@ -3270,6 +3326,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Represents the output of ListTagsForResource.
 class TagListMessage {
   /// A list of one or more tags.
   final List<Tag> tagList;
@@ -3280,6 +3337,7 @@ class TagListMessage {
   static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
 }
 
+/// The version of the database engine that a DB instance can be upgraded to.
 class UpgradeTarget {
   /// The name of the upgrade target database engine.
   final String engine;
@@ -3308,6 +3366,8 @@ class UpgradeTarget {
   static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget();
 }
 
+/// Used as a response element for queries on virtual private cloud (VPC)
+/// security group membership.
 class VpcSecurityGroupMembership {
   /// The name of the VPC security group.
   final String vpcSecurityGroupId;

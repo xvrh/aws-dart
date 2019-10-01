@@ -354,6 +354,9 @@ class GroundStationApi {
   }
 }
 
+/// Object containing the parameters for a `Config`.
+///
+/// See the subtype definitions for what each type of `Config` contains.
 class ConfigTypeData {
   /// Information about how AWS Ground Station should configure an antenna for
   /// downlink during a contact.
@@ -392,6 +395,7 @@ class ConfigTypeData {
   static ConfigTypeData fromJson(Map<String, dynamic> json) => ConfigTypeData();
 }
 
+/// Information about the ground station data.
 class GroundStationData {
   /// ID of a ground station.
   final String groundStationId;
@@ -411,6 +415,7 @@ class GroundStationData {
       GroundStationData();
 }
 
+/// Information about the endpoint details.
 class EndpointDetails {
   /// A dataflow endpoint.
   final DataflowEndpoint endpoint;
@@ -458,6 +463,7 @@ class GetMinuteUsageResponse {
       GetMinuteUsageResponse();
 }
 
+/// Item in a list of mission profiles.
 class MissionProfileListItem {
   /// ARN of a mission profile.
   final String missionProfileArn;
@@ -498,6 +504,8 @@ class ListDataflowEndpointGroupsResponse {
       ListDataflowEndpointGroupsResponse();
 }
 
+/// Information about how AWS Ground Station should conﬁgure an antenna for
+/// downlink demod decode during a contact.
 class AntennaDownlinkDemodDecodeConfig {
   /// Information about the decode `Config`.
   final DecodeConfig decodeConfig;
@@ -528,6 +536,7 @@ class MissionProfileIdResponse {
       MissionProfileIdResponse();
 }
 
+/// Information about the uplink `Config` of an antenna.
 class AntennaUplinkConfig {
   /// Information about the uplink spectral `Config`.
   final UplinkSpectrumConfig spectrumConfig;
@@ -543,6 +552,8 @@ class AntennaUplinkConfig {
       AntennaUplinkConfig();
 }
 
+/// Information about how AWS Ground Station should configure an antenna for
+/// downlink during a contact.
 class AntennaDownlinkConfig {
   /// Object that describes a spectral `Config`.
   final SpectrumConfig spectrumConfig;
@@ -554,6 +565,11 @@ class AntennaDownlinkConfig {
       AntennaDownlinkConfig();
 }
 
+/// Information about an uplink echo `Config`.
+///
+/// Parameters from the `AntennaUplinkConfig`, corresponding to the specified
+/// `AntennaUplinkConfigArn`, are used when this `UplinkEchoConfig` is used in a
+/// contact.
 class UplinkEchoConfig {
   /// ARN of an uplink `Config`.
   final String antennaUplinkConfigArn;
@@ -569,6 +585,7 @@ class UplinkEchoConfig {
       UplinkEchoConfig();
 }
 
+/// Information about the decode `Config`.
 class DecodeConfig {
   /// Unvalidated JSON of a decode `Config`.
   final String unvalidatedJson;
@@ -579,6 +596,7 @@ class DecodeConfig {
   static DecodeConfig fromJson(Map<String, dynamic> json) => DecodeConfig();
 }
 
+/// Object that describes the frequency.
 class Frequency {
   /// Frequency units.
   final String units;
@@ -618,6 +636,7 @@ class ConfigIdResponse {
       ConfigIdResponse();
 }
 
+/// Information about endpoints.
 class SecurityDetails {
   /// ARN to a role needed for connecting streams to your instances.
   final String roleArn;
@@ -638,6 +657,8 @@ class SecurityDetails {
       SecurityDetails();
 }
 
+/// Object that determines whether tracking should be used during a contact
+/// executed with this `Config` in the mission profile.
 class TrackingConfig {
   /// Current setting for autotrack.
   final String autotrack;
@@ -648,6 +669,7 @@ class TrackingConfig {
   static TrackingConfig fromJson(Map<String, dynamic> json) => TrackingConfig();
 }
 
+/// Elevation angle of the satellite in the sky during a contact.
 class Elevation {
   /// Elevation angle units.
   final String unit;
@@ -662,6 +684,7 @@ class Elevation {
   static Elevation fromJson(Map<String, dynamic> json) => Elevation();
 }
 
+/// Information about the uplink spectral `Config`.
 class UplinkSpectrumConfig {
   /// Center frequency of an uplink spectral `Config`.
   final Frequency centerFrequency;
@@ -740,6 +763,7 @@ class ContactIdResponse {
       ContactIdResponse();
 }
 
+/// Object that describes a spectral `Config`.
 class SpectrumConfig {
   /// Bandwidth of a spectral `Config`.
   final FrequencyBandwidth bandwidth;
@@ -758,6 +782,7 @@ class SpectrumConfig {
   static SpectrumConfig fromJson(Map<String, dynamic> json) => SpectrumConfig();
 }
 
+/// Information about the demodulation `Config`.
 class DemodulationConfig {
   /// Unvalidated JSON of a demodulation `Config`.
   final String unvalidatedJson;
@@ -801,6 +826,7 @@ class ListConfigsResponse {
       ListConfigsResponse();
 }
 
+/// Object that represents EIRP.
 class Eirp {
   /// Units of an EIRP.
   final String units;
@@ -846,6 +872,7 @@ class GetSatelliteResponse {
       GetSatelliteResponse();
 }
 
+/// Data describing a contact.
 class ContactData {
   /// UUID of a contact.
   final String contactId;
@@ -918,6 +945,7 @@ class ListGroundStationsResponse {
       ListGroundStationsResponse();
 }
 
+/// Information about a dataflow endpoint.
 class DataflowEndpoint {
   /// Socket address of a dataflow endpoint.
   final SocketAddress address;
@@ -937,6 +965,7 @@ class DataflowEndpoint {
       DataflowEndpoint();
 }
 
+/// Information about the socket address.
 class SocketAddress {
   /// Name of a socket address.
   final String name;
@@ -988,6 +1017,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Item in a list of satellites.
 class SatelliteListItem {
   /// NORAD satellite ID number.
   final int noradSatelliteID;
@@ -1023,6 +1053,7 @@ class ListSatellitesResponse {
       ListSatellitesResponse();
 }
 
+/// Information about the dataflow endpoint `Config`.
 class DataflowEndpointConfig {
   /// Name of a dataflow endpoint.
   final String dataflowEndpointName;
@@ -1118,6 +1149,7 @@ class DescribeContactResponse {
       DescribeContactResponse();
 }
 
+/// An item in a list of `Config` objects.
 class ConfigListItem {
   /// ARN of a `Config`.
   final String configArn;
@@ -1140,6 +1172,7 @@ class ConfigListItem {
   static ConfigListItem fromJson(Map<String, dynamic> json) => ConfigListItem();
 }
 
+/// Object that describes the frequency bandwidth.
 class FrequencyBandwidth {
   /// Frequency bandwidth units.
   final String units;
@@ -1155,6 +1188,7 @@ class FrequencyBandwidth {
       FrequencyBandwidth();
 }
 
+/// Item in a list of `DataflowEndpoint` groups.
 class DataflowEndpointListItem {
   /// ARN of a dataflow endpoint group.
   final String dataflowEndpointGroupArn;

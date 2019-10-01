@@ -215,7 +215,7 @@ class GreengrassApi {
 
   /// Creates a group. You may provide the initial version of the group or use
   /// ''CreateGroupVersion'' at a later time. Tip: You can use the
-  /// ''gg\_group\_setup'' package
+  /// ''gg_group_setup'' package
   /// (https://github.com/awslabs/aws-greengrass-group-setup) as a library or
   /// command-line application to create and deploy Greengrass groups.
   ///
@@ -1247,6 +1247,8 @@ class AssociateServiceRoleToAccountResponse {
       AssociateServiceRoleToAccountResponse();
 }
 
+/// Information about a bulk deployment. You cannot start a new bulk deployment
+/// while another one is still running or in a non-terminal state.
 class BulkDeployment {
   /// The ARN of the bulk deployment.
   final String bulkDeploymentArn;
@@ -1265,6 +1267,7 @@ class BulkDeployment {
   static BulkDeployment fromJson(Map<String, dynamic> json) => BulkDeployment();
 }
 
+/// Relevant metrics on input records processed during bulk deployment.
 class BulkDeploymentMetrics {
   /// The total number of records that returned a non-retryable error. For
   /// example, this can occur if a group record from the input file uses an
@@ -1292,6 +1295,8 @@ class BulkDeploymentMetrics {
       BulkDeploymentMetrics();
 }
 
+/// Information about an individual group deployment in a bulk deployment
+/// operation.
 class BulkDeploymentResult {
   /// The time, in ISO format, when the deployment was created.
   final String createdAt;
@@ -1332,6 +1337,7 @@ class BulkDeploymentResult {
       BulkDeploymentResult();
 }
 
+/// Information about a Greengrass core's connectivity.
 class ConnectivityInfo {
   /// The endpoint for the Greengrass core. Can be an IP address or DNS.
   final String hostAddress;
@@ -1355,13 +1361,16 @@ class ConnectivityInfo {
       ConnectivityInfo();
 }
 
+/// Information about a connector. Connectors run on the Greengrass core and
+/// contain built-in integration with local infrastructure, device protocols,
+/// AWS, and other cloud services.
 class Connector {
   /// The ARN of the connector.
   final String connectorArn;
 
   /// A descriptive or arbitrary ID for the connector. This value must be unique
   /// within the connector definition version. Max length is 128 characters with
-  /// pattern \[a-zA-Z0-9:_-\]+.
+  /// pattern [a-zA-Z0-9:_-]+.
   final String id;
 
   /// The parameters or configuration that the connector uses.
@@ -1375,6 +1384,8 @@ class Connector {
   static Connector fromJson(Map<String, dynamic> json) => Connector();
 }
 
+/// Information about the connector definition version, which is a container for
+/// connectors.
 class ConnectorDefinitionVersion {
   /// A list of references to connectors in this version, with their
   /// corresponding configuration settings.
@@ -1387,13 +1398,14 @@ class ConnectorDefinitionVersion {
       ConnectorDefinitionVersion();
 }
 
+/// Information about a core.
 class Core {
   /// The ARN of the certificate associated with the core.
   final String certificateArn;
 
   /// A descriptive or arbitrary ID for the core. This value must be unique
   /// within the core definition version. Max length is 128 characters with
-  /// pattern ''\[a-zA-Z0-9:_-\]+''.
+  /// pattern ''[a-zA-Z0-9:_-]+''.
   final String id;
 
   /// If true, the core's local shadow is automatically synced with the cloud.
@@ -1411,6 +1423,7 @@ class Core {
   static Core fromJson(Map<String, dynamic> json) => Core();
 }
 
+/// Information about a core definition version.
 class CoreDefinitionVersion {
   /// A list of cores in the core definition version.
   final List<Core> cores;
@@ -1953,6 +1966,7 @@ class CreateSubscriptionDefinitionVersionResponse {
       CreateSubscriptionDefinitionVersionResponse();
 }
 
+/// Information about a definition.
 class DefinitionInformation {
   /// The ARN of the definition.
   final String arn;
@@ -2044,6 +2058,7 @@ class DeleteSubscriptionDefinitionResponse {
       DeleteSubscriptionDefinitionResponse();
 }
 
+/// Information about a deployment.
 class Deployment {
   /// The time, in milliseconds since the epoch, when the deployment was
   /// created.
@@ -2071,13 +2086,14 @@ class Deployment {
   static Deployment fromJson(Map<String, dynamic> json) => Deployment();
 }
 
+/// Information about a device.
 class Device {
   /// The ARN of the certificate associated with the device.
   final String certificateArn;
 
   /// A descriptive or arbitrary ID for the device. This value must be unique
   /// within the device definition version. Max length is 128 characters with
-  /// pattern ''\[a-zA-Z0-9:_-\]+''.
+  /// pattern ''[a-zA-Z0-9:_-]+''.
   final String id;
 
   /// If true, the device's local shadow will be automatically synced with the
@@ -2096,6 +2112,7 @@ class Device {
   static Device fromJson(Map<String, dynamic> json) => Device();
 }
 
+/// Information about a device definition version.
 class DeviceDefinitionVersion {
   /// A list of devices in the definition version.
   final List<Device> devices;
@@ -2132,6 +2149,7 @@ class DisassociateServiceRoleFromAccountResponse {
       DisassociateServiceRoleFromAccountResponse();
 }
 
+/// Details about the error.
 class ErrorDetail {
   /// A detailed error code.
   final String detailedErrorCode;
@@ -2146,6 +2164,7 @@ class ErrorDetail {
   static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
 }
 
+/// Information about a Lambda function.
 class Function {
   /// The ARN of the Lambda function.
   final String functionArn;
@@ -2155,7 +2174,7 @@ class Function {
 
   /// A descriptive or arbitrary ID for the function. This value must be unique
   /// within the function definition version. Max length is 128 characters with
-  /// pattern ''\[a-zA-Z0-9:_-\]+''.
+  /// pattern ''[a-zA-Z0-9:_-]+''.
   final String id;
 
   Function({
@@ -2166,6 +2185,7 @@ class Function {
   static Function fromJson(Map<String, dynamic> json) => Function();
 }
 
+/// The configuration of the Lambda function.
 class FunctionConfiguration {
   /// The expected encoding type of the input payload for the function. The
   /// default is ''json''.
@@ -2207,6 +2227,7 @@ class FunctionConfiguration {
       FunctionConfiguration();
 }
 
+/// The environment configuration of the function.
 class FunctionConfigurationEnvironment {
   /// If true, the Lambda function is allowed to access the host's /sys folder.
   /// Use this when the Lambda function needs to read device information from
@@ -2236,6 +2257,8 @@ class FunctionConfigurationEnvironment {
       FunctionConfigurationEnvironment();
 }
 
+/// The default configuration that applies to all Lambda functions in the group.
+/// Individual Lambda functions can override these settings.
 class FunctionDefaultConfig {
   final FunctionDefaultExecutionConfig execution;
 
@@ -2246,6 +2269,7 @@ class FunctionDefaultConfig {
       FunctionDefaultConfig();
 }
 
+/// Configuration information that specifies how a Lambda function runs.
 class FunctionDefaultExecutionConfig {
   final String isolationMode;
 
@@ -2259,6 +2283,7 @@ class FunctionDefaultExecutionConfig {
       FunctionDefaultExecutionConfig();
 }
 
+/// Information about a function definition version.
 class FunctionDefinitionVersion {
   /// The default configuration that applies to all Lambda functions in this
   /// function definition version. Individual Lambda functions can override
@@ -2276,6 +2301,7 @@ class FunctionDefinitionVersion {
       FunctionDefinitionVersion();
 }
 
+/// Configuration information that specifies how a Lambda function runs.
 class FunctionExecutionConfig {
   final String isolationMode;
 
@@ -2289,6 +2315,13 @@ class FunctionExecutionConfig {
       FunctionExecutionConfig();
 }
 
+/// Specifies the user and group whose permissions are used when running the
+/// Lambda function. You can specify one or both values to override the default
+/// values. We recommend that you avoid running as root unless absolutely
+/// necessary to minimize the risk of unintended changes or malicious attacks.
+/// To run as root, you must set ''IsolationMode'' to ''NoContainer'' and update
+/// config.json in ''greengrass-root/config'' to set
+/// ''allowFunctionsToRunAsRoot'' to ''yes''.
 class FunctionRunAsConfig {
   /// The group ID whose permissions are used to run a Lambda function.
   final int gid;
@@ -3035,6 +3068,7 @@ class GetSubscriptionDefinitionVersionResponse {
       GetSubscriptionDefinitionVersionResponse();
 }
 
+/// Information about a certificate authority for a group.
 class GroupCertificateAuthorityProperties {
   /// The ARN of the certificate authority for the group.
   final String groupCertificateAuthorityArn;
@@ -3051,6 +3085,7 @@ class GroupCertificateAuthorityProperties {
       GroupCertificateAuthorityProperties();
 }
 
+/// Information about a group.
 class GroupInformation {
   /// The ARN of the group.
   final String arn;
@@ -3087,6 +3122,7 @@ class GroupInformation {
       GroupInformation();
 }
 
+/// Group owner related settings for local resources.
 class GroupOwnerSetting {
   /// If true, AWS IoT Greengrass automatically adds the specified Linux OS
   /// group owner of the resource to the Lambda process privileges. Thus the
@@ -3106,6 +3142,7 @@ class GroupOwnerSetting {
       GroupOwnerSetting();
 }
 
+/// Information about a group version.
 class GroupVersion {
   /// The ARN of the connector definition version for this group.
   final String connectorDefinitionVersionArn;
@@ -3476,6 +3513,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Attributes that define a local device resource.
 class LocalDeviceResourceData {
   /// Group/owner related settings for local resources.
   final GroupOwnerSetting groupOwnerSetting;
@@ -3493,6 +3531,7 @@ class LocalDeviceResourceData {
       LocalDeviceResourceData();
 }
 
+/// Attributes that define a local volume resource.
 class LocalVolumeResourceData {
   /// The absolute local path of the resource inside the Lambda environment.
   final String destinationPath;
@@ -3514,13 +3553,14 @@ class LocalVolumeResourceData {
       LocalVolumeResourceData();
 }
 
+/// Information about a logger
 class Logger {
   /// The component that will be subject to logging.
   final String component;
 
   /// A descriptive or arbitrary ID for the logger. This value must be unique
   /// within the logger definition version. Max length is 128 characters with
-  /// pattern ''\[a-zA-Z0-9:_-\]+''.
+  /// pattern ''[a-zA-Z0-9:_-]+''.
   final String id;
 
   /// The level of the logs.
@@ -3543,6 +3583,7 @@ class Logger {
   static Logger fromJson(Map<String, dynamic> json) => Logger();
 }
 
+/// Information about a logger definition version.
 class LoggerDefinitionVersion {
   /// A list of loggers.
   final List<Logger> loggers;
@@ -3569,15 +3610,16 @@ class ResetDeploymentsResponse {
       ResetDeploymentsResponse();
 }
 
+/// Information about a resource.
 class Resource {
   /// The resource ID, used to refer to a resource in the Lambda function
   /// configuration. Max length is 128 characters with pattern
-  /// ''\[a-zA-Z0-9:_-\]+''. This must be unique within a Greengrass group.
+  /// ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
   final String id;
 
   /// The descriptive resource name, which is displayed on the AWS IoT
   /// Greengrass console. Max length 128 characters with pattern
-  /// ''\[a-zA-Z0-9:_-\]+''. This must be unique within a Greengrass group.
+  /// ''[a-zA-Z0-9:_-]+''. This must be unique within a Greengrass group.
   final String name;
 
   /// A container of data for all resource types.
@@ -3591,6 +3633,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// A policy used by the function to access a resource.
 class ResourceAccessPolicy {
   /// The permissions that the Lambda function has to the resource. Can be one
   /// of ''rw'' (read/write) or ''ro'' (read-only).
@@ -3608,6 +3651,11 @@ class ResourceAccessPolicy {
       ResourceAccessPolicy();
 }
 
+/// A container for resource data. The container takes only one of the following
+/// supported resource data types: ''LocalDeviceResourceData'',
+/// ''LocalVolumeResourceData'', ''SageMakerMachineLearningModelResourceData'',
+/// ''S3MachineLearningModelResourceData'',
+/// ''SecretsManagerSecretResourceData''.
 class ResourceDataContainer {
   /// Attributes that define the local device resource.
   final LocalDeviceResourceData localDeviceResourceData;
@@ -3637,6 +3685,7 @@ class ResourceDataContainer {
       ResourceDataContainer();
 }
 
+/// Information about a resource definition version.
 class ResourceDefinitionVersion {
   /// A list of resources.
   final List<Resource> resources;
@@ -3648,6 +3697,7 @@ class ResourceDefinitionVersion {
       ResourceDefinitionVersion();
 }
 
+/// Attributes that define an Amazon S3 machine learning resource.
 class S3MachineLearningModelResourceData {
   /// The absolute local path of the resource inside the Lambda environment.
   final String destinationPath;
@@ -3665,6 +3715,7 @@ class S3MachineLearningModelResourceData {
       S3MachineLearningModelResourceData();
 }
 
+/// Attributes that define an Amazon SageMaker machine learning resource.
 class SageMakerMachineLearningModelResourceData {
   /// The absolute local path of the resource inside the Lambda environment.
   final String destinationPath;
@@ -3682,6 +3733,10 @@ class SageMakerMachineLearningModelResourceData {
       SageMakerMachineLearningModelResourceData();
 }
 
+/// Attributes that define a secret resource, which references a secret from AWS
+/// Secrets Manager. AWS IoT Greengrass stores a local, encrypted copy of the
+/// secret on the Greengrass core, where it can be securely accessed by
+/// connectors and Lambda functions.
 class SecretsManagerSecretResourceData {
   /// The ARN of the Secrets Manager secret to make available on the core. The
   /// value of the secret's latest version (represented by the ''AWSCURRENT''
@@ -3721,10 +3776,11 @@ class StopBulkDeploymentResponse {
       StopBulkDeploymentResponse();
 }
 
+/// Information about a subscription.
 class Subscription {
   /// A descriptive or arbitrary ID for the subscription. This value must be
   /// unique within the subscription definition version. Max length is 128
-  /// characters with pattern ''\[a-zA-Z0-9:_-\]+''.
+  /// characters with pattern ''[a-zA-Z0-9:_-]+''.
   final String id;
 
   /// The source of the subscription. Can be a thing ARN, a Lambda function ARN,
@@ -3749,6 +3805,7 @@ class Subscription {
   static Subscription fromJson(Map<String, dynamic> json) => Subscription();
 }
 
+/// Information about a subscription definition version.
 class SubscriptionDefinitionVersion {
   /// A list of subscriptions.
   final List<Subscription> subscriptions;
@@ -3847,6 +3904,7 @@ class UpdateSubscriptionDefinitionResponse {
       UpdateSubscriptionDefinitionResponse();
 }
 
+/// Information about a version.
 class VersionInformation {
   /// The ARN of the version.
   final String arn;

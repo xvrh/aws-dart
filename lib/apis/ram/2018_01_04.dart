@@ -514,6 +514,7 @@ class ListResourcesResponse {
       ListResourcesResponse();
 }
 
+/// Describes a principal for use with AWS Resource Access Manager.
 class Principal {
   /// The ID of the principal.
   final String id;
@@ -558,6 +559,7 @@ class RejectResourceShareInvitationResponse {
       RejectResourceShareInvitationResponse();
 }
 
+/// Describes a resource associated with a resource share.
 class Resource {
   /// The Amazon Resource Name (ARN) of the resource.
   final String arn;
@@ -592,6 +594,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// Describes a resource share.
 class ResourceShare {
   /// The Amazon Resource Name (ARN) of the resource share.
   final String resourceShareArn;
@@ -635,6 +638,7 @@ class ResourceShare {
   static ResourceShare fromJson(Map<String, dynamic> json) => ResourceShare();
 }
 
+/// Describes an association with a resource share.
 class ResourceShareAssociation {
   /// The Amazon Resource Name (ARN) of the resource share.
   final String resourceShareArn;
@@ -677,6 +681,7 @@ class ResourceShareAssociation {
       ResourceShareAssociation();
 }
 
+/// Describes an invitation to join a resource share.
 class ResourceShareInvitation {
   /// The Amazon Resource Name (ARN) of the invitation.
   final String resourceShareInvitationArn;
@@ -716,6 +721,7 @@ class ResourceShareInvitation {
       ResourceShareInvitation();
 }
 
+/// Information about a tag.
 class Tag {
   /// The key of the tag.
   final String key;
@@ -730,6 +736,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Used to filter information based on tags.
 class TagFilter {
   /// The tag key.
   final String tagKey;

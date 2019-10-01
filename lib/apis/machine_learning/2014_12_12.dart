@@ -55,9 +55,8 @@ class MachineLearningApi {
   /// field: ':', '//', '/./', '/../'.
   ///
   /// Amazon ML needs permissions to store and retrieve the logs on your behalf.
-  /// For information about how to set permissions, see the [Amazon Machine
-  /// Learning Developer
-  /// Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
+  /// For information about how to set permissions, see the
+  /// [Amazon Machine Learning Developer Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
   Future<CreateBatchPredictionOutput> createBatchPrediction(
       {@required String batchPredictionId,
       String batchPredictionName,
@@ -67,10 +66,11 @@ class MachineLearningApi {
     return CreateBatchPredictionOutput.fromJson({});
   }
 
-  /// Creates a `DataSource` object from an  [Amazon Relational Database
-  /// Service](http://aws.amazon.com/rds/) (Amazon RDS). A `DataSource`
-  /// references data that can be used to perform `CreateMLModel`,
-  /// `CreateEvaluation`, or `CreateBatchPrediction` operations.
+  /// Creates a `DataSource` object from an
+  /// [Amazon Relational Database Service](http://aws.amazon.com/rds/) (Amazon
+  /// RDS). A `DataSource` references data that can be used to perform
+  /// `CreateMLModel`, `CreateEvaluation`, or `CreateBatchPrediction`
+  /// operations.
   ///
   /// `CreateDataSourceFromRDS` is an asynchronous operation. In response to
   /// `CreateDataSourceFromRDS`, Amazon Machine Learning (Amazon ML) immediately
@@ -94,8 +94,8 @@ class MachineLearningApi {
   ///
   /// *   DatabaseInformation -
   ///
-  ///     *    `DatabaseName` \- The name of the Amazon RDS database.
-  ///     *    `InstanceIdentifier`  \- A unique identifier for the Amazon RDS
+  ///     *    `DatabaseName` - The name of the Amazon RDS database.
+  ///     *    `InstanceIdentifier`  - A unique identifier for the Amazon RDS
   /// database instance.
   ///
   /// *   DatabaseCredentials - AWS Identity and Access Management (IAM)
@@ -103,20 +103,20 @@ class MachineLearningApi {
   ///
   /// *   ResourceRole - A role (DataPipelineDefaultResourceRole) assumed by an
   /// EC2 instance to carry out the copy task from Amazon RDS to Amazon Simple
-  /// Storage Service (Amazon S3). For more information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// Storage Service (Amazon S3). For more information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   ///
   /// *   ServiceRole - A role (DataPipelineDefaultRole) assumed by the AWS Data
   /// Pipeline service to monitor the progress of the copy task from Amazon RDS
-  /// to Amazon S3. For more information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// to Amazon S3. For more information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   ///
   /// *   SecurityInfo - The security information to use to access an RDS DB
   /// instance. You need to set up appropriate ingress rules for the security
   /// entity IDs provided to allow access to the Amazon RDS instance. Specify a
-  /// \[`SubnetId`, `SecurityGroupIds`\] pair for a VPC-based RDS DB instance.
+  /// [`SubnetId`, `SecurityGroupIds`] pair for a VPC-based RDS DB instance.
   ///
   /// *   SelectSqlQuery - A query that is used to retrieve the observation data
   /// for the `Datasource`.
@@ -135,8 +135,7 @@ class MachineLearningApi {
   ///
   ///
   ///
-  ///      Sample -
-  /// `"{\\"splitting\\":{\\"percentBegin\\":10,\\"percentEnd\\":60}}"`
+  ///      Sample -  `"{"splitting":{"percentBegin":10,"percentEnd":60}}"`
   ///
   /// [roleArn]: The role that Amazon ML assumes on behalf of the user to create
   /// and activate a data pipeline in the user's account and copy data using the
@@ -203,8 +202,8 @@ class MachineLearningApi {
   ///
   /// *   DatabaseInformation -
   ///
-  ///     *    `DatabaseName` \- The name of the Amazon Redshift database.
-  ///     *     `ClusterIdentifier` \- The unique ID for the Amazon Redshift
+  ///     *    `DatabaseName` - The name of the Amazon Redshift database.
+  ///     *     `ClusterIdentifier` - The unique ID for the Amazon Redshift
   /// cluster.
   ///
   /// *   DatabaseCredentials - The AWS Identity and Access Management (IAM)
@@ -225,8 +224,7 @@ class MachineLearningApi {
   /// *   DataRearrangement - A JSON string that represents the splitting and
   /// rearrangement requirements for the `DataSource`.
   ///
-  ///      Sample -
-  /// `"{\\"splitting\\":{\\"percentBegin\\":10,\\"percentEnd\\":60}}"`
+  ///      Sample -  `"{"splitting":{"percentBegin":10,"percentEnd":60}}"`
   ///
   /// [roleArn]: A fully specified role Amazon Resource Name (ARN). Amazon ML
   /// assumes the role on behalf of the user to create the following:
@@ -300,8 +298,7 @@ class MachineLearningApi {
   /// *   DataRearrangement - A JSON string that represents the splitting and
   /// rearrangement requirements for the `Datasource`.
   ///
-  ///      Sample -
-  /// `"{\\"splitting\\":{\\"percentBegin\\":10,\\"percentEnd\\":60}}"`
+  ///      Sample -  `"{"splitting":{"percentBegin":10,"percentEnd":60}}"`
   ///
   /// [computeStatistics]: The compute statistics for a `DataSource`. The
   /// statistics are generated from the observation data referenced by a
@@ -388,43 +385,43 @@ class MachineLearningApi {
   /// *   Choose `MULTICLASS` if the `MLModel` result has a limited number of
   /// values.
   ///
-  ///  For more information, see the [Amazon Machine Learning Developer
-  /// Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
+  ///  For more information, see the
+  /// [Amazon Machine Learning Developer Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
   ///
   /// [parameters]: A list of the training parameters in the `MLModel`. The list
   /// is implemented as a map of key-value pairs.
   ///
   /// The following is the current set of training parameters:
   ///
-  /// *   `sgd.maxMLModelSizeInBytes` \- The maximum allowed size of the model.
+  /// *   `sgd.maxMLModelSizeInBytes` - The maximum allowed size of the model.
   /// Depending on the input data, the size of the model might affect its
   /// performance.
   ///
   ///      The value is an integer that ranges from `100000` to `2147483648`.
   /// The default value is `33554432`.
   ///
-  /// *   `sgd.maxPasses` \- The number of times that the training process
+  /// *   `sgd.maxPasses` - The number of times that the training process
   /// traverses the observations to build the `MLModel`. The value is an integer
   /// that ranges from `1` to `10000`. The default value is `10`.
   ///
-  /// *   `sgd.shuffleType` \- Whether Amazon ML shuffles the training data.
+  /// *   `sgd.shuffleType` - Whether Amazon ML shuffles the training data.
   /// Shuffling the data improves a model's ability to find the optimal solution
   /// for a variety of data types. The valid values are `auto` and `none`. The
   /// default value is `none`. We strongly recommend that you shuffle your data.
   ///
-  /// *   `sgd.l1RegularizationAmount` \- The coefficient regularization L1
-  /// norm. It controls overfitting the data by penalizing large coefficients.
-  /// This tends to drive coefficients to zero, resulting in a sparse feature
-  /// set. If you use this parameter, start by specifying a small value, such as
+  /// *   `sgd.l1RegularizationAmount` - The coefficient regularization L1 norm.
+  /// It controls overfitting the data by penalizing large coefficients. This
+  /// tends to drive coefficients to zero, resulting in a sparse feature set. If
+  /// you use this parameter, start by specifying a small value, such as
   /// `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
   /// default is to not use L1 normalization. This parameter can't be used when
   /// `L2` is specified. Use this parameter sparingly.
   ///
-  /// *   `sgd.l2RegularizationAmount` \- The coefficient regularization L2
-  /// norm. It controls overfitting the data by penalizing large coefficients.
-  /// This tends to drive coefficients to small, nonzero values. If you use this
+  /// *   `sgd.l2RegularizationAmount` - The coefficient regularization L2 norm.
+  /// It controls overfitting the data by penalizing large coefficients. This
+  /// tends to drive coefficients to small, nonzero values. If you use this
   /// parameter, start by specifying a small value, such as `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
@@ -553,18 +550,18 @@ class MachineLearningApi {
   /// [filterVariable]: Use one of the following variables to filter a list of
   /// `BatchPrediction`:
   ///
-  /// *    `CreatedAt` \- Sets the search criteria to the `BatchPrediction`
+  /// *    `CreatedAt` - Sets the search criteria to the `BatchPrediction`
   /// creation date.
-  /// *    `Status` \- Sets the search criteria to the `BatchPrediction` status.
-  /// *    `Name` \- Sets the search criteria to the contents of the
+  /// *    `Status` - Sets the search criteria to the `BatchPrediction` status.
+  /// *    `Name` - Sets the search criteria to the contents of the
   /// `BatchPrediction`   `Name`.
-  /// *    `IAMUser` \- Sets the search criteria to the user account that
-  /// invoked the `BatchPrediction` creation.
-  /// *    `MLModelId` \- Sets the search criteria to the `MLModel` used in the
+  /// *    `IAMUser` - Sets the search criteria to the user account that invoked
+  /// the `BatchPrediction` creation.
+  /// *    `MLModelId` - Sets the search criteria to the `MLModel` used in the
   /// `BatchPrediction`.
-  /// *    `DataSourceId` \- Sets the search criteria to the `DataSource` used
-  /// in the `BatchPrediction`.
-  /// *    `DataURI` \- Sets the search criteria to the data file(s) used in the
+  /// *    `DataSourceId` - Sets the search criteria to the `DataSource` used in
+  /// the `BatchPrediction`.
+  /// *    `DataURI` - Sets the search criteria to the data file(s) used in the
   /// `BatchPrediction`. The URL can identify either a file or an Amazon Simple
   /// Storage Solution (Amazon S3) bucket or directory.
   ///
@@ -606,8 +603,8 @@ class MachineLearningApi {
   /// [sortOrder]: A two-value parameter that determines the sequence of the
   /// resulting list of `MLModel`s.
   ///
-  /// *    `asc` \- Arranges the list in ascending order (A-Z, 0-9).
-  /// *    `dsc` \- Arranges the list in descending order (Z-A, 9-0).
+  /// *    `asc` - Arranges the list in ascending order (A-Z, 0-9).
+  /// *    `dsc` - Arranges the list in descending order (Z-A, 9-0).
   ///
   /// Results are sorted by `FilterVariable`.
   ///
@@ -637,16 +634,16 @@ class MachineLearningApi {
   /// [filterVariable]: Use one of the following variables to filter a list of
   /// `DataSource`:
   ///
-  /// *    `CreatedAt` \- Sets the search criteria to `DataSource` creation
+  /// *    `CreatedAt` - Sets the search criteria to `DataSource` creation
   /// dates.
-  /// *    `Status` \- Sets the search criteria to `DataSource` statuses.
-  /// *    `Name` \- Sets the search criteria to the contents of `DataSource`
+  /// *    `Status` - Sets the search criteria to `DataSource` statuses.
+  /// *    `Name` - Sets the search criteria to the contents of `DataSource`
   /// `Name`.
-  /// *    `DataUri` \- Sets the search criteria to the URI of data files used
-  /// to create the `DataSource`. The URI can identify either a file or an
-  /// Amazon Simple Storage Service (Amazon S3) bucket or directory.
-  /// *    `IAMUser` \- Sets the search criteria to the user account that
-  /// invoked the `DataSource` creation.
+  /// *    `DataUri` - Sets the search criteria to the URI of data files used to
+  /// create the `DataSource`. The URI can identify either a file or an Amazon
+  /// Simple Storage Service (Amazon S3) bucket or directory.
+  /// *    `IAMUser` - Sets the search criteria to the user account that invoked
+  /// the `DataSource` creation.
   ///
   /// [eq]: The equal to operator. The `DataSource` results will have
   /// `FilterVariable` values that exactly match the value specified with `EQ`.
@@ -686,8 +683,8 @@ class MachineLearningApi {
   /// [sortOrder]: A two-value parameter that determines the sequence of the
   /// resulting list of `DataSource`.
   ///
-  /// *    `asc` \- Arranges the list in ascending order (A-Z, 0-9).
-  /// *    `dsc` \- Arranges the list in descending order (Z-A, 9-0).
+  /// *    `asc` - Arranges the list in ascending order (A-Z, 0-9).
+  /// *    `dsc` - Arranges the list in descending order (Z-A, 9-0).
   ///
   /// Results are sorted by `FilterVariable`.
   ///
@@ -715,18 +712,18 @@ class MachineLearningApi {
   /// [filterVariable]: Use one of the following variable to filter a list of
   /// `Evaluation` objects:
   ///
-  /// *    `CreatedAt` \- Sets the search criteria to the `Evaluation` creation
+  /// *    `CreatedAt` - Sets the search criteria to the `Evaluation` creation
   /// date.
-  /// *    `Status` \- Sets the search criteria to the `Evaluation` status.
-  /// *    `Name` \- Sets the search criteria to the contents of `Evaluation`
+  /// *    `Status` - Sets the search criteria to the `Evaluation` status.
+  /// *    `Name` - Sets the search criteria to the contents of `Evaluation`
   /// `Name`.
-  /// *    `IAMUser` \- Sets the search criteria to the user account that
-  /// invoked an `Evaluation`.
-  /// *    `MLModelId` \- Sets the search criteria to the `MLModel` that was
+  /// *    `IAMUser` - Sets the search criteria to the user account that invoked
+  /// an `Evaluation`.
+  /// *    `MLModelId` - Sets the search criteria to the `MLModel` that was
   /// evaluated.
-  /// *    `DataSourceId` \- Sets the search criteria to the `DataSource` used
-  /// in `Evaluation`.
-  /// *    `DataUri` \- Sets the search criteria to the data file(s) used in
+  /// *    `DataSourceId` - Sets the search criteria to the `DataSource` used in
+  /// `Evaluation`.
+  /// *    `DataUri` - Sets the search criteria to the data file(s) used in
   /// `Evaluation`. The URL can identify either a file or an Amazon Simple
   /// Storage Solution (Amazon S3) bucket or directory.
   ///
@@ -768,8 +765,8 @@ class MachineLearningApi {
   /// [sortOrder]: A two-value parameter that determines the sequence of the
   /// resulting list of `Evaluation`.
   ///
-  /// *    `asc` \- Arranges the list in ascending order (A-Z, 0-9).
-  /// *    `dsc` \- Arranges the list in descending order (Z-A, 9-0).
+  /// *    `asc` - Arranges the list in ascending order (A-Z, 0-9).
+  /// *    `dsc` - Arranges the list in descending order (Z-A, 9-0).
   ///
   /// Results are sorted by `FilterVariable`.
   ///
@@ -796,23 +793,23 @@ class MachineLearningApi {
   /// [filterVariable]: Use one of the following variables to filter a list of
   /// `MLModel`:
   ///
-  /// *    `CreatedAt` \- Sets the search criteria to `MLModel` creation date.
-  /// *    `Status` \- Sets the search criteria to `MLModel` status.
-  /// *    `Name` \- Sets the search criteria to the contents of `MLModel`
+  /// *    `CreatedAt` - Sets the search criteria to `MLModel` creation date.
+  /// *    `Status` - Sets the search criteria to `MLModel` status.
+  /// *    `Name` - Sets the search criteria to the contents of `MLModel`
   /// `Name`.
-  /// *    `IAMUser` \- Sets the search criteria to the user account that
-  /// invoked the `MLModel` creation.
-  /// *    `TrainingDataSourceId` \- Sets the search criteria to the
-  /// `DataSource` used to train one or more `MLModel`.
-  /// *    `RealtimeEndpointStatus` \- Sets the search criteria to the `MLModel`
+  /// *    `IAMUser` - Sets the search criteria to the user account that invoked
+  /// the `MLModel` creation.
+  /// *    `TrainingDataSourceId` - Sets the search criteria to the `DataSource`
+  /// used to train one or more `MLModel`.
+  /// *    `RealtimeEndpointStatus` - Sets the search criteria to the `MLModel`
   /// real-time endpoint status.
-  /// *    `MLModelType` \- Sets the search criteria to `MLModel` type: binary,
+  /// *    `MLModelType` - Sets the search criteria to `MLModel` type: binary,
   /// regression, or multi-class.
-  /// *    `Algorithm` \- Sets the search criteria to the algorithm that the
+  /// *    `Algorithm` - Sets the search criteria to the algorithm that the
   /// `MLModel` uses.
-  /// *    `TrainingDataURI` \- Sets the search criteria to the data file(s)
-  /// used in training a `MLModel`. The URL can identify either a file or an
-  /// Amazon Simple Storage Service (Amazon S3) bucket or directory.
+  /// *    `TrainingDataURI` - Sets the search criteria to the data file(s) used
+  /// in training a `MLModel`. The URL can identify either a file or an Amazon
+  /// Simple Storage Service (Amazon S3) bucket or directory.
   ///
   /// [eq]: The equal to operator. The `MLModel` results will have
   /// `FilterVariable` values that exactly match the value specified with `EQ`.
@@ -852,8 +849,8 @@ class MachineLearningApi {
   /// [sortOrder]: A two-value parameter that determines the sequence of the
   /// resulting list of `MLModel`.
   ///
-  /// *    `asc` \- Arranges the list in ascending order (A-Z, 0-9).
-  /// *    `dsc` \- Arranges the list in descending order (Z-A, 9-0).
+  /// *    `asc` - Arranges the list in ascending order (A-Z, 0-9).
+  /// *    `dsc` - Arranges the list in descending order (Z-A, 9-0).
   ///
   /// Results are sorted by `FilterVariable`.
   ///
@@ -1025,6 +1022,7 @@ class MachineLearningApi {
   }
 }
 
+/// Amazon ML returns the following elements.
 class AddTagsOutput {
   /// The ID of the ML object that was tagged.
   final String resourceId;
@@ -1039,6 +1037,10 @@ class AddTagsOutput {
   static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
 }
 
+///  Represents the output of a `GetBatchPrediction` operation.
+///
+///  The content consists of the detailed metadata, the status, and the data
+/// file information of a `Batch Prediction`.
 class BatchPrediction {
   /// The ID assigned to the `BatchPrediction` at creation. This value should be
   /// identical to the value of the `BatchPredictionID` in the request.
@@ -1075,13 +1077,13 @@ class BatchPrediction {
   /// The status of the `BatchPrediction`. This element can have one of the
   /// following values:
   ///
-  /// *    `PENDING` \- Amazon Machine Learning (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Learning (Amazon ML) submitted a request
   /// to generate predictions for a batch of observations.
-  /// *    `INPROGRESS` \- The process is underway.
-  /// *    `FAILED` \- The request to perform a batch prediction did not run to
+  /// *    `INPROGRESS` - The process is underway.
+  /// *    `FAILED` - The request to perform a batch prediction did not run to
   /// completion. It is not usable.
-  /// *    `COMPLETED` \- The batch prediction process completed successfully.
-  /// *    `DELETED` \- The `BatchPrediction` is marked as deleted. It is not
+  /// *    `COMPLETED` - The batch prediction process completed successfully.
+  /// *    `DELETED` - The `BatchPrediction` is marked as deleted. It is not
   /// usable.
   final String status;
 
@@ -1126,6 +1128,12 @@ class BatchPrediction {
       BatchPrediction();
 }
 
+///  Represents the output of a `CreateBatchPrediction` operation, and is an
+/// acknowledgement that Amazon ML received the request.
+///
+/// The `CreateBatchPrediction` operation is asynchronous. You can poll for
+/// status updates by using the `>GetBatchPrediction` operation and checking the
+/// `Status` parameter of the result.
 class CreateBatchPredictionOutput {
   /// A user-supplied ID that uniquely identifies the `BatchPrediction`. This
   /// value is identical to the value of the `BatchPredictionId` in the request.
@@ -1138,6 +1146,15 @@ class CreateBatchPredictionOutput {
       CreateBatchPredictionOutput();
 }
 
+///  Represents the output of a `CreateDataSourceFromRDS` operation, and is an
+/// acknowledgement that Amazon ML received the request.
+///
+/// The `CreateDataSourceFromRDS`> operation is asynchronous. You can poll for
+/// updates by using the `GetBatchPrediction` operation and checking the
+/// `Status` parameter. You can inspect the `Message` when `Status` shows up as
+/// `FAILED`. You can also check the progress of the copy operation by going to
+/// the `DataPipeline` console and looking up the pipeline using the
+/// `pipelineId`  from the describe call.
 class CreateDataSourceFromRdsOutput {
   /// A user-supplied ID that uniquely identifies the datasource. This value
   /// should be identical to the value of the `DataSourceID` in the request.
@@ -1150,6 +1167,12 @@ class CreateDataSourceFromRdsOutput {
       CreateDataSourceFromRdsOutput();
 }
 
+///  Represents the output of a `CreateDataSourceFromRedshift` operation, and is
+/// an acknowledgement that Amazon ML received the request.
+///
+/// The `CreateDataSourceFromRedshift` operation is asynchronous. You can poll
+/// for updates by using the `GetBatchPrediction` operation and checking the
+/// `Status` parameter.
 class CreateDataSourceFromRedshiftOutput {
   /// A user-supplied ID that uniquely identifies the datasource. This value
   /// should be identical to the value of the `DataSourceID` in the request.
@@ -1163,6 +1186,12 @@ class CreateDataSourceFromRedshiftOutput {
       CreateDataSourceFromRedshiftOutput();
 }
 
+///  Represents the output of a `CreateDataSourceFromS3` operation, and is an
+/// acknowledgement that Amazon ML received the request.
+///
+/// The `CreateDataSourceFromS3` operation is asynchronous. You can poll for
+/// updates by using the `GetBatchPrediction` operation and checking the
+/// `Status` parameter.
 class CreateDataSourceFromS3Output {
   /// A user-supplied ID that uniquely identifies the `DataSource`. This value
   /// should be identical to the value of the `DataSourceID` in the request.
@@ -1175,6 +1204,12 @@ class CreateDataSourceFromS3Output {
       CreateDataSourceFromS3Output();
 }
 
+///  Represents the output of a `CreateEvaluation` operation, and is an
+/// acknowledgement that Amazon ML received the request.
+///
+/// `CreateEvaluation` operation is asynchronous. You can poll for status
+/// updates by using the `GetEvcaluation` operation and checking the `Status`
+/// parameter.
 class CreateEvaluationOutput {
   /// The user-supplied ID that uniquely identifies the `Evaluation`. This value
   /// should be identical to the value of the `EvaluationId` in the request.
@@ -1187,6 +1222,12 @@ class CreateEvaluationOutput {
       CreateEvaluationOutput();
 }
 
+///  Represents the output of a `CreateMLModel` operation, and is an
+/// acknowledgement that Amazon ML received the request.
+///
+/// The `CreateMLModel` operation is asynchronous. You can poll for status
+/// updates by using the `GetMLModel` operation and checking the `Status`
+/// parameter.
 class CreateMLModelOutput {
   /// A user-supplied ID that uniquely identifies the `MLModel`. This value
   /// should be identical to the value of the `MLModelId` in the request.
@@ -1199,6 +1240,15 @@ class CreateMLModelOutput {
       CreateMLModelOutput();
 }
 
+/// Represents the output of an `CreateRealtimeEndpoint` operation.
+///
+/// The result contains the `MLModelId` and the endpoint information for the
+/// `MLModel`.
+///
+///
+///
+/// The endpoint information includes the URI of the `MLModel`; that is, the
+/// location to send online prediction requests for the specified `MLModel`.
 class CreateRealtimeEndpointOutput {
   /// A user-supplied ID that uniquely identifies the `MLModel`. This value
   /// should be identical to the value of the `MLModelId` in the request.
@@ -1215,6 +1265,10 @@ class CreateRealtimeEndpointOutput {
       CreateRealtimeEndpointOutput();
 }
 
+///  Represents the output of the `GetDataSource` operation.
+///
+///  The content consists of the detailed metadata and data file information and
+/// the current status of the `DataSource`.
 class DataSource {
   /// The ID that is assigned to the `DataSource` during creation.
   final String dataSourceId;
@@ -1304,6 +1358,11 @@ class DataSource {
   static DataSource fromJson(Map<String, dynamic> json) => DataSource();
 }
 
+///  Represents the output of a `DeleteBatchPrediction` operation.
+///
+/// You can use the `GetBatchPrediction` operation and check the value of the
+/// `Status` parameter to see whether a `BatchPrediction` is marked as
+/// `DELETED`.
 class DeleteBatchPredictionOutput {
   /// A user-supplied ID that uniquely identifies the `BatchPrediction`. This
   /// value should be identical to the value of the `BatchPredictionID` in the
@@ -1317,6 +1376,7 @@ class DeleteBatchPredictionOutput {
       DeleteBatchPredictionOutput();
 }
 
+///  Represents the output of a `DeleteDataSource` operation.
 class DeleteDataSourceOutput {
   /// A user-supplied ID that uniquely identifies the `DataSource`. This value
   /// should be identical to the value of the `DataSourceID` in the request.
@@ -1329,6 +1389,11 @@ class DeleteDataSourceOutput {
       DeleteDataSourceOutput();
 }
 
+///  Represents the output of a `DeleteEvaluation` operation. The output
+/// indicates that Amazon Machine Learning (Amazon ML) received the request.
+///
+/// You can use the `GetEvaluation` operation and check the value of the
+/// `Status` parameter to see whether an `Evaluation` is marked as `DELETED`.
 class DeleteEvaluationOutput {
   /// A user-supplied ID that uniquely identifies the `Evaluation`. This value
   /// should be identical to the value of the `EvaluationId` in the request.
@@ -1341,6 +1406,10 @@ class DeleteEvaluationOutput {
       DeleteEvaluationOutput();
 }
 
+/// Represents the output of a `DeleteMLModel` operation.
+///
+/// You can use the `GetMLModel` operation and check the value of the `Status`
+/// parameter to see whether an `MLModel` is marked as `DELETED`.
 class DeleteMLModelOutput {
   /// A user-supplied ID that uniquely identifies the `MLModel`. This value
   /// should be identical to the value of the `MLModelID` in the request.
@@ -1353,6 +1422,10 @@ class DeleteMLModelOutput {
       DeleteMLModelOutput();
 }
 
+/// Represents the output of an `DeleteRealtimeEndpoint` operation.
+///
+/// The result contains the `MLModelId` and the endpoint information for the
+/// `MLModel`.
 class DeleteRealtimeEndpointOutput {
   /// A user-supplied ID that uniquely identifies the `MLModel`. This value
   /// should be identical to the value of the `MLModelId` in the request.
@@ -1369,6 +1442,7 @@ class DeleteRealtimeEndpointOutput {
       DeleteRealtimeEndpointOutput();
 }
 
+/// Amazon ML returns the following elements.
 class DeleteTagsOutput {
   /// The ID of the ML object from which tags were deleted.
   final String resourceId;
@@ -1384,6 +1458,8 @@ class DeleteTagsOutput {
       DeleteTagsOutput();
 }
 
+/// Represents the output of a `DescribeBatchPredictions` operation. The content
+/// is essentially a list of `BatchPrediction`s.
 class DescribeBatchPredictionsOutput {
   /// A list of `BatchPrediction` objects that meet the search criteria.
   final List<BatchPrediction> results;
@@ -1400,6 +1476,8 @@ class DescribeBatchPredictionsOutput {
       DescribeBatchPredictionsOutput();
 }
 
+/// Represents the query results from a DescribeDataSources operation. The
+/// content is essentially a list of `DataSource`.
 class DescribeDataSourcesOutput {
   /// A list of `DataSource` that meet the search criteria.
   final List<DataSource> results;
@@ -1416,6 +1494,8 @@ class DescribeDataSourcesOutput {
       DescribeDataSourcesOutput();
 }
 
+/// Represents the query results from a `DescribeEvaluations` operation. The
+/// content is essentially a list of `Evaluation`.
 class DescribeEvaluationsOutput {
   /// A list of `Evaluation` that meet the search criteria.
   final List<Evaluation> results;
@@ -1432,6 +1512,8 @@ class DescribeEvaluationsOutput {
       DescribeEvaluationsOutput();
 }
 
+/// Represents the output of a `DescribeMLModels` operation. The content is
+/// essentially a list of `MLModel`.
 class DescribeMLModelsOutput {
   /// A list of `MLModel` that meet the search criteria.
   final List<MLModel> results;
@@ -1448,6 +1530,7 @@ class DescribeMLModelsOutput {
       DescribeMLModelsOutput();
 }
 
+/// Amazon ML returns the following elements.
 class DescribeTagsOutput {
   /// The ID of the tagged ML object.
   final String resourceId;
@@ -1467,6 +1550,10 @@ class DescribeTagsOutput {
       DescribeTagsOutput();
 }
 
+///  Represents the output of `GetEvaluation` operation.
+///
+/// The content consists of the detailed metadata and data file information and
+/// the current status of the `Evaluation`.
 class Evaluation {
   /// The ID that is assigned to the `Evaluation` at creation.
   final String evaluationId;
@@ -1500,13 +1587,13 @@ class Evaluation {
   /// The status of the evaluation. This element can have one of the following
   /// values:
   ///
-  /// *    `PENDING` \- Amazon Machine Learning (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Learning (Amazon ML) submitted a request
   /// to evaluate an `MLModel`.
-  /// *    `INPROGRESS` \- The evaluation is underway.
-  /// *    `FAILED` \- The request to evaluate an `MLModel` did not run to
+  /// *    `INPROGRESS` - The evaluation is underway.
+  /// *    `FAILED` - The request to evaluate an `MLModel` did not run to
   /// completion. It is not usable.
-  /// *    `COMPLETED` \- The evaluation process completed successfully.
-  /// *    `DELETED` \- The `Evaluation` is marked as deleted. It is not usable.
+  /// *    `COMPLETED` - The evaluation process completed successfully.
+  /// *    `DELETED` - The `Evaluation` is marked as deleted. It is not usable.
   final String status;
 
   /// Measurements of how well the `MLModel` performed, using observations
@@ -1524,9 +1611,8 @@ class Evaluation {
   /// technique to measure performance.
   ///
   ///
-  ///  For more information about performance metrics, please see the [Amazon
-  /// Machine Learning Developer
-  /// Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
+  ///  For more information about performance metrics, please see the
+  /// [Amazon Machine Learning Developer Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
   final PerformanceMetrics performanceMetrics;
 
   /// A description of the most recent details about evaluating the `MLModel`.
@@ -1557,6 +1643,8 @@ class Evaluation {
   static Evaluation fromJson(Map<String, dynamic> json) => Evaluation();
 }
 
+/// Represents the output of a `GetBatchPrediction` operation and describes a
+/// `BatchPrediction`.
 class GetBatchPredictionOutput {
   /// An ID assigned to the `BatchPrediction` at creation. This value should be
   /// identical to the value of the `BatchPredictionID` in the request.
@@ -1592,13 +1680,13 @@ class GetBatchPredictionOutput {
   /// The status of the `BatchPrediction`, which can be one of the following
   /// values:
   ///
-  /// *    `PENDING` \- Amazon Machine Learning (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Learning (Amazon ML) submitted a request
   /// to generate batch predictions.
-  /// *    `INPROGRESS` \- The batch predictions are in progress.
-  /// *    `FAILED` \- The request to perform a batch prediction did not run to
+  /// *    `INPROGRESS` - The batch predictions are in progress.
+  /// *    `FAILED` - The request to perform a batch prediction did not run to
   /// completion. It is not usable.
-  /// *    `COMPLETED` \- The batch prediction process completed successfully.
-  /// *    `DELETED` \- The `BatchPrediction` is marked as deleted. It is not
+  /// *    `COMPLETED` - The batch prediction process completed successfully.
+  /// *    `DELETED` - The `BatchPrediction` is marked as deleted. It is not
   /// usable.
   final String status;
 
@@ -1661,6 +1749,8 @@ class GetBatchPredictionOutput {
       GetBatchPredictionOutput();
 }
 
+/// Represents the output of a `GetDataSource` operation and describes a
+/// `DataSource`.
 class GetDataSourceOutput {
   /// The ID assigned to the `DataSource` at creation. This value should be
   /// identical to the value of the `DataSourceId` in the request.
@@ -1699,12 +1789,12 @@ class GetDataSourceOutput {
   /// The current status of the `DataSource`. This element can have one of the
   /// following values:
   ///
-  /// *    `PENDING` \- Amazon ML submitted a request to create a `DataSource`.
-  /// *    `INPROGRESS` \- The creation process is underway.
-  /// *    `FAILED` \- The request to create a `DataSource` did not run to
+  /// *    `PENDING` - Amazon ML submitted a request to create a `DataSource`.
+  /// *    `INPROGRESS` - The creation process is underway.
+  /// *    `FAILED` - The request to create a `DataSource` did not run to
   /// completion. It is not usable.
-  /// *    `COMPLETED` \- The creation process completed successfully.
-  /// *    `DELETED` \- The `DataSource` is marked as deleted. It is not usable.
+  /// *    `COMPLETED` - The creation process completed successfully.
+  /// *    `DELETED` - The `DataSource` is marked as deleted. It is not usable.
   final String status;
 
   /// A link to the file containing logs of `CreateDataSourceFrom*` operations.
@@ -1773,6 +1863,8 @@ class GetDataSourceOutput {
       GetDataSourceOutput();
 }
 
+/// Represents the output of a `GetEvaluation` operation and describes an
+/// `Evaluation`.
 class GetEvaluationOutput {
   /// The evaluation ID which is same as the `EvaluationId` in the request.
   final String evaluationId;
@@ -1806,13 +1898,13 @@ class GetEvaluationOutput {
   /// The status of the evaluation. This element can have one of the following
   /// values:
   ///
-  /// *    `PENDING` \- Amazon Machine Language (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Language (Amazon ML) submitted a request
   /// to evaluate an `MLModel`.
-  /// *    `INPROGRESS` \- The evaluation is underway.
-  /// *    `FAILED` \- The request to evaluate an `MLModel` did not run to
+  /// *    `INPROGRESS` - The evaluation is underway.
+  /// *    `FAILED` - The request to evaluate an `MLModel` did not run to
   /// completion. It is not usable.
-  /// *    `COMPLETED` \- The evaluation process completed successfully.
-  /// *    `DELETED` \- The `Evaluation` is marked as deleted. It is not usable.
+  /// *    `COMPLETED` - The evaluation process completed successfully.
+  /// *    `DELETED` - The `Evaluation` is marked as deleted. It is not usable.
   final String status;
 
   /// Measurements of how well the `MLModel` performed using observations
@@ -1830,9 +1922,8 @@ class GetEvaluationOutput {
   /// technique to measure performance.
   ///
   ///
-  ///  For more information about performance metrics, please see the [Amazon
-  /// Machine Learning Developer
-  /// Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
+  ///  For more information about performance metrics, please see the
+  /// [Amazon Machine Learning Developer Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
   final PerformanceMetrics performanceMetrics;
 
   /// A link to the file that contains logs of the `CreateEvaluation` operation.
@@ -1878,6 +1969,8 @@ class GetEvaluationOutput {
       GetEvaluationOutput();
 }
 
+/// Represents the output of a `GetMLModel` operation, and provides detailed
+/// information about a `MLModel`.
 class GetMLModelOutput {
   /// The MLModel ID, which is same as the `MLModelId` in the request.
   final String mlModelId;
@@ -1904,13 +1997,13 @@ class GetMLModelOutput {
   /// The current status of the `MLModel`. This element can have one of the
   /// following values:
   ///
-  /// *    `PENDING` \- Amazon Machine Learning (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Learning (Amazon ML) submitted a request
   /// to describe a `MLModel`.
-  /// *    `INPROGRESS` \- The request is processing.
-  /// *    `FAILED` \- The request did not run to completion. The ML model isn't
+  /// *    `INPROGRESS` - The request is processing.
+  /// *    `FAILED` - The request did not run to completion. The ML model isn't
   /// usable.
-  /// *    `COMPLETED` \- The request completed successfully.
-  /// *    `DELETED` \- The `MLModel` is marked as deleted. It isn't usable.
+  /// *    `COMPLETED` - The request completed successfully.
+  /// *    `DELETED` - The `MLModel` is marked as deleted. It isn't usable.
   final String status;
 
   final BigInt sizeInBytes;
@@ -1923,35 +2016,35 @@ class GetMLModelOutput {
   ///
   /// The following is the current set of training parameters:
   ///
-  /// *   `sgd.maxMLModelSizeInBytes` \- The maximum allowed size of the model.
+  /// *   `sgd.maxMLModelSizeInBytes` - The maximum allowed size of the model.
   /// Depending on the input data, the size of the model might affect its
   /// performance.
   ///
   ///      The value is an integer that ranges from `100000` to `2147483648`.
   /// The default value is `33554432`.
   ///
-  /// *   `sgd.maxPasses` \- The number of times that the training process
+  /// *   `sgd.maxPasses` - The number of times that the training process
   /// traverses the observations to build the `MLModel`. The value is an integer
   /// that ranges from `1` to `10000`. The default value is `10`.
   ///
-  /// *   `sgd.shuffleType` \- Whether Amazon ML shuffles the training data.
+  /// *   `sgd.shuffleType` - Whether Amazon ML shuffles the training data.
   /// Shuffling data improves a model's ability to find the optimal solution for
   /// a variety of data types. The valid values are `auto` and `none`. The
   /// default value is `none`. We strongly recommend that you shuffle your data.
   ///
-  /// *   `sgd.l1RegularizationAmount` \- The coefficient regularization L1
-  /// norm. It controls overfitting the data by penalizing large coefficients.
-  /// This tends to drive coefficients to zero, resulting in a sparse feature
-  /// set. If you use this parameter, start by specifying a small value, such as
+  /// *   `sgd.l1RegularizationAmount` - The coefficient regularization L1 norm.
+  /// It controls overfitting the data by penalizing large coefficients. This
+  /// tends to drive coefficients to zero, resulting in a sparse feature set. If
+  /// you use this parameter, start by specifying a small value, such as
   /// `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
   /// default is to not use L1 normalization. This parameter can't be used when
   /// `L2` is specified. Use this parameter sparingly.
   ///
-  /// *   `sgd.l2RegularizationAmount` \- The coefficient regularization L2
-  /// norm. It controls overfitting the data by penalizing large coefficients.
-  /// This tends to drive coefficients to small, nonzero values. If you use this
+  /// *   `sgd.l2RegularizationAmount` - The coefficient regularization L2 norm.
+  /// It controls overfitting the data by penalizing large coefficients. This
+  /// tends to drive coefficients to small, nonzero values. If you use this
   /// parameter, start by specifying a small value, such as `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
@@ -2051,6 +2144,10 @@ class GetMLModelOutput {
       GetMLModelOutput();
 }
 
+///  Represents the output of a `GetMLModel` operation.
+///
+/// The content consists of the detailed metadata and the current status of the
+/// `MLModel`.
 class MLModel {
   /// The ID assigned to the `MLModel` at creation.
   final String mlModelId;
@@ -2078,13 +2175,13 @@ class MLModel {
   /// The current status of an `MLModel`. This element can have one of the
   /// following values:
   ///
-  /// *    `PENDING` \- Amazon Machine Learning (Amazon ML) submitted a request
+  /// *    `PENDING` - Amazon Machine Learning (Amazon ML) submitted a request
   /// to create an `MLModel`.
-  /// *    `INPROGRESS` \- The creation process is underway.
-  /// *    `FAILED` \- The request to create an `MLModel` didn't run to
+  /// *    `INPROGRESS` - The creation process is underway.
+  /// *    `FAILED` - The request to create an `MLModel` didn't run to
   /// completion. The model isn't usable.
-  /// *    `COMPLETED` \- The creation process completed successfully.
-  /// *    `DELETED` \- The `MLModel` is marked as deleted. It isn't usable.
+  /// *    `COMPLETED` - The creation process completed successfully.
+  /// *    `DELETED` - The `MLModel` is marked as deleted. It isn't usable.
   final String status;
 
   final BigInt sizeInBytes;
@@ -2097,37 +2194,36 @@ class MLModel {
   ///
   /// The following is the current set of training parameters:
   ///
-  /// *   `sgd.maxMLModelSizeInBytes` \- The maximum allowed size of the model.
+  /// *   `sgd.maxMLModelSizeInBytes` - The maximum allowed size of the model.
   /// Depending on the input data, the size of the model might affect its
   /// performance.
   ///
   ///      The value is an integer that ranges from `100000` to `2147483648`.
   /// The default value is `33554432`.
   ///
-  /// *   `sgd.maxPasses` \- The number of times that the training process
+  /// *   `sgd.maxPasses` - The number of times that the training process
   /// traverses the observations to build the `MLModel`. The value is an integer
   /// that ranges from `1` to `10000`. The default value is `10`.
   ///
-  /// *   `sgd.shuffleType` \- Whether Amazon ML shuffles the training data.
+  /// *   `sgd.shuffleType` - Whether Amazon ML shuffles the training data.
   /// Shuffling the data improves a model's ability to find the optimal solution
   /// for a variety of data types. The valid values are `auto` and `none`. The
   /// default value is `none`.
   ///
-  /// *   `sgd.l1RegularizationAmount` \- The coefficient regularization L1
-  /// norm, which controls overfitting the data by penalizing large
-  /// coefficients. This parameter tends to drive coefficients to zero,
-  /// resulting in sparse feature set. If you use this parameter, start by
-  /// specifying a small value, such as `1.0E-08`.
+  /// *   `sgd.l1RegularizationAmount` - The coefficient regularization L1 norm,
+  /// which controls overfitting the data by penalizing large coefficients. This
+  /// parameter tends to drive coefficients to zero, resulting in sparse feature
+  /// set. If you use this parameter, start by specifying a small value, such as
+  /// `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
   /// default is to not use L1 normalization. This parameter can't be used when
   /// `L2` is specified. Use this parameter sparingly.
   ///
-  /// *   `sgd.l2RegularizationAmount` \- The coefficient regularization L2
-  /// norm, which controls overfitting the data by penalizing large
-  /// coefficients. This tends to drive coefficients to small, nonzero values.
-  /// If you use this parameter, start by specifying a small value, such as
-  /// `1.0E-08`.
+  /// *   `sgd.l2RegularizationAmount` - The coefficient regularization L2 norm,
+  /// which controls overfitting the data by penalizing large coefficients. This
+  /// tends to drive coefficients to small, nonzero values. If you use this
+  /// parameter, start by specifying a small value, such as `1.0E-08`.
   ///
   ///     The value is a double that ranges from `0` to `MAX_DOUBLE`. The
   /// default is to not use L2 normalization. This parameter can't be used when
@@ -2141,18 +2237,18 @@ class MLModel {
   /// The algorithm used to train the `MLModel`. The following algorithm is
   /// supported:
   ///
-  /// *    `SGD` \-\- Stochastic gradient descent. The goal of `SGD` is to
+  /// *    `SGD` -- Stochastic gradient descent. The goal of `SGD` is to
   /// minimize the gradient of the loss function.
   final String algorithm;
 
   /// Identifies the `MLModel` category. The following are the available types:
   ///
-  /// *    `REGRESSION` \- Produces a numeric result. For example, "What price
+  /// *    `REGRESSION` - Produces a numeric result. For example, "What price
   /// should a house be listed at?"
-  /// *    `BINARY` \- Produces one of two possible results. For example, "Is
+  /// *    `BINARY` - Produces one of two possible results. For example, "Is
   /// this a child-friendly web site?".
-  /// *    `MULTICLASS` \- Produces one of several possible results. For
-  /// example, "Is this a HIGH-, LOW-, or MEDIUM-risk trade?".
+  /// *    `MULTICLASS` - Produces one of several possible results. For example,
+  /// "Is this a HIGH-, LOW-, or MEDIUM-risk trade?".
   final String mlModelType;
 
   final double scoreThreshold;
@@ -2194,6 +2290,22 @@ class MLModel {
   static MLModel fromJson(Map<String, dynamic> json) => MLModel();
 }
 
+/// Measurements of how well the `MLModel` performed on known observations. One
+/// of the following metrics is returned, based on the type of the `MLModel`:
+///
+/// *   BinaryAUC: The binary `MLModel` uses the Area Under the Curve (AUC)
+/// technique to measure performance.
+///
+/// *   RegressionRMSE: The regression `MLModel` uses the Root Mean Square Error
+/// (RMSE) technique to measure performance. RMSE measures the difference
+/// between predicted and actual values for a single variable.
+///
+/// *   MulticlassAvgFScore: The multiclass `MLModel` uses the F1 score
+/// technique to measure performance.
+///
+///
+///  For more information about performance metrics, please see the
+/// [Amazon Machine Learning Developer Guide](http://docs.aws.amazon.com/machine-learning/latest/dg).
 class PerformanceMetrics {
   final Map<String, String> properties;
 
@@ -2213,6 +2325,19 @@ class PredictOutput {
   static PredictOutput fromJson(Map<String, dynamic> json) => PredictOutput();
 }
 
+/// The output from a `Predict` operation:
+///
+/// *    `Details` - Contains the following attributes:
+/// `DetailsAttributes.PREDICTIVE_MODEL_TYPE - REGRESSION | BINARY | MULTICLASS`
+/// `DetailsAttributes.ALGORITHM - SGD`
+///
+/// *    `PredictedLabel` - Present for either a `BINARY` or `MULTICLASS`
+/// `MLModel` request.
+///
+/// *    `PredictedScores` - Contains the raw classification score corresponding
+/// to each label.
+///
+/// *    `PredictedValue` - Present for a `REGRESSION` `MLModel` request.
 class Prediction {
   /// The prediction label for either a `BINARY` or `MULTICLASS` `MLModel`.
   final String predictedLabel;
@@ -2233,6 +2358,8 @@ class Prediction {
   static Prediction fromJson(Map<String, dynamic> json) => Prediction();
 }
 
+/// The data specification of an Amazon Relational Database Service (Amazon RDS)
+/// `DataSource`.
 class RdsDataSpec {
   /// Describes the `DatabaseName` and `InstanceIdentifier` of an Amazon RDS
   /// database.
@@ -2330,11 +2457,11 @@ class RdsDataSpec {
   ///
   ///     Datasource for evaluation: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv"}}`
   ///
   ///     Datasource for training: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv", "complement":"true"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv", "complement":"true"}}`
   final String dataRearrangement;
 
   /// A JSON string that represents the schema for an Amazon RDS `DataSource`.
@@ -2359,16 +2486,11 @@ class RdsDataSpec {
   ///
   ///  "dataFileContainsHeader": true,
   ///
-  ///  "attributes": \[
+  ///  "attributes": [
   ///
-  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2",
-  /// "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL"
-  /// }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5",
-  /// "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" },
-  /// { "fieldName": "F7", "fieldType": "WEIGHTED\_INT\_SEQUENCE" }, {
-  /// "fieldName": "F8", "fieldType": "WEIGHTED\_STRING\_SEQUENCE" } \],
+  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2", "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL" }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5", "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" }, { "fieldName": "F7", "fieldType": "WEIGHTED_INT_SEQUENCE" }, { "fieldName": "F8", "fieldType": "WEIGHTED_STRING_SEQUENCE" } ],
   ///
-  ///  "excludedVariableNames": \[ "F6" \] }
+  ///  "excludedVariableNames": [ "F6" ] }
   final String dataSchema;
 
   /// The Amazon S3 location of the `DataSchema`.
@@ -2376,15 +2498,15 @@ class RdsDataSpec {
 
   /// The role (DataPipelineDefaultResourceRole) assumed by an Amazon Elastic
   /// Compute Cloud (Amazon EC2) instance to carry out the copy operation from
-  /// Amazon RDS to an Amazon S3 task. For more information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// Amazon RDS to an Amazon S3 task. For more information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   final String resourceRole;
 
   /// The role (DataPipelineDefaultRole) assumed by AWS Data Pipeline service to
   /// monitor the progress of the copy task from Amazon RDS to Amazon S3. For
-  /// more information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// more information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   final String serviceRole;
 
@@ -2414,6 +2536,7 @@ class RdsDataSpec {
   });
 }
 
+/// The database details of an Amazon RDS database.
 class RdsDatabase {
   /// The ID of an RDS DB instance.
   final String instanceIdentifier;
@@ -2427,6 +2550,7 @@ class RdsDatabase {
   static RdsDatabase fromJson(Map<String, dynamic> json) => RdsDatabase();
 }
 
+/// The database credentials to connect to a database on an RDS DB instance.
 class RdsDatabaseCredentials {
   final String username;
 
@@ -2438,6 +2562,7 @@ class RdsDatabaseCredentials {
   });
 }
 
+/// The datasource details that are specific to Amazon RDS.
 class RdsMetadata {
   /// The database details required to connect to an Amazon RDS.
   final RdsDatabase database;
@@ -2450,15 +2575,15 @@ class RdsMetadata {
 
   /// The role (DataPipelineDefaultResourceRole) assumed by an Amazon EC2
   /// instance to carry out the copy task from Amazon RDS to Amazon S3. For more
-  /// information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   final String resourceRole;
 
   /// The role (DataPipelineDefaultRole) assumed by the Data Pipeline service to
   /// monitor the progress of the copy task from Amazon RDS to Amazon S3. For
-  /// more information, see [Role
-  /// templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
+  /// more information, see
+  /// [Role templates](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-iam-roles.html)
   /// for data pipelines.
   final String serviceRole;
 
@@ -2478,6 +2603,7 @@ class RdsMetadata {
   static RdsMetadata fromJson(Map<String, dynamic> json) => RdsMetadata();
 }
 
+///  Describes the real-time endpoint information for an `MLModel`.
 class RealtimeEndpointInfo {
   ///  The maximum processing rate for the real-time endpoint for `MLModel`,
   /// measured in incoming requests per second.
@@ -2499,9 +2625,9 @@ class RealtimeEndpointInfo {
   ///  The current status of the real-time endpoint for the `MLModel`. This
   /// element can have one of the following values:
   ///
-  /// *    `NONE` \- Endpoint does not exist or was previously deleted.
-  /// *    `READY` \- Endpoint is ready to be used for real-time predictions.
-  /// *    `UPDATING` \- Updating/creating the endpoint.
+  /// *    `NONE` - Endpoint does not exist or was previously deleted.
+  /// *    `READY` - Endpoint is ready to be used for real-time predictions.
+  /// *    `UPDATING` - Updating/creating the endpoint.
   final String endpointStatus;
 
   RealtimeEndpointInfo({
@@ -2514,6 +2640,7 @@ class RealtimeEndpointInfo {
       RealtimeEndpointInfo();
 }
 
+/// Describes the data specification of an Amazon Redshift `DataSource`.
 class RedshiftDataSpec {
   /// Describes the `DatabaseName` and `ClusterIdentifier` for an Amazon
   /// Redshift `DataSource`.
@@ -2611,11 +2738,11 @@ class RedshiftDataSpec {
   ///
   ///     Datasource for evaluation: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv"}}`
   ///
   ///     Datasource for training: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv", "complement":"true"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv", "complement":"true"}}`
   final String dataRearrangement;
 
   /// A JSON string that represents the schema for an Amazon Redshift
@@ -2640,16 +2767,11 @@ class RedshiftDataSpec {
   ///
   ///  "dataFileContainsHeader": true,
   ///
-  ///  "attributes": \[
+  ///  "attributes": [
   ///
-  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2",
-  /// "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL"
-  /// }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5",
-  /// "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" },
-  /// { "fieldName": "F7", "fieldType": "WEIGHTED\_INT\_SEQUENCE" }, {
-  /// "fieldName": "F8", "fieldType": "WEIGHTED\_STRING\_SEQUENCE" } \],
+  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2", "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL" }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5", "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" }, { "fieldName": "F7", "fieldType": "WEIGHTED_INT_SEQUENCE" }, { "fieldName": "F8", "fieldType": "WEIGHTED_STRING_SEQUENCE" } ],
   ///
-  ///  "excludedVariableNames": \[ "F6" \] }
+  ///  "excludedVariableNames": [ "F6" ] }
   final String dataSchema;
 
   /// Describes the schema location for an Amazon Redshift `DataSource`.
@@ -2666,6 +2788,8 @@ class RedshiftDataSpec {
   });
 }
 
+/// Describes the database details required to connect to an Amazon Redshift
+/// database.
 class RedshiftDatabase {
   final String databaseName;
 
@@ -2679,6 +2803,8 @@ class RedshiftDatabase {
       RedshiftDatabase();
 }
 
+///  Describes the database credentials for connecting to a database on an
+/// Amazon Redshift cluster.
 class RedshiftDatabaseCredentials {
   final String username;
 
@@ -2690,6 +2816,7 @@ class RedshiftDatabaseCredentials {
   });
 }
 
+/// Describes the `DataSource` details specific to Amazon Redshift.
 class RedshiftMetadata {
   final RedshiftDatabase redshiftDatabase;
 
@@ -2708,6 +2835,7 @@ class RedshiftMetadata {
       RedshiftMetadata();
 }
 
+///  Describes the data specification of a `DataSource`.
 class S3DataSpec {
   /// The location of the data file(s) used by a `DataSource`. The URI specifies
   /// a data file or an Amazon Simple Storage Service (Amazon S3) directory or
@@ -2794,11 +2922,11 @@ class S3DataSpec {
   ///
   ///     Datasource for evaluation: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv"}}`
   ///
   ///     Datasource for training: `{"splitting":{"percentBegin":70,
   /// "percentEnd":100, "strategy":"random",
-  /// "randomSeed"="s3://my\_s3\_path/bucket/file.csv", "complement":"true"}}`
+  /// "randomSeed"="s3://my_s3_path/bucket/file.csv", "complement":"true"}}`
   final String dataRearrangement;
 
   ///  A JSON string that represents the schema for an Amazon S3 `DataSource`.
@@ -2823,16 +2951,11 @@ class S3DataSpec {
   ///
   ///  "dataFileContainsHeader": true,
   ///
-  ///  "attributes": \[
+  ///  "attributes": [
   ///
-  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2",
-  /// "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL"
-  /// }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5",
-  /// "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" },
-  /// { "fieldName": "F7", "fieldType": "WEIGHTED\_INT\_SEQUENCE" }, {
-  /// "fieldName": "F8", "fieldType": "WEIGHTED\_STRING\_SEQUENCE" } \],
+  ///  { "fieldName": "F1", "fieldType": "TEXT" }, { "fieldName": "F2", "fieldType": "NUMERIC" }, { "fieldName": "F3", "fieldType": "CATEGORICAL" }, { "fieldName": "F4", "fieldType": "NUMERIC" }, { "fieldName": "F5", "fieldType": "CATEGORICAL" }, { "fieldName": "F6", "fieldType": "TEXT" }, { "fieldName": "F7", "fieldType": "WEIGHTED_INT_SEQUENCE" }, { "fieldName": "F8", "fieldType": "WEIGHTED_STRING_SEQUENCE" } ],
   ///
-  ///  "excludedVariableNames": \[ "F6" \] }
+  ///  "excludedVariableNames": [ "F6" ] }
   final String dataSchema;
 
   /// Describes the schema location in Amazon S3. You must provide either the
@@ -2847,6 +2970,7 @@ class S3DataSpec {
   });
 }
 
+/// A custom key-value pair associated with an ML object, such as an ML model.
 class Tag {
   /// A unique identifier for the tag. Valid characters include Unicode letters,
   /// digits, white space, _, ., /, =, +, -, %, and @.
@@ -2864,6 +2988,9 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Represents the output of an `UpdateBatchPrediction` operation.
+///
+/// You can see the updated content by using the `GetBatchPrediction` operation.
 class UpdateBatchPredictionOutput {
   /// The ID assigned to the `BatchPrediction` during creation. This value
   /// should be identical to the value of the `BatchPredictionId` in the
@@ -2877,6 +3004,9 @@ class UpdateBatchPredictionOutput {
       UpdateBatchPredictionOutput();
 }
 
+/// Represents the output of an `UpdateDataSource` operation.
+///
+/// You can see the updated content by using the `GetBatchPrediction` operation.
 class UpdateDataSourceOutput {
   /// The ID assigned to the `DataSource` during creation. This value should be
   /// identical to the value of the `DataSourceID` in the request.
@@ -2889,6 +3019,9 @@ class UpdateDataSourceOutput {
       UpdateDataSourceOutput();
 }
 
+/// Represents the output of an `UpdateEvaluation` operation.
+///
+/// You can see the updated content by using the `GetEvaluation` operation.
 class UpdateEvaluationOutput {
   /// The ID assigned to the `Evaluation` during creation. This value should be
   /// identical to the value of the `Evaluation` in the request.
@@ -2901,6 +3034,9 @@ class UpdateEvaluationOutput {
       UpdateEvaluationOutput();
 }
 
+/// Represents the output of an `UpdateMLModel` operation.
+///
+/// You can see the updated content by using the `GetMLModel` operation.
 class UpdateMLModelOutput {
   /// The ID assigned to the `MLModel` during creation. This value should be
   /// identical to the value of the `MLModelID` in the request.

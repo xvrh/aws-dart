@@ -223,17 +223,17 @@ class MediaLiveApi {
   ///
   /// [codec]: Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
   ///
-  /// [maximumBitrate]: Filter by bitrate, 'MAX\_10\_MBPS', 'MAX\_20\_MBPS', or
-  /// 'MAX\_50\_MBPS'
+  /// [maximumBitrate]: Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or
+  /// 'MAX_50_MBPS'
   ///
-  /// [maximumFramerate]: Filter by framerate, 'MAX\_30\_FPS' or 'MAX\_60\_FPS'
+  /// [maximumFramerate]: Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
   ///
   /// [resolution]: Filter by resolution, 'SD', 'HD', or 'UHD'
   ///
   /// [resourceType]: Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
   ///
-  /// [specialFeature]: Filter by special feature, 'ADVANCED\_AUDIO' or
-  /// 'AUDIO\_NORMALIZATION'
+  /// [specialFeature]: Filter by special feature, 'ADVANCED_AUDIO' or
+  /// 'AUDIO_NORMALIZATION'
   ///
   /// [videoQuality]: Filter by video quality, 'STANDARD', 'ENHANCED', or
   /// 'PREMIUM'
@@ -258,17 +258,17 @@ class MediaLiveApi {
   ///
   /// [codec]: Filter by codec, 'AVC', 'HEVC', 'MPEG2', or 'AUDIO'
   ///
-  /// [maximumBitrate]: Filter by bitrate, 'MAX\_10\_MBPS', 'MAX\_20\_MBPS', or
-  /// 'MAX\_50\_MBPS'
+  /// [maximumBitrate]: Filter by bitrate, 'MAX_10_MBPS', 'MAX_20_MBPS', or
+  /// 'MAX_50_MBPS'
   ///
-  /// [maximumFramerate]: Filter by framerate, 'MAX\_30\_FPS' or 'MAX\_60\_FPS'
+  /// [maximumFramerate]: Filter by framerate, 'MAX_30_FPS' or 'MAX_60_FPS'
   ///
   /// [resolution]: Filter by resolution, 'SD', 'HD', or 'UHD'
   ///
   /// [resourceType]: Filter by resource type, 'INPUT', 'OUTPUT', or 'CHANNEL'
   ///
-  /// [specialFeature]: Filter by special feature, 'ADVANCED\_AUDIO' or
-  /// 'AUDIO\_NORMALIZATION'
+  /// [specialFeature]: Filter by special feature, 'ADVANCED_AUDIO' or
+  /// 'AUDIO_NORMALIZATION'
   ///
   /// [videoQuality]: Filter by video quality, 'STANDARD', 'ENHANCED', or
   /// 'PREMIUM'
@@ -434,6 +434,7 @@ class MediaLiveApi {
   }
 }
 
+/// Aac Settings
 class AacSettings {
   /// Average bitrate in bits/second. Valid values depend on rate control mode
   /// and profile.
@@ -489,6 +490,7 @@ class AacSettings {
   static AacSettings fromJson(Map<String, dynamic> json) => AacSettings();
 }
 
+/// Ac3 Settings
 class Ac3Settings {
   /// Average bitrate in bits/second. Valid bitrates depend on the coding mode.
   final double bitrate;
@@ -530,6 +532,7 @@ class Ac3Settings {
   static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings();
 }
 
+/// Archive Container Settings
 class ArchiveContainerSettings {
   final M2TsSettings m2TsSettings;
 
@@ -540,6 +543,7 @@ class ArchiveContainerSettings {
       ArchiveContainerSettings();
 }
 
+/// Archive Group Settings
 class ArchiveGroupSettings {
   /// A directory and base filename where archive files should be written.
   final OutputLocationRef destination;
@@ -556,6 +560,7 @@ class ArchiveGroupSettings {
       ArchiveGroupSettings();
 }
 
+/// Archive Output Settings
 class ArchiveOutputSettings {
   /// Settings specific to the container type of the file.
   final ArchiveContainerSettings containerSettings;
@@ -577,18 +582,21 @@ class ArchiveOutputSettings {
       ArchiveOutputSettings();
 }
 
+/// Arib Destination Settings
 class AribDestinationSettings {
   AribDestinationSettings();
   static AribDestinationSettings fromJson(Map<String, dynamic> json) =>
       AribDestinationSettings();
 }
 
+/// Arib Source Settings
 class AribSourceSettings {
   AribSourceSettings();
   static AribSourceSettings fromJson(Map<String, dynamic> json) =>
       AribSourceSettings();
 }
 
+/// Audio Channel Mapping
 class AudioChannelMapping {
   /// Indices and gain values for each input channel that should be remixed into
   /// this output channel.
@@ -605,6 +613,7 @@ class AudioChannelMapping {
       AudioChannelMapping();
 }
 
+/// Audio Codec Settings
 class AudioCodecSettings {
   final AacSettings aacSettings;
 
@@ -627,6 +636,7 @@ class AudioCodecSettings {
       AudioCodecSettings();
 }
 
+/// Audio Description
 class AudioDescription {
   /// Advanced audio normalization settings.
   final AudioNormalizationSettings audioNormalizationSettings;
@@ -690,6 +700,7 @@ class AudioDescription {
       AudioDescription();
 }
 
+/// Audio Language Selection
 class AudioLanguageSelection {
   /// Selects a specific three-letter language code from within an audio source.
   final String languageCode;
@@ -710,6 +721,7 @@ class AudioLanguageSelection {
       AudioLanguageSelection();
 }
 
+/// Audio Normalization Settings
 class AudioNormalizationSettings {
   /// Audio normalization algorithm to use. itu17701 conforms to the CALM Act
   /// specification, itu17702 conforms to the EBU R-128 specification.
@@ -735,6 +747,7 @@ class AudioNormalizationSettings {
       AudioNormalizationSettings();
 }
 
+/// Audio Only Hls Settings
 class AudioOnlyHlsSettings {
   /// Specifies the group to which the audio Rendition belongs.
   final String audioGroupId;
@@ -769,6 +782,7 @@ class AudioOnlyHlsSettings {
       AudioOnlyHlsSettings();
 }
 
+/// Audio Pid Selection
 class AudioPidSelection {
   /// Selects a specific PID from within a source.
   final int pid;
@@ -780,6 +794,7 @@ class AudioPidSelection {
       AudioPidSelection();
 }
 
+/// Audio Selector
 class AudioSelector {
   /// The name of this AudioSelector. AudioDescriptions will use this name to
   /// uniquely identify this Selector. Selector names should be unique per
@@ -796,6 +811,7 @@ class AudioSelector {
   static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector();
 }
 
+/// Audio Selector Settings
 class AudioSelectorSettings {
   final AudioLanguageSelection audioLanguageSelection;
 
@@ -809,6 +825,7 @@ class AudioSelectorSettings {
       AudioSelectorSettings();
 }
 
+/// Avail Blanking
 class AvailBlanking {
   /// Blanking image to be used. Leave empty for solid black. Only bmp and png
   /// images are supported.
@@ -825,6 +842,7 @@ class AvailBlanking {
   static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking();
 }
 
+/// Avail Configuration
 class AvailConfiguration {
   /// Ad avail settings.
   final AvailSettings availSettings;
@@ -836,6 +854,7 @@ class AvailConfiguration {
       AvailConfiguration();
 }
 
+/// Avail Settings
 class AvailSettings {
   final Scte35SpliceInsert scte35SpliceInsert;
 
@@ -848,6 +867,8 @@ class AvailSettings {
   static AvailSettings fromJson(Map<String, dynamic> json) => AvailSettings();
 }
 
+/// A list of schedule actions to create (in a request) or that have been
+/// created (in a response).
 class BatchScheduleActionCreateRequest {
   /// A list of schedule actions to create.
   final List<ScheduleAction> scheduleActions;
@@ -857,6 +878,7 @@ class BatchScheduleActionCreateRequest {
   });
 }
 
+/// List of actions that have been created in the schedule.
 class BatchScheduleActionCreateResult {
   /// List of actions that have been created in the schedule.
   final List<ScheduleAction> scheduleActions;
@@ -868,6 +890,7 @@ class BatchScheduleActionCreateResult {
       BatchScheduleActionCreateResult();
 }
 
+/// A list of schedule actions to delete.
 class BatchScheduleActionDeleteRequest {
   /// A list of schedule actions to delete.
   final List<String> actionNames;
@@ -877,6 +900,7 @@ class BatchScheduleActionDeleteRequest {
   });
 }
 
+/// List of actions that have been deleted from the schedule.
 class BatchScheduleActionDeleteResult {
   /// List of actions that have been deleted from the schedule.
   final List<ScheduleAction> scheduleActions;
@@ -888,6 +912,7 @@ class BatchScheduleActionDeleteResult {
       BatchScheduleActionDeleteResult();
 }
 
+/// Placeholder documentation for BatchUpdateScheduleResponse
 class BatchUpdateScheduleResponse {
   /// Schedule actions created in the schedule.
   final BatchScheduleActionCreateResult creates;
@@ -903,6 +928,7 @@ class BatchUpdateScheduleResponse {
       BatchUpdateScheduleResponse();
 }
 
+/// Blackout Slate
 class BlackoutSlate {
   /// Blackout slate image to be used. Leave empty for solid black. Only bmp and
   /// png images are supported.
@@ -938,6 +964,7 @@ class BlackoutSlate {
   static BlackoutSlate fromJson(Map<String, dynamic> json) => BlackoutSlate();
 }
 
+/// Burn In Destination Settings
 class BurnInDestinationSettings {
   /// If no explicit xPosition or yPosition is provided, setting alignment to
   /// centered will place the captions at the bottom center of the output.
@@ -1058,6 +1085,8 @@ class BurnInDestinationSettings {
       BurnInDestinationSettings();
 }
 
+/// Output groups for this Live Event. Output groups contain information about
+/// where streams should be distributed.
 class CaptionDescription {
   /// Specifies which input caption selector to use as a caption source when
   /// generating output captions. This field should match a captionSelector
@@ -1090,6 +1119,7 @@ class CaptionDescription {
       CaptionDescription();
 }
 
+/// Caption Destination Settings
 class CaptionDestinationSettings {
   final AribDestinationSettings aribDestinationSettings;
 
@@ -1135,6 +1165,8 @@ class CaptionDestinationSettings {
       CaptionDestinationSettings();
 }
 
+/// Maps a caption channel to an ISO 693-2 language code
+/// (http://www.loc.gov/standards/iso639-2), with an optional description.
 class CaptionLanguageMapping {
   /// The closed caption channel being described by this CaptionLanguageMapping.
   /// Each channel mapping must have a unique channel number (maximum of 4)
@@ -1156,6 +1188,8 @@ class CaptionLanguageMapping {
       CaptionLanguageMapping();
 }
 
+/// Output groups for this Live Event. Output groups contain information about
+/// where streams should be distributed.
 class CaptionSelector {
   /// When specified this field indicates the three letter language code of the
   /// caption track to extract from the source.
@@ -1178,6 +1212,7 @@ class CaptionSelector {
       CaptionSelector();
 }
 
+/// Caption Selector Settings
 class CaptionSelectorSettings {
   final AribSourceSettings aribSourceSettings;
 
@@ -1203,6 +1238,7 @@ class CaptionSelectorSettings {
       CaptionSelectorSettings();
 }
 
+/// Placeholder documentation for Channel
 class Channel {
   /// The unique arn of the channel.
   final String arn;
@@ -1270,6 +1306,7 @@ class Channel {
   static Channel fromJson(Map<String, dynamic> json) => Channel();
 }
 
+/// Placeholder documentation for ChannelEgressEndpoint
 class ChannelEgressEndpoint {
   /// Public IP of where a channel's output comes from
   final String sourceIp;
@@ -1281,6 +1318,7 @@ class ChannelEgressEndpoint {
       ChannelEgressEndpoint();
 }
 
+/// Placeholder documentation for ChannelSummary
 class ChannelSummary {
   /// The unique arn of the channel.
   final String arn;
@@ -1341,12 +1379,14 @@ class ChannelSummary {
   static ChannelSummary fromJson(Map<String, dynamic> json) => ChannelSummary();
 }
 
+/// Passthrough applies no color space conversion to the output
 class ColorSpacePassthroughSettings {
   ColorSpacePassthroughSettings();
   static ColorSpacePassthroughSettings fromJson(Map<String, dynamic> json) =>
       ColorSpacePassthroughSettings();
 }
 
+/// Placeholder documentation for CreateChannelResponse
 class CreateChannelResponse {
   final Channel channel;
 
@@ -1357,6 +1397,7 @@ class CreateChannelResponse {
       CreateChannelResponse();
 }
 
+/// Placeholder documentation for CreateInputResponse
 class CreateInputResponse {
   final Input input;
 
@@ -1367,6 +1408,7 @@ class CreateInputResponse {
       CreateInputResponse();
 }
 
+/// Placeholder documentation for CreateInputSecurityGroupResponse
 class CreateInputSecurityGroupResponse {
   final InputSecurityGroup securityGroup;
 
@@ -1377,6 +1419,7 @@ class CreateInputSecurityGroupResponse {
       CreateInputSecurityGroupResponse();
 }
 
+/// Placeholder documentation for DeleteChannelResponse
 class DeleteChannelResponse {
   /// The unique arn of the channel.
   final String arn;
@@ -1445,18 +1488,21 @@ class DeleteChannelResponse {
       DeleteChannelResponse();
 }
 
+/// Placeholder documentation for DeleteInputResponse
 class DeleteInputResponse {
   DeleteInputResponse();
   static DeleteInputResponse fromJson(Map<String, dynamic> json) =>
       DeleteInputResponse();
 }
 
+/// Placeholder documentation for DeleteInputSecurityGroupResponse
 class DeleteInputSecurityGroupResponse {
   DeleteInputSecurityGroupResponse();
   static DeleteInputSecurityGroupResponse fromJson(Map<String, dynamic> json) =>
       DeleteInputSecurityGroupResponse();
 }
 
+/// Placeholder documentation for DeleteReservationResponse
 class DeleteReservationResponse {
   /// Unique reservation ARN, e.g.
   /// 'arn:aws:medialive:us-west-2:123456789012:reservation:1234567'
@@ -1541,12 +1587,14 @@ class DeleteReservationResponse {
       DeleteReservationResponse();
 }
 
+/// Placeholder documentation for DeleteScheduleResponse
 class DeleteScheduleResponse {
   DeleteScheduleResponse();
   static DeleteScheduleResponse fromJson(Map<String, dynamic> json) =>
       DeleteScheduleResponse();
 }
 
+/// Placeholder documentation for DescribeChannelResponse
 class DescribeChannelResponse {
   /// The unique arn of the channel.
   final String arn;
@@ -1615,6 +1663,7 @@ class DescribeChannelResponse {
       DescribeChannelResponse();
 }
 
+/// Placeholder documentation for DescribeInputResponse
 class DescribeInputResponse {
   /// The Unique ARN of the input (generated, immutable).
   final String arn;
@@ -1631,9 +1680,9 @@ class DescribeInputResponse {
 
   /// STANDARD - MediaLive expects two sources to be connected to this input. If
   /// the channel is also STANDARD, both sources will be ingested. If the
-  /// channel is SINGLE\_PIPELINE, only the first source will be ingested; the
+  /// channel is SINGLE_PIPELINE, only the first source will be ingested; the
   /// second source will always be ignored, even if the first source fails.
-  /// SINGLE\_PIPELINE - You can connect only one source to this input. If the
+  /// SINGLE_PIPELINE - You can connect only one source to this input. If the
   /// ChannelClass is also SINGLE_PIPELINE, this value is valid. If the
   /// ChannelClass is STANDARD, this value is not valid because the channel
   /// requires two sources in the input.
@@ -1687,6 +1736,7 @@ class DescribeInputResponse {
       DescribeInputResponse();
 }
 
+/// Placeholder documentation for DescribeInputSecurityGroupResponse
 class DescribeInputSecurityGroupResponse {
   /// Unique ARN of Input Security Group
   final String arn;
@@ -1719,6 +1769,7 @@ class DescribeInputSecurityGroupResponse {
       DescribeInputSecurityGroupResponse();
 }
 
+/// Placeholder documentation for DescribeOfferingResponse
 class DescribeOfferingResponse {
   /// Unique offering ARN, e.g.
   /// 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
@@ -1773,6 +1824,7 @@ class DescribeOfferingResponse {
       DescribeOfferingResponse();
 }
 
+/// Placeholder documentation for DescribeReservationResponse
 class DescribeReservationResponse {
   /// Unique reservation ARN, e.g.
   /// 'arn:aws:medialive:us-west-2:123456789012:reservation:1234567'
@@ -1857,6 +1909,7 @@ class DescribeReservationResponse {
       DescribeReservationResponse();
 }
 
+/// Placeholder documentation for DescribeScheduleResponse
 class DescribeScheduleResponse {
   /// The next token; for use in pagination.
   final String nextToken;
@@ -1872,6 +1925,7 @@ class DescribeScheduleResponse {
       DescribeScheduleResponse();
 }
 
+/// DVB Network Information Table (NIT)
 class DvbNitSettings {
   /// The numeric value placed in the Network Information Table (NIT).
   final int networkId;
@@ -1892,6 +1946,7 @@ class DvbNitSettings {
   static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings();
 }
 
+/// DVB Service Description Table (SDT)
 class DvbSdtSettings {
   /// Selects method of inserting SDT information into output stream. The
   /// sdtFollow setting copies SDT information from input stream to output
@@ -1923,6 +1978,7 @@ class DvbSdtSettings {
   static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings();
 }
 
+/// Dvb Sub Destination Settings
 class DvbSubDestinationSettings {
   /// If no explicit xPosition or yPosition is provided, setting alignment to
   /// centered will place the captions at the bottom center of the output.
@@ -2050,6 +2106,7 @@ class DvbSubDestinationSettings {
       DvbSubDestinationSettings();
 }
 
+/// Dvb Sub Source Settings
 class DvbSubSourceSettings {
   /// When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
   /// content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed
@@ -2063,6 +2120,7 @@ class DvbSubSourceSettings {
       DvbSubSourceSettings();
 }
 
+/// DVB Time and Date Table (SDT)
 class DvbTdtSettings {
   /// The number of milliseconds between instances of this table in the output
   /// transport stream.
@@ -2074,6 +2132,7 @@ class DvbTdtSettings {
   static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings();
 }
 
+/// Eac3 Settings
 class Eac3Settings {
   /// When set to attenuate3Db, applies a 3 dB attenuation to the surround
   /// channels. Only used for 3/2 coding mode.
@@ -2176,12 +2235,14 @@ class Eac3Settings {
   static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings();
 }
 
+/// Embedded Destination Settings
 class EmbeddedDestinationSettings {
   EmbeddedDestinationSettings();
   static EmbeddedDestinationSettings fromJson(Map<String, dynamic> json) =>
       EmbeddedDestinationSettings();
 }
 
+/// Embedded Plus Scte20 Destination Settings
 class EmbeddedPlusScte20DestinationSettings {
   EmbeddedPlusScte20DestinationSettings();
   static EmbeddedPlusScte20DestinationSettings fromJson(
@@ -2189,6 +2250,7 @@ class EmbeddedPlusScte20DestinationSettings {
       EmbeddedPlusScte20DestinationSettings();
 }
 
+/// Embedded Source Settings
 class EmbeddedSourceSettings {
   /// If upconvert, 608 data is both passed through via the "608 compatibility
   /// bytes" fields of the 708 wrapper as well as translated into 708. 708 data
@@ -2216,6 +2278,7 @@ class EmbeddedSourceSettings {
       EmbeddedSourceSettings();
 }
 
+/// Encoder Settings
 class EncoderSettings {
   final List<AudioDescription> audioDescriptions;
 
@@ -2257,6 +2320,7 @@ class EncoderSettings {
       EncoderSettings();
 }
 
+/// Fec Output Settings
 class FecOutputSettings {
   /// Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
   /// The number of transport stream packets per column error correction packet.
@@ -2284,6 +2348,7 @@ class FecOutputSettings {
       FecOutputSettings();
 }
 
+/// Start time for the action.
 class FixedModeScheduleActionStartSettings {
   /// Start time for the action to start in the channel. (Not the time for the
   /// action to be added to the schedule: actions are always added to the
@@ -2300,6 +2365,7 @@ class FixedModeScheduleActionStartSettings {
       FixedModeScheduleActionStartSettings();
 }
 
+/// Settings to specify if an action follows another.
 class FollowModeScheduleActionStartSettings {
   /// Identifies whether this action starts relative to the start or relative to
   /// the end of the reference action.
@@ -2317,6 +2383,7 @@ class FollowModeScheduleActionStartSettings {
       FollowModeScheduleActionStartSettings();
 }
 
+/// Frame Capture Group Settings
 class FrameCaptureGroupSettings {
   /// The destination for the frame capture files. Either the URI for an Amazon
   /// S3 bucket and object, plus a file name prefix (for example,
@@ -2335,6 +2402,7 @@ class FrameCaptureGroupSettings {
       FrameCaptureGroupSettings();
 }
 
+/// Frame Capture Output Settings
 class FrameCaptureOutputSettings {
   /// Required if the output group contains more than one output. This modifier
   /// forms part of the output file name.
@@ -2347,6 +2415,7 @@ class FrameCaptureOutputSettings {
       FrameCaptureOutputSettings();
 }
 
+/// Frame Capture Settings
 class FrameCaptureSettings {
   /// The frequency, in seconds, for capturing frames for inclusion in the
   /// output. For example, "10" means capture a frame every 10 seconds.
@@ -2359,6 +2428,7 @@ class FrameCaptureSettings {
       FrameCaptureSettings();
 }
 
+/// Global Configuration
 class GlobalConfiguration {
   /// Value to set the initial audio gain for the Live Event.
   final int initialAudioGain;
@@ -2404,6 +2474,7 @@ class GlobalConfiguration {
       GlobalConfiguration();
 }
 
+/// H264 Color Space Settings
 class H264ColorSpaceSettings {
   final ColorSpacePassthroughSettings colorSpacePassthroughSettings;
 
@@ -2420,6 +2491,7 @@ class H264ColorSpaceSettings {
       H264ColorSpaceSettings();
 }
 
+/// H264 Settings
 class H264Settings {
   /// Adaptive quantization. Allows intra-frame quantizers to vary to improve
   /// visual quality.
@@ -2640,6 +2712,7 @@ class H264Settings {
   static H264Settings fromJson(Map<String, dynamic> json) => H264Settings();
 }
 
+/// H265 Color Space Settings
 class H265ColorSpaceSettings {
   final ColorSpacePassthroughSettings colorSpacePassthroughSettings;
 
@@ -2659,6 +2732,7 @@ class H265ColorSpaceSettings {
       H265ColorSpaceSettings();
 }
 
+/// H265 Settings
 class H265Settings {
   /// Adaptive quantization. Allows intra-frame quantizers to vary to improve
   /// visual quality.
@@ -2818,6 +2892,7 @@ class H265Settings {
   static H265Settings fromJson(Map<String, dynamic> json) => H265Settings();
 }
 
+/// Hdr10 Settings
 class Hdr10Settings {
   /// Maximum Content Light Level An integer metadata value defining the maximum
   /// light level, in nits, of any single pixel within an encoded HDR video
@@ -2836,6 +2911,7 @@ class Hdr10Settings {
   static Hdr10Settings fromJson(Map<String, dynamic> json) => Hdr10Settings();
 }
 
+/// Hls Akamai Settings
 class HlsAkamaiSettings {
   /// Number of seconds to wait before retrying connection to the CDN if the
   /// connection is lost.
@@ -2859,8 +2935,7 @@ class HlsAkamaiSettings {
   /// Salt for authenticated Akamai.
   final String salt;
 
-  /// Token parameter for authenticated akamai. If not specified, \_gda\_ is
-  /// used.
+  /// Token parameter for authenticated akamai. If not specified, _gda_ is used.
   final String token;
 
   HlsAkamaiSettings({
@@ -2876,6 +2951,7 @@ class HlsAkamaiSettings {
       HlsAkamaiSettings();
 }
 
+/// Hls Basic Put Settings
 class HlsBasicPutSettings {
   /// Number of seconds to wait before retrying connection to the CDN if the
   /// connection is lost.
@@ -2902,6 +2978,7 @@ class HlsBasicPutSettings {
       HlsBasicPutSettings();
 }
 
+/// Hls Cdn Settings
 class HlsCdnSettings {
   final HlsAkamaiSettings hlsAkamaiSettings;
 
@@ -2920,6 +2997,7 @@ class HlsCdnSettings {
   static HlsCdnSettings fromJson(Map<String, dynamic> json) => HlsCdnSettings();
 }
 
+/// Hls Group Settings
 class HlsGroupSettings {
   /// Choose one or more ad marker types to pass SCTE35 signals through to this
   /// group of Apple HLS outputs.
@@ -3154,6 +3232,7 @@ class HlsGroupSettings {
       HlsGroupSettings();
 }
 
+/// Hls Input Settings
 class HlsInputSettings {
   /// When specified the HLS stream with the m3u8 BANDWIDTH that most closely
   /// matches this value will be chosen, otherwise the highest bandwidth stream
@@ -3184,6 +3263,7 @@ class HlsInputSettings {
       HlsInputSettings();
 }
 
+/// Hls Media Store Settings
 class HlsMediaStoreSettings {
   /// Number of seconds to wait before retrying connection to the CDN if the
   /// connection is lost.
@@ -3215,13 +3295,14 @@ class HlsMediaStoreSettings {
       HlsMediaStoreSettings();
 }
 
+/// Hls Output Settings
 class HlsOutputSettings {
   /// Settings regarding the underlying stream. These settings are different for
   /// audio-only outputs.
   final HlsSettings hlsSettings;
 
   /// String concatenated to the end of the destination filename. Accepts
-  /// \\"Format Identifiers\\":#formatIdentifierParameters.
+  /// "Format Identifiers":#formatIdentifierParameters.
   final String nameModifier;
 
   /// String concatenated to end of segment filenames.
@@ -3236,6 +3317,7 @@ class HlsOutputSettings {
       HlsOutputSettings();
 }
 
+/// Hls Settings
 class HlsSettings {
   final AudioOnlyHlsSettings audioOnlyHlsSettings;
 
@@ -3248,6 +3330,7 @@ class HlsSettings {
   static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings();
 }
 
+/// Settings for the action to emit HLS metadata
 class HlsTimedMetadataScheduleActionSettings {
   /// Base64 string formatted according to the ID3 specification:
   /// http://id3.org/id3v2.4.0-structure
@@ -3261,6 +3344,7 @@ class HlsTimedMetadataScheduleActionSettings {
       HlsTimedMetadataScheduleActionSettings();
 }
 
+/// Hls Webdav Settings
 class HlsWebdavSettings {
   /// Number of seconds to wait before retrying connection to the CDN if the
   /// connection is lost.
@@ -3291,6 +3375,8 @@ class HlsWebdavSettings {
       HlsWebdavSettings();
 }
 
+/// Settings to configure an action so that it occurs immediately. This is only
+/// supported for input switch actions currently.
 class ImmediateModeScheduleActionStartSettings {
   ImmediateModeScheduleActionStartSettings();
   static ImmediateModeScheduleActionStartSettings fromJson(
@@ -3298,6 +3384,7 @@ class ImmediateModeScheduleActionStartSettings {
       ImmediateModeScheduleActionStartSettings();
 }
 
+/// Placeholder documentation for Input
 class Input {
   /// The Unique ARN of the input (generated, immutable).
   final String arn;
@@ -3314,9 +3401,9 @@ class Input {
 
   /// STANDARD - MediaLive expects two sources to be connected to this input. If
   /// the channel is also STANDARD, both sources will be ingested. If the
-  /// channel is SINGLE\_PIPELINE, only the first source will be ingested; the
+  /// channel is SINGLE_PIPELINE, only the first source will be ingested; the
   /// second source will always be ignored, even if the first source fails.
-  /// SINGLE\_PIPELINE - You can connect only one source to this input. If the
+  /// SINGLE_PIPELINE - You can connect only one source to this input. If the
   /// ChannelClass is also SINGLE_PIPELINE, this value is valid. If the
   /// ChannelClass is STANDARD, this value is not valid because the channel
   /// requires two sources in the input.
@@ -3369,6 +3456,7 @@ class Input {
   static Input fromJson(Map<String, dynamic> json) => Input();
 }
 
+/// Placeholder documentation for InputAttachment
 class InputAttachment {
   /// User-specified name for the attachment. This is required if the user wants
   /// to use this input in an input switch action.
@@ -3389,6 +3477,7 @@ class InputAttachment {
       InputAttachment();
 }
 
+/// Input Channel Level
 class InputChannelLevel {
   /// Remixing value. Units are in dB and acceptable values are within the range
   /// from -60 (mute) and 6 dB.
@@ -3405,6 +3494,8 @@ class InputChannelLevel {
       InputChannelLevel();
 }
 
+/// Settings to let you create a clip of the file input, in order to set up the
+/// input to ingest only a portion of the file.
 class InputClippingSettings {
   /// The source of the timecodes in the source being clipped.
   final String inputTimecodeSource;
@@ -3424,6 +3515,7 @@ class InputClippingSettings {
       InputClippingSettings();
 }
 
+/// The settings for a PUSH type input.
 class InputDestination {
   /// The system-generated static IP address of endpoint. It remains fixed for
   /// the lifetime of the input.
@@ -3447,6 +3539,7 @@ class InputDestination {
       InputDestination();
 }
 
+/// Endpoint settings for a PUSH type input.
 class InputDestinationRequest {
   /// A unique name for the location the RTMP stream is being pushed to.
   final String streamName;
@@ -3456,6 +3549,7 @@ class InputDestinationRequest {
   });
 }
 
+/// The properties for a VPC type input destination.
 class InputDestinationVpc {
   /// The availability zone of the Input destination.
   final String availabilityZone;
@@ -3471,6 +3565,7 @@ class InputDestinationVpc {
       InputDestinationVpc();
 }
 
+/// Input Location
 class InputLocation {
   /// key used to extract the password from EC2 Parameter store
   final String passwordParam;
@@ -3492,6 +3587,7 @@ class InputLocation {
   static InputLocation fromJson(Map<String, dynamic> json) => InputLocation();
 }
 
+/// Input Loss Behavior
 class InputLossBehavior {
   /// Documentation update needed
   final int blackFrameMsec;
@@ -3522,6 +3618,7 @@ class InputLossBehavior {
       InputLossBehavior();
 }
 
+/// An Input Security Group
 class InputSecurityGroup {
   /// Unique ARN of Input Security Group
   final String arn;
@@ -3553,6 +3650,8 @@ class InputSecurityGroup {
       InputSecurityGroup();
 }
 
+/// Live Event input parameters. There can be multiple inputs in a single Live
+/// Event.
 class InputSettings {
   /// Used to select the audio stream to decode for inputs that have multiple
   /// available.
@@ -3602,6 +3701,7 @@ class InputSettings {
   static InputSettings fromJson(Map<String, dynamic> json) => InputSettings();
 }
 
+/// The settings for a PULL type input.
 class InputSource {
   /// The key used to extract the password from EC2 Parameter store.
   final String passwordParam;
@@ -3620,6 +3720,7 @@ class InputSource {
   static InputSource fromJson(Map<String, dynamic> json) => InputSource();
 }
 
+/// Settings for for a PULL type input.
 class InputSourceRequest {
   /// The key used to extract the password from EC2 Parameter store.
   final String passwordParam;
@@ -3637,6 +3738,7 @@ class InputSourceRequest {
   });
 }
 
+/// Placeholder documentation for InputSpecification
 class InputSpecification {
   /// Input codec
   final String codec;
@@ -3656,6 +3758,8 @@ class InputSpecification {
       InputSpecification();
 }
 
+/// Settings for the "switch input" action: to switch from ingesting one input
+/// to ingesting another input.
 class InputSwitchScheduleActionSettings {
   /// The name of the input attachment (not the name of the input!) to switch
   /// to. The name is specified in the channel configuration.
@@ -3681,6 +3785,10 @@ class InputSwitchScheduleActionSettings {
       InputSwitchScheduleActionSettings();
 }
 
+/// Settings for a private VPC Input. When this property is specified, the input
+/// destination addresses will be created in a VPC rather than with public
+/// Internet addresses. This property requires setting the roleArn property on
+/// Input creation. Not compatible with the inputSecurityGroups property.
 class InputVpcRequest {
   /// A list of up to 5 EC2 VPC security group IDs to attach to the Input VPC
   /// network interfaces. Requires subnetIds. If none are specified then the VPC
@@ -3697,6 +3805,7 @@ class InputVpcRequest {
   });
 }
 
+/// Whitelist rule
 class InputWhitelistRule {
   /// The IPv4 CIDR that's whitelisted.
   final String cidr;
@@ -3708,6 +3817,7 @@ class InputWhitelistRule {
       InputWhitelistRule();
 }
 
+/// An IPv4 CIDR to whitelist.
 class InputWhitelistRuleCidr {
   /// The IPv4 CIDR to whitelist.
   final String cidr;
@@ -3717,6 +3827,7 @@ class InputWhitelistRuleCidr {
   });
 }
 
+/// Key Provider Settings
 class KeyProviderSettings {
   final StaticKeySettings staticKeySettings;
 
@@ -3727,6 +3838,7 @@ class KeyProviderSettings {
       KeyProviderSettings();
 }
 
+/// Placeholder documentation for ListChannelsResponse
 class ListChannelsResponse {
   final List<ChannelSummary> channels;
 
@@ -3740,6 +3852,7 @@ class ListChannelsResponse {
       ListChannelsResponse();
 }
 
+/// Placeholder documentation for ListInputSecurityGroupsResponse
 class ListInputSecurityGroupsResponse {
   /// List of input security groups
   final List<InputSecurityGroup> inputSecurityGroups;
@@ -3754,6 +3867,7 @@ class ListInputSecurityGroupsResponse {
       ListInputSecurityGroupsResponse();
 }
 
+/// Placeholder documentation for ListInputsResponse
 class ListInputsResponse {
   final List<Input> inputs;
 
@@ -3767,6 +3881,7 @@ class ListInputsResponse {
       ListInputsResponse();
 }
 
+/// Placeholder documentation for ListOfferingsResponse
 class ListOfferingsResponse {
   /// Token to retrieve the next page of results
   final String nextToken;
@@ -3782,6 +3897,7 @@ class ListOfferingsResponse {
       ListOfferingsResponse();
 }
 
+/// Placeholder documentation for ListReservationsResponse
 class ListReservationsResponse {
   /// Token to retrieve the next page of results
   final String nextToken;
@@ -3797,6 +3913,7 @@ class ListReservationsResponse {
       ListReservationsResponse();
 }
 
+/// Placeholder documentation for ListTagsForResourceResponse
 class ListTagsForResourceResponse {
   final Map<String, String> tags;
 
@@ -3807,6 +3924,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// M2ts Settings
 class M2TsSettings {
   /// When set to drop, output audio streams will be removed from the program if
   /// the selected input audio stream is removed from the input. This allows the
@@ -4087,6 +4205,7 @@ class M2TsSettings {
   static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings();
 }
 
+/// Settings information for the .m3u8 container
 class M3U8Settings {
   /// The number of audio frames to insert for each PES packet.
   final int audioFramesPerPes;
@@ -4100,8 +4219,7 @@ class M3U8Settings {
   final String ecmPid;
 
   /// The number of milliseconds between instances of this table in the output
-  /// transport stream. A value of \\"0\\" writes out the PMT once per segment
-  /// file.
+  /// transport stream. A value of "0" writes out the PMT once per segment file.
   final int patInterval;
 
   /// When set to pcrEveryPesPacket, a Program Clock Reference value is inserted
@@ -4120,8 +4238,7 @@ class M3U8Settings {
   final String pcrPid;
 
   /// The number of milliseconds between instances of this table in the output
-  /// transport stream. A value of \\"0\\" writes out the PMT once per segment
-  /// file.
+  /// transport stream. A value of "0" writes out the PMT once per segment file.
   final int pmtInterval;
 
   /// Packet Identifier (PID) for the Program Map Table (PMT) in the transport
@@ -4176,6 +4293,7 @@ class M3U8Settings {
   static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings();
 }
 
+/// The settings for a MediaConnect Flow.
 class MediaConnectFlow {
   /// The unique ARN of the MediaConnect Flow being used as a source.
   final String flowArn;
@@ -4187,6 +4305,7 @@ class MediaConnectFlow {
       MediaConnectFlow();
 }
 
+/// The settings for a MediaConnect Flow.
 class MediaConnectFlowRequest {
   /// The ARN of the MediaConnect Flow that you want to use as a source.
   final String flowArn;
@@ -4196,6 +4315,7 @@ class MediaConnectFlowRequest {
   });
 }
 
+/// Media Package Group Settings
 class MediaPackageGroupSettings {
   /// MediaPackage channel destination.
   final OutputLocationRef destination;
@@ -4207,6 +4327,7 @@ class MediaPackageGroupSettings {
       MediaPackageGroupSettings();
 }
 
+/// MediaPackage Output Destination Settings
 class MediaPackageOutputDestinationSettings {
   /// ID of the channel in MediaPackage that is the destination for this output
   /// group. You do not need to specify the individual inputs in MediaPackage;
@@ -4223,12 +4344,14 @@ class MediaPackageOutputDestinationSettings {
       MediaPackageOutputDestinationSettings();
 }
 
+/// Media Package Output Settings
 class MediaPackageOutputSettings {
   MediaPackageOutputSettings();
   static MediaPackageOutputSettings fromJson(Map<String, dynamic> json) =>
       MediaPackageOutputSettings();
 }
 
+/// Mp2 Settings
 class Mp2Settings {
   /// Average bitrate in bits/second.
   final double bitrate;
@@ -4248,6 +4371,7 @@ class Mp2Settings {
   static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings();
 }
 
+/// Ms Smooth Group Settings
 class MsSmoothGroupSettings {
   /// The value of the "Acquisition Point Identity" element used in each message
   /// placed in the sparse track. Only enabled if sparseTrackType is not "none".
@@ -4355,6 +4479,7 @@ class MsSmoothGroupSettings {
       MsSmoothGroupSettings();
 }
 
+/// Ms Smooth Output Settings
 class MsSmoothOutputSettings {
   /// Only applicable when this output is referencing an H.265 video
   /// description. Specifies whether MP4 segments should be packaged as HEV1 or
@@ -4373,6 +4498,8 @@ class MsSmoothOutputSettings {
       MsSmoothOutputSettings();
 }
 
+/// Network source to transcode. Must be accessible to the Elemental Live node
+/// that is running the live event through a network connection.
 class NetworkInputSettings {
   /// Specifies HLS input settings when the uri is for a HLS manifest.
   final HlsInputSettings hlsInputSettings;
@@ -4393,6 +4520,7 @@ class NetworkInputSettings {
       NetworkInputSettings();
 }
 
+/// Reserved resources available for purchase
 class Offering {
   /// Unique offering ARN, e.g.
   /// 'arn:aws:medialive:us-west-2:123456789012:offering:87654321'
@@ -4446,6 +4574,7 @@ class Offering {
   static Offering fromJson(Map<String, dynamic> json) => Offering();
 }
 
+/// Output settings. There can be multiple outputs within a group.
 class Output {
   /// The names of the AudioDescriptions used as audio sources for this output.
   final List<String> audioDescriptionNames;
@@ -4473,6 +4602,7 @@ class Output {
   static Output fromJson(Map<String, dynamic> json) => Output();
 }
 
+/// Placeholder documentation for OutputDestination
 class OutputDestination {
   /// User-specified id. This is used in an output group or an output.
   final String id;
@@ -4494,6 +4624,7 @@ class OutputDestination {
       OutputDestination();
 }
 
+/// Placeholder documentation for OutputDestinationSettings
 class OutputDestinationSettings {
   /// key used to extract the password from EC2 Parameter store
   final String passwordParam;
@@ -4517,6 +4648,8 @@ class OutputDestinationSettings {
       OutputDestinationSettings();
 }
 
+/// Output groups for this Live Event. Output groups contain information about
+/// where streams should be distributed.
 class OutputGroup {
   /// Custom output group name optionally defined by the user. Only letters,
   /// numbers, and the underscore character allowed; only 32 characters allowed.
@@ -4535,6 +4668,7 @@ class OutputGroup {
   static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup();
 }
 
+/// Output Group Settings
 class OutputGroupSettings {
   final ArchiveGroupSettings archiveGroupSettings;
 
@@ -4563,6 +4697,7 @@ class OutputGroupSettings {
       OutputGroupSettings();
 }
 
+/// Reference to an OutputDestination ID defined in the channel
 class OutputLocationRef {
   final String destinationRefId;
 
@@ -4573,6 +4708,7 @@ class OutputLocationRef {
       OutputLocationRef();
 }
 
+/// Output Settings
 class OutputSettings {
   final ArchiveOutputSettings archiveOutputSettings;
 
@@ -4600,12 +4736,14 @@ class OutputSettings {
   static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings();
 }
 
+/// Pass Through Settings
 class PassThroughSettings {
   PassThroughSettings();
   static PassThroughSettings fromJson(Map<String, dynamic> json) =>
       PassThroughSettings();
 }
 
+/// Settings for the action to set pause state of a channel.
 class PauseStateScheduleActionSettings {
   final List<PipelinePauseStateSettings> pipelines;
 
@@ -4616,6 +4754,7 @@ class PauseStateScheduleActionSettings {
       PauseStateScheduleActionSettings();
 }
 
+/// Runtime details of a pipeline when a channel is running.
 class PipelineDetail {
   /// The name of the active input attachment currently being ingested by this
   /// pipeline.
@@ -4637,8 +4776,9 @@ class PipelineDetail {
   static PipelineDetail fromJson(Map<String, dynamic> json) => PipelineDetail();
 }
 
+/// Settings for pausing a pipeline.
 class PipelinePauseStateSettings {
-  /// Pipeline ID to pause ("PIPELINE\_0" or "PIPELINE\_1").
+  /// Pipeline ID to pause ("PIPELINE_0" or "PIPELINE_1").
   final String pipelineId;
 
   PipelinePauseStateSettings({
@@ -4648,6 +4788,7 @@ class PipelinePauseStateSettings {
       PipelinePauseStateSettings();
 }
 
+/// Placeholder documentation for PurchaseOfferingResponse
 class PurchaseOfferingResponse {
   final Reservation reservation;
 
@@ -4658,16 +4799,19 @@ class PurchaseOfferingResponse {
       PurchaseOfferingResponse();
 }
 
+/// Rec601 Settings
 class Rec601Settings {
   Rec601Settings();
   static Rec601Settings fromJson(Map<String, dynamic> json) => Rec601Settings();
 }
 
+/// Rec709 Settings
 class Rec709Settings {
   Rec709Settings();
   static Rec709Settings fromJson(Map<String, dynamic> json) => Rec709Settings();
 }
 
+/// Remix Settings
 class RemixSettings {
   /// Mapping of input channels to output channels, with appropriate gain
   /// adjustments.
@@ -4687,6 +4831,7 @@ class RemixSettings {
   static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings();
 }
 
+/// Reserved resources available to use
 class Reservation {
   /// Unique reservation ARN, e.g.
   /// 'arn:aws:medialive:us-west-2:123456789012:reservation:1234567'
@@ -4770,6 +4915,7 @@ class Reservation {
   static Reservation fromJson(Map<String, dynamic> json) => Reservation();
 }
 
+/// Resource configuration (codec, resolution, bitrate, ...)
 class ReservationResourceSpecification {
   /// Channel class, e.g. 'STANDARD'
   final String channelClass;
@@ -4777,10 +4923,10 @@ class ReservationResourceSpecification {
   /// Codec, e.g. 'AVC'
   final String codec;
 
-  /// Maximum bitrate, e.g. 'MAX\_20\_MBPS'
+  /// Maximum bitrate, e.g. 'MAX_20_MBPS'
   final String maximumBitrate;
 
-  /// Maximum framerate, e.g. 'MAX\_30\_FPS' (Outputs only)
+  /// Maximum framerate, e.g. 'MAX_30_FPS' (Outputs only)
   final String maximumFramerate;
 
   /// Resolution, e.g. 'HD'
@@ -4809,6 +4955,7 @@ class ReservationResourceSpecification {
       ReservationResourceSpecification();
 }
 
+/// Rtmp Caption Info Destination Settings
 class RtmpCaptionInfoDestinationSettings {
   RtmpCaptionInfoDestinationSettings();
   static RtmpCaptionInfoDestinationSettings fromJson(
@@ -4816,6 +4963,7 @@ class RtmpCaptionInfoDestinationSettings {
       RtmpCaptionInfoDestinationSettings();
 }
 
+/// Rtmp Group Settings
 class RtmpGroupSettings {
   /// Authentication scheme to use when connecting with CDN
   final String authenticationScheme;
@@ -4862,6 +5010,7 @@ class RtmpGroupSettings {
       RtmpGroupSettings();
 }
 
+/// Rtmp Output Settings
 class RtmpOutputSettings {
   /// If set to verifyAuthenticity, verify the tls certificate chain to a
   /// trusted Certificate Authority (CA). This will cause rtmps outputs with
@@ -4890,6 +5039,7 @@ class RtmpOutputSettings {
       RtmpOutputSettings();
 }
 
+/// Contains information on a single schedule action.
 class ScheduleAction {
   /// The name of the action, must be unique within the schedule. This name
   /// provides the main reference to an action once it is added to the schedule.
@@ -4912,6 +5062,7 @@ class ScheduleAction {
   static ScheduleAction fromJson(Map<String, dynamic> json) => ScheduleAction();
 }
 
+/// Holds the settings for a single schedule action.
 class ScheduleActionSettings {
   /// Action to insert HLS metadata
   final HlsTimedMetadataScheduleActionSettings hlsTimedMetadataSettings;
@@ -4922,7 +5073,7 @@ class ScheduleActionSettings {
   /// Action to pause or unpause one or both channel pipelines
   final PauseStateScheduleActionSettings pauseStateSettings;
 
-  /// Action to insert SCTE-35 return\_to\_network message
+  /// Action to insert SCTE-35 return_to_network message
   final Scte35ReturnToNetworkScheduleActionSettings
       scte35ReturnToNetworkSettings;
 
@@ -4953,6 +5104,8 @@ class ScheduleActionSettings {
       ScheduleActionSettings();
 }
 
+/// Settings to specify when an action should occur. Only one of the options
+/// must be selected.
 class ScheduleActionStartSettings {
   /// Option for specifying the start time for an action.
   final FixedModeScheduleActionStartSettings
@@ -4975,6 +5128,7 @@ class ScheduleActionStartSettings {
       ScheduleActionStartSettings();
 }
 
+/// Scte20 Plus Embedded Destination Settings
 class Scte20PlusEmbeddedDestinationSettings {
   Scte20PlusEmbeddedDestinationSettings();
   static Scte20PlusEmbeddedDestinationSettings fromJson(
@@ -4982,6 +5136,7 @@ class Scte20PlusEmbeddedDestinationSettings {
       Scte20PlusEmbeddedDestinationSettings();
 }
 
+/// Scte20 Source Settings
 class Scte20SourceSettings {
   /// If upconvert, 608 data is both passed through via the "608 compatibility
   /// bytes" fields of the 708 wrapper as well as translated into 708. 708 data
@@ -5000,12 +5155,14 @@ class Scte20SourceSettings {
       Scte20SourceSettings();
 }
 
+/// Scte27 Destination Settings
 class Scte27DestinationSettings {
   Scte27DestinationSettings();
   static Scte27DestinationSettings fromJson(Map<String, dynamic> json) =>
       Scte27DestinationSettings();
 }
 
+/// Scte27 Source Settings
 class Scte27SourceSettings {
   /// The pid field is used in conjunction with the caption selector
   /// languageCode field as follows: - Specify PID and Language: Extracts
@@ -5023,17 +5180,20 @@ class Scte27SourceSettings {
       Scte27SourceSettings();
 }
 
+/// Corresponds to SCTE-35 delivery_not_restricted_flag parameter. To declare
+/// delivery restrictions, include this element and its four "restriction"
+/// flags. To declare that there are no restrictions, omit this element.
 class Scte35DeliveryRestrictions {
-  /// Corresponds to SCTE-35 archive\_allowed\_flag.
+  /// Corresponds to SCTE-35 archive_allowed_flag.
   final String archiveAllowedFlag;
 
   /// Corresponds to SCTE-35 device_restrictions parameter.
   final String deviceRestrictions;
 
-  /// Corresponds to SCTE-35 no\_regional\_blackout_flag parameter.
+  /// Corresponds to SCTE-35 no_regional_blackout_flag parameter.
   final String noRegionalBlackoutFlag;
 
-  /// Corresponds to SCTE-35 web\_delivery\_allowed_flag parameter.
+  /// Corresponds to SCTE-35 web_delivery_allowed_flag parameter.
   final String webDeliveryAllowedFlag;
 
   Scte35DeliveryRestrictions({
@@ -5046,6 +5206,7 @@ class Scte35DeliveryRestrictions {
       Scte35DeliveryRestrictions();
 }
 
+/// Holds one set of SCTE-35 Descriptor Settings.
 class Scte35Descriptor {
   /// SCTE-35 Descriptor Settings.
   final Scte35DescriptorSettings scte35DescriptorSettings;
@@ -5057,6 +5218,7 @@ class Scte35Descriptor {
       Scte35Descriptor();
 }
 
+/// SCTE-35 Descriptor settings.
 class Scte35DescriptorSettings {
   /// SCTE-35 Segmentation Descriptor.
   final Scte35SegmentationDescriptor
@@ -5069,9 +5231,9 @@ class Scte35DescriptorSettings {
       Scte35DescriptorSettings();
 }
 
+/// Settings for a SCTE-35 return_to_network message.
 class Scte35ReturnToNetworkScheduleActionSettings {
-  /// The splice\_event\_id for the SCTE-35 splice_insert, as defined in
-  /// SCTE-35.
+  /// The splice_event_id for the SCTE-35 splice_insert, as defined in SCTE-35.
   final BigInt spliceEventId;
 
   Scte35ReturnToNetworkScheduleActionSettings({
@@ -5082,42 +5244,43 @@ class Scte35ReturnToNetworkScheduleActionSettings {
       Scte35ReturnToNetworkScheduleActionSettings();
 }
 
+/// Corresponds to SCTE-35 segmentation_descriptor.
 class Scte35SegmentationDescriptor {
   /// Holds the four SCTE-35 delivery restriction parameters.
   final Scte35DeliveryRestrictions deliveryRestrictions;
 
-  /// Corresponds to SCTE-35 segment\_num. A value that is valid for the
-  /// specified segmentation\_type_id.
+  /// Corresponds to SCTE-35 segment_num. A value that is valid for the
+  /// specified segmentation_type_id.
   final int segmentNum;
 
-  /// Corresponds to SCTE-35 segmentation\_event\_cancel_indicator.
+  /// Corresponds to SCTE-35 segmentation_event_cancel_indicator.
   final String segmentationCancelIndicator;
 
-  /// Corresponds to SCTE-35 segmentation\_duration. Optional. The duration for
-  /// the time\_signal, in 90 KHz ticks. To convert seconds to ticks, multiple
+  /// Corresponds to SCTE-35 segmentation_duration. Optional. The duration for
+  /// the time_signal, in 90 KHz ticks. To convert seconds to ticks, multiple
   /// the seconds by 90,000. Enter time in 90 KHz clock ticks. If you do not
   /// enter a duration, the time_signal will continue until you insert a
   /// cancellation message.
   final BigInt segmentationDuration;
 
-  /// Corresponds to SCTE-35 segmentation\_event\_id.
+  /// Corresponds to SCTE-35 segmentation_event_id.
   final BigInt segmentationEventId;
 
-  /// Corresponds to SCTE-35 segmentation\_type\_id. One of the
-  /// segmentation\_type\_id values listed in the SCTE-35 specification. On the
+  /// Corresponds to SCTE-35 segmentation_type_id. One of the
+  /// segmentation_type_id values listed in the SCTE-35 specification. On the
   /// console, enter the ID in decimal (for example, "52"). In the CLI, API, or
   /// an SDK, enter the ID in hex (for example, "0x34") or decimal (for example,
   /// "52").
   final int segmentationTypeId;
 
-  /// Corresponds to SCTE-35 segmentation\_upid. Enter a string containing the
+  /// Corresponds to SCTE-35 segmentation_upid. Enter a string containing the
   /// hexadecimal representation of the characters that make up the SCTE-35
-  /// segmentation\_upid value. Must contain an even number of hex characters.
-  /// Do not include spaces between each hex pair. For example, the ASCII "ADS
+  /// segmentation_upid value. Must contain an even number of hex characters. Do
+  /// not include spaces between each hex pair. For example, the ASCII "ADS
   /// Information" becomes hex "41445320496e666f726d6174696f6e.
   final String segmentationUpid;
 
-  /// Corresponds to SCTE-35 segmentation\_upid\_type. On the console, enter one
+  /// Corresponds to SCTE-35 segmentation_upid_type. On the console, enter one
   /// of the types listed in the SCTE-35 specification, converted to a decimal.
   /// For example, "0x0C" hex from the specification is "12" in decimal. In the
   /// CLI, API, or an SDK, enter one of the types listed in the SCTE-35
@@ -5125,16 +5288,16 @@ class Scte35SegmentationDescriptor {
   /// example, "12").
   final int segmentationUpidType;
 
-  /// Corresponds to SCTE-35 segments\_expected. A value that is valid for the
-  /// specified segmentation\_type_id.
+  /// Corresponds to SCTE-35 segments_expected. A value that is valid for the
+  /// specified segmentation_type_id.
   final int segmentsExpected;
 
-  /// Corresponds to SCTE-35 sub\_segment\_num. A value that is valid for the
-  /// specified segmentation\_type\_id.
+  /// Corresponds to SCTE-35 sub_segment_num. A value that is valid for the
+  /// specified segmentation_type_id.
   final int subSegmentNum;
 
-  /// Corresponds to SCTE-35 sub\_segments\_expected. A value that is valid for
-  /// the specified segmentation\_type\_id.
+  /// Corresponds to SCTE-35 sub_segments_expected. A value that is valid for
+  /// the specified segmentation_type_id.
   final int subSegmentsExpected;
 
   Scte35SegmentationDescriptor({
@@ -5154,6 +5317,7 @@ class Scte35SegmentationDescriptor {
       Scte35SegmentationDescriptor();
 }
 
+/// Scte35 Splice Insert
 class Scte35SpliceInsert {
   /// When specified, this offset (in milliseconds) is added to the input Ad
   /// Avail PTS time. This only applies to embedded SCTE 104/35 messages and
@@ -5177,18 +5341,17 @@ class Scte35SpliceInsert {
       Scte35SpliceInsert();
 }
 
+/// Settings for a SCTE-35 splice_insert message.
 class Scte35SpliceInsertScheduleActionSettings {
-  /// Optional, the duration for the splice\_insert, in 90 KHz ticks. To convert
+  /// Optional, the duration for the splice_insert, in 90 KHz ticks. To convert
   /// seconds to ticks, multiple the seconds by 90,000. If you enter a duration,
   /// there is an expectation that the downstream system can read the duration
-  /// and cue in at that time. If you do not enter a duration, the
-  /// splice\_insert will continue indefinitely and there is an expectation that
-  /// you will enter a return\_to\_network to end the splice_insert at the
-  /// appropriate time.
+  /// and cue in at that time. If you do not enter a duration, the splice_insert
+  /// will continue indefinitely and there is an expectation that you will enter
+  /// a return_to_network to end the splice_insert at the appropriate time.
   final BigInt duration;
 
-  /// The splice\_event\_id for the SCTE-35 splice_insert, as defined in
-  /// SCTE-35.
+  /// The splice_event_id for the SCTE-35 splice_insert, as defined in SCTE-35.
   final BigInt spliceEventId;
 
   Scte35SpliceInsertScheduleActionSettings({
@@ -5200,6 +5363,7 @@ class Scte35SpliceInsertScheduleActionSettings {
       Scte35SpliceInsertScheduleActionSettings();
 }
 
+/// Scte35 Time Signal Apos
 class Scte35TimeSignalApos {
   /// When specified, this offset (in milliseconds) is added to the input Ad
   /// Avail PTS time. This only applies to embedded SCTE 104/35 messages and
@@ -5223,6 +5387,7 @@ class Scte35TimeSignalApos {
       Scte35TimeSignalApos();
 }
 
+/// Settings for a SCTE-35 time_signal.
 class Scte35TimeSignalScheduleActionSettings {
   /// The list of SCTE-35 descriptors accompanying the SCTE-35 time_signal.
   final List<Scte35Descriptor> scte35Descriptors;
@@ -5235,12 +5400,14 @@ class Scte35TimeSignalScheduleActionSettings {
       Scte35TimeSignalScheduleActionSettings();
 }
 
+/// Smpte Tt Destination Settings
 class SmpteTtDestinationSettings {
   SmpteTtDestinationSettings();
   static SmpteTtDestinationSettings fromJson(Map<String, dynamic> json) =>
       SmpteTtDestinationSettings();
 }
 
+/// Standard Hls Settings
 class StandardHlsSettings {
   /// List all the audio groups that are used with the video output stream.
   /// Input all the audio GROUP-IDs that are associated to the video, separate
@@ -5257,6 +5424,7 @@ class StandardHlsSettings {
       StandardHlsSettings();
 }
 
+/// Placeholder documentation for StartChannelResponse
 class StartChannelResponse {
   /// The unique arn of the channel.
   final String arn;
@@ -5325,6 +5493,7 @@ class StartChannelResponse {
       StartChannelResponse();
 }
 
+/// Settings to identify the start of the clip.
 class StartTimecode {
   /// The timecode for the frame where you want to start the clip. Optional; if
   /// not specified, the clip starts at first frame in the file. Enter the
@@ -5337,6 +5506,7 @@ class StartTimecode {
   static StartTimecode fromJson(Map<String, dynamic> json) => StartTimecode();
 }
 
+/// Settings for the action to activate a static image.
 class StaticImageActivateScheduleActionSettings {
   /// The duration in milliseconds for the image to remain on the video. If
   /// omitted or set to 0 the duration is unlimited and the image will remain
@@ -5406,6 +5576,7 @@ class StaticImageActivateScheduleActionSettings {
       StaticImageActivateScheduleActionSettings();
 }
 
+/// Settings for the action to deactivate the image in a specific layer.
 class StaticImageDeactivateScheduleActionSettings {
   /// The time in milliseconds for the image to fade out. Default is 0 (no
   /// fade-out).
@@ -5423,6 +5594,7 @@ class StaticImageDeactivateScheduleActionSettings {
       StaticImageDeactivateScheduleActionSettings();
 }
 
+/// Static Key Settings
 class StaticKeySettings {
   /// The URL of the license server used for protecting content.
   final InputLocation keyProviderServer;
@@ -5438,6 +5610,7 @@ class StaticKeySettings {
       StaticKeySettings();
 }
 
+/// Placeholder documentation for StopChannelResponse
 class StopChannelResponse {
   /// The unique arn of the channel.
   final String arn;
@@ -5506,6 +5679,7 @@ class StopChannelResponse {
       StopChannelResponse();
 }
 
+/// Settings to identify the end of the clip.
 class StopTimecode {
   /// If you specify a StopTimecode in an input (in order to clip the file), you
   /// can specify if you want the clip to exclude (the default) or include the
@@ -5524,12 +5698,14 @@ class StopTimecode {
   static StopTimecode fromJson(Map<String, dynamic> json) => StopTimecode();
 }
 
+/// Teletext Destination Settings
 class TeletextDestinationSettings {
   TeletextDestinationSettings();
   static TeletextDestinationSettings fromJson(Map<String, dynamic> json) =>
       TeletextDestinationSettings();
 }
 
+/// Teletext Source Settings
 class TeletextSourceSettings {
   /// Specifies the teletext page number within the data stream from which to
   /// extract captions. Range of 0x100 (256) to 0x8FF (2303). Unused for
@@ -5544,6 +5720,7 @@ class TeletextSourceSettings {
       TeletextSourceSettings();
 }
 
+/// Timecode Config
 class TimecodeConfig {
   /// Identifies the source for the timecode that will be associated with the
   /// events outputs. -Embedded (embedded): Initialize the output timecode with
@@ -5566,6 +5743,7 @@ class TimecodeConfig {
   static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig();
 }
 
+/// Ttml Destination Settings
 class TtmlDestinationSettings {
   /// When set to passthrough, passes through style and position information
   /// from a TTML-like input source (TTML, SMPTE-TT, CFF-TT) to the CFF-TT
@@ -5579,6 +5757,7 @@ class TtmlDestinationSettings {
       TtmlDestinationSettings();
 }
 
+/// Udp Container Settings
 class UdpContainerSettings {
   final M2TsSettings m2TsSettings;
 
@@ -5589,6 +5768,7 @@ class UdpContainerSettings {
       UdpContainerSettings();
 }
 
+/// Udp Group Settings
 class UdpGroupSettings {
   /// Specifies behavior of last resort when input video is lost, and no more
   /// backup inputs are available. When dropTs is selected the entire transport
@@ -5614,6 +5794,7 @@ class UdpGroupSettings {
       UdpGroupSettings();
 }
 
+/// Udp Output Settings
 class UdpOutputSettings {
   /// UDP output buffering in milliseconds. Larger values increase latency
   /// through the transcoder but simultaneously assist the transcoder in
@@ -5643,6 +5824,7 @@ class UdpOutputSettings {
       UdpOutputSettings();
 }
 
+/// Placeholder documentation for UpdateChannelClassResponse
 class UpdateChannelClassResponse {
   final Channel channel;
 
@@ -5653,6 +5835,7 @@ class UpdateChannelClassResponse {
       UpdateChannelClassResponse();
 }
 
+/// Placeholder documentation for UpdateChannelResponse
 class UpdateChannelResponse {
   final Channel channel;
 
@@ -5663,6 +5846,7 @@ class UpdateChannelResponse {
       UpdateChannelResponse();
 }
 
+/// Placeholder documentation for UpdateInputResponse
 class UpdateInputResponse {
   final Input input;
 
@@ -5673,6 +5857,7 @@ class UpdateInputResponse {
       UpdateInputResponse();
 }
 
+/// Placeholder documentation for UpdateInputSecurityGroupResponse
 class UpdateInputSecurityGroupResponse {
   final InputSecurityGroup securityGroup;
 
@@ -5683,6 +5868,7 @@ class UpdateInputSecurityGroupResponse {
       UpdateInputSecurityGroupResponse();
 }
 
+/// Placeholder documentation for UpdateReservationResponse
 class UpdateReservationResponse {
   final Reservation reservation;
 
@@ -5693,6 +5879,7 @@ class UpdateReservationResponse {
       UpdateReservationResponse();
 }
 
+/// Video Codec Settings
 class VideoCodecSettings {
   final FrameCaptureSettings frameCaptureSettings;
 
@@ -5709,6 +5896,7 @@ class VideoCodecSettings {
       VideoCodecSettings();
 }
 
+/// Video settings for this stream.
 class VideoDescription {
   /// Video codec settings.
   final VideoCodecSettings codecSettings;
@@ -5766,6 +5954,8 @@ class VideoDescription {
       VideoDescription();
 }
 
+/// Specifies a particular video stream within an input source. An input may
+/// have only a single video selector.
 class VideoSelector {
   /// Specifies the color space of an input. This setting works in tandem with
   /// colorSpaceUsage and a video description's colorSpaceSettingsChoice to
@@ -5794,6 +5984,7 @@ class VideoSelector {
   static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector();
 }
 
+/// Video Selector Pid
 class VideoSelectorPid {
   /// Selects a specific PID from within a video source.
   final int pid;
@@ -5805,6 +5996,7 @@ class VideoSelectorPid {
       VideoSelectorPid();
 }
 
+/// Video Selector Program Id
 class VideoSelectorProgramId {
   /// Selects a specific program from within a multi-program transport stream.
   /// If the program doesn't exist, the first program within the transport
@@ -5818,6 +6010,7 @@ class VideoSelectorProgramId {
       VideoSelectorProgramId();
 }
 
+/// Video Selector Settings
 class VideoSelectorSettings {
   final VideoSelectorPid videoSelectorPid;
 
@@ -5831,6 +6024,7 @@ class VideoSelectorSettings {
       VideoSelectorSettings();
 }
 
+/// Webvtt Destination Settings
 class WebvttDestinationSettings {
   WebvttDestinationSettings();
   static WebvttDestinationSettings fromJson(Map<String, dynamic> json) =>

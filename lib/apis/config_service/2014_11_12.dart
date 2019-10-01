@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 /// resource can be an Amazon Compute Cloud (Amazon EC2) instance, an Elastic
 /// Block Store (EBS) volume, an elastic network Interface (ENI), or a security
 /// group. For a complete list of resources currently supported by AWS Config,
-/// see [Supported AWS
-/// Resources](https://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources).
+/// see
+/// [Supported AWS Resources](https://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources).
 ///
 /// You can access and manage AWS Config through the AWS Management Console, the
 /// AWS Command Line Interface (AWS CLI), the AWS Config API, or the AWS SDKs
@@ -18,12 +18,11 @@ import 'package:meta/meta.dart';
 /// Config API and the AWS CLI commands that you can use to manage AWS Config.
 /// The AWS Config API uses the Signature Version 4 protocol for signing
 /// requests. For more information about how to sign a request with this
-/// protocol, see [Signature Version 4 Signing
-/// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+/// protocol, see
+/// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 /// For detailed information about AWS Config features and their associated
 /// actions or commands, as well as how to work with AWS Management Console, see
-/// [What Is AWS
-/// Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
+/// [What Is AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
 /// in the _AWS Config Developer Guide_.
 class ConfigServiceApi {
   /// Returns the current configuration items for resources that are present in
@@ -144,7 +143,7 @@ class ConfigServiceApi {
   /// results from all member accounts in that organization. Only a master
   /// account can delete an organization config rule.
   ///
-  /// AWS Config sets the state of a rule to DELETE\_IN\_PROGRESS until the
+  /// AWS Config sets the state of a rule to DELETE_IN_PROGRESS until the
   /// deletion is complete. You cannot update a rule while it is in this state.
   ///
   /// [organizationConfigRuleName]: The name of organization config rule that
@@ -369,8 +368,8 @@ class ConfigServiceApi {
   /// This parameter is required if the rule limit for your account is more than
   /// the default of 150 rules.
   ///
-  /// For information about requesting a rule limit increase, see [AWS Config
-  /// Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config)
+  /// For information about requesting a rule limit increase, see
+  /// [AWS Config Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config)
   /// in the _AWS General Reference Guide_.
   Future<DescribeConfigRuleEvaluationStatusResponse>
       describeConfigRuleEvaluationStatus(
@@ -729,7 +728,7 @@ class ConfigServiceApi {
   /// [filters]: Filters the results based on the
   /// ConfigRuleComplianceSummaryFilters object.
   ///
-  /// [groupByKey]: Groups the result based on ACCOUNT\_ID or AWS\_REGION.
+  /// [groupByKey]: Groups the result based on ACCOUNT_ID or AWS_REGION.
   ///
   /// [limit]: The maximum number of evaluation results returned on each page.
   /// The default is 1000. You cannot specify a number greater than 1000. If you
@@ -1135,8 +1134,8 @@ class ConfigServiceApi {
   ///
   /// If you are adding an AWS managed Config rule, specify the rule's
   /// identifier for the `SourceIdentifier` key. To reference AWS managed Config
-  /// rule identifiers, see [About AWS Managed Config
-  /// Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
+  /// rule identifiers, see
+  /// [About AWS Managed Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
   ///
   /// For any new rule that you add, specify the `ConfigRuleName` in the
   /// `ConfigRule` object. Do not specify the `ConfigRuleArn` or the
@@ -1148,13 +1147,12 @@ class ConfigServiceApi {
   ///
   /// The maximum number of rules that AWS Config supports is 150.
   ///
-  /// For information about requesting a rule limit increase, see [AWS Config
-  /// Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config)
+  /// For information about requesting a rule limit increase, see
+  /// [AWS Config Limits](http://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html#limits_config)
   /// in the _AWS General Reference Guide_.
   ///
   /// For more information about developing and using AWS Config rules, see
-  /// [Evaluating AWS Resource Configurations with AWS
-  /// Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html)
+  /// [Evaluating AWS Resource Configurations with AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html)
   /// in the _AWS Config Developer Guide_.
   ///
   /// [configRule]: The rule that you want to add to your account.
@@ -1370,8 +1368,8 @@ class ConfigServiceApi {
   /// corresponding search, and returns resource configurations matching the
   /// properties.
   ///
-  /// For more information about query components, see the  [**Query
-  /// Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html)
+  /// For more information about query components, see the
+  /// [**Query Components**](https://docs.aws.amazon.com/config/latest/developerguide/query-components.html)
   ///  section in the AWS Config Developer Guide.
   ///
   /// [expression]: The SQL query `SELECT` command.
@@ -1490,6 +1488,7 @@ class ConfigServiceApi {
       {@required String resourceArn, @required List<String> tagKeys}) async {}
 }
 
+/// A collection of accounts and regions.
 class AccountAggregationSource {
   /// The 12-digit account ID of the account being aggregated.
   final List<String> accountIds;
@@ -1509,6 +1508,11 @@ class AccountAggregationSource {
       AccountAggregationSource();
 }
 
+/// Indicates whether an AWS Config rule is compliant based on account ID,
+/// region, compliance, and rule name.
+///
+/// A rule is compliant if all of the resources that the rule evaluated comply
+/// with it. It is noncompliant if any of these resources do not comply.
 class AggregateComplianceByConfigRule {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -1533,6 +1537,8 @@ class AggregateComplianceByConfigRule {
       AggregateComplianceByConfigRule();
 }
 
+/// Returns the number of compliant and noncompliant rules for one or more
+/// accounts and regions in an aggregator.
 class AggregateComplianceCount {
   /// The 12-digit account ID or region based on the GroupByKey value.
   final String groupName;
@@ -1548,6 +1554,9 @@ class AggregateComplianceCount {
       AggregateComplianceCount();
 }
 
+/// The details of an AWS Config evaluation for an account ID and region in an
+/// aggregator. Provides the AWS resource that was evaluated, the compliance of
+/// the resource, related time stamps, and supplementary information.
 class AggregateEvaluationResult {
   /// Uniquely identifies the evaluation result.
   final EvaluationResultIdentifier evaluationResultIdentifier;
@@ -1588,6 +1597,9 @@ class AggregateEvaluationResult {
       AggregateEvaluationResult();
 }
 
+/// The details that identify a resource that is collected by AWS Config
+/// aggregator, including the resource type, ID, (if available) the custom
+/// resource name, the source account, and source region.
 class AggregateResourceIdentifier {
   /// The 12-digit account ID of the source account.
   final String sourceAccountId;
@@ -1615,6 +1627,7 @@ class AggregateResourceIdentifier {
       AggregateResourceIdentifier();
 }
 
+/// The current sync status between the source and the aggregator account.
 class AggregatedSourceStatus {
   /// The source account ID or an organization.
   final String sourceId;
@@ -1658,6 +1671,8 @@ class AggregatedSourceStatus {
       AggregatedSourceStatus();
 }
 
+/// An object that represents the authorizations granted to aggregator accounts
+/// and regions.
 class AggregationAuthorization {
   /// The Amazon Resource Name (ARN) of the aggregation object.
   final String aggregationAuthorizationArn;
@@ -1681,6 +1696,7 @@ class AggregationAuthorization {
       AggregationAuthorization();
 }
 
+/// The detailed configuration of a specified resource.
 class BaseConfigurationItem {
   /// The version number of the resource configuration.
   final String version;
@@ -1783,6 +1799,8 @@ class BatchGetResourceConfigResponse {
       BatchGetResourceConfigResponse();
 }
 
+/// Indicates whether an AWS resource or AWS Config rule is compliant and
+/// provides the number of contributors that affect the compliance.
 class Compliance {
   /// Indicates whether an AWS resource or AWS Config rule is compliant.
   ///
@@ -1812,6 +1830,9 @@ class Compliance {
   static Compliance fromJson(Map<String, dynamic> json) => Compliance();
 }
 
+/// Indicates whether an AWS Config rule is compliant. A rule is compliant if
+/// all of the resources that the rule evaluated comply with it. A rule is
+/// noncompliant if any of these resources do not comply.
 class ComplianceByConfigRule {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -1827,6 +1848,10 @@ class ComplianceByConfigRule {
       ComplianceByConfigRule();
 }
 
+/// Indicates whether an AWS resource that is evaluated according to one or more
+/// AWS Config rules is compliant. A resource is compliant if it complies with
+/// all of the rules that evaluate it. A resource is noncompliant if it does not
+/// comply with one or more of these rules.
 class ComplianceByResource {
   /// The type of the AWS resource that was evaluated.
   final String resourceType;
@@ -1847,6 +1872,8 @@ class ComplianceByResource {
       ComplianceByResource();
 }
 
+/// The number of AWS resources or AWS Config rules responsible for the current
+/// compliance of the item, up to a maximum number.
 class ComplianceContributorCount {
   /// The number of AWS resources or AWS Config rules responsible for the
   /// current compliance of the item.
@@ -1863,6 +1890,8 @@ class ComplianceContributorCount {
       ComplianceContributorCount();
 }
 
+/// The number of AWS Config rules or AWS resources that are compliant and
+/// noncompliant.
 class ComplianceSummary {
   /// The number of AWS Config rules or AWS resources that are compliant, up to
   /// a maximum of 25 for rules and 100 for resources.
@@ -1884,6 +1913,8 @@ class ComplianceSummary {
       ComplianceSummary();
 }
 
+/// The number of AWS resources of a specific type that are compliant or
+/// noncompliant, up to a maximum of 100 for each.
 class ComplianceSummaryByResourceType {
   /// The type of AWS resource.
   final String resourceType;
@@ -1900,6 +1931,9 @@ class ComplianceSummaryByResourceType {
       ComplianceSummaryByResourceType();
 }
 
+/// Provides status of the delivery of the snapshot or the configuration history
+/// to the specified Amazon S3 bucket. Also provides the status of notifications
+/// about the Amazon S3 delivery to the specified Amazon SNS topic.
 class ConfigExportDeliveryInfo {
   /// Status of the last attempted delivery.
   final String lastStatus;
@@ -1931,6 +1965,21 @@ class ConfigExportDeliveryInfo {
       ConfigExportDeliveryInfo();
 }
 
+/// An AWS Config rule represents an AWS Lambda function that you create for a
+/// custom rule or a predefined function for an AWS managed rule. The function
+/// evaluates configuration items to assess whether your AWS resources comply
+/// with your desired configurations. This function can run when AWS Config
+/// detects a configuration change to an AWS resource and at a periodic
+/// frequency that you choose (for example, every 24 hours).
+///
+///  You can use the AWS CLI and AWS SDKs if you want to create a rule that
+/// triggers evaluations for your resources when AWS Config delivers the
+/// configuration snapshot. For more information, see
+/// ConfigSnapshotDeliveryProperties.
+///
+/// For more information about developing and using AWS Config rules, see
+/// [Evaluating AWS Resource Configurations with AWS Config](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config.html)
+/// in the _AWS Config Developer Guide_.
 class ConfigRule {
   /// The name that you assign to the AWS Config rule. The name is required if
   /// you are adding a new rule.
@@ -2020,6 +2069,8 @@ class ConfigRule {
   static ConfigRule fromJson(Map<String, dynamic> json) => ConfigRule();
 }
 
+/// Filters the compliance results based on account ID, region, compliance type,
+/// and rule name.
 class ConfigRuleComplianceFilters {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -2045,6 +2096,7 @@ class ConfigRuleComplianceFilters {
   });
 }
 
+/// Filters the results based on the account IDs and regions.
 class ConfigRuleComplianceSummaryFilters {
   /// The 12-digit account ID of the source account.
   final String accountId;
@@ -2058,6 +2110,12 @@ class ConfigRuleComplianceSummaryFilters {
   });
 }
 
+/// Status information for your AWS managed Config rules. The status includes
+/// information such as the last time the rule ran, the last time it failed, and
+/// the related error for the last failure.
+///
+/// This action does not return status information about custom AWS Config
+/// rules.
 class ConfigRuleEvaluationStatus {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -2096,10 +2154,10 @@ class ConfigRuleEvaluationStatus {
   /// Indicates whether AWS Config has evaluated your resources against the rule
   /// at least once.
   ///
-  /// *    `true` \- AWS Config has evaluated your AWS resources against the
-  /// rule at least once.
+  /// *    `true` - AWS Config has evaluated your AWS resources against the rule
+  /// at least once.
   ///
-  /// *    `false` \- AWS Config has not once finished evaluating your AWS
+  /// *    `false` - AWS Config has not once finished evaluating your AWS
   /// resources against the rule.
   final bool firstEvaluationStarted;
 
@@ -2120,6 +2178,46 @@ class ConfigRuleEvaluationStatus {
       ConfigRuleEvaluationStatus();
 }
 
+/// Provides options for how often AWS Config delivers configuration snapshots
+/// to the Amazon S3 bucket in your delivery channel.
+///
+/// The frequency for a rule that triggers evaluations for your resources when
+/// AWS Config delivers the configuration snapshot is set by one of two values,
+/// depending on which is less frequent:
+///
+/// *   The value for the `deliveryFrequency` parameter within the delivery
+/// channel configuration, which sets how often AWS Config delivers
+/// configuration snapshots. This value also sets how often AWS Config invokes
+/// evaluations for AWS Config rules.
+///
+/// *   The value for the `MaximumExecutionFrequency` parameter, which sets the
+/// maximum frequency with which AWS Config invokes evaluations for the rule.
+/// For more information, see ConfigRule.
+///
+///
+/// If the `deliveryFrequency` value is less frequent than the
+/// `MaximumExecutionFrequency` value for a rule, AWS Config invokes the rule
+/// only as often as the `deliveryFrequency` value.
+///
+/// 1.  For example, you want your rule to run evaluations when AWS Config
+/// delivers the configuration snapshot.
+///
+/// 2.  You specify the `MaximumExecutionFrequency` value for `Six_Hours`.
+///
+/// 3.  You then specify the delivery channel `deliveryFrequency` value for
+/// `TwentyFour_Hours`.
+///
+/// 4.  Because the value for `deliveryFrequency` is less frequent than
+/// `MaximumExecutionFrequency`, AWS Config invokes evaluations for the rule
+/// every 24 hours.
+///
+///
+/// You should set the `MaximumExecutionFrequency` value to be at least as
+/// frequent as the `deliveryFrequency` value. You can view the
+/// `deliveryFrequency` value by using the `DescribeDeliveryChannnels` action.
+///
+/// To update the `deliveryFrequency` with which AWS Config delivers your
+/// configuration snapshots, use the `PutDeliveryChannel` action.
 class ConfigSnapshotDeliveryProperties {
   /// The frequency with which AWS Config delivers configuration snapshots.
   final String deliveryFrequency;
@@ -2131,6 +2229,8 @@ class ConfigSnapshotDeliveryProperties {
       ConfigSnapshotDeliveryProperties();
 }
 
+/// A list that contains the status of the delivery of the configuration stream
+/// notification to the Amazon SNS topic.
 class ConfigStreamDeliveryInfo {
   /// Status of the last attempted delivery.
   ///
@@ -2159,6 +2259,8 @@ class ConfigStreamDeliveryInfo {
       ConfigStreamDeliveryInfo();
 }
 
+/// The details about the configuration aggregator, including information about
+/// source accounts, regions, and metadata of the aggregator.
 class ConfigurationAggregator {
   /// The name of the aggregator.
   final String configurationAggregatorName;
@@ -2190,6 +2292,7 @@ class ConfigurationAggregator {
       ConfigurationAggregator();
 }
 
+/// A list that contains detailed configurations of a specified resource.
 class ConfigurationItem {
   /// The version number of the resource configuration.
   final String version;
@@ -2241,8 +2344,8 @@ class ConfigurationItem {
   ///
   /// A populated field indicates that the current configuration was initiated
   /// by the events recorded in the CloudTrail log. For more information about
-  /// CloudTrail, see [What Is AWS
-  /// CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
+  /// CloudTrail, see
+  /// [What Is AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
   ///
   /// An empty field indicates that the current configuration was not initiated
   /// by any event.
@@ -2283,6 +2386,8 @@ class ConfigurationItem {
       ConfigurationItem();
 }
 
+/// An object that represents the recording of configuration changes of an AWS
+/// resource.
 class ConfigurationRecorder {
   /// The name of the recorder. By default, AWS Config automatically assigns the
   /// name "default" when creating the configuration recorder. You cannot change
@@ -2306,6 +2411,7 @@ class ConfigurationRecorder {
       ConfigurationRecorder();
 }
 
+/// The current status of the configuration recorder.
 class ConfigurationRecorderStatus {
   /// The name of the configuration recorder.
   final String name;
@@ -2345,6 +2451,8 @@ class ConfigurationRecorderStatus {
       ConfigurationRecorderStatus();
 }
 
+/// The output when you delete the evaluation results for the specified AWS
+/// Config rule.
 class DeleteEvaluationResultsResponse {
   DeleteEvaluationResultsResponse();
   static DeleteEvaluationResultsResponse fromJson(Map<String, dynamic> json) =>
@@ -2372,6 +2480,7 @@ class DeleteRemediationExceptionsResponse {
       DeleteRemediationExceptionsResponse();
 }
 
+/// The output for the DeliverConfigSnapshot action, in JSON format.
 class DeliverConfigSnapshotResponse {
   /// The ID of the snapshot that is being created.
   final String configSnapshotId;
@@ -2383,6 +2492,8 @@ class DeliverConfigSnapshotResponse {
       DeliverConfigSnapshotResponse();
 }
 
+/// The channel through which AWS Config delivers notifications and updated
+/// configuration states.
 class DeliveryChannel {
   /// The name of the delivery channel. By default, AWS Config assigns the name
   /// "default" when creating the delivery channel. To change the delivery
@@ -2396,8 +2507,8 @@ class DeliveryChannel {
   ///
   /// If you specify a bucket that belongs to another AWS account, that bucket
   /// must have policies that grant access permissions to AWS Config. For more
-  /// information, see [Permissions for the Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-policy.html)
+  /// information, see
+  /// [Permissions for the Amazon S3 Bucket](https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-policy.html)
   /// in the AWS Config Developer Guide.
   final String s3BucketName;
 
@@ -2409,8 +2520,7 @@ class DeliveryChannel {
   ///
   /// If you choose a topic from another account, the topic must have policies
   /// that grant access permissions to AWS Config. For more information, see
-  /// [Permissions for the Amazon SNS
-  /// Topic](https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html)
+  /// [Permissions for the Amazon SNS Topic](https://docs.aws.amazon.com/config/latest/developerguide/sns-topic-policy.html)
   /// in the AWS Config Developer Guide.
   final String snsTopicArn;
 
@@ -2429,6 +2539,9 @@ class DeliveryChannel {
       DeliveryChannel();
 }
 
+/// The status of a specified delivery channel.
+///
+/// Valid values: `Success` | `Failure`
 class DeliveryChannelStatus {
   /// The name of the delivery channel.
   final String name;
@@ -2592,6 +2705,8 @@ class DescribeConfigurationAggregatorsResponse {
       DescribeConfigurationAggregatorsResponse();
 }
 
+/// The output for the DescribeConfigurationRecorderStatus action, in JSON
+/// format.
 class DescribeConfigurationRecorderStatusResponse {
   /// A list that contains status of the specified recorders.
   final List<ConfigurationRecorderStatus> configurationRecordersStatus;
@@ -2604,6 +2719,7 @@ class DescribeConfigurationRecorderStatusResponse {
       DescribeConfigurationRecorderStatusResponse();
 }
 
+/// The output for the DescribeConfigurationRecorders action.
 class DescribeConfigurationRecordersResponse {
   /// A list that contains the descriptions of the specified configuration
   /// recorders.
@@ -2617,6 +2733,7 @@ class DescribeConfigurationRecordersResponse {
       DescribeConfigurationRecordersResponse();
 }
 
+/// The output for the DescribeDeliveryChannelStatus action.
 class DescribeDeliveryChannelStatusResponse {
   /// A list that contains the status of a specified delivery channel.
   final List<DeliveryChannelStatus> deliveryChannelsStatus;
@@ -2629,6 +2746,7 @@ class DescribeDeliveryChannelStatusResponse {
       DescribeDeliveryChannelStatusResponse();
 }
 
+/// The output for the DescribeDeliveryChannels action.
 class DescribeDeliveryChannelsResponse {
   /// A list that contains the descriptions of the specified delivery channel.
   final List<DeliveryChannel> deliveryChannels;
@@ -2754,6 +2872,8 @@ class DescribeRetentionConfigurationsResponse {
       DescribeRetentionConfigurationsResponse();
 }
 
+/// Identifies an AWS resource and indicates whether it complies with the AWS
+/// Config rule that it was evaluated against.
 class Evaluation {
   /// The type of AWS resource that was evaluated.
   final String complianceResourceType;
@@ -2795,6 +2915,9 @@ class Evaluation {
   static Evaluation fromJson(Map<String, dynamic> json) => Evaluation();
 }
 
+/// The details of an AWS Config evaluation. Provides the AWS resource that was
+/// evaluated, the compliance of the resource, related time stamps, and
+/// supplementary information.
 class EvaluationResult {
   /// Uniquely identifies the evaluation result.
   final EvaluationResultIdentifier evaluationResultIdentifier;
@@ -2835,6 +2958,7 @@ class EvaluationResult {
       EvaluationResult();
 }
 
+/// Uniquely identifies an evaluation result.
 class EvaluationResultIdentifier {
   /// Identifies an AWS Config rule used to evaluate an AWS resource, and
   /// provides the type and ID of the evaluated resource.
@@ -2854,6 +2978,8 @@ class EvaluationResultIdentifier {
       EvaluationResultIdentifier();
 }
 
+/// Identifies an AWS Config rule that evaluated an AWS resource, and provides
+/// the type and ID of the resource that the rule evaluated.
 class EvaluationResultQualifier {
   /// The name of the AWS Config rule that was used in the evaluation.
   final String configRuleName;
@@ -2873,6 +2999,7 @@ class EvaluationResultQualifier {
       EvaluationResultQualifier();
 }
 
+/// The controls that AWS Config uses for executing remediations.
 class ExecutionControls {
   /// A SsmControls object.
   final SsmControls ssmControls;
@@ -2884,6 +3011,8 @@ class ExecutionControls {
       ExecutionControls();
 }
 
+/// List of each of the failed delete remediation exceptions with specific
+/// reasons.
 class FailedDeleteRemediationExceptionsBatch {
   /// Returns a failure message for delete remediation exception. For example,
   /// AWS Config creates an exception due to an internal error.
@@ -2901,6 +3030,7 @@ class FailedDeleteRemediationExceptionsBatch {
       FailedDeleteRemediationExceptionsBatch();
 }
 
+/// List of each of the failed remediations with specific reasons.
 class FailedRemediationBatch {
   /// Returns a failure message. For example, the resource is already compliant.
   final String failureMessage;
@@ -2916,6 +3046,7 @@ class FailedRemediationBatch {
       FailedRemediationBatch();
 }
 
+/// List of each of the failed remediation exceptions with specific reasons.
 class FailedRemediationExceptionBatch {
   /// Returns a failure message. For example, the auto-remediation has failed.
   final String failureMessage;
@@ -2931,6 +3062,7 @@ class FailedRemediationExceptionBatch {
       FailedRemediationExceptionBatch();
 }
 
+/// Details about the fields such as name of the field.
 class FieldInfo {
   /// Name of the field.
   final String name;
@@ -2959,7 +3091,7 @@ class GetAggregateComplianceDetailsByConfigRuleResponse {
 }
 
 class GetAggregateConfigRuleComplianceSummaryResponse {
-  /// Groups the result based on ACCOUNT\_ID or AWS\_REGION.
+  /// Groups the result based on ACCOUNT_ID or AWS_REGION.
   final String groupByKey;
 
   /// Returns a list of AggregateComplianceCounts object.
@@ -3134,6 +3266,7 @@ class GetOrganizationConfigRuleDetailedStatusResponse {
       GetOrganizationConfigRuleDetailedStatusResponse();
 }
 
+/// The output for the GetResourceConfigHistory action.
 class GetResourceConfigHistoryResponse {
   /// A list that contains the configuration history of one or more resources.
   final List<ConfigurationItem> configurationItems;
@@ -3150,6 +3283,7 @@ class GetResourceConfigHistoryResponse {
       GetResourceConfigHistoryResponse();
 }
 
+/// The count of resources that are grouped by the group name.
 class GroupedResourceCount {
   /// The name of the group that can be region, account ID, or resource type.
   /// For example, region1, region2 if the region was chosen as `GroupByKey`.
@@ -3217,6 +3351,9 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Organization config rule creation or deletion status in each member account.
+/// This includes the name of the rule, the status, error code and error message
+/// when the rule creation or deletion failed.
 class MemberAccountStatus {
   /// The 12-digit account ID of a member account.
   final String accountId;
@@ -3237,8 +3374,8 @@ class MemberAccountStatus {
   /// *    `CREATE_SUCCESSFUL` when config rule has been created in the member
   /// account.
   ///
-  /// *    `CREATE\_IN\_PROGRESS` when config rule is being created in the
-  /// member account.
+  /// *    `CREATE_IN_PROGRESS` when config rule is being created in the member
+  /// account.
   ///
   /// *    `CREATE_FAILED` when config rule creation has failed in the member
   /// account.
@@ -3246,8 +3383,8 @@ class MemberAccountStatus {
   /// *    `DELETE_FAILED` when config rule deletion has failed in the member
   /// account.
   ///
-  /// *    `DELETE\_IN\_PROGRESS` when config rule is being deleted in the
-  /// member account.
+  /// *    `DELETE_IN_PROGRESS` when config rule is being deleted in the member
+  /// account.
   ///
   /// *    `DELETE_SUCCESSFUL` when config rule has been deleted in the member
   /// account.
@@ -3255,8 +3392,8 @@ class MemberAccountStatus {
   /// *    `UPDATE_SUCCESSFUL` when config rule has been updated in the member
   /// account.
   ///
-  /// *    `UPDATE\_IN\_PROGRESS` when config rule is being updated in the
-  /// member account.
+  /// *    `UPDATE_IN_PROGRESS` when config rule is being updated in the member
+  /// account.
   ///
   /// *    `UPDATE_FAILED` when config rule deletion has failed in the member
   /// account.
@@ -3285,6 +3422,8 @@ class MemberAccountStatus {
       MemberAccountStatus();
 }
 
+/// This object contains regions to set up the aggregator and an IAM role to
+/// retrieve organization details.
 class OrganizationAggregationSource {
   /// ARN of the IAM role used to retrieve AWS Organization details associated
   /// with the aggregator account.
@@ -3305,6 +3444,8 @@ class OrganizationAggregationSource {
       OrganizationAggregationSource();
 }
 
+/// An organization config rule that has information about config rules that AWS
+/// Config creates in member accounts.
 class OrganizationConfigRule {
   /// The name that you assign to organization config rule.
   final String organizationConfigRuleName;
@@ -3336,6 +3477,7 @@ class OrganizationConfigRule {
       OrganizationConfigRule();
 }
 
+/// Returns the status for an organization config rule in an organization.
 class OrganizationConfigRuleStatus {
   /// The name that you assign to organization config rule.
   final String organizationConfigRuleName;
@@ -3355,8 +3497,8 @@ class OrganizationConfigRuleStatus {
   /// *    `CREATE_SUCCESSFUL` when an organization config rule has been
   /// successfully created in all the member accounts.
   ///
-  /// *    `CREATE\_IN\_PROGRESS` when an organization config rule creation is
-  /// in progress.
+  /// *    `CREATE_IN_PROGRESS` when an organization config rule creation is in
+  /// progress.
   ///
   /// *    `CREATE_FAILED` when an organization config rule creation failed in
   /// one or more member accounts within that organization.
@@ -3364,8 +3506,8 @@ class OrganizationConfigRuleStatus {
   /// *    `DELETE_FAILED` when an organization config rule deletion failed in
   /// one or more member accounts within that organization.
   ///
-  /// *    `DELETE\_IN\_PROGRESS` when an organization config rule deletion is
-  /// in progress.
+  /// *    `DELETE_IN_PROGRESS` when an organization config rule deletion is in
+  /// progress.
   ///
   /// *    `DELETE_SUCCESSFUL` when an organization config rule has been
   /// successfully deleted from all the member accounts.
@@ -3373,7 +3515,7 @@ class OrganizationConfigRuleStatus {
   /// *    `UPDATE_SUCCESSFUL` when an organization config rule has been
   /// successfully updated in all the member accounts.
   ///
-  /// *    `UPDATE\_IN\_PROGRESS` when an organization config rule update is in
+  /// *    `UPDATE_IN_PROGRESS` when an organization config rule update is in
   /// progress.
   ///
   /// *    `UPDATE_FAILED` when an organization config rule update failed in one
@@ -3402,6 +3544,11 @@ class OrganizationConfigRuleStatus {
       OrganizationConfigRuleStatus();
 }
 
+/// An object that specifies organization custom rule metadata such as resource
+/// type, resource ID of AWS resource, Lamdba function ARN, and organization
+/// trigger types that trigger AWS Config to evaluate your AWS resources against
+/// a rule. It also provides the frequency with which you want AWS Config to run
+/// evaluations for the rule if the trigger type is periodic.
 class OrganizationCustomRuleMetadata {
   /// The description that you provide for organization config rule.
   final String description;
@@ -3412,15 +3559,15 @@ class OrganizationCustomRuleMetadata {
   /// The type of notification that triggers AWS Config to run an evaluation for
   /// a rule. You can specify the following notification types:
   ///
-  /// *    `ConfigurationItemChangeNotification` \- Triggers an evaluation when
+  /// *    `ConfigurationItemChangeNotification` - Triggers an evaluation when
   /// AWS Config delivers a configuration item as a result of a resource change.
   ///
-  /// *    `OversizedConfigurationItemChangeNotification` \- Triggers an
+  /// *    `OversizedConfigurationItemChangeNotification` - Triggers an
   /// evaluation when AWS Config delivers an oversized configuration item. AWS
   /// Config may generate this notification type when a resource changes and the
   /// notification exceeds the maximum size allowed by Amazon SNS.
   ///
-  /// *    `ScheduledNotification` \- Triggers a periodic evaluation at the
+  /// *    `ScheduledNotification` - Triggers a periodic evaluation at the
   /// frequency specified for `MaximumExecutionFrequency`.
   final List<String> organizationConfigRuleTriggerTypes;
 
@@ -3468,14 +3615,18 @@ class OrganizationCustomRuleMetadata {
       OrganizationCustomRuleMetadata();
 }
 
+/// An object that specifies organization managed rule metadata such as resource
+/// type and ID of AWS resource along with the rule identifier. It also provides
+/// the frequency with which you want AWS Config to run evaluations for the rule
+/// if the trigger type is periodic.
 class OrganizationManagedRuleMetadata {
   /// The description that you provide for organization config rule.
   final String description;
 
   /// For organization config managed rules, a predefined identifier from a
-  /// list. For example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference
-  /// a managed rule, see [Using AWS Managed Config
-  /// Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
+  /// list. For example, `IAM_PASSWORD_POLICY` is a managed rule. To reference a
+  /// managed rule, see
+  /// [Using AWS Managed Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
   final String ruleIdentifier;
 
   /// A string, in JSON format, that is passed to organization config rule
@@ -3521,6 +3672,8 @@ class OrganizationManagedRuleMetadata {
       OrganizationManagedRuleMetadata();
 }
 
+/// An object that represents the account ID and region of an aggregator account
+/// that is requesting authorization but is not yet authorized.
 class PendingAggregationRequest {
   /// The 12-digit account ID of the account requesting to aggregate data.
   final String requesterAccountId;
@@ -3619,6 +3772,7 @@ class PutRetentionConfigurationResponse {
       PutRetentionConfigurationResponse();
 }
 
+/// Details about the query.
 class QueryInfo {
   /// Returns a `FieldInfo` object.
   final List<FieldInfo> selectFields;
@@ -3629,6 +3783,39 @@ class QueryInfo {
   static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo();
 }
 
+/// Specifies the types of AWS resource for which AWS Config records
+/// configuration changes.
+///
+/// In the recording group, you specify whether all supported types or specific
+/// types of resources are recorded.
+///
+/// By default, AWS Config records configuration changes for all supported types
+/// of regional resources that AWS Config discovers in the region in which it is
+/// running. Regional resources are tied to a region and can be used only in
+/// that region. Examples of regional resources are EC2 instances and EBS
+/// volumes.
+///
+/// You can also have AWS Config record configuration changes for supported
+/// types of global resources (for example, IAM resources). Global resources are
+/// not tied to an individual region and can be used in all regions.
+///
+///  The configuration details for any global resource are the same in all
+/// regions. If you customize AWS Config in multiple regions to record global
+/// resources, it will create multiple configuration items each time a global
+/// resource changes: one configuration item for each region. These
+/// configuration items will contain identical data. To prevent duplicate
+/// configuration items, you should consider customizing AWS Config in only one
+/// region to record global resources, unless you want the configuration items
+/// to be available in multiple regions.
+///
+/// If you don't want AWS Config to record all resources, you can specify which
+/// types of resources it will record with the `resourceTypes` parameter.
+///
+/// For a list of supported resource types, see
+/// [Supported Resource Types](https://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources).
+///
+/// For more information, see
+/// [Selecting Which Resources AWS Config Records](https://docs.aws.amazon.com/config/latest/developerguide/select-resources.html).
 class RecordingGroup {
   /// Specifies whether AWS Config records configuration changes for every
   /// supported type of regional resource.
@@ -3668,8 +3855,8 @@ class RecordingGroup {
   /// manually add that type to your recording group.
   ///
   /// For a list of valid `resourceTypes` values, see the **resourceType Value**
-  /// column in [Supported AWS Resource
-  /// Types](https://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources).
+  /// column in
+  /// [Supported AWS Resource Types](https://docs.aws.amazon.com/config/latest/developerguide/resource-config-reference.html#supported-resources).
   final List<String> resourceTypes;
 
   RecordingGroup({
@@ -3680,6 +3867,7 @@ class RecordingGroup {
   static RecordingGroup fromJson(Map<String, dynamic> json) => RecordingGroup();
 }
 
+/// The relationship of the related resource to the main resource.
 class Relationship {
   /// The resource type of the related resource.
   final String resourceType;
@@ -3702,6 +3890,9 @@ class Relationship {
   static Relationship fromJson(Map<String, dynamic> json) => Relationship();
 }
 
+/// An object that represents the details about the remediation configuration
+/// that includes the remediation action, parameters, and data to execute the
+/// action.
 class RemediationConfiguration {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -3768,6 +3959,9 @@ class RemediationConfiguration {
       RemediationConfiguration();
 }
 
+/// An object that represents the details about the remediation exception. The
+/// details include the rule name, an explanation of an exception, the time when
+/// the exception will be deleted, the resource ID, and resource type.
 class RemediationException {
   /// The name of the AWS Config rule.
   final String configRuleName;
@@ -3795,6 +3989,8 @@ class RemediationException {
       RemediationException();
 }
 
+/// The details that identify a resource within AWS Config, including the
+/// resource type and resource ID.
 class RemediationExceptionResourceKey {
   /// The type of a resource.
   final String resourceType;
@@ -3810,6 +4006,8 @@ class RemediationExceptionResourceKey {
       RemediationExceptionResourceKey();
 }
 
+/// Provides details of the current status of the invoked remediation action for
+/// that resource.
 class RemediationExecutionStatus {
   final ResourceKey resourceKey;
 
@@ -3836,6 +4034,7 @@ class RemediationExecutionStatus {
       RemediationExecutionStatus();
 }
 
+/// Name of the step from the SSM document.
 class RemediationExecutionStep {
   /// The details of the step.
   final String name;
@@ -3863,6 +4062,8 @@ class RemediationExecutionStep {
       RemediationExecutionStep();
 }
 
+/// The value is either a dynamic (resource) value or a static value. You must
+/// select either a dynamic value or a static value.
 class RemediationParameterValue {
   /// The value is dynamic and changes at run-time.
   final ResourceValue resourceValue;
@@ -3878,6 +4079,7 @@ class RemediationParameterValue {
       RemediationParameterValue();
 }
 
+/// An object that contains the resource type and the number of resources.
 class ResourceCount {
   /// The resource type (for example, `"AWS::EC2::Instance"`).
   final String resourceType;
@@ -3892,6 +4094,7 @@ class ResourceCount {
   static ResourceCount fromJson(Map<String, dynamic> json) => ResourceCount();
 }
 
+/// Filters the resource count based on account ID, region, and resource type.
 class ResourceCountFilters {
   /// The type of the AWS resource.
   final String resourceType;
@@ -3909,6 +4112,8 @@ class ResourceCountFilters {
   });
 }
 
+/// Filters the results by resource account ID, region, resource ID, and
+/// resource name.
 class ResourceFilters {
   /// The 12-digit source account ID.
   final String accountId;
@@ -3930,6 +4135,9 @@ class ResourceFilters {
   });
 }
 
+/// The details that identify a resource that is discovered by AWS Config,
+/// including the resource type, ID, and (if available) the custom resource
+/// name.
 class ResourceIdentifier {
   /// The type of resource.
   final String resourceType;
@@ -3953,6 +4161,8 @@ class ResourceIdentifier {
       ResourceIdentifier();
 }
 
+/// The details that identify a resource within AWS Config, including the
+/// resource type and resource ID.
 class ResourceKey {
   /// The resource type.
   final String resourceType;
@@ -3967,6 +4177,7 @@ class ResourceKey {
   static ResourceKey fromJson(Map<String, dynamic> json) => ResourceKey();
 }
 
+/// The dynamic value of the resource.
 class ResourceValue {
   /// The value is a resource ID.
   final String value;
@@ -3977,6 +4188,9 @@ class ResourceValue {
   static ResourceValue fromJson(Map<String, dynamic> json) => ResourceValue();
 }
 
+/// An object with the name of the retention configuration and the retention
+/// period in days. The object stores the configuration for data retention in
+/// AWS Config.
 class RetentionConfiguration {
   /// The name of the retention configuration object.
   final String name;
@@ -3996,6 +4210,12 @@ class RetentionConfiguration {
       RetentionConfiguration();
 }
 
+/// Defines which resources trigger an evaluation for an AWS Config rule. The
+/// scope can include one or more resource types, a combination of a tag key and
+/// value, or a combination of one resource type and one resource ID. Specify a
+/// scope to constrain which resources trigger an evaluation for a rule.
+/// Otherwise, evaluations for the rule are triggered when any resource in your
+/// recording group changes in configuration.
 class Scope {
   /// The resource types of only those AWS resources that you want to trigger an
   /// evaluation for the rule. You can only specify one type if you also specify
@@ -4045,19 +4265,21 @@ class SelectResourceConfigResponse {
       SelectResourceConfigResponse();
 }
 
+/// Provides the AWS Config rule owner (AWS or customer), the rule identifier,
+/// and the events that trigger the evaluation of your AWS resources.
 class Source {
   /// Indicates whether AWS or the customer owns and manages the AWS Config
   /// rule.
   final String owner;
 
   /// For AWS Config managed rules, a predefined identifier from a list. For
-  /// example, `IAM\_PASSWORD\_POLICY` is a managed rule. To reference a managed
-  /// rule, see [Using AWS Managed Config
-  /// Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
+  /// example, `IAM_PASSWORD_POLICY` is a managed rule. To reference a managed
+  /// rule, see
+  /// [Using AWS Managed Config Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html).
   ///
   /// For custom rules, the identifier is the Amazon Resource Name (ARN) of the
   /// rule's AWS Lambda function, such as
-  /// `arn:aws:lambda:us-east-2:123456789012:function:custom\_rule\_name`.
+  /// `arn:aws:lambda:us-east-2:123456789012:function:custom_rule_name`.
   final String sourceIdentifier;
 
   /// Provides the source and type of the event that causes AWS Config to
@@ -4072,6 +4294,11 @@ class Source {
   static Source fromJson(Map<String, dynamic> json) => Source();
 }
 
+/// Provides the source and the message types that trigger AWS Config to
+/// evaluate your AWS resources against a rule. It also provides the frequency
+/// with which you want AWS Config to run evaluations for the rule if the
+/// trigger type is periodic. You can specify the parameter values for
+/// `SourceDetail` only for custom rules.
 class SourceDetail {
   /// The source of the event, such as an AWS service, that triggers AWS Config
   /// to evaluate your AWS resources.
@@ -4080,18 +4307,18 @@ class SourceDetail {
   /// The type of notification that triggers AWS Config to run an evaluation for
   /// a rule. You can specify the following notification types:
   ///
-  /// *    `ConfigurationItemChangeNotification` \- Triggers an evaluation when
+  /// *    `ConfigurationItemChangeNotification` - Triggers an evaluation when
   /// AWS Config delivers a configuration item as a result of a resource change.
   ///
-  /// *    `OversizedConfigurationItemChangeNotification` \- Triggers an
+  /// *    `OversizedConfigurationItemChangeNotification` - Triggers an
   /// evaluation when AWS Config delivers an oversized configuration item. AWS
   /// Config may generate this notification type when a resource changes and the
   /// notification exceeds the maximum size allowed by Amazon SNS.
   ///
-  /// *    `ScheduledNotification` \- Triggers a periodic evaluation at the
+  /// *    `ScheduledNotification` - Triggers a periodic evaluation at the
   /// frequency specified for `MaximumExecutionFrequency`.
   ///
-  /// *    `ConfigurationSnapshotDeliveryCompleted` \- Triggers a periodic
+  /// *    `ConfigurationSnapshotDeliveryCompleted` - Triggers a periodic
   /// evaluation when AWS Config delivers a configuration snapshot.
   ///
   ///
@@ -4126,6 +4353,7 @@ class SourceDetail {
   static SourceDetail fromJson(Map<String, dynamic> json) => SourceDetail();
 }
 
+/// AWS Systems Manager (SSM) specific remediation controls.
 class SsmControls {
   /// The maximum percentage of remediation actions allowed to run in parallel
   /// on the non-compliant resources for that specific rule. You can specify a
@@ -4147,6 +4375,7 @@ class SsmControls {
   static SsmControls fromJson(Map<String, dynamic> json) => SsmControls();
 }
 
+/// The output when you start the evaluation for the specified AWS Config rule.
 class StartConfigRulesEvaluationResponse {
   StartConfigRulesEvaluationResponse();
   static StartConfigRulesEvaluationResponse fromJson(
@@ -4171,6 +4400,7 @@ class StartRemediationExecutionResponse {
       StartRemediationExecutionResponse();
 }
 
+/// The static value of the resource.
 class StaticValue {
   /// A list of values. For example, the ARN of the assumed role.
   final List<String> values;
@@ -4181,6 +4411,8 @@ class StaticValue {
   static StaticValue fromJson(Map<String, dynamic> json) => StaticValue();
 }
 
+/// Status filter object to filter results based on specific member account ID
+/// or status type for an organization config rule.
 class StatusDetailFilters {
   /// The 12-digit account ID of the member account within an organization.
   final String accountId;
@@ -4198,8 +4430,8 @@ class StatusDetailFilters {
   /// *    `CREATE_SUCCESSFUL` when config rule has been created in the member
   /// account.
   ///
-  /// *    `CREATE\_IN\_PROGRESS` when config rule is being created in the
-  /// member account.
+  /// *    `CREATE_IN_PROGRESS` when config rule is being created in the member
+  /// account.
   ///
   /// *    `CREATE_FAILED` when config rule creation has failed in the member
   /// account.
@@ -4207,8 +4439,8 @@ class StatusDetailFilters {
   /// *    `DELETE_FAILED` when config rule deletion has failed in the member
   /// account.
   ///
-  /// *    `DELETE\_IN\_PROGRESS` when config rule is being deleted in the
-  /// member account.
+  /// *    `DELETE_IN_PROGRESS` when config rule is being deleted in the member
+  /// account.
   ///
   /// *    `DELETE_SUCCESSFUL` when config rule has been deleted in the member
   /// account.
@@ -4216,8 +4448,8 @@ class StatusDetailFilters {
   /// *    `UPDATE_SUCCESSFUL` when config rule has been updated in the member
   /// account.
   ///
-  /// *    `UPDATE\_IN\_PROGRESS` when config rule is being updated in the
-  /// member account.
+  /// *    `UPDATE_IN_PROGRESS` when config rule is being updated in the member
+  /// account.
   ///
   /// *    `UPDATE_FAILED` when config rule deletion has failed in the member
   /// account.
@@ -4229,6 +4461,11 @@ class StatusDetailFilters {
   });
 }
 
+/// The tags for the resource. The metadata that you apply to a resource to help
+/// you categorize and organize them. Each tag consists of a key and an optional
+/// value, both of which you define. Tag keys can have a maximum character
+/// length of 128 characters, and tag values can have a maximum length of 256
+/// characters.
 class Tag {
   /// One part of a key-value pair that make up a tag. A key is a general label
   /// that acts like a category for more specific tag values.

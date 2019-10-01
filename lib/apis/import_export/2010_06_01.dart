@@ -78,6 +78,8 @@ class ImportExportApi {
   }
 }
 
+/// A discrete item that contains the description and URL of an artifact (such
+/// as a PDF).
 class Artifact {
   final String description;
 
@@ -90,6 +92,7 @@ class Artifact {
   static Artifact fromJson(Map<String, dynamic> json) => Artifact();
 }
 
+/// Output structure for the CancelJob operation.
 class CancelJobOutput {
   final bool success;
 
@@ -100,6 +103,7 @@ class CancelJobOutput {
       CancelJobOutput();
 }
 
+/// Output structure for the CreateJob operation.
 class CreateJobOutput {
   final String jobId;
 
@@ -138,6 +142,7 @@ class GetShippingLabelOutput {
       GetShippingLabelOutput();
 }
 
+/// Output structure for the GetStatus operation.
 class GetStatusOutput {
   final String jobId;
 
@@ -193,6 +198,7 @@ class GetStatusOutput {
       GetStatusOutput();
 }
 
+/// Representation of a job returned by the ListJobs operation.
 class Job {
   final String jobId;
 
@@ -211,6 +217,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// Output structure for the ListJobs operation.
 class ListJobsOutput {
   final List<Job> jobs;
 
@@ -223,6 +230,7 @@ class ListJobsOutput {
   static ListJobsOutput fromJson(Map<String, dynamic> json) => ListJobsOutput();
 }
 
+/// Output structure for the UpateJob operation.
 class UpdateJobOutput {
   final bool success;
 

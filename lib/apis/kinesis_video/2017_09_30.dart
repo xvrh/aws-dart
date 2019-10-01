@@ -9,8 +9,8 @@ class KinesisVideoApi {
   ///
   ///  `CreateStream` is an asynchronous operation.
   ///
-  /// For information about how the service works, see [How it
-  /// Works](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-it-works.html).
+  /// For information about how the service works, see
+  /// [How it Works](https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/how-it-works.html).
   ///
   /// You must have permissions for the `KinesisVideo:CreateStream` action.
   ///
@@ -28,10 +28,10 @@ class KinesisVideoApi {
   ///
   /// [mediaType]: The media type of the stream. Consumers of the stream can use
   /// this information when processing the stream. For more information about
-  /// media types, see [Media
-  /// Types](http://www.iana.org/assignments/media-types/media-types.xhtml). If
-  /// you choose to specify the `MediaType`, see [Naming
-  /// Requirements](https://tools.ietf.org/html/rfc6838#section-4.2) for
+  /// media types, see
+  /// [Media Types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+  /// If you choose to specify the `MediaType`, see
+  /// [Naming Requirements](https://tools.ietf.org/html/rfc6838#section-4.2) for
   /// guidelines.
   ///
   /// This parameter is optional; the default value is `null` (or empty in
@@ -176,9 +176,8 @@ class KinesisVideoApi {
   /// Adds one or more tags to a stream. A _tag_ is a key-value pair (the value
   /// is optional) that you can define and assign to AWS resources. If you
   /// specify a tag that already exists, the tag value is replaced with the
-  /// value that you specify in the request. For more information, see [Using
-  /// Cost Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// value that you specify in the request. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// You must provide either the `StreamName` or the `StreamARN`.
@@ -297,10 +296,10 @@ class KinesisVideoApi {
   ///
   /// [mediaType]: The stream's media type. Use `MediaType` to specify the type
   /// of content that the stream contains to the consumers of the stream. For
-  /// more information about media types, see [Media
-  /// Types](http://www.iana.org/assignments/media-types/media-types.xhtml). If
-  /// you choose to specify the `MediaType`, see [Naming
-  /// Requirements](https://tools.ietf.org/html/rfc6838#section-4.2).
+  /// more information about media types, see
+  /// [Media Types](http://www.iana.org/assignments/media-types/media-types.xhtml).
+  /// If you choose to specify the `MediaType`, see
+  /// [Naming Requirements](https://tools.ietf.org/html/rfc6838#section-4.2).
   ///
   /// To play video on the console, you must specify the correct video type. For
   /// example, if the video in the stream is H.264, specify `video/h264` as the
@@ -387,6 +386,7 @@ class ListTagsForStreamOutput {
       ListTagsForStreamOutput();
 }
 
+/// An object describing a Kinesis video stream.
 class StreamInfo {
   /// The name of the device that is associated with the stream.
   final String deviceName;
@@ -430,6 +430,10 @@ class StreamInfo {
   static StreamInfo fromJson(Map<String, dynamic> json) => StreamInfo();
 }
 
+/// Specifies the condition that streams must satisfy to be returned when you
+/// list streams (see the `ListStreams` API). A condition has a comparison
+/// operation and a value. Currently, you can specify only the `BEGINS_WITH`
+/// operator, which finds streams whose names start with a given prefix.
 class StreamNameCondition {
   /// A comparison operator. Currently, you can specify only the `BEGINS_WITH`
   /// operator, which finds streams whose names start with a given prefix.

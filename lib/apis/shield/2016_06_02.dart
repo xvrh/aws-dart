@@ -6,18 +6,18 @@ import 'package:meta/meta.dart';
 /// developers who need detailed information about the AWS Shield Advanced API
 /// actions, data types, and errors. For detailed information about AWS WAF and
 /// AWS Shield Advanced features and an overview of how to use the AWS WAF and
-/// AWS Shield Advanced APIs, see the [AWS WAF and AWS Shield Developer
-/// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+/// AWS Shield Advanced APIs, see the
+/// [AWS WAF and AWS Shield Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
 class ShieldApi {
   /// Authorizes the DDoS Response team (DRT) to access the specified Amazon S3
   /// bucket containing your AWS WAF logs. You can associate up to 10 Amazon S3
   /// buckets with your subscription.
   ///
   /// To use the services of the DRT and make an `AssociateDRTLogBucket`
-  /// request, you must be subscribed to the [Business Support
-  /// plan](https://aws.amazon.com/premiumsupport/business-support/) or the
-  /// [Enterprise Support
-  /// plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
+  /// request, you must be subscribed to the
+  /// [Business Support plan](https://aws.amazon.com/premiumsupport/business-support/)
+  /// or the
+  /// [Enterprise Support plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
   ///
   /// [logBucket]: The Amazon S3 bucket that contains your AWS WAF logs.
   Future<AssociateDrtLogBucketResponse> associateDrtLogBucket(
@@ -40,9 +40,8 @@ class ShieldApi {
   /// information see [Attaching and Detaching IAM Policies](
   /// https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html).
   /// The role must also trust the service principal
-  /// `drt.shield.amazonaws.com`. For more information, see [IAM JSON Policy
-  /// Elements:
-  /// Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
+  /// `drt.shield.amazonaws.com`. For more information, see
+  /// [IAM JSON Policy Elements: Principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html).
   ///
   /// The DRT will have access only to your AWS WAF and Shield resources. By
   /// submitting this request, you authorize the DRT to inspect your AWS WAF and
@@ -51,23 +50,22 @@ class ShieldApi {
   /// you.
   ///
   /// You must have the `iam:PassRole` permission to make an `AssociateDRTRole`
-  /// request. For more information, see [Granting a User Permissions to Pass a
-  /// Role to an AWS
-  /// Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html).
+  /// request. For more information, see
+  /// [Granting a User Permissions to Pass a Role to an AWS Service](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_passrole.html).
   ///
   /// To use the services of the DRT and make an `AssociateDRTRole` request, you
-  /// must be subscribed to the [Business Support
-  /// plan](https://aws.amazon.com/premiumsupport/business-support/) or the
-  /// [Enterprise Support
-  /// plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
+  /// must be subscribed to the
+  /// [Business Support plan](https://aws.amazon.com/premiumsupport/business-support/)
+  /// or the
+  /// [Enterprise Support plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the role the DRT will use to
   /// access your AWS account.
   ///
   /// Prior to making the `AssociateDRTRole` request, you must attach the
   /// [AWSShieldDRTAccessPolicy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy)
-  /// managed policy to this role. For more information see [Attaching and
-  /// Detaching IAM Policies](
+  /// managed policy to this role. For more information see
+  /// [Attaching and Detaching IAM Policies](
   /// https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html).
   Future<AssociateDrtRoleResponse> associateDrtRole(String roleArn) async {
     return AssociateDrtRoleResponse.fromJson({});
@@ -80,12 +78,12 @@ class ShieldApi {
   ///
   /// You can add protection to only a single resource with each
   /// CreateProtection request. If you want to add protection to multiple
-  /// resources at once, use the [AWS WAF
-  /// console](https://console.aws.amazon.com/waf/). For more information see
-  /// [Getting Started with AWS Shield
-  /// Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html)
-  /// and [Add AWS Shield Advanced Protection to more AWS
-  /// Resources](https://docs.aws.amazon.com/waf/latest/developerguide/configure-new-protection.html).
+  /// resources at once, use the
+  /// [AWS WAF console](https://console.aws.amazon.com/waf/). For more
+  /// information see
+  /// [Getting Started with AWS Shield Advanced](https://docs.aws.amazon.com/waf/latest/developerguide/getting-started-ddos.html)
+  /// and
+  /// [Add AWS Shield Advanced Protection to more AWS Resources](https://docs.aws.amazon.com/waf/latest/developerguide/configure-new-protection.html).
   ///
   /// [name]: Friendly name for the `Protection` you are creating.
   ///
@@ -122,13 +120,12 @@ class ShieldApi {
   /// As part of this request you can specify `EmergencySettings` that
   /// automaticaly grant the DDoS response team (DRT) needed permissions to
   /// assist you during a suspected DDoS attack. For more information see
-  /// [Authorize the DDoS Response Team to Create Rules and Web ACLs on Your
-  /// Behalf](https://docs.aws.amazon.com/waf/latest/developerguide/authorize-DRT.html).
+  /// [Authorize the DDoS Response Team to Create Rules and Web ACLs on Your Behalf](https://docs.aws.amazon.com/waf/latest/developerguide/authorize-DRT.html).
   ///
-  /// To use the services of the DRT, you must be subscribed to the [Business
-  /// Support plan](https://aws.amazon.com/premiumsupport/business-support/) or
-  /// the [Enterprise Support
-  /// plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
+  /// To use the services of the DRT, you must be subscribed to the
+  /// [Business Support plan](https://aws.amazon.com/premiumsupport/business-support/)
+  /// or the
+  /// [Enterprise Support plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
   ///
   /// When you initally create a subscription, your subscription is set to be
   /// automatically renewed at the end of the existing subscription period. You
@@ -199,13 +196,13 @@ class ShieldApi {
   /// bucket containing your AWS WAF logs.
   ///
   /// To make a `DisassociateDRTLogBucket` request, you must be subscribed to
-  /// the [Business Support
-  /// plan](https://aws.amazon.com/premiumsupport/business-support/) or the
-  /// [Enterprise Support
-  /// plan](https://aws.amazon.com/premiumsupport/enterprise-support/). However,
-  /// if you are not subscribed to one of these support plans, but had been
-  /// previously and had granted the DRT access to your account, you can submit
-  /// a `DisassociateDRTLogBucket` request to remove this access.
+  /// the
+  /// [Business Support plan](https://aws.amazon.com/premiumsupport/business-support/)
+  /// or the
+  /// [Enterprise Support plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
+  /// However, if you are not subscribed to one of these support plans, but had
+  /// been previously and had granted the DRT access to your account, you can
+  /// submit a `DisassociateDRTLogBucket` request to remove this access.
   ///
   /// [logBucket]: The Amazon S3 bucket that contains your AWS WAF logs.
   Future<DisassociateDrtLogBucketResponse> disassociateDrtLogBucket(
@@ -216,13 +213,12 @@ class ShieldApi {
   /// Removes the DDoS Response team's (DRT) access to your AWS account.
   ///
   /// To make a `DisassociateDRTRole` request, you must be subscribed to the
-  /// [Business Support
-  /// plan](https://aws.amazon.com/premiumsupport/business-support/) or the
-  /// [Enterprise Support
-  /// plan](https://aws.amazon.com/premiumsupport/enterprise-support/). However,
-  /// if you are not subscribed to one of these support plans, but had been
-  /// previously and had granted the DRT access to your account, you can submit
-  /// a `DisassociateDRTRole` request to remove this access.
+  /// [Business Support plan](https://aws.amazon.com/premiumsupport/business-support/)
+  /// or the
+  /// [Enterprise Support plan](https://aws.amazon.com/premiumsupport/enterprise-support/).
+  /// However, if you are not subscribed to one of these support plans, but had
+  /// been previously and had granted the DRT access to your account, you can
+  /// submit a `DisassociateDRTRole` request to remove this access.
   Future<DisassociateDrtRoleResponse> disassociateDrtRole() async {
     return DisassociateDrtRoleResponse.fromJson({});
   }
@@ -242,15 +238,13 @@ class ShieldApi {
   /// [startTime]: The start of the time period for the attacks. This is a
   /// `timestamp` type. The sample request above indicates a `number` type
   /// because the default used by WAF is Unix time in seconds. However any valid
-  /// [timestamp
-  /// format](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types)
+  /// [timestamp format](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types)
   /// is allowed.
   ///
   /// [endTime]: The end of the time period for the attacks. This is a
   /// `timestamp` type. The sample request above indicates a `number` type
   /// because the default used by WAF is Unix time in seconds. However any valid
-  /// [timestamp
-  /// format](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types)
+  /// [timestamp format](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types)
   /// is allowed.
   ///
   /// [nextToken]: The `ListAttacksRequest.NextMarker` value from a previous
@@ -328,6 +322,7 @@ class AssociateDrtRoleResponse {
       AssociateDrtRoleResponse();
 }
 
+/// The details of a DDoS attack.
 class AttackDetail {
   /// The unique identifier (ID) of the attack.
   final String attackId;
@@ -371,6 +366,7 @@ class AttackDetail {
   static AttackDetail fromJson(Map<String, dynamic> json) => AttackDetail();
 }
 
+/// Details of the described attack.
 class AttackProperty {
   /// The type of distributed denial of service (DDoS) event that was observed.
   /// `NETWORK` indicates layer 3 and layer 4 events and `APPLICATION` indicates
@@ -378,8 +374,8 @@ class AttackProperty {
   final String attackLayer;
 
   /// Defines the DDoS attack property information that is provided. The
-  /// `WORDPRESS\_PINGBACK\_REFLECTOR` and `WORDPRESS\_PINGBACK\_SOURCE` values
-  /// are valid only for WordPress reflective pingback DDoS attacks.
+  /// `WORDPRESS_PINGBACK_REFLECTOR` and `WORDPRESS_PINGBACK_SOURCE` values are
+  /// valid only for WordPress reflective pingback DDoS attacks.
   final String attackPropertyIdentifier;
 
   /// The array of Contributor objects that includes the top five contributors
@@ -403,6 +399,7 @@ class AttackProperty {
   static AttackProperty fromJson(Map<String, dynamic> json) => AttackProperty();
 }
 
+/// Summarizes all DDoS attacks for a specified time period.
 class AttackSummary {
   /// The unique identifier (ID) of the attack.
   final String attackId;
@@ -433,6 +430,7 @@ class AttackSummary {
   static AttackSummary fromJson(Map<String, dynamic> json) => AttackSummary();
 }
 
+/// Describes the attack.
 class AttackVectorDescription {
   /// The attack type. Valid values:
   ///
@@ -440,7 +438,7 @@ class AttackVectorDescription {
   ///
   /// *   UDP_FRAGMENT
   ///
-  /// *   GENERIC\_UDP\_REFLECTION
+  /// *   GENERIC_UDP_REFLECTION
   ///
   /// *   DNS_REFLECTION
   ///
@@ -458,7 +456,7 @@ class AttackVectorDescription {
   ///
   /// *   MSSQL_REFLECTION
   ///
-  /// *   NET\_BIOS\_REFLECTION
+  /// *   NET_BIOS_REFLECTION
   ///
   /// *   SYN_FLOOD
   ///
@@ -480,6 +478,7 @@ class AttackVectorDescription {
       AttackVectorDescription();
 }
 
+/// A contributor to the attack and their contribution.
 class Contributor {
   /// The name of the contributor. This is dependent on the
   /// `AttackPropertyIdentifier`. For example, if the `AttackPropertyIdentifier`
@@ -600,6 +599,8 @@ class DisassociateDrtRoleResponse {
       DisassociateDrtRoleResponse();
 }
 
+/// Contact information that the DRT can use to contact you during a suspected
+/// attack.
 class EmergencyContact {
   /// An email address that the DRT can use to contact you during a suspected
   /// attack.
@@ -623,6 +624,7 @@ class GetSubscriptionStateResponse {
       GetSubscriptionStateResponse();
 }
 
+/// Specifies how many protections of a given type you can create.
 class Limit {
   /// The type of protection.
   final String type;
@@ -684,6 +686,7 @@ class ListProtectionsResponse {
       ListProtectionsResponse();
 }
 
+/// The mitigation applied to a DDoS attack.
 class Mitigation {
   /// The name of the mitigation taken for this attack.
   final String mitigationName;
@@ -694,6 +697,7 @@ class Mitigation {
   static Mitigation fromJson(Map<String, dynamic> json) => Mitigation();
 }
 
+/// An object that represents a resource that is under DDoS protection.
 class Protection {
   /// The unique identifier (ID) of the protection.
   final String id;
@@ -713,6 +717,7 @@ class Protection {
   static Protection fromJson(Map<String, dynamic> json) => Protection();
 }
 
+/// The attack information for the specified SubResource.
 class SubResourceSummary {
   /// The `SubResource` type.
   final String type;
@@ -736,6 +741,7 @@ class SubResourceSummary {
       SubResourceSummary();
 }
 
+/// Information about the AWS Shield Advanced subscription for an account.
 class Subscription {
   /// The start time of the subscription, in Unix time in seconds. For more
   /// information see
@@ -771,6 +777,7 @@ class Subscription {
   static Subscription fromJson(Map<String, dynamic> json) => Subscription();
 }
 
+/// A summary of information about the attack.
 class SummarizedAttackVector {
   /// The attack type, for example, SNMP reflection or SYN flood.
   final String vectorType;
@@ -786,6 +793,7 @@ class SummarizedAttackVector {
       SummarizedAttackVector();
 }
 
+/// The counter that describes a DDoS attack.
 class SummarizedCounter {
   /// The counter name.
   final String name;
@@ -817,6 +825,7 @@ class SummarizedCounter {
       SummarizedCounter();
 }
 
+/// The time range.
 class TimeRange {
   /// The start time, in Unix time in seconds. For more information see
   /// [timestamp](http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types).

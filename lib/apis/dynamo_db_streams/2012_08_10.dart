@@ -5,8 +5,8 @@ import 'dart:typed_data';
 ///
 /// Amazon DynamoDB Streams provides API actions for accessing streams and
 /// processing stream records. To learn more about application development with
-/// Streams, see [Capturing Table Activity with DynamoDB
-/// Streams](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html)
+/// Streams, see
+/// [Capturing Table Activity with DynamoDB Streams](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.html)
 /// in the Amazon DynamoDB Developer Guide.
 class DynamoDBStreamsApi {
   /// Returns information about a stream, including the current status of the
@@ -74,18 +74,18 @@ class DynamoDBStreamsApi {
   /// [shardIteratorType]: Determines how the shard iterator is used to start
   /// reading stream records from the shard:
   ///
-  /// *    `AT\_SEQUENCE\_NUMBER` \- Start reading exactly from the position
+  /// *    `AT_SEQUENCE_NUMBER` - Start reading exactly from the position
   /// denoted by a specific sequence number.
   ///
-  /// *    `AFTER\_SEQUENCE\_NUMBER` \- Start reading right after the position
+  /// *    `AFTER_SEQUENCE_NUMBER` - Start reading right after the position
   /// denoted by a specific sequence number.
   ///
-  /// *    `TRIM_HORIZON` \- Start reading at the last (untrimmed) stream
-  /// record, which is the oldest record in the shard. In DynamoDB Streams,
-  /// there is a 24 hour limit on data retention. Stream records whose age
-  /// exceeds this limit are subject to removal (trimming) from the stream.
+  /// *    `TRIM_HORIZON` - Start reading at the last (untrimmed) stream record,
+  /// which is the oldest record in the shard. In DynamoDB Streams, there is a
+  /// 24 hour limit on data retention. Stream records whose age exceeds this
+  /// limit are subject to removal (trimming) from the stream.
   ///
-  /// *    `LATEST` \- Start reading just after the most recent stream record in
+  /// *    `LATEST` - Start reading just after the most recent stream record in
   /// the shard, so that you always read the most recent data in the shard.
   ///
   /// [sequenceNumber]: The sequence number of a stream record in the shard from
@@ -120,6 +120,13 @@ class DynamoDBStreamsApi {
   }
 }
 
+/// Represents the data for an attribute. You can set one, and only one, of the
+/// elements.
+///
+/// Each attribute in an item is a name-value pair. An attribute can be
+/// single-valued or multi-valued set. For example, a book item can have title
+/// and authors attributes. Each book has one title but can have many authors.
+/// The multi-valued attribute is a set; duplicate values are not allowed.
 class AttributeValue {
   /// A String data type.
   final String s;
@@ -166,6 +173,7 @@ class AttributeValue {
   static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
 }
 
+/// Represents the output of a `DescribeStream` operation.
 class DescribeStreamOutput {
   /// A complete description of the stream, including its creation date and
   /// time, the DynamoDB table associated with the stream, the shard IDs within
@@ -180,6 +188,7 @@ class DescribeStreamOutput {
       DescribeStreamOutput();
 }
 
+/// Represents the output of a `GetRecords` operation.
 class GetRecordsOutput {
   /// The stream records from the shard, which were retrieved using the shard
   /// iterator.
@@ -198,6 +207,7 @@ class GetRecordsOutput {
       GetRecordsOutput();
 }
 
+/// Represents the output of a `GetShardIterator` operation.
 class GetShardIteratorOutput {
   /// The position in the shard from which to start reading stream records
   /// sequentially. A shard iterator specifies this position using the sequence
@@ -211,6 +221,7 @@ class GetShardIteratorOutput {
       GetShardIteratorOutput();
 }
 
+/// Contains details about the type of identity that made the request.
 class Identity {
   /// A unique identifier for the entity that made the call. For Time To Live,
   /// the principalId is "dynamodb.amazonaws.com".
@@ -226,6 +237,27 @@ class Identity {
   static Identity fromJson(Map<String, dynamic> json) => Identity();
 }
 
+/// Represents _a single element_ of a key schema. A key schema specifies the
+/// attributes that make up the primary key of a table, or the key attributes of
+/// an index.
+///
+/// A `KeySchemaElement` represents exactly one attribute of the primary key.
+/// For example, a simple primary key (partition key) would be represented by
+/// one `KeySchemaElement`. A composite primary key (partition key and sort key)
+/// would require one `KeySchemaElement` for the partition key, and another
+/// `KeySchemaElement` for the sort key.
+///
+///
+///
+/// The partition key of an item is also known as its _hash attribute_. The term
+/// "hash attribute" derives from DynamoDB's usage of an internal hash function
+/// to evenly distribute data items across partitions, based on their partition
+/// key values.
+///
+/// The sort key of an item is also known as its _range attribute_. The term
+/// "range attribute" derives from the way DynamoDB stores items with the same
+/// partition key physically close together, in sorted order by the sort key
+/// value.
 class KeySchemaElement {
   /// The name of a key attribute.
   final String attributeName;
@@ -242,6 +274,7 @@ class KeySchemaElement {
       KeySchemaElement();
 }
 
+/// Represents the output of a `ListStreams` operation.
 class ListStreamsOutput {
   /// A list of stream descriptors associated with the current account and
   /// endpoint.
@@ -268,6 +301,7 @@ class ListStreamsOutput {
       ListStreamsOutput();
 }
 
+/// A description of a unique event within a stream.
 class Record {
   /// A globally unique identifier for the event that was recorded in this
   /// stream record.
@@ -275,12 +309,12 @@ class Record {
 
   /// The type of data modification that was performed on the DynamoDB table:
   ///
-  /// *    `INSERT` \- a new item was added to the table.
+  /// *    `INSERT` - a new item was added to the table.
   ///
-  /// *    `MODIFY` \- one or more of an existing item's attributes were
+  /// *    `MODIFY` - one or more of an existing item's attributes were
   /// modified.
   ///
-  /// *    `REMOVE` \- the item was deleted from the table
+  /// *    `REMOVE` - the item was deleted from the table
   final String eventName;
 
   /// The version number of the stream record format. This number is updated
@@ -306,11 +340,11 @@ class Record {
   /// Items that are deleted by the Time to Live process after expiration have
   /// the following fields:
   ///
-  /// *   Records\[\].userIdentity.type
+  /// *   Records[].userIdentity.type
   ///
   ///     "Service"
   ///
-  /// *   Records\[\].userIdentity.principalId
+  /// *   Records[].userIdentity.principalId
   ///
   ///     "dynamodb.amazonaws.com"
   final Identity userIdentity;
@@ -327,6 +361,8 @@ class Record {
   static Record fromJson(Map<String, dynamic> json) => Record();
 }
 
+/// The beginning and ending sequence numbers for the stream records contained
+/// within a shard.
 class SequenceNumberRange {
   /// The first sequence number.
   final String startingSequenceNumber;
@@ -342,6 +378,7 @@ class SequenceNumberRange {
       SequenceNumberRange();
 }
 
+/// A uniquely identified group of stream records within a stream.
 class Shard {
   /// The system-generated identifier for this shard.
   final String shardId;
@@ -360,6 +397,7 @@ class Shard {
   static Shard fromJson(Map<String, dynamic> json) => Shard();
 }
 
+/// Represents all of the data describing a particular stream.
 class Stream {
   /// The Amazon Resource Name (ARN) for the stream.
   final String streamArn;
@@ -389,6 +427,7 @@ class Stream {
   static Stream fromJson(Map<String, dynamic> json) => Stream();
 }
 
+/// Represents all of the data describing a particular stream.
 class StreamDescription {
   /// The Amazon Resource Name (ARN) for the stream.
   final String streamArn;
@@ -409,30 +448,30 @@ class StreamDescription {
 
   /// Indicates the current status of the stream:
   ///
-  /// *    `ENABLING` \- Streams is currently being enabled on the DynamoDB
+  /// *    `ENABLING` - Streams is currently being enabled on the DynamoDB
   /// table.
   ///
-  /// *    `ENABLED` \- the stream is enabled.
+  /// *    `ENABLED` - the stream is enabled.
   ///
-  /// *    `DISABLING` \- Streams is currently being disabled on the DynamoDB
+  /// *    `DISABLING` - Streams is currently being disabled on the DynamoDB
   /// table.
   ///
-  /// *    `DISABLED` \- the stream is disabled.
+  /// *    `DISABLED` - the stream is disabled.
   final String streamStatus;
 
   /// Indicates the format of the records within this stream:
   ///
-  /// *    `KEYS_ONLY` \- only the key attributes of items that were modified in
+  /// *    `KEYS_ONLY` - only the key attributes of items that were modified in
   /// the DynamoDB table.
   ///
-  /// *    `NEW_IMAGE` \- entire items from the table, as they appeared after
+  /// *    `NEW_IMAGE` - entire items from the table, as they appeared after
   /// they were modified.
   ///
-  /// *    `OLD_IMAGE` \- entire items from the table, as they appeared before
+  /// *    `OLD_IMAGE` - entire items from the table, as they appeared before
   /// they were modified.
   ///
-  /// *    `NEW\_AND\_OLD_IMAGES` \- both the new and the old images of the
-  /// items from the table.
+  /// *    `NEW_AND_OLD_IMAGES` - both the new and the old images of the items
+  /// from the table.
   final String streamViewType;
 
   /// The date and time when the request to create this stream was issued.
@@ -474,9 +513,11 @@ class StreamDescription {
       StreamDescription();
 }
 
+/// A description of a single data modification that was performed on an item in
+/// a DynamoDB table.
 class StreamRecord {
-  /// The approximate date and time when the stream record was created, in [UNIX
-  /// epoch time](http://www.epochconverter.com/) format.
+  /// The approximate date and time when the stream record was created, in
+  /// [UNIX epoch time](http://www.epochconverter.com/) format.
   final DateTime approximateCreationDateTime;
 
   /// The primary key attribute(s) for the DynamoDB item that was modified.
@@ -497,14 +538,13 @@ class StreamRecord {
   /// The type of data from the modified DynamoDB item that was captured in this
   /// stream record:
   ///
-  /// *    `KEYS_ONLY` \- only the key attributes of the modified item.
+  /// *    `KEYS_ONLY` - only the key attributes of the modified item.
   ///
-  /// *    `NEW_IMAGE` \- the entire item, as it appeared after it was modified.
+  /// *    `NEW_IMAGE` - the entire item, as it appeared after it was modified.
   ///
-  /// *    `OLD_IMAGE` \- the entire item, as it appeared before it was
-  /// modified.
+  /// *    `OLD_IMAGE` - the entire item, as it appeared before it was modified.
   ///
-  /// *    `NEW\_AND\_OLD_IMAGES` \- both the new and the old item images of the
+  /// *    `NEW_AND_OLD_IMAGES` - both the new and the old item images of the
   /// item.
   final String streamViewType;
 

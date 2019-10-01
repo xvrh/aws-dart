@@ -7,8 +7,8 @@ import 'dart:typed_data';
 /// actions and data types via the endpoint _waf.amazonaws.com_. This guide is
 /// for developers who need detailed information about the AWS WAF API actions,
 /// data types, and errors. For detailed information about AWS WAF features and
-/// an overview of how to use the AWS WAF API, see the [AWS WAF Developer
-/// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+/// an overview of how to use the AWS WAF API, see the
+/// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
 class WafApi {
   /// Creates a `ByteMatchSet`. You then use UpdateByteMatchSet to identify the
   /// part of a web request that you want AWS WAF to inspect, such as the values
@@ -33,8 +33,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the ByteMatchSet. You can't
   /// change `Name` after you create a `ByteMatchSet`.
@@ -68,8 +68,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the GeoMatchSet. You can't
   /// change `Name` after you create the `GeoMatchSet`.
@@ -104,8 +104,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the IPSet. You can't change
   /// `Name` after you create the `IPSet`.
@@ -184,8 +184,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the RateBasedRule. You can't
   /// change the name of a `RateBasedRule` after you create it.
@@ -227,7 +227,7 @@ class WafApi {
   /// of the `User-Agent` header or the query string. For example, you can
   /// create a `RegexMatchSet` that contains a `RegexMatchTuple` that looks for
   /// any requests with `User-Agent` headers that match a `RegexPatternSet` with
-  /// pattern `B\[a@\]dB\[o0\]t`. You can then configure AWS WAF to reject those
+  /// pattern `B[a@]dB[o0]t`. You can then configure AWS WAF to reject those
   /// requests.
   ///
   /// To create and configure a `RegexMatchSet`, perform the following steps:
@@ -247,8 +247,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the RegexMatchSet. You can't
   /// change `Name` after you create a `RegexMatchSet`.
@@ -262,7 +262,7 @@ class WafApi {
 
   /// Creates a `RegexPatternSet`. You then use UpdateRegexPatternSet to specify
   /// the regular expression (regex) pattern that you want AWS WAF to search
-  /// for, such as `B\[a@\]dB\[o0\]t`. You can then configure AWS WAF to reject
+  /// for, such as `B[a@]dB[o0]t`. You can then configure AWS WAF to reject
   /// those requests.
   ///
   /// To create and configure a `RegexPatternSet`, perform the following steps:
@@ -280,8 +280,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the RegexPatternSet. You can't
   /// change `Name` after you create a `RegexPatternSet`.
@@ -331,8 +331,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the Rule. You can't change the
   /// name of a `Rule` after you create it.
@@ -369,8 +369,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the RuleGroup. You can't change
   /// `Name` after you create a `RuleGroup`.
@@ -416,8 +416,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the SizeConstraintSet. You can't
   /// change `Name` after you create a `SizeConstraintSet`.
@@ -451,8 +451,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description for the SqlInjectionMatchSet that
   /// you're creating. You can't change `Name` after you create the
@@ -497,8 +497,8 @@ class WafApi {
   /// the `WebACL` with a CloudFront distribution.
   ///
   ///
-  /// For more information about how to use the AWS WAF API, see the [AWS WAF
-  /// Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// For more information about how to use the AWS WAF API, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description of the WebACL. You can't change
   /// `Name` after you create the `WebACL`.
@@ -546,8 +546,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [name]: A friendly name or description for the XssMatchSet that you're
   /// creating. You can't change `Name` after you create the `XssMatchSet`.
@@ -1435,8 +1435,8 @@ class WafApi {
   /// When you successfully enable logging using a `PutLoggingConfiguration`
   /// request, AWS WAF will create a service linked role with the necessary
   /// permissions to write logs to the Amazon Kinesis Data Firehose. For more
-  /// information, see [Logging Web ACL Traffic
-  /// Information](https://docs.aws.amazon.com/waf/latest/developerguide/logging.html)
+  /// information, see
+  /// [Logging Web ACL Traffic Information](https://docs.aws.amazon.com/waf/latest/developerguide/logging.html)
   /// in the _AWS WAF Developer Guide_.
   ///
   /// [loggingConfiguration]: The Amazon Kinesis Data Firehose that contains the
@@ -1474,8 +1474,8 @@ class WafApi {
   /// *   Your policy must be composed using IAM Policy version 2012-10-17.
   ///
   ///
-  /// For more information, see [IAM
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html).
+  /// For more information, see
+  /// [IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html).
   ///
   /// An example of a valid policy parameter is shown in the Examples section
   /// below.
@@ -1537,8 +1537,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [byteMatchSetId]: The `ByteMatchSetId` of the ByteMatchSet that you want
   /// to update. `ByteMatchSetId` is returned by CreateByteMatchSet and by
@@ -1594,8 +1594,8 @@ class WafApi {
   /// country, you delete the existing country and add the new one.
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [geoMatchSetId]: The `GeoMatchSetId` of the GeoMatchSet that you want to
   /// update. `GeoMatchSetId` is returned by CreateGeoMatchSet and by
@@ -1639,8 +1639,7 @@ class WafApi {
   /// AWS WAF supports IPv4 address ranges: /8 and any range between /16 through
   /// /32. AWS WAF supports IPv6 address ranges: /24, /32, /48, /56, /64, and
   /// /128. For more information about CIDR notation, see the Wikipedia entry
-  /// [Classless Inter-Domain
-  /// Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// [Classless Inter-Domain Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// IPv6 addresses can be represented using any of the following formats:
   ///
@@ -1678,8 +1677,8 @@ class WafApi {
   /// You can insert a maximum of 1000 addresses in a single request.
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [ipSetId]: The `IPSetId` of the IPSet that you want to update. `IPSetId`
   /// is returned by CreateIPSet and by ListIPSets.
@@ -1787,8 +1786,8 @@ class WafApi {
   ///
   ///
   ///  For example, you can create a `RegexPatternSet` that matches any requests
-  /// with `User-Agent` headers that contain the string `B\[a@\]dB\[o0\]t`. You
-  /// can then configure AWS WAF to reject those requests.
+  /// with `User-Agent` headers that contain the string `B[a@]dB[o0]t`. You can
+  /// then configure AWS WAF to reject those requests.
   ///
   /// To create and configure a `RegexMatchSet`, perform the following steps:
   ///
@@ -1805,8 +1804,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [regexMatchSetId]: The `RegexMatchSetId` of the RegexMatchSet that you
   /// want to update. `RegexMatchSetId` is returned by CreateRegexMatchSet and
@@ -1835,7 +1834,7 @@ class WafApi {
   ///
   ///
   ///  For example, you can create a `RegexPatternString` such as
-  /// `B\[a@\]dB\[o0\]t`. AWS WAF will match this `RegexPatternString` to:
+  /// `B[a@]dB[o0]t`. AWS WAF will match this `RegexPatternString` to:
   ///
   /// *   BadBot
   ///
@@ -1859,8 +1858,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [regexPatternSetId]: The `RegexPatternSetId` of the RegexPatternSet that
   /// you want to update. `RegexPatternSetId` is returned by
@@ -1916,8 +1915,8 @@ class WafApi {
   /// delete the existing one and add the new one.
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [ruleId]: The `RuleId` of the `Rule` that you want to update. `RuleId` is
   /// returned by `CreateRule` and by ListRules.
@@ -1965,8 +1964,8 @@ class WafApi {
   /// one and add the new one.
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [ruleGroupId]: The `RuleGroupId` of the RuleGroup that you want to update.
   /// `RuleGroupId` is returned by CreateRuleGroup and by ListRuleGroups.
@@ -2036,8 +2035,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [sizeConstraintSetId]: The `SizeConstraintSetId` of the SizeConstraintSet
   /// that you want to update. `SizeConstraintSetId` is returned by
@@ -2102,8 +2101,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [sqlInjectionMatchSetId]: The `SqlInjectionMatchSetId` of the
   /// `SqlInjectionMatchSet` that you want to update. `SqlInjectionMatchSetId`
@@ -2191,8 +2190,8 @@ class WafApi {
   /// default rule type) with the specified ID, which does not exist.
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [webAclId]: The `WebACLId` of the WebACL that you want to update.
   /// `WebACLId` is returned by CreateWebACL and by ListWebACLs.
@@ -2263,8 +2262,8 @@ class WafApi {
   ///
   ///
   /// For more information about how to use the AWS WAF API to allow or block
-  /// HTTP requests, see the [AWS WAF Developer
-  /// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
+  /// HTTP requests, see the
+  /// [AWS WAF Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/).
   ///
   /// [xssMatchSetId]: The `XssMatchSetId` of the `XssMatchSet` that you want to
   /// update. `XssMatchSetId` is returned by CreateXssMatchSet and by
@@ -2290,6 +2289,13 @@ class WafApi {
   }
 }
 
+/// The `ActivatedRule` object in an UpdateWebACL request specifies a `Rule`
+/// that you want to insert or delete, the priority of the `Rule` in the
+/// `WebACL`, and the action that you want AWS WAF to take when a web request
+/// matches the `Rule` (`ALLOW`, `BLOCK`, or `COUNT`).
+///
+/// To specify whether to insert or delete a `Rule`, use the `Action` parameter
+/// in the WebACLUpdate data type.
 class ActivatedRule {
   /// Specifies the order in which the `Rules` in a `WebACL` are evaluated.
   /// Rules with a lower value for `Priority` are evaluated before `Rules` with
@@ -2369,8 +2375,8 @@ class ActivatedRule {
   /// with a web ACL, perform the following steps:
   ///
   /// 1.  Use the AWS WAF logs to identify the IDs of the rules that you want to
-  /// exclude. For more information about the logs, see [Logging Web ACL Traffic
-  /// Information](https://docs.aws.amazon.com/waf/latest/developerguide/logging.html).
+  /// exclude. For more information about the logs, see
+  /// [Logging Web ACL Traffic Information](https://docs.aws.amazon.com/waf/latest/developerguide/logging.html).
   ///
   /// 2.  Submit an UpdateWebACL request that has two actions:
   ///
@@ -2397,6 +2403,15 @@ class ActivatedRule {
   static ActivatedRule fromJson(Map<String, dynamic> json) => ActivatedRule();
 }
 
+/// In a GetByteMatchSet request, `ByteMatchSet` is a complex type that contains
+/// the `ByteMatchSetId` and `Name` of a `ByteMatchSet`, and the values that you
+/// specified when you updated the `ByteMatchSet`.
+///
+/// A complex type that contains `ByteMatchTuple` objects, which specify the
+/// parts of web requests that you want AWS WAF to inspect and the values that
+/// you want AWS WAF to search for. If a `ByteMatchSet` contains more than one
+/// `ByteMatchTuple` object, a request needs to match the settings in only one
+/// `ByteMatchTuple` to be considered a match.
 class ByteMatchSet {
   /// The `ByteMatchSetId` for a `ByteMatchSet`. You use `ByteMatchSetId` to get
   /// information about a `ByteMatchSet` (see GetByteMatchSet), update a
@@ -2425,6 +2440,8 @@ class ByteMatchSet {
   static ByteMatchSet fromJson(Map<String, dynamic> json) => ByteMatchSet();
 }
 
+/// Returned by ListByteMatchSets. Each `ByteMatchSetSummary` object includes
+/// the `Name` and `ByteMatchSetId` for one ByteMatchSet.
 class ByteMatchSetSummary {
   /// The `ByteMatchSetId` for a `ByteMatchSet`. You use `ByteMatchSetId` to get
   /// information about a `ByteMatchSet`, update a `ByteMatchSet`, remove a
@@ -2446,6 +2463,9 @@ class ByteMatchSetSummary {
       ByteMatchSetSummary();
 }
 
+/// In an UpdateByteMatchSet request, `ByteMatchSetUpdate` specifies whether to
+/// insert or delete a ByteMatchTuple and includes the settings for the
+/// `ByteMatchTuple`.
 class ByteMatchSetUpdate {
   /// Specifies whether to insert or delete a ByteMatchTuple.
   final String action;
@@ -2463,6 +2483,9 @@ class ByteMatchSetUpdate {
   });
 }
 
+/// The bytes (typically a string that corresponds with ASCII characters) that
+/// you want AWS WAF to search for in web requests, the location in requests
+/// that you want AWS WAF to search, and other settings.
 class ByteMatchTuple {
   /// The part of a web request that you want AWS WAF to search, such as a
   /// specified header or a query string. For more information, see
@@ -2498,11 +2521,11 @@ class ByteMatchTuple {
   /// the body, you can create a size constraint set. For more information, see
   /// CreateSizeConstraintSet.
   ///
-  /// *    `SINGLE\_QUERY\_ARG`: The parameter in the query string that you will
+  /// *    `SINGLE_QUERY_ARG`: The parameter in the query string that you will
   /// inspect, such as _UserName_ or _SalesRegion_. The maximum length for
-  /// `SINGLE\_QUERY\_ARG` is 30 characters.
+  /// `SINGLE_QUERY_ARG` is 30 characters.
   ///
-  /// *    `ALL\_QUERY\_ARGS`: Similar to `SINGLE\_QUERY\_ARG`, but instead of
+  /// *    `ALL_QUERY_ARGS`: Similar to `SINGLE_QUERY_ARG`, but instead of
   /// inspecting a single parameter, AWS WAF inspects all parameters within the
   /// query string for the value or regex pattern that you specify in
   /// `TargetString`.
@@ -2541,7 +2564,7 @@ class ByteMatchTuple {
   /// command line command and using unusual formatting to disguise some or all
   /// of the command, use this option to perform the following transformations:
   ///
-  /// *   Delete the following characters: \ " ' ^
+  /// *   Delete the following characters:  " ' ^
   ///
   /// *   Delete spaces before the following characters: / (
   ///
@@ -2552,30 +2575,30 @@ class ByteMatchTuple {
   /// *   Convert uppercase letters (A-Z) to lowercase (a-z)
   ///
   ///
-  ///  **COMPRESS\_WHITE\_SPACE**
+  ///  **COMPRESS_WHITE_SPACE**
   ///
   /// Use this option to replace the following characters with a space character
   /// (decimal 32):
   ///
-  /// *   \\f, formfeed, decimal 12
+  /// *   f, formfeed, decimal 12
   ///
-  /// *   \\t, tab, decimal 9
+  /// *   t, tab, decimal 9
   ///
-  /// *   \\n, newline, decimal 10
+  /// *   n, newline, decimal 10
   ///
-  /// *   \\r, carriage return, decimal 13
+  /// *   r, carriage return, decimal 13
   ///
-  /// *   \\v, vertical tab, decimal 11
+  /// *   v, vertical tab, decimal 11
   ///
   /// *   non-breaking space, decimal 160
   ///
   ///
-  ///  `COMPRESS\_WHITE\_SPACE` also replaces multiple spaces with one space.
+  ///  `COMPRESS_WHITE_SPACE` also replaces multiple spaces with one space.
   ///
-  ///  **HTML\_ENTITY\_DECODE**
+  ///  **HTML_ENTITY_DECODE**
   ///
   /// Use this option to replace HTML-encoded characters with unencoded
-  /// characters. `HTML\_ENTITY\_DECODE` performs the following operations:
+  /// characters. `HTML_ENTITY_DECODE` performs the following operations:
   ///
   /// *   Replaces `(ampersand)quot;` with `"`
   ///
@@ -2816,6 +2839,7 @@ class CreateSizeConstraintSetResponse {
       CreateSizeConstraintSetResponse();
 }
 
+/// The response to a `CreateSqlInjectionMatchSet` request.
 class CreateSqlInjectionMatchSetResponse {
   /// A SqlInjectionMatchSet.
   final SqlInjectionMatchSet sqlInjectionMatchSet;
@@ -2851,6 +2875,7 @@ class CreateWebAclResponse {
       CreateWebAclResponse();
 }
 
+/// The response to a `CreateXssMatchSet` request.
 class CreateXssMatchSetResponse {
   /// An XssMatchSet.
   final XssMatchSet xssMatchSet;
@@ -2998,6 +3023,7 @@ class DeleteSizeConstraintSetResponse {
       DeleteSizeConstraintSetResponse();
 }
 
+/// The response to a request to delete a SqlInjectionMatchSet from AWS WAF.
 class DeleteSqlInjectionMatchSetResponse {
   /// The `ChangeToken` that you used to submit the `DeleteSqlInjectionMatchSet`
   /// request. You can also use this value to query the status of the request.
@@ -3025,6 +3051,7 @@ class DeleteWebAclResponse {
       DeleteWebAclResponse();
 }
 
+/// The response to a request to delete an XssMatchSet from AWS WAF.
 class DeleteXssMatchSetResponse {
   /// The `ChangeToken` that you used to submit the `DeleteXssMatchSet` request.
   /// You can also use this value to query the status of the request. For more
@@ -3038,6 +3065,9 @@ class DeleteXssMatchSetResponse {
       DeleteXssMatchSetResponse();
 }
 
+/// The rule to exclude from a rule group. This is applicable only when the
+/// `ActivatedRule` refers to a `RuleGroup`. The rule must belong to the
+/// `RuleGroup` that is specified by the `ActivatedRule`.
 class ExcludedRule {
   /// The unique identifier for the rule to exclude from the rule group.
   final String ruleId;
@@ -3048,6 +3078,7 @@ class ExcludedRule {
   static ExcludedRule fromJson(Map<String, dynamic> json) => ExcludedRule();
 }
 
+/// Specifies where in a web request to look for `TargetString`.
 class FieldToMatch {
   /// The part of the web request that you want AWS WAF to search for a
   /// specified string. Parts of a request that you can search include the
@@ -3076,11 +3107,11 @@ class FieldToMatch {
   /// the body, you can create a size constraint set. For more information, see
   /// CreateSizeConstraintSet.
   ///
-  /// *    `SINGLE\_QUERY\_ARG`: The parameter in the query string that you will
+  /// *    `SINGLE_QUERY_ARG`: The parameter in the query string that you will
   /// inspect, such as _UserName_ or _SalesRegion_. The maximum length for
-  /// `SINGLE\_QUERY\_ARG` is 30 characters.
+  /// `SINGLE_QUERY_ARG` is 30 characters.
   ///
-  /// *    `ALL\_QUERY\_ARGS`: Similar to `SINGLE\_QUERY\_ARG`, but rather than
+  /// *    `ALL_QUERY_ARGS`: Similar to `SINGLE_QUERY_ARG`, but rather than
   /// inspecting a single parameter, AWS WAF will inspect all parameters within
   /// the query for the value or regex pattern that you specify in
   /// `TargetString`.
@@ -3090,7 +3121,7 @@ class FieldToMatch {
   /// you want AWS WAF to search, for example, `User-Agent` or `Referer`. The
   /// name of the header is not case sensitive.
   ///
-  /// When the value of `Type` is `SINGLE\_QUERY\_ARG`, enter the name of the
+  /// When the value of `Type` is `SINGLE_QUERY_ARG`, enter the name of the
   /// parameter that you want AWS WAF to search, for example, `UserName` or
   /// `SalesRegion`. The parameter name is not case sensitive.
   ///
@@ -3104,6 +3135,8 @@ class FieldToMatch {
   static FieldToMatch fromJson(Map<String, dynamic> json) => FieldToMatch();
 }
 
+/// The country from which web requests originate that you want AWS WAF to
+/// search for.
 class GeoMatchConstraint {
   /// The type of geographical area you want AWS WAF to search for. Currently
   /// `Country` is the only valid value.
@@ -3120,6 +3153,7 @@ class GeoMatchConstraint {
       GeoMatchConstraint();
 }
 
+/// Contains one or more countries that AWS WAF will search for.
 class GeoMatchSet {
   /// The `GeoMatchSetId` for an `GeoMatchSet`. You use `GeoMatchSetId` to get
   /// information about a `GeoMatchSet` (see GeoMatchSet), update a
@@ -3146,6 +3180,7 @@ class GeoMatchSet {
   static GeoMatchSet fromJson(Map<String, dynamic> json) => GeoMatchSet();
 }
 
+/// Contains the identifier and the name of the `GeoMatchSet`.
 class GeoMatchSetSummary {
   /// The `GeoMatchSetId` for an GeoMatchSet. You can use `GeoMatchSetId` in a
   /// GetGeoMatchSet request to get detailed information about an GeoMatchSet.
@@ -3163,6 +3198,8 @@ class GeoMatchSetSummary {
       GeoMatchSetSummary();
 }
 
+/// Specifies the type of update to perform to an GeoMatchSet with
+/// UpdateGeoMatchSet.
 class GeoMatchSetUpdate {
   /// Specifies whether to insert or delete a country with UpdateGeoMatchSet.
   final String action;
@@ -3407,6 +3444,7 @@ class GetSizeConstraintSetResponse {
       GetSizeConstraintSetResponse();
 }
 
+/// The response to a GetSqlInjectionMatchSet request.
 class GetSqlInjectionMatchSetResponse {
   /// Information about the SqlInjectionMatchSet that you specified in the
   /// `GetSqlInjectionMatchSet` request. For more information, see the following
@@ -3450,6 +3488,7 @@ class GetWebAclResponse {
       GetWebAclResponse();
 }
 
+/// The response to a GetXssMatchSet request.
 class GetXssMatchSetResponse {
   /// Information about the XssMatchSet that you specified in the
   /// `GetXssMatchSet` request. For more information, see the following topics:
@@ -3470,6 +3509,10 @@ class GetXssMatchSetResponse {
       GetXssMatchSetResponse();
 }
 
+/// The response from a GetSampledRequests request includes an `HTTPHeader`
+/// complex type that appears as `Headers` in the response syntax. `HTTPHeader`
+/// contains the names and values of all of the headers that appear in one of
+/// the web requests that were returned by `GetSampledRequests`.
 class HttpHeader {
   /// The name of one of the headers in the sampled web request.
   final String name;
@@ -3484,6 +3527,10 @@ class HttpHeader {
   static HttpHeader fromJson(Map<String, dynamic> json) => HttpHeader();
 }
 
+/// The response from a GetSampledRequests request includes an `HTTPRequest`
+/// complex type that appears as `Request` in the response syntax. `HTTPRequest`
+/// contains information about one of the web requests that were returned by
+/// `GetSampledRequests`.
 class HttpRequest {
   /// The IP address that the request originated from. If the `WebACL` is
   /// associated with a CloudFront distribution, this is the value of one of the
@@ -3497,8 +3544,8 @@ class HttpRequest {
   final String clientIP;
 
   /// The two-letter country code for the country that the request originated
-  /// from. For a current list of country codes, see the Wikipedia entry [ISO
-  /// 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+  /// from. For a current list of country codes, see the Wikipedia entry
+  /// [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
   final String country;
 
   /// The part of a web request that identifies the resource, for example,
@@ -3529,6 +3576,17 @@ class HttpRequest {
   static HttpRequest fromJson(Map<String, dynamic> json) => HttpRequest();
 }
 
+/// Contains one or more IP addresses or blocks of IP addresses specified in
+/// Classless Inter-Domain Routing (CIDR) notation. AWS WAF supports IPv4
+/// address ranges: /8 and any range between /16 through /32. AWS WAF supports
+/// IPv6 address ranges: /24, /32, /48, /56, /64, and /128.
+///
+/// To specify an individual IP address, you specify the four-part IP address
+/// followed by a `/32`, for example, 192.0.2.0/31. To block a range of IP
+/// addresses, you can specify /8 or any range between /16 through /32 (for
+/// IPv4) or /24, /32, /48, /56, /64, or /128 (for IPv6). For more information
+/// about CIDR notation, see the Wikipedia entry
+/// [Classless Inter-Domain Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 class IPSet {
   /// The `IPSetId` for an `IPSet`. You use `IPSetId` to get information about
   /// an `IPSet` (see GetIPSet), update an `IPSet` (see UpdateIPSet), insert an
@@ -3557,6 +3615,8 @@ class IPSet {
   static IPSet fromJson(Map<String, dynamic> json) => IPSet();
 }
 
+/// Specifies the IP address type (`IPV4` or `IPV6`) and the IP address range
+/// (in CIDR format) that web requests originate from.
 class IPSetDescriptor {
   /// Specify `IPV4` or `IPV6`.
   final String type;
@@ -3572,8 +3632,7 @@ class IPSetDescriptor {
   ///
   ///
   /// For more information about CIDR notation, see the Wikipedia entry
-  /// [Classless Inter-Domain
-  /// Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// [Classless Inter-Domain Routing](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// Specify an IPv6 address by using CIDR notation. For example:
   ///
@@ -3595,6 +3654,7 @@ class IPSetDescriptor {
       IPSetDescriptor();
 }
 
+/// Contains the identifier and the name of the `IPSet`.
 class IPSetSummary {
   /// The `IPSetId` for an IPSet. You can use `IPSetId` in a GetIPSet request to
   /// get detailed information about an IPSet.
@@ -3611,6 +3671,7 @@ class IPSetSummary {
   static IPSetSummary fromJson(Map<String, dynamic> json) => IPSetSummary();
 }
 
+/// Specifies the type of update to perform to an IPSet with UpdateIPSet.
 class IPSetUpdate {
   /// Specifies whether to insert or delete an IP address with UpdateIPSet.
   final String action;
@@ -3835,6 +3896,7 @@ class ListSizeConstraintSetsResponse {
       ListSizeConstraintSetsResponse();
 }
 
+/// The response to a ListSqlInjectionMatchSets request.
 class ListSqlInjectionMatchSetsResponse {
   /// If you have more SqlInjectionMatchSet objects than the number that you
   /// specified for `Limit` in the request, the response includes a `NextMarker`
@@ -3906,6 +3968,7 @@ class ListWebACLsResponse {
       ListWebACLsResponse();
 }
 
+/// The response to a ListXssMatchSets request.
 class ListXssMatchSetsResponse {
   /// If you have more XssMatchSet objects than the number that you specified
   /// for `Limit` in the request, the response includes a `NextMarker` value. To
@@ -3925,6 +3988,8 @@ class ListXssMatchSetsResponse {
       ListXssMatchSetsResponse();
 }
 
+/// The Amazon Kinesis Data Firehose, `RedactedFields` information, and the web
+/// ACL Amazon Resource Name (ARN).
 class LoggingConfiguration {
   /// The Amazon Resource Name (ARN) of the web ACL that you want to associate
   /// with `LogDestinationConfigs`.
@@ -3947,6 +4012,11 @@ class LoggingConfiguration {
       LoggingConfiguration();
 }
 
+/// Specifies the ByteMatchSet, IPSet, SqlInjectionMatchSet, XssMatchSet,
+/// RegexMatchSet, GeoMatchSet, and SizeConstraintSet objects that you want to
+/// add to a `Rule` and, for each object, indicates whether you want to negate
+/// the settings, for example, requests that do NOT originate from the IP
+/// address 192.0.2.44.
 class Predicate {
   /// Set `Negated` to `False` if you want AWS WAF to allow, block, or count
   /// requests based on the settings in the specified ByteMatchSet, IPSet,
@@ -3996,6 +4066,22 @@ class PutPermissionPolicyResponse {
       PutPermissionPolicyResponse();
 }
 
+/// A `RateBasedRule` is identical to a regular Rule, with one addition: a
+/// `RateBasedRule` counts the number of requests that arrive from a specified
+/// IP address every five minutes. For example, based on recent requests that
+/// you've seen from an attacker, you might create a `RateBasedRule` that
+/// includes the following conditions:
+///
+/// *   The requests come from 192.0.2.44.
+///
+/// *   They contain the value `BadBot` in the `User-Agent` header.
+///
+///
+/// In the rule, you also define the rate limit as 15,000.
+///
+/// Requests that meet both of these conditions and exceed 15,000 requests every
+/// five minutes trigger the rule's action (block or count), which is defined in
+/// the web ACL.
 class RateBasedRule {
   /// A unique identifier for a `RateBasedRule`. You use `RuleId` to get more
   /// information about a `RateBasedRule` (see GetRateBasedRule), update a
@@ -4046,6 +4132,15 @@ class RateBasedRule {
   static RateBasedRule fromJson(Map<String, dynamic> json) => RateBasedRule();
 }
 
+/// In a GetRegexMatchSet request, `RegexMatchSet` is a complex type that
+/// contains the `RegexMatchSetId` and `Name` of a `RegexMatchSet`, and the
+/// values that you specified when you updated the `RegexMatchSet`.
+///
+///  The values are contained in a `RegexMatchTuple` object, which specify the
+/// parts of web requests that you want AWS WAF to inspect and the values that
+/// you want AWS WAF to search for. If a `RegexMatchSet` contains more than one
+/// `RegexMatchTuple` object, a request needs to match the settings in only one
+/// `ByteMatchTuple` to be considered a match.
 class RegexMatchSet {
   /// The `RegexMatchSetId` for a `RegexMatchSet`. You use `RegexMatchSetId` to
   /// get information about a `RegexMatchSet` (see GetRegexMatchSet), update a
@@ -4082,6 +4177,8 @@ class RegexMatchSet {
   static RegexMatchSet fromJson(Map<String, dynamic> json) => RegexMatchSet();
 }
 
+/// Returned by ListRegexMatchSets. Each `RegexMatchSetSummary` object includes
+/// the `Name` and `RegexMatchSetId` for one RegexMatchSet.
 class RegexMatchSetSummary {
   /// The `RegexMatchSetId` for a `RegexMatchSet`. You use `RegexMatchSetId` to
   /// get information about a `RegexMatchSet`, update a `RegexMatchSet`, remove
@@ -4104,6 +4201,9 @@ class RegexMatchSetSummary {
       RegexMatchSetSummary();
 }
 
+/// In an UpdateRegexMatchSet request, `RegexMatchSetUpdate` specifies whether
+/// to insert or delete a RegexMatchTuple and includes the settings for the
+/// `RegexMatchTuple`.
 class RegexMatchSetUpdate {
   /// Specifies whether to insert or delete a RegexMatchTuple.
   final String action;
@@ -4121,6 +4221,18 @@ class RegexMatchSetUpdate {
   });
 }
 
+/// The regular expression pattern that you want AWS WAF to search for in web
+/// requests, the location in requests that you want AWS WAF to search, and
+/// other settings. Each `RegexMatchTuple` object contains:
+///
+/// *   The part of a web request that you want AWS WAF to inspect, such as a
+/// query string or the value of the `User-Agent` header.
+///
+/// *   The identifier of the pattern (a regular expression) that you want AWS
+/// WAF to look for. For more information, see RegexPatternSet.
+///
+/// *   Whether to perform any conversions on the request, such as converting it
+/// to lowercase, before inspecting it for the specified string.
 class RegexMatchTuple {
   /// Specifies where in a web request to look for the `RegexPatternSet`.
   final FieldToMatch fieldToMatch;
@@ -4138,7 +4250,7 @@ class RegexMatchTuple {
   /// commandline command and using unusual formatting to disguise some or all
   /// of the command, use this option to perform the following transformations:
   ///
-  /// *   Delete the following characters: \ " ' ^
+  /// *   Delete the following characters:  " ' ^
   ///
   /// *   Delete spaces before the following characters: / (
   ///
@@ -4149,30 +4261,30 @@ class RegexMatchTuple {
   /// *   Convert uppercase letters (A-Z) to lowercase (a-z)
   ///
   ///
-  ///  **COMPRESS\_WHITE\_SPACE**
+  ///  **COMPRESS_WHITE_SPACE**
   ///
   /// Use this option to replace the following characters with a space character
   /// (decimal 32):
   ///
-  /// *   \\f, formfeed, decimal 12
+  /// *   f, formfeed, decimal 12
   ///
-  /// *   \\t, tab, decimal 9
+  /// *   t, tab, decimal 9
   ///
-  /// *   \\n, newline, decimal 10
+  /// *   n, newline, decimal 10
   ///
-  /// *   \\r, carriage return, decimal 13
+  /// *   r, carriage return, decimal 13
   ///
-  /// *   \\v, vertical tab, decimal 11
+  /// *   v, vertical tab, decimal 11
   ///
   /// *   non-breaking space, decimal 160
   ///
   ///
-  ///  `COMPRESS\_WHITE\_SPACE` also replaces multiple spaces with one space.
+  ///  `COMPRESS_WHITE_SPACE` also replaces multiple spaces with one space.
   ///
-  ///  **HTML\_ENTITY\_DECODE**
+  ///  **HTML_ENTITY_DECODE**
   ///
   /// Use this option to replace HTML-encoded characters with unencoded
-  /// characters. `HTML\_ENTITY\_DECODE` performs the following operations:
+  /// characters. `HTML_ENTITY_DECODE` performs the following operations:
   ///
   /// *   Replaces `(ampersand)quot;` with `"`
   ///
@@ -4222,6 +4334,9 @@ class RegexMatchTuple {
       RegexMatchTuple();
 }
 
+/// The `RegexPatternSet` specifies the regular expression (regex) pattern that
+/// you want AWS WAF to search for, such as `B[a@]dB[o0]t`. You can then
+/// configure AWS WAF to reject those requests.
 class RegexPatternSet {
   /// The identifier for the `RegexPatternSet`. You use `RegexPatternSetId` to
   /// get information about a `RegexPatternSet`, update a `RegexPatternSet`,
@@ -4237,7 +4352,7 @@ class RegexPatternSet {
   final String name;
 
   /// Specifies the regular expression (regex) patterns that you want AWS WAF to
-  /// search for, such as `B\[a@\]dB\[o0\]t`.
+  /// search for, such as `B[a@]dB[o0]t`.
   final List<String> regexPatternStrings;
 
   RegexPatternSet({
@@ -4249,6 +4364,8 @@ class RegexPatternSet {
       RegexPatternSet();
 }
 
+/// Returned by ListRegexPatternSets. Each `RegexPatternSetSummary` object
+/// includes the `Name` and `RegexPatternSetId` for one RegexPatternSet.
 class RegexPatternSetSummary {
   /// The `RegexPatternSetId` for a `RegexPatternSet`. You use
   /// `RegexPatternSetId` to get information about a `RegexPatternSet`, update a
@@ -4271,12 +4388,15 @@ class RegexPatternSetSummary {
       RegexPatternSetSummary();
 }
 
+/// In an UpdateRegexPatternSet request, `RegexPatternSetUpdate` specifies
+/// whether to insert or delete a `RegexPatternString` and includes the settings
+/// for the `RegexPatternString`.
 class RegexPatternSetUpdate {
   /// Specifies whether to insert or delete a `RegexPatternString`.
   final String action;
 
   /// Specifies the regular expression (regex) pattern that you want AWS WAF to
-  /// search for, such as `B\[a@\]dB\[o0\]t`.
+  /// search for, such as `B[a@]dB[o0]t`.
   final String regexPatternString;
 
   RegexPatternSetUpdate({
@@ -4285,6 +4405,20 @@ class RegexPatternSetUpdate {
   });
 }
 
+/// A combination of ByteMatchSet, IPSet, and/or SqlInjectionMatchSet objects
+/// that identify the web requests that you want to allow, block, or count. For
+/// example, you might create a `Rule` that includes the following predicates:
+///
+/// *   An `IPSet` that causes AWS WAF to search for web requests that originate
+/// from the IP address `192.0.2.44`
+///
+/// *   A `ByteMatchSet` that causes AWS WAF to search for web requests for
+/// which the value of the `User-Agent` header is `BadBot`.
+///
+///
+/// To match the settings in this `Rule`, a request must originate from
+/// `192.0.2.44` AND include a `User-Agent` header for which the value is
+/// `BadBot`.
 class Rule {
   /// A unique identifier for a `Rule`. You use `RuleId` to get more information
   /// about a `Rule` (see GetRule), update a `Rule` (see UpdateRule), insert a
@@ -4319,6 +4453,16 @@ class Rule {
   static Rule fromJson(Map<String, dynamic> json) => Rule();
 }
 
+/// A collection of predefined rules that you can add to a web ACL.
+///
+/// Rule groups are subject to the following limits:
+///
+/// *   Three rule groups per account. You can request an increase to this limit
+/// by contacting customer support.
+///
+/// *   One rule group per web ACL.
+///
+/// *   Ten rules per rule group.
 class RuleGroup {
   /// A unique identifier for a `RuleGroup`. You use `RuleGroupId` to get more
   /// information about a `RuleGroup` (see GetRuleGroup), update a `RuleGroup`
@@ -4348,6 +4492,8 @@ class RuleGroup {
   static RuleGroup fromJson(Map<String, dynamic> json) => RuleGroup();
 }
 
+/// Contains the identifier and the friendly name or description of the
+/// `RuleGroup`.
 class RuleGroupSummary {
   /// A unique identifier for a `RuleGroup`. You use `RuleGroupId` to get more
   /// information about a `RuleGroup` (see GetRuleGroup), update a `RuleGroup`
@@ -4370,6 +4516,8 @@ class RuleGroupSummary {
       RuleGroupSummary();
 }
 
+/// Specifies an `ActivatedRule` and indicates whether you want to add it to a
+/// `RuleGroup` or delete it from a `RuleGroup`.
 class RuleGroupUpdate {
   /// Specify `INSERT` to add an `ActivatedRule` to a `RuleGroup`. Use `DELETE`
   /// to remove an `ActivatedRule` from a `RuleGroup`.
@@ -4387,6 +4535,7 @@ class RuleGroupUpdate {
   });
 }
 
+/// Contains the identifier and the friendly name or description of the `Rule`.
 class RuleSummary {
   /// A unique identifier for a `Rule`. You use `RuleId` to get more information
   /// about a `Rule` (see GetRule), update a `Rule` (see UpdateRule), insert a
@@ -4407,6 +4556,8 @@ class RuleSummary {
   static RuleSummary fromJson(Map<String, dynamic> json) => RuleSummary();
 }
 
+/// Specifies a `Predicate` (such as an `IPSet`) and indicates whether you want
+/// to add it to a `Rule` or delete it from a `Rule`.
 class RuleUpdate {
   /// Specify `INSERT` to add a `Predicate` to a `Rule`. Use `DELETE` to remove
   /// a `Predicate` from a `Rule`.
@@ -4422,6 +4573,10 @@ class RuleUpdate {
   });
 }
 
+/// The response from a GetSampledRequests request includes a
+/// `SampledHTTPRequests` complex type that appears as `SampledRequests` in the
+/// response syntax. `SampledHTTPRequests` contains one `SampledHTTPRequest`
+/// object for each web request that is returned by `GetSampledRequests`.
 class SampledHttpRequest {
   /// A complex type that contains detailed information about the request.
   final HttpRequest request;
@@ -4457,6 +4612,11 @@ class SampledHttpRequest {
       SampledHttpRequest();
 }
 
+/// Specifies a constraint on the size of a part of the web request. AWS WAF
+/// uses the `Size`, `ComparisonOperator`, and `FieldToMatch` to build an
+/// expression in the form of "`Size` `ComparisonOperator` size in bytes of
+/// `FieldToMatch`". If that expression is true, the `SizeConstraint` is
+/// considered to match.
 class SizeConstraint {
   /// Specifies where in a web request to look for the size constraint.
   final FieldToMatch fieldToMatch;
@@ -4482,7 +4642,7 @@ class SizeConstraint {
   /// command line command and using unusual formatting to disguise some or all
   /// of the command, use this option to perform the following transformations:
   ///
-  /// *   Delete the following characters: \ " ' ^
+  /// *   Delete the following characters:  " ' ^
   ///
   /// *   Delete spaces before the following characters: / (
   ///
@@ -4493,30 +4653,30 @@ class SizeConstraint {
   /// *   Convert uppercase letters (A-Z) to lowercase (a-z)
   ///
   ///
-  ///  **COMPRESS\_WHITE\_SPACE**
+  ///  **COMPRESS_WHITE_SPACE**
   ///
   /// Use this option to replace the following characters with a space character
   /// (decimal 32):
   ///
-  /// *   \\f, formfeed, decimal 12
+  /// *   f, formfeed, decimal 12
   ///
-  /// *   \\t, tab, decimal 9
+  /// *   t, tab, decimal 9
   ///
-  /// *   \\n, newline, decimal 10
+  /// *   n, newline, decimal 10
   ///
-  /// *   \\r, carriage return, decimal 13
+  /// *   r, carriage return, decimal 13
   ///
-  /// *   \\v, vertical tab, decimal 11
+  /// *   v, vertical tab, decimal 11
   ///
   /// *   non-breaking space, decimal 160
   ///
   ///
-  ///  `COMPRESS\_WHITE\_SPACE` also replaces multiple spaces with one space.
+  ///  `COMPRESS_WHITE_SPACE` also replaces multiple spaces with one space.
   ///
-  ///  **HTML\_ENTITY\_DECODE**
+  ///  **HTML_ENTITY_DECODE**
   ///
   /// Use this option to replace HTML-encoded characters with unencoded
-  /// characters. `HTML\_ENTITY\_DECODE` performs the following operations:
+  /// characters. `HTML_ENTITY_DECODE` performs the following operations:
   ///
   /// *   Replaces `(ampersand)quot;` with `"`
   ///
@@ -4588,6 +4748,10 @@ class SizeConstraint {
   static SizeConstraint fromJson(Map<String, dynamic> json) => SizeConstraint();
 }
 
+/// A complex type that contains `SizeConstraint` objects, which specify the
+/// parts of web requests that you want AWS WAF to inspect the size of. If a
+/// `SizeConstraintSet` contains more than one `SizeConstraint` object, a
+/// request only needs to match one constraint to be considered a match.
 class SizeConstraintSet {
   /// A unique identifier for a `SizeConstraintSet`. You use
   /// `SizeConstraintSetId` to get information about a `SizeConstraintSet` (see
@@ -4615,6 +4779,7 @@ class SizeConstraintSet {
       SizeConstraintSet();
 }
 
+/// The `Id` and `Name` of a `SizeConstraintSet`.
 class SizeConstraintSetSummary {
   /// A unique identifier for a `SizeConstraintSet`. You use
   /// `SizeConstraintSetId` to get information about a `SizeConstraintSet` (see
@@ -4638,6 +4803,9 @@ class SizeConstraintSetSummary {
       SizeConstraintSetSummary();
 }
 
+/// Specifies the part of a web request that you want to inspect the size of and
+/// indicates whether you want to add the specification to a SizeConstraintSet
+/// or delete it from a `SizeConstraintSet`.
 class SizeConstraintSetUpdate {
   /// Specify `INSERT` to add a SizeConstraintSetUpdate to a SizeConstraintSet.
   /// Use `DELETE` to remove a `SizeConstraintSetUpdate` from a
@@ -4657,6 +4825,13 @@ class SizeConstraintSetUpdate {
   });
 }
 
+/// A complex type that contains `SqlInjectionMatchTuple` objects, which specify
+/// the parts of web requests that you want AWS WAF to inspect for snippets of
+/// malicious SQL code and, if you want AWS WAF to inspect a header, the name of
+/// the header. If a `SqlInjectionMatchSet` contains more than one
+/// `SqlInjectionMatchTuple` object, a request needs to include snippets of SQL
+/// code in only one of the specified parts of the request to be considered a
+/// match.
 class SqlInjectionMatchSet {
   /// A unique identifier for a `SqlInjectionMatchSet`. You use
   /// `SqlInjectionMatchSetId` to get information about a `SqlInjectionMatchSet`
@@ -4685,6 +4860,7 @@ class SqlInjectionMatchSet {
       SqlInjectionMatchSet();
 }
 
+/// The `Id` and `Name` of a `SqlInjectionMatchSet`.
 class SqlInjectionMatchSetSummary {
   /// A unique identifier for a `SqlInjectionMatchSet`. You use
   /// `SqlInjectionMatchSetId` to get information about a `SqlInjectionMatchSet`
@@ -4708,6 +4884,9 @@ class SqlInjectionMatchSetSummary {
       SqlInjectionMatchSetSummary();
 }
 
+/// Specifies the part of a web request that you want to inspect for snippets of
+/// malicious SQL code and indicates whether you want to add the specification
+/// to a SqlInjectionMatchSet or delete it from a `SqlInjectionMatchSet`.
 class SqlInjectionMatchSetUpdate {
   /// Specify `INSERT` to add a SqlInjectionMatchSetUpdate to a
   /// SqlInjectionMatchSet. Use `DELETE` to remove a
@@ -4725,6 +4904,9 @@ class SqlInjectionMatchSetUpdate {
   });
 }
 
+/// Specifies the part of a web request that you want AWS WAF to inspect for
+/// snippets of malicious SQL code and, if you want AWS WAF to inspect a header,
+/// the name of the header.
 class SqlInjectionMatchTuple {
   /// Specifies where in a web request to look for snippets of malicious SQL
   /// code.
@@ -4743,7 +4925,7 @@ class SqlInjectionMatchTuple {
   /// command line command and using unusual formatting to disguise some or all
   /// of the command, use this option to perform the following transformations:
   ///
-  /// *   Delete the following characters: \ " ' ^
+  /// *   Delete the following characters:  " ' ^
   ///
   /// *   Delete spaces before the following characters: / (
   ///
@@ -4754,30 +4936,30 @@ class SqlInjectionMatchTuple {
   /// *   Convert uppercase letters (A-Z) to lowercase (a-z)
   ///
   ///
-  ///  **COMPRESS\_WHITE\_SPACE**
+  ///  **COMPRESS_WHITE_SPACE**
   ///
   /// Use this option to replace the following characters with a space character
   /// (decimal 32):
   ///
-  /// *   \\f, formfeed, decimal 12
+  /// *   f, formfeed, decimal 12
   ///
-  /// *   \\t, tab, decimal 9
+  /// *   t, tab, decimal 9
   ///
-  /// *   \\n, newline, decimal 10
+  /// *   n, newline, decimal 10
   ///
-  /// *   \\r, carriage return, decimal 13
+  /// *   r, carriage return, decimal 13
   ///
-  /// *   \\v, vertical tab, decimal 11
+  /// *   v, vertical tab, decimal 11
   ///
   /// *   non-breaking space, decimal 160
   ///
   ///
-  ///  `COMPRESS\_WHITE\_SPACE` also replaces multiple spaces with one space.
+  ///  `COMPRESS_WHITE_SPACE` also replaces multiple spaces with one space.
   ///
-  ///  **HTML\_ENTITY\_DECODE**
+  ///  **HTML_ENTITY_DECODE**
   ///
   /// Use this option to replace HTML-encoded characters with unencoded
-  /// characters. `HTML\_ENTITY\_DECODE` performs the following operations:
+  /// characters. `HTML_ENTITY_DECODE` performs the following operations:
   ///
   /// *   Replaces `(ampersand)quot;` with `"`
   ///
@@ -4815,6 +4997,7 @@ class SqlInjectionMatchTuple {
       SqlInjectionMatchTuple();
 }
 
+/// A summary of the rule groups you are subscribed to.
 class SubscribedRuleGroupSummary {
   /// A unique identifier for a `RuleGroup`.
   final String ruleGroupId;
@@ -4870,6 +5053,17 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// In a GetSampledRequests request, the `StartTime` and `EndTime` objects
+/// specify the time range for which you want AWS WAF to return a sample of web
+/// requests.
+///
+/// In a GetSampledRequests response, the `StartTime` and `EndTime` objects
+/// specify the time range for which AWS WAF actually returned a sample of web
+/// requests. AWS WAF gets the specified number of requests from among the first
+/// 5,000 requests that your AWS resource receives during the specified time
+/// period. If your resource receives more than 5,000 requests during that
+/// period, AWS WAF stops sampling after the 5,000th request. In that case,
+/// `EndTime` is the time that AWS WAF received the 5,000th request.
 class TimeWindow {
   /// The beginning of the time range from which you want `GetSampledRequests`
   /// to return a sample of the requests that your AWS resource received.
@@ -5013,6 +5207,7 @@ class UpdateSizeConstraintSetResponse {
       UpdateSizeConstraintSetResponse();
 }
 
+/// The response to an UpdateSqlInjectionMatchSets request.
 class UpdateSqlInjectionMatchSetResponse {
   /// The `ChangeToken` that you used to submit the `UpdateSqlInjectionMatchSet`
   /// request. You can also use this value to query the status of the request.
@@ -5040,6 +5235,7 @@ class UpdateWebAclResponse {
       UpdateWebAclResponse();
 }
 
+/// The response to an UpdateXssMatchSets request.
 class UpdateXssMatchSetResponse {
   /// The `ChangeToken` that you used to submit the `UpdateXssMatchSet` request.
   /// You can also use this value to query the status of the request. For more
@@ -5053,6 +5249,11 @@ class UpdateXssMatchSetResponse {
       UpdateXssMatchSetResponse();
 }
 
+/// For the action that is associated with a rule in a `WebACL`, specifies the
+/// action that you want AWS WAF to perform when a web request matches all of
+/// the conditions in a rule. For the default action in a `WebACL`, specifies
+/// the action that you want AWS WAF to take when a web request doesn't match
+/// all of the conditions in any of the rules in a `WebACL`.
 class WafAction {
   /// Specifies how you want AWS WAF to respond to requests that match the
   /// settings in a `Rule`. Valid settings include the following:
@@ -5073,6 +5274,7 @@ class WafAction {
   static WafAction fromJson(Map<String, dynamic> json) => WafAction();
 }
 
+/// The action to take if any rule within the `RuleGroup` matches a request.
 class WafOverrideAction {
   ///  `COUNT` overrides the action specified by the individual rule within a
   /// `RuleGroup` . If set to `NONE`, the rule's action will take place.
@@ -5085,6 +5287,15 @@ class WafOverrideAction {
       WafOverrideAction();
 }
 
+/// Contains the `Rules` that identify the requests that you want to allow,
+/// block, or count. In a `WebACL`, you also specify a default action (`ALLOW`
+/// or `BLOCK`), and the action for each `Rule` that you add to a `WebACL`, for
+/// example, block requests from specified IP addresses or block requests from
+/// specified referrers. You also associate the `WebACL` with a CloudFront
+/// distribution to identify the requests that you want AWS WAF to filter. If
+/// you add more than one `Rule` to a `WebACL`, a request needs to match only
+/// one of the specifications to be allowed, blocked, or counted. For more
+/// information, see UpdateWebACL.
 class WebAcl {
   /// A unique identifier for a `WebACL`. You use `WebACLId` to get information
   /// about a `WebACL` (see GetWebACL), update a `WebACL` (see UpdateWebACL),
@@ -5126,6 +5337,7 @@ class WebAcl {
   static WebAcl fromJson(Map<String, dynamic> json) => WebAcl();
 }
 
+/// Contains the identifier and the name or description of the WebACL.
 class WebAclSummary {
   /// A unique identifier for a `WebACL`. You use `WebACLId` to get information
   /// about a `WebACL` (see GetWebACL), update a `WebACL` (see UpdateWebACL),
@@ -5145,6 +5357,8 @@ class WebAclSummary {
   static WebAclSummary fromJson(Map<String, dynamic> json) => WebAclSummary();
 }
 
+/// Specifies whether to insert a `Rule` into or delete a `Rule` from a
+/// `WebACL`.
 class WebAclUpdate {
   /// Specifies whether to insert a `Rule` into or delete a `Rule` from a
   /// `WebACL`.
@@ -5162,6 +5376,12 @@ class WebAclUpdate {
   });
 }
 
+/// A complex type that contains `XssMatchTuple` objects, which specify the
+/// parts of web requests that you want AWS WAF to inspect for cross-site
+/// scripting attacks and, if you want AWS WAF to inspect a header, the name of
+/// the header. If a `XssMatchSet` contains more than one `XssMatchTuple`
+/// object, a request needs to include cross-site scripting attacks in only one
+/// of the specified parts of the request to be considered a match.
 class XssMatchSet {
   /// A unique identifier for an `XssMatchSet`. You use `XssMatchSetId` to get
   /// information about an `XssMatchSet` (see GetXssMatchSet), update an
@@ -5187,6 +5407,7 @@ class XssMatchSet {
   static XssMatchSet fromJson(Map<String, dynamic> json) => XssMatchSet();
 }
 
+/// The `Id` and `Name` of an `XssMatchSet`.
 class XssMatchSetSummary {
   /// A unique identifier for an `XssMatchSet`. You use `XssMatchSetId` to get
   /// information about a `XssMatchSet` (see GetXssMatchSet), update an
@@ -5208,6 +5429,9 @@ class XssMatchSetSummary {
       XssMatchSetSummary();
 }
 
+/// Specifies the part of a web request that you want to inspect for cross-site
+/// scripting attacks and indicates whether you want to add the specification to
+/// an XssMatchSet or delete it from an `XssMatchSet`.
 class XssMatchSetUpdate {
   /// Specify `INSERT` to add an XssMatchSetUpdate to an XssMatchSet. Use
   /// `DELETE` to remove an `XssMatchSetUpdate` from an `XssMatchSet`.
@@ -5224,6 +5448,9 @@ class XssMatchSetUpdate {
   });
 }
 
+/// Specifies the part of a web request that you want AWS WAF to inspect for
+/// cross-site scripting attacks and, if you want AWS WAF to inspect a header,
+/// the name of the header.
 class XssMatchTuple {
   /// Specifies where in a web request to look for cross-site scripting attacks.
   final FieldToMatch fieldToMatch;
@@ -5241,7 +5468,7 @@ class XssMatchTuple {
   /// command line command and using unusual formatting to disguise some or all
   /// of the command, use this option to perform the following transformations:
   ///
-  /// *   Delete the following characters: \ " ' ^
+  /// *   Delete the following characters:  " ' ^
   ///
   /// *   Delete spaces before the following characters: / (
   ///
@@ -5252,30 +5479,30 @@ class XssMatchTuple {
   /// *   Convert uppercase letters (A-Z) to lowercase (a-z)
   ///
   ///
-  ///  **COMPRESS\_WHITE\_SPACE**
+  ///  **COMPRESS_WHITE_SPACE**
   ///
   /// Use this option to replace the following characters with a space character
   /// (decimal 32):
   ///
-  /// *   \\f, formfeed, decimal 12
+  /// *   f, formfeed, decimal 12
   ///
-  /// *   \\t, tab, decimal 9
+  /// *   t, tab, decimal 9
   ///
-  /// *   \\n, newline, decimal 10
+  /// *   n, newline, decimal 10
   ///
-  /// *   \\r, carriage return, decimal 13
+  /// *   r, carriage return, decimal 13
   ///
-  /// *   \\v, vertical tab, decimal 11
+  /// *   v, vertical tab, decimal 11
   ///
   /// *   non-breaking space, decimal 160
   ///
   ///
-  ///  `COMPRESS\_WHITE\_SPACE` also replaces multiple spaces with one space.
+  ///  `COMPRESS_WHITE_SPACE` also replaces multiple spaces with one space.
   ///
-  ///  **HTML\_ENTITY\_DECODE**
+  ///  **HTML_ENTITY_DECODE**
   ///
   /// Use this option to replace HTML-encoded characters with unencoded
-  /// characters. `HTML\_ENTITY\_DECODE` performs the following operations:
+  /// characters. `HTML_ENTITY_DECODE` performs the following operations:
   ///
   /// *   Replaces `(ampersand)quot;` with `"`
   ///

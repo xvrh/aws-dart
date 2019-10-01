@@ -204,6 +204,7 @@ class IotEventsApi {
   }
 }
 
+/// An action to be performed when the `"condition"` is TRUE.
 class Action {
   /// Sets a variable to a specified value.
   final SetVariableAction setVariable;
@@ -255,6 +256,11 @@ class Action {
   static Action fromJson(Map<String, dynamic> json) => Action();
 }
 
+/// The attributes from the JSON payload that are made available by the input.
+/// Inputs are derived from messages sent to the AWS IoT Events system using
+/// `BatchPutMessage`. Each such message contains a JSON payload, and those
+/// attributes (and their paired values) specified here are available for use in
+/// the `condition` expressions used by detectors.
 class Attribute {
   /// An expression that specifies an attribute-value pair in a JSON structure.
   /// Use this to specify an attribute from the JSON payload that is made
@@ -272,6 +278,7 @@ class Attribute {
   static Attribute fromJson(Map<String, dynamic> json) => Attribute();
 }
 
+/// Information needed to clear the timer.
 class ClearTimerAction {
   /// The name of the timer to clear.
   final String timerName;
@@ -350,6 +357,8 @@ class DescribeLoggingOptionsResponse {
       DescribeLoggingOptionsResponse();
 }
 
+/// The detector model and the specific detectors (instances) for which the
+/// logging level is given.
 class DetectorDebugOption {
   /// The name of the detector model.
   final String detectorModelName;
@@ -366,6 +375,7 @@ class DetectorDebugOption {
       DetectorDebugOption();
 }
 
+/// Information about the detector model.
 class DetectorModel {
   /// Information that defines how a detector operates.
   final DetectorModelDefinition detectorModelDefinition;
@@ -380,6 +390,7 @@ class DetectorModel {
   static DetectorModel fromJson(Map<String, dynamic> json) => DetectorModel();
 }
 
+/// Information about how the detector model is configured.
 class DetectorModelConfiguration {
   /// The name of the detector model.
   final String detectorModelName;
@@ -429,6 +440,7 @@ class DetectorModelConfiguration {
       DetectorModelConfiguration();
 }
 
+/// Information that defines how a detector operates.
 class DetectorModelDefinition {
   /// Information about the states of the detector.
   final List<State> states;
@@ -444,6 +456,7 @@ class DetectorModelDefinition {
       DetectorModelDefinition();
 }
 
+/// Information about the detector model.
 class DetectorModelSummary {
   /// The name of the detector model.
   final String detectorModelName;
@@ -463,6 +476,7 @@ class DetectorModelSummary {
       DetectorModelSummary();
 }
 
+/// Information about the detector model version.
 class DetectorModelVersionSummary {
   /// The name of the detector model.
   final String detectorModelName;
@@ -499,12 +513,14 @@ class DetectorModelVersionSummary {
       DetectorModelVersionSummary();
 }
 
+/// Specifies the `"actions"` to be performed when the `"condition"` evaluates
+/// to TRUE.
 class Event {
   /// The name of the event.
   final String eventName;
 
-  /// \[Optional\] The Boolean expression that when TRUE causes the `"actions"`
-  /// to be performed. If not present, the actions are performed (=TRUE); if the
+  /// [Optional] The Boolean expression that when TRUE causes the `"actions"` to
+  /// be performed. If not present, the actions are performed (=TRUE); if the
   /// expression result is not a Boolean value, the actions are NOT performed
   /// (=FALSE).
   final String condition;
@@ -520,13 +536,15 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Sends information about the detector model instance and the event which
+/// triggered the action to a Kinesis Data Firehose stream.
 class FirehoseAction {
   /// The name of the Kinesis Data Firehose stream where the data is written.
   final String deliveryStreamName;
 
   /// A character separator that is used to separate records written to the
-  /// Kinesis Data Firehose stream. Valid values are: '\\n' (newline), '\\t'
-  /// (tab), '\\r\\n' (Windows newline), ',' (comma).
+  /// Kinesis Data Firehose stream. Valid values are: 'n' (newline), 't' (tab),
+  /// 'rn' (Windows newline), ',' (comma).
   final String separator;
 
   FirehoseAction({
@@ -536,6 +554,7 @@ class FirehoseAction {
   static FirehoseAction fromJson(Map<String, dynamic> json) => FirehoseAction();
 }
 
+/// Information about the input.
 class Input {
   /// Information about the configuration of an input.
   final InputConfiguration inputConfiguration;
@@ -550,6 +569,7 @@ class Input {
   static Input fromJson(Map<String, dynamic> json) => Input();
 }
 
+/// Information about the configuration of an input.
 class InputConfiguration {
   /// The name of the input.
   final String inputName;
@@ -581,6 +601,7 @@ class InputConfiguration {
       InputConfiguration();
 }
 
+/// The definition of the input.
 class InputDefinition {
   /// The attributes from the JSON payload that are made available by the input.
   /// Inputs are derived from messages sent to the AWS IoT Events system using
@@ -597,6 +618,7 @@ class InputDefinition {
       InputDefinition();
 }
 
+/// Information about the input.
 class InputSummary {
   /// The name of the input.
   final String inputName;
@@ -627,6 +649,8 @@ class InputSummary {
   static InputSummary fromJson(Map<String, dynamic> json) => InputSummary();
 }
 
+/// Sends an IoT Events input, passing in information about the detector model
+/// instance and the event which triggered the action.
 class IotEventsAction {
   /// The name of the AWS IoT Events input where the data is sent.
   final String inputName;
@@ -638,6 +662,8 @@ class IotEventsAction {
       IotEventsAction();
 }
 
+/// Information required to publish the MQTT message via the AWS IoT message
+/// broker.
 class IotTopicPublishAction {
   /// The MQTT topic of the message.
   final String mqttTopic;
@@ -649,6 +675,8 @@ class IotTopicPublishAction {
       IotTopicPublishAction();
 }
 
+/// Calls a Lambda function, passing in information about the detector model
+/// instance and the event which triggered the action.
 class LambdaAction {
   /// The ARN of the Lambda function which is executed.
   final String functionArn;
@@ -719,6 +747,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// The values of the AWS IoT Events logging options.
 class LoggingOptions {
   /// The ARN of the role that grants permission to AWS IoT Events to perform
   /// logging.
@@ -743,6 +772,8 @@ class LoggingOptions {
   static LoggingOptions fromJson(Map<String, dynamic> json) => LoggingOptions();
 }
 
+/// When entering this state, perform these `actions` if the `condition` is
+/// TRUE.
 class OnEnterLifecycle {
   /// Specifies the actions that are performed when the state is entered and the
   /// `"condition"` is TRUE.
@@ -755,6 +786,8 @@ class OnEnterLifecycle {
       OnEnterLifecycle();
 }
 
+/// When exiting this state, perform these `"actions"` if the specified
+/// `"condition"` is TRUE.
 class OnExitLifecycle {
   /// Specifies the `"actions"` that are performed when the state is exited and
   /// the `"condition"` is TRUE.
@@ -767,6 +800,7 @@ class OnExitLifecycle {
       OnExitLifecycle();
 }
 
+/// Specifies the actions performed when the `"condition"` evaluates to TRUE.
 class OnInputLifecycle {
   /// Specifies the actions performed when the `"condition"` evaluates to TRUE.
   final List<Event> events;
@@ -783,6 +817,7 @@ class OnInputLifecycle {
       OnInputLifecycle();
 }
 
+/// Information needed to reset the timer.
 class ResetTimerAction {
   /// The name of the timer to reset.
   final String timerName;
@@ -794,6 +829,7 @@ class ResetTimerAction {
       ResetTimerAction();
 }
 
+/// Information required to publish the Amazon SNS message.
 class SnsTopicPublishAction {
   /// The ARN of the Amazon SNS target where the message is sent.
   final String targetArn;
@@ -805,6 +841,7 @@ class SnsTopicPublishAction {
       SnsTopicPublishAction();
 }
 
+/// Information needed to set the timer.
 class SetTimerAction {
   /// The name of the timer.
   final String timerName;
@@ -820,6 +857,7 @@ class SetTimerAction {
   static SetTimerAction fromJson(Map<String, dynamic> json) => SetTimerAction();
 }
 
+/// Information about the variable and its new value.
 class SetVariableAction {
   /// The name of the variable.
   final String variableName;
@@ -835,6 +873,8 @@ class SetVariableAction {
       SetVariableAction();
 }
 
+/// Sends information about the detector model instance and the event which
+/// triggered the action to an AWS SQS queue.
 class SqsAction {
   /// The URL of the SQS queue where the data is written.
   final String queueUrl;
@@ -850,6 +890,7 @@ class SqsAction {
   static SqsAction fromJson(Map<String, dynamic> json) => SqsAction();
 }
 
+/// Information that defines a state of a detector.
 class State {
   /// The name of the state.
   final String stateName;
@@ -875,6 +916,7 @@ class State {
   static State fromJson(Map<String, dynamic> json) => State();
 }
 
+/// Metadata that can be used to manage the resource.
 class Tag {
   /// The tag's key.
   final String key;
@@ -895,6 +937,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Specifies the actions performed and the next state entered when a
+/// `"condition"` evaluates to TRUE.
 class TransitionEvent {
   /// The name of the transition event.
   final String eventName;

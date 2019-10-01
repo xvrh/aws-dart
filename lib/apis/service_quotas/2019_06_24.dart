@@ -5,8 +5,7 @@ import 'package:meta/meta.dart';
 /// for a resource, item, or operation. This guide provide descriptions of the
 /// Service Quotas actions that you can call from an API. For the Service Quotas
 /// user guide, which explains how to use Service Quotas from the console, see
-/// [What is Service
-/// Quotas](https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html).
+/// [What is Service Quotas](https://docs.aws.amazon.com/servicequotas/latest/userguide/intro.html).
 ///
 ///
 ///
@@ -14,8 +13,9 @@ import 'package:meta/meta.dart';
 /// languages and platforms (Java, Ruby, .NET, iOS, Android, etc...,). The SDKs
 /// provide a convenient way to create programmatic access to Service Quotas and
 /// AWS. For information about the AWS SDKs, including how to download and
-/// install them, see the [Tools for Amazon Web
-/// Services](https://docs.aws.amazon.com/aws.amazon.com/tools) page.
+/// install them, see the
+/// [Tools for Amazon Web Services](https://docs.aws.amazon.com/aws.amazon.com/tools)
+/// page.
 class ServiceQuotasApi {
   /// Associates the Service Quotas template with your organization so that when
   /// new accounts are created in your organization, the template submits
@@ -372,21 +372,22 @@ class DisassociateServiceQuotaTemplateResponse {
       DisassociateServiceQuotaTemplateResponse();
 }
 
+/// Returns an error that explains why the action did not succeed.
 class ErrorReason {
   /// Service Quotas returns the following error values.
   ///
-  ///  `DEPENDENCY\_ACCESS\_DENIED_ERROR` is returned when the caller does not
+  ///  `DEPENDENCY_ACCESS_DENIED_ERROR` is returned when the caller does not
   /// have permission to call the service or service quota. To resolve the
   /// error, you need permission to access the service or service quota.
   ///
-  ///  `DEPENDENCY\_THROTTLING\_ERROR` is returned when the service being called
+  ///  `DEPENDENCY_THROTTLING_ERROR` is returned when the service being called
   /// is throttling Service Quotas.
   ///
-  ///  `DEPENDENCY\_SERVICE\_ERROR` is returned when the service being called
-  /// has availability issues.
+  ///  `DEPENDENCY_SERVICE_ERROR` is returned when the service being called has
+  /// availability issues.
   ///
-  ///  `SERVICE\_QUOTA\_NOT\_AVAILABLE\_ERROR` is returned when there was an
-  /// error in Service Quotas.
+  ///  `SERVICE_QUOTA_NOT_AVAILABLE_ERROR` is returned when there was an error
+  /// in Service Quotas.
   final String errorCode;
 
   /// The error message that provides more detail.
@@ -592,6 +593,8 @@ class ListServicesResponse {
       ListServicesResponse();
 }
 
+/// A structure that uses CloudWatch metrics to gather data about the service
+/// quota.
 class MetricInfo {
   /// The namespace of the metric. The namespace is a container for CloudWatch
   /// metrics. You can specify a name for the namespace when you create a
@@ -637,6 +640,7 @@ class PutServiceQuotaIncreaseRequestIntoTemplateResponse {
       PutServiceQuotaIncreaseRequestIntoTemplateResponse();
 }
 
+/// A structure that contains information about the quota period.
 class QuotaPeriod {
   /// The value of a period.
   final int periodValue;
@@ -663,6 +667,7 @@ class RequestServiceQuotaIncreaseResponse {
       RequestServiceQuotaIncreaseResponse();
 }
 
+/// A structure that contains information about a requested change for a quota.
 class RequestedServiceQuotaChange {
   /// The unique identifier of a requested service quota change.
   final String id;
@@ -728,6 +733,9 @@ class RequestedServiceQuotaChange {
       RequestedServiceQuotaChange();
 }
 
+/// A structure that contains the `ServiceName` and `ServiceCode`. It does not
+/// include all details of the service quota. To get those values, use the
+/// ListServiceQuotas operation.
 class ServiceInfo {
   /// Specifies the service that you want to use.
   final String serviceCode;
@@ -742,6 +750,8 @@ class ServiceInfo {
   static ServiceInfo fromJson(Map<String, dynamic> json) => ServiceInfo();
 }
 
+/// A structure that contains the full set of details that define the service
+/// quota.
 class ServiceQuota {
   /// Specifies the service that you want to use.
   final String serviceCode;
@@ -796,6 +806,8 @@ class ServiceQuota {
   static ServiceQuota fromJson(Map<String, dynamic> json) => ServiceQuota();
 }
 
+/// A structure that contains information about one service quota increase
+/// request.
 class ServiceQuotaIncreaseRequestInTemplate {
   /// The code identifier for the AWS service specified in the increase request.
   final String serviceCode;

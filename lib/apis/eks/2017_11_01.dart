@@ -37,29 +37,28 @@ class EksApi {
   /// You can use the `endpointPublicAccess` and `endpointPrivateAccess`
   /// parameters to enable or disable public and private access to your
   /// cluster's Kubernetes API server endpoint. By default, public access is
-  /// enabled, and private access is disabled. For more information, see [Amazon
-  /// EKS Cluster Endpoint Access
-  /// Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+  /// enabled, and private access is disabled. For more information, see
+  /// [Amazon EKS Cluster Endpoint Access Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   /// You can use the `logging` parameter to enable or disable exporting the
   /// Kubernetes control plane logs for your cluster to CloudWatch Logs. By
   /// default, cluster control plane logs aren't exported to CloudWatch Logs.
-  /// For more information, see [Amazon EKS Cluster Control Plane
-  /// Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
+  /// For more information, see
+  /// [Amazon EKS Cluster Control Plane Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   ///  CloudWatch Logs ingestion, archive storage, and data scanning rates apply
-  /// to exported control plane logs. For more information, see [Amazon
-  /// CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
+  /// to exported control plane logs. For more information, see
+  /// [Amazon CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// Cluster creation typically takes between 10 and 15 minutes. After you
   /// create an Amazon EKS cluster, you must configure your Kubernetes tooling
   /// to communicate with the API server and launch worker nodes into your
-  /// cluster. For more information, see [Managing Cluster
-  /// Authentication](https://docs.aws.amazon.com/eks/latest/userguide/managing-auth.html)
-  /// and [Launching Amazon EKS Worker
-  /// Nodes](https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html)
+  /// cluster. For more information, see
+  /// [Managing Cluster Authentication](https://docs.aws.amazon.com/eks/latest/userguide/managing-auth.html)
+  /// and
+  /// [Launching Amazon EKS Worker Nodes](https://docs.aws.amazon.com/eks/latest/userguide/launch-workers.html)
   /// in the _Amazon EKS User Guide_.
   ///
   /// [name]: The unique name to give to your cluster.
@@ -69,32 +68,31 @@ class EksApi {
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role that provides
   /// permissions for Amazon EKS to make calls to other AWS API operations on
-  /// your behalf. For more information, see [Amazon EKS Service IAM
-  /// Role](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html)
+  /// your behalf. For more information, see
+  /// [Amazon EKS Service IAM Role](https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   /// [resourcesVpcConfig]: The VPC configuration used by the cluster control
   /// plane. Amazon EKS VPC resources have specific requirements to work
-  /// properly with Kubernetes. For more information, see [Cluster VPC
-  /// Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
-  /// and [Cluster Security Group
-  /// Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html)
+  /// properly with Kubernetes. For more information, see
+  /// [Cluster VPC Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
+  /// and
+  /// [Cluster Security Group Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html)
   /// in the _Amazon EKS User Guide_. You must specify at least two subnets. You
   /// can specify up to five security groups, but we recommend that you use a
   /// dedicated security group for your cluster control plane.
   ///
   /// [logging]: Enable or disable exporting the Kubernetes control plane logs
   /// for your cluster to CloudWatch Logs. By default, cluster control plane
-  /// logs aren't exported to CloudWatch Logs. For more information, see [Amazon
-  /// EKS Cluster Control Plane
-  /// Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
+  /// logs aren't exported to CloudWatch Logs. For more information, see
+  /// [Amazon EKS Cluster Control Plane Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   ///
   ///
   /// CloudWatch Logs ingestion, archive storage, and data scanning rates apply
-  /// to exported control plane logs. For more information, see [Amazon
-  /// CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
+  /// to exported control plane logs. For more information, see
+  /// [Amazon CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// [clientRequestToken]: Unique, case-sensitive identifier that you provide
   /// to ensure the idempotency of the request.
@@ -121,8 +119,8 @@ class EksApi {
   /// load balancer, you must delete those services before deleting the cluster
   /// so that the load balancers are deleted properly. Otherwise, you can have
   /// orphaned resources in your VPC that prevent you from being able to delete
-  /// the VPC. For more information, see [Deleting a
-  /// Cluster](https://docs.aws.amazon.com/eks/latest/userguide/delete-cluster.html)
+  /// the VPC. For more information, see
+  /// [Deleting a Cluster](https://docs.aws.amazon.com/eks/latest/userguide/delete-cluster.html)
   /// in the _Amazon EKS User Guide_.
   ///
   /// [name]: The name of the cluster to delete.
@@ -134,9 +132,8 @@ class EksApi {
   ///
   /// The API server endpoint and certificate authority data returned by this
   /// operation are required for `kubelet` and `kubectl` to communicate with
-  /// your Kubernetes API server. For more information, see [Create a kubeconfig
-  /// for Amazon
-  /// EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
+  /// your Kubernetes API server. For more information, see
+  /// [Create a kubeconfig for Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html).
   ///
   ///
   ///
@@ -257,19 +254,19 @@ class EksApi {
   /// You can use this API operation to enable or disable exporting the
   /// Kubernetes control plane logs for your cluster to CloudWatch Logs. By
   /// default, cluster control plane logs aren't exported to CloudWatch Logs.
-  /// For more information, see [Amazon EKS Cluster Control Plane
-  /// Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
+  /// For more information, see
+  /// [Amazon EKS Cluster Control Plane Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   ///  CloudWatch Logs ingestion, archive storage, and data scanning rates apply
-  /// to exported control plane logs. For more information, see [Amazon
-  /// CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
+  /// to exported control plane logs. For more information, see
+  /// [Amazon CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// You can also use this API operation to enable or disable public and
   /// private access to your cluster's Kubernetes API server endpoint. By
   /// default, public access is enabled, and private access is disabled. For
-  /// more information, see [Amazon EKS Cluster Endpoint Access
-  /// Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+  /// more information, see
+  /// [Amazon EKS Cluster Endpoint Access Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   ///  At this time, you can not update the subnets or security group IDs for an
@@ -284,16 +281,15 @@ class EksApi {
   ///
   /// [logging]: Enable or disable exporting the Kubernetes control plane logs
   /// for your cluster to CloudWatch Logs. By default, cluster control plane
-  /// logs aren't exported to CloudWatch Logs. For more information, see [Amazon
-  /// EKS Cluster Control Plane
-  /// Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
+  /// logs aren't exported to CloudWatch Logs. For more information, see
+  /// [Amazon EKS Cluster Control Plane Logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
   /// in the  __Amazon EKS User Guide__ .
   ///
   ///
   ///
   /// CloudWatch Logs ingestion, archive storage, and data scanning rates apply
-  /// to exported control plane logs. For more information, see [Amazon
-  /// CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
+  /// to exported control plane logs. For more information, see
+  /// [Amazon CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// [clientRequestToken]: Unique, case-sensitive identifier that you provide
   /// to ensure the idempotency of the request.
@@ -328,6 +324,7 @@ class EksApi {
   }
 }
 
+/// An object representing the `certificate-authority-data` for your cluster.
 class Certificate {
   /// The Base64-encoded certificate data required to communicate with your
   /// cluster. Add this to the `certificate-authority-data` section of the
@@ -340,6 +337,7 @@ class Certificate {
   static Certificate fromJson(Map<String, dynamic> json) => Certificate();
 }
 
+/// An object representing an Amazon EKS cluster.
 class Cluster {
   /// The name of the cluster.
   final String name;
@@ -363,10 +361,10 @@ class Cluster {
 
   /// The VPC configuration used by the cluster control plane. Amazon EKS VPC
   /// resources have specific requirements to work properly with Kubernetes. For
-  /// more information, see [Cluster VPC
-  /// Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
-  /// and [Cluster Security Group
-  /// Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html)
+  /// more information, see
+  /// [Cluster VPC Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network_reqs.html)
+  /// and
+  /// [Cluster Security Group Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html)
   /// in the _Amazon EKS User Guide_.
   final VpcConfigResponse resourcesVpcConfig;
 
@@ -387,8 +385,7 @@ class Cluster {
   final String clientRequestToken;
 
   /// The platform version of your Amazon EKS cluster. For more information, see
-  /// [Platform
-  /// Versions](https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html)
+  /// [Platform Versions](https://docs.aws.amazon.com/eks/latest/userguide/platform-versions.html)
   /// in the  __Amazon EKS User Guide__ .
   final String platformVersion;
 
@@ -460,6 +457,7 @@ class DescribeUpdateResponse {
       DescribeUpdateResponse();
 }
 
+/// An object representing an error when an asynchronous operation fails.
 class ErrorDetail {
   /// A brief description of the error.
   ///
@@ -500,6 +498,7 @@ class ErrorDetail {
   static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
 }
 
+/// An object representing an identity provider for authentication credentials.
 class Identity {
   /// The [OpenID Connect](https://openid.net/connect/) identity provider
   /// information for the cluster.
@@ -558,6 +557,8 @@ class ListUpdatesResponse {
       ListUpdatesResponse();
 }
 
+/// An object representing the enabled or disabled Kubernetes control plane logs
+/// for your cluster.
 class LogSetup {
   /// The available cluster control plane log types.
   final List<String> types;
@@ -575,6 +576,8 @@ class LogSetup {
   static LogSetup fromJson(Map<String, dynamic> json) => LogSetup();
 }
 
+/// An object representing the logging configuration for resources in your
+/// cluster.
 class Logging {
   /// The cluster control plane logging configuration for your cluster.
   final List<LogSetup> clusterLogging;
@@ -585,6 +588,8 @@ class Logging {
   static Logging fromJson(Map<String, dynamic> json) => Logging();
 }
 
+/// An object representing the [OpenID Connect](https://openid.net/connect/)
+/// identity provider information for the cluster.
 class Oidc {
   /// The issuer URL for the OpenID Connect identity provider.
   final String issuer;
@@ -607,6 +612,7 @@ class UntagResourceResponse {
       UntagResourceResponse();
 }
 
+/// An object representing an asynchronous update.
 class Update {
   /// A UUID that is used to track the update.
   final String id;
@@ -658,6 +664,7 @@ class UpdateClusterVersionResponse {
       UpdateClusterVersionResponse();
 }
 
+/// An object representing the details of an update request.
 class UpdateParam {
   /// The keys associated with an update request.
   final String type;
@@ -672,6 +679,8 @@ class UpdateParam {
   static UpdateParam fromJson(Map<String, dynamic> json) => UpdateParam();
 }
 
+/// An object representing the VPC configuration to use for an Amazon EKS
+/// cluster.
 class VpcConfigRequest {
   /// Specify subnets for your Amazon EKS worker nodes. Amazon EKS creates
   /// cross-account elastic network interfaces in these subnets to allow
@@ -689,8 +698,7 @@ class VpcConfigRequest {
   /// cluster's Kubernetes API server can receive only requests from within the
   /// cluster VPC. The default value for this parameter is `true`, which enables
   /// public access for your Kubernetes API server. For more information, see
-  /// [Amazon EKS Cluster Endpoint Access
-  /// Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+  /// [Amazon EKS Cluster Endpoint Access Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
   /// in the  __Amazon EKS User Guide__ .
   final bool endpointPublicAccess;
 
@@ -698,9 +706,8 @@ class VpcConfigRequest {
   /// Kubernetes API server endpoint. If you enable private access, Kubernetes
   /// API requests from within your cluster's VPC use the private VPC endpoint.
   /// The default value for this parameter is `false`, which disables private
-  /// access for your Kubernetes API server. For more information, see [Amazon
-  /// EKS Cluster Endpoint Access
-  /// Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
+  /// access for your Kubernetes API server. For more information, see
+  /// [Amazon EKS Cluster Endpoint Access Control](https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html)
   /// in the  __Amazon EKS User Guide__ .
   final bool endpointPrivateAccess;
 
@@ -712,6 +719,7 @@ class VpcConfigRequest {
   });
 }
 
+/// An object representing an Amazon EKS cluster VPC configuration response.
 class VpcConfigResponse {
   /// The subnets associated with your cluster.
   final List<String> subnetIds;

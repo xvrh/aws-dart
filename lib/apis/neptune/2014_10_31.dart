@@ -70,8 +70,8 @@ class NeptuneApi {
   ///
   /// [resourceName]: The Amazon Neptune resource that the tags are added to.
   /// This value is an Amazon Resource Name (ARN). For information about
-  /// creating an ARN, see  [Constructing an Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// creating an ARN, see
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// [tags]: The tags to be assigned to the Amazon Neptune resource.
   Future<void> addTagsToResource(
@@ -82,8 +82,8 @@ class NeptuneApi {
   ///
   /// [resourceIdentifier]: The Amazon Resource Name (ARN) of the resource that
   /// the pending maintenance action applies to. For information about creating
-  /// an ARN, see  [Constructing an Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// an ARN, see
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// [applyAction]: The pending maintenance action to apply to this resource.
   ///
@@ -94,12 +94,12 @@ class NeptuneApi {
   ///
   /// Valid values:
   ///
-  /// *    `immediate` \- Apply the maintenance action immediately.
+  /// *    `immediate` - Apply the maintenance action immediately.
   ///
-  /// *    `next-maintenance` \- Apply the maintenance action during the next
+  /// *    `next-maintenance` - Apply the maintenance action during the next
   /// maintenance window for the resource.
   ///
-  /// *    `undo-opt-in` \- Cancel any existing `next-maintenance` opt-in
+  /// *    `undo-opt-in` - Cancel any existing `next-maintenance` opt-in
   /// requests.
   Future<ApplyPendingMaintenanceActionResult> applyPendingMaintenanceAction(
       {@required String resourceIdentifier,
@@ -112,9 +112,8 @@ class NeptuneApi {
   ///
   /// [sourceDBClusterParameterGroupIdentifier]: The identifier or Amazon
   /// Resource Name (ARN) for the source DB cluster parameter group. For
-  /// information about creating an ARN, see  [Constructing an Amazon Resource
-  /// Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// information about creating an ARN, see
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// Constraints:
   ///
@@ -234,8 +233,7 @@ class NeptuneApi {
   ///
   /// [sourceDBParameterGroupIdentifier]: The identifier or ARN for the source
   /// DB parameter group. For information about creating an ARN, see
-  /// [Constructing an Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// Constraints:
   ///
@@ -372,8 +370,7 @@ class NeptuneApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+  /// [Adjusting the Preferred Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
   /// in the _Amazon Neptune User Guide._
   ///
   /// Constraints:
@@ -393,8 +390,8 @@ class NeptuneApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region, occurring on a random day of the week. To see
-  /// the time blocks available, see  [Adjusting the Preferred Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+  /// the time blocks available, see
+  /// [Adjusting the Preferred Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
   /// in the _Amazon Neptune User Guide._
   ///
   /// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -497,9 +494,9 @@ class NeptuneApi {
   /// is used as the default for a new DB cluster. This is especially important
   /// for parameters that are critical when creating the default database for a
   /// DB cluster, such as the character set for the default database defined by
-  /// the `character\_set\_database` parameter. You can use the _Parameter
-  /// Groups_ option of the [Amazon Neptune
-  /// console](https://console.aws.amazon.com/rds/) or the
+  /// the `character_set_database` parameter. You can use the _Parameter Groups_
+  /// option of the
+  /// [Amazon Neptune console](https://console.aws.amazon.com/rds/) or the
   /// DescribeDBClusterParameters command to verify that your DB cluster
   /// parameter group has been created or modified.
   ///
@@ -882,7 +879,7 @@ class NeptuneApi {
   /// default for a new DB instance. This is especially important for parameters
   /// that are critical when creating the default database for a DB instance,
   /// such as the character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the Amazon Neptune console or the _DescribeDBParameters_ command
   /// to verify that your DB parameter group has been created or modified.
   ///
@@ -1318,16 +1315,16 @@ class NeptuneApi {
   /// [snapshotType]: The type of DB cluster snapshots to be returned. You can
   /// specify one of the following values:
   ///
-  /// *    `automated` \- Return all DB cluster snapshots that have been
+  /// *    `automated` - Return all DB cluster snapshots that have been
   /// automatically taken by Amazon Neptune for my AWS account.
   ///
-  /// *    `manual` \- Return all DB cluster snapshots that have been taken by
-  /// my AWS account.
+  /// *    `manual` - Return all DB cluster snapshots that have been taken by my
+  /// AWS account.
   ///
-  /// *    `shared` \- Return all manual DB cluster snapshots that have been
+  /// *    `shared` - Return all manual DB cluster snapshots that have been
   /// shared to my AWS account.
   ///
-  /// *    `public` \- Return all DB cluster snapshots that have been marked as
+  /// *    `public` - Return all DB cluster snapshots that have been marked as
   /// public.
   ///
   ///
@@ -1400,7 +1397,7 @@ class NeptuneApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB clusters identified by these ARNs.
   ///
@@ -1494,12 +1491,12 @@ class NeptuneApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB instances associated with the DB clusters
   /// identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB instances identified by these ARNs.
   ///
@@ -1602,8 +1599,8 @@ class NeptuneApi {
   /// specified, the list will contain only the descriptions of the specified
   /// DBSubnetGroup.
   ///
-  /// For an overview of CIDR ranges, go to the [Wikipedia
-  /// Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// For an overview of CIDR ranges, go to the
+  /// [Wikipedia Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// [dbSubnetGroupName]: The name of the DB subnet group to return details
   /// for.
@@ -1867,11 +1864,11 @@ class NeptuneApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include pending
   /// maintenance actions for the DB clusters identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// ARNs. The results list will only include pending maintenance actions for
   /// the DB instances identified by these ARNs.
   ///
@@ -1941,8 +1938,8 @@ class NeptuneApi {
   ///
   /// [resourceName]: The Amazon Neptune resource with tags to be listed. This
   /// value is an Amazon Resource Name (ARN). For information about creating an
-  /// ARN, see  [Constructing an Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// ARN, see
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// [filters]: This parameter is not currently supported.
   Future<TagListMessage> listTagsForResource(String resourceName,
@@ -2109,7 +2106,7 @@ class NeptuneApi {
   /// the default for a new DB cluster. This is especially important for
   /// parameters that are critical when creating the default database for a DB
   /// cluster, such as the character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the Amazon Neptune console or the DescribeDBClusterParameters
   /// command to verify that your DB cluster parameter group has been created or
   /// modified.
@@ -2505,7 +2502,7 @@ class NeptuneApi {
   /// default for a new DB instance. This is especially important for parameters
   /// that are critical when creating the default database for a DB instance,
   /// such as the character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the Amazon Neptune console or the _DescribeDBParameters_ command
   /// to verify that your DB parameter group has been created or modified.
   ///
@@ -2656,8 +2653,8 @@ class NeptuneApi {
   ///
   /// [resourceName]: The Amazon Neptune resource that the tags are removed
   /// from. This value is an Amazon Resource Name (ARN). For information about
-  /// creating an ARN, see  [Constructing an Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
+  /// creating an ARN, see
+  /// [Constructing an Amazon Resource Name (ARN)](https://docs.aws.amazon.com/neptune/latest/UserGuide/tagging.ARN.html#tagging.ARN.Constructing).
   ///
   /// [tagKeys]: The tag key (name) of the tag to be removed.
   Future<void> removeTagsFromResource(
@@ -2882,10 +2879,10 @@ class NeptuneApi {
   /// [restoreType]: The type of restore to be performed. You can specify one of
   /// the following values:
   ///
-  /// *    `full-copy` \- The new DB cluster is restored as a full copy of the
+  /// *    `full-copy` - The new DB cluster is restored as a full copy of the
   /// source DB cluster.
   ///
-  /// *    `copy-on-write` \- The new DB cluster is restored as a clone of the
+  /// *    `copy-on-write` - The new DB cluster is restored as a clone of the
   /// source DB cluster.
   ///
   ///
@@ -3031,6 +3028,7 @@ class ApplyPendingMaintenanceActionResult {
       ApplyPendingMaintenanceActionResult();
 }
 
+/// Specifies an Availability Zone.
 class AvailabilityZone {
   /// The name of the availability zone.
   final String name;
@@ -3042,6 +3040,7 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// Specifies a character set.
 class CharacterSet {
   /// The name of the character set.
   final String characterSetName;
@@ -3056,6 +3055,11 @@ class CharacterSet {
   static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet();
 }
 
+/// The configuration setting for the log types to be enabled for export to
+/// CloudWatch Logs for a specific DB instance or DB cluster.
+///
+/// The `EnableLogTypes` and `DisableLogTypes` arrays determine which logs will
+/// be exported (or not exported) to CloudWatch Logs.
 class CloudwatchLogsExportConfiguration {
   /// The list of log types to enable.
   final List<String> enableLogTypes;
@@ -3171,6 +3175,10 @@ class CreateEventSubscriptionResult {
       CreateEventSubscriptionResult();
 }
 
+/// Contains the details of an Amazon Neptune DB cluster.
+///
+/// This data type is used as a response element in the DescribeDBClusters
+/// action.
 class DBCluster {
   ///  `AllocatedStorage` always returns 1, because Neptune DB cluster storage
   /// size is not fixed, but instead automatically adjusts as needed.
@@ -3357,6 +3365,7 @@ class DBCluster {
   static DBCluster fromJson(Map<String, dynamic> json) => DBCluster();
 }
 
+/// Contains information about an instance that is part of a DB cluster.
 class DBClusterMember {
   /// Specifies the instance identifier for this member of the DB cluster.
   final String dbInstanceIdentifier;
@@ -3399,6 +3408,7 @@ class DBClusterMessage {
       DBClusterMessage();
 }
 
+/// Contains status information for a DB cluster option group.
 class DBClusterOptionGroupStatus {
   /// Specifies the name of the DB cluster option group.
   final String dbClusterOptionGroupName;
@@ -3414,6 +3424,10 @@ class DBClusterOptionGroupStatus {
       DBClusterOptionGroupStatus();
 }
 
+/// Contains the details of an Amazon Neptune DB cluster parameter group.
+///
+/// This data type is used as a response element in the
+/// DescribeDBClusterParameterGroups action.
 class DBClusterParameterGroup {
   /// Provides the name of the DB cluster parameter group.
   final String dbClusterParameterGroupName;
@@ -3500,6 +3514,8 @@ class DBClusterParameterGroupsMessage {
       DBClusterParameterGroupsMessage();
 }
 
+/// Describes an AWS Identity and Access Management (IAM) role that is
+/// associated with a DB cluster.
 class DBClusterRole {
   /// The Amazon Resource Name (ARN) of the IAM role that is associated with the
   /// DB cluster.
@@ -3508,13 +3524,12 @@ class DBClusterRole {
   /// Describes the state of association between the IAM role and the DB
   /// cluster. The Status property returns one of the following values:
   ///
-  /// *    `ACTIVE` \- the IAM role ARN is associated with the DB cluster and
-  /// can be used to access other AWS services on your behalf.
+  /// *    `ACTIVE` - the IAM role ARN is associated with the DB cluster and can
+  /// be used to access other AWS services on your behalf.
   ///
-  /// *    `PENDING` \- the IAM role ARN is being associated with the DB
-  /// cluster.
+  /// *    `PENDING` - the IAM role ARN is being associated with the DB cluster.
   ///
-  /// *    `INVALID` \- the IAM role ARN is associated with the DB cluster, but
+  /// *    `INVALID` - the IAM role ARN is associated with the DB cluster, but
   /// the DB cluster is unable to assume the IAM role in order to access other
   /// AWS services on your behalf.
   final String status;
@@ -3526,6 +3541,10 @@ class DBClusterRole {
   static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole();
 }
 
+/// Contains the details for an Amazon Neptune DB cluster snapshot
+///
+/// This data type is used as a response element in the
+/// DescribeDBClusterSnapshots action.
 class DBClusterSnapshot {
   /// Provides the list of EC2 Availability Zones that instances in the DB
   /// cluster snapshot can be restored in.
@@ -3622,6 +3641,11 @@ class DBClusterSnapshot {
       DBClusterSnapshot();
 }
 
+/// Contains the name and values of a manual DB cluster snapshot attribute.
+///
+/// Manual DB cluster snapshot attributes are used to authorize other AWS
+/// accounts to restore a manual DB cluster snapshot. For more information, see
+/// the ModifyDBClusterSnapshotAttribute API action.
 class DBClusterSnapshotAttribute {
   /// The name of the manual DB cluster snapshot attribute.
   ///
@@ -3647,6 +3671,12 @@ class DBClusterSnapshotAttribute {
       DBClusterSnapshotAttribute();
 }
 
+/// Contains the results of a successful call to the
+/// DescribeDBClusterSnapshotAttributes API action.
+///
+/// Manual DB cluster snapshot attributes are used to authorize other AWS
+/// accounts to copy or restore a manual DB cluster snapshot. For more
+/// information, see the ModifyDBClusterSnapshotAttribute API action.
 class DBClusterSnapshotAttributesResult {
   /// The identifier of the manual DB cluster snapshot that the attributes apply
   /// to.
@@ -3682,6 +3712,8 @@ class DBClusterSnapshotMessage {
       DBClusterSnapshotMessage();
 }
 
+///  This data type is used as a response element in the action
+/// DescribeDBEngineVersions.
 class DBEngineVersion {
   /// The name of the database engine.
   final String engine;
@@ -3761,6 +3793,10 @@ class DBEngineVersionMessage {
       DBEngineVersionMessage();
 }
 
+/// Contains the details of an Amazon Neptune DB instance.
+///
+/// This data type is used as a response element in the DescribeDBInstances
+/// action.
 class DBInstance {
   /// Contains a user-supplied database identifier. This identifier is the
   /// unique key that identifies a DB instance.
@@ -4028,6 +4064,7 @@ class DBInstanceMessage {
       DBInstanceMessage();
 }
 
+/// Provides a list of status information for a DB instance.
 class DBInstanceStatusInfo {
   /// This value is currently "read replication."
   final String statusType;
@@ -4054,6 +4091,10 @@ class DBInstanceStatusInfo {
       DBInstanceStatusInfo();
 }
 
+/// Contains the details of an Amazon Neptune DB parameter group.
+///
+/// This data type is used as a response element in the
+/// DescribeDBParameterGroups action.
 class DBParameterGroup {
   /// Provides the name of the DB parameter group.
   final String dbParameterGroupName;
@@ -4106,6 +4147,17 @@ class DBParameterGroupNameMessage {
       DBParameterGroupNameMessage();
 }
 
+/// The status of the DB parameter group.
+///
+/// This data type is used as a response element in the following actions:
+///
+/// *    CreateDBInstance
+///
+/// *    DeleteDBInstance
+///
+/// *    ModifyDBInstance
+///
+/// *    RebootDBInstance
 class DBParameterGroupStatus {
   /// The name of the DP parameter group.
   final String dbParameterGroupName;
@@ -4138,6 +4190,7 @@ class DBParameterGroupsMessage {
       DBParameterGroupsMessage();
 }
 
+/// Specifies membership in a designated DB security group.
 class DBSecurityGroupMembership {
   /// The name of the DB security group.
   final String dbSecurityGroupName;
@@ -4153,6 +4206,10 @@ class DBSecurityGroupMembership {
       DBSecurityGroupMembership();
 }
 
+/// Contains the details of an Amazon Neptune DB subnet group.
+///
+/// This data type is used as a response element in the DescribeDBSubnetGroups
+/// action.
 class DBSubnetGroup {
   /// The name of the DB subnet group.
   final String dbSubnetGroupName;
@@ -4284,6 +4341,7 @@ class DescribeValidDBInstanceModificationsResult {
       DescribeValidDBInstanceModificationsResult();
 }
 
+/// An Active Directory Domain membership record associated with a DB instance.
 class DomainMembership {
   /// The identifier of the Active Directory Domain.
   final String domain;
@@ -4309,6 +4367,7 @@ class DomainMembership {
       DomainMembership();
 }
 
+/// A range of double values.
 class DoubleRange {
   /// The minimum value in the range.
   final double from;
@@ -4323,6 +4382,7 @@ class DoubleRange {
   static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange();
 }
 
+/// Specifies a connection endpoint.
 class Endpoint {
   /// Specifies the DNS address of the DB instance.
   final String address;
@@ -4342,6 +4402,8 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+///  Contains the result of a successful invocation of the
+/// DescribeEngineDefaultParameters action.
 class EngineDefaults {
   /// Specifies the name of the DB parameter group family that the engine
   /// default parameters apply to.
@@ -4363,6 +4425,7 @@ class EngineDefaults {
   static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
 }
 
+///  This data type is used as a response element in the DescribeEvents action.
 class Event {
   /// Provides the identifier for the source of the event.
   final String sourceIdentifier;
@@ -4393,6 +4456,8 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Contains the results of a successful invocation of the
+/// DescribeEventCategories action.
 class EventCategoriesMap {
   /// The source type that the returned categories belong to
   final String sourceType;
@@ -4419,6 +4484,8 @@ class EventCategoriesMessage {
       EventCategoriesMessage();
 }
 
+/// Contains the results of a successful invocation of the
+/// DescribeEventSubscriptions action.
 class EventSubscription {
   /// The AWS customer account associated with the event notification
   /// subscription.
@@ -4521,6 +4588,7 @@ class FailoverDBClusterResult {
       FailoverDBClusterResult();
 }
 
+/// This type is not currently supported.
 class Filter {
   /// This parameter is not currently supported.
   final String name;
@@ -4585,6 +4653,7 @@ class ModifyEventSubscriptionResult {
       ModifyEventSubscriptionResult();
 }
 
+/// Provides information on the option groups the DB instance is a member of.
 class OptionGroupMembership {
   /// The name of the option group that the instance belongs to.
   final String optionGroupName;
@@ -4603,6 +4672,10 @@ class OptionGroupMembership {
       OptionGroupMembership();
 }
 
+/// Contains a list of available options for a DB instance.
+///
+///  This data type is used as a response element in the
+/// DescribeOrderableDBInstanceOptions action.
 class OrderableDBInstanceOption {
   /// The engine type of a DB instance.
   final String engine;
@@ -4711,6 +4784,7 @@ class OrderableDBInstanceOptionsMessage {
       OrderableDBInstanceOptionsMessage();
 }
 
+/// Specifies a parameter.
 class Parameter {
   /// Specifies the name of the parameter.
   final String parameterName;
@@ -4759,6 +4833,8 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// A list of the log types whose configuration is still pending. In other
+/// words, these log types are in the process of being activated or deactivated.
 class PendingCloudwatchLogsExports {
   /// Log types that are in the process of being deactivated. After they are
   /// deactivated, these log types aren't exported to CloudWatch Logs.
@@ -4776,6 +4852,7 @@ class PendingCloudwatchLogsExports {
       PendingCloudwatchLogsExports();
 }
 
+/// Provides information about a pending maintenance action for a resource.
 class PendingMaintenanceAction {
   /// The type of pending maintenance action that is available for the resource.
   final String action;
@@ -4837,6 +4914,8 @@ class PendingMaintenanceActionsMessage {
       PendingMaintenanceActionsMessage();
 }
 
+///  This data type is used as a response element in the ModifyDBInstance
+/// action.
 class PendingModifiedValues {
   ///  Contains the new `DBInstanceClass` for the DB instance that will be
   /// applied or is currently being applied.
@@ -4921,6 +5000,7 @@ class PromoteReadReplicaDBClusterResult {
       PromoteReadReplicaDBClusterResult();
 }
 
+/// A range of integer values.
 class Range {
   /// The minimum value in the range.
   final int from;
@@ -4963,6 +5043,7 @@ class RemoveSourceIdentifierFromSubscriptionResult {
       RemoveSourceIdentifierFromSubscriptionResult();
 }
 
+/// Describes the pending maintenance actions for a resource.
 class ResourcePendingMaintenanceActions {
   /// The ARN of the resource that has pending maintenance actions.
   final String resourceIdentifier;
@@ -5002,6 +5083,10 @@ class RestoreDBClusterToPointInTimeResult {
       RestoreDBClusterToPointInTimeResult();
 }
 
+/// Specifies a subnet.
+///
+///  This data type is used as a response element in the DescribeDBSubnetGroups
+/// action.
 class Subnet {
   /// Specifies the identifier of the subnet.
   final String subnetIdentifier;
@@ -5020,19 +5105,21 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// Metadata assigned to an Amazon Neptune resource consisting of a key-value
+/// pair.
 class Tag {
   /// A key is the required name of the tag. The string value can be from 1 to
   /// 128 Unicode characters in length and can't be prefixed with "aws:" or
   /// "rds:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String key;
 
   /// A value is the optional value of the tag. The string value can be from 1
   /// to 256 Unicode characters in length and can't be prefixed with "aws:" or
   /// "rds:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String value;
 
   Tag({
@@ -5052,6 +5139,7 @@ class TagListMessage {
   static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
 }
 
+/// A time zone associated with a DBInstance.
 class Timezone {
   /// The name of the time zone.
   final String timezoneName;
@@ -5062,6 +5150,7 @@ class Timezone {
   static Timezone fromJson(Map<String, dynamic> json) => Timezone();
 }
 
+/// The version of the database engine that a DB instance can be upgraded to.
 class UpgradeTarget {
   /// The name of the upgrade target database engine.
   final String engine;
@@ -5090,6 +5179,10 @@ class UpgradeTarget {
   static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget();
 }
 
+/// Information about valid modifications that you can make to your DB instance.
+/// Contains the result of a successful call to the
+/// DescribeValidDBInstanceModifications action. You can use this information
+/// when you call ModifyDBInstance.
 class ValidDBInstanceModificationsMessage {
   /// Valid storage options for your DB instance.
   final List<ValidStorageOptions> storage;
@@ -5102,6 +5195,10 @@ class ValidDBInstanceModificationsMessage {
       ValidDBInstanceModificationsMessage();
 }
 
+/// Information about valid modifications that you can make to your DB instance.
+///
+/// Contains the result of a successful call to the
+/// DescribeValidDBInstanceModifications action.
 class ValidStorageOptions {
   /// The valid storage types for your DB instance. For example, gp2, io1.
   final String storageType;
@@ -5127,6 +5224,8 @@ class ValidStorageOptions {
       ValidStorageOptions();
 }
 
+/// This data type is used as a response element for queries on VPC security
+/// group membership.
 class VpcSecurityGroupMembership {
   /// The name of the VPC security group.
   final String vpcSecurityGroupId;

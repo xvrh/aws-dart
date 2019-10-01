@@ -13,9 +13,8 @@ import 'package:meta/meta.dart';
 /// *    `https://ce.us-east-1.amazonaws.com`
 ///
 ///
-/// For information about costs associated with the Cost Explorer API, see [AWS
-/// Cost Management
-/// Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
+/// For information about costs associated with the Cost Explorer API, see
+/// [AWS Cost Management Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
 class CostExplorerApi {
   /// Retrieves cost and usage metrics for your account. You can specify which
   /// cost and usage-related metric, such as `BlendedCosts` or `UsageQuantity`,
@@ -47,9 +46,8 @@ class CostExplorerApi {
   /// [Expression](http://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_Expression.html).
   ///
   /// [metrics]: Which metrics are returned in the query. For more information
-  /// about blended and unblended rates, see [Why does the "blended" annotation
-  /// appear on some line items in my
-  /// bill?](https://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/).
+  /// about blended and unblended rates, see
+  /// [Why does the "blended" annotation appear on some line items in my bill?](https://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/).
   ///
   /// Valid values are `AmortizedCost`, `BlendedCost`, `NetAmortizedCost`,
   /// `NetUnblendedCost`, `NormalizedUsageAmount`, `UnblendedCost`, and
@@ -70,7 +68,7 @@ class CostExplorerApi {
   /// When you group by tag key, you get all tag values, including empty
   /// strings.
   ///
-  /// Valid values are `AZ`, `INSTANCE_TYPE`, `LEGAL\_ENTITY\_NAME`,
+  /// Valid values are `AZ`, `INSTANCE_TYPE`, `LEGAL_ENTITY_NAME`,
   /// `LINKED_ACCOUNT`, `OPERATION`, `PLATFORM`, `PURCHASE_TYPE`, `SERVICE`,
   /// `TAGS`, `TENANCY`, and `USAGE_TYPE`.
   ///
@@ -93,9 +91,8 @@ class CostExplorerApi {
   /// [timePeriod]: The period of time that you want the forecast to cover.
   ///
   /// [metric]: Which metric Cost Explorer uses to create your forecast. For
-  /// more information about blended and unblended rates, see [Why does the
-  /// "blended" annotation appear on some line items in my
-  /// bill?](https://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/).
+  /// more information about blended and unblended rates, see
+  /// [Why does the "blended" annotation appear on some line items in my bill?](https://aws.amazon.com/premiumsupport/knowledge-center/blended-rates-intro/).
   ///
   /// Valid values for a `GetCostForecast` call are the following:
   ///
@@ -103,9 +100,9 @@ class CostExplorerApi {
   ///
   /// *   BLENDED_COST
   ///
-  /// *   NET\_AMORTIZED\_COST
+  /// *   NET_AMORTIZED_COST
   ///
-  /// *   NET\_UNBLENDED\_COST
+  /// *   NET_UNBLENDED_COST
   ///
   /// *   UNBLENDED_COST
   ///
@@ -148,13 +145,13 @@ class CostExplorerApi {
   /// a different `Context`. For more information, see `Context`.
   ///
   /// [context]: The context for the call to `GetDimensionValues`. This can be
-  /// `RESERVATIONS` or `COST\_AND\_USAGE`. The default value is
-  /// `COST\_AND\_USAGE`. If the context is set to `RESERVATIONS`, the resulting
-  /// dimension values can be used in the `GetReservationUtilization` operation.
-  /// If the context is set to `COST\_AND\_USAGE`, the resulting dimension
-  /// values can be used in the `GetCostAndUsage` operation.
+  /// `RESERVATIONS` or `COST_AND_USAGE`. The default value is `COST_AND_USAGE`.
+  /// If the context is set to `RESERVATIONS`, the resulting dimension values
+  /// can be used in the `GetReservationUtilization` operation. If the context
+  /// is set to `COST_AND_USAGE`, the resulting dimension values can be used in
+  /// the `GetCostAndUsage` operation.
   ///
-  /// If you set the context to `COST\_AND\_USAGE`, you can use the following
+  /// If you set the context to `COST_AND_USAGE`, you can use the following
   /// dimensions for searching:
   ///
   /// *   AZ - The Availability Zone. An example is `us-east-1a`.
@@ -165,7 +162,7 @@ class CostExplorerApi {
   /// *   INSTANCE_TYPE - The type of Amazon EC2 instance. An example is
   /// `m4.xlarge`.
   ///
-  /// *   LEGAL\_ENTITY\_NAME - The name of the organization that sells you AWS
+  /// *   LEGAL_ENTITY_NAME - The name of the organization that sells you AWS
   /// services, such as Amazon Web Services.
   ///
   /// *   LINKED_ACCOUNT - The description in the attribute map that includes
@@ -191,7 +188,7 @@ class CostExplorerApi {
   /// The response for the `GetDimensionValues` operation includes a unit
   /// attribute. Examples include GB and Hrs.
   ///
-  /// *   USAGE\_TYPE\_GROUP - The grouping of common usage types. An example is
+  /// *   USAGE_TYPE_GROUP - The grouping of common usage types. An example is
   /// Amazon EC2: CloudWatch – Alarms. The response for this operation includes
   /// a unit attribute.
   ///
@@ -507,8 +504,8 @@ class CostExplorerApi {
   ///
   /// Recommendations are generated to either downsize or terminate instances,
   /// along with providing savings detail and metrics. For details on
-  /// calculation and function, see [Optimizing Your Cost with Rightsizing
-  /// Recommendations](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-what-is.html).
+  /// calculation and function, see
+  /// [Optimizing Your Cost with Rightsizing Recommendations](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/ce-what-is.html).
   ///
   /// [service]: The specific service that you want recommendations for.
   ///
@@ -562,7 +559,7 @@ class CostExplorerApi {
   ///
   /// *   USAGE_QUANTITY
   ///
-  /// *   NORMALIZED\_USAGE\_AMOUNT
+  /// *   NORMALIZED_USAGE_AMOUNT
   ///
   /// [granularity]: How granular you want the forecast to be. You can get 3
   /// months of `DAILY` forecasts or 12 months of `MONTHLY` forecasts.
@@ -589,6 +586,7 @@ class CostExplorerApi {
   }
 }
 
+/// The amount of instance usage that a reservation covered.
 class Coverage {
   /// The amount of instance usage that the reservation covered, in hours.
   final CoverageHours coverageHours;
@@ -608,6 +606,7 @@ class Coverage {
   static Coverage fromJson(Map<String, dynamic> json) => Coverage();
 }
 
+/// Reservation coverage for a specified period, in hours.
 class CoverageByTime {
   /// The period that this coverage was used over.
   final DateInterval timePeriod;
@@ -626,6 +625,7 @@ class CoverageByTime {
   static CoverageByTime fromJson(Map<String, dynamic> json) => CoverageByTime();
 }
 
+/// How much it cost to run an instance.
 class CoverageCost {
   /// How much an On-Demand instance cost.
   final String onDemandCost;
@@ -636,6 +636,7 @@ class CoverageCost {
   static CoverageCost fromJson(Map<String, dynamic> json) => CoverageCost();
 }
 
+/// How long a running instance either used a reservation or was On-Demand.
 class CoverageHours {
   /// The number of instance running hours that On-Demand Instances covered.
   final String onDemandHours;
@@ -658,6 +659,18 @@ class CoverageHours {
   static CoverageHours fromJson(Map<String, dynamic> json) => CoverageHours();
 }
 
+/// The amount of instance usage, in normalized units. Normalized units enable
+/// you to see your EC2 usage for multiple sizes of instances in a uniform way.
+/// For example, suppose you run an xlarge instance and a 2xlarge instance. If
+/// you run both instances for the same amount of time, the 2xlarge instance
+/// uses twice as much of your reservation as the xlarge instance, even though
+/// both instances show only one instance-hour. Using normalized units instead
+/// of instance-hours, the xlarge instance used 8 normalized units, and the
+/// 2xlarge instance used 16 normalized units.
+///
+/// For more information, see
+/// [Modifying Reserved Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-modifying.html)
+/// in the _Amazon Elastic Compute Cloud User Guide for Linux Instances_.
 class CoverageNormalizedUnits {
   /// The number of normalized units that are covered by On-Demand Instances
   /// instead of a reservation.
@@ -683,6 +696,7 @@ class CoverageNormalizedUnits {
       CoverageNormalizedUnits();
 }
 
+/// Context about the current instance.
 class CurrentInstance {
   /// Resource ID of the current instance.
   final String resourceId;
@@ -728,6 +742,7 @@ class CurrentInstance {
       CurrentInstance();
 }
 
+/// The time period that you want the usage and costs for.
 class DateInterval {
   /// The beginning of the time period that you want the usage and costs for.
   /// The start date is inclusive. For example, if `start` is `2017-01-01`, AWS
@@ -747,6 +762,8 @@ class DateInterval {
   static DateInterval fromJson(Map<String, dynamic> json) => DateInterval();
 }
 
+/// The metadata that you can use to filter and group your results. You can use
+/// `GetDimensionValues` to find specific values.
 class DimensionValues {
   /// The names of the metadata types that you can use to filter and group your
   /// results. For example, `AZ` returns a list of Availability Zones.
@@ -766,6 +783,8 @@ class DimensionValues {
   });
 }
 
+/// The metadata of a specific type that you can use to filter and group your
+/// results. You can use `GetDimensionValues` to find specific values.
 class DimensionValuesWithAttributes {
   /// The value of a dimension with a specific attribute.
   final String value;
@@ -781,6 +800,8 @@ class DimensionValuesWithAttributes {
       DimensionValuesWithAttributes();
 }
 
+/// Details about the Amazon EC2 instances that AWS recommends that you
+/// purchase.
 class Ec2InstanceDetails {
   /// The instance family of the recommended reservation.
   final String family;
@@ -822,6 +843,7 @@ class Ec2InstanceDetails {
       Ec2InstanceDetails();
 }
 
+///  Details on the Amazon EC2 Resource.
 class Ec2ResourceDetails {
   ///  Hourly public On Demand rate for the instance type.
   final String hourlyOnDemandRate;
@@ -867,6 +889,7 @@ class Ec2ResourceDetails {
       Ec2ResourceDetails();
 }
 
+///  Utilization metrics of the instance.
 class Ec2ResourceUtilization {
   ///  Maximum observed or expected CPU utilization of the instance.
   final String maxCpuUtilizationPercentage;
@@ -887,6 +910,8 @@ class Ec2ResourceUtilization {
       Ec2ResourceUtilization();
 }
 
+/// The Amazon EC2 hardware specifications that you want AWS to provide
+/// recommendations for.
 class Ec2Specification {
   /// Whether you want a recommendation for standard or convertible
   /// reservations.
@@ -899,6 +924,7 @@ class Ec2Specification {
       Ec2Specification();
 }
 
+/// Details about the Amazon ES instances that AWS recommends that you purchase.
 class ESInstanceDetails {
   /// The class of instance that AWS recommends.
   final String instanceClass;
@@ -926,6 +952,8 @@ class ESInstanceDetails {
       ESInstanceDetails();
 }
 
+/// Details about the Amazon ElastiCache instances that AWS recommends that you
+/// purchase.
 class ElastiCacheInstanceDetails {
   /// The instance family of the recommended reservation.
   final String family;
@@ -957,6 +985,46 @@ class ElastiCacheInstanceDetails {
       ElastiCacheInstanceDetails();
 }
 
+/// Use `Expression` to filter by cost or by usage. There are two patterns:
+///
+/// *   Simple dimension values - You can set the dimension name and values for
+/// the filters that you plan to use. For example, you can filter for
+/// `REGION==us-east-1 OR REGION==us-west-1`. The `Expression` for that looks
+/// like this:
+///
+///      `{ "Dimensions": { "Key": "REGION", "Values":
+/// [ "us-east-1", “us-west-1” ] } }`
+///
+///     The list of dimension values are OR'd together to retrieve cost or usage
+/// data. You can create `Expression` and `DimensionValues` objects using either
+/// `with*` methods or `set*` methods in multiple lines.
+///
+/// *   Compound dimension values with logical operations - You can use multiple
+/// `Expression` types and the logical operators `AND/OR/NOT` to create a list
+/// of one or more `Expression` objects. This allows you to filter on more
+/// advanced options. For example, you can filter on `((REGION == us-east-1 OR
+/// REGION == us-west-1) OR (TAG.Type == Type1)) AND (USAGE_TYPE !=
+/// DataTransfer)`. The `Expression` for that looks like this:
+///
+///      `{ "And":
+/// [ {"Or": [ {"Dimensions": { "Key": "REGION", "Values": [ "us-east-1", "us-west-1" ]
+/// }}, {"Tags": { "Key": "TagName", "Values": ["Value1"] } } ]}, {"Not":
+/// {"Dimensions": { "Key": "USAGE_TYPE", "Values": ["DataTransfer"] }}} ] }`
+///
+///      Because each `Expression` can have only one operator, the service
+/// returns an error if more than one is specified. The following example shows
+/// an `Expression` object that creates an error.
+///
+///       `{ "And": [ ... ], "DimensionValues": { "Dimension": "USAGE_TYPE",
+/// "Values": [ "DataTransfer" ] } }`
+///
+///
+///
+///
+/// For `GetRightsizingRecommendation` action, a combination of OR and NOT is
+/// not supported. OR is not supported between different dimensions, or
+/// dimensions and tags. NOT operators aren't supported. Dimentions are also
+/// limited to `LINKED_ACCOUNT`, `REGION`, or `RIGHTSIZING_TYPE`.
 class Expression {
   /// Return results that match either `Dimension` object.
   final List<Expression> or;
@@ -982,6 +1050,7 @@ class Expression {
   });
 }
 
+/// The forecast created for your query.
 class ForecastResult {
   /// The period of time that the forecast covers.
   final DateInterval timePeriod;
@@ -1046,7 +1115,7 @@ class GetDimensionValuesResponse {
   /// The filters that you used to filter your request. Some dimensions are
   /// available only for a specific context.
   ///
-  /// If you set the context to `COST\_AND\_USAGE`, you can use the following
+  /// If you set the context to `COST_AND_USAGE`, you can use the following
   /// dimensions for searching:
   ///
   /// *   AZ - The Availability Zone. An example is `us-east-1a`.
@@ -1057,7 +1126,7 @@ class GetDimensionValuesResponse {
   /// *   INSTANCE_TYPE - The type of Amazon EC2 instance. An example is
   /// `m4.xlarge`.
   ///
-  /// *   LEGAL\_ENTITY\_NAME - The name of the organization that sells you AWS
+  /// *   LEGAL_ENTITY_NAME - The name of the organization that sells you AWS
   /// services, such as Amazon Web Services.
   ///
   /// *   LINKED_ACCOUNT - The description in the attribute map that includes
@@ -1083,7 +1152,7 @@ class GetDimensionValuesResponse {
   /// The response for the `GetDimensionValues` operation includes a unit
   /// attribute. Examples include GB and Hrs.
   ///
-  /// *   USAGE\_TYPE\_GROUP - The grouping of common usage types. An example is
+  /// *   USAGE_TYPE_GROUP - The grouping of common usage types. An example is
   /// Amazon EC2: CloudWatch – Alarms. The response for this operation includes
   /// a unit attribute.
   ///
@@ -1273,6 +1342,7 @@ class GetUsageForecastResponse {
       GetUsageForecastResponse();
 }
 
+/// One level of grouped data in the results.
 class Group {
   /// The keys that are included in this group.
   final List<String> keys;
@@ -1287,6 +1357,8 @@ class Group {
   static Group fromJson(Map<String, dynamic> json) => Group();
 }
 
+/// Represents a group when you specify a group by criteria or in the response
+/// to a query with a specific grouping.
 class GroupDefinition {
   /// The string that represents the type of group.
   final String type;
@@ -1302,6 +1374,7 @@ class GroupDefinition {
       GroupDefinition();
 }
 
+/// Details about the instances that AWS recommends that you purchase.
 class InstanceDetails {
   /// The Amazon EC2 instances that AWS recommends that you purchase.
   final Ec2InstanceDetails ec2InstanceDetails;
@@ -1329,6 +1402,7 @@ class InstanceDetails {
       InstanceDetails();
 }
 
+/// The aggregated value for a metric.
 class MetricValue {
   /// The actual number that represents the metric.
   final String amount;
@@ -1343,6 +1417,7 @@ class MetricValue {
   static MetricValue fromJson(Map<String, dynamic> json) => MetricValue();
 }
 
+///  Details on the modification recommendation.
 class ModifyRecommendationDetail {
   ///  Identifies whether this instance type is the Amazon Web Services default
   /// recommendation.
@@ -1355,6 +1430,8 @@ class ModifyRecommendationDetail {
       ModifyRecommendationDetail();
 }
 
+/// Details about the Amazon RDS instances that AWS recommends that you
+/// purchase.
 class RdsInstanceDetails {
   /// The instance family of the recommended reservation.
   final String family;
@@ -1399,6 +1476,8 @@ class RdsInstanceDetails {
       RdsInstanceDetails();
 }
 
+/// Details about the Amazon Redshift instances that AWS recommends that you
+/// purchase.
 class RedshiftInstanceDetails {
   /// The instance family of the recommended reservation.
   final String family;
@@ -1426,6 +1505,7 @@ class RedshiftInstanceDetails {
       RedshiftInstanceDetails();
 }
 
+/// The aggregated numbers for your reservation usage.
 class ReservationAggregates {
   /// The percentage of reservation time that you used.
   final String utilizationPercentage;
@@ -1501,6 +1581,7 @@ class ReservationAggregates {
       ReservationAggregates();
 }
 
+/// A group of reservations that share a set of attributes.
 class ReservationCoverageGroup {
   /// The attributes for this group of reservations.
   final Map<String, String> attributes;
@@ -1516,6 +1597,7 @@ class ReservationCoverageGroup {
       ReservationCoverageGroup();
 }
 
+/// A specific reservation that AWS recommends for purchase.
 class ReservationPurchaseRecommendation {
   /// The account scope that AWS recommends that you purchase this instance for.
   /// For example, you can purchase this reservation for an entire organization
@@ -1556,6 +1638,7 @@ class ReservationPurchaseRecommendation {
       ReservationPurchaseRecommendation();
 }
 
+/// Details about your recommended reservation purchase.
 class ReservationPurchaseRecommendationDetail {
   /// The account that this RI recommendation is for.
   final String accountId;
@@ -1657,6 +1740,8 @@ class ReservationPurchaseRecommendationDetail {
       ReservationPurchaseRecommendationDetail();
 }
 
+/// Information about this specific recommendation, such as the time stamp for
+/// when AWS made a specific recommendation.
 class ReservationPurchaseRecommendationMetadata {
   /// The ID for this specific recommendation.
   final String recommendationId;
@@ -1673,6 +1758,9 @@ class ReservationPurchaseRecommendationMetadata {
       ReservationPurchaseRecommendationMetadata();
 }
 
+/// A summary about this recommendation, such as the currency code, the amount
+/// that AWS estimates that you could save, and the total amount of reservation
+/// to purchase.
 class ReservationPurchaseRecommendationSummary {
   /// The total amount that AWS estimates that this recommendation could save
   /// you in a month.
@@ -1695,6 +1783,7 @@ class ReservationPurchaseRecommendationSummary {
       ReservationPurchaseRecommendationSummary();
 }
 
+/// A group of reservations that share a set of attributes.
 class ReservationUtilizationGroup {
   /// The key for a specific reservation attribute.
   final String key;
@@ -1718,6 +1807,7 @@ class ReservationUtilizationGroup {
       ReservationUtilizationGroup();
 }
 
+/// Details on the resource.
 class ResourceDetails {
   /// Details on the Amazon EC2 resource.
   final Ec2ResourceDetails ec2ResourceDetails;
@@ -1729,6 +1819,7 @@ class ResourceDetails {
       ResourceDetails();
 }
 
+/// Resource utilization of current resource.
 class ResourceUtilization {
   /// Utilization of current Amazon EC2 Instance
   final Ec2ResourceUtilization ec2ResourceUtilization;
@@ -1740,6 +1831,7 @@ class ResourceUtilization {
       ResourceUtilization();
 }
 
+/// The result that is associated with a time period.
 class ResultByTime {
   /// The time period that the result covers.
   final DateInterval timePeriod;
@@ -1762,6 +1854,7 @@ class ResultByTime {
   static ResultByTime fromJson(Map<String, dynamic> json) => ResultByTime();
 }
 
+/// Recommendations to rightsize resources.
 class RightsizingRecommendation {
   /// The account that this recommendation is for.
   final String accountId;
@@ -1789,6 +1882,7 @@ class RightsizingRecommendation {
       RightsizingRecommendation();
 }
 
+/// Metadata for this recommendation set.
 class RightsizingRecommendationMetadata {
   ///  The ID for this specific recommendation.
   final String recommendationId;
@@ -1810,6 +1904,7 @@ class RightsizingRecommendationMetadata {
       RightsizingRecommendationMetadata();
 }
 
+///  Summary of rightsizing recommendations
 class RightsizingRecommendationSummary {
   ///  Total number of instance recommendations.
   final String totalRecommendationCount;
@@ -1834,6 +1929,7 @@ class RightsizingRecommendationSummary {
       RightsizingRecommendationSummary();
 }
 
+/// Hardware specifications for the service that you want recommendations for.
 class ServiceSpecification {
   /// The Amazon EC2 hardware specifications that you want AWS to provide
   /// recommendations for.
@@ -1846,6 +1942,7 @@ class ServiceSpecification {
       ServiceSpecification();
 }
 
+/// The values that are available for a tag.
 class TagValues {
   /// The key for the tag.
   final String key;
@@ -1860,6 +1957,7 @@ class TagValues {
   static TagValues fromJson(Map<String, dynamic> json) => TagValues();
 }
 
+///  Details on recommended instance.
 class TargetInstance {
   ///  Expected cost to operate this instance type on a monthly basis.
   final String estimatedMonthlyCost;
@@ -1892,6 +1990,7 @@ class TargetInstance {
   static TargetInstance fromJson(Map<String, dynamic> json) => TargetInstance();
 }
 
+///  Details on termination recommendation.
 class TerminateRecommendationDetail {
   ///  Estimated savings resulting from modification, on a monthly basis.
   final String estimatedMonthlySavings;
@@ -1908,6 +2007,7 @@ class TerminateRecommendationDetail {
       TerminateRecommendationDetail();
 }
 
+/// The amount of utilization, in hours.
 class UtilizationByTime {
   /// The period of time that this utilization was used for.
   final DateInterval timePeriod;

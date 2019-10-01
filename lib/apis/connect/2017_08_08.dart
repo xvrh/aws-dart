@@ -14,9 +14,8 @@ import 'package:meta/meta.dart';
 /// For all other operations, a RateLimit of 2 per second, and a BurstLimit of 5
 /// per second.
 ///
-/// You can request an increase to the throttling limits by submitting a [Amazon
-/// Connect service limits increase
-/// form](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase).
+/// You can request an increase to the throttling limits by submitting a
+/// [Amazon Connect service limits increase form](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase).
 /// You must be signed in to your AWS account to access the form.
 class ConnectApi {
   /// Creates a new user account in your Amazon Connect instance.
@@ -24,7 +23,7 @@ class ConnectApi {
   /// [username]: The user name in Amazon Connect for the account to create. If
   /// you are using SAML for identity management in your Amazon Connect, the
   /// value for `Username` can include up to 64 characters from
-  /// \[a-zA-Z0-9_-.\\@\]+.
+  /// [a-zA-Z0-9_-.@]+.
   ///
   /// [password]: The password for the user account to create. This is required
   /// if you are using Amazon Connect for identity management. If you are using
@@ -209,7 +208,7 @@ class ConnectApi {
   ///
   /// Unit: COUNT
   ///
-  /// AGENTS\_ON\_CALL
+  /// AGENTS_ON_CALL
   ///
   /// Unit: COUNT
   ///
@@ -217,11 +216,11 @@ class ConnectApi {
   ///
   /// Unit: COUNT
   ///
-  /// AGENTS\_AFTER\_CONTACT_WORK
+  /// AGENTS_AFTER_CONTACT_WORK
   ///
   /// Unit: COUNT
   ///
-  /// AGENTS\_NON\_PRODUCTIVE
+  /// AGENTS_NON_PRODUCTIVE
   ///
   /// Unit: COUNT
   ///
@@ -229,11 +228,11 @@ class ConnectApi {
   ///
   /// Unit: COUNT
   ///
-  /// CONTACTS\_IN\_QUEUE
+  /// CONTACTS_IN_QUEUE
   ///
   /// Unit: COUNT
   ///
-  /// OLDEST\_CONTACT\_AGE
+  /// OLDEST_CONTACT_AGE
   ///
   /// Unit: SECONDS
   ///
@@ -367,67 +366,67 @@ class ConnectApi {
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_AGENT\_HUNG\_UP\_FIRST
+  /// CONTACTS_AGENT_HUNG_UP_FIRST
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_HANDLED\_INCOMING
+  /// CONTACTS_HANDLED_INCOMING
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_HANDLED\_OUTBOUND
+  /// CONTACTS_HANDLED_OUTBOUND
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_HOLD\_ABANDONS
+  /// CONTACTS_HOLD_ABANDONS
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_TRANSFERRED\_IN
+  /// CONTACTS_TRANSFERRED_IN
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_TRANSFERRED\_OUT
+  /// CONTACTS_TRANSFERRED_OUT
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_TRANSFERRED\_IN\_FROM\_QUEUE
+  /// CONTACTS_TRANSFERRED_IN_FROM_QUEUE
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CONTACTS\_TRANSFERRED\_OUT\_FROM\_QUEUE
+  /// CONTACTS_TRANSFERRED_OUT_FROM_QUEUE
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CALLBACK\_CONTACTS\_HANDLED
+  /// CALLBACK_CONTACTS_HANDLED
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// CALLBACK\_CONTACTS\_HANDLED
+  /// CALLBACK_CONTACTS_HANDLED
   ///
   /// Unit: COUNT
   ///
   /// Statistics: SUM
   ///
-  /// API\_CONTACTS\_HANDLED
+  /// API_CONTACTS_HANDLED
   ///
   /// Unit: COUNT
   ///
@@ -451,7 +450,7 @@ class ConnectApi {
   ///
   /// Statistics: AVG
   ///
-  /// AFTER\_CONTACT\_WORK_TIME
+  /// AFTER_CONTACT_WORK_TIME
   ///
   /// Unit: SECONDS
   ///
@@ -469,7 +468,7 @@ class ConnectApi {
   ///
   /// Statistics: SUM
   ///
-  /// QUEUE\_ANSWER\_TIME
+  /// QUEUE_ANSWER_TIME
   ///
   /// Unit: SECONDS
   ///
@@ -487,7 +486,7 @@ class ConnectApi {
   ///
   /// Statistics: AVG
   ///
-  /// INTERACTION\_AND\_HOLD_TIME
+  /// INTERACTION_AND_HOLD_TIME
   ///
   /// Unit: SECONDS
   ///
@@ -867,6 +866,7 @@ class CreateUserResponse {
       CreateUserResponse();
 }
 
+/// The credentials to use for federation.
 class Credentials {
   /// An access token generated for a federated user to access Amazon Connect
   final String accessToken;
@@ -890,6 +890,7 @@ class Credentials {
   static Credentials fromJson(Map<String, dynamic> json) => Credentials();
 }
 
+/// A `CurrentMetric` object that contains the Name and Unit for the metric.
 class CurrentMetric {
   /// The name of the metric.
   final String name;
@@ -904,6 +905,7 @@ class CurrentMetric {
   static CurrentMetric fromJson(Map<String, dynamic> json) => CurrentMetric();
 }
 
+/// A `CurrentMetricData` object.
 class CurrentMetricData {
   /// The metric in a `CurrentMetricData` object.
   final CurrentMetric metric;
@@ -919,6 +921,7 @@ class CurrentMetricData {
       CurrentMetricData();
 }
 
+/// A `CurrentMetricResult` object.
 class CurrentMetricResult {
   /// The `Dimensions` for the `CurrentMetricResult` object.
   final Dimensions dimensions;
@@ -970,6 +973,7 @@ class DescribeUserResponse {
       DescribeUserResponse();
 }
 
+/// A `Dimensions` object that includes the Channel and Queue for the metric.
 class Dimensions {
   /// A `QueueReference` object used as one part of dimension for the metrics
   /// results.
@@ -985,6 +989,8 @@ class Dimensions {
   static Dimensions fromJson(Map<String, dynamic> json) => Dimensions();
 }
 
+/// The filter, either channel or queues, to apply to the metric results
+/// retrieved.
 class Filters {
   /// A list of up to 100 queue IDs or queue ARNs to use to filter the metrics
   /// retrieved. You can include both IDs and ARNs in a request.
@@ -1084,6 +1090,8 @@ class GetMetricDataResponse {
       GetMetricDataResponse();
 }
 
+/// A `HierarchyGroup` object that contains information about a hierarchy group
+/// in your Amazon Connect instance.
 class HierarchyGroup {
   /// The identifier for the hierarchy group.
   final String id;
@@ -1111,6 +1119,8 @@ class HierarchyGroup {
   static HierarchyGroup fromJson(Map<String, dynamic> json) => HierarchyGroup();
 }
 
+/// A `HierarchyGroupSummary` object that contains information about the
+/// hierarchy group, including ARN, Id, and Name.
 class HierarchyGroupSummary {
   /// The identifier of the hierarchy group.
   final String id;
@@ -1130,6 +1140,8 @@ class HierarchyGroupSummary {
       HierarchyGroupSummary();
 }
 
+/// A `HierarchyLevel` object that contains information about the levels in a
+/// hierarchy group, including ARN, Id, and Name.
 class HierarchyLevel {
   /// The identifier for the hierarchy group level.
   final String id;
@@ -1148,6 +1160,8 @@ class HierarchyLevel {
   static HierarchyLevel fromJson(Map<String, dynamic> json) => HierarchyLevel();
 }
 
+/// A `HierarchyPath` object that contains information about the levels of the
+/// hierarchy group.
 class HierarchyPath {
   /// A `HierarchyGroupSummary` object that contains information about the level
   /// of the hierarchy group, including ARN, Id, and Name.
@@ -1179,6 +1193,8 @@ class HierarchyPath {
   static HierarchyPath fromJson(Map<String, dynamic> json) => HierarchyPath();
 }
 
+/// A `HierarchyStructure` object that contains information about the hierarchy
+/// group structure.
 class HierarchyStructure {
   /// A `HierarchyLevel` object that contains information about the hierarchy
   /// group level.
@@ -1211,6 +1227,8 @@ class HierarchyStructure {
       HierarchyStructure();
 }
 
+/// A `HistoricalMetric` object that contains the Name, Unit, Statistic, and
+/// Threshold for the metric.
 class HistoricalMetric {
   /// The name of the historical metric.
   final String name;
@@ -1234,6 +1252,7 @@ class HistoricalMetric {
       HistoricalMetric();
 }
 
+/// A `HistoricalMetricData` object than contains a `Metric` and a `Value`.
 class HistoricalMetricData {
   /// A `HistoricalMetric` object.
   final HistoricalMetric metric;
@@ -1249,6 +1268,7 @@ class HistoricalMetricData {
       HistoricalMetricData();
 }
 
+/// The metrics data returned from a `GetMetricData` operation.
 class HistoricalMetricResult {
   /// The `Dimensions` for the metrics.
   final Dimensions dimensions;
@@ -1334,6 +1354,8 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// A QueueReference object that contains the the QueueId and ARN for the queue
+/// resource for which metrics are returned.
 class QueueReference {
   /// The ID of the queue associated with the metrics returned.
   final String id;
@@ -1348,6 +1370,8 @@ class QueueReference {
   static QueueReference fromJson(Map<String, dynamic> json) => QueueReference();
 }
 
+/// A `RoutingProfileSummary` object that contains information about a routing
+/// profile, including ARN, Id, and Name.
 class RoutingProfileSummary {
   /// The identifier of the routing profile.
   final String id;
@@ -1367,6 +1391,8 @@ class RoutingProfileSummary {
       RoutingProfileSummary();
 }
 
+/// A `SecurityProfileSummary` object that contains information about a security
+/// profile, including ARN, Id, Name.
 class SecurityProfileSummary {
   /// The identifier of the security profile.
   final String id;
@@ -1404,6 +1430,8 @@ class StopContactResponse {
       StopContactResponse();
 }
 
+/// A `Threshold` object that includes a comparison and `ThresholdValue` to
+/// compare to. Used with service level metrics.
 class Threshold {
   /// The Threshold to use to compare service level metrics to. Only "Less than"
   /// (LT) comparisons are supported.
@@ -1426,6 +1454,8 @@ class UpdateContactAttributesResponse {
       UpdateContactAttributesResponse();
 }
 
+/// A `User` object that contains information about a user account in your
+/// Amazon Connect instance, including configuration settings.
 class User {
   /// The identifier of the user account.
   final String id;
@@ -1469,6 +1499,8 @@ class User {
   static User fromJson(Map<String, dynamic> json) => User();
 }
 
+/// A `UserIdentityInfo` object that contains information about the user's
+/// identity, including email address, first name, and last name.
 class UserIdentityInfo {
   /// The first name used in the user account. This is required if you are using
   /// Amazon Connect or SAML for identity management.
@@ -1492,6 +1524,8 @@ class UserIdentityInfo {
       UserIdentityInfo();
 }
 
+/// A `UserPhoneConfig` object that contains information about the user phone
+/// configuration settings.
 class UserPhoneConfig {
   /// The phone type selected for the user, either Soft phone or Desk phone.
   final String phoneType;
@@ -1515,6 +1549,8 @@ class UserPhoneConfig {
       UserPhoneConfig();
 }
 
+/// A `UserSummary` object that contains Information about a user, including
+/// ARN, Id, and user name.
 class UserSummary {
   /// The identifier for the user account.
   final String id;

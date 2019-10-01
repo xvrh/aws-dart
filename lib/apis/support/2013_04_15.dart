@@ -8,10 +8,11 @@ import 'dart:typed_data';
 /// enables you to manage your AWS Support cases programmatically. It uses HTTP
 /// methods that return results in JSON format.
 ///
-/// The AWS Support service also exposes a set of [Trusted
-/// Advisor](http://aws.amazon.com/premiumsupport/trustedadvisor/) features. You
-/// can retrieve a list of checks and their descriptions, get check results,
-/// specify checks to refresh, and get the refresh status of checks.
+/// The AWS Support service also exposes a set of
+/// [Trusted Advisor](http://aws.amazon.com/premiumsupport/trustedadvisor/)
+/// features. You can retrieve a list of checks and their descriptions, get
+/// check results, specify checks to refresh, and get the refresh status of
+/// checks.
 ///
 /// The following list describes the AWS Support case management operations:
 ///
@@ -49,15 +50,14 @@ import 'dart:typed_data';
 /// of one or more checks.
 ///
 ///
-/// For authentication of requests, AWS Support uses [Signature Version 4
-/// Signing
-/// Process](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+/// For authentication of requests, AWS Support uses
+/// [Signature Version 4 Signing Process](http://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 ///
-/// See [About the AWS Support
-/// API](http://docs.aws.amazon.com/awssupport/latest/user/Welcome.html) in the
-/// _AWS Support User Guide_ for information about how to use this service to
-/// create and manage your support cases, and how to call Trusted Advisor for
-/// results of checks on your resources.
+/// See
+/// [About the AWS Support API](http://docs.aws.amazon.com/awssupport/latest/user/Welcome.html)
+/// in the _AWS Support User Guide_ for information about how to use this
+/// service to create and manage your support cases, and how to call Trusted
+/// Advisor for results of checks on your resources.
 class SupportApi {
   /// Adds one or more attachments to an attachment set. If an `attachmentSetId`
   /// is not specified, a new attachment set is created, and the ID of the set
@@ -116,9 +116,9 @@ class SupportApi {
   }
 
   /// Creates a new case in the AWS Support Center. This operation is modeled on
-  /// the behavior of the AWS Support Center [Create
-  /// Case](https://console.aws.amazon.com/support/home#/case/create) page. Its
-  /// parameters require you to specify the following information:
+  /// the behavior of the AWS Support Center
+  /// [Create Case](https://console.aws.amazon.com/support/home#/case/create)
+  /// page. Its parameters require you to specify the following information:
   ///
   /// *    **issueType.** The type of issue for the case. You can specify either
   /// "customer-service" or "technical." If you do not indicate a value, the
@@ -137,12 +137,14 @@ class SupportApi {
   /// agreement with AWS Support. You obtain the SeverityCode by calling
   /// DescribeSeverityLevels.
   ///
-  /// *    **subject.** The **Subject** field on the AWS Support Center [Create
-  /// Case](https://console.aws.amazon.com/support/home#/case/create) page.
+  /// *    **subject.** The **Subject** field on the AWS Support Center
+  /// [Create Case](https://console.aws.amazon.com/support/home#/case/create)
+  /// page.
   ///
   /// *    **communicationBody.** The **Description** field on the AWS Support
-  /// Center [Create
-  /// Case](https://console.aws.amazon.com/support/home#/case/create) page.
+  /// Center
+  /// [Create Case](https://console.aws.amazon.com/support/home#/case/create)
+  /// page.
   ///
   /// *    **attachmentSetId.** The ID of a set of attachments that has been
   /// created by using AddAttachmentsToSet.
@@ -155,8 +157,8 @@ class SupportApi {
   /// page. You can list email addresses to be copied on any correspondence
   /// about the case. The account that opens the case is already identified by
   /// passing the AWS Credentials in the HTTP POST method or in a method or
-  /// function call from one of the programming languages supported by an [AWS
-  /// SDK](http://aws.amazon.com/tools/).
+  /// function call from one of the programming languages supported by an
+  /// [AWS SDK](http://aws.amazon.com/tools/).
   ///
   ///
   ///  To add additional communication or attachments to an existing case, use
@@ -324,13 +326,13 @@ class SupportApi {
   ///
   /// The service codes and category codes correspond to the values that are
   /// displayed in the **Service** and **Category** drop-down lists on the AWS
-  /// Support Center [Create
-  /// Case](https://console.aws.amazon.com/support/home#/case/create) page. The
-  /// values in those fields, however, do not necessarily match the service
-  /// codes and categories returned by the `DescribeServices` request. Always
-  /// use the service codes and categories obtained programmatically. This
-  /// practice ensures that you always have the most recent set of service and
-  /// category codes.
+  /// Support Center
+  /// [Create Case](https://console.aws.amazon.com/support/home#/case/create)
+  /// page. The values in those fields, however, do not necessarily match the
+  /// service codes and categories returned by the `DescribeServices` request.
+  /// Always use the service codes and categories obtained programmatically.
+  /// This practice ensures that you always have the most recent set of service
+  /// and category codes.
   ///
   /// [serviceCodeList]: A JSON-formatted list of service codes available for
   /// AWS services.
@@ -475,6 +477,8 @@ class SupportApi {
   }
 }
 
+/// The ID and expiry time of the attachment set returned by the
+/// AddAttachmentsToSet operation.
 class AddAttachmentsToSetResponse {
   /// The ID of the attachment set. If an `attachmentSetId` was not specified, a
   /// new attachment set is created, and the ID of the set is returned in the
@@ -493,6 +497,7 @@ class AddAttachmentsToSetResponse {
       AddAttachmentsToSetResponse();
 }
 
+/// The result of the AddCommunicationToCase operation.
 class AddCommunicationToCaseResponse {
   /// True if AddCommunicationToCase succeeds. Otherwise, returns an error.
   final bool result;
@@ -504,6 +509,8 @@ class AddCommunicationToCaseResponse {
       AddCommunicationToCaseResponse();
 }
 
+/// An attachment to a case communication. The attachment consists of the file
+/// name and the content of the file.
 class Attachment {
   /// The name of the attachment file.
   final String fileName;
@@ -518,6 +525,8 @@ class Attachment {
   static Attachment fromJson(Map<String, dynamic> json) => Attachment();
 }
 
+/// The file name and ID of an attachment to a case communication. You can use
+/// the ID to retrieve the attachment with the DescribeAttachment operation.
 class AttachmentDetails {
   /// The ID of the attachment.
   final String attachmentId;
@@ -533,6 +542,45 @@ class AttachmentDetails {
       AttachmentDetails();
 }
 
+/// A JSON-formatted object that contains the metadata for a support case. It is
+/// contained the response from a DescribeCases request. **CaseDetails**
+/// contains the following fields:
+///
+/// *    **caseId.** The AWS Support case ID requested or returned in the call.
+/// The case ID is an alphanumeric string formatted as shown in this example:
+/// case-_12345678910-2013-c4c1d2bf33c5cf47_.
+///
+/// *    **categoryCode.** The category of problem for the AWS Support case.
+/// Corresponds to the CategoryCode values returned by a call to
+/// DescribeServices.
+///
+/// *    **displayId.** The identifier for the case on pages in the AWS Support
+/// Center.
+///
+/// *    **language.** The ISO 639-1 code for the language in which AWS provides
+/// support. AWS Support currently supports English ("en") and Japanese ("ja").
+/// Language parameters must be passed explicitly for operations that take them.
+///
+/// *    **recentCommunications.** One or more Communication objects. Fields of
+/// these objects are `attachments`, `body`, `caseId`, `submittedBy`, and
+/// `timeCreated`.
+///
+/// *    **nextToken.** A resumption point for pagination.
+///
+/// *    **serviceCode.** The identifier for the AWS service that corresponds to
+/// the service code defined in the call to DescribeServices.
+///
+/// *    **severityCode.** The severity code assigned to the case. Contains one
+/// of the values returned by the call to DescribeSeverityLevels.
+///
+/// *    **status.** The status of the case in the AWS Support Center.
+///
+/// *    **subject.** The subject line of the case.
+///
+/// *    **submittedBy.** The email address of the account that submitted the
+/// case.
+///
+/// *    **timeCreated.** The time the case was created, in ISO-8601 format.
 class CaseDetails {
   /// The AWS Support case ID requested or returned in the call. The case ID is
   /// an alphanumeric string formatted as shown in this example:
@@ -595,6 +643,9 @@ class CaseDetails {
   static CaseDetails fromJson(Map<String, dynamic> json) => CaseDetails();
 }
 
+/// A JSON-formatted name/value pair that represents the category name and
+/// category code of the problem, selected from the DescribeServices response
+/// for each AWS service.
 class Category {
   /// The category code for the support case.
   final String code;
@@ -609,6 +660,9 @@ class Category {
   static Category fromJson(Map<String, dynamic> json) => Category();
 }
 
+/// A communication associated with an AWS Support case. The communication
+/// consists of the case ID, the message body, attachment information, the
+/// account email address, and the date and time of the communication.
 class Communication {
   /// The AWS Support case ID requested or returned in the call. The case ID is
   /// an alphanumeric string formatted as shown in this example:
@@ -637,6 +691,8 @@ class Communication {
   static Communication fromJson(Map<String, dynamic> json) => Communication();
 }
 
+/// The AWS Support case ID returned by a successful completion of the
+/// CreateCase operation.
 class CreateCaseResponse {
   /// The AWS Support case ID requested or returned in the call. The case ID is
   /// an alphanumeric string formatted as shown in this example:
@@ -650,6 +706,8 @@ class CreateCaseResponse {
       CreateCaseResponse();
 }
 
+/// The content and file name of the attachment returned by the
+/// DescribeAttachment operation.
 class DescribeAttachmentResponse {
   /// The attachment content and file name.
   final Attachment attachment;
@@ -661,6 +719,8 @@ class DescribeAttachmentResponse {
       DescribeAttachmentResponse();
 }
 
+/// Returns an array of CaseDetails objects and a `nextToken` that defines a
+/// point for pagination in the result set.
 class DescribeCasesResponse {
   /// The details for the cases that match the request.
   final List<CaseDetails> cases;
@@ -676,6 +736,7 @@ class DescribeCasesResponse {
       DescribeCasesResponse();
 }
 
+/// The communications returned by the DescribeCommunications operation.
 class DescribeCommunicationsResponse {
   /// The communications for the case.
   final List<Communication> communications;
@@ -691,6 +752,7 @@ class DescribeCommunicationsResponse {
       DescribeCommunicationsResponse();
 }
 
+/// The list of AWS services returned by the DescribeServices operation.
 class DescribeServicesResponse {
   /// A JSON-formatted list of AWS services.
   final List<Service> services;
@@ -702,6 +764,8 @@ class DescribeServicesResponse {
       DescribeServicesResponse();
 }
 
+/// The list of severity levels returned by the DescribeSeverityLevels
+/// operation.
 class DescribeSeverityLevelsResponse {
   /// The available severity levels for the support case. Available severity
   /// levels are defined by your service level agreement with AWS.
@@ -714,6 +778,8 @@ class DescribeSeverityLevelsResponse {
       DescribeSeverityLevelsResponse();
 }
 
+/// The statuses of the Trusted Advisor checks returned by the
+/// DescribeTrustedAdvisorCheckRefreshStatuses operation.
 class DescribeTrustedAdvisorCheckRefreshStatusesResponse {
   /// The refresh status of the specified Trusted Advisor checks.
   final List<TrustedAdvisorCheckRefreshStatus> statuses;
@@ -726,6 +792,8 @@ class DescribeTrustedAdvisorCheckRefreshStatusesResponse {
       DescribeTrustedAdvisorCheckRefreshStatusesResponse();
 }
 
+/// The result of the Trusted Advisor check returned by the
+/// DescribeTrustedAdvisorCheckResult operation.
 class DescribeTrustedAdvisorCheckResultResponse {
   /// The detailed results of the Trusted Advisor check.
   final TrustedAdvisorCheckResult result;
@@ -738,6 +806,8 @@ class DescribeTrustedAdvisorCheckResultResponse {
       DescribeTrustedAdvisorCheckResultResponse();
 }
 
+/// The summaries of the Trusted Advisor checks returned by the
+/// DescribeTrustedAdvisorCheckSummaries operation.
 class DescribeTrustedAdvisorCheckSummariesResponse {
   /// The summary information for the requested Trusted Advisor checks.
   final List<TrustedAdvisorCheckSummary> summaries;
@@ -750,6 +820,8 @@ class DescribeTrustedAdvisorCheckSummariesResponse {
       DescribeTrustedAdvisorCheckSummariesResponse();
 }
 
+/// Information about the Trusted Advisor checks returned by the
+/// DescribeTrustedAdvisorChecks operation.
 class DescribeTrustedAdvisorChecksResponse {
   /// Information about all available Trusted Advisor checks.
   final List<TrustedAdvisorCheckDescription> checks;
@@ -762,6 +834,7 @@ class DescribeTrustedAdvisorChecksResponse {
       DescribeTrustedAdvisorChecksResponse();
 }
 
+/// The five most recent communications associated with the case.
 class RecentCaseCommunications {
   /// The five most recent communications associated with the case.
   final List<Communication> communications;
@@ -777,6 +850,7 @@ class RecentCaseCommunications {
       RecentCaseCommunications();
 }
 
+/// The current refresh status of a Trusted Advisor check.
 class RefreshTrustedAdvisorCheckResponse {
   /// The current refresh status for a check, including the amount of time until
   /// the check is eligible for refresh.
@@ -790,6 +864,7 @@ class RefreshTrustedAdvisorCheckResponse {
       RefreshTrustedAdvisorCheckResponse();
 }
 
+/// The status of the case returned by the ResolveCase operation.
 class ResolveCaseResponse {
   /// The status of the case when the ResolveCase request was sent.
   final String initialCaseStatus;
@@ -805,6 +880,7 @@ class ResolveCaseResponse {
       ResolveCaseResponse();
 }
 
+/// Information about an AWS service returned by the DescribeServices operation.
 class Service {
   /// The code for an AWS service returned by the DescribeServices response. The
   /// `name` element contains the corresponding friendly name.
@@ -828,6 +904,8 @@ class Service {
   static Service fromJson(Map<String, dynamic> json) => Service();
 }
 
+/// A code and name pair that represent a severity level that can be applied to
+/// a support case.
 class SeverityLevel {
   /// One of four values: "low," "medium," "high," and "urgent". These values
   /// correspond to response times returned to the caller in
@@ -845,6 +923,8 @@ class SeverityLevel {
   static SeverityLevel fromJson(Map<String, dynamic> json) => SeverityLevel();
 }
 
+/// The container for summary information that relates to the category of the
+/// Trusted Advisor check.
 class TrustedAdvisorCategorySpecificSummary {
   /// The summary information about cost savings for a Trusted Advisor check
   /// that is in the Cost Optimizing category.
@@ -858,6 +938,7 @@ class TrustedAdvisorCategorySpecificSummary {
       TrustedAdvisorCategorySpecificSummary();
 }
 
+/// The description and metadata for a Trusted Advisor check.
 class TrustedAdvisorCheckDescription {
   /// The unique identifier for the Trusted Advisor check.
   final String id;
@@ -890,6 +971,7 @@ class TrustedAdvisorCheckDescription {
       TrustedAdvisorCheckDescription();
 }
 
+/// The refresh status of a Trusted Advisor check.
 class TrustedAdvisorCheckRefreshStatus {
   /// The unique identifier for the Trusted Advisor check.
   final String checkId;
@@ -911,6 +993,8 @@ class TrustedAdvisorCheckRefreshStatus {
       TrustedAdvisorCheckRefreshStatus();
 }
 
+/// The results of a Trusted Advisor check returned by
+/// DescribeTrustedAdvisorCheckResult.
 class TrustedAdvisorCheckResult {
   /// The unique identifier for the Trusted Advisor check.
   final String checkId;
@@ -943,6 +1027,8 @@ class TrustedAdvisorCheckResult {
       TrustedAdvisorCheckResult();
 }
 
+/// A summary of a Trusted Advisor check result, including the alert status,
+/// last refresh, and number of resources examined.
 class TrustedAdvisorCheckSummary {
   /// The unique identifier for the Trusted Advisor check.
   final String checkId;
@@ -975,6 +1061,8 @@ class TrustedAdvisorCheckSummary {
       TrustedAdvisorCheckSummary();
 }
 
+/// The estimated cost savings that might be realized if the recommended actions
+/// are taken.
 class TrustedAdvisorCostOptimizingSummary {
   /// The estimated monthly savings that might be realized if the recommended
   /// actions are taken.
@@ -993,6 +1081,7 @@ class TrustedAdvisorCostOptimizingSummary {
       TrustedAdvisorCostOptimizingSummary();
 }
 
+/// Contains information about a resource identified by a Trusted Advisor check.
 class TrustedAdvisorResourceDetail {
   /// The status code for the resource identified in the Trusted Advisor check.
   final String status;
@@ -1026,6 +1115,8 @@ class TrustedAdvisorResourceDetail {
       TrustedAdvisorResourceDetail();
 }
 
+/// Details about AWS resources that were analyzed in a call to Trusted Advisor
+/// DescribeTrustedAdvisorCheckSummaries.
 class TrustedAdvisorResourcesSummary {
   /// The number of AWS resources that were analyzed by the Trusted Advisor
   /// check.

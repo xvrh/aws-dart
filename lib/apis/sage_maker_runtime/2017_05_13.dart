@@ -7,16 +7,16 @@ class SageMakerRuntimeApi {
   /// services, your client applications use this API to get inferences from the
   /// model hosted at the specified endpoint.
   ///
-  /// For an overview of Amazon SageMaker, see [How It
-  /// Works](http://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
+  /// For an overview of Amazon SageMaker, see
+  /// [How It Works](http://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
   ///
   /// Amazon SageMaker strips all POST headers except those supported by the
   /// API. Amazon SageMaker might add additional headers. You should not rely on
   /// the behavior of headers outside those enumerated in the request syntax.
   ///
   /// Cals to `InvokeEndpoint` are authenticated by using AWS Signature Version
-  /// 4. For information, see [Authenticating Requests (AWS Signature Version
-  /// 4)](http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html)
+  /// 4. For information, see
+  /// [Authenticating Requests (AWS Signature Version 4)](http://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html)
   /// in the _Amazon S3 API Reference_.
   ///
   ///
@@ -34,8 +34,8 @@ class SageMakerRuntimeApi {
   /// request header. Amazon SageMaker passes all of the data in the body to the
   /// model.
   ///
-  /// For information about the format of the request body, see [Common Data
-  /// Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
+  /// For information about the format of the request body, see
+  /// [Common Data Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
   ///
   /// [contentType]: The MIME type of the input data in the request body.
   ///
@@ -55,8 +55,8 @@ class SageMakerRuntimeApi {
 class InvokeEndpointOutput {
   /// Includes the inference provided by the model.
   ///
-  /// For information about the format of the response body, see [Common Data
-  /// Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
+  /// For information about the format of the response body, see
+  /// [Common Data Formats—Inference](http://docs.aws.amazon.com/sagemaker/latest/dg/cdf-inference.html).
   final Uint8List body;
 
   /// The MIME type of the inference returned in the response body.

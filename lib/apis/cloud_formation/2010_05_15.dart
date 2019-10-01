@@ -16,8 +16,8 @@ import 'package:meta/meta.dart';
 /// member resources of the stack together and manages all dependencies between
 /// the resources for you.
 ///
-/// For more information about AWS CloudFormation, see the [AWS CloudFormation
-/// Product Page](http://aws.amazon.com/cloudformation/).
+/// For more information about AWS CloudFormation, see the
+/// [AWS CloudFormation Product Page](http://aws.amazon.com/cloudformation/).
 ///
 /// Amazon CloudFormation makes use of other AWS products. If you need
 /// additional technical information about a specific AWS product, you can find
@@ -30,7 +30,7 @@ class CloudFormationApi {
   ///
   ///
   ///
-  /// You can cancel only stacks that are in the UPDATE\_IN\_PROGRESS state.
+  /// You can cancel only stacks that are in the UPDATE_IN_PROGRESS state.
   ///
   /// [stackName]: The name or the unique stack ID that is associated with the
   /// stack.
@@ -43,15 +43,15 @@ class CloudFormationApi {
   Future<void> cancelUpdateStack(String stackName,
       {String clientRequestToken}) async {}
 
-  /// For a specified stack that is in the `UPDATE\_ROLLBACK\_FAILED` state,
-  /// continues rolling it back to the `UPDATE\_ROLLBACK\_COMPLETE` state.
-  /// Depending on the cause of the failure, you can manually  [fix the
-  /// error](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed)
+  /// For a specified stack that is in the `UPDATE_ROLLBACK_FAILED` state,
+  /// continues rolling it back to the `UPDATE_ROLLBACK_COMPLETE` state.
+  /// Depending on the cause of the failure, you can manually
+  /// [fix the error](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/troubleshooting.html#troubleshooting-errors-update-rollback-failed)
   /// and continue the rollback. By continuing the rollback, you can return your
-  /// stack to a working state (the `UPDATE\_ROLLBACK\_COMPLETE` state), and
-  /// then try to update the stack again.
+  /// stack to a working state (the `UPDATE_ROLLBACK_COMPLETE` state), and then
+  /// try to update the stack again.
   ///
-  /// A stack goes into the `UPDATE\_ROLLBACK\_FAILED` state when AWS
+  /// A stack goes into the `UPDATE_ROLLBACK_FAILED` state when AWS
   /// CloudFormation cannot roll back all changes after a failed stack update.
   /// For example, you might have a stack that is rolling back to an old
   /// database instance that was deleted outside of AWS CloudFormation. Because
@@ -111,16 +111,15 @@ class CloudFormationApi {
   /// format: `NestedStackName.ResourceLogicalID`. If you want to specify the
   /// logical ID of a stack resource (`Type: AWS::CloudFormation::Stack`) in the
   /// `ResourcesToSkip` list, then its corresponding embedded stack must be in
-  /// one of the following states: `DELETE\_IN\_PROGRESS`, `DELETE_COMPLETE`, or
+  /// one of the following states: `DELETE_IN_PROGRESS`, `DELETE_COMPLETE`, or
   /// `DELETE_FAILED`.
   ///
   ///
   ///
   /// Don't confuse a child stack's name with its corresponding logical ID
   /// defined in the parent stack. For an example of a continue update rollback
-  /// operation with nested stacks, see [Using ResourcesToSkip to recover a
-  /// nested stacks
-  /// hierarchy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html#nested-stacks).
+  /// operation with nested stacks, see
+  /// [Using ResourcesToSkip to recover a nested stacks hierarchy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html#nested-stacks).
   ///
   /// [clientRequestToken]: A unique identifier for this
   /// `ContinueUpdateRollback` request. Specify this token if you plan to retry
@@ -187,7 +186,7 @@ class CloudFormationApi {
   /// stack template contains certain capabilities in order for AWS
   /// CloudFormation to create the stack.
   ///
-  /// *    `CAPABILITY_IAM` and `CAPABILITY\_NAMED\_IAM`
+  /// *    `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
   ///
   ///     Some stack templates might include resources that can affect
   /// permissions in your AWS account; for example, by creating new AWS Identity
@@ -195,12 +194,12 @@ class CloudFormationApi {
   /// acknowledge this by specifying one of these capabilities.
   ///
   ///     The following IAM resources require you to specify either the
-  /// `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` capability.
+  /// `CAPABILITY_IAM` or `CAPABILITY_NAMED_IAM` capability.
   ///
   ///     *   If you have IAM resources, you can specify either capability.
   ///
   ///     *   If you have IAM resources with custom names, you _must_ specify
-  /// `CAPABILITY\_NAMED\_IAM`.
+  /// `CAPABILITY_NAMED_IAM`.
   ///
   ///     *   If you don't specify either of these capabilities, AWS
   /// CloudFormation returns an `InsufficientCapabilities` error.
@@ -232,11 +231,10 @@ class CloudFormationApi {
   /// [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
-  /// *    `CAPABILITY\_AUTO\_EXPAND`
+  /// *    `CAPABILITY_AUTO_EXPAND`
   ///
   ///     Some template contain macros. Macros perform custom processing on
   /// templates; this can include simple actions like find-and-replace
@@ -261,9 +259,8 @@ class CloudFormationApi {
   /// using the CreateStack or UpdateStack action, and specifying this
   /// capability.
   ///
-  ///     For more information on macros, see [Using AWS CloudFormation Macros
-  /// to Perform Custom Processing on
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     For more information on macros, see
+  /// [Using AWS CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   ///
   /// [resourceTypes]: The template resource types that you have permissions to
   /// work with if you execute this change set, such as `AWS::EC2::Instance`,
@@ -273,9 +270,8 @@ class CloudFormationApi {
   /// updating, the stack update fails. By default, AWS CloudFormation grants
   /// permissions to all resource types. AWS Identity and Access Management
   /// (IAM) uses this parameter for condition keys in IAM policies for AWS
-  /// CloudFormation. For more information, see [Controlling Access with AWS
-  /// Identity and Access
-  /// Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html)
+  /// CloudFormation. For more information, see
+  /// [Controlling Access with AWS Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of an AWS Identity and Access
@@ -326,7 +322,7 @@ class CloudFormationApi {
   /// If you create a change set for a new stack, AWS Cloudformation creates a
   /// stack with a unique stack ID, but no template or resources. The stack will
   /// be in the
-  /// [`REVIEW\_IN\_PROGRESS`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995)
+  /// [`REVIEW_IN_PROGRESS`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-describing-stacks.html#d0e11995)
   ///  state until you execute the change set.
   ///
   /// By default, AWS CloudFormation specifies `UPDATE`. You can't use the
@@ -366,8 +362,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: Structure containing the template body with a minimum
   /// length of 1 byte and a maximum length of 51,200 bytes. For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify either the `TemplateBody` or the
@@ -375,8 +371,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: Location of file containing the template body. The URL must
   /// point to a template (max size: 460,800 bytes) that is located in an Amazon
-  /// S3 bucket. For more information, go to the [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// S3 bucket. For more information, go to the
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify either the `TemplateBody` or the
@@ -409,7 +405,7 @@ class CloudFormationApi {
   /// stack template contains certain capabilities in order for AWS
   /// CloudFormation to create the stack.
   ///
-  /// *    `CAPABILITY_IAM` and `CAPABILITY\_NAMED\_IAM`
+  /// *    `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
   ///
   ///     Some stack templates might include resources that can affect
   /// permissions in your AWS account; for example, by creating new AWS Identity
@@ -417,12 +413,12 @@ class CloudFormationApi {
   /// acknowledge this by specifying one of these capabilities.
   ///
   ///     The following IAM resources require you to specify either the
-  /// `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` capability.
+  /// `CAPABILITY_IAM` or `CAPABILITY_NAMED_IAM` capability.
   ///
   ///     *   If you have IAM resources, you can specify either capability.
   ///
   ///     *   If you have IAM resources with custom names, you _must_ specify
-  /// `CAPABILITY\_NAMED\_IAM`.
+  /// `CAPABILITY_NAMED_IAM`.
   ///
   ///     *   If you don't specify either of these capabilities, AWS
   /// CloudFormation returns an `InsufficientCapabilities` error.
@@ -454,11 +450,10 @@ class CloudFormationApi {
   /// [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
-  /// *    `CAPABILITY\_AUTO\_EXPAND`
+  /// *    `CAPABILITY_AUTO_EXPAND`
   ///
   ///     Some template contain macros. Macros perform custom processing on
   /// templates; this can include simple actions like find-and-replace
@@ -486,9 +481,8 @@ class CloudFormationApi {
   /// processing stack templates. Be aware that the Lambda function owner can
   /// update the function operation without AWS CloudFormation being notified.
   ///
-  ///     For more information, see [Using AWS CloudFormation Macros to Perform
-  /// Custom Processing on
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     For more information, see
+  /// [Using AWS CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   ///
   /// [resourceTypes]: The template resource types that you have permissions to
   /// work with for this create stack action, such as `AWS::EC2::Instance`,
@@ -497,16 +491,15 @@ class CloudFormationApi {
   /// `Custom::*` (for all custom resources), `Custom::_logical_ID_`  (for a
   /// specific custom resource), `AWS::_service_name_::*` (for all resources of
   /// a particular AWS service), and
-  /// `AWS::_service_name_::_resource\_logical\_ID_`  (for a specific AWS
+  /// `AWS::_service_name_::_resource_logical_ID_`  (for a specific AWS
   /// resource).
   ///
   /// If the list of resource types doesn't include a resource that you're
   /// creating, the stack creation fails. By default, AWS CloudFormation grants
   /// permissions to all resource types. AWS Identity and Access Management
   /// (IAM) uses this parameter for AWS CloudFormation-specific condition keys
-  /// in IAM policies. For more information, see [Controlling Access with AWS
-  /// Identity and Access
-  /// Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
+  /// in IAM policies. For more information, see
+  /// [Controlling Access with AWS Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of an AWS Identity and Access
   /// Management (IAM) role that AWS CloudFormation assumes to create the stack.
@@ -528,8 +521,8 @@ class CloudFormationApi {
   /// Default: `ROLLBACK`
   ///
   /// [stackPolicyBody]: Structure containing the stack policy body. For more
-  /// information, go to  [Prevent Updates to Stack
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
+  /// information, go to
+  /// [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
   /// in the _AWS CloudFormation User Guide_. You can specify either the
   /// `StackPolicyBody` or the `StackPolicyURL` parameter, but not both.
   ///
@@ -565,13 +558,13 @@ class CloudFormationApi {
   /// [enableTerminationProtection]: Whether to enable termination protection on
   /// the specified stack. If a user attempts to delete a stack with termination
   /// protection enabled, the operation fails and the stack remains unchanged.
-  /// For more information, see [Protecting a Stack From Being
-  /// Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
+  /// For more information, see
+  /// [Protecting a Stack From Being Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
   /// in the _AWS CloudFormation User Guide_. Termination protection is disabled
   /// on stacks by default.
   ///
-  ///  For [nested
-  /// stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
+  ///  For
+  /// [nested stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
   /// termination protection is set on the root stack and cannot be changed
   /// directly on the nested stack.
   Future<CreateStackOutput> createStack(String stackName,
@@ -683,8 +676,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: The structure that contains the template body, with a
   /// minimum length of 1 byte and a maximum length of 51,200 bytes. For more
-  /// information, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify either the TemplateBody or the TemplateURL
@@ -692,8 +685,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: The location of the file that contains the template body.
   /// The URL must point to a template (maximum size: 460,800 bytes) that's
-  /// located in an Amazon S3 bucket. For more information, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// located in an Amazon S3 bucket. For more information, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify either the TemplateBody or the TemplateURL
@@ -705,7 +698,7 @@ class CloudFormationApi {
   /// stack set template contains certain capabilities in order for AWS
   /// CloudFormation to create the stack set and related stack instances.
   ///
-  /// *    `CAPABILITY_IAM` and `CAPABILITY\_NAMED\_IAM`
+  /// *    `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
   ///
   ///     Some stack templates might include resources that can affect
   /// permissions in your AWS account; for example, by creating new AWS Identity
@@ -713,12 +706,12 @@ class CloudFormationApi {
   /// explicitly acknowledge this by specifying one of these capabilities.
   ///
   ///     The following IAM resources require you to specify either the
-  /// `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` capability.
+  /// `CAPABILITY_IAM` or `CAPABILITY_NAMED_IAM` capability.
   ///
   ///     *   If you have IAM resources, you can specify either capability.
   ///
   ///     *   If you have IAM resources with custom names, you _must_ specify
-  /// `CAPABILITY\_NAMED\_IAM`.
+  /// `CAPABILITY_NAMED_IAM`.
   ///
   ///     *   If you don't specify either of these capabilities, AWS
   /// CloudFormation returns an `InsufficientCapabilities` error.
@@ -750,18 +743,16 @@ class CloudFormationApi {
   /// [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
-  /// *    `CAPABILITY\_AUTO\_EXPAND`
+  /// *    `CAPABILITY_AUTO_EXPAND`
   ///
   ///     Some templates contain macros. If your stack template contains one or
   /// more macros, and you choose to create a stack directly from the processed
   /// template, without first reviewing the resulting changes in a change set,
-  /// you must acknowledge this capability. For more information, see [Using AWS
-  /// CloudFormation Macros to Perform Custom Processing on
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  /// you must acknowledge this capability. For more information, see
+  /// [Using AWS CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   ///
   ///      Stack sets do not currently support macros in stack templates. (This
   /// includes the
@@ -787,9 +778,8 @@ class CloudFormationApi {
   ///
   /// Specify an IAM role only if you are using customized administrator roles
   /// to control which users or groups can manage specific stack sets within the
-  /// same administrator account. For more information, see [Prerequisites:
-  /// Granting Permissions for Stack Set
-  /// Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
+  /// same administrator account. For more information, see
+  /// [Prerequisites: Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
   /// [executionRoleName]: The name of the IAM execution role to use to create
@@ -904,8 +894,8 @@ class CloudFormationApi {
   /// but doesn't delete the stacks. You can't reassociate a retained stack or
   /// add an existing, saved stack to a new stack set.
   ///
-  /// For more information, see [Stack set operation
-  /// options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
+  /// For more information, see
+  /// [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
   ///
   /// [operationId]: The unique identifier for this stack set operation.
   ///
@@ -940,8 +930,8 @@ class CloudFormationApi {
 
   /// Retrieves your account's AWS CloudFormation limits, such as the maximum
   /// number of stacks that you can create in your account. For more information
-  /// about account limits, see [AWS CloudFormation
-  /// Limits](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html)
+  /// about account limits, see
+  /// [AWS CloudFormation Limits](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
   /// [nextToken]: A string that identifies the next page of limits that you
@@ -953,8 +943,8 @@ class CloudFormationApi {
 
   /// Returns the inputs for the change set and a list of changes that AWS
   /// CloudFormation will make if you execute the change set. For more
-  /// information, see [Updating Stacks Using Change
-  /// Sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
+  /// information, see
+  /// [Updating Stacks Using Change Sets](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// [changeSetName]: The name or Amazon Resource Name (ARN) of the change set
@@ -975,9 +965,8 @@ class CloudFormationApi {
   /// differs, or has _drifted_, from it's expected configuration, as defined in
   /// the stack template and any values specified as template parameters. A
   /// stack is considered to have drifted if one or more of its resources have
-  /// drifted. For more information on stack and resource drift, see [Detecting
-  /// Unregulated Configuration Changes to Stacks and
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// drifted. For more information on stack and resource drift, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   ///
   /// Use DetectStackDrift to initiate a stack drift detection operation.
   /// `DetectStackDrift` returns a `StackDriftDetectionId` you can use to
@@ -1081,9 +1070,8 @@ class CloudFormationApi {
   /// resource that has been checked for drift. Resources that have not yet been
   /// checked for drift are not included. Resources that do not currently
   /// support drift detection are not checked, and so not included. For a list
-  /// of resources that support drift detection, see [Resources that Support
-  /// Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// of resources that support drift detection, see
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   ///
   /// Use DetectStackResourceDrift to detect drift on individual resources, or
   /// DetectStackDrift to detect drift on all supported resources for a given
@@ -1136,8 +1124,8 @@ class CloudFormationApi {
   /// You must specify either `StackName` or `PhysicalResourceId`, but not both.
   /// In addition, you can specify `LogicalResourceId` to filter the returned
   /// result. For more information about resources, the `LogicalResourceId` and
-  /// `PhysicalResourceId`, go to the [AWS CloudFormation User
-  /// Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/).
+  /// `PhysicalResourceId`, go to the
+  /// [AWS CloudFormation User Guide](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/).
   ///
   ///
   ///
@@ -1235,17 +1223,15 @@ class CloudFormationApi {
   /// Only resource properties explicitly defined in the stack template are
   /// checked for drift. A stack is considered to have drifted if one or more of
   /// its resources differ from their expected template configurations. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   ///
   /// Use `DetectStackDrift` to detect drift on all supported resources for a
   /// given stack, or DetectStackResourceDrift to detect drift on individual
   /// resources.
   ///
   /// For a list of stack resources that currently support drift detection, see
-  /// [Resources that Support Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   ///
   ///  `DetectStackDrift` can take up to several minutes, depending on the
   /// number of resources contained within the stack. Use
@@ -1273,18 +1259,16 @@ class CloudFormationApi {
   /// information includes actual and expected property values for resources in
   /// which AWS CloudFormation detects drift. Only resource properties
   /// explicitly defined in the stack template are checked for drift. For more
-  /// information about stack and resource drift, see [Detecting Unregulated
-  /// Configuration Changes to Stacks and
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information about stack and resource drift, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   ///
   /// Use `DetectStackResourceDrift` to detect drift on individual resources, or
   /// DetectStackDrift to detect drift on all resources in a given stack that
   /// support drift detection.
   ///
   /// Resources that do not currently support drift detection cannot be checked.
-  /// For a list of resources that support drift detection, see [Resources that
-  /// Support Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// For a list of resources that support drift detection, see
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   ///
   /// [stackName]: The name of the stack to which the resource belongs.
   ///
@@ -1301,8 +1285,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: Structure containing the template body with a minimum
   /// length of 1 byte and a maximum length of 51,200 bytes. (For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.)
   ///
   /// Conditional: You must pass `TemplateBody` or `TemplateURL`. If both are
@@ -1310,8 +1294,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: Location of file containing the template body. The URL must
   /// point to a template that is located in an Amazon S3 bucket. For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must pass `TemplateURL` or `TemplateBody`. If both are
@@ -1416,8 +1400,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: Structure containing the template body with a minimum
   /// length of 1 byte and a maximum length of 51,200 bytes. For more
-  /// information about templates, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information about templates, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -1425,8 +1409,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: Location of file containing the template body. The URL must
   /// point to a template (max size: 460,800 bytes) that is located in an Amazon
-  /// S3 bucket. For more information about templates, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// S3 bucket. For more information about templates, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -1455,7 +1439,7 @@ class CloudFormationApi {
 
   /// Returns the ID and status of each active change set for a stack. For
   /// example, AWS CloudFormation lists change sets that are in the
-  /// `CREATE\_IN\_PROGRESS` or `CREATE_PENDING` state.
+  /// `CREATE_IN_PROGRESS` or `CREATE_PENDING` state.
   ///
   /// [stackName]: The name or the Amazon Resource Name (ARN) of the stack for
   /// which you want to list change sets.
@@ -1473,8 +1457,8 @@ class CloudFormationApi {
   /// [`Fn::ImportValue`](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-importvalue.html)
   ///  function.
   ///
-  /// For more information, see  [AWS CloudFormation Export Stack Output
-  /// Values](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html).
+  /// For more information, see
+  /// [AWS CloudFormation Export Stack Output Values](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-exports.html).
   ///
   /// [nextToken]: A string (provided by the ListExports response output) that
   /// identifies the next page of exported output values that you asked to
@@ -1653,8 +1637,8 @@ class CloudFormationApi {
   /// policy with.
   ///
   /// [stackPolicyBody]: Structure containing the stack policy body. For more
-  /// information, go to  [Prevent Updates to Stack
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
+  /// information, go to
+  /// [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
   /// in the AWS CloudFormation User Guide. You can specify either the
   /// `StackPolicyBody` or the `StackPolicyURL` parameter, but not both.
   ///
@@ -1715,15 +1699,15 @@ class CloudFormationApi {
   /// GetTemplate action.
   ///
   /// For more information about creating an update template, updating a stack,
-  /// and monitoring the progress of the update, see [Updating a
-  /// Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html).
+  /// and monitoring the progress of the update, see
+  /// [Updating a Stack](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks.html).
   ///
   /// [stackName]: The name or unique stack ID of the stack to update.
   ///
   /// [templateBody]: Structure containing the template body with a minimum
   /// length of 1 byte and a maximum length of 51,200 bytes. (For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.)
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -1731,8 +1715,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: Location of file containing the template body. The URL must
   /// point to a template that is located in an Amazon S3 bucket. For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -1772,7 +1756,7 @@ class CloudFormationApi {
   /// stack template contains certain capabilities in order for AWS
   /// CloudFormation to update the stack.
   ///
-  /// *    `CAPABILITY_IAM` and `CAPABILITY\_NAMED\_IAM`
+  /// *    `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
   ///
   ///     Some stack templates might include resources that can affect
   /// permissions in your AWS account; for example, by creating new AWS Identity
@@ -1780,12 +1764,12 @@ class CloudFormationApi {
   /// acknowledge this by specifying one of these capabilities.
   ///
   ///     The following IAM resources require you to specify either the
-  /// `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` capability.
+  /// `CAPABILITY_IAM` or `CAPABILITY_NAMED_IAM` capability.
   ///
   ///     *   If you have IAM resources, you can specify either capability.
   ///
   ///     *   If you have IAM resources with custom names, you _must_ specify
-  /// `CAPABILITY\_NAMED\_IAM`.
+  /// `CAPABILITY_NAMED_IAM`.
   ///
   ///     *   If you don't specify either of these capabilities, AWS
   /// CloudFormation returns an `InsufficientCapabilities` error.
@@ -1817,11 +1801,10 @@ class CloudFormationApi {
   /// [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
-  /// *    `CAPABILITY\_AUTO\_EXPAND`
+  /// *    `CAPABILITY_AUTO_EXPAND`
   ///
   ///     Some template contain macros. Macros perform custom processing on
   /// templates; this can include simple actions like find-and-replace
@@ -1849,9 +1832,8 @@ class CloudFormationApi {
   /// processing stack templates. Be aware that the Lambda function owner can
   /// update the function operation without AWS CloudFormation being notified.
   ///
-  ///     For more information, see [Using AWS CloudFormation Macros to Perform
-  /// Custom Processing on
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  ///     For more information, see
+  /// [Using AWS CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   ///
   /// [resourceTypes]: The template resource types that you have permissions to
   /// work with for this update stack action, such as `AWS::EC2::Instance`,
@@ -1861,9 +1843,8 @@ class CloudFormationApi {
   /// updating, the stack update fails. By default, AWS CloudFormation grants
   /// permissions to all resource types. AWS Identity and Access Management
   /// (IAM) uses this parameter for AWS CloudFormation-specific condition keys
-  /// in IAM policies. For more information, see [Controlling Access with AWS
-  /// Identity and Access
-  /// Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
+  /// in IAM policies. For more information, see
+  /// [Controlling Access with AWS Identity and Access Management](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of an AWS Identity and Access
   /// Management (IAM) role that AWS CloudFormation assumes to update the stack.
@@ -2064,8 +2045,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: The structure that contains the template body, with a
   /// minimum length of 1 byte and a maximum length of 51,200 bytes. For more
-  /// information, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -2073,8 +2054,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: The location of the file that contains the template body.
   /// The URL must point to a template (maximum size: 460,800 bytes) that is
-  /// located in an Amazon S3 bucket. For more information, see [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// located in an Amazon S3 bucket. For more information, see
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must specify only one of the following parameters:
@@ -2092,7 +2073,7 @@ class CloudFormationApi {
   /// stack template contains certain capabilities in order for AWS
   /// CloudFormation to update the stack set and its associated stack instances.
   ///
-  /// *    `CAPABILITY_IAM` and `CAPABILITY\_NAMED\_IAM`
+  /// *    `CAPABILITY_IAM` and `CAPABILITY_NAMED_IAM`
   ///
   ///     Some stack templates might include resources that can affect
   /// permissions in your AWS account; for example, by creating new AWS Identity
@@ -2100,12 +2081,12 @@ class CloudFormationApi {
   /// explicitly acknowledge this by specifying one of these capabilities.
   ///
   ///     The following IAM resources require you to specify either the
-  /// `CAPABILITY_IAM` or `CAPABILITY\_NAMED\_IAM` capability.
+  /// `CAPABILITY_IAM` or `CAPABILITY_NAMED_IAM` capability.
   ///
   ///     *   If you have IAM resources, you can specify either capability.
   ///
   ///     *   If you have IAM resources with custom names, you _must_ specify
-  /// `CAPABILITY\_NAMED\_IAM`.
+  /// `CAPABILITY_NAMED_IAM`.
   ///
   ///     *   If you don't specify either of these capabilities, AWS
   /// CloudFormation returns an `InsufficientCapabilities` error.
@@ -2137,18 +2118,16 @@ class CloudFormationApi {
   /// [AWS::IAM::UserToGroupAddition](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-addusertogroup.html)
   ///
   ///
-  ///     For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  ///     For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   ///
-  /// *    `CAPABILITY\_AUTO\_EXPAND`
+  /// *    `CAPABILITY_AUTO_EXPAND`
   ///
   ///     Some templates contain macros. If your stack template contains one or
   /// more macros, and you choose to update a stack directly from the processed
   /// template, without first reviewing the resulting changes in a change set,
-  /// you must acknowledge this capability. For more information, see [Using AWS
-  /// CloudFormation Macros to Perform Custom Processing on
-  /// Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
+  /// you must acknowledge this capability. For more information, see
+  /// [Using AWS CloudFormation Macros to Perform Custom Processing on Templates](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-macros.html).
   ///
   ///      Stack sets do not currently support macros in stack templates. (This
   /// includes the
@@ -2198,9 +2177,8 @@ class CloudFormationApi {
   ///
   /// Specify an IAM role only if you are using customized administrator roles
   /// to control which users or groups can manage specific stack sets within the
-  /// same administrator account. For more information, see [Granting
-  /// Permissions for Stack Set
-  /// Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
+  /// same administrator account. For more information, see
+  /// [Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
   /// If you specified a customized administrator role when you created the
@@ -2286,13 +2264,12 @@ class CloudFormationApi {
 
   /// Updates termination protection for the specified stack. If a user attempts
   /// to delete a stack with termination protection enabled, the operation fails
-  /// and the stack remains unchanged. For more information, see [Protecting a
-  /// Stack From Being
-  /// Deleted](AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
+  /// and the stack remains unchanged. For more information, see
+  /// [Protecting a Stack From Being Deleted](AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
-  ///  For [nested
-  /// stacks](AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
+  ///  For
+  /// [nested stacks](AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
   /// termination protection is set on the root stack and cannot be changed
   /// directly on the nested stack.
   ///
@@ -2314,8 +2291,8 @@ class CloudFormationApi {
   ///
   /// [templateBody]: Structure containing the template body with a minimum
   /// length of 1 byte and a maximum length of 51,200 bytes. For more
-  /// information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must pass `TemplateURL` or `TemplateBody`. If both are
@@ -2323,8 +2300,8 @@ class CloudFormationApi {
   ///
   /// [templateUrl]: Location of file containing the template body. The URL must
   /// point to a template (max size: 460,800 bytes) that is located in an Amazon
-  /// S3 bucket. For more information, go to [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// S3 bucket. For more information, go to
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// Conditional: You must pass `TemplateURL` or `TemplateBody`. If both are
@@ -2335,6 +2312,21 @@ class CloudFormationApi {
   }
 }
 
+/// Structure that contains the results of the account gate function which AWS
+/// CloudFormation invokes, if present, before proceeding with a stack set
+/// operation in an account and region.
+///
+/// For each account and region, AWS CloudFormation lets you specify a Lamdba
+/// function that encapsulates any requirements that must be met before
+/// CloudFormation can proceed with a stack set operation in that account and
+/// region. CloudFormation invokes the function each time a stack set operation
+/// is requested for that account and region; if the function returns `FAILED`,
+/// CloudFormation cancels the operation in that account and region, and sets
+/// the stack set operation result status for that account and region to
+/// `FAILED`.
+///
+/// For more information, see
+/// [Configuring a target account gate](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-account-gating.html).
 class AccountGateResult {
   /// The status of the account gate function.
   ///
@@ -2378,6 +2370,9 @@ class AccountGateResult {
       AccountGateResult();
 }
 
+/// The AccountLimit data type. For more information about account limits, see
+/// [AWS CloudFormation Limits](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html)
+/// in the _AWS CloudFormation User Guide_.
 class AccountLimit {
   /// The name of the account limit.
   final String name;
@@ -2392,6 +2387,8 @@ class AccountLimit {
   static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
 }
 
+/// The `Change` structure describes the changes AWS CloudFormation will perform
+/// if you execute the change set.
 class Change {
   /// The type of entity that AWS CloudFormation changes. Currently, the only
   /// entity type is `Resource`.
@@ -2408,6 +2405,8 @@ class Change {
   static Change fromJson(Map<String, dynamic> json) => Change();
 }
 
+/// The `ChangeSetSummary` structure describes a change set, its status, and the
+/// stack with which it's associated.
 class ChangeSetSummary {
   /// The ID of the stack with which the change set is associated.
   final String stackId;
@@ -2428,7 +2427,7 @@ class ChangeSetSummary {
   /// stack was already updated.
   final String executionStatus;
 
-  /// The state of the change set, such as `CREATE\_IN\_PROGRESS`,
+  /// The state of the change set, such as `CREATE_IN_PROGRESS`,
   /// `CREATE_COMPLETE`, or `FAILED`.
   final String status;
 
@@ -2457,12 +2456,14 @@ class ChangeSetSummary {
       ChangeSetSummary();
 }
 
+/// The output for a ContinueUpdateRollback action.
 class ContinueUpdateRollbackOutput {
   ContinueUpdateRollbackOutput();
   static ContinueUpdateRollbackOutput fromJson(Map<String, dynamic> json) =>
       ContinueUpdateRollbackOutput();
 }
 
+/// The output for the CreateChangeSet action.
 class CreateChangeSetOutput {
   /// The Amazon Resource Name (ARN) of the change set.
   final String id;
@@ -2489,6 +2490,7 @@ class CreateStackInstancesOutput {
       CreateStackInstancesOutput();
 }
 
+/// The output for a CreateStack action.
 class CreateStackOutput {
   /// Unique identifier of the stack.
   final String stackId;
@@ -2511,6 +2513,7 @@ class CreateStackSetOutput {
       CreateStackSetOutput();
 }
 
+/// The output for the DeleteChangeSet action.
 class DeleteChangeSetOutput {
   DeleteChangeSetOutput();
   static DeleteChangeSetOutput fromJson(Map<String, dynamic> json) =>
@@ -2534,6 +2537,7 @@ class DeleteStackSetOutput {
       DeleteStackSetOutput();
 }
 
+/// The output for the DescribeAccountLimits action.
 class DescribeAccountLimitsOutput {
   /// An account limit structure that contain a list of AWS CloudFormation
   /// account limits and their values.
@@ -2551,6 +2555,7 @@ class DescribeAccountLimitsOutput {
       DescribeAccountLimitsOutput();
 }
 
+/// The output for the DescribeChangeSet action.
 class DescribeChangeSetOutput {
   /// The name of the change set.
   final String changeSetName;
@@ -2583,7 +2588,7 @@ class DescribeChangeSetOutput {
   /// stack was already updated.
   final String executionStatus;
 
-  /// The current status of the change set, such as `CREATE\_IN\_PROGRESS`,
+  /// The current status of the change set, such as `CREATE_IN_PROGRESS`,
   /// `CREATE_COMPLETE`, or `FAILED`.
   final String status;
 
@@ -2681,7 +2686,7 @@ class DescribeStackDriftDetectionStatusOutput {
   /// resources on which AWS CloudFormation successfully completed drift
   /// detection.
   ///
-  /// *    `DETECTION\_IN\_PROGRESS`: The stack drift detection operation is
+  /// *    `DETECTION_IN_PROGRESS`: The stack drift detection operation is
   /// currently in progress.
   final String detectionStatus;
 
@@ -2710,6 +2715,7 @@ class DescribeStackDriftDetectionStatusOutput {
       DescribeStackDriftDetectionStatusOutput();
 }
 
+/// The output for a DescribeStackEvents action.
 class DescribeStackEventsOutput {
   /// A list of `StackEvents` structures.
   final List<StackEvent> stackEvents;
@@ -2746,9 +2752,8 @@ class DescribeStackResourceDriftsOutput {
   /// resource that has been checked for drift. Resources that have not yet been
   /// checked for drift are not included. Resources that do not currently
   /// support drift detection are not checked, and so not included. For a list
-  /// of resources that support drift detection, see [Resources that Support
-  /// Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// of resources that support drift detection, see
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   final List<StackResourceDrift> stackResourceDrifts;
 
   /// If the request doesn't return all of the remaining results, `NextToken` is
@@ -2767,6 +2772,7 @@ class DescribeStackResourceDriftsOutput {
       DescribeStackResourceDriftsOutput();
 }
 
+/// The output for a DescribeStackResource action.
 class DescribeStackResourceOutput {
   /// A `StackResourceDetail` structure containing the description of the
   /// specified resource in the specified stack.
@@ -2779,6 +2785,7 @@ class DescribeStackResourceOutput {
       DescribeStackResourceOutput();
 }
 
+/// The output for a DescribeStackResources action.
 class DescribeStackResourcesOutput {
   /// A list of `StackResource` structures.
   final List<StackResource> stackResources;
@@ -2812,6 +2819,7 @@ class DescribeStackSetOutput {
       DescribeStackSetOutput();
 }
 
+/// The output for a DescribeStacks action.
 class DescribeStacksOutput {
   /// A list of stack structures.
   final List<Stack> stacks;
@@ -2856,6 +2864,7 @@ class DetectStackResourceDriftOutput {
       DetectStackResourceDriftOutput();
 }
 
+/// The output for a EstimateTemplateCost action.
 class EstimateTemplateCostOutput {
   /// An AWS Simple Monthly Calculator URL with a query string that describes
   /// the resources required to run the template.
@@ -2868,12 +2877,14 @@ class EstimateTemplateCostOutput {
       EstimateTemplateCostOutput();
 }
 
+/// The output for the ExecuteChangeSet action.
 class ExecuteChangeSetOutput {
   ExecuteChangeSetOutput();
   static ExecuteChangeSetOutput fromJson(Map<String, dynamic> json) =>
       ExecuteChangeSetOutput();
 }
 
+/// The `Export` structure describes the exported output values for a stack.
 class Export {
   /// The stack that contains the exported output name and value.
   final String exportingStackId;
@@ -2896,10 +2907,10 @@ class Export {
   static Export fromJson(Map<String, dynamic> json) => Export();
 }
 
+/// The output for the GetStackPolicy action.
 class GetStackPolicyOutput {
   /// Structure containing the stack policy body. (For more information, go to
-  /// [Prevent Updates to Stack
-  /// Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
+  /// [Prevent Updates to Stack Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/protect-stack-resources.html)
   /// in the AWS CloudFormation User Guide.)
   final String stackPolicyBody;
 
@@ -2910,10 +2921,10 @@ class GetStackPolicyOutput {
       GetStackPolicyOutput();
 }
 
+/// The output for GetTemplate action.
 class GetTemplateOutput {
   /// Structure containing the template body. (For more information, go to
-  /// [Template
-  /// Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
+  /// [Template Anatomy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/template-anatomy.html)
   /// in the AWS CloudFormation User Guide.)
   ///
   /// AWS CloudFormation returns the same template that was used when the stack
@@ -2935,6 +2946,7 @@ class GetTemplateOutput {
       GetTemplateOutput();
 }
 
+/// The output for the GetTemplateSummary action.
 class GetTemplateSummaryOutput {
   /// A list of parameter declarations that describe various properties for each
   /// parameter.
@@ -2944,14 +2956,13 @@ class GetTemplateSummaryOutput {
   final String description;
 
   /// The capabilities found within the template. If your template contains IAM
-  /// resources, you must specify the CAPABILITY\_IAM or CAPABILITY\_NAMED_IAM
+  /// resources, you must specify the CAPABILITY_IAM or CAPABILITY_NAMED_IAM
   /// value for this parameter when you use the CreateStack or UpdateStack
   /// actions with your template; otherwise, those actions return an
   /// InsufficientCapabilities error.
   ///
-  /// For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  /// For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   final List<String> capabilities;
 
   /// The list of resources that generated the values in the `Capabilities`
@@ -2987,6 +2998,7 @@ class GetTemplateSummaryOutput {
       GetTemplateSummaryOutput();
 }
 
+/// The output for the ListChangeSets action.
 class ListChangeSetsOutput {
   /// A list of `ChangeSetSummary` structures that provides the ID and status of
   /// each change set for the specified stack.
@@ -3058,6 +3070,7 @@ class ListStackInstancesOutput {
       ListStackInstancesOutput();
 }
 
+/// The output for a ListStackResources action.
 class ListStackResourcesOutput {
   /// A list of `StackResourceSummary` structures.
   final List<StackResourceSummary> stackResourceSummaries;
@@ -3134,6 +3147,7 @@ class ListStackSetsOutput {
       ListStackSetsOutput();
 }
 
+/// The output for ListStacks action.
 class ListStacksOutput {
   /// A list of `StackSummary` structures containing information about the
   /// specified stacks.
@@ -3151,6 +3165,7 @@ class ListStacksOutput {
       ListStacksOutput();
 }
 
+/// The Output data type.
 class Output {
   /// The key associated with the output.
   final String outputKey;
@@ -3173,6 +3188,7 @@ class Output {
   static Output fromJson(Map<String, dynamic> json) => Output();
 }
 
+/// The Parameter data type.
 class Parameter {
   /// The key associated with the parameter. If you don't specify a key and
   /// value for a particular parameter, AWS CloudFormation uses the default
@@ -3188,8 +3204,8 @@ class Parameter {
   final bool usePreviousValue;
 
   /// Read-only. The value that corresponds to a Systems Manager parameter key.
-  /// This field is returned only for  [`SSM` parameter
-  /// types](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types)
+  /// This field is returned only for
+  /// [`SSM` parameter types](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/parameters-section-structure.html#aws-ssm-parameter-types)
   /// in the template.
   final String resolvedValue;
 
@@ -3202,6 +3218,9 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// A set of criteria that AWS CloudFormation uses to validate parameter values.
+/// Although other constraints might be defined in the stack template, AWS
+/// CloudFormation returns only the `AllowedValues` property.
 class ParameterConstraints {
   /// A list of values that are permitted for a parameter.
   final List<String> allowedValues;
@@ -3213,6 +3232,7 @@ class ParameterConstraints {
       ParameterConstraints();
 }
 
+/// The ParameterDeclaration data type.
 class ParameterDeclaration {
   /// The name that is associated with the parameter.
   final String parameterKey;
@@ -3245,6 +3265,11 @@ class ParameterDeclaration {
       ParameterDeclaration();
 }
 
+/// Context information that enables AWS CloudFormation to uniquely identify a
+/// resource. AWS CloudFormation uses context key-value pairs in cases where a
+/// resource's logical and physical IDs are not enough to uniquely identify that
+/// resource. Each context key-value pair specifies a resource that contains the
+/// targeted resource.
 class PhysicalResourceIdContextKeyValuePair {
   /// The resource context key.
   final String key;
@@ -3261,6 +3286,11 @@ class PhysicalResourceIdContextKeyValuePair {
       PhysicalResourceIdContextKeyValuePair();
 }
 
+/// Information about a resource property whose actual value differs from its
+/// expected value, as defined in the stack template and any values specified as
+/// template parameters. These will be present only for resources whose
+/// `StackResourceDriftStatus` is `MODIFIED`. For more information, see
+/// [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
 class PropertyDifference {
   /// The fully-qualified path to the resource property.
   final String propertyPath;
@@ -3295,6 +3325,8 @@ class PropertyDifference {
       PropertyDifference();
 }
 
+/// The `ResourceChange` structure describes the resource and the action that
+/// AWS CloudFormation will perform on it if you execute this change set.
 class ResourceChange {
   /// The action that AWS CloudFormation takes on the resource, such as `Add`
   /// (adds a new resource), `Modify` (changes a resource), or `Remove` (deletes
@@ -3347,6 +3379,8 @@ class ResourceChange {
   static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange();
 }
 
+/// For a resource with `Modify` as the action, the `ResourceChange` structure
+/// describes the changes AWS CloudFormation will make to that resource.
 class ResourceChangeDetail {
   /// A `ResourceTargetDefinition` structure that describes the field that AWS
   /// CloudFormation will change and whether the resource will be recreated.
@@ -3382,8 +3416,8 @@ class ResourceChangeDetail {
   /// template parameter values, such as `{ "Ref" : "MyPasswordParameter" }`.
   ///
   /// *    `ResourceAttribute` entities are `Fn::GetAtt` intrinsic functions
-  /// that get resource attribute values, such as `{ "Fn::GetAtt" : \[
-  /// "MyEC2InstanceResource", "PublicDnsName" \] }`.
+  /// that get resource attribute values, such as `{ "Fn::GetAtt" :
+  /// [ "MyEC2InstanceResource", "PublicDnsName" ] }`.
   ///
   /// *    `DirectModification` entities are changes that are made directly to
   /// the template.
@@ -3415,6 +3449,8 @@ class ResourceChangeDetail {
       ResourceChangeDetail();
 }
 
+/// The field that AWS CloudFormation will change, such as the name of a
+/// resource's property, and whether the resource will be recreated.
 class ResourceTargetDefinition {
   /// Indicates which resource attribute is triggering this update, such as a
   /// change in the resource attribute's `Metadata`, `Properties`, or `Tags`.
@@ -3441,6 +3477,15 @@ class ResourceTargetDefinition {
       ResourceTargetDefinition();
 }
 
+/// Structure containing the rollback triggers for AWS CloudFormation to monitor
+/// during stack creation and updating operations, and for the specified
+/// monitoring period afterwards.
+///
+/// Rollback triggers enable you to have AWS CloudFormation monitor the state of
+/// your application during stack creation and updating, and to roll back that
+/// operation if the application breaches the threshold of any of the alarms
+/// you've specified. For more information, see
+/// [Monitor and Roll Back Stack Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-rollback-triggers.html).
 class RollbackConfiguration {
   /// The triggers to monitor during stack creation or update actions.
   ///
@@ -3495,6 +3540,10 @@ class RollbackConfiguration {
       RollbackConfiguration();
 }
 
+/// A rollback trigger AWS CloudFormation monitors during creation and updating
+/// of stacks. If any of the alarms you specify goes to ALARM state during the
+/// stack operation or within the specified monitoring period afterwards,
+/// CloudFormation rolls back the entire stack operation.
 class RollbackTrigger {
   /// The Amazon Resource Name (ARN) of the rollback trigger.
   ///
@@ -3515,6 +3564,7 @@ class RollbackTrigger {
       RollbackTrigger();
 }
 
+/// The Stack data type.
 class Stack {
   /// Unique identifier of the stack.
   final String stackId;
@@ -3582,12 +3632,11 @@ class Stack {
 
   /// Whether termination protection is enabled for the stack.
   ///
-  ///  For [nested
-  /// stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
+  ///  For
+  /// [nested stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html),
   /// termination protection is set on the root stack and cannot be changed
-  /// directly on the nested stack. For more information, see [Protecting a
-  /// Stack From Being
-  /// Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
+  /// directly on the nested stack. For more information, see
+  /// [Protecting a Stack From Being Deleted](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-protect-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   final bool enableTerminationProtection;
 
@@ -3595,8 +3644,8 @@ class Stack {
   /// stack ID of the direct parent of this stack. For the first level of nested
   /// stacks, the root stack is also the parent stack.
   ///
-  /// For more information, see [Working with Nested
-  /// Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+  /// For more information, see
+  /// [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   final String parentId;
 
@@ -3604,17 +3653,16 @@ class Stack {
   /// stack ID of the the top-level stack to which the nested stack ultimately
   /// belongs.
   ///
-  /// For more information, see [Working with Nested
-  /// Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+  /// For more information, see
+  /// [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   final String rootId;
 
   /// Information on whether a stack's actual configuration differs, or has
   /// _drifted_, from it's expected configuration, as defined in the stack
   /// template and any values specified as template parameters. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   final StackDriftInformation driftInformation;
 
   Stack({
@@ -3644,6 +3692,10 @@ class Stack {
   static Stack fromJson(Map<String, dynamic> json) => Stack();
 }
 
+/// Contains information about whether the stack's actual configuration differs,
+/// or has _drifted_, from its expected configuration, as defined in the stack
+/// template and any values specified as template parameters. A stack is
+/// considered to have drifted if one or more of its resources have drifted.
 class StackDriftInformation {
   /// Status of the stack's actual configuration compared to its expected
   /// template configuration.
@@ -3673,6 +3725,10 @@ class StackDriftInformation {
       StackDriftInformation();
 }
 
+/// Contains information about whether the stack's actual configuration differs,
+/// or has _drifted_, from its expected configuration, as defined in the stack
+/// template and any values specified as template parameters. A stack is
+/// considered to have drifted if one or more of its resources have drifted.
 class StackDriftInformationSummary {
   /// Status of the stack's actual configuration compared to its expected
   /// template configuration.
@@ -3702,6 +3758,7 @@ class StackDriftInformationSummary {
       StackDriftInformationSummary();
 }
 
+/// The StackEvent data type.
 class StackEvent {
   /// The unique ID name of the instance of the stack.
   final String stackId;
@@ -3719,8 +3776,8 @@ class StackEvent {
   /// resource.
   final String physicalResourceId;
 
-  /// Type of resource. (For more information, go to  [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// Type of resource. (For more information, go to
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the AWS CloudFormation User Guide.)
   final String resourceType;
 
@@ -3769,6 +3826,13 @@ class StackEvent {
   static StackEvent fromJson(Map<String, dynamic> json) => StackEvent();
 }
 
+/// An AWS CloudFormation stack, in a specific account and region, that's part
+/// of a stack set operation. A stack instance is a reference to an attempted or
+/// actual stack in a given account within a given region. A stack instance can
+/// exist without a stack—for example, if the stack couldn't be created for some
+/// reason. A stack instance is associated with only one stack set. Each stack
+/// instance contains the ID of its associated stack set, as well as the ID of
+/// the actual stack and the stack status.
 class StackInstance {
   /// The name or unique ID of the stack set that the stack instance is
   /// associated with.
@@ -3826,6 +3890,7 @@ class StackInstance {
   static StackInstance fromJson(Map<String, dynamic> json) => StackInstance();
 }
 
+/// The structure that contains summary information about a stack instance.
 class StackInstanceSummary {
   /// The name or unique ID of the stack set that the stack instance is
   /// associated with.
@@ -3879,6 +3944,7 @@ class StackInstanceSummary {
       StackInstanceSummary();
 }
 
+/// The StackResource data type.
 class StackResource {
   /// The name associated with the stack.
   final String stackName;
@@ -3893,8 +3959,8 @@ class StackResource {
   /// of a resource supported by AWS CloudFormation.
   final String physicalResourceId;
 
-  /// Type of resource. (For more information, go to  [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// Type of resource. (For more information, go to
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the AWS CloudFormation User Guide.)
   final String resourceType;
 
@@ -3913,9 +3979,8 @@ class StackResource {
   /// Information about whether the resource's actual configuration differs, or
   /// has _drifted_, from its expected configuration, as defined in the stack
   /// template and any values specified as template parameters. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   final StackResourceDriftInformation driftInformation;
 
   StackResource({
@@ -3933,6 +3998,7 @@ class StackResource {
   static StackResource fromJson(Map<String, dynamic> json) => StackResource();
 }
 
+/// Contains detailed information about the specified stack resource.
 class StackResourceDetail {
   /// The name associated with the stack.
   final String stackName;
@@ -3947,8 +4013,8 @@ class StackResourceDetail {
   /// of a resource supported by AWS CloudFormation.
   final String physicalResourceId;
 
-  /// Type of resource. ((For more information, go to  [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// Type of resource. ((For more information, go to
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the AWS CloudFormation User Guide.)
   final String resourceType;
 
@@ -3965,17 +4031,16 @@ class StackResourceDetail {
   final String description;
 
   /// The content of the `Metadata` attribute declared for the resource. For
-  /// more information, see [Metadata
-  /// Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html)
+  /// more information, see
+  /// [Metadata Attribute](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-attribute-metadata.html)
   /// in the AWS CloudFormation User Guide.
   final String metadata;
 
   /// Information about whether the resource's actual configuration differs, or
   /// has _drifted_, from its expected configuration, as defined in the stack
   /// template and any values specified as template parameters. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   final StackResourceDriftInformation driftInformation;
 
   StackResourceDetail({
@@ -3995,6 +4060,20 @@ class StackResourceDetail {
       StackResourceDetail();
 }
 
+/// Contains the drift information for a resource that has been checked for
+/// drift. This includes actual and expected property values for resources in
+/// which AWS CloudFormation has detected drift. Only resource properties
+/// explicitly defined in the stack template are checked for drift. For more
+/// information, see
+/// [Detecting Unregulated Configuration Changes to Stacks and Resources](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+///
+/// Resources that do not currently support drift detection cannot be checked.
+/// For a list of resources that support drift detection, see
+/// [Resources that Support Drift Detection](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+///
+/// Use DetectStackResourceDrift to detect drift on individual resources, or
+/// DetectStackDrift to detect drift on all resources in a given stack that
+/// support drift detection.
 class StackResourceDrift {
   /// The ID of the stack.
   final String stackId;
@@ -4073,6 +4152,8 @@ class StackResourceDrift {
       StackResourceDrift();
 }
 
+/// Contains information about whether the resource's actual configuration
+/// differs, or has _drifted_, from its expected configuration.
 class StackResourceDriftInformation {
   /// Status of the resource's actual configuration compared to its expected
   /// configuration
@@ -4086,9 +4167,8 @@ class StackResourceDriftInformation {
   /// differs from its expected configuration.
   ///
   ///     Any resources that do not currently support drift detection have a
-  /// status of `NOT_CHECKED`. For more information, see [Resources that Support
-  /// Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// status of `NOT_CHECKED`. For more information, see
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   ///
   /// *    `IN_SYNC`: The resources's actual configuration matches its expected
   /// configuration.
@@ -4106,6 +4186,8 @@ class StackResourceDriftInformation {
       StackResourceDriftInformation();
 }
 
+/// Summarizes information about whether the resource's actual configuration
+/// differs, or has _drifted_, from its expected configuration.
 class StackResourceDriftInformationSummary {
   /// Status of the resource's actual configuration compared to its expected
   /// configuration
@@ -4119,14 +4201,13 @@ class StackResourceDriftInformationSummary {
   /// differs from its expected configuration.
   ///
   ///     Any resources that do not currently support drift detection have a
-  /// status of `NOT_CHECKED`. For more information, see [Resources that Support
-  /// Drift
-  /// Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
+  /// status of `NOT_CHECKED`. For more information, see
+  /// [Resources that Support Drift Detection](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html).
   /// If you performed an ContinueUpdateRollback operation on a stack, any
   /// resources included in `ResourcesToSkip` will also have a status of
   /// `NOT_CHECKED`. For more information on skipping resources during rollback
-  /// operations, see [Continue Rolling Back an
-  /// Update](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html)
+  /// operations, see
+  /// [Continue Rolling Back an Update](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-continueupdaterollback.html)
   /// in the AWS CloudFormation User Guide.
   ///
   /// *    `IN_SYNC`: The resources's actual configuration matches its expected
@@ -4146,6 +4227,7 @@ class StackResourceDriftInformationSummary {
       StackResourceDriftInformationSummary();
 }
 
+/// Contains high-level information about the specified stack resource.
 class StackResourceSummary {
   /// The logical name of the resource specified in the template.
   final String logicalResourceId;
@@ -4154,8 +4236,8 @@ class StackResourceSummary {
   /// of the resource.
   final String physicalResourceId;
 
-  /// Type of resource. (For more information, go to  [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// Type of resource. (For more information, go to
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the AWS CloudFormation User Guide.)
   final String resourceType;
 
@@ -4171,9 +4253,8 @@ class StackResourceSummary {
   /// Information about whether the resource's actual configuration differs, or
   /// has _drifted_, from its expected configuration, as defined in the stack
   /// template and any values specified as template parameters. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   final StackResourceDriftInformationSummary driftInformation;
 
   StackResourceSummary({
@@ -4189,6 +4270,11 @@ class StackResourceSummary {
       StackResourceSummary();
 }
 
+/// A structure that contains information about a stack set. A stack set enables
+/// you to provision stacks into AWS accounts and across regions by using a
+/// single CloudFormation template. In the stack set, you specify the template
+/// to use, as well as any parameters and capabilities that the template
+/// requires.
 class StackSet {
   /// The name that's associated with the stack set.
   final String stackSetName;
@@ -4213,9 +4299,8 @@ class StackSet {
   /// The capabilities that are allowed in the stack set. Some stack set
   /// templates might include resources that can affect permissions in your AWS
   /// account—for example, by creating new AWS Identity and Access Management
-  /// (IAM) users. For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities)
+  /// (IAM) users. For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates.](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities)
   final List<String> capabilities;
 
   /// A list of tags that specify information about the stack set. A maximum
@@ -4230,8 +4315,8 @@ class StackSet {
   ///
   /// Use customized administrator roles to control which users or groups can
   /// manage specific stack sets within the same administrator account. For more
-  /// information, see [Prerequisites: Granting Permissions for Stack Set
-  /// Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
+  /// information, see
+  /// [Prerequisites: Granting Permissions for Stack Set Operations](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
   /// in the _AWS CloudFormation User Guide_.
   final String administrationRoleArn;
 
@@ -4257,6 +4342,7 @@ class StackSet {
   static StackSet fromJson(Map<String, dynamic> json) => StackSet();
 }
 
+/// The structure that contains information about a stack set operation.
 class StackSetOperation {
   /// The unique ID of a stack set operation.
   final String operationId;
@@ -4307,8 +4393,8 @@ class StackSetOperation {
   ///
   /// Use customized administrator roles to control which users or groups can
   /// manage specific stack sets within the same administrator account. For more
-  /// information, see [Define Permissions for Multiple
-  /// Administrators](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
+  /// information, see
+  /// [Define Permissions for Multiple Administrators](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-prereqs.html)
   /// in the _AWS CloudFormation User Guide_.
   final String administrationRoleArn;
 
@@ -4347,6 +4433,12 @@ class StackSetOperation {
       StackSetOperation();
 }
 
+/// The user-specified preferences for how AWS CloudFormation performs a stack
+/// set operation.
+///
+/// For more information on maximum concurrent accounts and failure tolerance,
+/// see
+/// [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options).
 class StackSetOperationPreferences {
   /// The order of the regions in where you want to perform the stack operation.
   final List<String> regionOrder;
@@ -4412,6 +4504,8 @@ class StackSetOperationPreferences {
       StackSetOperationPreferences();
 }
 
+/// The structure that contains information about a specified operation's
+/// results for a given account in a given region.
 class StackSetOperationResultSummary {
   /// The name of the AWS account for this operation result.
   final String account;
@@ -4461,6 +4555,8 @@ class StackSetOperationResultSummary {
       StackSetOperationResultSummary();
 }
 
+/// The structures that contain summary information about the specified
+/// operation.
 class StackSetOperationSummary {
   /// The unique ID of the stack set operation.
   final String operationId;
@@ -4517,6 +4613,8 @@ class StackSetOperationSummary {
       StackSetOperationSummary();
 }
 
+/// The structures that contain summary information about the specified stack
+/// set.
 class StackSetSummary {
   /// The name of the stack set.
   final String stackSetName;
@@ -4541,6 +4639,7 @@ class StackSetSummary {
       StackSetSummary();
 }
 
+/// The StackSummary Data Type
 class StackSummary {
   /// Unique stack identifier.
   final String stackId;
@@ -4571,8 +4670,8 @@ class StackSummary {
   /// stack ID of the direct parent of this stack. For the first level of nested
   /// stacks, the root stack is also the parent stack.
   ///
-  /// For more information, see [Working with Nested
-  /// Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+  /// For more information, see
+  /// [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   final String parentId;
 
@@ -4580,17 +4679,16 @@ class StackSummary {
   /// stack ID of the the top-level stack to which the nested stack ultimately
   /// belongs.
   ///
-  /// For more information, see [Working with Nested
-  /// Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
+  /// For more information, see
+  /// [Working with Nested Stacks](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-nested-stacks.html)
   /// in the _AWS CloudFormation User Guide_.
   final String rootId;
 
   /// Summarizes information on whether a stack's actual configuration differs,
   /// or has _drifted_, from it's expected configuration, as defined in the
   /// stack template and any values specified as template parameters. For more
-  /// information, see [Detecting Unregulated Configuration Changes to Stacks
-  /// and
-  /// Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
+  /// information, see
+  /// [Detecting Unregulated Configuration Changes to Stacks and Resources](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html).
   final StackDriftInformationSummary driftInformation;
 
   StackSummary({
@@ -4615,6 +4713,8 @@ class StopStackSetOperationOutput {
       StopStackSetOperationOutput();
 }
 
+/// The Tag type enables you to specify a key-value pair that can be used to
+/// store information about an AWS CloudFormation stack.
 class Tag {
   ///  _Required_. A string used to identify this tag. You can specify a maximum
   /// of 128 characters for a tag key. Tags owned by Amazon Web Services (AWS)
@@ -4632,6 +4732,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The TemplateParameter data type.
 class TemplateParameter {
   /// The name associated with the parameter.
   final String parameterKey;
@@ -4667,6 +4768,7 @@ class UpdateStackInstancesOutput {
       UpdateStackInstancesOutput();
 }
 
+/// The output for an UpdateStack action.
 class UpdateStackOutput {
   /// Unique identifier of the stack.
   final String stackId;
@@ -4701,6 +4803,7 @@ class UpdateTerminationProtectionOutput {
       UpdateTerminationProtectionOutput();
 }
 
+/// The output for ValidateTemplate action.
 class ValidateTemplateOutput {
   /// A list of `TemplateParameter` structures.
   final List<TemplateParameter> parameters;
@@ -4709,14 +4812,13 @@ class ValidateTemplateOutput {
   final String description;
 
   /// The capabilities found within the template. If your template contains IAM
-  /// resources, you must specify the CAPABILITY\_IAM or CAPABILITY\_NAMED_IAM
+  /// resources, you must specify the CAPABILITY_IAM or CAPABILITY_NAMED_IAM
   /// value for this parameter when you use the CreateStack or UpdateStack
   /// actions with your template; otherwise, those actions return an
   /// InsufficientCapabilities error.
   ///
-  /// For more information, see [Acknowledging IAM Resources in AWS
-  /// CloudFormation
-  /// Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
+  /// For more information, see
+  /// [Acknowledging IAM Resources in AWS CloudFormation Templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-template.html#capabilities).
   final List<String> capabilities;
 
   /// The list of resources that generated the values in the `Capabilities`

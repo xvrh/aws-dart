@@ -25,8 +25,7 @@ class ElastiCacheApi {
   /// and costs aggregated by your tags. You can apply tags that represent
   /// business categories (such as cost centers, application names, or owners)
   /// to organize your costs across multiple services. For more information, see
-  /// [Using Cost Allocation Tags in Amazon
-  /// ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html)
+  /// [Using Cost Allocation Tags in Amazon ElastiCache](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html)
   /// in the _ElastiCache User Guide_.
   ///
   /// [resourceName]: The Amazon Resource Name (ARN) of the resource to which
@@ -35,9 +34,8 @@ class ElastiCacheApi {
   /// `arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot`.
   /// ElastiCache resources are _cluster_ and _snapshot_.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   ///
   /// [tags]: A list of cost allocation tags to be added to this resource. A tag
   /// is a key-value pair. A tag key must be accompanied by a tag value.
@@ -74,8 +72,8 @@ class ElastiCacheApi {
   }
 
   /// Apply the service update. For more information on service updates and
-  /// applying them, see [Applying Service
-  /// Updates](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/applying-updates.html).
+  /// applying them, see
+  /// [Applying Service Updates](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/applying-updates.html).
   ///
   /// [replicationGroupIds]: The replication group IDs
   ///
@@ -87,8 +85,8 @@ class ElastiCacheApi {
   }
 
   /// Stop the service update. For more information on service updates and
-  /// stopping them, see [Stopping Service
-  /// Updates](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/stopping-self-service-updates.html).
+  /// stopping them, see
+  /// [Stopping Service Updates](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/stopping-self-service-updates.html).
   ///
   /// [replicationGroupIds]: The replication group IDs
   ///
@@ -106,10 +104,10 @@ class ElastiCacheApi {
   /// Amazon S3 buckets and copy snapshots to it. To control access to your
   /// snapshots, use an IAM policy to control who has the ability to use the
   /// `CopySnapshot` operation. For more information about using IAM to control
-  /// the use of ElastiCache operations, see [Exporting
-  /// Snapshots](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html)
-  /// and [Authentication & Access
-  /// Control](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.html).
+  /// the use of ElastiCache operations, see
+  /// [Exporting Snapshots](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html)
+  /// and
+  /// [Authentication & Access Control](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/IAM.html).
   ///
   ///
   /// You could receive the following error messages.
@@ -119,23 +117,23 @@ class ElastiCacheApi {
   /// *    **Error Message:** The S3 bucket %s is outside of the region.
   ///
   ///      **Solution:** Create an Amazon S3 bucket in the same region as your
-  /// snapshot. For more information, see [Step 1: Create an Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
+  /// snapshot. For more information, see
+  /// [Step 1: Create an Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
   /// in the ElastiCache User Guide.
   ///
   /// *    **Error Message:** The S3 bucket %s does not exist.
   ///
   ///      **Solution:** Create an Amazon S3 bucket in the same region as your
-  /// snapshot. For more information, see [Step 1: Create an Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
+  /// snapshot. For more information, see
+  /// [Step 1: Create an Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
   /// in the ElastiCache User Guide.
   ///
   /// *    **Error Message:** The S3 bucket %s is not owned by the authenticated
   /// user.
   ///
   ///      **Solution:** Create an Amazon S3 bucket in the same region as your
-  /// snapshot. For more information, see [Step 1: Create an Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
+  /// snapshot. For more information, see
+  /// [Step 1: Create an Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-create-s3-bucket)
   /// in the ElastiCache User Guide.
   ///
   /// *    **Error Message:** The authenticated user does not have sufficient
@@ -155,24 +153,24 @@ class ElastiCacheApi {
   /// %s on the S3 Bucket.
   ///
   ///      **Solution:** Add List and Read permissions on the bucket. For more
-  /// information, see [Step 2: Grant ElastiCache Access to Your Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
+  /// information, see
+  /// [Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
   /// in the ElastiCache User Guide.
   ///
   /// *    **Error Message:**  ElastiCache has not been granted WRITE
   /// permissions %s on the S3 Bucket.
   ///
   ///      **Solution:** Add Upload/Delete permissions on the bucket. For more
-  /// information, see [Step 2: Grant ElastiCache Access to Your Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
+  /// information, see
+  /// [Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
   /// in the ElastiCache User Guide.
   ///
   /// *    **Error Message:**  ElastiCache has not been granted READ_ACP
   /// permissions %s on the S3 Bucket.
   ///
   ///      **Solution:** Add View Permissions on the bucket. For more
-  /// information, see [Step 2: Grant ElastiCache Access to Your Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
+  /// information, see
+  /// [Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
   /// in the ElastiCache User Guide.
   ///
   /// [sourceSnapshotName]: The name of an existing snapshot from which to make
@@ -187,12 +185,11 @@ class ElastiCacheApi {
   ///
   /// When using this parameter to export a snapshot, be sure Amazon ElastiCache
   /// has the needed permissions to this S3 bucket. For more information, see
-  /// [Step 2: Grant ElastiCache Access to Your Amazon S3
-  /// Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
+  /// [Step 2: Grant ElastiCache Access to Your Amazon S3 Bucket](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-exporting.html#backups-exporting-grant-access)
   /// in the _Amazon ElastiCache User Guide_.
   ///
-  /// For more information, see [Exporting a
-  /// Snapshot](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html)
+  /// For more information, see
+  /// [Exporting a Snapshot](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Snapshots.Exporting.html)
   /// in the _Amazon ElastiCache User Guide_.
   ///
   /// [kmsKeyId]: The ID of the KMS key used to encrypt the target snapshot.
@@ -364,9 +361,8 @@ class ElastiCacheApi {
   /// this cluster. To view the supported cache engine versions, use the
   /// DescribeCacheEngineVersions operation.
   ///
-  ///  **Important:** You can upgrade to a newer engine version (see [Selecting
-  /// a Cache Engine and
-  /// Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
+  ///  **Important:** You can upgrade to a newer engine version (see
+  /// [Selecting a Cache Engine and Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
   /// but you cannot downgrade to an earlier engine version. If you want to use
   /// an earlier engine version, you must delete the existing cluster or
   /// replication group and create it anew with the earlier engine version.
@@ -386,8 +382,8 @@ class ElastiCacheApi {
   ///
   /// If you're going to launch your cluster in an Amazon VPC, you need to
   /// create a subnet group before you start creating a cluster. For more
-  /// information, see [Subnets and Subnet
-  /// Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.html).
+  /// information, see
+  /// [Subnets and Subnet Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.html).
   ///
   /// [cacheSecurityGroupNames]: A list of security group names to associate
   /// with this cluster.
@@ -537,8 +533,8 @@ class ElastiCacheApi {
   /// [ModifyCacheParameterGroup](https://docs.aws.amazon.com/AmazonElastiCache/latest/APIReference/API_ModifyCacheParameterGroup.html)
   /// in the ElastiCache API Reference.
   ///
-  /// *    [Parameters and Parameter
-  /// Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.html)
+  /// *
+  /// [Parameters and Parameter Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ParameterGroups.html)
   /// in the ElastiCache User Guide.
   ///
   /// [cacheParameterGroupName]: A user-specified name for the cache parameter
@@ -626,8 +622,8 @@ class ElastiCacheApi {
   /// replication group after it has been created. However, if you need to
   /// increase or decrease the number of node groups (console: shards), you can
   /// avail yourself of ElastiCache for Redis' enhanced backup and restore. For
-  /// more information, see [Restoring From a Backup with Cluster
-  /// Resizing](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html)
+  /// more information, see
+  /// [Restoring From a Backup with Cluster Resizing](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/backups-restoring.html)
   /// in the _ElastiCache User Guide_.
   ///
   ///
@@ -812,9 +808,8 @@ class ElastiCacheApi {
   /// clusters in this replication group. To view the supported cache engine
   /// versions, use the `DescribeCacheEngineVersions` operation.
   ///
-  ///  **Important:** You can upgrade to a newer engine version (see [Selecting
-  /// a Cache Engine and
-  /// Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement))
+  ///  **Important:** You can upgrade to a newer engine version (see
+  /// [Selecting a Cache Engine and Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement))
   /// in the _ElastiCache User Guide_, but you cannot downgrade to an earlier
   /// engine version. If you want to use an earlier engine version, you must
   /// delete the existing cluster or replication group and create it anew with
@@ -845,8 +840,8 @@ class ElastiCacheApi {
   ///
   /// If you're going to launch your cluster in an Amazon VPC, you need to
   /// create a subnet group before you start creating a cluster. For more
-  /// information, see [Subnets and Subnet
-  /// Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.html).
+  /// information, see
+  /// [Subnets and Subnet Groups](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SubnetGroups.html).
   ///
   /// [cacheSecurityGroupNames]: A list of cache security group names to
   /// associate with this replication group.
@@ -1946,17 +1941,16 @@ class ElastiCacheApi {
   /// returns an error.
   ///
   /// You can have a maximum of 50 cost allocation tags on an ElastiCache
-  /// resource. For more information, see [Monitoring Costs with
-  /// Tags](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html).
+  /// resource. For more information, see
+  /// [Monitoring Costs with Tags](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Tagging.html).
   ///
   /// [resourceName]: The Amazon Resource Name (ARN) of the resource for which
   /// you want the list of tags, for example
   /// `arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster` or
   /// `arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot`.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   Future<TagListMessage> listTagsForResource(String resourceName) async {
     return TagListMessage.fromJson({});
   }
@@ -2033,8 +2027,8 @@ class ElastiCacheApi {
   /// Only newly created nodes are located in different Availability Zones. For
   /// instructions on how to move existing Memcached nodes to different
   /// Availability Zones, see the **Availability Zone Considerations** section
-  /// of [Cache Node Considerations for
-  /// Memcached](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html).
+  /// of
+  /// [Cache Node Considerations for Memcached](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html).
   ///
   /// [newAvailabilityZones]: The list of Availability Zones where the new
   /// Memcached cache nodes are created.
@@ -2070,8 +2064,8 @@ class ElastiCacheApi {
   /// current Availability Zone. Only newly created nodes can be located in
   /// different Availability Zones. For guidance on how to move existing
   /// Memcached nodes to different Availability Zones, see the **Availability
-  /// Zone Considerations** section of [Cache Node Considerations for
-  /// Memcached](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html).
+  /// Zone Considerations** section of
+  /// [Cache Node Considerations for Memcached](https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html).
   ///
   ///  **Impact of new add/remove requests upon pending requests**
   ///
@@ -2192,9 +2186,8 @@ class ElastiCacheApi {
   /// [engineVersion]: The upgraded version of the cache engine to be run on the
   /// cache nodes.
   ///
-  ///  **Important:** You can upgrade to a newer engine version (see [Selecting
-  /// a Cache Engine and
-  /// Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
+  ///  **Important:** You can upgrade to a newer engine version (see
+  /// [Selecting a Cache Engine and Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
   /// but you cannot downgrade to an earlier engine version. If you want to use
   /// an earlier engine version, you must delete the existing cluster and create
   /// it anew with the earlier engine version.
@@ -2279,8 +2272,8 @@ class ElastiCacheApi {
   /// to change a cluster's node type or engine version. For more information,
   /// see:
   ///
-  /// *    [Scaling for Amazon ElastiCache for Redis (cluster mode
-  /// enabled)](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html)
+  /// *
+  /// [Scaling for Amazon ElastiCache for Redis (cluster mode enabled)](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/scaling-redis-cluster-mode-enabled.html)
   /// in the ElastiCache User Guide
   ///
   /// *
@@ -2395,9 +2388,8 @@ class ElastiCacheApi {
   /// [engineVersion]: The upgraded version of the cache engine to be run on the
   /// clusters in the replication group.
   ///
-  ///  **Important:** You can upgrade to a newer engine version (see [Selecting
-  /// a Cache Engine and
-  /// Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
+  ///  **Important:** You can upgrade to a newer engine version (see
+  /// [Selecting a Cache Engine and Version](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/SelectEngine.html#VersionManagement)),
   /// but you cannot downgrade to an earlier engine version. If you want to use
   /// an earlier engine version, you must delete the existing replication group
   /// and create it anew with the earlier engine version.
@@ -2539,8 +2531,8 @@ class ElastiCacheApi {
   /// enabled) clusters.
   ///
   /// If you make changes to parameters that require a Redis (cluster mode
-  /// enabled) cluster reboot for the changes to be applied, see [Rebooting a
-  /// Cluster](http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html)
+  /// enabled) cluster reboot for the changes to be applied, see
+  /// [Rebooting a Cluster](http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html)
   /// for an alternate process.
   ///
   /// [cacheClusterId]: The cluster identifier. This parameter is stored as a
@@ -2562,9 +2554,8 @@ class ElastiCacheApi {
   /// `arn:aws:elasticache:us-west-2:0123456789:cluster:myCluster` or
   /// `arn:aws:elasticache:us-west-2:0123456789:snapshot:mySnapshot`.
   ///
-  /// For more information about ARNs, see [Amazon Resource Names (ARNs) and AWS
-  /// Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   ///
   /// [tagKeys]: A list of `TagKeys` identifying the tags you want removed from
   /// the named resource.
@@ -2658,8 +2649,8 @@ class ElastiCacheApi {
   ///
   ///     For more information see:
   ///
-  ///     *    [Viewing ElastiCache
-  /// Events](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ECEvents.Viewing.html)
+  ///     *
+  /// [Viewing ElastiCache Events](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/ECEvents.Viewing.html)
   /// in the _ElastiCache User Guide_
   ///
   ///     *
@@ -2668,8 +2659,8 @@ class ElastiCacheApi {
   ///
   ///
   ///
-  /// Also see, [Testing Multi-AZ with Automatic
-  /// Failover](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test)
+  /// Also see,
+  /// [Testing Multi-AZ with Automatic Failover](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/AutoFailover.html#auto-failover-test)
   /// in the _ElastiCache User Guide_.
   ///
   /// [replicationGroupId]: The name of the replication group (console: cluster)
@@ -2686,6 +2677,8 @@ class ElastiCacheApi {
   }
 }
 
+/// Represents the allowed node types you can use to modify your cluster or
+/// replication group.
 class AllowedNodeTypeModificationsMessage {
   /// A string list, each element of which specifies a cache node type which you
   /// can use to scale your cluster or replication group.
@@ -2723,6 +2716,7 @@ class AuthorizeCacheSecurityGroupIngressResult {
       AuthorizeCacheSecurityGroupIngressResult();
 }
 
+/// Describes an Availability Zone in which the cluster is launched.
 class AvailabilityZone {
   /// The name of the Availability Zone.
   final String name;
@@ -2734,6 +2728,7 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// Contains all of the attributes of a specific cluster.
 class CacheCluster {
   /// The user-supplied identifier of the cluster. This identifier is a unique
   /// key that identifies a cluster.
@@ -2983,6 +2978,7 @@ class CacheCluster {
   static CacheCluster fromJson(Map<String, dynamic> json) => CacheCluster();
 }
 
+/// Represents the output of a `DescribeCacheClusters` operation.
 class CacheClusterMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -2999,6 +2995,7 @@ class CacheClusterMessage {
       CacheClusterMessage();
 }
 
+/// Provides all of the details about a particular cache engine version.
 class CacheEngineVersion {
   /// The name of the cache engine.
   final String engine;
@@ -3030,6 +3027,7 @@ class CacheEngineVersion {
       CacheEngineVersion();
 }
 
+/// Represents the output of a DescribeCacheEngineVersions operation.
 class CacheEngineVersionMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3046,6 +3044,80 @@ class CacheEngineVersionMessage {
       CacheEngineVersionMessage();
 }
 
+/// Represents an individual cache node within a cluster. Each cache node runs
+/// its own instance of the cluster's protocol-compliant caching software -
+/// either Memcached or Redis.
+///
+/// The following node types are supported by ElastiCache. Generally speaking,
+/// the current generation types provide more memory and computational power at
+/// lower cost when compared to their equivalent previous generation
+/// counterparts.
+///
+/// *   General purpose:
+///
+///     *   Current generation:
+///
+///          **M5 node types:** `cache.m5.large`, `cache.m5.xlarge`,
+/// `cache.m5.2xlarge`, `cache.m5.4xlarge`, `cache.m5.12xlarge`,
+/// `cache.m5.24xlarge`
+///
+///          **M4 node types:** `cache.m4.large`, `cache.m4.xlarge`,
+/// `cache.m4.2xlarge`, `cache.m4.4xlarge`, `cache.m4.10xlarge`
+///
+///          **T2 node types:** `cache.t2.micro`, `cache.t2.small`,
+/// `cache.t2.medium`
+///
+///     *   Previous generation: (not recommended)
+///
+///          **T1 node types:** `cache.t1.micro`
+///
+///          **M1 node types:** `cache.m1.small`, `cache.m1.medium`,
+/// `cache.m1.large`, `cache.m1.xlarge`
+///
+///          **M3 node types:** `cache.m3.medium`, `cache.m3.large`,
+/// `cache.m3.xlarge`, `cache.m3.2xlarge`
+///
+///
+/// *   Compute optimized:
+///
+///     *   Previous generation: (not recommended)
+///
+///          **C1 node types:** `cache.c1.xlarge`
+///
+///
+/// *   Memory optimized:
+///
+///     *   Current generation:
+///
+///          **R5 node types:** `cache.r5.large`, `cache.r5.xlarge`,
+/// `cache.r5.2xlarge`, `cache.r5.4xlarge`, `cache.r5.12xlarge`,
+/// `cache.r5.24xlarge`
+///
+///          **R4 node types:** `cache.r4.large`, `cache.r4.xlarge`,
+/// `cache.r4.2xlarge`, `cache.r4.4xlarge`, `cache.r4.8xlarge`,
+/// `cache.r4.16xlarge`
+///
+///     *   Previous generation: (not recommended)
+///
+///          **M2 node types:** `cache.m2.xlarge`, `cache.m2.2xlarge`,
+/// `cache.m2.4xlarge`
+///
+///          **R3 node types:** `cache.r3.large`, `cache.r3.xlarge`,
+/// `cache.r3.2xlarge`, `cache.r3.4xlarge`, `cache.r3.8xlarge`
+///
+///
+///
+///  **Additional node type info**
+///
+/// *   All current generation instance types are created in Amazon VPC by
+/// default.
+///
+/// *   Redis append-only files (AOF) are not supported for T1 or T2 instances.
+///
+/// *   Redis Multi-AZ with automatic failover is not supported on T1 instances.
+///
+/// *   Redis configuration variables `appendonly` and `appendfsync` are not
+/// supported on Redis version 2.8.22 and later.
 class CacheNode {
   /// The cache node identifier. A node ID is a numeric identifier (0001, 0002,
   /// etc.). The combination of cluster ID and node ID uniquely identifies every
@@ -3084,6 +3156,9 @@ class CacheNode {
   static CacheNode fromJson(Map<String, dynamic> json) => CacheNode();
 }
 
+/// A parameter that has a different value for each cache node type it is
+/// applied to. For example, in a Redis cluster, a `cache.m1.large` cache node
+/// type would have a larger `maxmemory` value than a `cache.m1.small` type.
 class CacheNodeTypeSpecificParameter {
   /// The name of the parameter.
   final String parameterName;
@@ -3115,8 +3190,7 @@ class CacheNodeTypeSpecificParameter {
   /// Indicates whether a change to the parameter is applied immediately or
   /// requires a reboot for the change to be applied. You can force a reboot or
   /// wait until the next maintenance window's reboot. For more information, see
-  /// [Rebooting a
-  /// Cluster](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html).
+  /// [Rebooting a Cluster](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html).
   final String changeType;
 
   CacheNodeTypeSpecificParameter({
@@ -3134,6 +3208,7 @@ class CacheNodeTypeSpecificParameter {
       CacheNodeTypeSpecificParameter();
 }
 
+/// A value that applies only to a certain cache node type.
 class CacheNodeTypeSpecificValue {
   /// The cache node type for which this value applies.
   final String cacheNodeType;
@@ -3149,6 +3224,7 @@ class CacheNodeTypeSpecificValue {
       CacheNodeTypeSpecificValue();
 }
 
+/// Represents the output of a `CreateCacheParameterGroup` operation.
 class CacheParameterGroup {
   /// The name of the cache parameter group.
   final String cacheParameterGroupName;
@@ -3172,6 +3248,7 @@ class CacheParameterGroup {
       CacheParameterGroup();
 }
 
+/// Represents the output of a `DescribeCacheParameters` operation.
 class CacheParameterGroupDetails {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3192,6 +3269,11 @@ class CacheParameterGroupDetails {
       CacheParameterGroupDetails();
 }
 
+/// Represents the output of one of the following operations:
+///
+/// *    `ModifyCacheParameterGroup`
+///
+/// *    `ResetCacheParameterGroup`
 class CacheParameterGroupNameMessage {
   /// The name of the cache parameter group.
   final String cacheParameterGroupName;
@@ -3203,6 +3285,7 @@ class CacheParameterGroupNameMessage {
       CacheParameterGroupNameMessage();
 }
 
+/// Status of the cache parameter group.
 class CacheParameterGroupStatus {
   /// The name of the cache parameter group.
   final String cacheParameterGroupName;
@@ -3224,6 +3307,7 @@ class CacheParameterGroupStatus {
       CacheParameterGroupStatus();
 }
 
+/// Represents the output of a `DescribeCacheParameterGroups` operation.
 class CacheParameterGroupsMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3240,6 +3324,13 @@ class CacheParameterGroupsMessage {
       CacheParameterGroupsMessage();
 }
 
+/// Represents the output of one of the following operations:
+///
+/// *    `AuthorizeCacheSecurityGroupIngress`
+///
+/// *    `CreateCacheSecurityGroup`
+///
+/// *    `RevokeCacheSecurityGroupIngress`
 class CacheSecurityGroup {
   /// The AWS account ID of the cache security group owner.
   final String ownerId;
@@ -3264,6 +3355,7 @@ class CacheSecurityGroup {
       CacheSecurityGroup();
 }
 
+/// Represents a cluster's status within a particular cache security group.
 class CacheSecurityGroupMembership {
   /// The name of the cache security group.
   final String cacheSecurityGroupName;
@@ -3281,6 +3373,7 @@ class CacheSecurityGroupMembership {
       CacheSecurityGroupMembership();
 }
 
+/// Represents the output of a `DescribeCacheSecurityGroups` operation.
 class CacheSecurityGroupMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3297,6 +3390,11 @@ class CacheSecurityGroupMessage {
       CacheSecurityGroupMessage();
 }
 
+/// Represents the output of one of the following operations:
+///
+/// *    `CreateCacheSubnetGroup`
+///
+/// *    `ModifyCacheSubnetGroup`
 class CacheSubnetGroup {
   /// The name of the cache subnet group.
   final String cacheSubnetGroupName;
@@ -3321,6 +3419,7 @@ class CacheSubnetGroup {
       CacheSubnetGroup();
 }
 
+/// Represents the output of a `DescribeCacheSubnetGroups` operation.
 class CacheSubnetGroupMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3337,12 +3436,14 @@ class CacheSubnetGroupMessage {
       CacheSubnetGroupMessage();
 }
 
+/// Node group (shard) configuration options when adding or removing replicas.
+/// Each node group (shard) configuration has the following members:
+/// NodeGroupId, NewReplicaCount, and PreferredAvailabilityZones.
 class ConfigureShard {
   /// The 4-digit id for the node group you are configuring. For Redis (cluster
   /// mode disabled) replication groups, the node group id is always 0001. To
   /// find a Redis (cluster mode enabled)'s node group's (shard's) id, see
-  /// [Finding a Shard's
-  /// Id](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/shard-find-id.html).
+  /// [Finding a Shard's Id](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/shard-find-id.html).
   final String nodeGroupId;
 
   /// The number of replicas you want in this node group at the end of this
@@ -3498,6 +3599,7 @@ class DescribeEngineDefaultParametersResult {
       DescribeEngineDefaultParametersResult();
 }
 
+/// Represents the output of a `DescribeSnapshots` operation.
 class DescribeSnapshotsListMessage {
   /// An optional marker returned from a prior request. Use this marker for
   /// pagination of results from this operation. If this parameter is specified,
@@ -3517,6 +3619,7 @@ class DescribeSnapshotsListMessage {
       DescribeSnapshotsListMessage();
 }
 
+/// Provides ownership and status information for an Amazon EC2 security group.
 class Ec2SecurityGroup {
   /// The status of the Amazon EC2 security group.
   final String status;
@@ -3536,6 +3639,8 @@ class Ec2SecurityGroup {
       Ec2SecurityGroup();
 }
 
+/// Represents the information required for client programs to connect to a
+/// cache node.
 class Endpoint {
   /// The DNS hostname of the cache node.
   final String address;
@@ -3550,6 +3655,7 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Represents the output of a `DescribeEngineDefaultParameters` operation.
 class EngineDefaults {
   /// Specifies the name of the cache parameter group family to which the engine
   /// default parameters apply.
@@ -3577,6 +3683,9 @@ class EngineDefaults {
   static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
 }
 
+/// Represents a single occurrence of something interesting within the system.
+/// Some examples of events are creating a cluster, adding or removing a cache
+/// node, or rebooting a node.
 class Event {
   /// The identifier for the source of the event. For example, if the event
   /// occurred at the cluster level, the identifier would be the name of the
@@ -3602,6 +3711,7 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Represents the output of a `DescribeEvents` operation.
 class EventsMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -3668,6 +3778,9 @@ class ModifyReplicationGroupShardConfigurationResult {
       ModifyReplicationGroupShardConfigurationResult();
 }
 
+/// Represents a collection of cache nodes in a replication group. One node in
+/// the node group is the read/write primary node. All the other nodes are
+/// read-only Replica nodes.
 class NodeGroup {
   /// The identifier for the node group (shard). A Redis (cluster mode disabled)
   /// replication group contains only 1 node group; therefore, the node group ID
@@ -3704,6 +3817,9 @@ class NodeGroup {
   static NodeGroup fromJson(Map<String, dynamic> json) => NodeGroup();
 }
 
+/// Node group (shard) configuration options. Each node group (shard)
+/// configuration has the following: `Slots`, `PrimaryAvailabilityZone`,
+/// `ReplicaAvailabilityZones`, `ReplicaCount`.
 class NodeGroupConfiguration {
   /// Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
   /// for the node group these configuration values apply to.
@@ -3739,6 +3855,7 @@ class NodeGroupConfiguration {
       NodeGroupConfiguration();
 }
 
+/// Represents a single node within a node group (shard).
 class NodeGroupMember {
   /// The ID of the cluster to which the node belongs.
   final String cacheClusterId;
@@ -3771,6 +3888,7 @@ class NodeGroupMember {
       NodeGroupMember();
 }
 
+/// The status of the service update on the node group member
 class NodeGroupMemberUpdateStatus {
   /// The cache cluster ID
   final String cacheClusterId;
@@ -3815,6 +3933,7 @@ class NodeGroupMemberUpdateStatus {
       NodeGroupMemberUpdateStatus();
 }
 
+/// The status of the service update on the node group
 class NodeGroupUpdateStatus {
   /// The ID of the node group
   final String nodeGroupId;
@@ -3830,6 +3949,7 @@ class NodeGroupUpdateStatus {
       NodeGroupUpdateStatus();
 }
 
+/// Represents an individual cache node in a snapshot of a cluster.
 class NodeSnapshot {
   /// A unique identifier for the source cluster.
   final String cacheClusterId;
@@ -3865,6 +3985,9 @@ class NodeSnapshot {
   static NodeSnapshot fromJson(Map<String, dynamic> json) => NodeSnapshot();
 }
 
+/// Describes a notification topic and its status. Notification topics are used
+/// for publishing ElastiCache events to subscribers using Amazon Simple
+/// Notification Service (SNS).
 class NotificationConfiguration {
   /// The Amazon Resource Name (ARN) that identifies the topic.
   final String topicArn;
@@ -3880,6 +4003,8 @@ class NotificationConfiguration {
       NotificationConfiguration();
 }
 
+/// Describes an individual setting that controls some aspect of ElastiCache
+/// behavior.
 class Parameter {
   /// The name of the parameter.
   final String parameterName;
@@ -3910,8 +4035,7 @@ class Parameter {
   /// Indicates whether a change to the parameter is applied immediately or
   /// requires a reboot for the change to be applied. You can force a reboot or
   /// wait until the next maintenance window's reboot. For more information, see
-  /// [Rebooting a
-  /// Cluster](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html).
+  /// [Rebooting a Cluster](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.Rebooting.html).
   final String changeType;
 
   Parameter({
@@ -3928,6 +4052,7 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// Describes a name-value pair that is used to update the value of a parameter.
 class ParameterNameValue {
   /// The name of the parameter.
   final String parameterName;
@@ -3941,6 +4066,8 @@ class ParameterNameValue {
   });
 }
 
+/// A group of settings that are applied to the cluster in the future, or that
+/// are currently being applied.
 class PendingModifiedValues {
   /// The new number of cache nodes for the cluster.
   ///
@@ -3968,6 +4095,8 @@ class PendingModifiedValues {
       PendingModifiedValues();
 }
 
+/// Update action that has been processed for the corresponding apply/stop
+/// request
 class ProcessedUpdateAction {
   /// The ID of the replication group
   final String replicationGroupId;
@@ -4008,6 +4137,8 @@ class RebootCacheClusterResult {
       RebootCacheClusterResult();
 }
 
+/// Contains the specific price and frequency of a recurring charges for a
+/// reserved cache node, or for a reserved cache node offering.
 class RecurringCharge {
   /// The monetary amount of the recurring charge.
   final double recurringChargeAmount;
@@ -4023,6 +4154,7 @@ class RecurringCharge {
       RecurringCharge();
 }
 
+/// Contains all of the attributes of a specific Redis replication group.
 class ReplicationGroup {
   /// The identifier for the replication group.
   final String replicationGroupId;
@@ -4158,6 +4290,7 @@ class ReplicationGroup {
       ReplicationGroup();
 }
 
+/// Represents the output of a `DescribeReplicationGroups` operation.
 class ReplicationGroupMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -4174,6 +4307,8 @@ class ReplicationGroupMessage {
       ReplicationGroupMessage();
 }
 
+/// The settings to be applied to the Redis replication group, either
+/// immediately or during the next maintenance window.
 class ReplicationGroupPendingModifiedValues {
   /// The primary cluster ID that is applied immediately (if
   /// `--apply-immediately` was specified), or during the next maintenance
@@ -4206,6 +4341,7 @@ class ReplicationGroupPendingModifiedValues {
       ReplicationGroupPendingModifiedValues();
 }
 
+/// Represents the output of a `PurchaseReservedCacheNodesOffering` operation.
 class ReservedCacheNode {
   /// The unique identifier for the reservation.
   final String reservedCacheNodeId;
@@ -4341,6 +4477,7 @@ class ReservedCacheNode {
       ReservedCacheNode();
 }
 
+/// Represents the output of a `DescribeReservedCacheNodes` operation.
 class ReservedCacheNodeMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -4357,6 +4494,7 @@ class ReservedCacheNodeMessage {
       ReservedCacheNodeMessage();
 }
 
+/// Describes all of the attributes of a reserved cache node offering.
 class ReservedCacheNodesOffering {
   /// A unique identifier for the reserved cache node offering.
   final String reservedCacheNodesOfferingId;
@@ -4469,6 +4607,7 @@ class ReservedCacheNodesOffering {
       ReservedCacheNodesOffering();
 }
 
+/// Represents the output of a `DescribeReservedCacheNodesOfferings` operation.
 class ReservedCacheNodesOfferingMessage {
   /// Provides an identifier to allow retrieval of paginated results.
   final String marker;
@@ -4486,6 +4625,8 @@ class ReservedCacheNodesOfferingMessage {
       ReservedCacheNodesOfferingMessage();
 }
 
+/// A list of `PreferredAvailabilityZones` objects that specifies the
+/// configuration of a node group in the resharded cluster.
 class ReshardingConfiguration {
   /// Either the ElastiCache for Redis supplied 4-digit id or a user supplied id
   /// for the node group these configuration values apply to.
@@ -4500,6 +4641,7 @@ class ReshardingConfiguration {
   });
 }
 
+/// The status of an online resharding operation.
 class ReshardingStatus {
   /// Represents the progress of an online resharding operation.
   final SlotMigration slotMigration;
@@ -4522,6 +4664,7 @@ class RevokeCacheSecurityGroupIngressResult {
       RevokeCacheSecurityGroupIngressResult();
 }
 
+/// Represents a single cache security group and its status.
 class SecurityGroupMembership {
   /// The identifier of the cache security group.
   final String securityGroupId;
@@ -4539,6 +4682,7 @@ class SecurityGroupMembership {
       SecurityGroupMembership();
 }
 
+/// An update that you can apply to your Redis clusters.
 class ServiceUpdate {
   /// The unique ID of the service update
   final String serviceUpdateName;
@@ -4553,9 +4697,8 @@ class ServiceUpdate {
   final String serviceUpdateSeverity;
 
   /// The recommendend date to apply the service update in order to ensure
-  /// compliance. For information on compliance, see [Self-Service Security
-  /// Updates for
-  /// Compliance](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service).
+  /// compliance. For information on compliance, see
+  /// [Self-Service Security Updates for Compliance](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service).
   final DateTime serviceUpdateRecommendedApplyByDate;
 
   /// The status of the service update
@@ -4615,6 +4758,7 @@ class ServiceUpdatesMessage {
       ServiceUpdatesMessage();
 }
 
+/// Represents the progress of an online resharding operation.
 class SlotMigration {
   /// The percentage of the slot migration that is complete.
   final double progressPercentage;
@@ -4625,6 +4769,8 @@ class SlotMigration {
   static SlotMigration fromJson(Map<String, dynamic> json) => SlotMigration();
 }
 
+/// Represents a copy of an entire Redis cluster as of the time when the
+/// snapshot was taken.
 class Snapshot {
   /// The name of a snapshot. For an automatic snapshot, the name is
   /// system-generated. For a manual snapshot, this is the user-provided name.
@@ -4859,6 +5005,9 @@ class Snapshot {
   static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
 }
 
+/// Represents the subnet associated with a cluster. This parameter refers to
+/// subnets defined in Amazon Virtual Private Cloud (Amazon VPC) and used with
+/// ElastiCache.
 class Subnet {
   /// The unique identifier for the subnet.
   final String subnetIdentifier;
@@ -4873,6 +5022,9 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// A cost allocation Tag that can be added to an ElastiCache cluster or
+/// replication group. Tags are composed of a Key/Value pair. A tag with a null
+/// Value is permitted.
 class Tag {
   /// The key for the tag. May not be null.
   final String key;
@@ -4887,6 +5039,8 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Represents the output from the `AddTagsToResource`, `ListTagsForResource`,
+/// and `RemoveTagsFromResource` operations.
 class TagListMessage {
   /// A list of cost allocation tags as key-value pairs.
   final List<Tag> tagList;
@@ -4907,6 +5061,8 @@ class TestFailoverResult {
       TestFailoverResult();
 }
 
+/// Filters update actions from the service updates that are in available status
+/// during the time range.
 class TimeRangeFilter {
   /// The start time of the time range filter
   final DateTime startTime;
@@ -4920,6 +5076,8 @@ class TimeRangeFilter {
   });
 }
 
+/// Update action that has failed to be processed for the corresponding
+/// apply/stop request
 class UnprocessedUpdateAction {
   /// The replication group ID
   final String replicationGroupId;
@@ -4943,6 +5101,7 @@ class UnprocessedUpdateAction {
       UnprocessedUpdateAction();
 }
 
+/// The status of the service update for a specific replication group
 class UpdateAction {
   /// The ID of the replication group
   final String replicationGroupId;
@@ -4960,8 +5119,8 @@ class UpdateAction {
   final String serviceUpdateStatus;
 
   /// The recommended date to apply the service update to ensure compliance. For
-  /// information on compliance, see [Self-Service Security Updates for
-  /// Compliance](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service).
+  /// information on compliance, see
+  /// [Self-Service Security Updates for Compliance](https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/elasticache-compliance.html#elasticache-compliance-self-service).
   final DateTime serviceUpdateRecommendedApplyByDate;
 
   /// Reflects the nature of the service update

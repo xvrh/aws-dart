@@ -14,8 +14,8 @@ import 'package:meta/meta.dart';
 /// Elastic Load Balancing supports three types of load balancers: Application
 /// Load Balancers, Network Load Balancers, and Classic Load Balancers. You can
 /// select a load balancer based on your application needs. For more
-/// information, see the [Elastic Load Balancing User
-/// Guide](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/).
+/// information, see the
+/// [Elastic Load Balancing User Guide](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/).
 ///
 /// This reference covers the 2012-06-01 API, which supports Classic Load
 /// Balancers. The 2015-12-01 API supports Application Load Balancers and
@@ -36,8 +36,8 @@ class ElasticLoadBalancingApi {
   /// key is already associated with the load balancer, `AddTags` updates its
   /// value.
   ///
-  /// For more information, see [Tag Your Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html)
+  /// For more information, see
+  /// [Tag Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerNames]: The name of the load balancer. You can specify one
@@ -54,8 +54,8 @@ class ElasticLoadBalancingApi {
   /// virtual private cloud (VPC). The specified security groups override the
   /// previously associated security groups.
   ///
-  /// For more information, see [Security Groups for Load Balancers in a
-  /// VPC](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-groups.html#elb-vpc-security-groups)
+  /// For more information, see
+  /// [Security Groups for Load Balancers in a VPC](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-groups.html#elb-vpc-security-groups)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -74,9 +74,8 @@ class ElasticLoadBalancingApi {
   /// specified load balancer.
   ///
   /// The load balancer evenly distributes requests across all registered
-  /// subnets. For more information, see [Add or Remove Subnets for Your Load
-  /// Balancer in a
-  /// VPC](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-manage-subnets.html)
+  /// subnets. For more information, see
+  /// [Add or Remove Subnets for Your Load Balancer in a VPC](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-manage-subnets.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -92,8 +91,8 @@ class ElasticLoadBalancingApi {
   /// Specifies the health check settings to use when evaluating the health
   /// state of your EC2 instances.
   ///
-  /// For more information, see [Configure Health Checks for Your Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-healthchecks.html)
+  /// For more information, see
+  /// [Configure Health Checks for Your Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-healthchecks.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -119,8 +118,8 @@ class ElasticLoadBalancingApi {
   /// If the application cookie is explicitly removed or expires, the session
   /// stops being sticky until a new application cookie is issued.
   ///
-  /// For more information, see [Application-Controlled Session
-  /// Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application)
+  /// For more information, see
+  /// [Application-Controlled Session Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -154,8 +153,8 @@ class ElasticLoadBalancingApi {
   /// the cookie expiration time, which is specified in the policy
   /// configuration.
   ///
-  /// For more information, see [Duration-Based Session
-  /// Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration)
+  /// For more information, see
+  /// [Duration-Based Session Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -188,8 +187,8 @@ class ElasticLoadBalancingApi {
   ///
   /// You can create up to 20 load balancers per region per account. You can
   /// request an increase for the number of load balancers for your account. For
-  /// more information, see [Limits for Your Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html)
+  /// more information, see
+  /// [Limits for Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -200,8 +199,8 @@ class ElasticLoadBalancingApi {
   ///
   /// [listeners]: The listeners.
   ///
-  /// For more information, see [Listeners for Your Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html)
+  /// For more information, see
+  /// [Listeners for Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [availabilityZones]: One or more Availability Zones from the same region
@@ -224,9 +223,8 @@ class ElasticLoadBalancingApi {
   ///
   /// By default, Elastic Load Balancing creates an Internet-facing load
   /// balancer with a DNS name that resolves to public IP addresses. For more
-  /// information about Internet-facing and Internal load balancers, see [Load
-  /// Balancer
-  /// Scheme](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#load-balancer-scheme)
+  /// information about Internet-facing and Internal load balancers, see
+  /// [Load Balancer Scheme](http://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html#load-balancer-scheme)
   /// in the _Elastic Load Balancing User Guide_.
   ///
   /// Specify `internal` to create a load balancer with a DNS name that resolves
@@ -234,9 +232,8 @@ class ElasticLoadBalancingApi {
   ///
   /// [tags]: A list of tags to assign to the load balancer.
   ///
-  /// For more information about tagging your load balancer, see [Tag Your
-  /// Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html)
+  /// For more information about tagging your load balancer, see
+  /// [Tag Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/add-remove-tags.html)
   /// in the _Classic Load Balancers Guide_.
   Future<CreateAccessPointOutput> createLoadBalancer(
       {@required String loadBalancerName,
@@ -254,8 +251,8 @@ class ElasticLoadBalancingApi {
   /// otherwise, the properties of the new listener must match the properties of
   /// the existing listener.
   ///
-  /// For more information, see [Listeners for Your Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html)
+  /// For more information, see
+  /// [Listeners for Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -337,8 +334,8 @@ class ElasticLoadBalancingApi {
   /// You can use DescribeLoadBalancers to verify that the instance is
   /// deregistered from the load balancer.
   ///
-  /// For more information, see [Register or De-Register EC2
-  /// Instances](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html)
+  /// For more information, see
+  /// [Register or De-Register EC2 Instances](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -353,8 +350,8 @@ class ElasticLoadBalancingApi {
   /// Describes the current Elastic Load Balancing resource limits for your AWS
   /// account.
   ///
-  /// For more information, see [Limits for Your Classic Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html)
+  /// For more information, see
+  /// [Limits for Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-limits.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [marker]: The marker for the next set of results. (You received this
@@ -480,8 +477,8 @@ class ElasticLoadBalancingApi {
   /// balancer attempts to equally balance the traffic among its remaining
   /// Availability Zones.
   ///
-  /// For more information, see [Add or Remove Availability
-  /// Zones](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html)
+  /// For more information, see
+  /// [Add or Remove Availability Zones](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -499,9 +496,8 @@ class ElasticLoadBalancingApi {
   /// For load balancers in a non-default VPC, use AttachLoadBalancerToSubnets.
   ///
   /// The load balancer evenly distributes requests across all its registered
-  /// Availability Zones that contain instances. For more information, see [Add
-  /// or Remove Availability
-  /// Zones](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html)
+  /// Availability Zones that contain instances. For more information, see
+  /// [Add or Remove Availability Zones](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-az.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -525,17 +521,17 @@ class ElasticLoadBalancingApi {
   /// For more information, see the following in the _Classic Load Balancers
   /// Guide_:
   ///
-  /// *    [Cross-Zone Load
-  /// Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-crosszone-lb.html)
+  /// *
+  /// [Cross-Zone Load Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-crosszone-lb.html)
   ///
-  /// *    [Connection
-  /// Draining](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html)
+  /// *
+  /// [Connection Draining](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html)
   ///
-  /// *    [Access
-  /// Logs](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html)
+  /// *
+  /// [Access Logs](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/access-log-collection.html)
   ///
-  /// *    [Idle Connection
-  /// Timeout](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-idle-timeout.html)
+  /// *
+  /// [Idle Connection Timeout](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-idle-timeout.html)
   ///
   /// [loadBalancerName]: The name of the load balancer.
   ///
@@ -569,8 +565,8 @@ class ElasticLoadBalancingApi {
   /// To deregister instances from a load balancer, use
   /// DeregisterInstancesFromLoadBalancer.
   ///
-  /// For more information, see [Register or De-Register EC2
-  /// Instances](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html)
+  /// For more information, see
+  /// [Register or De-Register EC2 Instances](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-deregister-register-instances.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -598,9 +594,8 @@ class ElasticLoadBalancingApi {
   /// connections. The specified certificate replaces any prior certificate that
   /// was used on the same load balancer and port.
   ///
-  /// For more information about updating your SSL certificate, see [Replace the
-  /// SSL Certificate for Your Load
-  /// Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-update-ssl-cert.html)
+  /// For more information about updating your SSL certificate, see
+  /// [Replace the SSL Certificate for Your Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-update-ssl-cert.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -630,11 +625,10 @@ class ElasticLoadBalancingApi {
   /// verify that the policy is associated with the EC2 instance.
   ///
   /// For more information about enabling back-end instance authentication, see
-  /// [Configure Back-end Instance
-  /// Authentication](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#configure_backendauth_clt)
+  /// [Configure Back-end Instance Authentication](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-create-https-ssl-load-balancer.html#configure_backendauth_clt)
   /// in the _Classic Load Balancers Guide_. For more information about Proxy
-  /// Protocol, see [Configure Proxy Protocol
-  /// Support](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html)
+  /// Protocol, see
+  /// [Configure Proxy Protocol Support](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-proxy-protocol.html)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -657,13 +651,11 @@ class ElasticLoadBalancingApi {
   /// To enable back-end server authentication, use
   /// SetLoadBalancerPoliciesForBackendServer.
   ///
-  /// For more information about setting policies, see [Update the SSL
-  /// Negotiation
-  /// Configuration](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/ssl-config-update.html),
-  /// [Duration-Based Session
-  /// Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration),
-  /// and [Application-Controlled Session
-  /// Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application)
+  /// For more information about setting policies, see
+  /// [Update the SSL Negotiation Configuration](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/ssl-config-update.html),
+  /// [Duration-Based Session Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-duration),
+  /// and
+  /// [Application-Controlled Session Stickiness](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-sticky-sessions.html#enable-sticky-sessions-application)
   /// in the _Classic Load Balancers Guide_.
   ///
   /// [loadBalancerName]: The name of the load balancer.
@@ -682,6 +674,7 @@ class ElasticLoadBalancingApi {
   }
 }
 
+/// Information about the `AccessLog` attribute.
 class AccessLog {
   /// Specifies whether access logs are enabled for the load balancer.
   final bool enabled;
@@ -709,6 +702,7 @@ class AccessLog {
   static AccessLog fromJson(Map<String, dynamic> json) => AccessLog();
 }
 
+/// Contains the output of EnableAvailabilityZonesForLoadBalancer.
 class AddAvailabilityZonesOutput {
   /// The updated list of Availability Zones for the load balancer.
   final List<String> availabilityZones;
@@ -720,11 +714,13 @@ class AddAvailabilityZonesOutput {
       AddAvailabilityZonesOutput();
 }
 
+/// Contains the output of AddTags.
 class AddTagsOutput {
   AddTagsOutput();
   static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
 }
 
+/// This data type is reserved.
 class AdditionalAttribute {
   /// This parameter is reserved.
   final String key;
@@ -740,6 +736,7 @@ class AdditionalAttribute {
       AdditionalAttribute();
 }
 
+/// Information about a policy for application-controlled session stickiness.
 class AppCookieStickinessPolicy {
   /// The mnemonic name for the policy being created. The name must be unique
   /// within a set of policies for this load balancer.
@@ -756,6 +753,7 @@ class AppCookieStickinessPolicy {
       AppCookieStickinessPolicy();
 }
 
+/// Contains the output of ApplySecurityGroupsToLoadBalancer.
 class ApplySecurityGroupsToLoadBalancerOutput {
   /// The IDs of the security groups associated with the load balancer.
   final List<String> securityGroups;
@@ -768,6 +766,7 @@ class ApplySecurityGroupsToLoadBalancerOutput {
       ApplySecurityGroupsToLoadBalancerOutput();
 }
 
+/// Contains the output of AttachLoadBalancerToSubnets.
 class AttachLoadBalancerToSubnetsOutput {
   /// The IDs of the subnets attached to the load balancer.
   final List<String> subnets;
@@ -780,6 +779,7 @@ class AttachLoadBalancerToSubnetsOutput {
       AttachLoadBalancerToSubnetsOutput();
 }
 
+/// Information about the configuration of an EC2 instance.
 class BackendServerDescription {
   /// The port on which the EC2 instance is listening.
   final int instancePort;
@@ -795,6 +795,7 @@ class BackendServerDescription {
       BackendServerDescription();
 }
 
+/// Contains the output of ConfigureHealthCheck.
 class ConfigureHealthCheckOutput {
   /// The updated health check.
   final HealthCheck healthCheck;
@@ -806,6 +807,7 @@ class ConfigureHealthCheckOutput {
       ConfigureHealthCheckOutput();
 }
 
+/// Information about the `ConnectionDraining` attribute.
 class ConnectionDraining {
   /// Specifies whether connection draining is enabled for the load balancer.
   final bool enabled;
@@ -822,6 +824,7 @@ class ConnectionDraining {
       ConnectionDraining();
 }
 
+/// Information about the `ConnectionSettings` attribute.
 class ConnectionSettings {
   /// The time, in seconds, that the connection is allowed to be idle (no data
   /// has been sent over the connection) before it is closed by the load
@@ -835,6 +838,7 @@ class ConnectionSettings {
       ConnectionSettings();
 }
 
+/// Contains the output for CreateLoadBalancer.
 class CreateAccessPointOutput {
   /// The DNS name of the load balancer.
   final String dnsName;
@@ -846,6 +850,7 @@ class CreateAccessPointOutput {
       CreateAccessPointOutput();
 }
 
+/// Contains the output for CreateAppCookieStickinessPolicy.
 class CreateAppCookieStickinessPolicyOutput {
   CreateAppCookieStickinessPolicyOutput();
   static CreateAppCookieStickinessPolicyOutput fromJson(
@@ -853,6 +858,7 @@ class CreateAppCookieStickinessPolicyOutput {
       CreateAppCookieStickinessPolicyOutput();
 }
 
+/// Contains the output for CreateLBCookieStickinessPolicy.
 class CreateLBCookieStickinessPolicyOutput {
   CreateLBCookieStickinessPolicyOutput();
   static CreateLBCookieStickinessPolicyOutput fromJson(
@@ -860,18 +866,21 @@ class CreateLBCookieStickinessPolicyOutput {
       CreateLBCookieStickinessPolicyOutput();
 }
 
+/// Contains the parameters for CreateLoadBalancerListener.
 class CreateLoadBalancerListenerOutput {
   CreateLoadBalancerListenerOutput();
   static CreateLoadBalancerListenerOutput fromJson(Map<String, dynamic> json) =>
       CreateLoadBalancerListenerOutput();
 }
 
+/// Contains the output of CreateLoadBalancerPolicy.
 class CreateLoadBalancerPolicyOutput {
   CreateLoadBalancerPolicyOutput();
   static CreateLoadBalancerPolicyOutput fromJson(Map<String, dynamic> json) =>
       CreateLoadBalancerPolicyOutput();
 }
 
+/// Information about the `CrossZoneLoadBalancing` attribute.
 class CrossZoneLoadBalancing {
   /// Specifies whether cross-zone load balancing is enabled for the load
   /// balancer.
@@ -884,24 +893,28 @@ class CrossZoneLoadBalancing {
       CrossZoneLoadBalancing();
 }
 
+/// Contains the output of DeleteLoadBalancer.
 class DeleteAccessPointOutput {
   DeleteAccessPointOutput();
   static DeleteAccessPointOutput fromJson(Map<String, dynamic> json) =>
       DeleteAccessPointOutput();
 }
 
+/// Contains the output of DeleteLoadBalancerListeners.
 class DeleteLoadBalancerListenerOutput {
   DeleteLoadBalancerListenerOutput();
   static DeleteLoadBalancerListenerOutput fromJson(Map<String, dynamic> json) =>
       DeleteLoadBalancerListenerOutput();
 }
 
+/// Contains the output of DeleteLoadBalancerPolicy.
 class DeleteLoadBalancerPolicyOutput {
   DeleteLoadBalancerPolicyOutput();
   static DeleteLoadBalancerPolicyOutput fromJson(Map<String, dynamic> json) =>
       DeleteLoadBalancerPolicyOutput();
 }
 
+/// Contains the output of DeregisterInstancesFromLoadBalancer.
 class DeregisterEndPointsOutput {
   /// The remaining instances registered with the load balancer.
   final List<Instance> instances;
@@ -913,6 +926,7 @@ class DeregisterEndPointsOutput {
       DeregisterEndPointsOutput();
 }
 
+/// Contains the parameters for DescribeLoadBalancers.
 class DescribeAccessPointsOutput {
   /// Information about the load balancers.
   final List<LoadBalancerDescription> loadBalancerDescriptions;
@@ -945,6 +959,7 @@ class DescribeAccountLimitsOutput {
       DescribeAccountLimitsOutput();
 }
 
+/// Contains the output for DescribeInstanceHealth.
 class DescribeEndPointStateOutput {
   /// Information about the health of the instances.
   final List<InstanceState> instanceStates;
@@ -956,6 +971,7 @@ class DescribeEndPointStateOutput {
       DescribeEndPointStateOutput();
 }
 
+/// Contains the output of DescribeLoadBalancerAttributes.
 class DescribeLoadBalancerAttributesOutput {
   /// Information about the load balancer attributes.
   final LoadBalancerAttributes loadBalancerAttributes;
@@ -968,6 +984,7 @@ class DescribeLoadBalancerAttributesOutput {
       DescribeLoadBalancerAttributesOutput();
 }
 
+/// Contains the output of DescribeLoadBalancerPolicies.
 class DescribeLoadBalancerPoliciesOutput {
   /// Information about the policies.
   final List<PolicyDescription> policyDescriptions;
@@ -980,6 +997,7 @@ class DescribeLoadBalancerPoliciesOutput {
       DescribeLoadBalancerPoliciesOutput();
 }
 
+/// Contains the output of DescribeLoadBalancerPolicyTypes.
 class DescribeLoadBalancerPolicyTypesOutput {
   /// Information about the policy types.
   final List<PolicyTypeDescription> policyTypeDescriptions;
@@ -992,6 +1010,7 @@ class DescribeLoadBalancerPolicyTypesOutput {
       DescribeLoadBalancerPolicyTypesOutput();
 }
 
+/// Contains the output for DescribeTags.
 class DescribeTagsOutput {
   /// Information about the tags.
   final List<TagDescription> tagDescriptions;
@@ -1003,6 +1022,7 @@ class DescribeTagsOutput {
       DescribeTagsOutput();
 }
 
+/// Contains the output of DetachLoadBalancerFromSubnets.
 class DetachLoadBalancerFromSubnetsOutput {
   /// The IDs of the remaining subnets for the load balancer.
   final List<String> subnets;
@@ -1015,6 +1035,7 @@ class DetachLoadBalancerFromSubnetsOutput {
       DetachLoadBalancerFromSubnetsOutput();
 }
 
+/// Information about a health check.
 class HealthCheck {
   /// The instance being checked. The protocol is either TCP, HTTP, HTTPS, or
   /// SSL. The range of valid ports is one (1) through 65535.
@@ -1064,6 +1085,7 @@ class HealthCheck {
   static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
 }
 
+/// The ID of an EC2 instance.
 class Instance {
   /// The instance ID.
   final String instanceId;
@@ -1074,6 +1096,7 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// Information about the state of an EC2 instance.
 class InstanceState {
   /// The ID of the instance.
   final String instanceId;
@@ -1129,6 +1152,7 @@ class InstanceState {
   static InstanceState fromJson(Map<String, dynamic> json) => InstanceState();
 }
 
+/// Information about a policy for duration-based session stickiness.
 class LBCookieStickinessPolicy {
   /// The name of the policy. This name must be unique within the set of
   /// policies for this load balancer.
@@ -1147,6 +1171,8 @@ class LBCookieStickinessPolicy {
       LBCookieStickinessPolicy();
 }
 
+/// Information about an Elastic Load Balancing resource limit for your AWS
+/// account.
 class Limit {
   /// The name of the limit. The possible values are:
   ///
@@ -1167,6 +1193,12 @@ class Limit {
   static Limit fromJson(Map<String, dynamic> json) => Limit();
 }
 
+/// Information about a listener.
+///
+/// For information about the protocols and the ports supported by Elastic Load
+/// Balancing, see
+/// [Listeners for Your Classic Load Balancer](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-listener-config.html)
+/// in the _Classic Load Balancers Guide_.
 class Listener {
   /// The load balancer transport protocol to use for routing: HTTP, HTTPS, TCP,
   /// or SSL.
@@ -1208,6 +1240,7 @@ class Listener {
   static Listener fromJson(Map<String, dynamic> json) => Listener();
 }
 
+/// The policies enabled for a listener.
 class ListenerDescription {
   /// The listener.
   final Listener listener;
@@ -1223,12 +1256,13 @@ class ListenerDescription {
       ListenerDescription();
 }
 
+/// The attributes for a load balancer.
 class LoadBalancerAttributes {
   /// If enabled, the load balancer routes the request traffic evenly across all
   /// instances regardless of the Availability Zones.
   ///
-  /// For more information, see [Configure Cross-Zone Load
-  /// Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-crosszone-lb.html)
+  /// For more information, see
+  /// [Configure Cross-Zone Load Balancing](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-disable-crosszone-lb.html)
   /// in the _Classic Load Balancers Guide_.
   final CrossZoneLoadBalancing crossZoneLoadBalancing;
 
@@ -1236,8 +1270,8 @@ class LoadBalancerAttributes {
   /// requests and delivers the information to the Amazon S3 bucket that you
   /// specify.
   ///
-  /// For more information, see [Enable Access
-  /// Logs](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-access-logs.html)
+  /// For more information, see
+  /// [Enable Access Logs](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/enable-access-logs.html)
   /// in the _Classic Load Balancers Guide_.
   final AccessLog accessLog;
 
@@ -1245,8 +1279,8 @@ class LoadBalancerAttributes {
   /// the load balancer shifts traffic away from a deregistered or unhealthy
   /// instance.
   ///
-  /// For more information, see [Configure Connection
-  /// Draining](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html)
+  /// For more information, see
+  /// [Configure Connection Draining](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-conn-drain.html)
   /// in the _Classic Load Balancers Guide_.
   final ConnectionDraining connectionDraining;
 
@@ -1255,8 +1289,8 @@ class LoadBalancerAttributes {
   ///
   /// By default, Elastic Load Balancing maintains a 60-second idle connection
   /// timeout for both front-end and back-end connections of your load balancer.
-  /// For more information, see [Configure Idle Connection
-  /// Timeout](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-idle-timeout.html)
+  /// For more information, see
+  /// [Configure Idle Connection Timeout](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/config-idle-timeout.html)
   /// in the _Classic Load Balancers Guide_.
   final ConnectionSettings connectionSettings;
 
@@ -1274,6 +1308,7 @@ class LoadBalancerAttributes {
       LoadBalancerAttributes();
 }
 
+/// Information about a load balancer.
 class LoadBalancerDescription {
   /// The name of the load balancer.
   final String loadBalancerName;
@@ -1283,8 +1318,8 @@ class LoadBalancerDescription {
 
   /// The DNS name of the load balancer.
   ///
-  /// For more information, see [Configure a Custom Domain
-  /// Name](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/using-domain-names-with-elb.html)
+  /// For more information, see
+  /// [Configure a Custom Domain Name](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/using-domain-names-with-elb.html)
   /// in the _Classic Load Balancers Guide_.
   final String canonicalHostedZoneName;
 
@@ -1359,6 +1394,7 @@ class LoadBalancerDescription {
       LoadBalancerDescription();
 }
 
+/// Contains the output of ModifyLoadBalancerAttributes.
 class ModifyLoadBalancerAttributesOutput {
   /// The name of the load balancer.
   final String loadBalancerName;
@@ -1375,6 +1411,7 @@ class ModifyLoadBalancerAttributesOutput {
       ModifyLoadBalancerAttributesOutput();
 }
 
+/// The policies for a load balancer.
 class Policies {
   /// The stickiness policies created using CreateAppCookieStickinessPolicy.
   final List<AppCookieStickinessPolicy> appCookieStickinessPolicies;
@@ -1393,6 +1430,7 @@ class Policies {
   static Policies fromJson(Map<String, dynamic> json) => Policies();
 }
 
+/// Information about a policy attribute.
 class PolicyAttribute {
   /// The name of the attribute.
   final String attributeName;
@@ -1406,6 +1444,7 @@ class PolicyAttribute {
   });
 }
 
+/// Information about a policy attribute.
 class PolicyAttributeDescription {
   /// The name of the attribute.
   final String attributeName;
@@ -1421,6 +1460,7 @@ class PolicyAttributeDescription {
       PolicyAttributeDescription();
 }
 
+/// Information about a policy attribute type.
 class PolicyAttributeTypeDescription {
   /// The name of the attribute.
   final String attributeName;
@@ -1440,11 +1480,11 @@ class PolicyAttributeTypeDescription {
   ///
   /// *   ONE(1) : Single value required
   ///
-  /// *   ZERO\_OR\_ONE(0..1) : Up to one value is allowed
+  /// *   ZERO_OR_ONE(0..1) : Up to one value is allowed
   ///
-  /// *   ZERO\_OR\_MORE(0..*) : Optional. Multiple values are allowed
+  /// *   ZERO_OR_MORE(0..*) : Optional. Multiple values are allowed
   ///
-  /// *   ONE\_OR\_MORE(1..*0) : Required. Multiple values are allowed
+  /// *   ONE_OR_MORE(1..*0) : Required. Multiple values are allowed
   final String cardinality;
 
   PolicyAttributeTypeDescription({
@@ -1458,6 +1498,7 @@ class PolicyAttributeTypeDescription {
       PolicyAttributeTypeDescription();
 }
 
+/// Information about a policy.
 class PolicyDescription {
   /// The name of the policy.
   final String policyName;
@@ -1477,6 +1518,7 @@ class PolicyDescription {
       PolicyDescription();
 }
 
+/// Information about a policy type.
 class PolicyTypeDescription {
   /// The name of the policy type.
   final String policyTypeName;
@@ -1497,6 +1539,7 @@ class PolicyTypeDescription {
       PolicyTypeDescription();
 }
 
+/// Contains the output of RegisterInstancesWithLoadBalancer.
 class RegisterEndPointsOutput {
   /// The updated list of instances for the load balancer.
   final List<Instance> instances;
@@ -1508,6 +1551,7 @@ class RegisterEndPointsOutput {
       RegisterEndPointsOutput();
 }
 
+/// Contains the output for DisableAvailabilityZonesForLoadBalancer.
 class RemoveAvailabilityZonesOutput {
   /// The remaining Availability Zones for the load balancer.
   final List<String> availabilityZones;
@@ -1519,12 +1563,14 @@ class RemoveAvailabilityZonesOutput {
       RemoveAvailabilityZonesOutput();
 }
 
+/// Contains the output of RemoveTags.
 class RemoveTagsOutput {
   RemoveTagsOutput();
   static RemoveTagsOutput fromJson(Map<String, dynamic> json) =>
       RemoveTagsOutput();
 }
 
+/// Contains the output of SetLoadBalancerListenerSSLCertificate.
 class SetLoadBalancerListenerSslCertificateOutput {
   SetLoadBalancerListenerSslCertificateOutput();
   static SetLoadBalancerListenerSslCertificateOutput fromJson(
@@ -1532,6 +1578,7 @@ class SetLoadBalancerListenerSslCertificateOutput {
       SetLoadBalancerListenerSslCertificateOutput();
 }
 
+/// Contains the output of SetLoadBalancerPoliciesForBackendServer.
 class SetLoadBalancerPoliciesForBackendServerOutput {
   SetLoadBalancerPoliciesForBackendServerOutput();
   static SetLoadBalancerPoliciesForBackendServerOutput fromJson(
@@ -1539,6 +1586,7 @@ class SetLoadBalancerPoliciesForBackendServerOutput {
       SetLoadBalancerPoliciesForBackendServerOutput();
 }
 
+/// Contains the output of SetLoadBalancePoliciesOfListener.
 class SetLoadBalancerPoliciesOfListenerOutput {
   SetLoadBalancerPoliciesOfListenerOutput();
   static SetLoadBalancerPoliciesOfListenerOutput fromJson(
@@ -1546,6 +1594,7 @@ class SetLoadBalancerPoliciesOfListenerOutput {
       SetLoadBalancerPoliciesOfListenerOutput();
 }
 
+/// Information about a source security group.
 class SourceSecurityGroup {
   /// The owner of the security group.
   final String ownerAlias;
@@ -1561,6 +1610,7 @@ class SourceSecurityGroup {
       SourceSecurityGroup();
 }
 
+/// Information about a tag.
 class Tag {
   /// The key of the tag.
   final String key;
@@ -1575,6 +1625,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The tags associated with a load balancer.
 class TagDescription {
   /// The name of the load balancer.
   final String loadBalancerName;
@@ -1589,6 +1640,7 @@ class TagDescription {
   static TagDescription fromJson(Map<String, dynamic> json) => TagDescription();
 }
 
+/// The key of a tag.
 class TagKeyOnly {
   /// The name of the key.
   final String key;

@@ -71,8 +71,8 @@ class TranslateApi {
   /// Translates input text from the source language to the target language. It
   /// is not necessary to use English (en) as either the source or the target
   /// language but not all language combinations are supported by Amazon
-  /// Translate. For more information, see [Supported Language
-  /// Pairs](http://docs.aws.amazon.com/translate/latest/dg/pairs.html).
+  /// Translate. For more information, see
+  /// [Supported Language Pairs](http://docs.aws.amazon.com/translate/latest/dg/pairs.html).
   ///
   /// *   Arabic (ar)
   ///
@@ -150,6 +150,10 @@ class TranslateApi {
   }
 }
 
+/// The custom terminology applied to the input text by Amazon Translate for the
+/// translated text response. This is optional in the response and will only be
+/// present if you specified terminology input in the request. Currently, only
+/// one terminology can be applied per TranslateText request.
 class AppliedTerminology {
   /// The name of the custom terminology applied to the input text by Amazon
   /// Translate for the translated text response.
@@ -169,6 +173,8 @@ class AppliedTerminology {
       AppliedTerminology();
 }
 
+/// The encryption key used to encrypt the custom terminologies used by Amazon
+/// Translate.
 class EncryptionKey {
   /// The type of encryption key used by Amazon Translate to encrypt custom
   /// terminologies.
@@ -230,6 +236,7 @@ class ListTerminologiesResponse {
       ListTerminologiesResponse();
 }
 
+/// The term being translated by the custom terminology.
 class Term {
   /// The source text of the term being translated by the custom terminology.
   final String sourceText;
@@ -244,6 +251,7 @@ class Term {
   static Term fromJson(Map<String, dynamic> json) => Term();
 }
 
+/// The data associated with the custom terminology.
 class TerminologyData {
   /// The file containing the custom terminology data.
   final Uint8List file;
@@ -257,6 +265,7 @@ class TerminologyData {
   });
 }
 
+/// The location of the custom terminology data.
 class TerminologyDataLocation {
   /// The repository type for the custom terminology data.
   final String repositoryType;
@@ -272,6 +281,7 @@ class TerminologyDataLocation {
       TerminologyDataLocation();
 }
 
+/// The properties of the custom terminology.
 class TerminologyProperties {
   /// The name of the custom terminology.
   final String name;

@@ -3,9 +3,9 @@ import 'package:meta/meta.dart';
 /// AWS Health
 ///
 /// The AWS Health API provides programmatic access to the AWS Health
-/// information that is presented in the [AWS Personal Health
-/// Dashboard](https://phd.aws.amazon.com/phd/home#/). You can get information
-/// about events that affect your AWS resources:
+/// information that is presented in the
+/// [AWS Personal Health Dashboard](https://phd.aws.amazon.com/phd/home#/). You
+/// can get information about events that affect your AWS resources:
 ///
 /// *    DescribeEvents: Summary information about events.
 ///
@@ -28,17 +28,16 @@ import 'package:meta/meta.dart';
 /// that meet specified criteria.
 ///
 ///
-/// The Health API requires a Business or Enterprise support plan from [AWS
-/// Support](http://aws.amazon.com/premiumsupport/). Calling the Health API from
-/// an account that does not have a Business or Enterprise support plan causes a
-/// `SubscriptionRequiredException`.
+/// The Health API requires a Business or Enterprise support plan from
+/// [AWS Support](http://aws.amazon.com/premiumsupport/). Calling the Health API
+/// from an account that does not have a Business or Enterprise support plan
+/// causes a `SubscriptionRequiredException`.
 ///
-/// For authentication of requests, AWS Health uses the [Signature Version 4
-/// Signing
-/// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+/// For authentication of requests, AWS Health uses the
+/// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 ///
-/// See the [AWS Health User
-/// Guide](https://docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html)
+/// See the
+/// [AWS Health User Guide](https://docs.aws.amazon.com/health/latest/ug/what-is-aws-health.html)
 /// for information about how to use the API.
 ///
 ///  **Service Endpoint**
@@ -84,8 +83,8 @@ class HealthApi {
   /// are returned.
   ///
   /// [eventArns]: A list of event ARNs (unique identifiers). For example:
-  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
-  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"`
   Future<DescribeEntityAggregatesResponse> describeEntityAggregates(
       {List<String> eventArns}) async {
     return DescribeEntityAggregatesResponse.fromJson({});
@@ -127,8 +126,8 @@ class HealthApi {
   /// that event.
   ///
   /// [eventArns]: A list of event ARNs (unique identifiers). For example:
-  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
-  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"`
   ///
   /// [locale]: The locale (language) to return information in. English (en) is
   /// the default and the only supported value at this time.
@@ -194,6 +193,7 @@ class HealthApi {
   }
 }
 
+/// Information about an entity that is affected by a Health event.
 class AffectedEntity {
   /// The unique identifier for the entity. Format:
   /// `arn:aws:health:_entity-region_:_aws-account_:entity/_entity-id_` .
@@ -202,9 +202,9 @@ class AffectedEntity {
   final String entityArn;
 
   /// The unique identifier for the event. Format:
-  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT_TYPE_CODE_/_EVENT_TYPE_PLUS_ID_`
   /// . Example: `Example:
-  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  /// arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456`
   final String eventArn;
 
   /// The ID of the affected entity.
@@ -238,6 +238,12 @@ class AffectedEntity {
   static AffectedEntity fromJson(Map<String, dynamic> json) => AffectedEntity();
 }
 
+/// A range of dates and times that is used by the EventFilter and EntityFilter
+/// objects. If `from` is set and `to` is set: match items where the timestamp
+/// (`startTime`, `endTime`, or `lastUpdatedTime`) is between `from` and `to`
+/// inclusive. If `from` is set and `to` is not set: match items where the
+/// timestamp value is equal to or after `from`. If `from` is not set and `to`
+/// is set: match items where the timestamp value is equal to or before `to`.
 class DateTimeRange {
   /// The starting date and time of a time range.
   final DateTime from;
@@ -321,7 +327,7 @@ class DescribeEventTypesResponse {
   /// category (`issue`, `accountNotification`, or `scheduledChange`), a service
   /// (for example, `EC2`, `RDS`, `DATAPIPELINE`, `BILLING`), and a code (in the
   /// format `AWS__SERVICE___DESCRIPTION_` ; for example,
-  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`).
+  /// `AWS_EC2_SYSTEM_MAINTENANCE_EVENT`).
   final List<EventType> eventTypes;
 
   /// If the results of a search are large, only a portion of the results are
@@ -358,11 +364,13 @@ class DescribeEventsResponse {
       DescribeEventsResponse();
 }
 
+/// The number of entities that are affected by one or more events. Returned by
+/// the DescribeEntityAggregates operation.
 class EntityAggregate {
   /// The unique identifier for the event. Format:
-  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT_TYPE_CODE_/_EVENT_TYPE_PLUS_ID_`
   /// . Example: `Example:
-  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  /// arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456`
   final String eventArn;
 
   /// The number entities that match the criteria for the specified events.
@@ -376,10 +384,12 @@ class EntityAggregate {
       EntityAggregate();
 }
 
+/// The values to use to filter results from the DescribeAffectedEntities
+/// operation.
 class EntityFilter {
   /// A list of event ARNs (unique identifiers). For example:
-  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
-  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"`
   final List<String> eventArns;
 
   /// A list of entity ARNs (unique identifiers).
@@ -407,11 +417,14 @@ class EntityFilter {
   });
 }
 
+/// Summary information about an event, returned by the DescribeEvents
+/// operation. The DescribeEventDetails operation also returns this information,
+/// as well as the EventDescription and additional event metadata.
 class Event {
   /// The unique identifier for the event. Format:
-  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT_TYPE_CODE_/_EVENT_TYPE_PLUS_ID_`
   /// . Example: `Example:
-  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  /// arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456`
   final String arn;
 
   /// The AWS service that is affected by the event. For example, `EC2`, `RDS`.
@@ -419,7 +432,7 @@ class Event {
 
   /// The unique identifier for the event type. The format is
   /// `AWS__SERVICE___DESCRIPTION_` ; for example,
-  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`.
+  /// `AWS_EC2_SYSTEM_MAINTENANCE_EVENT`.
   final String eventTypeCode;
 
   /// The category of the event. Possible values are `issue`, `scheduledChange`,
@@ -460,6 +473,8 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// The number of events of each issue type. Returned by the
+/// DescribeEventAggregates operation.
 class EventAggregate {
   /// The issue type for the associated count.
   final String aggregateValue;
@@ -474,6 +489,8 @@ class EventAggregate {
   static EventAggregate fromJson(Map<String, dynamic> json) => EventAggregate();
 }
 
+/// The detailed description of the event. Included in the information returned
+/// by the DescribeEventDetails operation.
 class EventDescription {
   /// The most recent description of the event.
   final String latestDescription;
@@ -485,6 +502,9 @@ class EventDescription {
       EventDescription();
 }
 
+/// Detailed information about an event. A combination of an Event object, an
+/// EventDescription object, and additional metadata about the event. Returned
+/// by the DescribeEventDetails operation.
 class EventDetails {
   /// Summary information about the event.
   final Event event;
@@ -503,11 +523,13 @@ class EventDetails {
   static EventDetails fromJson(Map<String, dynamic> json) => EventDetails();
 }
 
+/// Error information returned when a DescribeEventDetails operation cannot find
+/// a specified event.
 class EventDetailsErrorItem {
   /// The unique identifier for the event. Format:
-  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT\_TYPE\_CODE_/_EVENT\_TYPE\_PLUS_ID_`
+  /// `arn:aws:health:_event-region_::event/_SERVICE_/_EVENT_TYPE_CODE_/_EVENT_TYPE_PLUS_ID_`
   /// . Example: `Example:
-  /// arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED_ABC123-DEF456`
+  /// arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456`
   final String eventArn;
 
   /// The name of the error.
@@ -525,14 +547,16 @@ class EventDetailsErrorItem {
       EventDetailsErrorItem();
 }
 
+/// The values to use to filter results from the DescribeEvents and
+/// DescribeEventAggregates operations.
 class EventFilter {
   /// A list of event ARNs (unique identifiers). For example:
-  /// `"arn:aws:health:us-east-1::event/EC2/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED/EC2\_INSTANCE\_RETIREMENT\_SCHEDULED\_ABC123-CDE456",
-  /// "arn:aws:health:us-west-1::event/EBS/AWS\_EBS\_LOST\_VOLUME/AWS\_EBS\_LOST\_VOLUME\_CHI789_JKL101"`
+  /// `"arn:aws:health:us-east-1::event/EC2/EC2_INSTANCE_RETIREMENT_SCHEDULED/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-CDE456",
+  /// "arn:aws:health:us-west-1::event/EBS/AWS_EBS_LOST_VOLUME/AWS_EBS_LOST_VOLUME_CHI789_JKL101"`
   final List<String> eventArns;
 
   /// A list of unique identifiers for event types. For example,
-  /// `"AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT","AWS\_RDS\_MAINTENANCE_SCHEDULED"`
+  /// `"AWS_EC2_SYSTEM_MAINTENANCE_EVENT","AWS_RDS_MAINTENANCE_SCHEDULED"`
   final List<String> eventTypeCodes;
 
   /// The AWS services associated with the event. For example, `EC2`, `RDS`.
@@ -587,13 +611,16 @@ class EventFilter {
   });
 }
 
+/// Metadata about a type of event that is reported by AWS Health. Data consists
+/// of the category (for example, `issue`), the service (for example, `EC2`),
+/// and the event type code (for example, `AWS_EC2_SYSTEM_MAINTENANCE_EVENT`).
 class EventType {
   /// The AWS service that is affected by the event. For example, `EC2`, `RDS`.
   final String service;
 
   /// The unique identifier for the event type. The format is
   /// `AWS__SERVICE___DESCRIPTION_` ; for example,
-  /// `AWS\_EC2\_SYSTEM\_MAINTENANCE\_EVENT`.
+  /// `AWS_EC2_SYSTEM_MAINTENANCE_EVENT`.
   final String code;
 
   /// A list of event type category codes (`issue`, `scheduledChange`, or
@@ -608,6 +635,7 @@ class EventType {
   static EventType fromJson(Map<String, dynamic> json) => EventType();
 }
 
+/// The values to use to filter results from the DescribeEventTypes operation.
 class EventTypeFilter {
   /// A list of event type codes.
   final List<String> eventTypeCodes;

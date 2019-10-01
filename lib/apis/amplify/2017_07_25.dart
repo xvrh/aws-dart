@@ -370,8 +370,8 @@ class AmplifyApi {
   ///
   /// [jobId]:  Unique Id for an existing job. Required for "RETRY" JobType.
   ///
-  /// [jobType]:  Type for the Job. Available JobTypes are: \\n "RELEASE": Start
-  /// a new job with the latest change from the specified branch. Only available
+  /// [jobType]:  Type for the Job. Available JobTypes are: n "RELEASE": Start a
+  /// new job with the latest change from the specified branch. Only available
   /// for apps that have connected to a repository. "RETRY": Retry an existing
   /// job. JobId is required for this type of job.
   ///
@@ -557,6 +557,8 @@ class AmplifyApi {
   }
 }
 
+///  Amplify App represents different branches of a repository for building,
+/// deploying, and hosting.
 class App {
   ///  Unique Id for the Amplify App.
   final String appId;
@@ -647,6 +649,7 @@ class App {
   static App fromJson(Map<String, dynamic> json) => App();
 }
 
+///  Structure with auto branch creation config.
 class AutoBranchCreationConfig {
   ///  Stage for the auto created branch.
   final String stage;
@@ -682,6 +685,7 @@ class AutoBranchCreationConfig {
       AutoBranchCreationConfig();
 }
 
+///  Branch for an Amplify App, which maps to a 3rd party repository branch.
 class Branch {
   ///  ARN for a branch, part of an Amplify App.
   final String branchArn;
@@ -782,6 +786,7 @@ class CreateAppResult {
       CreateAppResult();
 }
 
+///  Result structure for create branch request.
 class CreateBranchResult {
   ///  Branch structure for an Amplify App.
   final Branch branch;
@@ -793,6 +798,7 @@ class CreateBranchResult {
       CreateBranchResult();
 }
 
+///  Result structure for create a new deployment.
 class CreateDeploymentResult {
   ///  The jobId for this deployment, will supply to start deployment api.
   final String jobId;
@@ -814,6 +820,7 @@ class CreateDeploymentResult {
       CreateDeploymentResult();
 }
 
+///  Result structure for the create Domain Association request.
 class CreateDomainAssociationResult {
   ///  Domain Association structure.
   final DomainAssociation domainAssociation;
@@ -825,6 +832,7 @@ class CreateDomainAssociationResult {
       CreateDomainAssociationResult();
 }
 
+///  Result structure for the create webhook request.
 class CreateWebhookResult {
   ///  Webhook structure.
   final Webhook webhook;
@@ -836,6 +844,7 @@ class CreateWebhookResult {
       CreateWebhookResult();
 }
 
+///  Custom rewrite / redirect rule.
 class CustomRule {
   ///  The source pattern for a URL rewrite or redirect rule.
   final String source;
@@ -858,6 +867,7 @@ class CustomRule {
   static CustomRule fromJson(Map<String, dynamic> json) => CustomRule();
 }
 
+///  Result structure for an Amplify App delete request.
 class DeleteAppResult {
   final App app;
 
@@ -868,6 +878,7 @@ class DeleteAppResult {
       DeleteAppResult();
 }
 
+///  Result structure for delete branch request.
 class DeleteBranchResult {
   ///  Branch structure for an Amplify App.
   final Branch branch;
@@ -889,6 +900,7 @@ class DeleteDomainAssociationResult {
       DeleteDomainAssociationResult();
 }
 
+///  Result structure for the delete job request.
 class DeleteJobResult {
   final JobSummary jobSummary;
 
@@ -899,6 +911,7 @@ class DeleteJobResult {
       DeleteJobResult();
 }
 
+///  Result structure for the delete webhook request.
 class DeleteWebhookResult {
   ///  Webhook structure.
   final Webhook webhook;
@@ -910,6 +923,8 @@ class DeleteWebhookResult {
       DeleteWebhookResult();
 }
 
+///  Structure for Domain Association, which associates a custom domain with an
+/// Amplify App.
 class DomainAssociation {
   ///  ARN for the Domain Association.
   final String domainAssociationArn;
@@ -964,6 +979,7 @@ class GetBranchResult {
       GetBranchResult();
 }
 
+///  Result structure for the get Domain Association request.
 class GetDomainAssociationResult {
   ///  Domain Association structure.
   final DomainAssociation domainAssociation;
@@ -984,6 +1000,7 @@ class GetJobResult {
   static GetJobResult fromJson(Map<String, dynamic> json) => GetJobResult();
 }
 
+///  Result structure for the get webhook request.
 class GetWebhookResult {
   ///  Webhook structure.
   final Webhook webhook;
@@ -995,6 +1012,7 @@ class GetWebhookResult {
       GetWebhookResult();
 }
 
+///  Structure for an execution job for an Amplify App.
 class Job {
   ///  Summary for an execution job for an Amplify App.
   final JobSummary summary;
@@ -1009,6 +1027,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+///  Structure for the summary of a Job.
 class JobSummary {
   ///  Arn for the Job.
   final String jobArn;
@@ -1034,7 +1053,7 @@ class JobSummary {
   ///  End date / time for the Job.
   final DateTime endTime;
 
-  ///  Type for the Job. \\n "RELEASE": Manually released from source by using
+  ///  Type for the Job. n "RELEASE": Manually released from source by using
   /// StartJob API. "RETRY": Manually retried by using StartJob API. "WEB_HOOK":
   /// Automatically triggered by WebHooks.
   final String jobType;
@@ -1053,6 +1072,7 @@ class JobSummary {
   static JobSummary fromJson(Map<String, dynamic> json) => JobSummary();
 }
 
+///  Result structure for an Amplify App list request.
 class ListAppsResult {
   ///  List of Amplify Apps.
   final List<App> apps;
@@ -1069,6 +1089,7 @@ class ListAppsResult {
   static ListAppsResult fromJson(Map<String, dynamic> json) => ListAppsResult();
 }
 
+///  Result structure for list branches request.
 class ListBranchesResult {
   ///  List of branches for an Amplify App.
   final List<Branch> branches;
@@ -1085,6 +1106,7 @@ class ListBranchesResult {
       ListBranchesResult();
 }
 
+///  Result structure for the list Domain Association request.
 class ListDomainAssociationsResult {
   ///  List of Domain Associations.
   final List<DomainAssociation> domainAssociations;
@@ -1101,6 +1123,7 @@ class ListDomainAssociationsResult {
       ListDomainAssociationsResult();
 }
 
+///  Maximum number of records to list in a single response.
 class ListJobsResult {
   ///  Result structure for list job result request.
   final List<JobSummary> jobSummaries;
@@ -1116,6 +1139,7 @@ class ListJobsResult {
   static ListJobsResult fromJson(Map<String, dynamic> json) => ListJobsResult();
 }
 
+///  Response for list tags.
 class ListTagsForResourceResponse {
   ///  Tags result for response.
   final Map<String, String> tags;
@@ -1127,6 +1151,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+///  Result structure for the list webhooks request.
 class ListWebhooksResult {
   ///  List of webhooks.
   final List<Webhook> webhooks;
@@ -1143,6 +1168,7 @@ class ListWebhooksResult {
       ListWebhooksResult();
 }
 
+///  Structure with Production Branch information.
 class ProductionBranch {
   ///  Last Deploy Time of Production Branch.
   final DateTime lastDeployTime;
@@ -1166,6 +1192,7 @@ class ProductionBranch {
       ProductionBranch();
 }
 
+///  Result structure for start a deployment.
 class StartDeploymentResult {
   ///  Summary for the Job.
   final JobSummary jobSummary;
@@ -1177,6 +1204,7 @@ class StartDeploymentResult {
       StartDeploymentResult();
 }
 
+///  Result structure for run job request.
 class StartJobResult {
   ///  Summary for the Job.
   final JobSummary jobSummary;
@@ -1187,6 +1215,7 @@ class StartJobResult {
   static StartJobResult fromJson(Map<String, dynamic> json) => StartJobResult();
 }
 
+///  Structure for an execution step for an execution job, for an Amplify App.
 class Step {
   ///  Name of the execution step.
   final String stepName;
@@ -1229,6 +1258,7 @@ class Step {
   static Step fromJson(Map<String, dynamic> json) => Step();
 }
 
+///  Result structure for the stop job request.
 class StopJobResult {
   ///  Summary for the Job.
   final JobSummary jobSummary;
@@ -1239,6 +1269,7 @@ class StopJobResult {
   static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult();
 }
 
+///  Subdomain for the Domain Association.
 class SubDomain {
   ///  Setting structure for the Subdomain.
   final SubDomainSetting subDomainSetting;
@@ -1257,6 +1288,7 @@ class SubDomain {
   static SubDomain fromJson(Map<String, dynamic> json) => SubDomain();
 }
 
+///  Setting for the Subdomain.
 class SubDomainSetting {
   ///  Prefix setting for the Subdomain.
   final String prefix;
@@ -1272,18 +1304,21 @@ class SubDomainSetting {
       SubDomainSetting();
 }
 
+///  Response for tag resource.
 class TagResourceResponse {
   TagResourceResponse();
   static TagResourceResponse fromJson(Map<String, dynamic> json) =>
       TagResourceResponse();
 }
 
+///  Response for untag resource.
 class UntagResourceResponse {
   UntagResourceResponse();
   static UntagResourceResponse fromJson(Map<String, dynamic> json) =>
       UntagResourceResponse();
 }
 
+///  Result structure for an Amplify App update request.
 class UpdateAppResult {
   ///  App structure for the updated App.
   final App app;
@@ -1295,6 +1330,7 @@ class UpdateAppResult {
       UpdateAppResult();
 }
 
+///  Result structure for update branch request.
 class UpdateBranchResult {
   ///  Branch structure for an Amplify App.
   final Branch branch;
@@ -1306,6 +1342,7 @@ class UpdateBranchResult {
       UpdateBranchResult();
 }
 
+///  Result structure for the update Domain Association request.
 class UpdateDomainAssociationResult {
   ///  Domain Association structure.
   final DomainAssociation domainAssociation;
@@ -1317,6 +1354,7 @@ class UpdateDomainAssociationResult {
       UpdateDomainAssociationResult();
 }
 
+///  Result structure for the update webhook request.
 class UpdateWebhookResult {
   ///  Webhook structure.
   final Webhook webhook;
@@ -1328,6 +1366,7 @@ class UpdateWebhookResult {
       UpdateWebhookResult();
 }
 
+///  Structure for webhook, which associates a webhook with an Amplify App.
 class Webhook {
   ///  ARN for the webhook.
   final String webhookArn;

@@ -69,7 +69,7 @@ class SimpleDBApi {
   ///
   ///  Attributes are uniquely identified within an item by their name/value
   /// combination. For example, a single item can have the attributes `{
-  /// "first\_name", "first\_value" }` and `{ "first\_name", "second\_value" }`.
+  /// "first_name", "first_value" }` and `{ "first_name", "second_value" }`.
   /// However, it cannot have two attribute instances where both the
   /// `Item.X.Attribute.Y.Name` and `Item.X.Attribute.Y.Value` are the same.
   ///
@@ -238,7 +238,7 @@ class SimpleDBApi {
   ///
   ///  Attributes are uniquely identified in an item by their name/value
   /// combination. For example, a single item can have the attributes `{
-  /// "first\_name", "first\_value" }` and `{ "first\_name", second\_value" }`.
+  /// "first_name", "first_value" }` and `{ "first_name", second_value" }`.
   /// However, it cannot have two attribute instances where both the
   /// `Attribute.X.Name` and `Attribute.X.Value` are the same.
   ///
@@ -483,6 +483,10 @@ class SelectResult {
   static SelectResult fromJson(Map<String, dynamic> json) => SelectResult();
 }
 
+///  Specifies the conditions under which data should be updated. If an update
+/// condition is specified for a request, the data will only be updated if the
+/// condition is satisfied. For example, if an attribute with a specific name
+/// and value exists, or if a specific attribute doesn't exist.
 class UpdateCondition {
   /// The name of the attribute involved in the condition.
   final String name;

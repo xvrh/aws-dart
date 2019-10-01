@@ -29,7 +29,7 @@ class MediaStoreDataApi {
   /// the container. Format: <folder name>/<folder name>/<file name>
   ///
   /// For example, to upload the file `mlaw.avi` to the folder path
-  /// `premium\\canada` in the container `movies`, enter the path
+  /// `premiumcanada` in the container `movies`, enter the path
   /// `premium/canada/mlaw.avi`.
   ///
   /// Do not include the container name in this path.
@@ -44,8 +44,8 @@ class MediaStoreDataApi {
   /// (folders) in the container in AWS Elemental MediaStore.
   ///
   /// For more information about folders and how they exist in a container, see
-  /// the [AWS Elemental MediaStore User
-  /// Guide](http://docs.aws.amazon.com/mediastore/latest/ug/).
+  /// the
+  /// [AWS Elemental MediaStore User Guide](http://docs.aws.amazon.com/mediastore/latest/ug/).
   ///
   /// The file name is the name that is assigned to the file that you upload.
   /// The file can have the same name inside and outside of AWS Elemental
@@ -100,7 +100,7 @@ class MediaStoreDataApi {
   /// the container. Format: <folder name>/<folder name>/<file name>
   ///
   /// For example, to upload the file `mlaw.avi` to the folder path
-  /// `premium\\canada` in the container `movies`, enter the path
+  /// `premiumcanada` in the container `movies`, enter the path
   /// `premium/canada/mlaw.avi`.
   ///
   /// Do not include the container name in this path.
@@ -115,8 +115,8 @@ class MediaStoreDataApi {
   /// (folders) in the container in AWS Elemental MediaStore.
   ///
   /// For more information about folders and how they exist in a container, see
-  /// the [AWS Elemental MediaStore User
-  /// Guide](http://docs.aws.amazon.com/mediastore/latest/ug/).
+  /// the
+  /// [AWS Elemental MediaStore User Guide](http://docs.aws.amazon.com/mediastore/latest/ug/).
   ///
   /// The file name is the name that is assigned to the file that you upload.
   /// The file can have the same name inside and outside of AWS Elemental
@@ -240,6 +240,7 @@ class GetObjectResponse {
       GetObjectResponse();
 }
 
+/// A metadata entry for a folder or object.
 class Item {
   /// The name of the item.
   final String name;

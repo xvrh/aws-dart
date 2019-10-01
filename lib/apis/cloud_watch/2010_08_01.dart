@@ -206,8 +206,7 @@ class CloudWatchApi {
   /// insights into your data. For example, using Lambda metrics, you could
   /// divide the Errors metric by the Invocations metric to get an error rate
   /// time series. For more information about metric math expressions, see
-  /// [Metric Math Syntax and
-  /// Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
+  /// [Metric Math Syntax and Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// Calls to the `GetMetricData` API have a different pricing structure than
@@ -374,8 +373,8 @@ class CloudWatchApi {
   /// 2016.
   ///
   /// For information about metrics and dimensions supported by AWS services,
-  /// see the [Amazon CloudWatch Metrics and Dimensions
-  /// Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html)
+  /// see the
+  /// [Amazon CloudWatch Metrics and Dimensions Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CW_Support_For_AWS.html)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// [namespace]: The namespace of the metric, with or without spaces.
@@ -387,11 +386,11 @@ class CloudWatchApi {
   /// combination of dimensions as a separate metric. If a specific combination
   /// of dimensions was not published, you can't retrieve statistics for it. You
   /// must specify the same dimensions that were used when the metrics were
-  /// created. For an example, see [Dimension
-  /// Combinations](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#dimension-combinations)
+  /// created. For an example, see
+  /// [Dimension Combinations](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html#dimension-combinations)
   /// in the _Amazon CloudWatch User Guide_. For more information about
-  /// specifying dimensions, see [Publishing
-  /// Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
+  /// specifying dimensions, see
+  /// [Publishing Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// [startTime]: The time stamp that determines the first data point to
@@ -596,8 +595,8 @@ class CloudWatchApi {
   /// tagging.
   ///
   /// [resourceArn]: The ARN of the CloudWatch resource that you want to view
-  /// tags for. For more information on ARN format, see [Example
-  /// ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
+  /// tags for. For more information on ARN format, see
+  /// [Example ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
   /// in the _Amazon Web Services General Reference_.
   Future<ListTagsForResourceOutput> listTagsForResource(
       String resourceArn) async {
@@ -608,8 +607,8 @@ class CloudWatchApi {
   /// the model to display a band of expected normal values when the metric is
   /// graphed.
   ///
-  /// For more information, see [CloudWatch Anomaly
-  /// Detection](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html).
+  /// For more information, see
+  /// [CloudWatch Anomaly Detection](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html).
   ///
   /// [namespace]: The namespace of the metric to create the anomaly detection
   /// model for.
@@ -722,9 +721,8 @@ class CloudWatchApi {
   /// The first time you create an alarm in the AWS Management Console, the CLI,
   /// or by using the PutMetricAlarm API, CloudWatch creates the necessary
   /// service-linked role for you. The service-linked role is called
-  /// `AWSServiceRoleForCloudWatchEvents`. For more information, see [AWS
-  /// service-linked
-  /// role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role).
+  /// `AWSServiceRoleForCloudWatchEvents`. For more information, see
+  /// [AWS service-linked role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role).
   ///
   /// [alarmName]: The name for the alarm. This name must be unique within your
   /// AWS account.
@@ -831,8 +829,8 @@ class CloudWatchApi {
   /// not correspond to a one-minute data resolution, and the alarm may often
   /// lapse into INSUFFICENT_DATA status. Specifying 10 or 30 also sets this
   /// alarm as a high-resolution alarm, which has a higher charge than other
-  /// alarms. For more information about pricing, see [Amazon CloudWatch
-  /// Pricing](https://aws.amazon.com/cloudwatch/pricing/).
+  /// alarms. For more information about pricing, see
+  /// [Amazon CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// An alarm's total current evaluation period can be no longer than one day,
   /// so `Period` multiplied by `EvaluationPeriods` cannot be more than 86,400
@@ -870,8 +868,7 @@ class CloudWatchApi {
   /// [datapointsToAlarm]: The number of datapoints that must be breaching to
   /// trigger the alarm. This is used only if you are setting an "M out of N"
   /// alarm. In that case, this value is the M. For more information, see
-  /// [Evaluating an
-  /// Alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarm-evaluation)
+  /// [Evaluating an Alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarm-evaluation)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// [threshold]: The value against which the specified statistic is compared.
@@ -889,9 +886,8 @@ class CloudWatchApi {
   ///
   /// [treatMissingData]:  Sets how this alarm is to handle missing data points.
   /// If `TreatMissingData` is omitted, the default behavior of `missing` is
-  /// used. For more information, see [Configuring How CloudWatch Alarms Treats
-  /// Missing
-  /// Data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data).
+  /// used. For more information, see
+  /// [Configuring How CloudWatch Alarms Treats Missing Data](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarms-and-missing-data).
   ///
   /// Valid Values: `breaching | notBreaching | ignore | missing`
   ///
@@ -900,9 +896,8 @@ class CloudWatchApi {
   /// during periods with too few data points to be statistically significant.
   /// If you specify `evaluate` or omit this parameter, the alarm is always
   /// evaluated and possibly changes state no matter how many data points are
-  /// available. For more information, see [Percentile-Based CloudWatch Alarms
-  /// and Low Data
-  /// Samples](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#percentiles-with-low-samples).
+  /// available. For more information, see
+  /// [Percentile-Based CloudWatch Alarms and Low Data Samples](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#percentiles-with-low-samples).
   ///
   /// Valid Values: `evaluate | ignore`
   ///
@@ -932,7 +927,7 @@ class CloudWatchApi {
   /// change only resources with certain tag values.
   ///
   /// [thresholdMetricId]: If this is an alarm based on an anomaly detection
-  /// model, make this value match the ID of the `ANOMALY\_DETECTION\_BAND`
+  /// model, make this value match the ID of the `ANOMALY_DETECTION_BAND`
   /// function.
   ///
   /// For an example of how to use this parameter, see the **Anomaly Detection
@@ -988,8 +983,8 @@ class CloudWatchApi {
   ///
   /// You can use up to 10 dimensions per metric to further clarify what data
   /// the metric collects. Each dimension consists of a Name and Value pair. For
-  /// more information about specifying dimensions, see [Publishing
-  /// Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
+  /// more information about specifying dimensions, see
+  /// [Publishing Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// Data points with time stamps from 24 hours ago or longer can take at least
@@ -1062,8 +1057,8 @@ class CloudWatchApi {
   /// You can associate as many as 50 tags with a resource.
   ///
   /// [resourceArn]: The ARN of the CloudWatch resource that you're adding tags
-  /// to. For more information on ARN format, see [Example
-  /// ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
+  /// to. For more information on ARN format, see
+  /// [Example ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [tags]: The list of key-value pairs to associate with the resource.
@@ -1075,8 +1070,8 @@ class CloudWatchApi {
   /// Removes one or more tags from the specified resource.
   ///
   /// [resourceArn]: The ARN of the CloudWatch resource that you're removing
-  /// tags from. For more information on ARN format, see [Example
-  /// ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
+  /// tags from. For more information on ARN format, see
+  /// [Example ARNs](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-cloudwatch)
   /// in the _Amazon Web Services General Reference_.
   ///
   /// [tagKeys]: The list of tag keys to remove from the resource.
@@ -1086,6 +1081,7 @@ class CloudWatchApi {
   }
 }
 
+/// Represents the history of a specific alarm.
 class AlarmHistoryItem {
   /// The descriptive name for the alarm.
   final String alarmName;
@@ -1113,6 +1109,9 @@ class AlarmHistoryItem {
       AlarmHistoryItem();
 }
 
+/// An anomaly detection model associated with a particular CloudWatch metric
+/// athresnd statistic. You can use the model to display a band of expected
+/// normal values when the metric is graphed.
 class AnomalyDetector {
   /// The namespace of the metric associated with the anomaly detection model.
   final String namespace;
@@ -1142,6 +1141,9 @@ class AnomalyDetector {
       AnomalyDetector();
 }
 
+/// The configuration specifies details about how the anomaly detection model is
+/// to be trained, including time ranges to exclude from use for training the
+/// model and the time zone to use for the metric.
 class AnomalyDetectorConfiguration {
   /// An array of time ranges to exclude from use when the anomaly detection
   /// model is trained. Use this to make sure that events that could cause
@@ -1154,8 +1156,8 @@ class AnomalyDetectorConfiguration {
   /// sensitive to such time changes.
   ///
   /// To specify a time zone, use the name of the time zone as specified in the
-  /// standard tz database. For more information, see [tz
-  /// database](https://en.wikipedia.org/wiki/Tz_database).
+  /// standard tz database. For more information, see
+  /// [tz database](https://en.wikipedia.org/wiki/Tz_database).
   final String metricTimezone;
 
   AnomalyDetectorConfiguration({
@@ -1166,6 +1168,7 @@ class AnomalyDetectorConfiguration {
       AnomalyDetectorConfiguration();
 }
 
+/// Represents a specific dashboard.
 class DashboardEntry {
   /// The name of the dashboard.
   final String dashboardName;
@@ -1190,6 +1193,7 @@ class DashboardEntry {
   static DashboardEntry fromJson(Map<String, dynamic> json) => DashboardEntry();
 }
 
+/// An error or warning for the operation.
 class DashboardValidationMessage {
   /// The data path related to the message.
   final String dataPath;
@@ -1205,6 +1209,7 @@ class DashboardValidationMessage {
       DashboardValidationMessage();
 }
 
+/// Encapsulates the statistical data that CloudWatch computes from metric data.
 class Datapoint {
   /// The time stamp used for the data point.
   final DateTime timestamp;
@@ -1313,6 +1318,7 @@ class DescribeAnomalyDetectorsOutput {
       DescribeAnomalyDetectorsOutput();
 }
 
+/// Expands the identity of a metric.
 class Dimension {
   /// The name of the dimension.
   final String name;
@@ -1327,6 +1333,7 @@ class Dimension {
   static Dimension fromJson(Map<String, dynamic> json) => Dimension();
 }
 
+/// Represents filters for a dimension.
 class DimensionFilter {
   /// The dimension name to be matched.
   final String name;
@@ -1456,6 +1463,8 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// A message returned by the `GetMetricData`API, including a code and a
+/// description.
 class MessageData {
   /// The error code or status code associated with the message.
   final String code;
@@ -1470,6 +1479,7 @@ class MessageData {
   static MessageData fromJson(Map<String, dynamic> json) => MessageData();
 }
 
+/// Represents a specific metric.
 class Metric {
   /// The namespace of the metric.
   final String namespace;
@@ -1488,6 +1498,7 @@ class Metric {
   static Metric fromJson(Map<String, dynamic> json) => Metric();
 }
 
+/// Represents an alarm.
 class MetricAlarm {
   /// The name of the alarm.
   final String alarmName;
@@ -1589,7 +1600,7 @@ class MetricAlarm {
   final List<MetricDataQuery> metrics;
 
   /// In an alarm based on an anomaly detection model, this is the ID of the
-  /// `ANOMALY\_DETECTION\_BAND` function used as the threshold for the alarm.
+  /// `ANOMALY_DETECTION_BAND` function used as the threshold for the alarm.
   final String thresholdMetricId;
 
   MetricAlarm({
@@ -1624,6 +1635,34 @@ class MetricAlarm {
   static MetricAlarm fromJson(Map<String, dynamic> json) => MetricAlarm();
 }
 
+/// This structure is used in both `GetMetricData` and `PutMetricAlarm`. The
+/// supported use of this structure is different for those two operations.
+///
+/// When used in `GetMetricData`, it indicates the metric data to return, and
+/// whether this call is just retrieving a batch set of data for one metric, or
+/// is performing a math expression on metric data. A single `GetMetricData`
+/// call can include up to 100 `MetricDataQuery` structures.
+///
+/// When used in `PutMetricAlarm`, it enables you to create an alarm based on a
+/// metric math expression. Each `MetricDataQuery` in the array specifies either
+/// a metric to retrieve, or a math expression to be performed on retrieved
+/// metrics. A single `PutMetricAlarm` call can include up to 20
+/// `MetricDataQuery` structures in the array. The 20 structures can include as
+/// many as 10 structures that contain a `MetricStat` parameter to retrieve a
+/// metric, and as many as 10 structures that contain the `Expression` parameter
+/// to perform a math expression. Of those `Expression` structures, one must
+/// have `True` as the value for `ReturnData`. The result of this expression is
+/// the value the alarm watches.
+///
+/// Any expression used in a `PutMetricAlarm` operation must return a single
+/// time series. For more information, see
+/// [Metric Math Syntax and Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
+/// in the _Amazon CloudWatch User Guide_.
+///
+/// Some of the parameters of this structure also have different uses whether
+/// you are using this structure in a `GetMetricData` operation or a
+/// `PutMetricAlarm` operation. These differences are explained in the following
+/// parameter list.
 class MetricDataQuery {
   /// A short name used to tie this object to the results in the response. This
   /// name must be unique within a single call to `GetMetricData`. If you are
@@ -1645,8 +1684,8 @@ class MetricDataQuery {
   /// is performing a math expression. This expression can use the `Id` of the
   /// other metrics to refer to those metrics, and can also use the `Id` of
   /// other expressions to use the result of those expressions. For more
-  /// information about metric math expressions, see [Metric Math Syntax and
-  /// Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
+  /// information about metric math expressions, see
+  /// [Metric Math Syntax and Functions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/using-metric-math.html#metric-math-syntax)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// Within each MetricDataQuery object, you must specify either `Expression`
@@ -1682,6 +1721,9 @@ class MetricDataQuery {
       MetricDataQuery();
 }
 
+/// A `GetMetricData` call returns an array of `MetricDataResult` structures.
+/// Each of these structures includes the data points for that metric, along
+/// with the timestamps of those data points and other identifying information.
 class MetricDataResult {
   /// The short name you specified to represent this metric.
   final String id;
@@ -1691,12 +1733,12 @@ class MetricDataResult {
 
   /// The timestamps for the data points, formatted in Unix timestamp format.
   /// The number of timestamps always matches the number of values and the value
-  /// for Timestamps\[x\] is Values\[x\].
+  /// for Timestamps[x] is Values[x].
   final List<DateTime> timestamps;
 
   /// The data points for the metric corresponding to `Timestamps`. The number
   /// of values always matches the number of timestamps and the timestamp for
-  /// Values\[x\] is Timestamps\[x\].
+  /// Values[x] is Timestamps[x].
   final List<double> values;
 
   /// The status of the returned data. `Complete` indicates that all data points
@@ -1723,6 +1765,8 @@ class MetricDataResult {
       MetricDataResult();
 }
 
+/// Encapsulates the information sent to either create a metric or add new
+/// values to be aggregated into an existing metric.
 class MetricDatum {
   /// The name of the metric.
   final String metricName;
@@ -1780,8 +1824,7 @@ class MetricDatum {
   /// this metric as a regular-resolution metric, which CloudWatch stores at
   /// 1-minute resolution. Currently, high resolution is available only for
   /// custom metrics. For more information about high-resolution metrics, see
-  /// [High-Resolution
-  /// Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics)
+  /// [High-Resolution Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html#high-resolution-metrics)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// This field is optional, if you do not specify it the default of 60 is
@@ -1801,6 +1844,8 @@ class MetricDatum {
   });
 }
 
+/// This structure defines the metric to be returned, along with the statistics,
+/// period, and units.
 class MetricStat {
   /// The metric to return, including the metric name, namespace, and
   /// dimensions.
@@ -1859,6 +1904,8 @@ class PutDashboardOutput {
       PutDashboardOutput();
 }
 
+/// Specifies one range of days or times to exclude from use for training an
+/// anomaly detection model.
 class Range {
   /// The start time of the range to exclude. The format is
   /// `yyyy-MM-dd'T'HH:mm:ss`. For example, `2019-07-01T23:59:59`.
@@ -1875,6 +1922,7 @@ class Range {
   static Range fromJson(Map<String, dynamic> json) => Range();
 }
 
+/// Represents a set of statistics that describes a specific metric.
 class StatisticSet {
   /// The number of samples used for the statistic set.
   final double sampleCount;
@@ -1896,6 +1944,7 @@ class StatisticSet {
   });
 }
 
+/// A key-value pair associated with a CloudWatch resource.
 class Tag {
   /// A string that you can use to assign a value. The combination of tag keys
   /// and values can help you organize and categorize your resources.

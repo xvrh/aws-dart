@@ -75,7 +75,7 @@ class S3Api {
   ///
   /// [expires]: The date and time at which the object is no longer cacheable.
   ///
-  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// [grantFullControl]: Gives the grantee READ, READ_ACP, and WRITE_ACP
   /// permissions on the object.
   ///
   /// [grantRead]: Allows grantee to read the object data and its metadata.
@@ -258,7 +258,7 @@ class S3Api {
   ///
   /// [expires]: The date and time at which the object is no longer cacheable.
   ///
-  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// [grantFullControl]: Gives the grantee READ, READ_ACP, and WRITE_ACP
   /// permissions on the object.
   ///
   /// [grantRead]: Allows grantee to read the object data and its metadata.
@@ -412,9 +412,9 @@ class S3Api {
   Future<void> deleteBucketPolicy(String bucket) async {}
 
   ///  Deletes the replication configuration from the bucket. For information
-  /// about replication configuration, see [Cross-Region Replication
-  /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
-  /// _Amazon S3 Developer Guide_.
+  /// about replication configuration, see
+  /// [Cross-Region Replication (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html)
+  /// in the _Amazon S3 Developer Guide_.
   ///
   /// [bucket]:  The bucket name.
   ///
@@ -1191,8 +1191,8 @@ class S3Api {
   /// [bucket]: Specifies default encryption for a bucket using server-side
   /// encryption with Amazon S3-managed keys (SSE-S3) or AWS KMS-managed keys
   /// (SSE-KMS). For information about the Amazon S3 default encryption feature,
-  /// see [Amazon S3 Default Bucket
-  /// Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html)
+  /// see
+  /// [Amazon S3 Default Bucket Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   ///
   /// [contentMd5]: The base64-encoded 128-bit MD5 digest of the server-side
@@ -1312,9 +1312,9 @@ class S3Api {
       @required String policy}) async {}
 
   ///  Creates a replication configuration or replaces an existing one. For more
-  /// information, see [Cross-Region Replication
-  /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
-  /// _Amazon S3 Developer Guide_.
+  /// information, see
+  /// [Cross-Region Replication (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html)
+  /// in the _Amazon S3 Developer Guide_.
   ///
   /// [bucket]:
   ///
@@ -1422,7 +1422,7 @@ class S3Api {
   ///
   /// [expires]: The date and time at which the object is no longer cacheable.
   ///
-  /// [grantFullControl]: Gives the grantee READ, READ\_ACP, and WRITE\_ACP
+  /// [grantFullControl]: Gives the grantee READ, READ_ACP, and WRITE_ACP
   /// permissions on the object.
   ///
   /// [grantRead]: Allows grantee to read the object data and its metadata.
@@ -1666,8 +1666,8 @@ class S3Api {
   /// [publicAccessBlockConfiguration]: The `PublicAccessBlock` configuration
   /// that you want to apply to this Amazon S3 bucket. You can enable the
   /// configuration options in any combination. For more information about when
-  /// Amazon S3 considers a bucket or object public, see [The Meaning of
-  /// "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status)
+  /// Amazon S3 considers a bucket or object public, see
+  /// [The Meaning of "Public"](https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   Future<void> putPublicAccessBlock(
       {@required
@@ -1707,17 +1707,14 @@ class S3Api {
   /// [key]: The object key.
   ///
   /// [sseCustomerAlgorithm]: The SSE Algorithm used to encrypt the object. For
-  /// more information, see  [Server-Side Encryption (Using Customer-Provided
-  /// Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  /// more information, see
+  /// [Server-Side Encryption (Using Customer-Provided Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
   ///
   /// [sseCustomerKey]: The SSE Customer Key. For more information, see
-  /// [Server-Side Encryption (Using Customer-Provided Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  /// [Server-Side Encryption (Using Customer-Provided Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
   ///
   /// [sseCustomerKeyMd5]: The SSE Customer Key MD5. For more information, see
-  /// [Server-Side Encryption (Using Customer-Provided Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
+  /// [Server-Side Encryption (Using Customer-Provided Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html).
   ///
   /// [expression]: The expression that is used to query the object.
   ///
@@ -1883,6 +1880,11 @@ class S3Api {
   }
 }
 
+/// Specifies the days since the initiation of an incomplete multipart upload
+/// that Amazon S3 will wait before permanently removing all parts of the
+/// upload. For more information, see
+/// [Aborting Incomplete Multipart Uploads Using a Bucket Lifecycle Policy](https://docs.aws.amazon.com/AmazonS3/latest/dev/mpuoverview.html#mpu-abort-incomplete-mpu-lifecycle-config)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class AbortIncompleteMultipartUpload {
   /// Specifies the number of days after which Amazon S3 aborts an incomplete
   /// multipart upload.
@@ -1905,6 +1907,10 @@ class AbortMultipartUploadOutput {
       AbortMultipartUploadOutput();
 }
 
+/// Configures the transfer acceleration state for an Amazon S3 bucket. For more
+/// information, see
+/// [Amazon S3 Transfer Acceleration](https://docs.aws.amazon.com/AmazonS3/latest/dev/transfer-acceleration.html)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class AccelerateConfiguration {
   /// Specifies the transfer acceleration status of the bucket.
   final String status;
@@ -1914,6 +1920,8 @@ class AccelerateConfiguration {
   });
 }
 
+/// Contains the elements that set the ACL permissions for an object per
+/// grantee.
 class AccessControlPolicy {
   /// A list of grants.
   final List<Grant> grants;
@@ -1927,10 +1935,10 @@ class AccessControlPolicy {
   });
 }
 
+/// A container for information about access control for replicas.
 class AccessControlTranslation {
-  /// Specifies the replica ownership. For default and valid values, see [PUT
-  /// bucket
-  /// replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
+  /// Specifies the replica ownership. For default and valid values, see
+  /// [PUT bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
   /// in the _Amazon Simple Storage Service API Reference_.
   final String owner;
 
@@ -1941,6 +1949,10 @@ class AccessControlTranslation {
       AccessControlTranslation();
 }
 
+/// A conjunction (logical AND) of predicates, which is used in evaluating a
+/// metrics filter. The operator must have at least two predicates in any
+/// combination, and an object must match all of the predicates for the filter
+/// to apply.
 class AnalyticsAndOperator {
   /// The prefix to use when evaluating an AND predicate: The prefix that an
   /// object must have to be included in the metrics results.
@@ -1957,6 +1969,12 @@ class AnalyticsAndOperator {
       AnalyticsAndOperator();
 }
 
+///  Specifies the configuration and any analyses for the analytics filter of an
+/// Amazon S3 bucket.
+///
+/// For more information, see
+/// [GET Bucket analytics](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETAnalyticsConfig.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class AnalyticsConfiguration {
   /// The ID that identifies the analytics configuration.
   final String id;
@@ -1980,6 +1998,7 @@ class AnalyticsConfiguration {
       AnalyticsConfiguration();
 }
 
+/// Where to publish the analytics results.
 class AnalyticsExportDestination {
   /// A destination signifying output to an S3 bucket.
   final AnalyticsS3BucketDestination s3BucketDestination;
@@ -2050,6 +2069,10 @@ class Bucket {
   static Bucket fromJson(Map<String, dynamic> json) => Bucket();
 }
 
+/// Specifies the lifecycle configuration for objects in an Amazon S3 bucket.
+/// For more information, see
+/// [Object Lifecycle Management](https://docs.aws.amazon.com/AmazonS3/latest/dev/object-lifecycle-mgmt.html)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class BucketLifecycleConfiguration {
   /// A lifecycle rule for individual objects in an Amazon S3 bucket.
   final List<LifecycleRule> rules;
@@ -2067,6 +2090,10 @@ class BucketLoggingStatus {
   });
 }
 
+/// Describes the cross-origin access configuration for objects in an Amazon S3
+/// bucket. For more information, see
+/// [Enabling Cross-Origin Resource Sharing](https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class CorsConfiguration {
   /// A set of allowed origins and methods.
   final List<CorsRule> corsRules;
@@ -2076,6 +2103,7 @@ class CorsConfiguration {
   });
 }
 
+/// Specifies a cross-origin access rule for an Amazon S3 bucket.
 class CorsRule {
   /// Headers that are specified in the `Access-Control-Request-Headers` header.
   /// These headers are allowed in a preflight OPTIONS request. In response to
@@ -2110,6 +2138,7 @@ class CorsRule {
   static CorsRule fromJson(Map<String, dynamic> json) => CorsRule();
 }
 
+/// Describes how a CSV-formatted input object is formatted.
 class CsvInput {
   /// Describes the first line of input. Valid values: None, Ignore, Use.
   final String fileHeaderInfo;
@@ -2147,6 +2176,7 @@ class CsvInput {
   });
 }
 
+/// Describes how CSV-formatted results are formatted.
 class CsvOutput {
   /// Indicates whether or not all output fields should be quoted.
   final String quoteFields;
@@ -2270,6 +2300,7 @@ class CompletedPart {
   });
 }
 
+/// Specifies a condition that must be met for a redirect to apply.
 class Condition {
   /// The HTTP error code when the redirect is applied. In the event of an
   /// error, if the error code equals this value, then the specified redirect is
@@ -2461,6 +2492,8 @@ class CreateMultipartUploadOutput {
       CreateMultipartUploadOutput();
 }
 
+/// The container element for specifying the default object lock retention
+/// settings for new objects placed in the specified bucket.
 class DefaultRetention {
   /// The default object lock retention mode you want to apply to new objects
   /// placed in the specified bucket.
@@ -2523,6 +2556,7 @@ class DeleteMarkerEntry {
       DeleteMarkerEntry();
 }
 
+/// Specifies whether Amazon S3 should replicate delete makers.
 class DeleteMarkerReplication {
   /// The status of the delete marker replication.
   ///
@@ -2602,6 +2636,8 @@ class DeletedObject {
   static DeletedObject fromJson(Map<String, dynamic> json) => DeletedObject();
 }
 
+/// Specifies information about where to publish analysis or configuration
+/// results for an Amazon S3 bucket.
 class Destination {
   ///  The Amazon Resource Name (ARN) of the bucket where you want Amazon S3 to
   /// store replicas of the object identified by the rule.
@@ -2615,9 +2651,8 @@ class Destination {
   /// direct Amazon S3 to change replica ownership to the AWS account that owns
   /// the destination bucket by specifying the `AccessControlTranslation`
   /// property, this is the account ID of the destination bucket owner. For more
-  /// information, see [Cross-Region Replication Additional Configuration:
-  /// Change Replica
-  /// Owner](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-change-owner.html)
+  /// information, see
+  /// [Cross-Region Replication Additional Configuration: Change Replica Owner](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-change-owner.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final String account;
 
@@ -2625,8 +2660,8 @@ class Destination {
   /// reduced redundancy. By default, Amazon S3 uses the storage class of the
   /// source object to create the object replica.
   ///
-  /// For valid values, see the `StorageClass` element of the [PUT Bucket
-  /// replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
+  /// For valid values, see the `StorageClass` element of the
+  /// [PUT Bucket replication](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTreplication.html)
   /// action in the _Amazon Simple Storage Service API Reference_.
   final String storageClass;
 
@@ -2651,6 +2686,8 @@ class Destination {
   static Destination fromJson(Map<String, dynamic> json) => Destination();
 }
 
+/// Describes the server-side encryption that will be applied to the restore
+/// results.
 class Encryption {
   /// The server-side encryption algorithm used when storing job results in
   /// Amazon S3 (e.g., AES256, aws:kms).
@@ -2671,6 +2708,8 @@ class Encryption {
   });
 }
 
+/// Specifies encryption-related information for an Amazon S3 bucket that is a
+/// destination for replicated objects.
 class EncryptionConfiguration {
   /// Specifies the AWS KMS Key ID (Key ARN or Alias ARN) for the destination
   /// bucket. Amazon S3 uses this key to encrypt replica objects.
@@ -2716,12 +2755,14 @@ class ErrorDocument {
   static ErrorDocument fromJson(Map<String, dynamic> json) => ErrorDocument();
 }
 
+/// Specifies the Amazon S3 object key name to filter on and whether to filter
+/// on the suffix or prefix of the key name.
 class FilterRule {
   /// The object key name prefix or suffix identifying one or more objects to
   /// which the filtering rule applies. The maximum length is 1,024 characters.
   /// Overlapping prefixes and suffixes are not supported. For more information,
-  /// see [Configuring Event
-  /// Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// see
+  /// [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final String name;
 
@@ -3396,6 +3437,7 @@ class Initiator {
   static Initiator fromJson(Map<String, dynamic> json) => Initiator();
 }
 
+/// Describes the serialization format of the object.
 class InputSerialization {
   /// Describes the serialization of a CSV-encoded object.
   final CsvInput csv;
@@ -3418,6 +3460,10 @@ class InputSerialization {
   });
 }
 
+/// Specifies the inventory configuration for an Amazon S3 bucket. For more
+/// information, see
+/// [GET Bucket inventory](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGETInventoryConfig.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class InventoryConfiguration {
   /// Contains information about where to publish the inventory results.
   final InventoryDestination destination;
@@ -3471,6 +3517,8 @@ class InventoryDestination {
       InventoryDestination();
 }
 
+/// Contains the type of server-side encryption used to encrypt the inventory
+/// results.
 class InventoryEncryption {
   /// Specifies the use of SSE-S3 to encrypt delivered Inventory reports.
   final Sses3 sses3;
@@ -3556,6 +3604,7 @@ class JsonOutput {
   });
 }
 
+/// A container for specifying the configuration for AWS Lambda notifications.
 class LambdaFunctionConfiguration {
   final String id;
 
@@ -3564,8 +3613,8 @@ class LambdaFunctionConfiguration {
   final String lambdaFunctionArn;
 
   /// The Amazon S3 bucket event for which to invoke the AWS Lambda function.
-  /// For more information, see [Supported Event
-  /// Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// For more information, see
+  /// [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final List<String> events;
 
@@ -3652,6 +3701,9 @@ class LifecycleRule {
   static LifecycleRule fromJson(Map<String, dynamic> json) => LifecycleRule();
 }
 
+/// This is used in a Lifecycle Rule Filter to apply a logical AND to two or
+/// more predicates. The Lifecycle Rule will apply to any object matching all of
+/// the predicates configured inside the And operator.
 class LifecycleRuleAndOperator {
   final String prefix;
 
@@ -3667,6 +3719,8 @@ class LifecycleRuleAndOperator {
       LifecycleRuleAndOperator();
 }
 
+/// The Filter is used to identify objects that a Lifecycle Rule applies to. A
+/// Filter must have exactly one of Prefix, Tag, or And specified.
 class LifecycleRuleFilter {
   /// Prefix identifying one or more objects to which the rule applies.
   final String prefix;
@@ -4084,6 +4138,10 @@ class ListPartsOutput {
       ListPartsOutput();
 }
 
+/// Describes where logs are stored and the prefix that Amazon S3 assigns to all
+/// log object keys for a bucket. For more information, see
+/// [PUT Bucket logging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlogging.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class LoggingEnabled {
   /// Specifies the bucket where you want Amazon S3 to store server access logs.
   /// You can have your logs delivered to any bucket that you own, including the
@@ -4108,6 +4166,7 @@ class LoggingEnabled {
   static LoggingEnabled fromJson(Map<String, dynamic> json) => LoggingEnabled();
 }
 
+/// A metadata key-value pair to store with an object.
 class MetadataEntry {
   final String name;
 
@@ -4134,6 +4193,13 @@ class MetricsAndOperator {
       MetricsAndOperator();
 }
 
+/// Specifies a metrics configuration for the CloudWatch request metrics
+/// (specified by the metrics configuration ID) from an Amazon S3 bucket. If
+/// you're updating an existing metrics configuration, note that this is a full
+/// replacement of the existing metrics configuration. If you don't include the
+/// elements you want to keep, they are erased. For more information, see
+/// [PUT Bucket metrics](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTMetricConfiguration.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class MetricsConfiguration {
   /// The ID used to identify the metrics configuration.
   final String id;
@@ -4201,11 +4267,16 @@ class MultipartUpload {
       MultipartUpload();
 }
 
+/// Specifies when noncurrent object versions expire. Upon expiration, Amazon S3
+/// permanently deletes the noncurrent object versions. You set this lifecycle
+/// configuration action on a bucket that has versioning enabled (or suspended)
+/// to request that Amazon S3 delete noncurrent object versions at a specific
+/// period in the object's lifetime.
 class NoncurrentVersionExpiration {
   /// Specifies the number of days an object is noncurrent before Amazon S3 can
   /// perform the associated action. For information about the noncurrent days
-  /// calculations, see [How Amazon S3 Calculates When an Object Became
-  /// Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations)
+  /// calculations, see
+  /// [How Amazon S3 Calculates When an Object Became Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations)
   /// in the Amazon Simple Storage Service Developer Guide.
   final int noncurrentDays;
 
@@ -4216,11 +4287,18 @@ class NoncurrentVersionExpiration {
       NoncurrentVersionExpiration();
 }
 
+/// Container for the transition rule that describes when noncurrent objects
+/// transition to the `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`,
+/// `GLACIER`, or `DEEP_ARCHIVE` storage class. If your bucket is
+/// versioning-enabled (or versioning is suspended), you can set this action to
+/// request that Amazon S3 transition noncurrent object versions to the
+/// `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER`, or
+/// `DEEP_ARCHIVE` storage class at a specific period in the object's lifetime.
 class NoncurrentVersionTransition {
   /// Specifies the number of days an object is noncurrent before Amazon S3 can
   /// perform the associated action. For information about the noncurrent days
-  /// calculations, see [How Amazon S3 Calculates When an Object Became
-  /// Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html)
+  /// calculations, see
+  /// [How Amazon S3 Calculates When an Object Became Noncurrent](https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-access-control.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final int noncurrentDays;
 
@@ -4235,6 +4313,8 @@ class NoncurrentVersionTransition {
       NoncurrentVersionTransition();
 }
 
+/// A container for specifying the notification configuration of the bucket. If
+/// this element is empty, notifications are turned off for the bucket.
 class NotificationConfiguration {
   /// The topic to which notifications are sent and the events for which
   /// notifications are generated.
@@ -4274,6 +4354,10 @@ class NotificationConfigurationDeprecated {
       NotificationConfigurationDeprecated();
 }
 
+/// Specifies object key name filtering rules. For information about key name
+/// filtering, see
+/// [Configuring Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class NotificationConfigurationFilter {
   final S3KeyFilter key;
 
@@ -4322,6 +4406,7 @@ class ObjectIdentifier {
   });
 }
 
+/// The container element for object lock configuration parameters.
 class ObjectLockConfiguration {
   /// Indicates whether this bucket has an object lock configuration enabled.
   final String objectLockEnabled;
@@ -4337,6 +4422,7 @@ class ObjectLockConfiguration {
       ObjectLockConfiguration();
 }
 
+/// A Legal Hold configuration for an object.
 class ObjectLockLegalHold {
   /// Indicates whether the specified object has a Legal Hold in place.
   final String status;
@@ -4348,6 +4434,7 @@ class ObjectLockLegalHold {
       ObjectLockLegalHold();
 }
 
+/// A Retention configuration for an object.
 class ObjectLockRetention {
   /// Indicates the Retention mode for the specified object.
   final String mode;
@@ -4363,6 +4450,7 @@ class ObjectLockRetention {
       ObjectLockRetention();
 }
 
+/// The container element for an object lock rule.
 class ObjectLockRule {
   /// The default retention period that you want to apply to new objects placed
   /// in the specified bucket.
@@ -4411,6 +4499,7 @@ class ObjectVersion {
   static ObjectVersion fromJson(Map<String, dynamic> json) => ObjectVersion();
 }
 
+/// Describes the location where the restore job's output is stored.
 class OutputLocation {
   /// Describes an S3 location that will receive the results of the restore
   /// request.
@@ -4421,6 +4510,7 @@ class OutputLocation {
   });
 }
 
+/// Describes how results of the Select job are serialized.
 class OutputSerialization {
   /// Describes the serialization of CSV-encoded Select results.
   final CsvOutput csv;
@@ -4473,6 +4563,7 @@ class Part {
   static Part fromJson(Map<String, dynamic> json) => Part();
 }
 
+/// The container element for a bucket's policy status.
 class PolicyStatus {
   /// The policy status for this bucket. `TRUE` indicates that this bucket is
   /// public. `FALSE` indicates that the bucket is not public.
@@ -4512,6 +4603,7 @@ class ProgressEvent {
   static ProgressEvent fromJson(Map<String, dynamic> json) => ProgressEvent();
 }
 
+/// Specifies the Block Public Access configuration for an Amazon S3 bucket.
 class PublicAccessBlockConfiguration {
   /// Specifies whether Amazon S3 should block public access control lists
   /// (ACLs) for this bucket and objects in this bucket. Setting this element to
@@ -4663,6 +4755,8 @@ class PutObjectTaggingOutput {
       PutObjectTaggingOutput();
 }
 
+/// Specifies the configuration for publishing messages to an Amazon Simple
+/// Queue Service (Amazon SQS) queue when Amazon S3 detects specified events.
 class QueueConfiguration {
   final String id;
 
@@ -4713,6 +4807,8 @@ class RecordsEvent {
   static RecordsEvent fromJson(Map<String, dynamic> json) => RecordsEvent();
 }
 
+/// Specifies how requests are redirected. In the event of an error, you can
+/// specify a different error code to return.
 class Redirect {
   /// The host name to use in the redirect request.
   final String hostName;
@@ -4749,6 +4845,8 @@ class Redirect {
   static Redirect fromJson(Map<String, dynamic> json) => Redirect();
 }
 
+/// Specifies the redirect behavior of all requests to a website endpoint of an
+/// Amazon S3 bucket.
 class RedirectAllRequestsTo {
   /// Name of the host where requests are redirected.
   final String hostName;
@@ -4765,11 +4863,13 @@ class RedirectAllRequestsTo {
       RedirectAllRequestsTo();
 }
 
+/// A container for replication rules. You can add up to 1,000 rules. The
+/// maximum size of a replication configuration is 2 MB.
 class ReplicationConfiguration {
   /// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
   /// (IAM) role that Amazon S3 assumes when replicating objects. For more
-  /// information, see [How to Set Up Cross-Region
-  /// Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-how-setup.html)
+  /// information, see
+  /// [How to Set Up Cross-Region Replication](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr-how-setup.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final String role;
 
@@ -4785,6 +4885,8 @@ class ReplicationConfiguration {
       ReplicationConfiguration();
 }
 
+/// Specifies which Amazon S3 objects to replicate and where to store the
+/// replicas.
 class ReplicationRule {
   /// A unique identifier for the rule. The maximum value is 255 characters.
   final String id;
@@ -4802,9 +4904,9 @@ class ReplicationRule {
   /// rules
   ///
   ///
-  /// For more information, see [Cross-Region Replication
-  /// (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html) in the
-  /// _Amazon S3 Developer Guide_.
+  /// For more information, see
+  /// [Cross-Region Replication (CRR)](https://docs.aws.amazon.com/AmazonS3/latest/dev/crr.html)
+  /// in the _Amazon S3 Developer Guide_.
   final int priority;
 
   /// An object keyname prefix that identifies the object or objects to which
@@ -4856,6 +4958,9 @@ class ReplicationRuleAndOperator {
       ReplicationRuleAndOperator();
 }
 
+/// A filter that identifies the subset of objects to which the replication rule
+/// applies. A `Filter` must specify exactly one `Prefix`, `Tag`, or an `And`
+/// child element.
 class ReplicationRuleFilter {
   /// An object keyname prefix that identifies the subset of objects to which
   /// the rule applies.
@@ -4920,6 +5025,7 @@ class RestoreObjectOutput {
       RestoreObjectOutput();
 }
 
+/// Container for restore job parameters.
 class RestoreRequest {
   /// Lifetime of the active copy in days. Do not use with restores that specify
   /// OutputLocation.
@@ -4955,6 +5061,7 @@ class RestoreRequest {
   });
 }
 
+/// Specifies the redirect behavior and when a redirect is applied.
 class RoutingRule {
   /// A container for describing a condition that must be met for the specified
   /// redirect to apply. For example, 1. If request is for pages in the `/docs`
@@ -4975,6 +5082,9 @@ class RoutingRule {
   static RoutingRule fromJson(Map<String, dynamic> json) => RoutingRule();
 }
 
+/// Specifies lifecycle rules for an Amazon S3 bucket. For more information, see
+/// [PUT Bucket lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTlifecycle.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class Rule {
   final LifecycleExpiration expiration;
 
@@ -5011,6 +5121,7 @@ class Rule {
   static Rule fromJson(Map<String, dynamic> json) => Rule();
 }
 
+/// A container for object key name prefix and suffix filtering rules.
 class S3KeyFilter {
   final List<FilterRule> filterRules;
 
@@ -5020,6 +5131,8 @@ class S3KeyFilter {
   static S3KeyFilter fromJson(Map<String, dynamic> json) => S3KeyFilter();
 }
 
+/// Describes an S3 location that will receive the results of the restore
+/// request.
 class S3Location {
   /// The name of the bucket where the restore results will be placed.
   final String bucketName;
@@ -5056,6 +5169,7 @@ class S3Location {
   });
 }
 
+/// Specifies the use of SSE-KMS to encrypt delivered Inventory reports.
 class Ssekms {
   /// Specifies the ID of the AWS Key Management Service (KMS) master encryption
   /// key to use for encrypting Inventory reports.
@@ -5067,6 +5181,7 @@ class Ssekms {
   static Ssekms fromJson(Map<String, dynamic> json) => Ssekms();
 }
 
+/// Specifies the use of SSE-S3 to encrypt delivered Inventory reports.
 class Sses3 {
   Sses3();
   static Sses3 fromJson(Map<String, dynamic> json) => Sses3();
@@ -5109,6 +5224,7 @@ class SelectObjectContentOutput {
       SelectObjectContentOutput();
 }
 
+/// Describes the parameters for Select job types.
 class SelectParameters {
   /// Describes the serialization format of the object.
   final InputSerialization inputSerialization;
@@ -5130,6 +5246,11 @@ class SelectParameters {
   });
 }
 
+/// Describes the default server-side encryption to apply to new objects in the
+/// bucket. If a PUT Object request doesn't specify any server-side encryption,
+/// this default encryption will be applied. For more information, see
+/// [PUT Bucket encryption](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTencryption.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class ServerSideEncryptionByDefault {
   /// Server-side encryption algorithm to use for the default encryption.
   final String sseAlgorithm;
@@ -5146,6 +5267,7 @@ class ServerSideEncryptionByDefault {
       ServerSideEncryptionByDefault();
 }
 
+/// Specifies the default server-side-encryption configuration.
 class ServerSideEncryptionConfiguration {
   /// Container for information about a particular server-side encryption
   /// configuration rule.
@@ -5159,6 +5281,7 @@ class ServerSideEncryptionConfiguration {
       ServerSideEncryptionConfiguration();
 }
 
+/// Specifies the default server-side encryption configuration.
 class ServerSideEncryptionRule {
   /// Specifies the default server-side encryption to apply to new objects in
   /// the bucket. If a PUT Object request doesn't specify any server-side
@@ -5172,6 +5295,11 @@ class ServerSideEncryptionRule {
       ServerSideEncryptionRule();
 }
 
+/// A container that describes additional filters for identifying the source
+/// objects that you want to replicate. You can choose to enable or disable the
+/// replication of these objects. Currently, Amazon S3 supports only the filter
+/// that you can specify for objects created with server-side encryption using
+/// an AWS KMS-Managed Key (SSE-KMS).
 class SourceSelectionCriteria {
   ///  A container for filter information for the selection of Amazon S3 objects
   /// encrypted with AWS KMS. If you include `SourceSelectionCriteria` in the
@@ -5185,6 +5313,8 @@ class SourceSelectionCriteria {
       SourceSelectionCriteria();
 }
 
+/// A container for filter information for the selection of S3 objects encrypted
+/// with AWS KMS.
 class SseKmsEncryptedObjects {
   /// Specifies whether Amazon S3 replicates objects created with server-side
   /// encryption using an AWS KMS-managed key.
@@ -5225,6 +5355,9 @@ class StatsEvent {
   static StatsEvent fromJson(Map<String, dynamic> json) => StatsEvent();
 }
 
+/// Specifies data related to access patterns to be collected and made available
+/// to analyze the tradeoffs between different storage classes for an Amazon S3
+/// bucket.
 class StorageClassAnalysis {
   /// Specifies how data related to the storage class analysis for an Amazon S3
   /// bucket should be exported.
@@ -5288,6 +5421,9 @@ class TargetGrant {
   static TargetGrant fromJson(Map<String, dynamic> json) => TargetGrant();
 }
 
+/// A container for specifying the configuration for publication of messages to
+/// an Amazon Simple Notification Service (Amazon SNS) topic when Amazon S3
+/// detects specified events.
 class TopicConfiguration {
   final String id;
 
@@ -5296,8 +5432,8 @@ class TopicConfiguration {
   final String topicArn;
 
   /// The Amazon S3 bucket event about which to send notifications. For more
-  /// information, see [Supported Event
-  /// Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
+  /// information, see
+  /// [Supported Event Types](https://docs.aws.amazon.com/AmazonS3/latest/dev/NotificationHowTo.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final List<String> events;
 
@@ -5335,6 +5471,7 @@ class TopicConfigurationDeprecated {
       TopicConfigurationDeprecated();
 }
 
+/// Specifies when an object transitions to a specified storage class.
 class Transition {
   /// Indicates when objects are transitioned to the specified storage class.
   /// The date value must be in ISO 8601 format. The time is always midnight
@@ -5432,6 +5569,10 @@ class UploadPartOutput {
       UploadPartOutput();
 }
 
+/// Describes the versioning state of an Amazon S3 bucket. For more information,
+/// see
+/// [PUT Bucket versioning](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTVersioningStatus.html)
+/// in the _Amazon Simple Storage Service API Reference_.
 class VersioningConfiguration {
   /// Specifies whether MFA delete is enabled in the bucket versioning
   /// configuration. This element is only returned if the bucket has been
@@ -5448,6 +5589,7 @@ class VersioningConfiguration {
   });
 }
 
+/// Specifies website configuration parameters for an Amazon S3 bucket.
 class WebsiteConfiguration {
   /// The name of the error document for the website.
   final ErrorDocument errorDocument;

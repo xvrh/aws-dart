@@ -11,12 +11,11 @@ import 'dart:typed_data';
 /// device (Registry), configure logging, and create and manage policies and
 /// credentials to authenticate devices.
 ///
-/// For more information about how AWS IoT works, see the [Developer
-/// Guide](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-how-it-works.html).
+/// For more information about how AWS IoT works, see the
+/// [Developer Guide](https://docs.aws.amazon.com/iot/latest/developerguide/aws-iot-how-it-works.html).
 ///
 /// For information about how to use the credentials provider for AWS IoT, see
-/// [Authorizing Direct Calls to AWS
-/// Services](https://docs.aws.amazon.com/iot/latest/developerguide/authorizing-direct-aws.html).
+/// [Authorizing Direct Calls to AWS Services](https://docs.aws.amazon.com/iot/latest/developerguide/authorizing-direct-aws.html).
 class IotApi {
   /// Accepts a pending certificate transfer. The default state of the
   /// certificate is INACTIVE.
@@ -209,11 +208,10 @@ class IotApi {
   /// canceled.
   ///
   /// [force]: (Optional) If `true` the job execution will be canceled if it has
-  /// status IN\_PROGRESS or QUEUED, otherwise the job execution will be
-  /// canceled only if it has status QUEUED. If you attempt to cancel a job
-  /// execution that is IN\_PROGRESS, and you do not set `force` to `true`, then
-  /// an `InvalidStateTransitionException` will be thrown. The default is
-  /// `false`.
+  /// status IN_PROGRESS or QUEUED, otherwise the job execution will be canceled
+  /// only if it has status QUEUED. If you attempt to cancel a job execution
+  /// that is IN_PROGRESS, and you do not set `force` to `true`, then an
+  /// `InvalidStateTransitionException` will be thrown. The default is `false`.
   ///
   /// Canceling a job execution which is "IN_PROGRESS", will cause the device to
   /// be unable to update the job execution status. Use caution and ensure that
@@ -314,13 +312,13 @@ class IotApi {
   /// On Windows PowerShell, the command to create certificates for all CSRs in
   /// my-csr-directory is:
   ///
-  /// \> ls -Name my-csr-directory | %{aws iot create-certificate-from-csr
+  /// > ls -Name my-csr-directory | %{aws iot create-certificate-from-csr
   /// --certificate-signing-request file://my-csr-directory/$_}
   ///
   /// On a Windows command prompt, the command to create certificates for all
   /// CSRs in my-csr-directory is:
   ///
-  /// \> forfiles /p my-csr-directory /c "cmd /c aws iot
+  /// > forfiles /p my-csr-directory /c "cmd /c aws iot
   /// create-certificate-from-csr --certificate-signing-request file://@path"
   ///
   /// [certificateSigningRequest]: The certificate signing request (CSR).
@@ -346,8 +344,8 @@ class IotApi {
   ///
   /// [queryString]: The dynamic thing group search query string.
   ///
-  /// See [Query
-  /// Syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html)
+  /// See
+  /// [Query Syntax](https://docs.aws.amazon.com/iot/latest/developerguide/query-syntax.html)
   /// for information about query string syntax.
   ///
   /// [queryVersion]: The dynamic thing group query version.
@@ -675,7 +673,7 @@ class IotApi {
   /// [attributePayload]: The attribute payload, which consists of up to three
   /// name/value pairs in a JSON document. For example:
   ///
-  ///  `{\\"attributes\\":{\\"string1\\":\\"string2\\"}}`
+  ///  `{"attributes":{"string1":"string2"}}`
   ///
   /// [billingGroupName]: The name of the billing group the thing will be added
   /// to.
@@ -817,12 +815,12 @@ class IotApi {
   ///
   /// Deleting a job may take time, depending on the number of job executions
   /// created for the job and various other factors. While the job is being
-  /// deleted, the status of the job will be shown as "DELETION\_IN\_PROGRESS".
+  /// deleted, the status of the job will be shown as "DELETION_IN_PROGRESS".
   /// Attempting to delete or cancel a job whose status is already
-  /// "DELETION\_IN\_PROGRESS" will result in an error.
+  /// "DELETION_IN_PROGRESS" will result in an error.
   ///
-  /// Only 10 jobs may have status "DELETION\_IN\_PROGRESS" at the same time, or
-  /// a LimitExceededException will occur.
+  /// Only 10 jobs may have status "DELETION_IN_PROGRESS" at the same time, or a
+  /// LimitExceededException will occur.
   ///
   /// [jobId]: The ID of the job to be deleted.
   ///
@@ -1106,17 +1104,17 @@ class IotApi {
   ///
   /// [endpointType]: The endpoint type. Valid endpoint types include:
   ///
-  /// *    `iot:Data` \- Returns a VeriSign signed data endpoint.
+  /// *    `iot:Data` - Returns a VeriSign signed data endpoint.
   ///
   ///
-  /// *    `iot:Data-ATS` \- Returns an ATS signed data endpoint.
+  /// *    `iot:Data-ATS` - Returns an ATS signed data endpoint.
   ///
   ///
-  /// *    `iot:CredentialProvider` \- Returns an AWS IoT credentials provider
+  /// *    `iot:CredentialProvider` - Returns an AWS IoT credentials provider
   /// API endpoint.
   ///
   ///
-  /// *    `iot:Jobs` \- Returns an AWS IoT device management Jobs API endpoint.
+  /// *    `iot:Jobs` - Returns an AWS IoT device management Jobs API endpoint.
   Future<DescribeEndpointResponse> describeEndpoint(
       {String endpointType}) async {
     return DescribeEndpointResponse.fromJson({});
@@ -1527,7 +1525,7 @@ class IotApi {
   /// [endTime]: The end of the time period.
   ///
   /// [taskType]: A filter to limit the output to the specified type of audit:
-  /// can be one of "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_\_AUDIT_TASK".
+  /// can be one of "ON_DEMAND_AUDIT_TASK" or "SCHEDULED__AUDIT_TASK".
   ///
   /// [taskStatus]: A filter to limit the output to audits with the specified
   /// completion status: can be one of "IN_PROGRESS", "COMPLETED", "FAILED", or
@@ -1781,8 +1779,8 @@ class IotApi {
   }
 
   /// Lists the policies attached to the specified principal. If you use an
-  /// Cognito identity, the ID must be in [AmazonCognito Identity
-  /// format](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetCredentialsForIdentity.html#API_GetCredentialsForIdentity_RequestSyntax).
+  /// Cognito identity, the ID must be in
+  /// [AmazonCognito Identity format](https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_GetCredentialsForIdentity.html#API_GetCredentialsForIdentity_RequestSyntax).
   ///
   ///  **Note:** This API is deprecated. Please use ListAttachedPolicies
   /// instead.
@@ -2169,12 +2167,12 @@ class IotApi {
 
   /// Provisions a thing.
   ///
-  /// [templateBody]: The provisioning template. See [Programmatic
-  /// Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html)
+  /// [templateBody]: The provisioning template. See
+  /// [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html)
   /// for more information.
   ///
-  /// [parameters]: The parameters for provisioning a thing. See [Programmatic
-  /// Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html)
+  /// [parameters]: The parameters for provisioning a thing. See
+  /// [Programmatic Provisioning](https://docs.aws.amazon.com/iot/latest/developerguide/programmatic-provisioning.html)
   /// for more information.
   Future<RegisterThingResponse> registerThing(String templateBody,
       {Map<String, String> parameters}) async {
@@ -2581,8 +2579,8 @@ class IotApi {
   ///
   /// [newStatus]: The new status.
   ///
-  ///  **Note:** Setting the status to PENDING\_TRANSFER will result in an
-  /// exception being thrown. PENDING\_TRANSFER is a status used internally by
+  ///  **Note:** Setting the status to PENDING_TRANSFER will result in an
+  /// exception being thrown. PENDING_TRANSFER is a status used internally by
   /// AWS IoT. It is not intended for developer use.
   ///
   ///  **Note:** The status value REGISTER_INACTIVE is deprecated and should not
@@ -2804,7 +2802,7 @@ class IotApi {
   /// [attributePayload]: A list of thing attributes, a JSON string containing
   /// name-value pairs. For example:
   ///
-  ///  `{\\"attributes\\":{\\"name1\\":\\"value2\\"}}`
+  ///  `{"attributes":{"name1":"value2"}}`
   ///
   /// This data is used to add new attributes or update existing attributes.
   ///
@@ -2869,6 +2867,7 @@ class IotApi {
   }
 }
 
+/// Details of abort criteria to abort the job.
 class AbortConfig {
   /// The list of abort criteria to define rules to abort the job.
   final List<AbortCriteria> criteriaList;
@@ -2879,6 +2878,7 @@ class AbortConfig {
   static AbortConfig fromJson(Map<String, dynamic> json) => AbortConfig();
 }
 
+/// Details of abort criteria to define rules to abort the job.
 class AbortCriteria {
   /// The type of job execution failure to define a rule to initiate a job
   /// abort.
@@ -2906,6 +2906,7 @@ class AbortCriteria {
   static AbortCriteria fromJson(Map<String, dynamic> json) => AbortCriteria();
 }
 
+/// Describes the actions associated with a rule.
 class Action {
   /// Write to a DynamoDB table.
   final DynamoDBAction dynamoDB;
@@ -2978,6 +2979,8 @@ class Action {
   static Action fromJson(Map<String, dynamic> json) => Action();
 }
 
+/// Information about an active Device Defender security profile behavior
+/// violation.
 class ActiveViolation {
   /// The ID of the active violation.
   final String violationId;
@@ -3026,6 +3029,8 @@ class AddThingToThingGroupResponse {
       AddThingToThingGroupResponse();
 }
 
+/// Parameters used when defining a mitigation action that move a set of things
+/// to a thing group.
 class AddThingsToThingGroupParams {
   /// The list of groups to which you want to add the things that triggered the
   /// mitigation action. You can add a thing to a maximum of 10 groups, but you
@@ -3045,6 +3050,7 @@ class AddThingsToThingGroupParams {
       AddThingsToThingGroupParams();
 }
 
+/// A structure containing the alert target ARN and the role ARN.
 class AlertTarget {
   /// The ARN of the notification target to which alerts are sent.
   final String alertTargetArn;
@@ -3060,6 +3066,7 @@ class AlertTarget {
   static AlertTarget fromJson(Map<String, dynamic> json) => AlertTarget();
 }
 
+/// Contains information that allowed the authorization.
 class Allowed {
   /// A list of policies that allowed the authentication.
   final List<Policy> policies;
@@ -3095,17 +3102,19 @@ class AttachSecurityProfileResponse {
       AttachSecurityProfileResponse();
 }
 
+/// The output from the AttachThingPrincipal operation.
 class AttachThingPrincipalResponse {
   AttachThingPrincipalResponse();
   static AttachThingPrincipalResponse fromJson(Map<String, dynamic> json) =>
       AttachThingPrincipalResponse();
 }
 
+/// The attribute payload.
 class AttributePayload {
   /// A JSON string containing up to three key-value pair in JSON format. For
   /// example:
   ///
-  ///  `{\\"attributes\\":{\\"string1\\":\\"string2\\"}}`
+  ///  `{"attributes":{"string1":"string2"}}`
   final Map<String, String> attributes;
 
   /// Specifies whether the list of attributes provided in the
@@ -3128,6 +3137,7 @@ class AttributePayload {
       AttributePayload();
 }
 
+/// Which audit checks are enabled and disabled for this account.
 class AuditCheckConfiguration {
   /// True if this audit check is enabled for this account.
   final bool enabled;
@@ -3139,10 +3149,11 @@ class AuditCheckConfiguration {
       AuditCheckConfiguration();
 }
 
+/// Information about the audit check.
 class AuditCheckDetails {
-  /// The completion status of this check. One of "IN\_PROGRESS",
-  /// "WAITING\_FOR\_DATA\_COLLECTION", "CANCELED", "COMPLETED\_COMPLIANT",
-  /// "COMPLETED\_NON_COMPLIANT", or "FAILED".
+  /// The completion status of this check. One of "IN_PROGRESS",
+  /// "WAITING_FOR_DATA_COLLECTION", "CANCELED", "COMPLETED_COMPLIANT",
+  /// "COMPLETED_NON_COMPLIANT", or "FAILED".
   final String checkRunStatus;
 
   /// True if the check is complete and found all resources compliant.
@@ -3155,7 +3166,7 @@ class AuditCheckDetails {
   final BigInt nonCompliantResourcesCount;
 
   /// The code of any error encountered when this check is performed during this
-  /// audit. One of "INSUFFICIENT\_PERMISSIONS" or "AUDIT\_CHECK_DISABLED".
+  /// audit. One of "INSUFFICIENT_PERMISSIONS" or "AUDIT_CHECK_DISABLED".
   final String errorCode;
 
   /// The message associated with any error encountered when this check is
@@ -3174,6 +3185,7 @@ class AuditCheckDetails {
       AuditCheckDetails();
 }
 
+/// The findings (results) of the audit.
 class AuditFinding {
   /// A unique identifier for this set of audit findings. This identifier is
   /// used to apply mitigation tasks to one or more sets of findings.
@@ -3221,6 +3233,8 @@ class AuditFinding {
   static AuditFinding fromJson(Map<String, dynamic> json) => AuditFinding();
 }
 
+/// Returned by ListAuditMitigationActionsTask, this object contains information
+/// that describes a mitigation action that has been started.
 class AuditMitigationActionExecutionMetadata {
   /// The unique identifier for the task that applies the mitigation action.
   final String taskId;
@@ -3268,6 +3282,8 @@ class AuditMitigationActionExecutionMetadata {
       AuditMitigationActionExecutionMetadata();
 }
 
+/// Information about an audit mitigation actions task that is returned by
+/// `ListAuditMitigationActionsTasks`.
 class AuditMitigationActionsTaskMetadata {
   /// The unique identifier for the task.
   final String taskId;
@@ -3288,6 +3304,9 @@ class AuditMitigationActionsTaskMetadata {
       AuditMitigationActionsTaskMetadata();
 }
 
+/// Used in MitigationActionParams, this information identifies the target
+/// findings to which the mitigation actions are applied. Only one entry
+/// appears.
 class AuditMitigationActionsTaskTarget {
   /// If the task will apply a mitigation action to findings from a specific
   /// audit, this value uniquely identifies the audit.
@@ -3311,6 +3330,7 @@ class AuditMitigationActionsTaskTarget {
       AuditMitigationActionsTaskTarget();
 }
 
+/// Information about the targets to which audit notifications are sent.
 class AuditNotificationTarget {
   /// The ARN of the target (SNS topic) to which audit notifications are sent.
   final String targetArn;
@@ -3331,6 +3351,7 @@ class AuditNotificationTarget {
       AuditNotificationTarget();
 }
 
+/// The audits that were performed.
 class AuditTaskMetadata {
   /// The ID of this audit.
   final String taskId;
@@ -3339,8 +3360,8 @@ class AuditTaskMetadata {
   /// "CANCELED".
   final String taskStatus;
 
-  /// The type of this audit. One of "ON\_DEMAND\_AUDIT\_TASK" or
-  /// "SCHEDULED\_AUDIT_TASK".
+  /// The type of this audit. One of "ON_DEMAND_AUDIT_TASK" or
+  /// "SCHEDULED_AUDIT_TASK".
   final String taskType;
 
   AuditTaskMetadata({
@@ -3352,6 +3373,7 @@ class AuditTaskMetadata {
       AuditTaskMetadata();
 }
 
+/// A collection of authorization information.
 class AuthInfo {
   /// The type of action for which the principal is being authorized.
   final String actionType;
@@ -3367,6 +3389,7 @@ class AuthInfo {
   static AuthInfo fromJson(Map<String, dynamic> json) => AuthInfo();
 }
 
+/// The authorizer result.
 class AuthResult {
   /// Authorization information.
   final AuthInfo authInfo;
@@ -3395,6 +3418,7 @@ class AuthResult {
   static AuthResult fromJson(Map<String, dynamic> json) => AuthResult();
 }
 
+/// The authorizer description.
 class AuthorizerDescription {
   /// The authorizer name.
   final String authorizerName;
@@ -3435,6 +3459,7 @@ class AuthorizerDescription {
       AuthorizerDescription();
 }
 
+/// The authorizer summary.
 class AuthorizerSummary {
   /// The authorizer name.
   final String authorizerName;
@@ -3450,6 +3475,7 @@ class AuthorizerSummary {
       AuthorizerSummary();
 }
 
+/// Configuration for the rollout of OTA updates.
 class AwsJobExecutionsRolloutConfig {
   /// The maximum number of OTA update job executions started per minute.
   final int maximumPerMinute;
@@ -3461,6 +3487,7 @@ class AwsJobExecutionsRolloutConfig {
       AwsJobExecutionsRolloutConfig();
 }
 
+/// A Device Defender security profile behavior.
 class Behavior {
   /// The name you have given to the behavior.
   final String name;
@@ -3480,6 +3507,7 @@ class Behavior {
   static Behavior fromJson(Map<String, dynamic> json) => Behavior();
 }
 
+/// The criteria by which the behavior is determined to be normal.
 class BehaviorCriteria {
   /// The operator that relates the thing measured (`metric`) to the criteria
   /// (containing a `value` or `statisticalThreshold`).
@@ -3490,7 +3518,7 @@ class BehaviorCriteria {
 
   /// Use this to specify the time duration over which the behavior is
   /// evaluated, for those criteria which have a time dimension (for example,
-  /// `NUM\_MESSAGES\_SENT`). For a `statisticalThreshhold` metric comparison,
+  /// `NUM_MESSAGES_SENT`). For a `statisticalThreshhold` metric comparison,
   /// measurements from all devices are accumulated over this time duration
   /// before being used to calculate percentiles, and later, measurements from
   /// an individual device are also accumulated over this time duration before
@@ -3524,6 +3552,7 @@ class BehaviorCriteria {
       BehaviorCriteria();
 }
 
+/// Additional information about the billing group.
 class BillingGroupMetadata {
   /// The date the billing group was created.
   final DateTime creationDate;
@@ -3535,6 +3564,7 @@ class BillingGroupMetadata {
       BillingGroupMetadata();
 }
 
+/// The properties of a billing group.
 class BillingGroupProperties {
   /// The description of the billing group.
   final String billingGroupDescription;
@@ -3546,6 +3576,7 @@ class BillingGroupProperties {
       BillingGroupProperties();
 }
 
+/// A CA certificate.
 class CACertificate {
   /// The ARN of the CA certificate.
   final String certificateArn;
@@ -3570,6 +3601,7 @@ class CACertificate {
   static CACertificate fromJson(Map<String, dynamic> json) => CACertificate();
 }
 
+/// Describes a CA certificate.
 class CACertificateDescription {
   /// The CA certificate ARN.
   final String certificateArn;
@@ -3654,6 +3686,7 @@ class CancelJobResponse {
       CancelJobResponse();
 }
 
+/// Information about a certificate.
 class Certificate {
   /// The ARN of the certificate.
   final String certificateArn;
@@ -3679,6 +3712,7 @@ class Certificate {
   static Certificate fromJson(Map<String, dynamic> json) => Certificate();
 }
 
+/// Describes a certificate.
 class CertificateDescription {
   /// The ARN of the certificate.
   final String certificateArn;
@@ -3738,6 +3772,7 @@ class CertificateDescription {
       CertificateDescription();
 }
 
+/// When the certificate is valid.
 class CertificateValidity {
   /// The certificate is not valid before this date.
   final DateTime notBefore;
@@ -3759,6 +3794,7 @@ class ClearDefaultAuthorizerResponse {
       ClearDefaultAuthorizerResponse();
 }
 
+/// Describes an action that updates a CloudWatch alarm.
 class CloudwatchAlarmAction {
   /// The IAM role that allows access to the CloudWatch alarm.
   final String roleArn;
@@ -3783,6 +3819,7 @@ class CloudwatchAlarmAction {
       CloudwatchAlarmAction();
 }
 
+/// Describes an action that captures a CloudWatch metric.
 class CloudwatchMetricAction {
   /// The IAM role that allows access to the CloudWatch metric.
   final String roleArn;
@@ -3796,13 +3833,13 @@ class CloudwatchMetricAction {
   /// The CloudWatch metric value.
   final String metricValue;
 
-  /// The [metric
-  /// unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit)
+  /// The
+  /// [metric unit](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#Unit)
   /// supported by CloudWatch.
   final String metricUnit;
 
-  /// An optional [Unix
-  /// timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp).
+  /// An optional
+  /// [Unix timestamp](https://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/cloudwatch_concepts.html#about_timestamp).
   final String metricTimestamp;
 
   CloudwatchMetricAction({
@@ -3817,6 +3854,7 @@ class CloudwatchMetricAction {
       CloudwatchMetricAction();
 }
 
+/// Describes the method to use when code signing a file.
 class CodeSigning {
   /// The ID of the AWSSignerJob which was created to sign the file.
   final String awsSignerJobId;
@@ -3835,6 +3873,7 @@ class CodeSigning {
   static CodeSigning fromJson(Map<String, dynamic> json) => CodeSigning();
 }
 
+/// Describes the certificate chain being used when code signing a file.
 class CodeSigningCertificateChain {
   /// The name of the certificate.
   final String certificateName;
@@ -3851,6 +3890,7 @@ class CodeSigningCertificateChain {
       CodeSigningCertificateChain();
 }
 
+/// Describes the signature for a file.
 class CodeSigningSignature {
   /// A base64 encoded binary representation of the code signing signature.
   final Uint8List inlineDocument;
@@ -3862,6 +3902,7 @@ class CodeSigningSignature {
       CodeSigningSignature();
 }
 
+/// Configuration.
 class Configuration {
   /// True to enable the configuration.
   final bool enabled;
@@ -3906,6 +3947,7 @@ class CreateBillingGroupResponse {
       CreateBillingGroupResponse();
 }
 
+/// The output from the CreateCertificateFromCsr operation.
 class CreateCertificateFromCsrResponse {
   /// The Amazon Resource Name (ARN) of the certificate. You can use the ARN as
   /// a principal for policy operations.
@@ -3977,6 +4019,7 @@ class CreateJobResponse {
       CreateJobResponse();
 }
 
+/// The output of the CreateKeysAndCertificate operation.
 class CreateKeysAndCertificateResponse {
   /// The ARN of the certificate.
   final String certificateArn;
@@ -4043,6 +4086,7 @@ class CreateOtaUpdateResponse {
       CreateOtaUpdateResponse();
 }
 
+/// The output from the CreatePolicy operation.
 class CreatePolicyResponse {
   /// The policy name.
   final String policyName;
@@ -4066,6 +4110,7 @@ class CreatePolicyResponse {
       CreatePolicyResponse();
 }
 
+/// The output of the CreatePolicyVersion operation.
 class CreatePolicyVersionResponse {
   /// The policy ARN.
   final String policyArn;
@@ -4172,6 +4217,7 @@ class CreateThingGroupResponse {
       CreateThingGroupResponse();
 }
 
+/// The output of the CreateThing operation.
 class CreateThingResponse {
   /// The name of the new thing.
   final String thingName;
@@ -4191,6 +4237,7 @@ class CreateThingResponse {
       CreateThingResponse();
 }
 
+/// The output of the CreateThingType operation.
 class CreateThingTypeResponse {
   /// The name of the thing type.
   final String thingTypeName;
@@ -4210,6 +4257,7 @@ class CreateThingTypeResponse {
       CreateThingTypeResponse();
 }
 
+/// Describes a custom method used to code sign a file.
 class CustomCodeSigning {
   /// The signature for the file.
   final CodeSigningSignature signature;
@@ -4252,6 +4300,7 @@ class DeleteBillingGroupResponse {
       DeleteBillingGroupResponse();
 }
 
+/// The output for the DeleteCACertificate operation.
 class DeleteCACertificateResponse {
   DeleteCACertificateResponse();
   static DeleteCACertificateResponse fromJson(Map<String, dynamic> json) =>
@@ -4276,6 +4325,7 @@ class DeleteOtaUpdateResponse {
       DeleteOtaUpdateResponse();
 }
 
+/// The output for the DeleteRegistrationCode operation.
 class DeleteRegistrationCodeResponse {
   DeleteRegistrationCodeResponse();
   static DeleteRegistrationCodeResponse fromJson(Map<String, dynamic> json) =>
@@ -4312,18 +4362,21 @@ class DeleteThingGroupResponse {
       DeleteThingGroupResponse();
 }
 
+/// The output of the DeleteThing operation.
 class DeleteThingResponse {
   DeleteThingResponse();
   static DeleteThingResponse fromJson(Map<String, dynamic> json) =>
       DeleteThingResponse();
 }
 
+/// The output for the DeleteThingType operation.
 class DeleteThingTypeResponse {
   DeleteThingTypeResponse();
   static DeleteThingTypeResponse fromJson(Map<String, dynamic> json) =>
       DeleteThingTypeResponse();
 }
 
+/// Contains information that denied the authorization.
 class Denied {
   /// Information that implicitly denies the authorization. When a policy
   /// doesn't explicitly deny or allow an action on a resource it is considered
@@ -4340,6 +4393,7 @@ class Denied {
   static Denied fromJson(Map<String, dynamic> json) => Denied();
 }
 
+/// The output for the DeprecateThingType operation.
 class DeprecateThingTypeResponse {
   DeprecateThingTypeResponse();
   static DeprecateThingTypeResponse fromJson(Map<String, dynamic> json) =>
@@ -4428,7 +4482,7 @@ class DescribeAuditTaskResponse {
   /// "CANCELED".
   final String taskStatus;
 
-  /// The type of audit: "ON\_DEMAND\_AUDIT\_TASK" or "SCHEDULED\_AUDIT_TASK".
+  /// The type of audit: "ON_DEMAND_AUDIT_TASK" or "SCHEDULED_AUDIT_TASK".
   final String taskType;
 
   /// The time the audit started.
@@ -4497,6 +4551,7 @@ class DescribeBillingGroupResponse {
       DescribeBillingGroupResponse();
 }
 
+/// The output from the DescribeCACertificate operation.
 class DescribeCACertificateResponse {
   /// The CA certificate description.
   final CACertificateDescription certificateDescription;
@@ -4512,6 +4567,7 @@ class DescribeCACertificateResponse {
       DescribeCACertificateResponse();
 }
 
+/// The output of the DescribeCertificate operation.
 class DescribeCertificateResponse {
   /// The description of the certificate.
   final CertificateDescription certificateDescription;
@@ -4535,6 +4591,7 @@ class DescribeDefaultAuthorizerResponse {
       DescribeDefaultAuthorizerResponse();
 }
 
+/// The output from the DescribeEndpoint operation.
 class DescribeEndpointResponse {
   /// The endpoint. The format of the endpoint is as follows:
   /// _identifier_.iot._region_.amazonaws.com.
@@ -4579,13 +4636,13 @@ class DescribeIndexResponse {
   ///
   /// *   REGISTRY – Your thing index contains only registry data.
   ///
-  /// *   REGISTRY\_AND\_SHADOW - Your thing index contains registry data and
+  /// *   REGISTRY_AND_SHADOW - Your thing index contains registry data and
   /// shadow data.
   ///
-  /// *   REGISTRY\_AND\_CONNECTIVITY_STATUS - Your thing index contains
-  /// registry data and thing connectivity status data.
+  /// *   REGISTRY_AND_CONNECTIVITY_STATUS - Your thing index contains registry
+  /// data and thing connectivity status data.
   ///
-  /// *   REGISTRY\_AND\_SHADOW\_AND\_CONNECTIVITY_STATUS - Your thing index
+  /// *   REGISTRY_AND_SHADOW_AND_CONNECTIVITY_STATUS - Your thing index
   /// contains registry data, shadow data, and thing connectivity status data.
   final String schema;
 
@@ -4878,6 +4935,7 @@ class DescribeThingRegistrationTaskResponse {
       DescribeThingRegistrationTaskResponse();
 }
 
+/// The output from the DescribeThing operation.
 class DescribeThingResponse {
   /// The default client ID.
   final String defaultClientId;
@@ -4923,6 +4981,7 @@ class DescribeThingResponse {
       DescribeThingResponse();
 }
 
+/// The output for the DescribeThingType operation.
 class DescribeThingTypeResponse {
   /// The name of the thing type.
   final String thingTypeName;
@@ -4953,6 +5012,7 @@ class DescribeThingTypeResponse {
       DescribeThingTypeResponse();
 }
 
+/// Describes the location of the updated firmware.
 class Destination {
   /// Describes the location in S3 of the updated firmware.
   final S3Destination s3Destination;
@@ -4969,12 +5029,31 @@ class DetachSecurityProfileResponse {
       DetachSecurityProfileResponse();
 }
 
+/// The output from the DetachThingPrincipal operation.
 class DetachThingPrincipalResponse {
   DetachThingPrincipalResponse();
   static DetachThingPrincipalResponse fromJson(Map<String, dynamic> json) =>
       DetachThingPrincipalResponse();
 }
 
+/// Describes an action to write to a DynamoDB table.
+///
+/// The `tableName`, `hashKeyField`, and `rangeKeyField` values must match the
+/// values used when you created the table.
+///
+/// The `hashKeyValue` and `rangeKeyvalue` fields use a substitution template
+/// syntax. These templates provide data at runtime. The syntax is as follows:
+/// ${_sql-expression_}.
+///
+/// You can specify any valid expression in a WHERE or SELECT clause, including
+/// JSON properties, comparisons, calculations, and functions. For example, the
+/// following field uses the third level of the topic:
+///
+///  `"hashKeyValue": "${topic(3)}"`
+///
+/// The following field uses the timestamp:
+///
+///  `"rangeKeyValue": "${timestamp()}"`
 class DynamoDBAction {
   /// The name of the DynamoDB table.
   final String tableName;
@@ -5023,6 +5102,10 @@ class DynamoDBAction {
   static DynamoDBAction fromJson(Map<String, dynamic> json) => DynamoDBAction();
 }
 
+/// Describes an action to write to a DynamoDB table.
+///
+/// This DynamoDB action writes each attribute in the message payload into it's
+/// own column in the DynamoDB table.
 class DynamodBv2Action {
   /// The ARN of the IAM role that grants access to the DynamoDB table.
   final String roleArn;
@@ -5045,6 +5128,7 @@ class DynamodBv2Action {
       DynamodBv2Action();
 }
 
+/// The policy that has the effect on the authorization results.
 class EffectivePolicy {
   /// The policy name.
   final String policyName;
@@ -5064,6 +5148,8 @@ class EffectivePolicy {
       EffectivePolicy();
 }
 
+/// Describes an action that writes data to an Amazon Elasticsearch Service
+/// domain.
 class ElasticsearchAction {
   /// The IAM role ARN that has access to Elasticsearch.
   final String roleArn;
@@ -5091,6 +5177,8 @@ class ElasticsearchAction {
       ElasticsearchAction();
 }
 
+/// Parameters used when defining a mitigation action that enable AWS IoT
+/// logging.
 class EnableIotLoggingParams {
   /// The ARN of the IAM role used for logging.
   final String roleArnForLogging;
@@ -5106,6 +5194,7 @@ class EnableIotLoggingParams {
       EnableIotLoggingParams();
 }
 
+/// Error information.
 class ErrorInfo {
   /// The error code.
   final String code;
@@ -5120,6 +5209,7 @@ class ErrorInfo {
   static ErrorInfo fromJson(Map<String, dynamic> json) => ErrorInfo();
 }
 
+/// Information that explicitly denies authorization.
 class ExplicitDeny {
   /// The policies that denied the authorization.
   final List<Policy> policies;
@@ -5130,6 +5220,7 @@ class ExplicitDeny {
   static ExplicitDeny fromJson(Map<String, dynamic> json) => ExplicitDeny();
 }
 
+/// Allows you to create an exponential rate of rollout for a job.
 class ExponentialRolloutRate {
   /// The minimum number of things that will be notified of a pending job, per
   /// minute at the start of job rollout. This parameter allows you to define
@@ -5154,6 +5245,7 @@ class ExponentialRolloutRate {
       ExponentialRolloutRate();
 }
 
+/// The location of the OTA update.
 class FileLocation {
   /// The stream that contains the OTA update.
   final Stream stream;
@@ -5168,6 +5260,7 @@ class FileLocation {
   static FileLocation fromJson(Map<String, dynamic> json) => FileLocation();
 }
 
+/// Describes an action that writes data to an Amazon Kinesis Firehose stream.
 class FirehoseAction {
   /// The IAM role that grants access to the Amazon Kinesis Firehose stream.
   final String roleArn;
@@ -5176,8 +5269,8 @@ class FirehoseAction {
   final String deliveryStreamName;
 
   /// A character separator that will be used to separate records written to the
-  /// Firehose stream. Valid values are: '\\n' (newline), '\\t' (tab), '\\r\\n'
-  /// (Windows newline), ',' (comma).
+  /// Firehose stream. Valid values are: 'n' (newline), 't' (tab), 'rn' (Windows
+  /// newline), ',' (comma).
   final String separator;
 
   FirehoseAction({
@@ -5225,6 +5318,7 @@ class GetJobDocumentResponse {
       GetJobDocumentResponse();
 }
 
+/// The output from the GetLoggingOptions operation.
 class GetLoggingOptionsResponse {
   /// The ARN of the IAM role that grants access.
   final String roleArn;
@@ -5251,6 +5345,7 @@ class GetOtaUpdateResponse {
       GetOtaUpdateResponse();
 }
 
+/// The output from the GetPolicy operation.
 class GetPolicyResponse {
   /// The policy name.
   final String policyName;
@@ -5286,6 +5381,7 @@ class GetPolicyResponse {
       GetPolicyResponse();
 }
 
+/// The output from the GetPolicyVersion operation.
 class GetPolicyVersionResponse {
   /// The policy ARN.
   final String policyArn;
@@ -5325,6 +5421,7 @@ class GetPolicyVersionResponse {
       GetPolicyVersionResponse();
 }
 
+/// The output from the GetRegistrationCode operation.
 class GetRegistrationCodeResponse {
   /// The CA certificate registration code.
   final String registrationCode;
@@ -5348,6 +5445,7 @@ class GetStatisticsResponse {
       GetStatisticsResponse();
 }
 
+/// The output from the GetTopicRule operation.
 class GetTopicRuleResponse {
   /// The rule ARN.
   final String ruleArn;
@@ -5382,6 +5480,7 @@ class GetV2LoggingOptionsResponse {
       GetV2LoggingOptionsResponse();
 }
 
+/// The name and ARN of a group.
 class GroupNameAndArn {
   /// The group name.
   final String groupName;
@@ -5397,6 +5496,9 @@ class GroupNameAndArn {
       GroupNameAndArn();
 }
 
+/// Information that implicitly denies authorization. When policy doesn't
+/// explicitly deny or allow an action on a resource it is considered an
+/// implicit deny.
 class ImplicitDeny {
   /// Policies that don't contain a matching allow or deny statement for the
   /// specified action on the specified resource.
@@ -5408,6 +5510,7 @@ class ImplicitDeny {
   static ImplicitDeny fromJson(Map<String, dynamic> json) => ImplicitDeny();
 }
 
+/// Sends message data to an AWS IoT Analytics channel.
 class IotAnalyticsAction {
   /// (deprecated) The ARN of the IoT Analytics channel to which message data
   /// will be sent.
@@ -5430,11 +5533,12 @@ class IotAnalyticsAction {
       IotAnalyticsAction();
 }
 
+/// Sends an input to an AWS IoT Events detector.
 class IotEventsAction {
   /// The name of the AWS IoT Events input.
   final String inputName;
 
-  /// \[Optional\] Use this to ensure that only one input (message) with a given
+  /// [Optional] Use this to ensure that only one input (message) with a given
   /// messageId will be processed by an AWS IoT Events detector.
   final String messageId;
 
@@ -5451,6 +5555,7 @@ class IotEventsAction {
       IotEventsAction();
 }
 
+/// The `Job` object contains details about a job.
 class Job {
   /// An ARN identifying the job with format
   /// "arn:aws:iot:region:account:job/jobId".
@@ -5468,7 +5573,7 @@ class Job {
   final String targetSelection;
 
   /// The status of the job, one of `IN_PROGRESS`, `CANCELED`,
-  /// `DELETION\_IN\_PROGRESS` or `COMPLETED`.
+  /// `DELETION_IN_PROGRESS` or `COMPLETED`.
   final String status;
 
   /// Will be `true` if the job was canceled with the optional `force` parameter
@@ -5537,12 +5642,14 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// The job execution object represents the execution of a job on a particular
+/// device.
 class JobExecution {
   /// The unique identifier you assigned to the job when it was created.
   final String jobId;
 
-  /// The status of the job execution (IN\_PROGRESS, QUEUED, FAILED, SUCCEEDED,
-  /// TIMED\_OUT, CANCELED, or REJECTED).
+  /// The status of the job execution (IN_PROGRESS, QUEUED, FAILED, SUCCEEDED,
+  /// TIMED_OUT, CANCELED, or REJECTED).
   final String status;
 
   /// Will be `true` if the job execution was canceled with the optional `force`
@@ -5599,6 +5706,7 @@ class JobExecution {
   static JobExecution fromJson(Map<String, dynamic> json) => JobExecution();
 }
 
+/// Details of the job execution status.
 class JobExecutionStatusDetails {
   /// The job execution status.
   final Map<String, String> detailsMap;
@@ -5610,6 +5718,7 @@ class JobExecutionStatusDetails {
       JobExecutionStatusDetails();
 }
 
+/// The job execution summary.
 class JobExecutionSummary {
   /// The status of the job execution.
   final String status;
@@ -5640,6 +5749,7 @@ class JobExecutionSummary {
       JobExecutionSummary();
 }
 
+/// Contains a summary of information about job executions for a specific job.
 class JobExecutionSummaryForJob {
   /// The ARN of the thing on which the job execution is running.
   final String thingArn;
@@ -5655,6 +5765,7 @@ class JobExecutionSummaryForJob {
       JobExecutionSummaryForJob();
 }
 
+/// The job execution summary for a thing.
 class JobExecutionSummaryForThing {
   /// The unique identifier you assigned to this job when it was created.
   final String jobId;
@@ -5670,6 +5781,7 @@ class JobExecutionSummaryForThing {
       JobExecutionSummaryForThing();
 }
 
+/// Allows you to create a staged rollout of a job.
 class JobExecutionsRolloutConfig {
   /// The maximum number of things that will be notified of a pending job, per
   /// minute. This parameter allows you to create a staged rollout.
@@ -5687,6 +5799,7 @@ class JobExecutionsRolloutConfig {
       JobExecutionsRolloutConfig();
 }
 
+/// The job process details.
 class JobProcessDetails {
   /// The target devices to which the job execution is being rolled out. This
   /// value will be null after the job execution has finished rolling out to all
@@ -5734,6 +5847,7 @@ class JobProcessDetails {
       JobProcessDetails();
 }
 
+/// The job summary.
 class JobSummary {
   /// The job ARN.
   final String jobArn;
@@ -5777,6 +5891,7 @@ class JobSummary {
   static JobSummary fromJson(Map<String, dynamic> json) => JobSummary();
 }
 
+/// Describes a key pair.
 class KeyPair {
   /// The public key.
   final String publicKey;
@@ -5791,6 +5906,7 @@ class KeyPair {
   static KeyPair fromJson(Map<String, dynamic> json) => KeyPair();
 }
 
+/// Describes an action to write data to an Amazon Kinesis stream.
 class KinesisAction {
   /// The ARN of the IAM role that grants access to the Amazon Kinesis stream.
   final String roleArn;
@@ -5809,6 +5925,7 @@ class KinesisAction {
   static KinesisAction fromJson(Map<String, dynamic> json) => KinesisAction();
 }
 
+/// Describes an action to invoke a Lambda function.
 class LambdaAction {
   /// The ARN of the Lambda function.
   final String functionArn;
@@ -5839,8 +5956,8 @@ class ListAttachedPoliciesResponse {
   /// The policies.
   final List<Policy> policies;
 
-  /// The token to retrieve the next set of results, or \`\`null\`\` if there
-  /// are no more results.
+  /// The token to retrieve the next set of results, or ``null`` if there are no
+  /// more results.
   final String nextMarker;
 
   ListAttachedPoliciesResponse({
@@ -5947,6 +6064,7 @@ class ListBillingGroupsResponse {
       ListBillingGroupsResponse();
 }
 
+/// The output from the ListCACertificates operation.
 class ListCACertificatesResponse {
   /// The CA certificates registered in your AWS account.
   final List<CACertificate> certificates;
@@ -5962,6 +6080,7 @@ class ListCACertificatesResponse {
       ListCACertificatesResponse();
 }
 
+/// The output of the ListCertificatesByCA operation.
 class ListCertificatesByCAResponse {
   /// The device certificates signed by the specified CA certificate.
   final List<Certificate> certificates;
@@ -5978,6 +6097,7 @@ class ListCertificatesByCAResponse {
       ListCertificatesByCAResponse();
 }
 
+/// The output of the ListCertificates operation.
 class ListCertificatesResponse {
   /// The descriptions of the certificates.
   final List<Certificate> certificates;
@@ -6089,6 +6209,7 @@ class ListOtaUpdatesResponse {
       ListOtaUpdatesResponse();
 }
 
+/// The output from the ListOutgoingCertificates operation.
 class ListOutgoingCertificatesResponse {
   /// The certificates that are being transferred but not yet accepted.
   final List<OutgoingCertificate> outgoingCertificates;
@@ -6104,6 +6225,7 @@ class ListOutgoingCertificatesResponse {
       ListOutgoingCertificatesResponse();
 }
 
+/// The output from the ListPolicies operation.
 class ListPoliciesResponse {
   /// The descriptions of the policies.
   final List<Policy> policies;
@@ -6120,6 +6242,7 @@ class ListPoliciesResponse {
       ListPoliciesResponse();
 }
 
+/// The output from the ListPolicyPrincipals operation.
 class ListPolicyPrincipalsResponse {
   /// The descriptions of the principals.
   final List<String> principals;
@@ -6136,6 +6259,7 @@ class ListPolicyPrincipalsResponse {
       ListPolicyPrincipalsResponse();
 }
 
+/// The output from the ListPolicyVersions operation.
 class ListPolicyVersionsResponse {
   /// The policy versions.
   final List<PolicyVersion> policyVersions;
@@ -6147,6 +6271,7 @@ class ListPolicyVersionsResponse {
       ListPolicyVersionsResponse();
 }
 
+/// The output from the ListPrincipalPolicies operation.
 class ListPrincipalPoliciesResponse {
   /// The policies.
   final List<Policy> policies;
@@ -6163,6 +6288,7 @@ class ListPrincipalPoliciesResponse {
       ListPrincipalPoliciesResponse();
 }
 
+/// The output from the ListPrincipalThings operation.
 class ListPrincipalThingsResponse {
   /// The things.
   final List<String> things;
@@ -6338,6 +6464,7 @@ class ListThingGroupsResponse {
       ListThingGroupsResponse();
 }
 
+/// The output from the ListThingPrincipals operation.
 class ListThingPrincipalsResponse {
   /// The principals associated with the thing.
   final List<String> principals;
@@ -6387,6 +6514,7 @@ class ListThingRegistrationTasksResponse {
       ListThingRegistrationTasksResponse();
 }
 
+/// The output for the ListThingTypes operation.
 class ListThingTypesResponse {
   /// The thing types.
   final List<ThingTypeDefinition> thingTypes;
@@ -6435,6 +6563,7 @@ class ListThingsInThingGroupResponse {
       ListThingsInThingGroupResponse();
 }
 
+/// The output from the ListThings operation.
 class ListThingsResponse {
   /// The things.
   final List<ThingAttribute> things;
@@ -6451,6 +6580,7 @@ class ListThingsResponse {
       ListThingsResponse();
 }
 
+/// The output from the ListTopicRules operation.
 class ListTopicRulesResponse {
   /// The rules.
   final List<TopicRuleListItem> rules;
@@ -6500,6 +6630,7 @@ class ListViolationEventsResponse {
       ListViolationEventsResponse();
 }
 
+/// A log target.
 class LogTarget {
   /// The target type.
   final String targetType;
@@ -6514,6 +6645,7 @@ class LogTarget {
   static LogTarget fromJson(Map<String, dynamic> json) => LogTarget();
 }
 
+/// The target configuration.
 class LogTargetConfiguration {
   /// A log target
   final LogTarget logTarget;
@@ -6529,6 +6661,7 @@ class LogTargetConfiguration {
       LogTargetConfiguration();
 }
 
+/// Describes the logging options payload.
 class LoggingOptionsPayload {
   /// The ARN of the IAM role that grants access.
   final String roleArn;
@@ -6542,6 +6675,7 @@ class LoggingOptionsPayload {
   });
 }
 
+/// The value to be compared with the `metric`.
 class MetricValue {
   /// If the `comparisonOperator` calls for a numeric value, use this to specify
   /// that numeric value to be compared with the `metric`.
@@ -6563,6 +6697,7 @@ class MetricValue {
   static MetricValue fromJson(Map<String, dynamic> json) => MetricValue();
 }
 
+/// Describes which changes should be applied as part of a mitigation action.
 class MitigationAction {
   /// A user-friendly name for the mitigation action.
   final String name;
@@ -6587,6 +6722,8 @@ class MitigationAction {
       MitigationAction();
 }
 
+/// Information that identifies a mitigation action. This information is
+/// returned by ListMitigationActions.
 class MitigationActionIdentifier {
   /// The friendly name of the mitigation action.
   final String actionName;
@@ -6606,6 +6743,9 @@ class MitigationActionIdentifier {
       MitigationActionIdentifier();
 }
 
+/// The set of parameters for this mitigation action. You can specify only one
+/// type of parameter (in other words, you can apply only one action for each
+/// defined mitigation action).
 class MitigationActionParams {
   /// Parameters to define a mitigation action that changes the state of the
   /// device certificate to inactive.
@@ -6645,6 +6785,7 @@ class MitigationActionParams {
       MitigationActionParams();
 }
 
+/// Information about the resource that was noncompliant with the audit check.
 class NonCompliantResource {
   /// The type of the noncompliant resource.
   final String resourceType;
@@ -6664,6 +6805,7 @@ class NonCompliantResource {
       NonCompliantResource();
 }
 
+/// Describes a file to be associated with an OTA update.
 class OtaUpdateFile {
   /// The name of the file.
   final String fileName;
@@ -6690,6 +6832,7 @@ class OtaUpdateFile {
   static OtaUpdateFile fromJson(Map<String, dynamic> json) => OtaUpdateFile();
 }
 
+/// Information about an OTA update.
 class OtaUpdateInfo {
   /// The OTA update ID.
   final String otaUpdateId;
@@ -6758,6 +6901,7 @@ class OtaUpdateInfo {
   static OtaUpdateInfo fromJson(Map<String, dynamic> json) => OtaUpdateInfo();
 }
 
+/// An OTA update summary.
 class OtaUpdateSummary {
   /// The OTA update ID.
   final String otaUpdateId;
@@ -6777,6 +6921,7 @@ class OtaUpdateSummary {
       OtaUpdateSummary();
 }
 
+/// A certificate that has been transferred but not yet accepted.
 class OutgoingCertificate {
   /// The certificate ARN.
   final String certificateArn;
@@ -6808,6 +6953,7 @@ class OutgoingCertificate {
       OutgoingCertificate();
 }
 
+/// Describes an AWS IoT policy.
 class Policy {
   /// The policy name.
   final String policyName;
@@ -6822,6 +6968,7 @@ class Policy {
   static Policy fromJson(Map<String, dynamic> json) => Policy();
 }
 
+/// Describes a policy version.
 class PolicyVersion {
   /// The policy version ID.
   final String versionId;
@@ -6840,6 +6987,7 @@ class PolicyVersion {
   static PolicyVersion fromJson(Map<String, dynamic> json) => PolicyVersion();
 }
 
+/// Information about the version of the policy associated with the resource.
 class PolicyVersionIdentifier {
   /// The name of the policy.
   final String policyName;
@@ -6855,6 +7003,7 @@ class PolicyVersionIdentifier {
       PolicyVersionIdentifier();
 }
 
+/// Configuration for pre-signed S3 URLs.
 class PresignedUrlConfig {
   /// The ARN of an IAM role that grants grants permission to download files
   /// from the S3 bucket where the job data/updates are stored. The role must
@@ -6874,6 +7023,9 @@ class PresignedUrlConfig {
       PresignedUrlConfig();
 }
 
+/// Parameters to define a mitigation action that publishes findings to Amazon
+/// SNS. You can implement your own custom actions in response to the Amazon SNS
+/// messages.
 class PublishFindingToSnsParams {
   /// The ARN of the topic to which you want to publish the findings.
   final String topicArn;
@@ -6885,6 +7037,8 @@ class PublishFindingToSnsParams {
       PublishFindingToSnsParams();
 }
 
+/// The input for the DynamoActionVS action that specifies the DynamoDB table to
+/// which the message data will be written.
 class PutItemInput {
   /// The table where the message data will be written.
   final String tableName;
@@ -6895,6 +7049,8 @@ class PutItemInput {
   static PutItemInput fromJson(Map<String, dynamic> json) => PutItemInput();
 }
 
+/// Allows you to define a criteria to initiate the increase in rate of rollout
+/// for a job.
 class RateIncreaseCriteria {
   /// The threshold for number of notified things that will initiate the
   /// increase in rate of rollout.
@@ -6912,6 +7068,7 @@ class RateIncreaseCriteria {
       RateIncreaseCriteria();
 }
 
+/// The output from the RegisterCACertificateResponse operation.
 class RegisterCACertificateResponse {
   /// The CA certificate ARN.
   final String certificateArn;
@@ -6927,6 +7084,7 @@ class RegisterCACertificateResponse {
       RegisterCACertificateResponse();
 }
 
+/// The output from the RegisterCertificate operation.
 class RegisterCertificateResponse {
   /// The certificate ARN.
   final String certificateArn;
@@ -6957,6 +7115,7 @@ class RegisterThingResponse {
       RegisterThingResponse();
 }
 
+/// The registration configuration.
 class RegistrationConfig {
   /// The template body.
   final String templateBody;
@@ -6972,6 +7131,7 @@ class RegistrationConfig {
       RegistrationConfig();
 }
 
+/// Information about a related resource.
 class RelatedResource {
   /// The type of resource.
   final String resourceType;
@@ -7005,6 +7165,8 @@ class RemoveThingFromThingGroupResponse {
       RemoveThingFromThingGroupResponse();
 }
 
+/// Parameters to define a mitigation action that adds a blank policy to
+/// restrict permissions.
 class ReplaceDefaultPolicyVersionParams {
   /// The name of the template to be applied. The only supported value is
   /// `BLANK_POLICY`.
@@ -7018,6 +7180,7 @@ class ReplaceDefaultPolicyVersionParams {
       ReplaceDefaultPolicyVersionParams();
 }
 
+/// Describes an action to republish to another topic.
 class RepublishAction {
   /// The ARN of the IAM role that grants access.
   final String roleArn;
@@ -7037,6 +7200,7 @@ class RepublishAction {
       RepublishAction();
 }
 
+/// Information that identifies the noncompliant resource.
 class ResourceIdentifier {
   /// The ID of the certificate attached to the resource.
   final String deviceCertificateId;
@@ -7068,6 +7232,7 @@ class ResourceIdentifier {
       ResourceIdentifier();
 }
 
+/// Role alias description.
 class RoleAliasDescription {
   /// The role alias.
   final String roleAlias;
@@ -7103,6 +7268,7 @@ class RoleAliasDescription {
       RoleAliasDescription();
 }
 
+/// Describes an action to write data to an Amazon S3 bucket.
 class S3Action {
   /// The ARN of the IAM role that grants access.
   final String roleArn;
@@ -7114,8 +7280,8 @@ class S3Action {
   final String key;
 
   /// The Amazon S3 canned ACL that controls access to the object identified by
-  /// the object key. For more information, see [S3 canned
-  /// ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
+  /// the object key. For more information, see
+  /// [S3 canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
   final String cannedAcl;
 
   S3Action({
@@ -7127,6 +7293,7 @@ class S3Action {
   static S3Action fromJson(Map<String, dynamic> json) => S3Action();
 }
 
+/// Describes the location of updated firmware in S3.
 class S3Destination {
   /// The S3 bucket that contains the updated firmware.
   final String bucket;
@@ -7141,6 +7308,7 @@ class S3Destination {
   static S3Destination fromJson(Map<String, dynamic> json) => S3Destination();
 }
 
+/// The S3 location.
 class S3Location {
   /// The S3 bucket.
   final String bucket;
@@ -7159,6 +7327,8 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+/// Describes an action to write a message to a Salesforce IoT Cloud Input
+/// Stream.
 class SalesforceAction {
   /// The token used to authenticate access to the Salesforce IoT Cloud Input
   /// Stream. The token is available from the Salesforce IoT Cloud platform
@@ -7178,6 +7348,7 @@ class SalesforceAction {
       SalesforceAction();
 }
 
+/// Information about the scheduled audit.
 class ScheduledAuditMetadata {
   /// The name of the scheduled audit.
   final String scheduledAuditName;
@@ -7229,6 +7400,7 @@ class SearchIndexResponse {
       SearchIndexResponse();
 }
 
+/// Identifying information for a Device Defender security profile.
 class SecurityProfileIdentifier {
   /// The name you have given to the security profile.
   final String name;
@@ -7244,6 +7416,8 @@ class SecurityProfileIdentifier {
       SecurityProfileIdentifier();
 }
 
+/// A target to which an alert is sent when a security profile behavior is
+/// violated.
 class SecurityProfileTarget {
   /// The ARN of the security profile.
   final String arn;
@@ -7255,6 +7429,7 @@ class SecurityProfileTarget {
       SecurityProfileTarget();
 }
 
+/// Information about a security profile and the target associated with it.
 class SecurityProfileTargetMapping {
   /// Information that identifies the security profile.
   final SecurityProfileIdentifier securityProfileIdentifier;
@@ -7286,6 +7461,7 @@ class SetDefaultAuthorizerResponse {
       SetDefaultAuthorizerResponse();
 }
 
+/// Describes the code-signing profile.
 class SigningProfileParameter {
   /// Certificate ARN.
   final String certificateArn;
@@ -7305,6 +7481,7 @@ class SigningProfileParameter {
       SigningProfileParameter();
 }
 
+/// Describes an action to publish to an Amazon SNS topic.
 class SnsAction {
   /// The ARN of the SNS topic.
   final String targetArn;
@@ -7329,6 +7506,7 @@ class SnsAction {
   static SnsAction fromJson(Map<String, dynamic> json) => SnsAction();
 }
 
+/// Describes an action to publish data to an Amazon SQS queue.
 class SqsAction {
   /// The ARN of the IAM role that grants access.
   final String roleArn;
@@ -7371,6 +7549,7 @@ class StartOnDemandAuditTaskResponse {
       StartOnDemandAuditTaskResponse();
 }
 
+/// Information required to start a signing job.
 class StartSigningJobParameter {
   /// Describes the code-signing profile.
   final SigningProfileParameter signingProfileParameter;
@@ -7402,6 +7581,9 @@ class StartThingRegistrationTaskResponse {
       StartThingRegistrationTaskResponse();
 }
 
+/// A statistical ranking (percentile) which indicates a threshold value by
+/// which a behavior is determined to be in compliance or in violation of the
+/// behavior.
 class StatisticalThreshold {
   /// The percentile which resolves to a threshold value by which compliance
   /// with a behavior is determined. Metrics are collected over the specified
@@ -7420,6 +7602,8 @@ class StatisticalThreshold {
       StatisticalThreshold();
 }
 
+/// A map of key-value pairs for all supported statistics. Currently, only count
+/// is supported.
 class Statistics {
   /// The count of things that match the query.
   final int count;
@@ -7430,6 +7614,7 @@ class Statistics {
   static Statistics fromJson(Map<String, dynamic> json) => Statistics();
 }
 
+/// Starts execution of a Step Functions state machine.
 class StepFunctionsAction {
   /// (Optional) A name will be given to the state machine execution consisting
   /// of this prefix followed by a UUID. Step Functions automatically creates a
@@ -7460,6 +7645,7 @@ class StopThingRegistrationTaskResponse {
       StopThingRegistrationTaskResponse();
 }
 
+/// Describes a group of files that can be streamed.
 class Stream {
   /// The stream ID.
   final String streamId;
@@ -7474,6 +7660,7 @@ class Stream {
   static Stream fromJson(Map<String, dynamic> json) => Stream();
 }
 
+/// Represents a file to stream.
 class StreamFile {
   /// The file ID.
   final int fileId;
@@ -7488,6 +7675,7 @@ class StreamFile {
   static StreamFile fromJson(Map<String, dynamic> json) => StreamFile();
 }
 
+/// Information about a stream.
 class StreamInfo {
   /// The stream ID.
   final String streamId;
@@ -7526,6 +7714,7 @@ class StreamInfo {
   static StreamInfo fromJson(Map<String, dynamic> json) => StreamInfo();
 }
 
+/// A summary of a stream.
 class StreamSummary {
   /// The stream ID.
   final String streamId;
@@ -7548,6 +7737,7 @@ class StreamSummary {
   static StreamSummary fromJson(Map<String, dynamic> json) => StreamSummary();
 }
 
+/// A set of key/value pairs that are used to manage the resource.
 class Tag {
   /// The tag's key.
   final String key;
@@ -7568,6 +7758,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Statistics for the checks performed during the audit.
 class TaskStatistics {
   /// The number of checks in this audit.
   final int totalChecks;
@@ -7602,6 +7793,9 @@ class TaskStatistics {
   static TaskStatistics fromJson(Map<String, dynamic> json) => TaskStatistics();
 }
 
+/// Provides summary counts of how many tasks for findings are in a particular
+/// state. This information is included in the response from
+/// DescribeAuditMitigationActionsTask.
 class TaskStatisticsForAuditCheck {
   /// The total number of findings to which a task is being applied.
   final BigInt totalFindingsCount;
@@ -7671,6 +7865,8 @@ class TestInvokeAuthorizerResponse {
       TestInvokeAuthorizerResponse();
 }
 
+/// The properties of the thing, including thing name, thing type name, and a
+/// list of thing attributes.
 class ThingAttribute {
   /// The name of the thing.
   final String thingName;
@@ -7697,6 +7893,7 @@ class ThingAttribute {
   static ThingAttribute fromJson(Map<String, dynamic> json) => ThingAttribute();
 }
 
+/// The connectivity status of the thing.
 class ThingConnectivity {
   /// True if the thing is connected to the AWS IoT service; false if it is not
   /// connected.
@@ -7715,6 +7912,7 @@ class ThingConnectivity {
       ThingConnectivity();
 }
 
+/// The thing search index document.
 class ThingDocument {
   /// The thing name.
   final String thingName;
@@ -7749,6 +7947,7 @@ class ThingDocument {
   static ThingDocument fromJson(Map<String, dynamic> json) => ThingDocument();
 }
 
+/// The thing group search index document.
 class ThingGroupDocument {
   /// The thing group name.
   final String thingGroupName;
@@ -7776,6 +7975,7 @@ class ThingGroupDocument {
       ThingGroupDocument();
 }
 
+/// Thing group indexing configuration.
 class ThingGroupIndexingConfiguration {
   /// Thing group indexing mode.
   final String thingGroupIndexingMode;
@@ -7787,6 +7987,7 @@ class ThingGroupIndexingConfiguration {
       ThingGroupIndexingConfiguration();
 }
 
+/// Thing group metadata.
 class ThingGroupMetadata {
   /// The parent thing group name.
   final String parentGroupName;
@@ -7806,6 +8007,7 @@ class ThingGroupMetadata {
       ThingGroupMetadata();
 }
 
+/// Thing group properties.
 class ThingGroupProperties {
   /// The thing group description.
   final String thingGroupDescription;
@@ -7821,12 +8023,14 @@ class ThingGroupProperties {
       ThingGroupProperties();
 }
 
+/// The thing indexing configuration. For more information, see
+/// [Managing Thing Indexing](https://docs.aws.amazon.com/iot/latest/developerguide/managing-index.html).
 class ThingIndexingConfiguration {
   /// Thing indexing mode. Valid values are:
   ///
   /// *   REGISTRY – Your thing index contains registry data only.
   ///
-  /// *   REGISTRY\_AND\_SHADOW - Your thing index contains registry and shadow
+  /// *   REGISTRY_AND_SHADOW - Your thing index contains registry and shadow
   /// data.
   ///
   /// *   OFF - Thing indexing is disabled.
@@ -7848,6 +8052,7 @@ class ThingIndexingConfiguration {
       ThingIndexingConfiguration();
 }
 
+/// The definition of the thing type, including thing type name and description.
 class ThingTypeDefinition {
   /// The name of the thing type.
   final String thingTypeName;
@@ -7873,6 +8078,9 @@ class ThingTypeDefinition {
       ThingTypeDefinition();
 }
 
+/// The ThingTypeMetadata contains additional information about the thing type
+/// including: creation date and time, a value indicating whether the thing type
+/// is deprecated, and a date and time when time was deprecated.
 class ThingTypeMetadata {
   /// Whether the thing type is deprecated. If **true**, no new things could be
   /// associated with this type.
@@ -7893,6 +8101,8 @@ class ThingTypeMetadata {
       ThingTypeMetadata();
 }
 
+/// The ThingTypeProperties contains information about the thing type including:
+/// a thing type description, and a list of searchable thing attribute names.
 class ThingTypeProperties {
   /// The description of the thing type.
   final String thingTypeDescription;
@@ -7908,6 +8118,10 @@ class ThingTypeProperties {
       ThingTypeProperties();
 }
 
+/// Specifies the amount of time each device has to finish its execution of the
+/// job. A timer is started when the job execution status is set to
+/// `IN_PROGRESS`. If the job execution status is not set to another terminal
+/// state before the timer expires, it will be automatically set to `TIMED_OUT`.
 class TimeoutConfig {
   /// Specifies the amount of time, in minutes, this device has to finish
   /// execution of this job. The timeout interval can be anywhere between 1
@@ -7923,6 +8137,7 @@ class TimeoutConfig {
   static TimeoutConfig fromJson(Map<String, dynamic> json) => TimeoutConfig();
 }
 
+/// Describes a rule.
 class TopicRule {
   /// The name of the rule.
   final String ruleName;
@@ -7962,6 +8177,7 @@ class TopicRule {
   static TopicRule fromJson(Map<String, dynamic> json) => TopicRule();
 }
 
+/// Describes a rule.
 class TopicRuleListItem {
   /// The rule ARN.
   final String ruleArn;
@@ -7989,10 +8205,10 @@ class TopicRuleListItem {
       TopicRuleListItem();
 }
 
+/// Describes a rule.
 class TopicRulePayload {
-  /// The SQL statement used to query the topic. For more information, see [AWS
-  /// IoT SQL
-  /// Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference)
+  /// The SQL statement used to query the topic. For more information, see
+  /// [AWS IoT SQL Reference](https://docs.aws.amazon.com/iot/latest/developerguide/iot-rules.html#aws-iot-sql-reference)
   /// in the _AWS IoT Developer Guide_.
   final String sql;
 
@@ -8021,6 +8237,7 @@ class TopicRulePayload {
   });
 }
 
+/// The output from the TransferCertificate operation.
 class TransferCertificateResponse {
   /// The ARN of the certificate.
   final String transferredCertificateArn;
@@ -8032,6 +8249,7 @@ class TransferCertificateResponse {
       TransferCertificateResponse();
 }
 
+/// Data used to transfer a certificate to an AWS account.
 class TransferData {
   /// The transfer message.
   final String transferMessage;
@@ -8097,6 +8315,8 @@ class UpdateBillingGroupResponse {
       UpdateBillingGroupResponse();
 }
 
+/// Parameters to define a mitigation action that changes the state of the CA
+/// certificate to inactive.
 class UpdateCACertificateParams {
   /// The action that you want to apply to the CA cerrtificate. The only
   /// supported value is `DEACTIVATE`.
@@ -8109,6 +8329,8 @@ class UpdateCACertificateParams {
       UpdateCACertificateParams();
 }
 
+/// Parameters to define a mitigation action that changes the state of the
+/// device certificate to inactive.
 class UpdateDeviceCertificateParams {
   /// The action that you want to apply to the device cerrtificate. The only
   /// supported value is `DEACTIVATE`.
@@ -8274,6 +8496,7 @@ class UpdateThingGroupsForThingResponse {
       UpdateThingGroupsForThingResponse();
 }
 
+/// The output from the UpdateThing operation.
 class UpdateThingResponse {
   UpdateThingResponse();
   static UpdateThingResponse fromJson(Map<String, dynamic> json) =>
@@ -8296,6 +8519,7 @@ class ValidateSecurityProfileBehaviorsResponse {
       ValidateSecurityProfileBehaviorsResponse();
 }
 
+/// Information about an error found in a behavior specification.
 class ValidationError {
   /// The description of an error found in the behaviors.
   final String errorMessage;
@@ -8307,6 +8531,7 @@ class ValidationError {
       ValidationError();
 }
 
+/// Information about a Device Defender security profile behavior violation.
 class ViolationEvent {
   /// The ID of the violation event.
   final String violationId;

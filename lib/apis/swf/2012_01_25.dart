@@ -14,8 +14,9 @@ import 'package:meta/meta.dart';
 /// progress and maintaining their state.
 ///
 /// This documentation serves as reference only. For a broader overview of the
-/// Amazon SWF programming model, see the  _[Amazon SWF Developer
-/// Guide](https://docs.aws.amazon.com/amazonswf/latest/developerguide/)_ .
+/// Amazon SWF programming model, see the
+/// _[Amazon SWF Developer Guide](https://docs.aws.amazon.com/amazonswf/latest/developerguide/)_
+/// .
 class SwfApi {
   /// Returns the number of closed workflow executions within the given domain
   /// that meet the specified filtering criteria.
@@ -51,9 +52,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow executions to
@@ -139,9 +139,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow executions to
@@ -199,9 +198,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain that contains the task list.
@@ -236,9 +234,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain that contains the task list.
@@ -282,9 +279,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the activity type is registered.
@@ -320,9 +316,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: The name of the domain to deprecate.
@@ -361,9 +356,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the workflow type is registered.
@@ -401,9 +395,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the activity type is registered.
@@ -436,9 +429,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: The name of the domain to describe.
@@ -469,9 +461,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow execution.
@@ -511,9 +502,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which this workflow type is
@@ -549,9 +539,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow execution.
@@ -608,9 +597,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the activity types have been
@@ -683,9 +671,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain that contains the workflow executions to
@@ -787,9 +774,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [nextPageToken]: If `NextPageToken` is returned there are more results
@@ -852,9 +838,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain that contains the workflow executions to
@@ -939,9 +924,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the workflow types have been
@@ -1011,9 +995,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain that contains the task lists being
@@ -1023,8 +1006,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [identity]: Identity of the worker making the request, recorded in the
   /// `ActivityTaskStarted` event in the workflow history. This enables
@@ -1079,9 +1062,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the task lists to poll.
@@ -1090,8 +1072,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [identity]: Identity of the decider making the request, which is recorded
   /// in the DecisionTaskStarted event in the workflow history. This enables
@@ -1180,9 +1162,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [taskToken]: The `taskToken` of the ActivityTask.
@@ -1231,9 +1212,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which this activity is to be
@@ -1243,8 +1223,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [version]: The version of the activity type.
   ///
@@ -1253,8 +1233,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [description]: A textual description of the activity type.
   ///
@@ -1290,8 +1270,8 @@ class SwfApi {
   /// range from Java's `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE`
   /// (2147483647). Higher numbers indicate higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _in the _Amazon SWF Developer Guide_._.
   ///
   /// [defaultTaskScheduleToStartTimeout]: If set, specifies the default maximum
@@ -1341,9 +1321,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: Name of the domain to register. The name must be unique in the
@@ -1351,8 +1330,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [description]: A text description of the domain.
   ///
@@ -1366,8 +1345,8 @@ class SwfApi {
   /// execution record and its history are deleted.
   ///
   /// The maximum workflow execution retention period is 90 days. For more
-  /// information about Amazon SWF service limits, see: [Amazon SWF Service
-  /// Limits](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html)
+  /// information about Amazon SWF service limits, see:
+  /// [Amazon SWF Service Limits](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-limits.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [tags]: Tags to be added when registering a domain.
@@ -1416,9 +1395,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which to register the workflow type.
@@ -1427,8 +1405,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [version]: The version of the workflow type.
   ///
@@ -1438,8 +1416,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [description]: Textual description of the workflow type.
   ///
@@ -1474,8 +1452,8 @@ class SwfApi {
   /// range from Java's `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE`
   /// (2147483647). Higher numbers indicate higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [defaultChildPolicy]: If set, specifies the default policy to use for the
@@ -1547,9 +1525,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow execution to
@@ -1578,8 +1555,8 @@ class SwfApi {
   /// closed. Therefore a task is reported as open while a worker is processing
   /// it. A task is closed after it has been specified in a call to
   /// RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-  /// RespondActivityTaskFailed, or the task has [timed
-  /// out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
+  /// RespondActivityTaskFailed, or the task has
+  /// [timed out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
   ///
   ///  **Access Control**
   ///
@@ -1598,9 +1575,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [taskToken]: The `taskToken` of the ActivityTask.
@@ -1629,8 +1605,8 @@ class SwfApi {
   /// closed. Therefore a task is reported as open while a worker is processing
   /// it. A task is closed after it has been specified in a call to
   /// RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-  /// RespondActivityTaskFailed, or the task has [timed
-  /// out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
+  /// RespondActivityTaskFailed, or the task has
+  /// [timed out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
   ///
   ///  **Access Control**
   ///
@@ -1649,9 +1625,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [taskToken]: The `taskToken` of the ActivityTask.
@@ -1675,8 +1650,8 @@ class SwfApi {
   /// closed. Therefore a task is reported as open while a worker is processing
   /// it. A task is closed after it has been specified in a call to
   /// RespondActivityTaskCompleted, RespondActivityTaskCanceled,
-  /// RespondActivityTaskFailed, or the task has [timed
-  /// out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
+  /// RespondActivityTaskFailed, or the task has
+  /// [timed out](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dg-basic.html#swf-dev-timeout-types).
   ///
   ///  **Access Control**
   ///
@@ -1695,9 +1670,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [taskToken]: The `taskToken` of the ActivityTask.
@@ -1729,8 +1703,8 @@ class SwfApi {
   /// regular API call. To allow for policies to be as readable as possible, you
   /// can express permissions on decisions as if they were actual API calls,
   /// including applying conditions to some parameters. For more information,
-  /// see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [taskToken]: The `taskToken` from the DecisionTask.
@@ -1775,9 +1749,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain containing the workflow execution to
@@ -1841,9 +1814,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain in which the workflow execution is
@@ -1858,8 +1830,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [workflowType]: The type of the workflow to start.
   ///
@@ -1874,8 +1846,8 @@ class SwfApi {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not _be_
-  /// the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not _be_ the
+  /// literal string `arn`.
   ///
   /// [taskPriority]: The task priority to use for this workflow execution. This
   /// overrides any default priority that was assigned when the workflow type
@@ -1884,8 +1856,8 @@ class SwfApi {
   /// `Integer.MIN_VALUE` (-2147483648) to `Integer.MAX_VALUE` (2147483647).
   /// Higher numbers indicate higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [input]: The input for the workflow execution. This is a free form string
@@ -2027,9 +1999,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The domain of the workflow execution to terminate.
@@ -2105,9 +2076,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain of the deprecated activity type.
@@ -2140,9 +2110,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [name]: The name of the domain of the deprecated workflow type.
@@ -2179,9 +2148,8 @@ class SwfApi {
   /// If the caller doesn't have sufficient permissions to invoke the action, or
   /// the parameter values fall outside the specified constraints, the action
   /// fails. The associated event attribute's `cause` parameter is set to
-  /// `OPERATION\_NOT\_PERMITTED`. For details and example IAM policies, see
-  /// [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   ///
   /// [domain]: The name of the domain of the deprecated workflow type.
@@ -2199,6 +2167,7 @@ class SwfApi {
       {@required String resourceArn, @required List<String> tagKeys}) async {}
 }
 
+/// Unit of work sent to an activity worker.
 class ActivityTask {
   /// The opaque string used as a handle on the task. This token is used by
   /// workers to communicate progress and response information back to the
@@ -2233,6 +2202,7 @@ class ActivityTask {
   static ActivityTask fromJson(Map<String, dynamic> json) => ActivityTask();
 }
 
+/// Provides the details of the `ActivityTaskCancelRequested` event.
 class ActivityTaskCancelRequestedEventAttributes {
   /// The ID of the `DecisionTaskCompleted` event corresponding to the decision
   /// task that resulted in the `RequestCancelActivityTask` decision for this
@@ -2252,6 +2222,7 @@ class ActivityTaskCancelRequestedEventAttributes {
       ActivityTaskCancelRequestedEventAttributes();
 }
 
+/// Provides the details of the `ActivityTaskCanceled` event.
 class ActivityTaskCanceledEventAttributes {
   /// Details of the cancellation.
   final String details;
@@ -2283,6 +2254,7 @@ class ActivityTaskCanceledEventAttributes {
       ActivityTaskCanceledEventAttributes();
 }
 
+/// Provides the details of the `ActivityTaskCompleted` event.
 class ActivityTaskCompletedEventAttributes {
   /// The results of the activity task.
   final String result;
@@ -2307,6 +2279,7 @@ class ActivityTaskCompletedEventAttributes {
       ActivityTaskCompletedEventAttributes();
 }
 
+/// Provides the details of the `ActivityTaskFailed` event.
 class ActivityTaskFailedEventAttributes {
   /// The reason provided for the failure.
   final String reason;
@@ -2335,6 +2308,7 @@ class ActivityTaskFailedEventAttributes {
       ActivityTaskFailedEventAttributes();
 }
 
+/// Provides the details of the `ActivityTaskScheduled` event.
 class ActivityTaskScheduledEventAttributes {
   /// The type of the activity task.
   final ActivityType activityType;
@@ -2370,8 +2344,8 @@ class ActivityTaskScheduledEventAttributes {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -2406,6 +2380,7 @@ class ActivityTaskScheduledEventAttributes {
       ActivityTaskScheduledEventAttributes();
 }
 
+/// Provides the details of the `ActivityTaskStarted` event.
 class ActivityTaskStartedEventAttributes {
   /// Identity of the worker that was assigned this task. This aids diagnostics
   /// when problems arise. The form of this identity is user defined.
@@ -2425,6 +2400,7 @@ class ActivityTaskStartedEventAttributes {
       ActivityTaskStartedEventAttributes();
 }
 
+/// Status information about an activity task.
 class ActivityTaskStatus {
   /// Set to `true` if cancellation of the task is requested.
   final bool cancelRequested;
@@ -2436,6 +2412,7 @@ class ActivityTaskStatus {
       ActivityTaskStatus();
 }
 
+/// Provides the details of the `ActivityTaskTimedOut` event.
 class ActivityTaskTimedOutEventAttributes {
   /// The type of the timeout that caused this event.
   final String timeoutType;
@@ -2465,6 +2442,7 @@ class ActivityTaskTimedOutEventAttributes {
       ActivityTaskTimedOutEventAttributes();
 }
 
+/// Represents an activity type.
 class ActivityType {
   /// The name of this activity.
   ///
@@ -2489,6 +2467,7 @@ class ActivityType {
   static ActivityType fromJson(Map<String, dynamic> json) => ActivityType();
 }
 
+/// Configuration settings registered with the activity type.
 class ActivityTypeConfiguration {
   ///  The default maximum duration for tasks of an activity type specified when
   /// registering the activity type. You can override this default when
@@ -2528,8 +2507,8 @@ class ActivityTypeConfiguration {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String defaultTaskPriority;
 
@@ -2562,6 +2541,7 @@ class ActivityTypeConfiguration {
       ActivityTypeConfiguration();
 }
 
+/// Detailed information about an activity type.
 class ActivityTypeDetail {
   /// General information about the activity type.
   ///
@@ -2587,6 +2567,7 @@ class ActivityTypeDetail {
       ActivityTypeDetail();
 }
 
+/// Detailed information about an activity type.
 class ActivityTypeInfo {
   /// The ActivityType type structure representing the activity type.
   final ActivityType activityType;
@@ -2615,6 +2596,7 @@ class ActivityTypeInfo {
       ActivityTypeInfo();
 }
 
+/// Contains a paginated list of activity type information structures.
 class ActivityTypeInfos {
   /// List of activity type information.
   final List<ActivityTypeInfo> typeInfos;
@@ -2636,6 +2618,27 @@ class ActivityTypeInfos {
       ActivityTypeInfos();
 }
 
+/// Provides the details of the `CancelTimer` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class CancelTimerDecisionAttributes {
   ///  The unique ID of the timer to cancel.
   final String timerId;
@@ -2645,6 +2648,7 @@ class CancelTimerDecisionAttributes {
   });
 }
 
+/// Provides the details of the `CancelTimerFailed` event.
 class CancelTimerFailedEventAttributes {
   /// The timerId provided in the `CancelTimer` decision that failed.
   final String timerId;
@@ -2654,10 +2658,10 @@ class CancelTimerFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -2676,6 +2680,27 @@ class CancelTimerFailedEventAttributes {
       CancelTimerFailedEventAttributes();
 }
 
+/// Provides the details of the `CancelWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class CancelWorkflowExecutionDecisionAttributes {
   ///  Details of the cancellation.
   final String details;
@@ -2685,16 +2710,17 @@ class CancelWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `CancelWorkflowExecutionFailed` event.
 class CancelWorkflowExecutionFailedEventAttributes {
   /// The cause of the failure. This information is generated by the system and
   /// can be useful for diagnostic purposes.
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -2713,6 +2739,7 @@ class CancelWorkflowExecutionFailedEventAttributes {
       CancelWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provide details of the `ChildWorkflowExecutionCanceled` event.
 class ChildWorkflowExecutionCanceledEventAttributes {
   /// The child workflow execution that was canceled.
   final WorkflowExecution workflowExecution;
@@ -2747,6 +2774,7 @@ class ChildWorkflowExecutionCanceledEventAttributes {
       ChildWorkflowExecutionCanceledEventAttributes();
 }
 
+/// Provides the details of the `ChildWorkflowExecutionCompleted` event.
 class ChildWorkflowExecutionCompletedEventAttributes {
   /// The child workflow execution that was completed.
   final WorkflowExecution workflowExecution;
@@ -2781,6 +2809,7 @@ class ChildWorkflowExecutionCompletedEventAttributes {
       ChildWorkflowExecutionCompletedEventAttributes();
 }
 
+/// Provides the details of the `ChildWorkflowExecutionFailed` event.
 class ChildWorkflowExecutionFailedEventAttributes {
   /// The child workflow execution that failed.
   final WorkflowExecution workflowExecution;
@@ -2819,6 +2848,7 @@ class ChildWorkflowExecutionFailedEventAttributes {
       ChildWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provides the details of the `ChildWorkflowExecutionStarted` event.
 class ChildWorkflowExecutionStartedEventAttributes {
   /// The child workflow execution that was started.
   final WorkflowExecution workflowExecution;
@@ -2842,6 +2872,7 @@ class ChildWorkflowExecutionStartedEventAttributes {
       ChildWorkflowExecutionStartedEventAttributes();
 }
 
+/// Provides the details of the `ChildWorkflowExecutionTerminated` event.
 class ChildWorkflowExecutionTerminatedEventAttributes {
   /// The child workflow execution that was terminated.
   final WorkflowExecution workflowExecution;
@@ -2872,6 +2903,7 @@ class ChildWorkflowExecutionTerminatedEventAttributes {
       ChildWorkflowExecutionTerminatedEventAttributes();
 }
 
+/// Provides the details of the `ChildWorkflowExecutionTimedOut` event.
 class ChildWorkflowExecutionTimedOutEventAttributes {
   /// The child workflow execution that timed out.
   final WorkflowExecution workflowExecution;
@@ -2907,6 +2939,8 @@ class ChildWorkflowExecutionTimedOutEventAttributes {
       ChildWorkflowExecutionTimedOutEventAttributes();
 }
 
+/// Used to filter the closed workflow executions in visibility APIs by their
+/// close status.
 class CloseStatusFilter {
   ///  The close status that must match the close status of an execution for it
   /// to meet the criteria of this filter.
@@ -2917,6 +2951,27 @@ class CloseStatusFilter {
   });
 }
 
+/// Provides the details of the `CompleteWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class CompleteWorkflowExecutionDecisionAttributes {
   /// The result of the workflow execution. The form of the result is
   /// implementation defined.
@@ -2927,16 +2982,17 @@ class CompleteWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `CompleteWorkflowExecutionFailed` event.
 class CompleteWorkflowExecutionFailedEventAttributes {
   /// The cause of the failure. This information is generated by the system and
   /// can be useful for diagnostic purposes.
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -2955,6 +3011,36 @@ class CompleteWorkflowExecutionFailedEventAttributes {
       CompleteWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provides the details of the `ContinueAsNewWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   Constrain the following parameters by using a `Condition` element with
+/// the appropriate keys.
+///
+///     *    `tag` – A tag used to identify the workflow execution
+///
+///     *    `taskList` – String constraint. The key is `swf:taskList.name`.
+///
+///     *    `workflowType.version` – String constraint. The key is
+/// `swf:workflowType.version`.
+///
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class ContinueAsNewWorkflowExecutionDecisionAttributes {
   /// The input provided to the new workflow execution.
   final String input;
@@ -2984,8 +3070,8 @@ class ContinueAsNewWorkflowExecutionDecisionAttributes {
   /// that range from Java's `Integer.MIN_VALUE` (-2147483648) to
   /// `Integer.MAX_VALUE` (2147483647). Higher numbers indicate higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -3056,16 +3142,17 @@ class ContinueAsNewWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `ContinueAsNewWorkflowExecutionFailed` event.
 class ContinueAsNewWorkflowExecutionFailedEventAttributes {
   /// The cause of the failure. This information is generated by the system and
   /// can be useful for diagnostic purposes.
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -3084,6 +3171,179 @@ class ContinueAsNewWorkflowExecutionFailedEventAttributes {
       ContinueAsNewWorkflowExecutionFailedEventAttributes();
 }
 
+/// Specifies a decision made by the decider. A decision can be one of these
+/// types:
+///
+/// *    `CancelTimer` – Cancels a previously started timer and records a
+/// `TimerCanceled` event in the history.
+///
+/// *    `CancelWorkflowExecution` – Closes the workflow execution and records a
+/// `WorkflowExecutionCanceled` event in the history.
+///
+/// *    `CompleteWorkflowExecution` – Closes the workflow execution and records
+/// a `WorkflowExecutionCompleted` event in the history .
+///
+/// *    `ContinueAsNewWorkflowExecution` – Closes the workflow execution and
+/// starts a new workflow execution of the same type using the same workflow ID
+/// and a unique run Id. A `WorkflowExecutionContinuedAsNew` event is recorded
+/// in the history.
+///
+/// *    `FailWorkflowExecution` – Closes the workflow execution and records a
+/// `WorkflowExecutionFailed` event in the history.
+///
+/// *    `RecordMarker` – Records a `MarkerRecorded` event in the history.
+/// Markers can be used for adding custom information in the history for
+/// instance to let deciders know that they don't need to look at the history
+/// beyond the marker event.
+///
+/// *    `RequestCancelActivityTask` – Attempts to cancel a previously scheduled
+/// activity task. If the activity task was scheduled but has not been assigned
+/// to a worker, then it is canceled. If the activity task was already assigned
+/// to a worker, then the worker is informed that cancellation has been
+/// requested in the response to RecordActivityTaskHeartbeat.
+///
+/// *    `RequestCancelExternalWorkflowExecution` – Requests that a request be
+/// made to cancel the specified external workflow execution and records a
+/// `RequestCancelExternalWorkflowExecutionInitiated` event in the history.
+///
+/// *    `ScheduleActivityTask` – Schedules an activity task.
+///
+/// *    `SignalExternalWorkflowExecution` – Requests a signal to be delivered
+/// to the specified external workflow execution and records a
+/// `SignalExternalWorkflowExecutionInitiated` event in the history.
+///
+/// *    `StartChildWorkflowExecution` – Requests that a child workflow
+/// execution be started and records a `StartChildWorkflowExecutionInitiated`
+/// event in the history. The child workflow execution is a separate workflow
+/// execution with its own history.
+///
+/// *    `StartTimer` – Starts a timer for this workflow execution and records a
+/// `TimerStarted` event in the history. This timer fires after the specified
+/// delay and record a `TimerFired` event.
+///
+///
+///  **Access Control**
+///
+/// If you grant permission to use `RespondDecisionTaskCompleted`, you can use
+/// IAM policies to express permissions for the list of decisions returned by
+/// this action as if they were members of the API. Treating decisions as a
+/// pseudo API maintains a uniform conceptual model and helps keep policies
+/// readable. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
+///
+///  **Decision Failure**
+///
+/// Decisions can fail for several reasons
+///
+/// *   The ordering of decisions should follow a logical flow. Some decisions
+/// might not make sense in the current context of the workflow execution and
+/// therefore fails.
+///
+/// *   A limit on your account was reached.
+///
+/// *   The decision lacks sufficient permissions.
+///
+///
+/// One of the following events might be added to the history to indicate an
+/// error. The event attribute's `cause` parameter indicates the cause. If
+/// `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed because it
+/// lacked sufficient permissions. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
+///
+/// *    `ScheduleActivityTaskFailed` – A `ScheduleActivityTask` decision
+/// failed. This could happen if the activity type specified in the decision
+/// isn't registered, is in a deprecated state, or the decision isn't properly
+/// configured.
+///
+/// *    `RequestCancelActivityTaskFailed` – A `RequestCancelActivityTask`
+/// decision failed. This could happen if there is no open activity task with
+/// the specified activityId.
+///
+/// *    `StartTimerFailed` – A `StartTimer` decision failed. This could happen
+/// if there is another open timer with the same timerId.
+///
+/// *    `CancelTimerFailed` – A `CancelTimer` decision failed. This could
+/// happen if there is no open timer with the specified timerId.
+///
+/// *    `StartChildWorkflowExecutionFailed` – A `StartChildWorkflowExecution`
+/// decision failed. This could happen if the workflow type specified isn't
+/// registered, is deprecated, or the decision isn't properly configured.
+///
+/// *    `SignalExternalWorkflowExecutionFailed` – A
+/// `SignalExternalWorkflowExecution` decision failed. This could happen if the
+/// `workflowID` specified in the decision was incorrect.
+///
+/// *    `RequestCancelExternalWorkflowExecutionFailed` – A
+/// `RequestCancelExternalWorkflowExecution` decision failed. This could happen
+/// if the `workflowID` specified in the decision was incorrect.
+///
+/// *    `CancelWorkflowExecutionFailed` – A `CancelWorkflowExecution` decision
+/// failed. This could happen if there is an unhandled decision task pending in
+/// the workflow execution.
+///
+/// *    `CompleteWorkflowExecutionFailed` – A `CompleteWorkflowExecution`
+/// decision failed. This could happen if there is an unhandled decision task
+/// pending in the workflow execution.
+///
+/// *    `ContinueAsNewWorkflowExecutionFailed` – A
+/// `ContinueAsNewWorkflowExecution` decision failed. This could happen if there
+/// is an unhandled decision task pending in the workflow execution or the
+/// ContinueAsNewWorkflowExecution decision was not configured correctly.
+///
+/// *    `FailWorkflowExecutionFailed` – A `FailWorkflowExecution` decision
+/// failed. This could happen if there is an unhandled decision task pending in
+/// the workflow execution.
+///
+///
+/// The preceding error events might occur due to an error in the decider logic,
+/// which might put the workflow execution in an unstable state The cause field
+/// in the event structure for the error event indicates the cause of the error.
+///
+///  A workflow execution may be closed by the decider by returning one of the
+/// following decisions when completing a decision task:
+/// `CompleteWorkflowExecution`, `FailWorkflowExecution`,
+/// `CancelWorkflowExecution` and `ContinueAsNewWorkflowExecution`. An
+/// `UnhandledDecision` fault is returned if a workflow closing decision is
+/// specified and a signal or activity event had been added to the history while
+/// the decision task was being performed by the decider. Unlike the above
+/// situations which are logic issues, this fault is always possible because of
+/// race conditions in a distributed system. The right action here is to call
+/// RespondDecisionTaskCompleted without any decisions. This would result in
+/// another decision task with these new events included in the history. The
+/// decider should handle the new events and may decide to close the workflow
+/// execution.
+///
+///  **How to Code a Decision**
+///
+/// You code a decision by first setting the decision type field to one of the
+/// above decision values, and then set the corresponding attributes field shown
+/// below:
+///
+/// *     `ScheduleActivityTaskDecisionAttributes`
+///
+/// *     `RequestCancelActivityTaskDecisionAttributes`
+///
+/// *     `CompleteWorkflowExecutionDecisionAttributes`
+///
+/// *     `FailWorkflowExecutionDecisionAttributes`
+///
+/// *     `CancelWorkflowExecutionDecisionAttributes`
+///
+/// *     `ContinueAsNewWorkflowExecutionDecisionAttributes`
+///
+/// *     `RecordMarkerDecisionAttributes`
+///
+/// *     `StartTimerDecisionAttributes`
+///
+/// *     `CancelTimerDecisionAttributes`
+///
+/// *     `SignalExternalWorkflowExecutionDecisionAttributes`
+///
+/// *     `RequestCancelExternalWorkflowExecutionDecisionAttributes`
+///
+/// *     `StartChildWorkflowExecutionDecisionAttributes`
 class Decision {
   /// Specifies the type of the decision.
   final String decisionType;
@@ -3168,6 +3428,8 @@ class Decision {
   });
 }
 
+/// A structure that represents a decision task. Decision tasks are sent to
+/// deciders in order for them to make decisions.
 class DecisionTask {
   /// The opaque string used as a handle on the task. This token is used by
   /// workers to communicate progress and response information back to the
@@ -3215,6 +3477,7 @@ class DecisionTask {
   static DecisionTask fromJson(Map<String, dynamic> json) => DecisionTask();
 }
 
+/// Provides the details of the `DecisionTaskCompleted` event.
 class DecisionTaskCompletedEventAttributes {
   /// User defined context for the workflow execution.
   final String executionContext;
@@ -3239,6 +3502,7 @@ class DecisionTaskCompletedEventAttributes {
       DecisionTaskCompletedEventAttributes();
 }
 
+/// Provides details about the `DecisionTaskScheduled` event.
 class DecisionTaskScheduledEventAttributes {
   /// The name of the task list in which the decision task was scheduled.
   final TaskList taskList;
@@ -3248,8 +3512,8 @@ class DecisionTaskScheduledEventAttributes {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -3270,6 +3534,7 @@ class DecisionTaskScheduledEventAttributes {
       DecisionTaskScheduledEventAttributes();
 }
 
+/// Provides the details of the `DecisionTaskStarted` event.
 class DecisionTaskStartedEventAttributes {
   /// Identity of the decider making the request. This enables diagnostic
   /// tracing when problems arise. The form of this identity is user defined.
@@ -3289,6 +3554,7 @@ class DecisionTaskStartedEventAttributes {
       DecisionTaskStartedEventAttributes();
 }
 
+/// Provides the details of the `DecisionTaskTimedOut` event.
 class DecisionTaskTimedOutEventAttributes {
   /// The type of timeout that expired before the decision task could be
   /// completed.
@@ -3314,6 +3580,7 @@ class DecisionTaskTimedOutEventAttributes {
       DecisionTaskTimedOutEventAttributes();
 }
 
+/// Contains the configuration settings of a domain.
 class DomainConfiguration {
   /// The retention period for workflow executions in this domain.
   final String workflowExecutionRetentionPeriodInDays;
@@ -3325,6 +3592,7 @@ class DomainConfiguration {
       DomainConfiguration();
 }
 
+/// Contains details of a domain.
 class DomainDetail {
   /// The basic information about a domain, such as its name, status, and
   /// description.
@@ -3341,6 +3609,7 @@ class DomainDetail {
   static DomainDetail fromJson(Map<String, dynamic> json) => DomainDetail();
 }
 
+/// Contains general information about a domain.
 class DomainInfo {
   /// The name of the domain. This name is unique within the account.
   final String name;
@@ -3371,6 +3640,7 @@ class DomainInfo {
   static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo();
 }
 
+/// Contains a paginated collection of DomainInfo structures.
 class DomainInfos {
   /// A list of DomainInfo structures.
   final List<DomainInfo> domainInfos;
@@ -3391,6 +3661,11 @@ class DomainInfos {
   static DomainInfos fromJson(Map<String, dynamic> json) => DomainInfos();
 }
 
+/// Used to filter the workflow executions in visibility APIs by various
+/// time-based rules. Each parameter, if specified, defines a rule that must be
+/// satisfied by each returned query result. The parameter values are in the
+/// [Unix Time format](https://en.wikipedia.org/wiki/Unix_time). For example:
+/// `"oldestDate": 1325376070.`
 class ExecutionTimeFilter {
   /// Specifies the oldest start or close date and time to return.
   final DateTime oldestDate;
@@ -3404,6 +3679,8 @@ class ExecutionTimeFilter {
   });
 }
 
+/// Provides the details of the `ExternalWorkflowExecutionCancelRequested`
+/// event.
 class ExternalWorkflowExecutionCancelRequestedEventAttributes {
   /// The external workflow execution to which the cancellation request was
   /// delivered.
@@ -3425,6 +3702,7 @@ class ExternalWorkflowExecutionCancelRequestedEventAttributes {
       ExternalWorkflowExecutionCancelRequestedEventAttributes();
 }
 
+/// Provides the details of the `ExternalWorkflowExecutionSignaled` event.
 class ExternalWorkflowExecutionSignaledEventAttributes {
   /// The external workflow execution that the signal was delivered to.
   final WorkflowExecution workflowExecution;
@@ -3444,6 +3722,27 @@ class ExternalWorkflowExecutionSignaledEventAttributes {
       ExternalWorkflowExecutionSignaledEventAttributes();
 }
 
+/// Provides the details of the `FailWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class FailWorkflowExecutionDecisionAttributes {
   /// A descriptive reason for the failure that may help in diagnostics.
   final String reason;
@@ -3457,16 +3756,17 @@ class FailWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `FailWorkflowExecutionFailed` event.
 class FailWorkflowExecutionFailedEventAttributes {
   /// The cause of the failure. This information is generated by the system and
   /// can be useful for diagnostic purposes.
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -3485,6 +3785,9 @@ class FailWorkflowExecutionFailedEventAttributes {
       FailWorkflowExecutionFailedEventAttributes();
 }
 
+/// Paginated representation of a workflow history for a workflow execution.
+/// This is the up to date, complete and authoritative record of the events
+/// related to all tasks and events in the life of the workflow execution.
 class History {
   /// The list of history events.
   final List<HistoryEvent> events;
@@ -3505,6 +3808,152 @@ class History {
   static History fromJson(Map<String, dynamic> json) => History();
 }
 
+/// Event within a workflow execution. A history event can be one of these
+/// types:
+///
+/// *    `ActivityTaskCancelRequested` – A `RequestCancelActivityTask` decision
+/// was received by the system.
+///
+/// *    `ActivityTaskCanceled` – The activity task was successfully canceled.
+///
+/// *    `ActivityTaskCompleted` – An activity worker successfully completed an
+/// activity task by calling RespondActivityTaskCompleted.
+///
+/// *    `ActivityTaskFailed` – An activity worker failed an activity task by
+/// calling RespondActivityTaskFailed.
+///
+/// *    `ActivityTaskScheduled` – An activity task was scheduled for execution.
+///
+/// *    `ActivityTaskStarted` – The scheduled activity task was dispatched to a
+/// worker.
+///
+/// *    `ActivityTaskTimedOut` – The activity task timed out.
+///
+/// *    `CancelTimerFailed` – Failed to process CancelTimer decision. This
+/// happens when the decision isn't configured properly, for example no timer
+/// exists with the specified timer Id.
+///
+/// *    `CancelWorkflowExecutionFailed` – A request to cancel a workflow
+/// execution failed.
+///
+/// *    `ChildWorkflowExecutionCanceled` – A child workflow execution, started
+/// by this workflow execution, was canceled and closed.
+///
+/// *    `ChildWorkflowExecutionCompleted` – A child workflow execution, started
+/// by this workflow execution, completed successfully and was closed.
+///
+/// *    `ChildWorkflowExecutionFailed` – A child workflow execution, started by
+/// this workflow execution, failed to complete successfully and was closed.
+///
+/// *    `ChildWorkflowExecutionStarted` – A child workflow execution was
+/// successfully started.
+///
+/// *    `ChildWorkflowExecutionTerminated` – A child workflow execution,
+/// started by this workflow execution, was terminated.
+///
+/// *    `ChildWorkflowExecutionTimedOut` – A child workflow execution, started
+/// by this workflow execution, timed out and was closed.
+///
+/// *    `CompleteWorkflowExecutionFailed` – The workflow execution failed to
+/// complete.
+///
+/// *    `ContinueAsNewWorkflowExecutionFailed` – The workflow execution failed
+/// to complete after being continued as a new workflow execution.
+///
+/// *    `DecisionTaskCompleted` – The decider successfully completed a decision
+/// task by calling RespondDecisionTaskCompleted.
+///
+/// *    `DecisionTaskScheduled` – A decision task was scheduled for the
+/// workflow execution.
+///
+/// *    `DecisionTaskStarted` – The decision task was dispatched to a decider.
+///
+/// *    `DecisionTaskTimedOut` – The decision task timed out.
+///
+/// *    `ExternalWorkflowExecutionCancelRequested` – Request to cancel an
+/// external workflow execution was successfully delivered to the target
+/// execution.
+///
+/// *    `ExternalWorkflowExecutionSignaled` – A signal, requested by this
+/// workflow execution, was successfully delivered to the target external
+/// workflow execution.
+///
+/// *    `FailWorkflowExecutionFailed` – A request to mark a workflow execution
+/// as failed, itself failed.
+///
+/// *    `MarkerRecorded` – A marker was recorded in the workflow history as the
+/// result of a `RecordMarker` decision.
+///
+/// *    `RecordMarkerFailed` – A `RecordMarker` decision was returned as
+/// failed.
+///
+/// *    `RequestCancelActivityTaskFailed` – Failed to process
+/// RequestCancelActivityTask decision. This happens when the decision isn't
+/// configured properly.
+///
+/// *    `RequestCancelExternalWorkflowExecutionFailed` – Request to cancel an
+/// external workflow execution failed.
+///
+/// *    `RequestCancelExternalWorkflowExecutionInitiated` – A request was made
+/// to request the cancellation of an external workflow execution.
+///
+/// *    `ScheduleActivityTaskFailed` – Failed to process ScheduleActivityTask
+/// decision. This happens when the decision isn't configured properly, for
+/// example the activity type specified isn't registered.
+///
+/// *    `SignalExternalWorkflowExecutionFailed` – The request to signal an
+/// external workflow execution failed.
+///
+/// *    `SignalExternalWorkflowExecutionInitiated` – A request to signal an
+/// external workflow was made.
+///
+/// *    `StartActivityTaskFailed` – A scheduled activity task failed to start.
+///
+/// *    `StartChildWorkflowExecutionFailed` – Failed to process
+/// StartChildWorkflowExecution decision. This happens when the decision isn't
+/// configured properly, for example the workflow type specified isn't
+/// registered.
+///
+/// *    `StartChildWorkflowExecutionInitiated` – A request was made to start a
+/// child workflow execution.
+///
+/// *    `StartTimerFailed` – Failed to process StartTimer decision. This
+/// happens when the decision isn't configured properly, for example a timer
+/// already exists with the specified timer Id.
+///
+/// *    `TimerCanceled` – A timer, previously started for this workflow
+/// execution, was successfully canceled.
+///
+/// *    `TimerFired` – A timer, previously started for this workflow execution,
+/// fired.
+///
+/// *    `TimerStarted` – A timer was started for the workflow execution due to
+/// a `StartTimer` decision.
+///
+/// *    `WorkflowExecutionCancelRequested` – A request to cancel this workflow
+/// execution was made.
+///
+/// *    `WorkflowExecutionCanceled` – The workflow execution was successfully
+/// canceled and closed.
+///
+/// *    `WorkflowExecutionCompleted` – The workflow execution was closed due to
+/// successful completion.
+///
+/// *    `WorkflowExecutionContinuedAsNew` – The workflow execution was closed
+/// and a new execution of the same type was created with the same workflowId.
+///
+/// *    `WorkflowExecutionFailed` – The workflow execution closed due to a
+/// failure.
+///
+/// *    `WorkflowExecutionSignaled` – An external signal was received for the
+/// workflow execution.
+///
+/// *    `WorkflowExecutionStarted` – The workflow execution was started.
+///
+/// *    `WorkflowExecutionTerminated` – The workflow execution was terminated.
+///
+/// *    `WorkflowExecutionTimedOut` – The workflow execution was closed because
+/// a time out was exceeded.
 class HistoryEvent {
   /// The date and time when the event occurred.
   final DateTime eventTimestamp;
@@ -3880,6 +4329,8 @@ class HistoryEvent {
   static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
 }
 
+/// Provides the details of the `LambdaFunctionCompleted` event. It isn't set
+/// for other event types.
 class LambdaFunctionCompletedEventAttributes {
   /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
   /// Lambda task was scheduled. To help diagnose issues, use this information
@@ -3904,6 +4355,8 @@ class LambdaFunctionCompletedEventAttributes {
       LambdaFunctionCompletedEventAttributes();
 }
 
+/// Provides the details of the `LambdaFunctionFailed` event. It isn't set for
+/// other event types.
 class LambdaFunctionFailedEventAttributes {
   /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
   /// activity task was scheduled. To help diagnose issues, use this information
@@ -3932,6 +4385,8 @@ class LambdaFunctionFailedEventAttributes {
       LambdaFunctionFailedEventAttributes();
 }
 
+/// Provides the details of the `LambdaFunctionScheduled` event. It isn't set
+/// for other event types.
 class LambdaFunctionScheduledEventAttributes {
   /// The unique ID of the Lambda task.
   final String id;
@@ -3968,6 +4423,8 @@ class LambdaFunctionScheduledEventAttributes {
       LambdaFunctionScheduledEventAttributes();
 }
 
+/// Provides the details of the `LambdaFunctionStarted` event. It isn't set for
+/// other event types.
 class LambdaFunctionStartedEventAttributes {
   /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
   /// activity task was scheduled. To help diagnose issues, use this information
@@ -3982,6 +4439,7 @@ class LambdaFunctionStartedEventAttributes {
       LambdaFunctionStartedEventAttributes();
 }
 
+/// Provides details of the `LambdaFunctionTimedOut` event.
 class LambdaFunctionTimedOutEventAttributes {
   /// The ID of the `LambdaFunctionScheduled` event that was recorded when this
   /// activity task was scheduled. To help diagnose issues, use this information
@@ -4017,6 +4475,7 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// Provides the details of the `MarkerRecorded` event.
 class MarkerRecordedEventAttributes {
   /// The name of the marker.
   final String markerName;
@@ -4039,6 +4498,7 @@ class MarkerRecordedEventAttributes {
       MarkerRecordedEventAttributes();
 }
 
+/// Contains the count of tasks in a task list.
 class PendingTaskCount {
   /// The number of tasks in the task list.
   final int count;
@@ -4055,6 +4515,27 @@ class PendingTaskCount {
       PendingTaskCount();
 }
 
+/// Provides the details of the `RecordMarker` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class RecordMarkerDecisionAttributes {
   ///  The name of the marker.
   final String markerName;
@@ -4068,6 +4549,7 @@ class RecordMarkerDecisionAttributes {
   });
 }
 
+/// Provides the details of the `RecordMarkerFailed` event.
 class RecordMarkerFailedEventAttributes {
   /// The marker's name.
   final String markerName;
@@ -4077,10 +4559,10 @@ class RecordMarkerFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4100,6 +4582,27 @@ class RecordMarkerFailedEventAttributes {
       RecordMarkerFailedEventAttributes();
 }
 
+/// Provides the details of the `RequestCancelActivityTask` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class RequestCancelActivityTaskDecisionAttributes {
   /// The `activityId` of the activity task to be canceled.
   final String activityId;
@@ -4109,6 +4612,7 @@ class RequestCancelActivityTaskDecisionAttributes {
   });
 }
 
+/// Provides the details of the `RequestCancelActivityTaskFailed` event.
 class RequestCancelActivityTaskFailedEventAttributes {
   /// The activityId provided in the `RequestCancelActivityTask` decision that
   /// failed.
@@ -4119,10 +4623,10 @@ class RequestCancelActivityTaskFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4142,6 +4646,28 @@ class RequestCancelActivityTaskFailedEventAttributes {
       RequestCancelActivityTaskFailedEventAttributes();
 }
 
+/// Provides the details of the `RequestCancelExternalWorkflowExecution`
+/// decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class RequestCancelExternalWorkflowExecutionDecisionAttributes {
   ///  The `workflowId` of the external workflow execution to cancel.
   final String workflowId;
@@ -4160,6 +4686,8 @@ class RequestCancelExternalWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `RequestCancelExternalWorkflowExecutionFailed`
+/// event.
 class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
   /// The `workflowId` of the external workflow to which the cancel request was
   /// to be delivered.
@@ -4173,10 +4701,10 @@ class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4211,6 +4739,8 @@ class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
       RequestCancelExternalWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provides the details of the
+/// `RequestCancelExternalWorkflowExecutionInitiated` event.
 class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {
   /// The `workflowId` of the external workflow execution to be canceled.
   final String workflowId;
@@ -4240,6 +4770,11 @@ class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {
           RequestCancelExternalWorkflowExecutionInitiatedEventAttributes();
 }
 
+/// Tags are key-value pairs that can be associated with Amazon SWF state
+/// machines and activities.
+///
+/// Tags may only contain unicode letters, digits, whitespace, or these symbols:
+/// `_ . : / = + - @`.
 class ResourceTag {
   /// The key of a tag.
   final String key;
@@ -4254,6 +4789,7 @@ class ResourceTag {
   static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
 }
 
+/// Specifies the `runId` of a workflow execution.
 class Run {
   /// The `runId` of a workflow execution. This ID is generated by the service
   /// and can be used to uniquely identify the workflow execution within a
@@ -4266,6 +4802,37 @@ class Run {
   static Run fromJson(Map<String, dynamic> json) => Run();
 }
 
+/// Provides the details of the `ScheduleActivityTask` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   Constrain the following parameters by using a `Condition` element with
+/// the appropriate keys.
+///
+///     *    `activityType.name` – String constraint. The key is
+/// `swf:activityType.name`.
+///
+///     *    `activityType.version` – String constraint. The key is
+/// `swf:activityType.version`.
+///
+///     *    `taskList` – String constraint. The key is `swf:taskList.name`.
+///
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class ScheduleActivityTaskDecisionAttributes {
   ///  The type of the activity task to schedule.
   final ActivityType activityType;
@@ -4274,8 +4841,8 @@ class ScheduleActivityTaskDecisionAttributes {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
-  /// contain the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not contain the
+  /// literal string `arn`.
   final String activityId;
 
   /// Data attached to the event that can be used by the decider in subsequent
@@ -4309,8 +4876,8 @@ class ScheduleActivityTaskDecisionAttributes {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
-  /// contain the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not contain the
+  /// literal string `arn`.
   final TaskList taskList;
 
   ///  If set, specifies the priority with which the activity task is to be
@@ -4320,8 +4887,8 @@ class ScheduleActivityTaskDecisionAttributes {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -4380,6 +4947,7 @@ class ScheduleActivityTaskDecisionAttributes {
   });
 }
 
+/// Provides the details of the `ScheduleActivityTaskFailed` event.
 class ScheduleActivityTaskFailedEventAttributes {
   /// The activity type provided in the `ScheduleActivityTask` decision that
   /// failed.
@@ -4394,10 +4962,10 @@ class ScheduleActivityTaskFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4418,6 +4986,9 @@ class ScheduleActivityTaskFailedEventAttributes {
       ScheduleActivityTaskFailedEventAttributes();
 }
 
+/// Decision attributes specified in `scheduleLambdaFunctionDecisionAttributes`
+/// within the list of decisions `decisions` passed to
+/// RespondDecisionTaskCompleted.
 class ScheduleLambdaFunctionDecisionAttributes {
   /// A string that identifies the Lambda function execution in the event
   /// history.
@@ -4448,6 +5019,8 @@ class ScheduleLambdaFunctionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `ScheduleLambdaFunctionFailed` event. It isn't
+/// set for other event types.
 class ScheduleLambdaFunctionFailedEventAttributes {
   /// The ID provided in the `ScheduleLambdaFunction` decision that failed.
   final String id;
@@ -4460,10 +5033,10 @@ class ScheduleLambdaFunctionFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4484,6 +5057,27 @@ class ScheduleLambdaFunctionFailedEventAttributes {
       ScheduleLambdaFunctionFailedEventAttributes();
 }
 
+/// Provides the details of the `SignalExternalWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class SignalExternalWorkflowExecutionDecisionAttributes {
   ///  The `workflowId` of the workflow execution to be signaled.
   final String workflowId;
@@ -4512,6 +5106,7 @@ class SignalExternalWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `SignalExternalWorkflowExecutionFailed` event.
 class SignalExternalWorkflowExecutionFailedEventAttributes {
   /// The `workflowId` of the external workflow execution that the signal was
   /// being delivered to.
@@ -4526,10 +5121,10 @@ class SignalExternalWorkflowExecutionFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4562,6 +5157,8 @@ class SignalExternalWorkflowExecutionFailedEventAttributes {
       SignalExternalWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provides the details of the `SignalExternalWorkflowExecutionInitiated`
+/// event.
 class SignalExternalWorkflowExecutionInitiatedEventAttributes {
   /// The `workflowId` of the external workflow execution.
   final String workflowId;
@@ -4598,6 +5195,40 @@ class SignalExternalWorkflowExecutionInitiatedEventAttributes {
       SignalExternalWorkflowExecutionInitiatedEventAttributes();
 }
 
+/// Provides the details of the `StartChildWorkflowExecution` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   Constrain the following parameters by using a `Condition` element with
+/// the appropriate keys.
+///
+///     *    `tagList.member.N` – The key is "swf:tagList.N" where N is the tag
+/// number from 0 to 4, inclusive.
+///
+///     *    `taskList` – String constraint. The key is `swf:taskList.name`.
+///
+///     *    `workflowType.name` – String constraint. The key is
+/// `swf:workflowType.name`.
+///
+///     *    `workflowType.version` – String constraint. The key is
+/// `swf:workflowType.version`.
+///
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class StartChildWorkflowExecutionDecisionAttributes {
   ///  The type of the workflow execution to be started.
   final WorkflowType workflowType;
@@ -4606,8 +5237,8 @@ class StartChildWorkflowExecutionDecisionAttributes {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
-  /// contain the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not contain the
+  /// literal string `arn`.
   final String workflowId;
 
   /// The data attached to the event that can be used by the decider in
@@ -4644,8 +5275,8 @@ class StartChildWorkflowExecutionDecisionAttributes {
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
-  /// contain the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not contain the
+  /// literal string `arn`.
   final TaskList taskList;
 
   ///  A task priority that, if set, specifies the priority for a decision task
@@ -4654,8 +5285,8 @@ class StartChildWorkflowExecutionDecisionAttributes {
   /// that range from Java's `Integer.MIN_VALUE` (-2147483648) to
   /// `Integer.MAX_VALUE` (2147483647). Higher numbers indicate higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -4725,6 +5356,7 @@ class StartChildWorkflowExecutionDecisionAttributes {
   });
 }
 
+/// Provides the details of the `StartChildWorkflowExecutionFailed` event.
 class StartChildWorkflowExecutionFailedEventAttributes {
   /// The workflow type provided in the `StartChildWorkflowExecution` Decision
   /// that failed.
@@ -4735,23 +5367,23 @@ class StartChildWorkflowExecutionFailedEventAttributes {
   ///
   ///
   ///
-  /// When `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision fails
+  /// When `cause` is set to `OPERATION_NOT_PERMITTED`, the decision fails
   /// because it lacks sufficient permissions. For details and example IAM
-  /// policies, see  [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
   /// The `workflowId` of the child workflow execution.
   final String workflowId;
 
-  /// When the `cause` is `WORKFLOW\_ALREADY\_RUNNING`, `initiatedEventId` is
-  /// the ID of the `StartChildWorkflowExecutionInitiated` event that
-  /// corresponds to the `StartChildWorkflowExecution` Decision to start the
-  /// workflow execution. You can use this information to diagnose problems by
-  /// tracing back the chain of events leading up to this event.
+  /// When the `cause` is `WORKFLOW_ALREADY_RUNNING`, `initiatedEventId` is the
+  /// ID of the `StartChildWorkflowExecutionInitiated` event that corresponds to
+  /// the `StartChildWorkflowExecution` Decision to start the workflow
+  /// execution. You can use this information to diagnose problems by tracing
+  /// back the chain of events leading up to this event.
   ///
-  /// When the `cause` isn't `WORKFLOW\_ALREADY\_RUNNING`, `initiatedEventId` is
+  /// When the `cause` isn't `WORKFLOW_ALREADY_RUNNING`, `initiatedEventId` is
   /// set to `0` because the `StartChildWorkflowExecutionInitiated` event
   /// doesn't exist.
   final BigInt initiatedEventId;
@@ -4779,6 +5411,7 @@ class StartChildWorkflowExecutionFailedEventAttributes {
       StartChildWorkflowExecutionFailedEventAttributes();
 }
 
+/// Provides the details of the `StartChildWorkflowExecutionInitiated` event.
 class StartChildWorkflowExecutionInitiatedEventAttributes {
   /// The `workflowId` of the child workflow execution.
   final String workflowId;
@@ -4810,8 +5443,8 @@ class StartChildWorkflowExecutionInitiatedEventAttributes {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -4869,6 +5502,8 @@ class StartChildWorkflowExecutionInitiatedEventAttributes {
       StartChildWorkflowExecutionInitiatedEventAttributes();
 }
 
+/// Provides the details of the `StartLambdaFunctionFailed` event. It isn't set
+/// for other event types.
 class StartLambdaFunctionFailedEventAttributes {
   /// The ID of the `ActivityTaskScheduled` event that was recorded when this
   /// activity task was scheduled. To help diagnose issues, use this information
@@ -4880,10 +5515,10 @@ class StartLambdaFunctionFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because the IAM role attached to the execution lacked sufficient
-  /// permissions. For details and example IAM policies, see [Lambda
-  /// Tasks](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
+  /// permissions. For details and example IAM policies, see
+  /// [Lambda Tasks](https://docs.aws.amazon.com/amazonswf/latest/developerguide/lambda-task.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4900,13 +5535,34 @@ class StartLambdaFunctionFailedEventAttributes {
       StartLambdaFunctionFailedEventAttributes();
 }
 
+/// Provides the details of the `StartTimer` decision.
+///
+///  **Access Control**
+///
+/// You can use IAM policies to control this decision's access to Amazon SWF
+/// resources as follows:
+///
+/// *   Use a `Resource` element with the domain name to limit the action to
+/// only specified domains.
+///
+/// *   Use an `Action` element to allow or deny permission to call this action.
+///
+/// *   You cannot use an IAM policy to constrain this action's parameters.
+///
+///
+/// If the caller doesn't have sufficient permissions to invoke the action, or
+/// the parameter values fall outside the specified constraints, the action
+/// fails. The associated event attribute's `cause` parameter is set to
+/// `OPERATION_NOT_PERMITTED`. For details and example IAM policies, see
+/// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+/// in the _Amazon SWF Developer Guide_.
 class StartTimerDecisionAttributes {
   ///  The unique ID of the timer.
   ///
   /// The specified string must not start or end with whitespace. It must not
   /// contain a `:` (colon), `/` (slash), `|` (vertical bar), or any control
-  /// characters (`\\u0000-\\u001f` | `\\u007f-\\u009f`). Also, it must not
-  /// contain the literal string `arn`.
+  /// characters (`u0000-u001f` | `u007f-u009f`). Also, it must not contain the
+  /// literal string `arn`.
   final String timerId;
 
   /// The data attached to the event that can be used by the decider in
@@ -4926,6 +5582,7 @@ class StartTimerDecisionAttributes {
   });
 }
 
+/// Provides the details of the `StartTimerFailed` event.
 class StartTimerFailedEventAttributes {
   /// The timerId provided in the `StartTimer` decision that failed.
   final String timerId;
@@ -4935,10 +5592,10 @@ class StartTimerFailedEventAttributes {
   ///
   ///
   ///
-  /// If `cause` is set to `OPERATION\_NOT\_PERMITTED`, the decision failed
+  /// If `cause` is set to `OPERATION_NOT_PERMITTED`, the decision failed
   /// because it lacked sufficient permissions. For details and example IAM
-  /// policies, see [Using IAM to Manage Access to Amazon SWF
-  /// Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
+  /// policies, see
+  /// [Using IAM to Manage Access to Amazon SWF Workflows](https://docs.aws.amazon.com/amazonswf/latest/developerguide/swf-dev-iam.html)
   /// in the _Amazon SWF Developer Guide_.
   final String cause;
 
@@ -4957,6 +5614,7 @@ class StartTimerFailedEventAttributes {
       StartTimerFailedEventAttributes();
 }
 
+/// Used to filter the workflow executions in visibility APIs based on a tag.
 class TagFilter {
   ///  Specifies the tag that must be associated with the execution for it to
   /// meet the filter criteria.
@@ -4970,6 +5628,7 @@ class TagFilter {
   });
 }
 
+/// Represents a task list.
 class TaskList {
   /// The name of the task list.
   final String name;
@@ -4980,6 +5639,7 @@ class TaskList {
   static TaskList fromJson(Map<String, dynamic> json) => TaskList();
 }
 
+///  Provides the details of the `TimerCanceled` event.
 class TimerCanceledEventAttributes {
   /// The unique ID of the timer that was canceled.
   final String timerId;
@@ -5004,6 +5664,7 @@ class TimerCanceledEventAttributes {
       TimerCanceledEventAttributes();
 }
 
+/// Provides the details of the `TimerFired` event.
 class TimerFiredEventAttributes {
   /// The unique ID of the timer that fired.
   final String timerId;
@@ -5021,6 +5682,7 @@ class TimerFiredEventAttributes {
       TimerFiredEventAttributes();
 }
 
+/// Provides the details of the `TimerStarted` event.
 class TimerStartedEventAttributes {
   /// The unique ID of the timer that was started.
   final String timerId;
@@ -5051,6 +5713,7 @@ class TimerStartedEventAttributes {
       TimerStartedEventAttributes();
 }
 
+/// Represents a workflow execution.
 class WorkflowExecution {
   /// The user defined identifier associated with the workflow execution.
   final String workflowId;
@@ -5066,6 +5729,7 @@ class WorkflowExecution {
       WorkflowExecution();
 }
 
+/// Provides the details of the `WorkflowExecutionCancelRequested` event.
 class WorkflowExecutionCancelRequestedEventAttributes {
   /// The external workflow execution for which the cancellation was requested.
   final WorkflowExecution externalWorkflowExecution;
@@ -5094,6 +5758,7 @@ class WorkflowExecutionCancelRequestedEventAttributes {
       WorkflowExecutionCancelRequestedEventAttributes();
 }
 
+/// Provides the details of the `WorkflowExecutionCanceled` event.
 class WorkflowExecutionCanceledEventAttributes {
   /// The details of the cancellation.
   final String details;
@@ -5113,6 +5778,7 @@ class WorkflowExecutionCanceledEventAttributes {
       WorkflowExecutionCanceledEventAttributes();
 }
 
+/// Provides the details of the `WorkflowExecutionCompleted` event.
 class WorkflowExecutionCompletedEventAttributes {
   /// The result produced by the workflow execution upon successful completion.
   final String result;
@@ -5132,6 +5798,10 @@ class WorkflowExecutionCompletedEventAttributes {
       WorkflowExecutionCompletedEventAttributes();
 }
 
+/// The configuration settings for a workflow execution including timeout
+/// values, tasklist etc. These configuration settings are determined from the
+/// defaults specified when registering the workflow type and those specified
+/// when starting the workflow execution.
 class WorkflowExecutionConfiguration {
   /// The maximum duration allowed for decision tasks for this workflow
   /// execution.
@@ -5155,8 +5825,8 @@ class WorkflowExecutionConfiguration {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String taskPriority;
 
@@ -5191,6 +5861,7 @@ class WorkflowExecutionConfiguration {
       WorkflowExecutionConfiguration();
 }
 
+/// Provides the details of the `WorkflowExecutionContinuedAsNew` event.
 class WorkflowExecutionContinuedAsNewEventAttributes {
   /// The input provided to the new workflow execution.
   final String input;
@@ -5267,6 +5938,8 @@ class WorkflowExecutionContinuedAsNewEventAttributes {
       WorkflowExecutionContinuedAsNewEventAttributes();
 }
 
+/// Contains the count of workflow executions returned from
+/// CountOpenWorkflowExecutions or CountClosedWorkflowExecutions
 class WorkflowExecutionCount {
   /// The number of workflow executions.
   final int count;
@@ -5283,6 +5956,7 @@ class WorkflowExecutionCount {
       WorkflowExecutionCount();
 }
 
+/// Contains details about a workflow execution.
 class WorkflowExecutionDetail {
   /// Information about the workflow execution.
   final WorkflowExecutionInfo executionInfo;
@@ -5317,6 +5991,7 @@ class WorkflowExecutionDetail {
       WorkflowExecutionDetail();
 }
 
+/// Provides the details of the `WorkflowExecutionFailed` event.
 class WorkflowExecutionFailedEventAttributes {
   /// The descriptive reason provided for the failure.
   final String reason;
@@ -5340,6 +6015,8 @@ class WorkflowExecutionFailedEventAttributes {
       WorkflowExecutionFailedEventAttributes();
 }
 
+/// Used to filter the workflow executions in visibility APIs by their
+/// `workflowId`.
 class WorkflowExecutionFilter {
   /// The workflowId to pass of match the criteria of this filter.
   final String workflowId;
@@ -5349,6 +6026,7 @@ class WorkflowExecutionFilter {
   });
 }
 
+/// Contains information about a workflow execution.
 class WorkflowExecutionInfo {
   /// The workflow execution this information is about.
   final WorkflowExecution execution;
@@ -5381,9 +6059,9 @@ class WorkflowExecutionInfo {
   /// *    `TIMED_OUT` – the execution did not complete in the alloted time and
   /// was automatically timed out.
   ///
-  /// *    `CONTINUED\_AS\_NEW` – the execution is logically continued. This
-  /// means the current execution was completed and a new execution was started
-  /// to carry on the workflow.
+  /// *    `CONTINUED_AS_NEW` – the execution is logically continued. This means
+  /// the current execution was completed and a new execution was started to
+  /// carry on the workflow.
   final String closeStatus;
 
   /// If this workflow execution is a child of another execution then contains
@@ -5413,6 +6091,7 @@ class WorkflowExecutionInfo {
       WorkflowExecutionInfo();
 }
 
+/// Contains a paginated list of information about workflow executions.
 class WorkflowExecutionInfos {
   /// The list of workflow information structures.
   final List<WorkflowExecutionInfo> executionInfos;
@@ -5434,6 +6113,8 @@ class WorkflowExecutionInfos {
       WorkflowExecutionInfos();
 }
 
+/// Contains the counts of open tasks, child workflow executions and timers for
+/// a workflow execution.
 class WorkflowExecutionOpenCounts {
   /// The count of activity tasks whose status is `OPEN`.
   final int openActivityTasks;
@@ -5463,6 +6144,7 @@ class WorkflowExecutionOpenCounts {
       WorkflowExecutionOpenCounts();
 }
 
+/// Provides the details of the `WorkflowExecutionSignaled` event.
 class WorkflowExecutionSignaledEventAttributes {
   /// The name of the signal received. The decider can use the signal name and
   /// inputs to determine how to the process the signal.
@@ -5496,6 +6178,7 @@ class WorkflowExecutionSignaledEventAttributes {
       WorkflowExecutionSignaledEventAttributes();
 }
 
+/// Provides details of `WorkflowExecutionStarted` event.
 class WorkflowExecutionStartedEventAttributes {
   /// The input provided to the workflow execution.
   final String input;
@@ -5582,6 +6265,7 @@ class WorkflowExecutionStartedEventAttributes {
       WorkflowExecutionStartedEventAttributes();
 }
 
+/// Provides the details of the `WorkflowExecutionTerminated` event.
 class WorkflowExecutionTerminatedEventAttributes {
   /// The reason provided for the termination.
   final String reason;
@@ -5621,6 +6305,7 @@ class WorkflowExecutionTerminatedEventAttributes {
       WorkflowExecutionTerminatedEventAttributes();
 }
 
+/// Provides the details of the `WorkflowExecutionTimedOut` event.
 class WorkflowExecutionTimedOutEventAttributes {
   /// The type of timeout that caused this event.
   final String timeoutType;
@@ -5649,6 +6334,7 @@ class WorkflowExecutionTimedOutEventAttributes {
       WorkflowExecutionTimedOutEventAttributes();
 }
 
+/// Represents a workflow type.
 class WorkflowType {
   ///  The name of the workflow type.
   ///
@@ -5673,6 +6359,7 @@ class WorkflowType {
   static WorkflowType fromJson(Map<String, dynamic> json) => WorkflowType();
 }
 
+/// The configuration settings of a workflow type.
 class WorkflowTypeConfiguration {
   ///  The default maximum duration, specified when registering the workflow
   /// type, that a decision task for executions of this workflow type might take
@@ -5713,8 +6400,8 @@ class WorkflowTypeConfiguration {
   /// (-2147483648) to `Integer.MAX_VALUE` (2147483647). Higher numbers indicate
   /// higher priority.
   ///
-  /// For more information about setting task priority, see [Setting Task
-  /// Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
+  /// For more information about setting task priority, see
+  /// [Setting Task Priority](https://docs.aws.amazon.com/amazonswf/latest/developerguide/programming-priority.html)
   /// in the _Amazon SWF Developer Guide_.
   final String defaultTaskPriority;
 
@@ -5761,6 +6448,7 @@ class WorkflowTypeConfiguration {
       WorkflowTypeConfiguration();
 }
 
+/// Contains details about a workflow type.
 class WorkflowTypeDetail {
   /// General information about the workflow type.
   ///
@@ -5787,6 +6475,8 @@ class WorkflowTypeDetail {
       WorkflowTypeDetail();
 }
 
+/// Used to filter workflow execution query results by type. Each parameter, if
+/// specified, defines a rule that must be satisfied by each returned result.
 class WorkflowTypeFilter {
   ///  Name of the workflow type.
   final String name;
@@ -5800,6 +6490,7 @@ class WorkflowTypeFilter {
   });
 }
 
+/// Contains information about a workflow type.
 class WorkflowTypeInfo {
   /// The workflow type this information is about.
   final WorkflowType workflowType;
@@ -5828,6 +6519,7 @@ class WorkflowTypeInfo {
       WorkflowTypeInfo();
 }
 
+/// Contains a paginated list of information structures about workflow types.
 class WorkflowTypeInfos {
   /// The list of workflow type information.
   final List<WorkflowTypeInfo> typeInfos;

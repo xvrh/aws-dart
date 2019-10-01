@@ -638,6 +638,7 @@ class DescribeWebsiteCertificateAuthorityResponse {
       DescribeWebsiteCertificateAuthorityResponse();
 }
 
+/// The summary of devices.
 class DeviceSummary {
   /// The ID of the device.
   final String deviceId;
@@ -672,6 +673,7 @@ class DisassociateWebsiteCertificateAuthorityResponse {
       DisassociateWebsiteCertificateAuthorityResponse();
 }
 
+/// The summary of the domain.
 class DomainSummary {
   /// The name of the domain.
   final String domainName;
@@ -694,6 +696,7 @@ class DomainSummary {
   static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary();
 }
 
+/// The summary of the fleet.
 class FleetSummary {
   /// The ARN of the fleet.
   final String fleetArn;
@@ -868,6 +871,7 @@ class UpdateIdentityProviderConfigurationResponse {
       UpdateIdentityProviderConfigurationResponse();
 }
 
+/// The summary of the website authorization provider.
 class WebsiteAuthorizationProviderSummary {
   /// A unique identifier for the authorization provider.
   final String authorizationProviderId;
@@ -893,6 +897,7 @@ class WebsiteAuthorizationProviderSummary {
       WebsiteAuthorizationProviderSummary();
 }
 
+/// The summary of the certificate authority (CA).
 class WebsiteCaSummary {
   /// A unique identifier for the CA.
   final String websiteCaId;

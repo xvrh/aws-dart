@@ -91,9 +91,8 @@ class LakeFormationApi {
   /// Grants permissions to the principal to access metadata in the Data Catalog
   /// and data organized in underlying data storage such as Amazon S3.
   ///
-  /// For information about permissions, see [Security and Access Control to
-  /// Metadata and
-  /// Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
+  /// For information about permissions, see
+  /// [Security and Access Control to Metadata and Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
   ///
   /// [catalogId]: The identifier for the Data Catalog. By default, the account
   /// ID. The Data Catalog is the persistent metadata store. It contains
@@ -136,9 +135,8 @@ class LakeFormationApi {
   /// This operation returns only those permissions that have been explicitly
   /// granted.
   ///
-  /// For information about permissions, see [Security and Access Control to
-  /// Metadata and
-  /// Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
+  /// For information about permissions, see
+  /// [Security and Access Control to Metadata and Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
   ///
   /// [catalogId]: The identifier for the Data Catalog. By default, the account
   /// ID. The Data Catalog is the persistent metadata store. It contains
@@ -237,9 +235,8 @@ class LakeFormationApi {
   /// [resource]: The resource to which permissions are to be revoked.
   ///
   /// [permissions]: The permissions revoked to the principal on the resource.
-  /// For information about permissions, see [Security and Access Control to
-  /// Metadata and
-  /// Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
+  /// For information about permissions, see
+  /// [Security and Access Control to Metadata and Data](https://docs-aws.amazon.com/michigan/latest/dg/security-data-access.html).
   ///
   /// [permissionsWithGrantOption]: Indicates a list of permissions for which to
   /// revoke the grant option allowing the principal to pass permissions to
@@ -277,6 +274,7 @@ class BatchGrantPermissionsResponse {
       BatchGrantPermissionsResponse();
 }
 
+/// A list of failures when performing a batch grant or batch revoke operation.
 class BatchPermissionsFailureEntry {
   /// An identifier for an entry of the batch request.
   final BatchPermissionsRequestEntry requestEntry;
@@ -292,6 +290,7 @@ class BatchPermissionsFailureEntry {
       BatchPermissionsFailureEntry();
 }
 
+/// A permission to a resource granted by batch operation to the principal.
 class BatchPermissionsRequestEntry {
   /// A unique identifier for the batch permissions request entry.
   final String id;
@@ -330,12 +329,15 @@ class BatchRevokePermissionsResponse {
       BatchRevokePermissionsResponse();
 }
 
+/// A structure for the catalog object.
 class CatalogResource {
   CatalogResource();
   static CatalogResource fromJson(Map<String, dynamic> json) =>
       CatalogResource();
 }
 
+/// A wildcard object, consisting of an optional list of excluded column names
+/// or indexes.
 class ColumnWildcard {
   /// Excludes column names. Any column with this name will be excluded.
   final List<String> excludedColumnNames;
@@ -346,6 +348,7 @@ class ColumnWildcard {
   static ColumnWildcard fromJson(Map<String, dynamic> json) => ColumnWildcard();
 }
 
+/// The AWS Lake Formation principal.
 class DataLakePrincipal {
   /// An identifier for the AWS Lake Formation principal.
   final String dataLakePrincipalIdentifier;
@@ -357,6 +360,7 @@ class DataLakePrincipal {
       DataLakePrincipal();
 }
 
+/// The AWS Lake Formation principal.
 class DataLakeSettings {
   /// A list of AWS Lake Formation principals.
   final List<DataLakePrincipal> dataLakeAdmins;
@@ -378,6 +382,8 @@ class DataLakeSettings {
       DataLakeSettings();
 }
 
+/// A structure for a data location object where permissions are granted or
+/// revoked.
 class DataLocationResource {
   /// The Amazon Resource Name (ARN) that uniquely identifies the data location
   /// resource.
@@ -390,6 +396,7 @@ class DataLocationResource {
       DataLocationResource();
 }
 
+/// A structure for the database object.
 class DatabaseResource {
   /// The name of the database resource. Unique to the Data Catalog.
   final String name;
@@ -418,6 +425,7 @@ class DescribeResourceResponse {
       DescribeResourceResponse();
 }
 
+/// Contains details about an error.
 class ErrorDetail {
   /// The code associated with this error.
   final String errorCode;
@@ -432,6 +440,8 @@ class ErrorDetail {
   static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
 }
 
+/// This structure describes the filtering of columns in a table based on a
+/// filter condition.
 class FilterCondition {
   /// The field to filter in the filter condition.
   final String field;
@@ -515,6 +525,7 @@ class ListResourcesResponse {
       ListResourcesResponse();
 }
 
+/// Permissions granted to a principal.
 class PrincipalPermissions {
   /// The principal who is granted permissions.
   final DataLakePrincipal principal;
@@ -530,6 +541,7 @@ class PrincipalPermissions {
       PrincipalPermissions();
 }
 
+/// The permissions granted or revoked on a resource.
 class PrincipalResourcePermissions {
   /// The Data Lake principal to be granted or revoked permissions.
   final DataLakePrincipal principal;
@@ -566,6 +578,7 @@ class RegisterResourceResponse {
       RegisterResourceResponse();
 }
 
+/// A structure for the resource.
 class Resource {
   /// The identifier for the Data Catalog. By default, the account ID. The Data
   /// Catalog is the persistent metadata store. It contains database
@@ -602,6 +615,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// A structure containing information about an AWS Lake Formation resource.
 class ResourceInfo {
   /// The Amazon Resource Name (ARN) of the resource.
   final String resourceArn;
@@ -626,6 +640,9 @@ class RevokePermissionsResponse {
       RevokePermissionsResponse();
 }
 
+/// A structure for the table object. A table is a metadata definition that
+/// represents your data. You can Grant and Revoke table privileges to a
+/// principal.
 class TableResource {
   /// The name of the database for the table. Unique to a Data Catalog. A
   /// database is a set of associated table definitions organized into a logical
@@ -642,6 +659,11 @@ class TableResource {
   static TableResource fromJson(Map<String, dynamic> json) => TableResource();
 }
 
+/// A structure for a table with columns object. This object is only used when
+/// granting a SELECT permission.
+///
+/// This object must take a value for at least one of `ColumnsNames`,
+/// `ColumnsIndexes`, or `ColumnsWildcard`.
 class TableWithColumnsResource {
   /// The name of the database for the table with columns resource. Unique to
   /// the Data Catalog. A database is a set of associated table definitions

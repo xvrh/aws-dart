@@ -50,9 +50,8 @@ class CloudWatchLogsApi {
   /// [logGroupName]: The name of the log group.
   ///
   /// [kmsKeyId]: The Amazon Resource Name (ARN) of the CMK to use when
-  /// encrypting log data. For more information, see [Amazon Resource Names -
-  /// AWS Key Management Service (AWS
-  /// KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms).
+  /// encrypting log data. For more information, see
+  /// [Amazon Resource Names - AWS Key Management Service (AWS KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms).
   Future<void> associateKmsKey(
       {@required String logGroupName, @required String kmsKeyId}) async {}
 
@@ -140,9 +139,8 @@ class CloudWatchLogsApi {
   /// [logGroupName]: The name of the log group.
   ///
   /// [kmsKeyId]: The Amazon Resource Name (ARN) of the CMK to use when
-  /// encrypting log data. For more information, see [Amazon Resource Names -
-  /// AWS Key Management Service (AWS
-  /// KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms).
+  /// encrypting log data. For more information, see
+  /// [Amazon Resource Names - AWS Key Management Service (AWS KMS)](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms).
   ///
   /// [tags]: The key-value pairs to use for the tags.
   Future<void> createLogGroup(String logGroupName,
@@ -446,8 +444,7 @@ class CloudWatchLogsApi {
   /// than this time are not returned.
   ///
   /// [filterPattern]: The filter pattern to use. For more information, see
-  /// [Filter and Pattern
-  /// Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html).
+  /// [Filter and Pattern Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/FilterAndPatternSyntax.html).
   ///
   /// If not provided, all the events are matched.
   ///
@@ -615,8 +612,8 @@ class CloudWatchLogsApi {
   }
 
   /// Creates or updates an access policy associated with an existing
-  /// destination. An access policy is an [IAM policy
-  /// document](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html)
+  /// destination. An access policy is an
+  /// [IAM policy document](https://docs.aws.amazon.com/IAM/latest/UserGuide/policies_overview.html)
   /// that is used to authorize claims to register a subscription filter against
   /// a given destination.
   ///
@@ -721,10 +718,9 @@ class CloudWatchLogsApi {
   /// "logArn" with the ARN of your CloudWatch Logs resource, such as a log
   /// group or log stream.
   ///
-  ///  `{ "Version": "2012-10-17", "Statement": \[ { "Sid":
-  /// "Route53LogsToCloudWatchLogs", "Effect": "Allow", "Principal": {
-  /// "Service": \[ "route53.amazonaws.com" \] }, "Action":"logs:PutLogEvents",
-  /// "Resource": "logArn" } \] }`
+  ///  `{ "Version": "2012-10-17", "Statement":
+  /// [ { "Sid": "Route53LogsToCloudWatchLogs", "Effect": "Allow", "Principal": { "Service": [ "route53.amazonaws.com" ]
+  /// }, "Action":"logs:PutLogEvents", "Resource": "logArn" } ] }`
   Future<PutResourcePolicyResponse> putResourcePolicy(
       {String policyName, String policyDocument}) async {
     return PutResourcePolicyResponse.fromJson({});
@@ -809,8 +805,8 @@ class CloudWatchLogsApi {
   /// specify the log group and time range to query, and the query string to
   /// use.
   ///
-  /// For more information, see [CloudWatch Logs Insights Query
-  /// Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html).
+  /// For more information, see
+  /// [CloudWatch Logs Insights Query Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html).
   ///
   /// Queries time out after 15 minutes of execution. If your queries are timing
   /// out, reduce the time range being searched, or partition your query into a
@@ -836,8 +832,7 @@ class CloudWatchLogsApi {
   /// the number of seconds since January 1, 1970, 00:00:00 UTC.
   ///
   /// [queryString]: The query string to use. For more information, see
-  /// [CloudWatch Logs Insights Query
-  /// Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html).
+  /// [CloudWatch Logs Insights Query Syntax](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html).
   ///
   /// [limit]: The maximum number of log events to return in the query. If the
   /// query string uses the `fields` command, only the specified fields and
@@ -867,8 +862,8 @@ class CloudWatchLogsApi {
   /// To list the tags for a log group, use ListTagsLogGroup. To remove tags,
   /// use UntagLogGroup.
   ///
-  /// For more information about tags, see [Tag Log Groups in Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html)
+  /// For more information about tags, see
+  /// [Tag Log Groups in Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/log-group-tagging.html)
   /// in the _Amazon CloudWatch Logs User Guide_.
   ///
   /// [logGroupName]: The name of the log group.
@@ -1026,6 +1021,8 @@ class DescribeSubscriptionFiltersResponse {
       DescribeSubscriptionFiltersResponse();
 }
 
+/// Represents a cross-account destination that receives subscription log
+/// events.
 class Destination {
   /// The name of the destination.
   final String destinationName;
@@ -1059,6 +1056,7 @@ class Destination {
   static Destination fromJson(Map<String, dynamic> json) => Destination();
 }
 
+/// Represents an export task.
 class ExportTask {
   /// The ID of the export task.
   final String taskId;
@@ -1105,6 +1103,7 @@ class ExportTask {
   static ExportTask fromJson(Map<String, dynamic> json) => ExportTask();
 }
 
+/// Represents the status of an export task.
 class ExportTaskExecutionInfo {
   /// The creation time of the export task, expressed as the number of
   /// milliseconds after Jan 1, 1970 00:00:00 UTC.
@@ -1122,6 +1121,7 @@ class ExportTaskExecutionInfo {
       ExportTaskExecutionInfo();
 }
 
+/// Represents the status of an export task.
 class ExportTaskStatus {
   /// The status code of the export task.
   final String code;
@@ -1158,6 +1158,7 @@ class FilterLogEventsResponse {
       FilterLogEventsResponse();
 }
 
+/// Represents a matched event.
 class FilteredLogEvent {
   /// The name of the log stream to which this event belongs.
   final String logStreamName;
@@ -1266,6 +1267,8 @@ class GetQueryResultsResponse {
       GetQueryResultsResponse();
 }
 
+/// Represents a log event, which is a record of activity that was recorded by
+/// the application or resource being monitored.
 class InputLogEvent {
   /// The time the event occurred, expressed as the number of milliseconds after
   /// Jan 1, 1970 00:00:00 UTC.
@@ -1291,6 +1294,7 @@ class ListTagsLogGroupResponse {
       ListTagsLogGroupResponse();
 }
 
+/// Represents a log group.
 class LogGroup {
   /// The name of the log group.
   final String logGroupName;
@@ -1325,6 +1329,8 @@ class LogGroup {
   static LogGroup fromJson(Map<String, dynamic> json) => LogGroup();
 }
 
+/// The fields contained in log events found by a `GetLogGroupFields` operation,
+/// along with the percentage of queried log events in which each field appears.
 class LogGroupField {
   /// The name of a log field.
   final String name;
@@ -1339,6 +1345,8 @@ class LogGroupField {
   static LogGroupField fromJson(Map<String, dynamic> json) => LogGroupField();
 }
 
+/// Represents a log stream, which is a sequence of log events from a single
+/// emitter of logs.
 class LogStream {
   /// The name of the log stream.
   final String logStreamName;
@@ -1389,6 +1397,9 @@ class LogStream {
   static LogStream fromJson(Map<String, dynamic> json) => LogStream();
 }
 
+/// Metric filters express how CloudWatch Logs would extract metric observations
+/// from ingested log events and transform them into metric data in a CloudWatch
+/// metric.
 class MetricFilter {
   /// The name of the metric filter.
   final String filterName;
@@ -1415,6 +1426,7 @@ class MetricFilter {
   static MetricFilter fromJson(Map<String, dynamic> json) => MetricFilter();
 }
 
+/// Represents a matched event.
 class MetricFilterMatchRecord {
   /// The event number.
   final BigInt eventNumber;
@@ -1434,6 +1446,8 @@ class MetricFilterMatchRecord {
       MetricFilterMatchRecord();
 }
 
+/// Indicates how to transform ingested log events to metric data in a
+/// CloudWatch metric.
 class MetricTransformation {
   /// The name of the CloudWatch metric.
   final String metricName;
@@ -1459,6 +1473,7 @@ class MetricTransformation {
       MetricTransformation();
 }
 
+/// Represents a log event.
 class OutputLogEvent {
   /// The time the event occurred, expressed as the number of milliseconds after
   /// Jan 1, 1970 00:00:00 UTC.
@@ -1516,6 +1531,8 @@ class PutResourcePolicyResponse {
       PutResourcePolicyResponse();
 }
 
+/// Information about one CloudWatch Logs Insights query that matches the
+/// request in a `DescribeQueries` operation.
 class QueryInfo {
   /// The unique ID number of this query.
   final String queryId;
@@ -1543,6 +1560,9 @@ class QueryInfo {
   static QueryInfo fromJson(Map<String, dynamic> json) => QueryInfo();
 }
 
+/// Contains the number of log events scanned by the query, the number of log
+/// events that matched the query criteria, and the total number of bytes in the
+/// log events that were scanned.
 class QueryStatistics {
   /// The number of log events that matched the query string.
   final double recordsMatched;
@@ -1562,6 +1582,7 @@ class QueryStatistics {
       QueryStatistics();
 }
 
+/// Represents the rejected events.
 class RejectedLogEventsInfo {
   /// The log events that are too new.
   final int tooNewLogEventStartIndex;
@@ -1581,6 +1602,8 @@ class RejectedLogEventsInfo {
       RejectedLogEventsInfo();
 }
 
+/// A policy enabling one or more entities to put logs to a log group in this
+/// account.
 class ResourcePolicy {
   /// The name of the resource policy.
   final String policyName;
@@ -1600,6 +1623,8 @@ class ResourcePolicy {
   static ResourcePolicy fromJson(Map<String, dynamic> json) => ResourcePolicy();
 }
 
+/// Contains one field from one log event returned by a CloudWatch Logs Insights
+/// query, along with the value of that field.
 class ResultField {
   /// The log event field.
   final String field;
@@ -1614,6 +1639,7 @@ class ResultField {
   static ResultField fromJson(Map<String, dynamic> json) => ResultField();
 }
 
+/// Represents the search status of a log stream.
 class SearchedLogStream {
   /// The name of the log stream.
   final String logStreamName;
@@ -1651,6 +1677,7 @@ class StopQueryResponse {
       StopQueryResponse();
 }
 
+/// Represents a subscription filter.
 class SubscriptionFilter {
   /// The name of the subscription filter.
   final String filterName;

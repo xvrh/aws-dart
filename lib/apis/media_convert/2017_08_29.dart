@@ -493,15 +493,22 @@ class MediaConvertApi {
   }
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value AAC. The service accepts one of two mutually exclusive groups of
+/// AAC settings--VBR and CBR. To select one of these modes, set the value of
+/// Bitrate control mode (rateControlMode) to "VBR" or "CBR". In VBR mode, you
+/// control the audio quality with the setting VBR quality (vbrQuality). In CBR
+/// mode, you use the setting Bitrate (bitrate). Defaults and valid values
+/// depend on the rate control mode.
 class AacSettings {
-  /// Choose BROADCASTER\_MIXED\_AD when the input contains pre-mixed main audio
-  /// + audio description (AD) as a stereo pair. The value for AudioType will be
+  /// Choose BROADCASTER_MIXED_AD when the input contains pre-mixed main audio +
+  /// audio description (AD) as a stereo pair. The value for AudioType will be
   /// set to 3, which signals to downstream systems that this stream contains
   /// "broadcaster mixed AD". Note that the input received by the encoder must
   /// contain pre-mixed audio; the encoder does not perform the mixing. When you
-  /// choose BROADCASTER\_MIXED\_AD, the encoder ignores any values you provide
-  /// in AudioType and FollowInputAudioType. Choose NORMAL when the input does
-  /// not contain pre-mixed audio + audio description (AD). In this case, the
+  /// choose BROADCASTER_MIXED_AD, the encoder ignores any values you provide in
+  /// AudioType and FollowInputAudioType. Choose NORMAL when the input does not
+  /// contain pre-mixed audio + audio description (AD). In this case, the
   /// encoder will use any values you provide for AudioType and
   /// FollowInputAudioType.
   final String audioDescriptionBroadcasterMix;
@@ -540,7 +547,7 @@ class AacSettings {
   /// Stream containers.
   final String specification;
 
-  /// VBR Quality Level - Only used if rate\_control\_mode is VBR.
+  /// VBR Quality Level - Only used if rate_control_mode is VBR.
   final String vbrQuality;
 
   AacSettings({
@@ -557,6 +564,8 @@ class AacSettings {
   static AacSettings fromJson(Map<String, dynamic> json) => AacSettings();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value AC3.
 class Ac3Settings {
   /// Specify the average bitrate in bits per second. Valid bitrates depend on
   /// the coding mode.
@@ -579,7 +588,7 @@ class Ac3Settings {
   final String dynamicRangeCompressionProfile;
 
   /// Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only
-  /// valid with 3\_2\_LFE coding mode.
+  /// valid with 3_2_LFE coding mode.
   final String lfeFilter;
 
   /// When set to FOLLOW_INPUT, encoder metadata will be sourced from the DD,
@@ -604,6 +613,10 @@ class Ac3Settings {
   static Ac3Settings fromJson(Map<String, dynamic> json) => Ac3Settings();
 }
 
+/// Accelerated transcoding can significantly speed up jobs with long, visually
+/// complex content. Outputs that use this feature incur pro-tier pricing. For
+/// information about feature limitations, see the AWS Elemental MediaConvert
+/// User Guide.
 class AccelerationSettings {
   /// Acceleration configuration for the job.
   final String mode;
@@ -615,6 +628,8 @@ class AccelerationSettings {
       AccelerationSettings();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value AIFF.
 class AiffSettings {
   /// Specify Bit depth (BitDepth), in bits per sample, to choose the encoding
   /// quality for this audio track.
@@ -636,6 +651,7 @@ class AiffSettings {
   static AiffSettings fromJson(Map<String, dynamic> json) => AiffSettings();
 }
 
+/// Settings for ancillary captions source.
 class AncillarySourceSettings {
   /// Specify whether this set of input captions appears in your outputs in both
   /// 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert
@@ -668,6 +684,13 @@ class AssociateCertificateResponse {
       AssociateCertificateResponse();
 }
 
+/// Audio codec settings (CodecSettings) under (AudioDescriptions) contains the
+/// group of settings related to audio encoding. The settings in this group vary
+/// depending on the value that you choose for Audio codec (Codec). For each
+/// codec enum that you choose, define the corresponding settings object. The
+/// following lists the codec enum, settings object pairs. * AAC, AacSettings *
+/// MP2, Mp2Settings * WAV, WavSettings * AIFF, AiffSettings * AC3, Ac3Settings
+/// * EAC3, Eac3Settings * EAC3_ATMOS, Eac3AtmosSettings
 class AudioCodecSettings {
   /// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
   /// the value AAC. The service accepts one of two mutually exclusive groups of
@@ -719,21 +742,22 @@ class AudioCodecSettings {
       AudioCodecSettings();
 }
 
+/// Description of audio output
 class AudioDescription {
   /// Advanced audio normalization settings. Ignore these settings unless you
   /// need to comply with a loudness standard.
   final AudioNormalizationSettings audioNormalizationSettings;
 
   /// Specifies which audio data to use from each input. In the simplest case,
-  /// specify an "Audio Selector":#inputs-audio\_selector by name based on its
+  /// specify an "Audio Selector":#inputs-audio_selector by name based on its
   /// order within each input. For example if you specify "Audio Selector 3",
   /// then the third audio selector will be used from each input. If an input
   /// does not have an "Audio Selector 3", then the audio selector marked as
   /// "default" in that input will be used. If there is no audio selector marked
   /// as "default", silence will be inserted for the duration of that input.
-  /// Alternatively, an "Audio Selector Group":#inputs-audio\_selector\_group
-  /// name may be specified, with similar default/silence behavior. If no
-  /// audio\_source_name is specified, then "Audio Selector 1" will be chosen
+  /// Alternatively, an "Audio Selector Group":#inputs-audio_selector_group name
+  /// may be specified, with similar default/silence behavior. If no
+  /// audio_source_name is specified, then "Audio Selector 1" will be chosen
   /// automatically.
   final String audioSourceName;
 
@@ -743,12 +767,12 @@ class AudioDescription {
   /// Commentary, 4-255 = Reserved.
   final int audioType;
 
-  /// When set to FOLLOW\_INPUT, if the input contains an ISO 639 audio\_type,
+  /// When set to FOLLOW_INPUT, if the input contains an ISO 639 audio_type,
   /// then that value is passed through to the output. If the input contains no
-  /// ISO 639 audio\_type, the value in Audio Type is included in the output.
+  /// ISO 639 audio_type, the value in Audio Type is included in the output.
   /// Otherwise the value in Audio Type is included in the output. Note that
   /// this field and audioType are both ignored if
-  /// audioDescriptionBroadcasterMix is set to BROADCASTER\_MIXED_AD.
+  /// audioDescriptionBroadcasterMix is set to BROADCASTER_MIXED_AD.
   final String audioTypeControl;
 
   /// Audio codec settings (CodecSettings) under (AudioDescriptions) contains
@@ -773,9 +797,9 @@ class AudioDescription {
   /// selected but there is no ISO 639 language code specified by the input.
   final String languageCode;
 
-  /// Choosing FOLLOW\_INPUT will cause the ISO 639 language code of the output
+  /// Choosing FOLLOW_INPUT will cause the ISO 639 language code of the output
   /// to follow the ISO 639 language code of the input. The language specified
-  /// for languageCode' will be used when USE\_CONFIGURED is selected or when
+  /// for languageCode' will be used when USE_CONFIGURED is selected or when
   /// FOLLOW_INPUT is selected but there is no ISO 639 language code specified
   /// by the input.
   final String languageCodeControl;
@@ -806,6 +830,8 @@ class AudioDescription {
       AudioDescription();
 }
 
+/// Advanced audio normalization settings. Ignore these settings unless you need
+/// to comply with a loudness standard.
 class AudioNormalizationSettings {
   /// Choose one of the following audio normalization algorithms: ITU-R
   /// BS.1770-1: Ungated loudness. A measurement of ungated average loudness for
@@ -825,7 +851,7 @@ class AudioNormalizationSettings {
 
   /// Content measuring above this level will be corrected to the target level.
   /// Content measuring below this level will not be corrected. Gating only
-  /// applies when not using real\_time\_correction.
+  /// applies when not using real_time_correction.
   final int correctionGateLevel;
 
   /// If set to LOG, log each output's audio track loudness to a CSV file.
@@ -855,6 +881,7 @@ class AudioNormalizationSettings {
       AudioNormalizationSettings();
 }
 
+/// Selector for Audio
 class AudioSelector {
   /// Selects a specific language code from within an audio source, using the
   /// ISO 639-2 or ISO 639-3 three-letter language code
@@ -904,7 +931,7 @@ class AudioSelector {
   /// audio selector, specify multiple tracks as follows. Using the console,
   /// enter a comma-separated list. For examle, type "1,2,3" to include tracks 1
   /// through 3. Specifying directly in your JSON job file, provide the track
-  /// numbers in an array. For example, "tracks": \[1,2,3\].
+  /// numbers in an array. For example, "tracks": [1,2,3].
   final List<int> tracks;
 
   AudioSelector({
@@ -922,6 +949,7 @@ class AudioSelector {
   static AudioSelector fromJson(Map<String, dynamic> json) => AudioSelector();
 }
 
+/// Group of Audio Selectors
 class AudioSelectorGroup {
   /// Name of an Audio Selector within the same input to include in the group.
   /// Audio selector names are standardized, based on their order within the
@@ -936,6 +964,7 @@ class AudioSelectorGroup {
       AudioSelectorGroup();
 }
 
+/// Settings for Avail Blanking
 class AvailBlanking {
   /// Blanking image to be used. Leave empty for solid black. Only bmp and png
   /// images are supported.
@@ -947,9 +976,10 @@ class AvailBlanking {
   static AvailBlanking fromJson(Map<String, dynamic> json) => AvailBlanking();
 }
 
+/// Burn-In Destination Settings.
 class BurninDestinationSettings {
-  /// If no explicit x\_position or y\_position is provided, setting alignment
-  /// to centered will place the captions at the bottom center of the output.
+  /// If no explicit x_position or y_position is provided, setting alignment to
+  /// centered will place the captions at the bottom center of the output.
   /// Similarly, setting a left alignment will align captions to the bottom left
   /// of the output. If x and y positions are given in conjunction with the
   /// alignment parameter, the font will be justified (either left or centered)
@@ -1081,6 +1111,7 @@ class CancelJobResponse {
       CancelJobResponse();
 }
 
+/// Description of Caption output
 class CaptionDescription {
   /// Specifies which "Caption Selector":#inputs-caption_selector to use from
   /// each input when generating captions. The name should be of the format
@@ -1097,8 +1128,8 @@ class CaptionDescription {
   final String customLanguageCode;
 
   /// Specific settings required by destination type. Note that
-  /// burnin\_destination\_settings are not available if the source of the
-  /// caption data is Embedded or Teletext.
+  /// burnin_destination_settings are not available if the source of the caption
+  /// data is Embedded or Teletext.
   final CaptionDestinationSettings destinationSettings;
 
   /// Specify the language of this captions output track. For most captions
@@ -1126,6 +1157,7 @@ class CaptionDescription {
       CaptionDescription();
 }
 
+/// Caption Description for preset
 class CaptionDescriptionPreset {
   /// Indicates the language of the caption output track, using the ISO 639-2 or
   /// ISO 639-3 three-letter language code. For most captions output formats,
@@ -1136,8 +1168,8 @@ class CaptionDescriptionPreset {
   final String customLanguageCode;
 
   /// Specific settings required by destination type. Note that
-  /// burnin\_destination\_settings are not available if the source of the
-  /// caption data is Embedded or Teletext.
+  /// burnin_destination_settings are not available if the source of the caption
+  /// data is Embedded or Teletext.
   final CaptionDestinationSettings destinationSettings;
 
   /// Specify the language of this captions output track. For most captions
@@ -1164,6 +1196,9 @@ class CaptionDescriptionPreset {
       CaptionDescriptionPreset();
 }
 
+/// Specific settings required by destination type. Note that
+/// burnin_destination_settings are not available if the source of the caption
+/// data is Embedded or Teletext.
 class CaptionDestinationSettings {
   /// Burn-In Destination Settings.
   final BurninDestinationSettings burninDestinationSettings;
@@ -1171,10 +1206,10 @@ class CaptionDestinationSettings {
   /// Specify the format for this set of captions on this output. The default
   /// format is embedded without SCTE-20. Other options are embedded with
   /// SCTE-20, burn-in, DVB-sub, IMSC, SCC, SRT, teletext, TTML, and web-VTT. If
-  /// you are using SCTE-20, choose SCTE-20 plus embedded
-  /// (SCTE20\_PLUS\_EMBEDDED) to create an output that complies with the
-  /// SCTE-43 spec. To create a non-compliant output where the embedded captions
-  /// come first, choose Embedded plus SCTE-20 (EMBEDDED\_PLUS\_SCTE20).
+  /// you are using SCTE-20, choose SCTE-20 plus embedded (SCTE20_PLUS_EMBEDDED)
+  /// to create an output that complies with the SCTE-43 spec. To create a
+  /// non-compliant output where the embedded captions come first, choose
+  /// Embedded plus SCTE-20 (EMBEDDED_PLUS_SCTE20).
   final String destinationType;
 
   /// DVB-Sub Destination Settings
@@ -1211,6 +1246,8 @@ class CaptionDestinationSettings {
       CaptionDestinationSettings();
 }
 
+/// Set up captions in your outputs by first selecting them from your input
+/// here.
 class CaptionSelector {
   /// The specific language to extract from source, using the ISO 639-2 or ISO
   /// 639-3 three-letter language code. If input is SCTE-27, complete this field
@@ -1244,6 +1281,10 @@ class CaptionSelector {
       CaptionSelector();
 }
 
+/// If your input captions are SCC, TTML, STL, SMI, SRT, or IMSC in an xml file,
+/// specify the URI of the input captions source file. If your input captions
+/// are IMSC in an IMF package, use TrackSourceSettings instead of
+/// FileSoureSettings.
 class CaptionSourceSettings {
   /// Settings for ancillary captions source.
   final AncillarySourceSettings ancillarySourceSettings;
@@ -1286,6 +1327,10 @@ class CaptionSourceSettings {
       CaptionSourceSettings();
 }
 
+/// Channel mapping (ChannelMapping) contains the group of fields that hold the
+/// remixing value for each channel. Units are in dB. Acceptable values are
+/// within the range from -60 (mute) through 6. A setting of 0 passes the input
+/// channel unchanged to the output channel (no attenuation or amplification).
 class ChannelMapping {
   /// List of output channels
   final List<OutputChannelMapping> outputChannels;
@@ -1296,6 +1341,7 @@ class ChannelMapping {
   static ChannelMapping fromJson(Map<String, dynamic> json) => ChannelMapping();
 }
 
+/// Settings for CMAF encryption
 class CmafEncryptionSettings {
   /// This is a 128-bit, 16-byte hex value represented by a 32-character text
   /// string. If this parameter is not set then the Initialization Vector will
@@ -1337,6 +1383,9 @@ class CmafEncryptionSettings {
       CmafEncryptionSettings();
 }
 
+/// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
+/// CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only contain a
+/// single video, audio, or caption output.
 class CmafGroupSettings {
   /// A partial URI prefix that will be put in the manifest file at the top
   /// level BaseURL element. Can be used if streams are delivered from a
@@ -1398,9 +1447,9 @@ class CmafGroupSettings {
   /// segment is 3.5 seconds.
   final double minFinalSegmentLength;
 
-  /// When set to SINGLE\_FILE, a single output file is generated, which is
+  /// When set to SINGLE_FILE, a single output file is generated, which is
   /// internally segmented using the Fragment Length and Segment Length. When
-  /// set to SEGMENTED\_FILES, separate segment files will be created.
+  /// set to SEGMENTED_FILES, separate segment files will be created.
   final String segmentControl;
 
   /// Use this setting to specify the length, in seconds, of each individual
@@ -1448,6 +1497,7 @@ class CmafGroupSettings {
       CmafGroupSettings();
 }
 
+/// Settings for color correction.
 class ColorCorrector {
   /// Brightness level.
   final int brightness;
@@ -1494,6 +1544,7 @@ class ColorCorrector {
   static ColorCorrector fromJson(Map<String, dynamic> json) => ColorCorrector();
 }
 
+/// Container specific settings.
 class ContainerSettings {
   /// Container for this output. Some containers require a container settings
   /// object. If not specified, the default object will be created.
@@ -1589,14 +1640,15 @@ class CreateQueueResponse {
       CreateQueueResponse();
 }
 
+/// Specifies DRM settings for DASH outputs.
 class DashIsoEncryptionSettings {
   /// This setting can improve the compatibility of your output with video
   /// players on obsolete devices. It applies only to DASH H.264 outputs with
-  /// DRM encryption. Choose Unencrypted SEI (UNENCRYPTED\_SEI) only to correct
+  /// DRM encryption. Choose Unencrypted SEI (UNENCRYPTED_SEI) only to correct
   /// problems with playback on older devices. Otherwise, keep the default
-  /// setting CENC v1 (CENC\_V1). If you choose Unencrypted SEI, for that
-  /// output, the service will exclude the access unit delimiter and will leave
-  /// the SEI NAL units unencrypted.
+  /// setting CENC v1 (CENC_V1). If you choose Unencrypted SEI, for that output,
+  /// the service will exclude the access unit delimiter and will leave the SEI
+  /// NAL units unencrypted.
   final String playbackDeviceCompatibility;
 
   /// If your output group type is HLS, DASH, or Microsoft Smooth, use these
@@ -1613,6 +1665,8 @@ class DashIsoEncryptionSettings {
       DashIsoEncryptionSettings();
 }
 
+/// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
+/// DASH_ISO_GROUP_SETTINGS.
 class DashIsoGroupSettings {
   /// A partial URI prefix that will be put in the manifest (.mpd) file at the
   /// top level BaseURL element. Can be used if streams are delivered from a
@@ -1648,9 +1702,9 @@ class DashIsoGroupSettings {
   /// playout.
   final int minBufferTime;
 
-  /// When set to SINGLE\_FILE, a single output file is generated, which is
+  /// When set to SINGLE_FILE, a single output file is generated, which is
   /// internally segmented using the Fragment Length and Segment Length. When
-  /// set to SEGMENTED\_FILES, separate segment files will be created.
+  /// set to SEGMENTED_FILES, separate segment files will be created.
   final String segmentControl;
 
   /// Length of mpd segments to create (in seconds). Note that segments will end
@@ -1685,18 +1739,19 @@ class DashIsoGroupSettings {
       DashIsoGroupSettings();
 }
 
+/// Settings for deinterlacer
 class Deinterlacer {
   /// Only applies when you set Deinterlacer (DeinterlaceMode) to Deinterlace
   /// (DEINTERLACE) or Adaptive (ADAPTIVE). Motion adaptive interpolate
   /// (INTERPOLATE) produces sharper pictures, while blend (BLEND) produces
-  /// smoother motion. Use (INTERPOLATE\_TICKER) OR (BLEND\_TICKER) if your
-  /// source file includes a ticker, such as a scrolling headline at the bottom
-  /// of the frame.
+  /// smoother motion. Use (INTERPOLATE_TICKER) OR (BLEND_TICKER) if your source
+  /// file includes a ticker, such as a scrolling headline at the bottom of the
+  /// frame.
   final String algorithm;
 
-  /// \- When set to NORMAL (default), the deinterlacer does not convert frames
+  /// - When set to NORMAL (default), the deinterlacer does not convert frames
   /// that are tagged in metadata as progressive. It will only convert those
-  /// that are tagged as some other type. - When set to FORCE\_ALL\_FRAMES, the
+  /// that are tagged as some other type. - When set to FORCE_ALL_FRAMES, the
   /// deinterlacer converts every frame to progressive - even those that are
   /// already tagged as progressive. Turn Force mode on only if there is a good
   /// chance that the metadata has tagged frames as progressive when they are
@@ -1752,6 +1807,8 @@ class DescribeEndpointsResponse {
       DescribeEndpointsResponse();
 }
 
+/// Settings associated with the destination. Will vary based on the type of
+/// destination
 class DestinationSettings {
   /// Settings associated with S3 destination
   final S3DestinationSettings s3Settings;
@@ -1769,11 +1826,13 @@ class DisassociateCertificateResponse {
       DisassociateCertificateResponse();
 }
 
+/// Inserts DVB Network Information Table (NIT) at the specified table
+/// repetition interval.
 class DvbNitSettings {
   /// The numeric value placed in the Network Information Table (NIT).
   final int networkId;
 
-  /// The network name text placed in the network\_name\_descriptor inside the
+  /// The network name text placed in the network_name_descriptor inside the
   /// Network Information Table. Maximum length is 256 characters.
   final String networkName;
 
@@ -1789,6 +1848,8 @@ class DvbNitSettings {
   static DvbNitSettings fromJson(Map<String, dynamic> json) => DvbNitSettings();
 }
 
+/// Inserts DVB Service Description Table (NIT) at the specified table
+/// repetition interval.
 class DvbSdtSettings {
   /// Selects method of inserting SDT information into output stream. "Follow
   /// input SDT" copies SDT information from input stream to output stream.
@@ -1820,9 +1881,10 @@ class DvbSdtSettings {
   static DvbSdtSettings fromJson(Map<String, dynamic> json) => DvbSdtSettings();
 }
 
+/// DVB-Sub Destination Settings
 class DvbSubDestinationSettings {
-  /// If no explicit x\_position or y\_position is provided, setting alignment
-  /// to centered will place the captions at the bottom center of the output.
+  /// If no explicit x_position or y_position is provided, setting alignment to
+  /// centered will place the captions at the bottom center of the output.
   /// Similarly, setting a left alignment will align captions to the bottom left
   /// of the output. If x and y positions are given in conjunction with the
   /// alignment parameter, the font will be justified (either left or centered)
@@ -1948,6 +2010,7 @@ class DvbSubDestinationSettings {
       DvbSubDestinationSettings();
 }
 
+/// DVB Sub Source Settings
 class DvbSubSourceSettings {
   /// When using DVB-Sub with Burn-In or SMPTE-TT, use this PID for the source
   /// content. Unused for DVB-Sub passthrough. All DVB-Sub content is passed
@@ -1961,6 +2024,8 @@ class DvbSubSourceSettings {
       DvbSubSourceSettings();
 }
 
+/// Inserts DVB Time and Date Table (TDT) at the specified table repetition
+/// interval.
 class DvbTdtSettings {
   /// The number of milliseconds between instances of this table in the output
   /// transport stream.
@@ -1972,6 +2037,8 @@ class DvbTdtSettings {
   static DvbTdtSettings fromJson(Map<String, dynamic> json) => DvbTdtSettings();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value EAC3_ATMOS.
 class Eac3AtmosSettings {
   /// Specify the average bitrate in bits per second. Valid values: 384k, 448k,
   /// 640k, 768k
@@ -1983,7 +2050,7 @@ class Eac3AtmosSettings {
   final String bitstreamMode;
 
   /// The coding mode for Dolby Digital Plus JOC (Atmos) is always 9.1.6
-  /// (CODING\_MODE\_9\_1\_6).
+  /// (CODING_MODE_9_1_6).
   final String codingMode;
 
   /// Enable Dolby Dialogue Intelligence to adjust loudness based on dialogue
@@ -2064,8 +2131,10 @@ class Eac3AtmosSettings {
       Eac3AtmosSettings();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value EAC3.
 class Eac3Settings {
-  /// If set to ATTENUATE\_3\_DB, applies a 3 dB attenuation to the surround
+  /// If set to ATTENUATE_3_DB, applies a 3 dB attenuation to the surround
   /// channels. Only used for 3/2 coding mode.
   final String attenuationControl;
 
@@ -2100,7 +2169,7 @@ class Eac3Settings {
   final String lfeControl;
 
   /// Applies a 120Hz lowpass filter to the LFE channel prior to encoding. Only
-  /// valid with 3\_2\_LFE coding mode.
+  /// valid with 3_2_LFE coding mode.
   final String lfeFilter;
 
   /// Specify a value for the following Dolby Digital Plus setting: Left
@@ -2109,8 +2178,8 @@ class Eac3Settings {
   /// you choose for Stereo downmix (Eac3StereoDownmix). Valid values: 3.0, 1.5,
   /// 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel.
   /// This setting applies only if you keep the default value of 3/2 - L, R, C,
-  /// Ls, Rs (CODING\_MODE\_3_2) for the setting Coding mode (Eac3CodingMode).
-  /// If you choose a different value for Coding mode, the service ignores Left
+  /// Ls, Rs (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If
+  /// you choose a different value for Coding mode, the service ignores Left
   /// only/Right only center (loRoCenterMixLevel).
   final double loRoCenterMixLevel;
 
@@ -2120,7 +2189,7 @@ class Eac3Settings {
   /// choose for Stereo downmix (Eac3StereoDownmix). Valid values: -1.5, -3.0,
   /// -4.5, -6.0, and -60. The value -60 mutes the channel. This setting applies
   /// only if you keep the default value of 3/2 - L, R, C, Ls, Rs
-  /// (CODING\_MODE\_3_2) for the setting Coding mode (Eac3CodingMode). If you
+  /// (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If you
   /// choose a different value for Coding mode, the service ignores Left
   /// only/Right only surround (loRoSurroundMixLevel).
   final double loRoSurroundMixLevel;
@@ -2131,8 +2200,8 @@ class Eac3Settings {
   /// you choose for Stereo downmix (Eac3StereoDownmix). Valid values: 3.0, 1.5,
   /// 0.0, -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel.
   /// This setting applies only if you keep the default value of 3/2 - L, R, C,
-  /// Ls, Rs (CODING\_MODE\_3_2) for the setting Coding mode (Eac3CodingMode).
-  /// If you choose a different value for Coding mode, the service ignores Left
+  /// Ls, Rs (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If
+  /// you choose a different value for Coding mode, the service ignores Left
   /// total/Right total center (ltRtCenterMixLevel).
   final double ltRtCenterMixLevel;
 
@@ -2142,8 +2211,8 @@ class Eac3Settings {
   /// that you choose for Stereo downmix (Eac3StereoDownmix). Valid values:
   /// -1.5, -3.0, -4.5, -6.0, and -60. The value -60 mutes the channel. This
   /// setting applies only if you keep the default value of 3/2 - L, R, C, Ls,
-  /// Rs (CODING\_MODE\_3_2) for the setting Coding mode (Eac3CodingMode). If
-  /// you choose a different value for Coding mode, the service ignores Left
+  /// Rs (CODING_MODE_3_2) for the setting Coding mode (Eac3CodingMode). If you
+  /// choose a different value for Coding mode, the service ignores Left
   /// total/Right total surround (ltRtSurroundMixLevel).
   final double ltRtSurroundMixLevel;
 
@@ -2168,7 +2237,7 @@ class Eac3Settings {
   final int sampleRate;
 
   /// Choose how the service does stereo downmixing. This setting only applies
-  /// if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING\_MODE\_3_2)
+  /// if you keep the default value of 3/2 - L, R, C, Ls, Rs (CODING_MODE_3_2)
   /// for the setting Coding mode (Eac3CodingMode). If you choose a different
   /// value for Coding mode, the service ignores Stereo downmix
   /// (Eac3StereoDownmix).
@@ -2208,6 +2277,8 @@ class Eac3Settings {
   static Eac3Settings fromJson(Map<String, dynamic> json) => Eac3Settings();
 }
 
+/// Settings specific to embedded/ancillary caption outputs, including 608/708
+/// Channel destination number.
 class EmbeddedDestinationSettings {
   /// Ignore this setting unless your input captions are SCC format and your
   /// output captions are embedded in the video stream. Specify a CC number for
@@ -2237,6 +2308,7 @@ class EmbeddedDestinationSettings {
       EmbeddedDestinationSettings();
 }
 
+/// Settings for embedded captions Source
 class EmbeddedSourceSettings {
   /// Specify whether this set of input captions appears in your outputs in both
   /// 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert
@@ -2268,6 +2340,7 @@ class EmbeddedSourceSettings {
       EmbeddedSourceSettings();
 }
 
+/// Describes an account-specific API endpoint.
 class Endpoint {
   /// URL of endpoint
   final String url;
@@ -2278,6 +2351,8 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// ESAM ManifestConfirmConditionNotification defined by
+/// OC-SP-ESAM-API-I03-131025.
 class EsamManifestConfirmConditionNotification {
   /// Provide your ESAM ManifestConfirmConditionNotification XML document inside
   /// your JSON job settings. Form the XML document as per
@@ -2293,6 +2368,8 @@ class EsamManifestConfirmConditionNotification {
       EsamManifestConfirmConditionNotification();
 }
 
+/// Settings for Event Signaling And Messaging (ESAM). If you don't do ad
+/// insertion, you can ignore these settings.
 class EsamSettings {
   /// Specifies an ESAM ManifestConfirmConditionNotification XML as per
   /// OC-SP-ESAM-API-I03-131025. The transcoder uses the manifest conditioning
@@ -2320,6 +2397,7 @@ class EsamSettings {
   static EsamSettings fromJson(Map<String, dynamic> json) => EsamSettings();
 }
 
+/// ESAM SignalProcessingNotification data defined by OC-SP-ESAM-API-I03-131025.
 class EsamSignalProcessingNotification {
   /// Provide your ESAM SignalProcessingNotification XML document inside your
   /// JSON job settings. Form the XML document as per OC-SP-ESAM-API-I03-131025.
@@ -2339,6 +2417,7 @@ class EsamSignalProcessingNotification {
       EsamSignalProcessingNotification();
 }
 
+/// Settings for F4v container
 class F4vSettings {
   /// If set to PROGRESSIVE_DOWNLOAD, the MOOV atom is relocated to the
   /// beginning of the archive as required for progressive downloading.
@@ -2351,6 +2430,8 @@ class F4vSettings {
   static F4vSettings fromJson(Map<String, dynamic> json) => F4vSettings();
 }
 
+/// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
+/// FILE_GROUP_SETTINGS.
 class FileGroupSettings {
   /// Use Destination (Destination) to specify the S3 output location and the
   /// output filename base. Destination accepts format identifiers. If you do
@@ -2371,6 +2452,10 @@ class FileGroupSettings {
       FileGroupSettings();
 }
 
+/// If your input captions are SCC, SMI, SRT, STL, TTML, or IMSC 1.1 in an xml
+/// file, specify the URI of the input caption source file. If your caption
+/// source is IMSC in an IMF package, use TrackSourceSettings instead of
+/// FileSoureSettings.
 class FileSourceSettings {
   /// Specify whether this set of input captions appears in your outputs in both
   /// 608 and 708 format. If you choose Upconvert (UPCONVERT), MediaConvert
@@ -2396,6 +2481,8 @@ class FileSourceSettings {
       FileSourceSettings();
 }
 
+/// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
+/// the value FRAME_CAPTURE.
 class FrameCaptureSettings {
   /// Frame capture will encode the first frame of the output stream, then one
   /// frame every framerateDenominator/framerateNumerator seconds. For example,
@@ -2481,6 +2568,10 @@ class GetQueueResponse {
       GetQueueResponse();
 }
 
+/// Settings for quality-defined variable bitrate encoding with the H.264 codec.
+/// Required when you set Rate control mode to QVBR. Not valid when you set Rate
+/// control mode to a value other than QVBR, or when you don't define Rate
+/// control mode.
 class H264QvbrSettings {
   /// Use this setting only when Rate control mode is QVBR and Quality tuning
   /// level is Multi-pass HQ. For Max average bitrate values suited to the
@@ -2505,6 +2596,8 @@ class H264QvbrSettings {
       H264QvbrSettings();
 }
 
+/// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
+/// the value H_264.
 class H264Settings {
   /// Adaptive quantization. Allows intra-frame quantizers to vary to improve
   /// visual quality.
@@ -2550,7 +2643,7 @@ class H264Settings {
   /// fractions. If you choose Custom, specify your frame rate as a fraction. If
   /// you are creating your transcoding job specification as a JSON file without
   /// the console, use FramerateControl to specify which value the service uses
-  /// for the frame rate for this output. Choose INITIALIZE\_FROM\_SOURCE if you
+  /// for the frame rate for this output. Choose INITIALIZE_FROM_SOURCE if you
   /// want the service to use the frame rate from the input. Choose SPECIFIED if
   /// you want the service to use the frame rate you specify in the settings
   /// FramerateNumerator and FramerateDenominator.
@@ -2601,12 +2694,12 @@ class H264Settings {
   final int hrdBufferSize;
 
   /// Use Interlace mode (InterlaceMode) to choose the scan line type for the
-  /// output. * Top Field First (TOP\_FIELD) and Bottom Field First
-  /// (BOTTOM\_FIELD) produce interlaced output with the entire output having
-  /// the same field polarity (top or bottom first). * Follow, Default Top
-  /// (FOLLOW\_TOP\_FIELD) and Follow, Default Bottom (FOLLOW\_BOTTOM\_FIELD)
-  /// use the same field polarity as the source. Therefore, behavior depends on
-  /// the input scan type, as follows. - If the source is interlaced, the output
+  /// output. * Top Field First (TOP_FIELD) and Bottom Field First
+  /// (BOTTOM_FIELD) produce interlaced output with the entire output having the
+  /// same field polarity (top or bottom first). * Follow, Default Top
+  /// (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD) use
+  /// the same field polarity as the source. Therefore, behavior depends on the
+  /// input scan type, as follows. - If the source is interlaced, the output
   /// will be interlaced with the same polarity as the source (it will follow
   /// the source). The output could therefore be a mix of "top field first" and
   /// "bottom field first". - If the source is progressive, the output will be
@@ -2693,8 +2786,8 @@ class H264Settings {
 
   /// This field applies only if the Streams > Advanced > Framerate (framerate)
   /// field is set to 29.970. This field works with the Streams > Advanced >
-  /// Preprocessors > Deinterlacer field (deinterlace\_mode) and the Streams >
-  /// Advanced > Interlaced Mode field (interlace\_mode) to identify the scan
+  /// Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
+  /// Advanced > Interlaced Mode field (interlace_mode) to identify the scan
   /// type for the output: Progressive, Interlaced, Hard Telecine or Soft
   /// Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
   /// produces 23.976; the player converts this output to 29.97i.
@@ -2751,6 +2844,10 @@ class H264Settings {
   static H264Settings fromJson(Map<String, dynamic> json) => H264Settings();
 }
 
+/// Settings for quality-defined variable bitrate encoding with the H.265 codec.
+/// Required when you set Rate control mode to QVBR. Not valid when you set Rate
+/// control mode to a value other than QVBR, or when you don't define Rate
+/// control mode.
 class H265QvbrSettings {
   /// Use this setting only when Rate control mode is QVBR and Quality tuning
   /// level is Multi-pass HQ. For Max average bitrate values suited to the
@@ -2775,6 +2872,7 @@ class H265QvbrSettings {
       H265QvbrSettings();
 }
 
+/// Settings for H265 codec
 class H265Settings {
   /// Adaptive quantization. Allows intra-frame quantizers to vary to improve
   /// visual quality.
@@ -2793,9 +2891,9 @@ class H265Settings {
   final String codecLevel;
 
   /// Represents the Profile and Tier, per the HEVC (H.265) specification.
-  /// Selections are grouped as \[Profile\] / \[Tier\], so "Main/High"
-  /// represents Main Profile with High Tier. 4:2:2 profiles are only available
-  /// with the HEVC 4:2:2 License.
+  /// Selections are grouped as [Profile] / [Tier], so "Main/High" represents
+  /// Main Profile with High Tier. 4:2:2 profiles are only available with the
+  /// HEVC 4:2:2 License.
   final String codecProfile;
 
   /// Choose Adaptive to improve subjective video quality for high-motion
@@ -2819,10 +2917,9 @@ class H265Settings {
   /// you are creating your transcoding job sepecification as a JSON file
   /// without the console, use FramerateControl to specify which value the
   /// service uses for the frame rate for this output. Choose
-  /// INITIALIZE\_FROM\_SOURCE if you want the service to use the frame rate
-  /// from the input. Choose SPECIFIED if you want the service to use the frame
-  /// rate you specify in the settings FramerateNumerator and
-  /// FramerateDenominator.
+  /// INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from
+  /// the input. Choose SPECIFIED if you want the service to use the frame rate
+  /// you specify in the settings FramerateNumerator and FramerateDenominator.
   final String framerateControl;
 
   /// When set to INTERPOLATE, produces smoother motion during frame rate
@@ -2865,10 +2962,10 @@ class H265Settings {
 
   /// Choose the scan line type for the output. Choose Progressive (PROGRESSIVE)
   /// to create a progressive output, regardless of the scan type of your input.
-  /// Choose Top Field First (TOP\_FIELD) or Bottom Field First (BOTTOM\_FIELD)
-  /// to create an output that's interlaced with the same field polarity
-  /// throughout. Choose Follow, Default Top (FOLLOW\_TOP\_FIELD) or Follow,
-  /// Default Bottom (FOLLOW\_BOTTOM\_FIELD) to create an interlaced output with
+  /// Choose Top Field First (TOP_FIELD) or Bottom Field First (BOTTOM_FIELD) to
+  /// create an output that's interlaced with the same field polarity
+  /// throughout. Choose Follow, Default Top (FOLLOW_TOP_FIELD) or Follow,
+  /// Default Bottom (FOLLOW_BOTTOM_FIELD) to create an interlaced output with
   /// the same field polarity as the source. If the source is interlaced, the
   /// output will be interlaced with the same polarity as the source (it will
   /// follow the source). The output could therefore be a mix of "top field
@@ -2951,8 +3048,8 @@ class H265Settings {
 
   /// This field applies only if the Streams > Advanced > Framerate (framerate)
   /// field is set to 29.970. This field works with the Streams > Advanced >
-  /// Preprocessors > Deinterlacer field (deinterlace\_mode) and the Streams >
-  /// Advanced > Interlaced Mode field (interlace\_mode) to identify the scan
+  /// Preprocessors > Deinterlacer field (deinterlace_mode) and the Streams >
+  /// Advanced > Interlaced Mode field (interlace_mode) to identify the scan
   /// type for the output: Progressive, Interlaced, Hard Telecine or Soft
   /// Telecine. - Hard: produces 29.97i output from 23.976 input. - Soft:
   /// produces 23.976; the player converts this output to 29.97i.
@@ -3038,6 +3135,11 @@ class H265Settings {
   static H265Settings fromJson(Map<String, dynamic> json) => H265Settings();
 }
 
+/// Use these settings to specify static color calibration metadata, as defined
+/// by SMPTE ST 2086. These values don't affect the pixel values that are
+/// encoded in the video stream. They are intended to help the downstream video
+/// player display content in a way that reflects the intentions of the the
+/// content creator.
 class Hdr10Metadata {
   /// HDR Master Display Information must be provided by a color grader, using
   /// color grading tools. Range is 0 to 50,000, each increment represents
@@ -3122,6 +3224,7 @@ class Hdr10Metadata {
   static Hdr10Metadata fromJson(Map<String, dynamic> json) => Hdr10Metadata();
 }
 
+/// Caption Language Mapping
 class HlsCaptionLanguageMapping {
   /// Caption channel.
   final int captionChannel;
@@ -3147,6 +3250,7 @@ class HlsCaptionLanguageMapping {
       HlsCaptionLanguageMapping();
 }
 
+/// Settings for HLS encryption
 class HlsEncryptionSettings {
   /// This is a 128-bit, 16-byte hex value represented by a 32-character text
   /// string. If this parameter is not set then the Initialization Vector will
@@ -3196,6 +3300,8 @@ class HlsEncryptionSettings {
       HlsEncryptionSettings();
 }
 
+/// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
+/// HLS_GROUP_SETTINGS.
 class HlsGroupSettings {
   /// Choose one or more ad marker types to decorate your Apple HLS manifest.
   /// This setting does not determine whether SCTE-35 markers appear in the
@@ -3343,6 +3449,7 @@ class HlsGroupSettings {
       HlsGroupSettings();
 }
 
+/// Settings for HLS output groups
 class HlsSettings {
   /// Specifies the group to which the audio Rendition belongs.
   final String audioGroupId;
@@ -3378,7 +3485,7 @@ class HlsSettings {
   final String iFrameOnlyManifest;
 
   /// String concatenated to end of segment filenames. Accepts "Format
-  /// Identifiers":#format\_identifier\_parameters.
+  /// Identifiers":#format_identifier_parameters.
   final String segmentModifier;
 
   HlsSettings({
@@ -3392,6 +3499,10 @@ class HlsSettings {
   static HlsSettings fromJson(Map<String, dynamic> json) => HlsSettings();
 }
 
+/// To insert ID3 tags in your output, specify two values. Use ID3 tag (Id3) to
+/// specify the base 64 encoded string and use Timecode (TimeCode) to specify
+/// the time when the tag should be inserted. To insert multiple ID3 tags in
+/// your output, create multiple instances of ID3 insertion (Id3Insertion).
 class Id3Insertion {
   /// Use ID3 tag (Id3) to provide a tag value in base64-encode format.
   final String id3;
@@ -3406,6 +3517,9 @@ class Id3Insertion {
   static Id3Insertion fromJson(Map<String, dynamic> json) => Id3Insertion();
 }
 
+/// Enable the image inserter feature to include a graphic overlay on your
+/// video. Enable or disable this feature for each input or output individually.
+/// This setting is disabled by default.
 class ImageInserter {
   /// Specify the images that you want to overlay on your video. The images must
   /// be PNG or TGA files.
@@ -3417,6 +3531,7 @@ class ImageInserter {
   static ImageInserter fromJson(Map<String, dynamic> json) => ImageInserter();
 }
 
+/// Settings specific to IMSC caption outputs.
 class ImscDestinationSettings {
   /// Keep this setting enabled to have MediaConvert use the font style and
   /// position information from the captions source in the output. This option
@@ -3431,10 +3546,11 @@ class ImscDestinationSettings {
       ImscDestinationSettings();
 }
 
+/// Specifies media input
 class Input {
   /// Specifies set of audio selectors within an input to combine. An input may
   /// have multiple audio selector groups. See "Audio Selector
-  /// Group":#inputs-audio\_selector\_group for more information.
+  /// Group":#inputs-audio_selector_group for more information.
   final Map<String, AudioSelectorGroup> audioSelectorGroups;
 
   /// Use Audio selectors (AudioSelectors) to specify a track or set of tracks
@@ -3474,7 +3590,7 @@ class Input {
   /// order that you specify them in the job, to create the outputs. If your
   /// input format is IMF, specify your input by providing the path to your CPL.
   /// For example, "s3://bucket/vf/cpl.xml". If the CPL is in an incomplete IMP,
-  /// make sure to use \*Supplemental IMPs\* (SupplementalImps) to specify any
+  /// make sure to use *Supplemental IMPs* (SupplementalImps) to specify any
   /// supplemental IMPs that contain assets referenced by the CPL.
   final String fileInput;
 
@@ -3531,9 +3647,10 @@ class Input {
   /// Provide a list of any necessary supplemental IMPs. You need supplemental
   /// IMPs if the CPL that you're using for your input is in an incomplete IMP.
   /// Specify either the supplemental IMP directories with a trailing slash or
-  /// the ASSETMAP.xml files. For example \["s3://bucket/ov/",
-  /// "s3://bucket/vf2/ASSETMAP.xml"\]. You don't need to specify the IMP that
-  /// contains your input CPL, because the service automatically detects it.
+  /// the ASSETMAP.xml files. For example
+  /// ["s3://bucket/ov/", "s3://bucket/vf2/ASSETMAP.xml"]. You don't need to
+  /// specify the IMP that contains your input CPL, because the service
+  /// automatically detects it.
   final List<String> supplementalImps;
 
   /// Use this Timecode source setting, located under the input settings
@@ -3584,6 +3701,9 @@ class Input {
   static Input fromJson(Map<String, dynamic> json) => Input();
 }
 
+/// To transcode only portions of your input (clips), include one Input clipping
+/// (one instance of InputClipping in the JSON job file) for each input clip.
+/// All input clips you specify will be included in every output of the job.
 class InputClipping {
   /// Set End timecode (EndTimecode) to the end of the portion of the input you
   /// are clipping. The frame corresponding to the End timecode value is
@@ -3614,6 +3734,10 @@ class InputClipping {
   static InputClipping fromJson(Map<String, dynamic> json) => InputClipping();
 }
 
+/// Settings for decrypting any input files that you encrypt before you upload
+/// them to Amazon S3. MediaConvert can decrypt files only when you use AWS Key
+/// Management Service (KMS) to encrypt the data key that you use to encrypt
+/// your content.
 class InputDecryptionSettings {
   /// Specify the encryption mode that you used to encrypt your input files.
   final String decryptionMode;
@@ -3647,10 +3771,11 @@ class InputDecryptionSettings {
       InputDecryptionSettings();
 }
 
+/// Specified video input in a template.
 class InputTemplate {
   /// Specifies set of audio selectors within an input to combine. An input may
   /// have multiple audio selector groups. See "Audio Selector
-  /// Group":#inputs-audio\_selector\_group for more information.
+  /// Group":#inputs-audio_selector_group for more information.
   final Map<String, AudioSelectorGroup> audioSelectorGroups;
 
   /// Use Audio selectors (AudioSelectors) to specify a track or set of tracks
@@ -3774,6 +3899,7 @@ class InputTemplate {
   static InputTemplate fromJson(Map<String, dynamic> json) => InputTemplate();
 }
 
+/// Settings that specify how your still graphic overlay appears.
 class InsertableImage {
   /// Specify the time, in milliseconds, for the image to remain on the output
   /// video. This duration includes fade-in time but not fade-out time.
@@ -3848,6 +3974,9 @@ class InsertableImage {
       InsertableImage();
 }
 
+/// Each job converts an input file into an output file or files. For more
+/// information, see the User Guide at
+/// http://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html
 class Job {
   /// Accelerated transcoding can significantly speed up jobs with long,
   /// visually complex content.
@@ -3970,6 +4099,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// JobSettings contains all the transcode settings for a job.
 class JobSettings {
   /// When specified, this offset (in milliseconds) is added to the input Ad
   /// Avail PTS time.
@@ -4006,10 +4136,10 @@ class JobSettings {
   /// well. Required in (OutputGroups) is a group of settings that apply to the
   /// whole group. This required object depends on the value you set for (Type)
   /// under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-  /// are as follows. * FILE\_GROUP\_SETTINGS, FileGroupSettings *
-  /// HLS\_GROUP\_SETTINGS, HlsGroupSettings * DASH\_ISO\_GROUP\_SETTINGS,
-  /// DashIsoGroupSettings * MS\_SMOOTH\_GROUP\_SETTINGS, MsSmoothGroupSettings
-  /// * CMAF\_GROUP\_SETTINGS, CmafGroupSettings
+  /// are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings *
+  /// HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS,
+  /// DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
+  /// CMAF_GROUP_SETTINGS, CmafGroupSettings
   final List<OutputGroup> outputGroups;
 
   /// Contains settings used to acquire and adjust timecode information from
@@ -4036,6 +4166,8 @@ class JobSettings {
   static JobSettings fromJson(Map<String, dynamic> json) => JobSettings();
 }
 
+/// A job template is a pre-made set of encoding instructions that you can use
+/// to quickly create a job.
 class JobTemplate {
   /// Accelerated transcoding can significantly speed up jobs with long,
   /// visually complex content.
@@ -4099,6 +4231,8 @@ class JobTemplate {
   static JobTemplate fromJson(Map<String, dynamic> json) => JobTemplate();
 }
 
+/// JobTemplateSettings contains all the transcode settings saved in the
+/// template that will be applied to jobs created from it.
 class JobTemplateSettings {
   /// When specified, this offset (in milliseconds) is added to the input Ad
   /// Avail PTS time.
@@ -4135,10 +4269,10 @@ class JobTemplateSettings {
   /// well. Required in (OutputGroups) is a group of settings that apply to the
   /// whole group. This required object depends on the value you set for (Type)
   /// under (OutputGroups)>(OutputGroupSettings). Type, settings object pairs
-  /// are as follows. * FILE\_GROUP\_SETTINGS, FileGroupSettings *
-  /// HLS\_GROUP\_SETTINGS, HlsGroupSettings * DASH\_ISO\_GROUP\_SETTINGS,
-  /// DashIsoGroupSettings * MS\_SMOOTH\_GROUP\_SETTINGS, MsSmoothGroupSettings
-  /// * CMAF\_GROUP\_SETTINGS, CmafGroupSettings
+  /// are as follows. * FILE_GROUP_SETTINGS, FileGroupSettings *
+  /// HLS_GROUP_SETTINGS, HlsGroupSettings * DASH_ISO_GROUP_SETTINGS,
+  /// DashIsoGroupSettings * MS_SMOOTH_GROUP_SETTINGS, MsSmoothGroupSettings *
+  /// CMAF_GROUP_SETTINGS, CmafGroupSettings
   final List<OutputGroup> outputGroups;
 
   /// Contains settings used to acquire and adjust timecode information from
@@ -4238,6 +4372,10 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Settings for SCTE-35 signals from ESAM. Include this in your job settings to
+/// put SCTE-35 markers in your HLS and transport stream outputs at the
+/// insertion points that you specify in an ESAM XML document. Provide the
+/// document in the setting SCC XML (sccXml).
 class M2TsScte35Esam {
   /// Packet Identifier (PID) of the SCTE-35 stream in the transport stream
   /// generated by ESAM.
@@ -4249,6 +4387,16 @@ class M2TsScte35Esam {
   static M2TsScte35Esam fromJson(Map<String, dynamic> json) => M2TsScte35Esam();
 }
 
+/// MPEG-2 TS container settings. These apply to outputs in a File output group
+/// when the output's container (ContainerType) is MPEG-2 Transport Stream
+/// (M2TS). In these assets, data is organized by the program map table (PMT).
+/// Each transport stream program contains subsets of data, including audio,
+/// video, and metadata. Each of these subsets of data has a numerical label
+/// called a packet identifier (PID). Each transport stream program corresponds
+/// to one MediaConvert output. The PMT lists the types of data in a program
+/// along with their PID. Downstream systems and players use the program map
+/// table to look up the PID for each type of data it accesses and then uses the
+/// PIDs to locate specific data within the asset.
 class M2TsSettings {
   /// Selects between the DVB and ATSC buffer models for Dolby Digital audio.
   final String audioBufferModel;
@@ -4293,11 +4441,11 @@ class M2TsSettings {
   /// this output. Default is 499.
   final int dvbTeletextPid;
 
-  /// When set to VIDEO\_AND\_FIXED\_INTERVALS, audio EBP markers will be added
-  /// to partitions 3 and 4. The interval between these additional markers will
-  /// be fixed, and will be slightly shorter than the video EBP marker interval.
-  /// When set to VIDEO\_INTERVAL, these additional markers will not be
-  /// inserted. Only applicable when EBP segmentation markers are is selected
+  /// When set to VIDEO_AND_FIXED_INTERVALS, audio EBP markers will be added to
+  /// partitions 3 and 4. The interval between these additional markers will be
+  /// fixed, and will be slightly shorter than the video EBP marker interval.
+  /// When set to VIDEO_INTERVAL, these additional markers will not be inserted.
+  /// Only applicable when EBP segmentation markers are is selected
   /// (segmentationMarkers is EBP or EBP_LEGACY).
   final String ebpAudioInterval;
 
@@ -4344,7 +4492,7 @@ class M2TsSettings {
   /// transport stream.
   final int patInterval;
 
-  /// When set to PCR\_EVERY\_PES_PACKET, a Program Clock Reference value is
+  /// When set to PCR_EVERY_PES_PACKET, a Program Clock Reference value is
   /// inserted for every Packetized Elementary Stream (PES) header. This is
   /// effective only when the PCR PID is the same as the video or audio
   /// elementary stream.
@@ -4396,11 +4544,11 @@ class M2TsSettings {
   /// the property scte35Esam).
   final String scte35Source;
 
-  /// Inserts segmentation markers at each segmentation\_time period.
-  /// rai\_segstart sets the Random Access Indicator bit in the adaptation
-  /// field. rai\_adapt sets the RAI bit and adds the current timecode in the
-  /// private data bytes. psi\_segstart inserts PAT and PMT tables at the start
-  /// of segments. ebp adds Encoder Boundary Point information to the adaptation
+  /// Inserts segmentation markers at each segmentation_time period.
+  /// rai_segstart sets the Random Access Indicator bit in the adaptation field.
+  /// rai_adapt sets the RAI bit and adds the current timecode in the private
+  /// data bytes. psi_segstart inserts PAT and PMT tables at the start of
+  /// segments. ebp adds Encoder Boundary Point information to the adaptation
   /// field as per OpenCable specification OC-SP-EBP-I01-130118. ebp_legacy adds
   /// Encoder Boundary Point information to the adaptation field using a legacy
   /// proprietary format.
@@ -4409,19 +4557,19 @@ class M2TsSettings {
   /// The segmentation style parameter controls how segmentation markers are
   /// inserted into the transport stream. With avails, it is possible that
   /// segments may be truncated, which can influence where future segmentation
-  /// markers are inserted. When a segmentation style of "reset\_cadence" is
+  /// markers are inserted. When a segmentation style of "reset_cadence" is
   /// selected and a segment is truncated due to an avail, we will reset the
   /// segmentation cadence. This means the subsequent segment will have a
-  /// duration of of $segmentation\_time seconds. When a segmentation style of
-  /// "maintain\_cadence" is selected and a segment is truncated due to an
-  /// avail, we will not reset the segmentation cadence. This means the
-  /// subsequent segment will likely be truncated as well. However, all segments
-  /// after that will have a duration of $segmentation\_time seconds. Note that
-  /// EBP lookahead is a slight exception to this rule.
+  /// duration of of $segmentation_time seconds. When a segmentation style of
+  /// "maintain_cadence" is selected and a segment is truncated due to an avail,
+  /// we will not reset the segmentation cadence. This means the subsequent
+  /// segment will likely be truncated as well. However, all segments after that
+  /// will have a duration of $segmentation_time seconds. Note that EBP
+  /// lookahead is a slight exception to this rule.
   final String segmentationStyle;
 
   /// Specify the length, in seconds, of each segment. Required unless markers
-  /// is set to \_none\_.
+  /// is set to _none_.
   final double segmentationTime;
 
   /// Specify the packet identifier (PID) for timed metadata in this output.
@@ -4478,6 +4626,7 @@ class M2TsSettings {
   static M2TsSettings fromJson(Map<String, dynamic> json) => M2TsSettings();
 }
 
+/// Settings for TS segments in HLS
 class M3U8Settings {
   /// The number of audio frames to insert for each PES packet.
   final int audioFramesPerPes;
@@ -4495,7 +4644,7 @@ class M3U8Settings {
   /// transport stream.
   final int patInterval;
 
-  /// When set to PCR\_EVERY\_PES_PACKET a Program Clock Reference value is
+  /// When set to PCR_EVERY_PES_PACKET a Program Clock Reference value is
   /// inserted for every Packetized Elementary Stream (PES) header. This
   /// parameter is effective only when the PCR PID is the same as the video or
   /// audio elementary stream.
@@ -4570,6 +4719,7 @@ class M3U8Settings {
   static M3U8Settings fromJson(Map<String, dynamic> json) => M3U8Settings();
 }
 
+/// Overlay motion graphics on top of your video at the time that you specify.
 class MotionImageInserter {
   /// If your motion graphic asset is a .mov file, keep this setting
   /// unspecified. If your motion graphic asset is a series of .png files,
@@ -4585,13 +4735,13 @@ class MotionImageInserter {
   /// your video. For .png files, provide the file name of the first file in the
   /// series. Make sure that the names of the .png files end with sequential
   /// numbers that specify the order that they are played in. For example,
-  /// overlay\_000.png, overlay\_001.png, overlay\_002.png, and so on. The
-  /// sequence must start at zero, and each image file name must have the same
-  /// number of digits. Pad your initial file names with enough zeros to
-  /// complete the sequence. For example, if the first image is overlay\_0.png,
-  /// there can be only 10 images in the sequence, with the last image being
-  /// overlay\_9.png. But if the first image is overlay\_00.png, there can be
-  /// 100 images in the sequence.
+  /// overlay_000.png, overlay_001.png, overlay_002.png, and so on. The sequence
+  /// must start at zero, and each image file name must have the same number of
+  /// digits. Pad your initial file names with enough zeros to complete the
+  /// sequence. For example, if the first image is overlay_0.png, there can be
+  /// only 10 images in the sequence, with the last image being overlay_9.png.
+  /// But if the first image is overlay_00.png, there can be 100 images in the
+  /// sequence.
   final String input;
 
   /// Choose the type of motion graphic asset that you are providing for your
@@ -4634,6 +4784,10 @@ class MotionImageInserter {
       MotionImageInserter();
 }
 
+/// For motion overlays that don't have a built-in frame rate, specify the frame
+/// rate of the overlay in frames per second, as a fraction. For example,
+/// specify 24 fps as 24/1. The overlay frame rate doesn't need to match the
+/// frame rate of the underlying video.
 class MotionImageInsertionFramerate {
   /// The bottom of the fraction that expresses your overlay frame rate. For
   /// example, if your frame rate is 24 fps, set this value to 1.
@@ -4651,6 +4805,8 @@ class MotionImageInsertionFramerate {
       MotionImageInsertionFramerate();
 }
 
+/// Specify the offset between the upper-left corner of the video frame and the
+/// top left corner of the overlay.
 class MotionImageInsertionOffset {
   /// Set the distance, in pixels, between the overlay and the left edge of the
   /// video frame.
@@ -4668,6 +4824,7 @@ class MotionImageInsertionOffset {
       MotionImageInsertionOffset();
 }
 
+/// Settings for MOV Container.
 class MovSettings {
   /// When enabled, include 'clap' atom if appropriate for the video output
   /// settings.
@@ -4702,6 +4859,8 @@ class MovSettings {
   static MovSettings fromJson(Map<String, dynamic> json) => MovSettings();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value MP2.
 class Mp2Settings {
   /// Specify the average bitrate in bits per second.
   final int bitrate;
@@ -4722,6 +4881,8 @@ class Mp2Settings {
   static Mp2Settings fromJson(Map<String, dynamic> json) => Mp2Settings();
 }
 
+/// Settings for MP4 container. You can create audio-only AAC outputs with this
+/// container.
 class Mp4Settings {
   /// When enabled, file composition times will start at zero, composition times
   /// in the 'ctts' (composition time to sample) box for B-frames will be
@@ -4751,6 +4912,8 @@ class Mp4Settings {
   static Mp4Settings fromJson(Map<String, dynamic> json) => Mp4Settings();
 }
 
+/// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
+/// the value MPEG2.
 class Mpeg2Settings {
   /// Adaptive quantization. Allows intra-frame quantizers to vary to improve
   /// visual quality.
@@ -4785,10 +4948,9 @@ class Mpeg2Settings {
   /// you are creating your transcoding job sepecification as a JSON file
   /// without the console, use FramerateControl to specify which value the
   /// service uses for the frame rate for this output. Choose
-  /// INITIALIZE\_FROM\_SOURCE if you want the service to use the frame rate
-  /// from the input. Choose SPECIFIED if you want the service to use the frame
-  /// rate you specify in the settings FramerateNumerator and
-  /// FramerateDenominator.
+  /// INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from
+  /// the input. Choose SPECIFIED if you want the service to use the frame rate
+  /// you specify in the settings FramerateNumerator and FramerateDenominator.
   final String framerateControl;
 
   /// When set to INTERPOLATE, produces smoother motion during frame rate
@@ -4826,12 +4988,12 @@ class Mpeg2Settings {
   final int hrdBufferSize;
 
   /// Use Interlace mode (InterlaceMode) to choose the scan line type for the
-  /// output. * Top Field First (TOP\_FIELD) and Bottom Field First
-  /// (BOTTOM\_FIELD) produce interlaced output with the entire output having
-  /// the same field polarity (top or bottom first). * Follow, Default Top
-  /// (FOLLOW\_TOP\_FIELD) and Follow, Default Bottom (FOLLOW\_BOTTOM\_FIELD)
-  /// use the same field polarity as the source. Therefore, behavior depends on
-  /// the input scan type. - If the source is interlaced, the output will be
+  /// output. * Top Field First (TOP_FIELD) and Bottom Field First
+  /// (BOTTOM_FIELD) produce interlaced output with the entire output having the
+  /// same field polarity (top or bottom first). * Follow, Default Top
+  /// (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD) use
+  /// the same field polarity as the source. Therefore, behavior depends on the
+  /// input scan type. - If the source is interlaced, the output will be
   /// interlaced with the same polarity as the source (it will follow the
   /// source). The output could therefore be a mix of "top field first" and
   /// "bottom field first". - If the source is progressive, the output will be
@@ -4946,6 +5108,8 @@ class Mpeg2Settings {
   static Mpeg2Settings fromJson(Map<String, dynamic> json) => Mpeg2Settings();
 }
 
+/// If you are using DRM, set DRM System (MsSmoothEncryptionSettings) to specify
+/// the value SpekeKeyProvider.
 class MsSmoothEncryptionSettings {
   /// If your output group type is HLS, DASH, or Microsoft Smooth, use these
   /// settings when doing DRM encryption with a SPEKE-compliant key provider. If
@@ -4960,8 +5124,10 @@ class MsSmoothEncryptionSettings {
       MsSmoothEncryptionSettings();
 }
 
+/// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
+/// MS_SMOOTH_GROUP_SETTINGS.
 class MsSmoothGroupSettings {
-  /// COMBINE\_DUPLICATE\_STREAMS combines identical audio encoding settings
+  /// COMBINE_DUPLICATE_STREAMS combines identical audio encoding settings
   /// across a Microsoft Smooth output group into a single audio stream.
   final String audioDeduplication;
 
@@ -5001,6 +5167,13 @@ class MsSmoothGroupSettings {
       MsSmoothGroupSettings();
 }
 
+/// Settings for your Nielsen configuration. If you don't do Nielsen measurement
+/// and analytics, ignore these settings. When you enable Nielsen configuration
+/// (nielsenConfiguration), MediaConvert enables PCM to ID3 tagging for all
+/// outputs in the job. To enable Nielsen configuration programmatically,
+/// include an instance of nielsenConfiguration in your JSON job specification.
+/// Even if you don't include any children of nielsenConfiguration, you still
+/// enable the setting.
 class NielsenConfiguration {
   /// Nielsen has discontinued the use of breakout code functionality. If you
   /// must include this property, set the value to zero.
@@ -5018,6 +5191,11 @@ class NielsenConfiguration {
       NielsenConfiguration();
 }
 
+/// Enable the Noise reducer (NoiseReducer) feature to remove noise from your
+/// video output if necessary. Enable or disable this feature for each output
+/// individually. This setting is disabled by default. When you enable Noise
+/// reducer (NoiseReducer), you must also select a value for Noise reducer
+/// filter (NoiseReducerFilter).
 class NoiseReducer {
   /// Use Noise reducer filter (NoiseReducerFilter) to select one of the
   /// following spatial image filtering functions. To use this setting, you must
@@ -5046,6 +5224,7 @@ class NoiseReducer {
   static NoiseReducer fromJson(Map<String, dynamic> json) => NoiseReducer();
 }
 
+/// Settings for a noise reducer filter
 class NoiseReducerFilterSettings {
   /// Relative strength of noise reducing filter. Higher values produce stronger
   /// filtering.
@@ -5058,6 +5237,7 @@ class NoiseReducerFilterSettings {
       NoiseReducerFilterSettings();
 }
 
+/// Noise reducer filter settings for spatial filter.
 class NoiseReducerSpatialFilterSettings {
   /// Specify strength of post noise reduction sharpening filter, with 0
   /// disabling the filter and 3 enabling it at maximum strength.
@@ -5081,6 +5261,7 @@ class NoiseReducerSpatialFilterSettings {
       NoiseReducerSpatialFilterSettings();
 }
 
+/// Noise reducer filter settings for temporal filter.
 class NoiseReducerTemporalFilterSettings {
   /// Use Aggressive mode for content that has complex motion. Higher values
   /// produce stronger temporal filtering. This filters highly complex scenes
@@ -5109,6 +5290,8 @@ class NoiseReducerTemporalFilterSettings {
       NoiseReducerTemporalFilterSettings();
 }
 
+/// An output object describes the settings for a single output file or stream
+/// in an output group.
 class Output {
   /// (AudioDescriptions) contains groups of audio encoding settings organized
   /// by audio codec. Include one instance of (AudioDescriptions) per output.
@@ -5167,6 +5350,7 @@ class Output {
   static Output fromJson(Map<String, dynamic> json) => Output();
 }
 
+/// OutputChannel mapping settings.
 class OutputChannelMapping {
   /// List of input channels
   final List<int> inputChannels;
@@ -5178,6 +5362,7 @@ class OutputChannelMapping {
       OutputChannelMapping();
 }
 
+/// Details regarding output
 class OutputDetail {
   /// Duration in milliseconds
   final int durationInMs;
@@ -5192,6 +5377,7 @@ class OutputDetail {
   static OutputDetail fromJson(Map<String, dynamic> json) => OutputDetail();
 }
 
+/// Group of outputs
 class OutputGroup {
   /// Use Custom Group Name (CustomName) to specify a name for the output group.
   /// This value is displayed on the console and can make your job settings JSON
@@ -5218,6 +5404,7 @@ class OutputGroup {
   static OutputGroup fromJson(Map<String, dynamic> json) => OutputGroup();
 }
 
+/// Contains details about the output groups specified in the job settings.
 class OutputGroupDetail {
   /// Details about the output
   final List<OutputDetail> outputDetails;
@@ -5229,26 +5416,27 @@ class OutputGroupDetail {
       OutputGroupDetail();
 }
 
+/// Output Group settings, including type
 class OutputGroupSettings {
   /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
-  /// CMAF\_GROUP\_SETTINGS. Each output in a CMAF Output Group may only contain
-  /// a single video, audio, or caption output.
+  /// CMAF_GROUP_SETTINGS. Each output in a CMAF Output Group may only contain a
+  /// single video, audio, or caption output.
   final CmafGroupSettings cmafGroupSettings;
 
   /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
-  /// DASH\_ISO\_GROUP_SETTINGS.
+  /// DASH_ISO_GROUP_SETTINGS.
   final DashIsoGroupSettings dashIsoGroupSettings;
 
   /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
-  /// FILE\_GROUP\_SETTINGS.
+  /// FILE_GROUP_SETTINGS.
   final FileGroupSettings fileGroupSettings;
 
   /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
-  /// HLS\_GROUP\_SETTINGS.
+  /// HLS_GROUP_SETTINGS.
   final HlsGroupSettings hlsGroupSettings;
 
   /// Required when you set (Type) under (OutputGroups)>(OutputGroupSettings) to
-  /// MS\_SMOOTH\_GROUP_SETTINGS.
+  /// MS_SMOOTH_GROUP_SETTINGS.
   final MsSmoothGroupSettings msSmoothGroupSettings;
 
   /// Type of output group (File group, Apple HLS, DASH ISO, Microsoft Smooth
@@ -5267,6 +5455,7 @@ class OutputGroupSettings {
       OutputGroupSettings();
 }
 
+/// Specific settings for this type of output.
 class OutputSettings {
   /// Settings for HLS output groups
   final HlsSettings hlsSettings;
@@ -5277,6 +5466,8 @@ class OutputSettings {
   static OutputSettings fromJson(Map<String, dynamic> json) => OutputSettings();
 }
 
+/// A preset is a collection of preconfigured media conversion settings that you
+/// want MediaConvert to apply to the output during the conversion process.
 class Preset {
   /// An identifier for this resource that is unique within all of AWS.
   final String arn;
@@ -5317,6 +5508,7 @@ class Preset {
   static Preset fromJson(Map<String, dynamic> json) => Preset();
 }
 
+/// Settings for preset
 class PresetSettings {
   /// (AudioDescriptions) contains groups of audio encoding settings organized
   /// by audio codec. Include one instance of (AudioDescriptions) per output.
@@ -5345,6 +5537,8 @@ class PresetSettings {
   static PresetSettings fromJson(Map<String, dynamic> json) => PresetSettings();
 }
 
+/// Required when you set (Codec) under (VideoDescription)>(CodecSettings) to
+/// the value PRORES.
 class ProresSettings {
   /// Use Profile (ProResCodecProfile) to specifiy the type of Apple ProRes
   /// codec to use for this output.
@@ -5359,10 +5553,9 @@ class ProresSettings {
   /// you are creating your transcoding job sepecification as a JSON file
   /// without the console, use FramerateControl to specify which value the
   /// service uses for the frame rate for this output. Choose
-  /// INITIALIZE\_FROM\_SOURCE if you want the service to use the frame rate
-  /// from the input. Choose SPECIFIED if you want the service to use the frame
-  /// rate you specify in the settings FramerateNumerator and
-  /// FramerateDenominator.
+  /// INITIALIZE_FROM_SOURCE if you want the service to use the frame rate from
+  /// the input. Choose SPECIFIED if you want the service to use the frame rate
+  /// you specify in the settings FramerateNumerator and FramerateDenominator.
   final String framerateControl;
 
   /// When set to INTERPOLATE, produces smoother motion during frame rate
@@ -5379,12 +5572,12 @@ class ProresSettings {
   final int framerateNumerator;
 
   /// Use Interlace mode (InterlaceMode) to choose the scan line type for the
-  /// output. * Top Field First (TOP\_FIELD) and Bottom Field First
-  /// (BOTTOM\_FIELD) produce interlaced output with the entire output having
-  /// the same field polarity (top or bottom first). * Follow, Default Top
-  /// (FOLLOW\_TOP\_FIELD) and Follow, Default Bottom (FOLLOW\_BOTTOM\_FIELD)
-  /// use the same field polarity as the source. Therefore, behavior depends on
-  /// the input scan type. - If the source is interlaced, the output will be
+  /// output. * Top Field First (TOP_FIELD) and Bottom Field First
+  /// (BOTTOM_FIELD) produce interlaced output with the entire output having the
+  /// same field polarity (top or bottom first). * Follow, Default Top
+  /// (FOLLOW_TOP_FIELD) and Follow, Default Bottom (FOLLOW_BOTTOM_FIELD) use
+  /// the same field polarity as the source. Therefore, behavior depends on the
+  /// input scan type. - If the source is interlaced, the output will be
   /// interlaced with the same polarity as the source (it will follow the
   /// source). The output could therefore be a mix of "top field first" and
   /// "bottom field first". - If the source is progressive, the output will be
@@ -5393,7 +5586,7 @@ class ProresSettings {
   final String interlaceMode;
 
   /// Use (ProresParControl) to specify how the service determines the pixel
-  /// aspect ratio. Set to Follow source (INITIALIZE\_FROM\_SOURCE) to use the
+  /// aspect ratio. Set to Follow source (INITIALIZE_FROM_SOURCE) to use the
   /// pixel aspect ratio from the input. To specify a different pixel aspect
   /// ratio: Using the console, choose it from the dropdown menu. Using the API,
   /// set ProresParControl to (SPECIFIED) and provide for (ParNumerator) and
@@ -5432,6 +5625,11 @@ class ProresSettings {
   static ProresSettings fromJson(Map<String, dynamic> json) => ProresSettings();
 }
 
+/// You can use queues to manage the resources that are available to your AWS
+/// account for running multiple transcoding jobs at the same time. If you don't
+/// specify a queue, the service sends all jobs through the default queue. For
+/// more information, see
+/// https://docs.aws.amazon.com/mediaconvert/latest/ug/working-with-queues.html.
 class Queue {
   /// An identifier for this resource that is unique within all of AWS.
   final String arn;
@@ -5493,6 +5691,7 @@ class Queue {
   static Queue fromJson(Map<String, dynamic> json) => Queue();
 }
 
+/// Use Rectangle to identify a specific area of the video frame.
 class Rectangle {
   /// Height of rectangle in pixels. Specify only even numbers.
   final int height;
@@ -5517,6 +5716,9 @@ class Rectangle {
   static Rectangle fromJson(Map<String, dynamic> json) => Rectangle();
 }
 
+/// Use Manual audio remixing (RemixSettings) to adjust audio levels for each
+/// audio channel in each output of your job. With audio remixing, you can
+/// output more or fewer audio channels than your input audio source provides.
 class RemixSettings {
   /// Channel mapping (ChannelMapping) contains the group of fields that hold
   /// the remixing value for each channel. Units are in dB. Acceptable values
@@ -5543,6 +5745,8 @@ class RemixSettings {
   static RemixSettings fromJson(Map<String, dynamic> json) => RemixSettings();
 }
 
+/// Details about the pricing plan for your reserved queue. Required for
+/// reserved queues and not applicable to on-demand queues.
 class ReservationPlan {
   /// The length of the term of your reserved queue pricing plan commitment.
   final String commitment;
@@ -5585,6 +5789,8 @@ class ReservationPlan {
       ReservationPlan();
 }
 
+/// Details about the pricing plan for your reserved queue. Required for
+/// reserved queues and not applicable to on-demand queues.
 class ReservationPlanSettings {
   /// The length of the term of your reserved queue pricing plan commitment.
   final String commitment;
@@ -5612,6 +5818,8 @@ class ReservationPlanSettings {
   });
 }
 
+/// The Amazon Resource Name (ARN) and tags for an AWS Elemental MediaConvert
+/// resource.
 class ResourceTags {
   /// The Amazon Resource Name (ARN) of the resource.
   final String arn;
@@ -5626,6 +5834,7 @@ class ResourceTags {
   static ResourceTags fromJson(Map<String, dynamic> json) => ResourceTags();
 }
 
+/// Settings associated with S3 destination
 class S3DestinationSettings {
   /// Settings for how your job outputs are encrypted as they are uploaded to
   /// Amazon S3.
@@ -5638,15 +5847,17 @@ class S3DestinationSettings {
       S3DestinationSettings();
 }
 
+/// Settings for how your job outputs are encrypted as they are uploaded to
+/// Amazon S3.
 class S3EncryptionSettings {
   /// Specify how you want your data keys managed. AWS uses data keys to encrypt
   /// your content. AWS also encrypts the data keys themselves, using a customer
   /// master key (CMK), and then stores the encrypted data keys alongside your
   /// encrypted content. Use this setting to specify which AWS service manages
   /// the CMK. For simplest set up, choose Amazon S3
-  /// (SERVER\_SIDE\_ENCRYPTION\_S3). If you want your master key to be managed
-  /// by AWS Key Management Service (KMS), choose AWS KMS
-  /// (SERVER\_SIDE\_ENCRYPTION\_KMS). By default, when you choose AWS KMS, KMS
+  /// (SERVER_SIDE_ENCRYPTION_S3). If you want your master key to be managed by
+  /// AWS Key Management Service (KMS), choose AWS KMS
+  /// (SERVER_SIDE_ENCRYPTION_KMS). By default, when you choose AWS KMS, KMS
   /// uses the AWS managed customer master key (CMK) associated with Amazon S3
   /// to encrypt your data keys. You can optionally choose to specify a
   /// different, customer managed CMK. Do so by specifying the Amazon Resource
@@ -5657,9 +5868,9 @@ class S3EncryptionSettings {
   /// encrypt the data key that AWS uses to encrypt your output content. Enter
   /// the Amazon Resource Name (ARN) of the CMK. To use this setting, you must
   /// also set Server-side encryption (S3ServerSideEncryptionType) to AWS KMS
-  /// (SERVER\_SIDE\_ENCRYPTION_KMS). If you set Server-side encryption to AWS
-  /// KMS but don't specify a CMK here, AWS uses the AWS managed CMK associated
-  /// with Amazon S3.
+  /// (SERVER_SIDE_ENCRYPTION_KMS). If you set Server-side encryption to AWS KMS
+  /// but don't specify a CMK here, AWS uses the AWS managed CMK associated with
+  /// Amazon S3.
   final String kmsKeyArn;
 
   S3EncryptionSettings({
@@ -5670,13 +5881,14 @@ class S3EncryptionSettings {
       S3EncryptionSettings();
 }
 
+/// Settings for SCC caption output.
 class SccDestinationSettings {
   /// Set Framerate (SccDestinationFramerate) to make sure that the captions and
   /// the video are synchronized in the output. Specify a frame rate that
   /// matches the frame rate of the associated video. If the video frame rate is
-  /// 29.97, choose 29.97 dropframe (FRAMERATE\_29\_97\_DROPFRAME) only if the
-  /// video has video\_insertion=true and drop\_frame\_timecode=true; otherwise,
-  /// choose 29.97 non-dropframe (FRAMERATE\_29\_97\_NON\_DROPFRAME).
+  /// 29.97, choose 29.97 dropframe (FRAMERATE_29_97_DROPFRAME) only if the
+  /// video has video_insertion=true and drop_frame_timecode=true; otherwise,
+  /// choose 29.97 non-dropframe (FRAMERATE_29_97_NON_DROPFRAME).
   final String framerate;
 
   SccDestinationSettings({
@@ -5686,6 +5898,10 @@ class SccDestinationSettings {
       SccDestinationSettings();
 }
 
+/// If your output group type is HLS, DASH, or Microsoft Smooth, use these
+/// settings when doing DRM encryption with a SPEKE-compliant key provider. If
+/// your output group type is CMAF, use the SpekeKeyProviderCmaf settings
+/// instead.
 class SpekeKeyProvider {
   /// If you want your key provider to encrypt the content keys that it provides
   /// to MediaConvert, set up a certificate with a master key using AWS
@@ -5717,6 +5933,9 @@ class SpekeKeyProvider {
       SpekeKeyProvider();
 }
 
+/// If your output group type is CMAF, use these settings when doing DRM
+/// encryption with a SPEKE-compliant key provider. If your output group type is
+/// HLS, DASH, or Microsoft Smooth, use the SpekeKeyProvider settings instead.
 class SpekeKeyProviderCmaf {
   /// If you want your key provider to encrypt the content keys that it provides
   /// to MediaConvert, set up a certificate with a master key using AWS
@@ -5755,6 +5974,7 @@ class SpekeKeyProviderCmaf {
       SpekeKeyProviderCmaf();
 }
 
+/// Use these settings to set up encryption with a static key provider.
 class StaticKeyProvider {
   /// Relates to DRM implementation. Sets the value of the KEYFORMAT attribute.
   /// Must be 'identity' or a reverse DNS string. May be omitted to indicate an
@@ -5789,6 +6009,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Settings for Teletext caption output
 class TeletextDestinationSettings {
   /// Set pageNumber to the Teletext page number for the destination captions
   /// for this output. This value must be a three-digit hexadecimal string;
@@ -5798,9 +6019,9 @@ class TeletextDestinationSettings {
 
   /// Specify the page types for this Teletext page. If you don't specify a
   /// value here, the service sets the page type to the default value Subtitle
-  /// (PAGE\_TYPE\_SUBTITLE). If you pass through the entire set of Teletext
-  /// data, don't use this field. When you pass through a set of Teletext pages,
-  /// your output has the same page types as your input.
+  /// (PAGE_TYPE_SUBTITLE). If you pass through the entire set of Teletext data,
+  /// don't use this field. When you pass through a set of Teletext pages, your
+  /// output has the same page types as your input.
   final List<String> pageTypes;
 
   TeletextDestinationSettings({
@@ -5811,6 +6032,7 @@ class TeletextDestinationSettings {
       TeletextDestinationSettings();
 }
 
+/// Settings specific to Teletext caption sources, including Page number.
 class TeletextSourceSettings {
   /// Use Page Number (PageNumber) to specify the three-digit hexadecimal page
   /// number that will be used for Teletext captions. Do not use this setting if
@@ -5824,6 +6046,8 @@ class TeletextSourceSettings {
       TeletextSourceSettings();
 }
 
+/// Timecode burn-in (TimecodeBurnIn)--Burns the output timecode and specified
+/// prefix into the output.
 class TimecodeBurnin {
   /// Use Font Size (FontSize) to set the font size of any burned-in timecode.
   /// Valid values are 10, 16, 32, 48.
@@ -5849,6 +6073,8 @@ class TimecodeBurnin {
   static TimecodeBurnin fromJson(Map<String, dynamic> json) => TimecodeBurnin();
 }
 
+/// These settings control how the service handles timecodes throughout the job.
+/// These settings don't affect input clipping.
 class TimecodeConfig {
   /// If you use an editing platform that relies on an anchor timecode, use
   /// Anchor Timecode (Anchor) to specify a timecode that will match the input
@@ -5903,6 +6129,10 @@ class TimecodeConfig {
   static TimecodeConfig fromJson(Map<String, dynamic> json) => TimecodeConfig();
 }
 
+/// Enable Timed metadata insertion (TimedMetadataInsertion) to include ID3 tags
+/// in your job. To include timed metadata, you must enable it here, enable it
+/// in each output container, and specify tags and timecodes in ID3 insertion
+/// (Id3Insertion) objects.
 class TimedMetadataInsertion {
   /// Id3Insertions contains the array of Id3Insertion instances.
   final List<Id3Insertion> id3Insertions;
@@ -5914,6 +6144,8 @@ class TimedMetadataInsertion {
       TimedMetadataInsertion();
 }
 
+/// Information about when jobs are submitted, started, and finished is
+/// specified in Unix epoch format in seconds.
 class Timing {
   /// The time, in Unix epoch format, that the transcoding job finished
   final DateTime finishTime;
@@ -5932,6 +6164,10 @@ class Timing {
   static Timing fromJson(Map<String, dynamic> json) => Timing();
 }
 
+/// Settings specific to caption sources that are specified by track number.
+/// Currently, this is only IMSC captions in an IMF package. If your caption
+/// source is IMSC 1.1 in a separate xml file, use FileSourceSettings instead of
+/// TrackSourceSettings.
 class TrackSourceSettings {
   /// Use this setting to select a single captions track from a source. Track
   /// numbers correspond to the order in the captions source file. For IMF
@@ -5949,6 +6185,8 @@ class TrackSourceSettings {
       TrackSourceSettings();
 }
 
+/// Settings specific to TTML caption outputs, including Pass style information
+/// (TtmlStylePassthrough).
 class TtmlDestinationSettings {
   /// Pass through style and position information from a TTML-like input source
   /// (TTML, SMPTE-TT, CFF-TT) to the CFF-TT output or TTML output.
@@ -6007,6 +6245,13 @@ class UpdateQueueResponse {
       UpdateQueueResponse();
 }
 
+/// Video codec settings, (CodecSettings) under (VideoDescription), contains the
+/// group of settings related to video encoding. The settings in this group vary
+/// depending on the value that you choose for Video codec (Codec). For each
+/// codec enum that you choose, define the corresponding settings object. The
+/// following lists the codec enum, settings object pairs. * H_264, H264Settings
+/// * H_265, H265Settings * MPEG2, Mpeg2Settings * PRORES, ProresSettings *
+/// FRAME_CAPTURE, FrameCaptureSettings
 class VideoCodecSettings {
   /// Specifies the video codec. This must be equal to one of the enum values
   /// defined by the object VideoCodec.
@@ -6043,6 +6288,7 @@ class VideoCodecSettings {
       VideoCodecSettings();
 }
 
+/// Settings for video outputs
 class VideoDescription {
   /// This setting only applies to H.264, H.265, and MPEG2 outputs. Use Insert
   /// AFD signaling (AfdSignaling) to specify whether the service includes AFD
@@ -6062,8 +6308,8 @@ class VideoDescription {
   /// group vary depending on the value that you choose for Video codec (Codec).
   /// For each codec enum that you choose, define the corresponding settings
   /// object. The following lists the codec enum, settings object pairs. *
-  /// H\_264, H264Settings * H\_265, H265Settings * MPEG2, Mpeg2Settings *
-  /// PRORES, ProresSettings * FRAME_CAPTURE, FrameCaptureSettings
+  /// H_264, H264Settings * H_265, H265Settings * MPEG2, Mpeg2Settings * PRORES,
+  /// ProresSettings * FRAME_CAPTURE, FrameCaptureSettings
   final VideoCodecSettings codecSettings;
 
   /// Choose Insert (INSERT) for this setting to include color metadata in this
@@ -6107,11 +6353,11 @@ class VideoDescription {
   final String respondToAfd;
 
   /// Specify how the service handles outputs that have a different aspect ratio
-  /// from the input aspect ratio. Choose Stretch to output
-  /// (STRETCH\_TO\_OUTPUT) to have the service stretch your video image to fit.
-  /// Keep the setting Default (DEFAULT) to have the service letterbox your
-  /// video instead. This setting overrides any value that you specify for the
-  /// setting Selection placement (position) in this output.
+  /// from the input aspect ratio. Choose Stretch to output (STRETCH_TO_OUTPUT)
+  /// to have the service stretch your video image to fit. Keep the setting
+  /// Default (DEFAULT) to have the service letterbox your video instead. This
+  /// setting overrides any value that you specify for the setting Selection
+  /// placement (position) in this output.
   final String scalingBehavior;
 
   /// Use Sharpness (Sharpness) setting to specify the strength of
@@ -6124,7 +6370,7 @@ class VideoDescription {
   /// Applies only to H.264, H.265, MPEG2, and ProRes outputs. Only enable
   /// Timecode insertion when the input frame rate is identical to the output
   /// frame rate. To include timecodes in this output, set Timecode insertion
-  /// (VideoTimecodeInsertion) to PIC\_TIMING\_SEI. To leave them out, set it to
+  /// (VideoTimecodeInsertion) to PIC_TIMING_SEI. To leave them out, set it to
   /// DISABLED. Default is DISABLED. When the service inserts timecodes in an
   /// output, by default, it uses any embedded timecodes from the input. If none
   /// are present, the service will set the timecode for the first output frame
@@ -6167,6 +6413,7 @@ class VideoDescription {
       VideoDescription();
 }
 
+/// Contains details about the output's video stream
 class VideoDetail {
   /// Height in pixels for the output
   final int heightInPx;
@@ -6181,6 +6428,9 @@ class VideoDetail {
   static VideoDetail fromJson(Map<String, dynamic> json) => VideoDetail();
 }
 
+/// Find additional transcoding features under Preprocessors
+/// (VideoPreprocessors). Enable the features at each output individually. These
+/// features are disabled by default.
 class VideoPreprocessor {
   /// Enable the Color corrector (ColorCorrector) feature if necessary. Enable
   /// or disable this feature for each output individually. This setting is
@@ -6216,6 +6466,7 @@ class VideoPreprocessor {
       VideoPreprocessor();
 }
 
+/// Selector for video.
 class VideoSelector {
   /// If your input video has accurate color space metadata, or if you don't
   /// know about color space, leave this set to the default value Follow
@@ -6290,6 +6541,8 @@ class VideoSelector {
   static VideoSelector fromJson(Map<String, dynamic> json) => VideoSelector();
 }
 
+/// Required when you set (Codec) under (AudioDescriptions)>(CodecSettings) to
+/// the value WAV.
 class WavSettings {
   /// Specify Bit depth (BitDepth), in bits per sample, to choose the encoding
   /// quality for this audio track.

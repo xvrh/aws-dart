@@ -57,8 +57,8 @@ class DynamoDBApi {
   /// using exponential backoff, the individual requests in the batch are much
   /// more likely to succeed.
   ///
-  /// For more information, see [Batch Operations and Error
-  /// Handling](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#BatchOperations)
+  /// For more information, see
+  /// [Batch Operations and Error Handling](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#BatchOperations)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// By default, `BatchGetItem` performs eventually consistent reads on every
@@ -75,8 +75,8 @@ class DynamoDBApi {
   ///
   /// If a requested item does not exist, it is not returned in the result.
   /// Requests for nonexistent items consume the minimum read capacity units
-  /// according to the type of read. For more information, see [Working with
-  /// Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations)
+  /// according to the type of read. For more information, see
+  /// [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#CapacityUnitCalculations)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [requestItems]: A map of one or more table names and, for each table, a
@@ -85,10 +85,10 @@ class DynamoDBApi {
   ///
   /// Each element in the map of items to retrieve consists of the following:
   ///
-  /// *    `ConsistentRead` \- If `true`, a strongly consistent read is used; if
+  /// *    `ConsistentRead` - If `true`, a strongly consistent read is used; if
   /// `false` (the default), an eventually consistent read is used.
   ///
-  /// *    `ExpressionAttributeNames` \- One or more substitution tokens for
+  /// *    `ExpressionAttributeNames` - One or more substitution tokens for
   /// attribute names in the `ProjectionExpression` parameter. The following are
   /// some use cases for using `ExpressionAttributeNames`:
   ///
@@ -110,8 +110,8 @@ class DynamoDBApi {
   ///
   ///     The name of this attribute conflicts with a reserved word, so it
   /// cannot be used directly in an expression. (For the complete list of
-  /// reserved words, see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// reserved words, see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -127,18 +127,17 @@ class DynamoDBApi {
   ///      Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  ///     For more information about expression attribute names, see [Accessing
-  /// Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  ///     For more information about expression attribute names, see
+  /// [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// *    `Keys` \- An array of primary key attribute values that define
+  /// *    `Keys` - An array of primary key attribute values that define
   /// specific items in the table. For each primary key, you must provide _all_
   /// of the key attributes. For example, with a simple primary key, you only
   /// need to provide the partition key value. For a composite key, you must
   /// provide _both_ the partition key value and the sort key value.
   ///
-  /// *    `ProjectionExpression` \- A string that identifies one or more
+  /// *    `ProjectionExpression` - A string that identifies one or more
   /// attributes to retrieve from the table. These attributes can include
   /// scalars, sets, or elements of a JSON document. The attributes in the
   /// expression must be separated by commas.
@@ -147,11 +146,11 @@ class DynamoDBApi {
   /// If any of the requested attributes are not found, they do not appear in
   /// the result.
   ///
-  ///     For more information, see [Accessing Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  ///     For more information, see
+  /// [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// *    `AttributesToGet` \- This is a legacy parameter. Use
+  /// *    `AttributesToGet` - This is a legacy parameter. Use
   /// `ProjectionExpression` instead. For more information, see
   /// [AttributesToGet](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.AttributesToGet.html)
   /// in the _Amazon DynamoDB Developer Guide_.
@@ -191,8 +190,8 @@ class DynamoDBApi {
   /// using exponential backoff, the individual requests in the batch are much
   /// more likely to succeed.
   ///
-  /// For more information, see [Batch Operations and Error
-  /// Handling](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#Programming.Errors.BatchOperations)
+  /// For more information, see
+  /// [Batch Operations and Error Handling](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ErrorHandling.html#Programming.Errors.BatchOperations)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// With `BatchWriteItem`, you can efficiently write or delete large amounts
@@ -242,10 +241,10 @@ class DynamoDBApi {
   /// list of operations to be performed (`DeleteRequest` or `PutRequest`). Each
   /// element in the map consists of the following:
   ///
-  /// *    `DeleteRequest` \- Perform a `DeleteItem` operation on the specified
+  /// *    `DeleteRequest` - Perform a `DeleteItem` operation on the specified
   /// item. The item to be deleted is identified by a `Key` subelement:
   ///
-  ///     *    `Key` \- A map of primary key attribute values that uniquely
+  ///     *    `Key` - A map of primary key attribute values that uniquely
   /// identify the item. Each entry in this map consists of an attribute name
   /// and an attribute value. For each primary key, you must provide _all_ of
   /// the key attributes. For example, with a simple primary key, you only need
@@ -253,15 +252,15 @@ class DynamoDBApi {
   /// must provide values for _both_ the partition key and the sort key.
   ///
   ///
-  /// *    `PutRequest` \- Perform a `PutItem` operation on the specified item.
+  /// *    `PutRequest` - Perform a `PutItem` operation on the specified item.
   /// The item to be put is identified by an `Item` subelement:
   ///
-  ///     *    `Item` \- A map of attributes and their values. Each entry in
-  /// this map consists of an attribute name and an attribute value. Attribute
-  /// values must not be null; string and binary type attributes must have
-  /// lengths greater than zero; and set type attributes must not be empty.
-  /// Requests that contain empty values are rejected with a
-  /// `ValidationException` exception.
+  ///     *    `Item` - A map of attributes and their values. Each entry in this
+  /// map consists of an attribute name and an attribute value. Attribute values
+  /// must not be null; string and binary type attributes must have lengths
+  /// greater than zero; and set type attributes must not be empty. Requests
+  /// that contain empty values are rejected with a `ValidationException`
+  /// exception.
   ///
   ///         If you specify any attributes that are part of an index key, then
   /// the data types for those attributes must match those of the schema in the
@@ -392,19 +391,19 @@ class DynamoDBApi {
   ///
   /// [keySchema]: Specifies the attributes that make up the primary key for a
   /// table or an index. The attributes in `KeySchema` must also be defined in
-  /// the `AttributeDefinitions` array. For more information, see [Data
-  /// Model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html)
+  /// the `AttributeDefinitions` array. For more information, see
+  /// [Data Model](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// Each `KeySchemaElement` in the array is composed of:
   ///
-  /// *    `AttributeName` \- The name of this key attribute.
+  /// *    `AttributeName` - The name of this key attribute.
   ///
-  /// *    `KeyType` \- The role that the key attribute will assume:
+  /// *    `KeyType` - The role that the key attribute will assume:
   ///
-  ///     *    `HASH` \- partition key
+  ///     *    `HASH` - partition key
   ///
-  ///     *    `RANGE` \- sort key
+  ///     *    `RANGE` - sort key
   ///
   ///
   ///
@@ -426,8 +425,8 @@ class DynamoDBApi {
   /// `KeyType` of `HASH`, and the second element must have a `KeyType` of
   /// `RANGE`.
   ///
-  /// For more information, see [Working with
-  /// Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#WorkingWithTables.primary.key)
+  /// For more information, see
+  /// [Working with Tables](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#WorkingWithTables.primary.key)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [localSecondaryIndexes]: One or more local secondary indexes (the maximum
@@ -437,31 +436,30 @@ class DynamoDBApi {
   ///
   /// Each local secondary index in the array includes the following:
   ///
-  /// *    `IndexName` \- The name of the local secondary index. Must be unique
+  /// *    `IndexName` - The name of the local secondary index. Must be unique
   /// only for this table.
   ///
-  /// *    `KeySchema` \- Specifies the key schema for the local secondary
-  /// index. The key schema must begin with the same partition key as the table.
+  /// *    `KeySchema` - Specifies the key schema for the local secondary index.
+  /// The key schema must begin with the same partition key as the table.
   ///
-  /// *    `Projection` \- Specifies attributes that are copied (projected) from
+  /// *    `Projection` - Specifies attributes that are copied (projected) from
   /// the table into the index. These are in addition to the primary key
   /// attributes and index key attributes, which are automatically projected.
   /// Each attribute specification is composed of:
   ///
-  ///     *    `ProjectionType` \- One of the following:
+  ///     *    `ProjectionType` - One of the following:
   ///
-  ///         *    `KEYS_ONLY` \- Only the index and primary keys are projected
+  ///         *    `KEYS_ONLY` - Only the index and primary keys are projected
   /// into the index.
   ///
-  ///         *    `INCLUDE` \- Only the specified table attributes are
-  /// projected into the index. The list of projected attributes is in
-  /// `NonKeyAttributes`.
+  ///         *    `INCLUDE` - Only the specified table attributes are projected
+  /// into the index. The list of projected attributes is in `NonKeyAttributes`.
   ///
-  ///         *    `ALL` \- All of the table attributes are projected into the
+  ///         *    `ALL` - All of the table attributes are projected into the
   /// index.
   ///
   ///
-  ///     *    `NonKeyAttributes` \- A list of one or more non-key attribute
+  ///     *    `NonKeyAttributes` - A list of one or more non-key attribute
   /// names that are projected into the secondary index. The total count of
   /// attributes provided in `NonKeyAttributes`, summed across all of the
   /// secondary indexes, must not exceed 100. If you project the same attribute
@@ -472,31 +470,30 @@ class DynamoDBApi {
   /// maximum is 20) to be created on the table. Each global secondary index in
   /// the array includes the following:
   ///
-  /// *    `IndexName` \- The name of the global secondary index. Must be unique
+  /// *    `IndexName` - The name of the global secondary index. Must be unique
   /// only for this table.
   ///
-  /// *    `KeySchema` \- Specifies the key schema for the global secondary
+  /// *    `KeySchema` - Specifies the key schema for the global secondary
   /// index.
   ///
-  /// *    `Projection` \- Specifies attributes that are copied (projected) from
+  /// *    `Projection` - Specifies attributes that are copied (projected) from
   /// the table into the index. These are in addition to the primary key
   /// attributes and index key attributes, which are automatically projected.
   /// Each attribute specification is composed of:
   ///
-  ///     *    `ProjectionType` \- One of the following:
+  ///     *    `ProjectionType` - One of the following:
   ///
-  ///         *    `KEYS_ONLY` \- Only the index and primary keys are projected
+  ///         *    `KEYS_ONLY` - Only the index and primary keys are projected
   /// into the index.
   ///
-  ///         *    `INCLUDE` \- Only the specified table attributes are
-  /// projected into the index. The list of projected attributes is in
-  /// `NonKeyAttributes`.
+  ///         *    `INCLUDE` - Only the specified table attributes are projected
+  /// into the index. The list of projected attributes is in `NonKeyAttributes`.
   ///
-  ///         *    `ALL` \- All of the table attributes are projected into the
+  ///         *    `ALL` - All of the table attributes are projected into the
   /// index.
   ///
   ///
-  ///     *    `NonKeyAttributes` \- A list of one or more non-key attribute
+  ///     *    `NonKeyAttributes` - A list of one or more non-key attribute
   /// names that are projected into the secondary index. The total count of
   /// attributes provided in `NonKeyAttributes`, summed across all of the
   /// secondary indexes, must not exceed 100. If you project the same attribute
@@ -504,24 +501,24 @@ class DynamoDBApi {
   /// determining the total.
   ///
   ///
-  /// *    `ProvisionedThroughput` \- The provisioned throughput settings for
-  /// the global secondary index, consisting of read and write capacity units.
+  /// *    `ProvisionedThroughput` - The provisioned throughput settings for the
+  /// global secondary index, consisting of read and write capacity units.
   ///
   /// [billingMode]: Controls how you are charged for read and write throughput
   /// and how you manage capacity. This setting can be changed later.
   ///
-  /// *    `PROVISIONED` \- Sets the billing mode to `PROVISIONED`. We recommend
+  /// *    `PROVISIONED` - Sets the billing mode to `PROVISIONED`. We recommend
   /// using `PROVISIONED` for predictable workloads.
   ///
-  /// *    `PAY\_PER\_REQUEST` \- Sets the billing mode to `PAY\_PER\_REQUEST`.
-  /// We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads.
+  /// *    `PAY_PER_REQUEST` - Sets the billing mode to `PAY_PER_REQUEST`. We
+  /// recommend using `PAY_PER_REQUEST` for unpredictable workloads.
   ///
   /// [provisionedThroughput]: Represents the provisioned throughput settings
   /// for a specified table or index. The settings can be modified using the
   /// `UpdateTable` operation.
   ///
   ///  If you set BillingMode as `PROVISIONED`, you must specify this property.
-  /// If you set BillingMode as `PAY\_PER\_REQUEST`, you cannot specify this
+  /// If you set BillingMode as `PAY_PER_REQUEST`, you cannot specify this
   /// property.
   ///
   /// For current minimum and maximum provisioned throughput values, see
@@ -531,31 +528,31 @@ class DynamoDBApi {
   /// [streamSpecification]: The settings for DynamoDB Streams on the table.
   /// These settings consist of:
   ///
-  /// *    `StreamEnabled` \- Indicates whether DynamoDB Streams is to be
-  /// enabled (true) or disabled (false).
+  /// *    `StreamEnabled` - Indicates whether DynamoDB Streams is to be enabled
+  /// (true) or disabled (false).
   ///
-  /// *    `StreamViewType` \- When an item in the table is modified,
+  /// *    `StreamViewType` - When an item in the table is modified,
   /// `StreamViewType` determines what information is written to the table's
   /// stream. Valid values for `StreamViewType` are:
   ///
-  ///     *    `KEYS_ONLY` \- Only the key attributes of the modified item are
+  ///     *    `KEYS_ONLY` - Only the key attributes of the modified item are
   /// written to the stream.
   ///
-  ///     *    `NEW_IMAGE` \- The entire item, as it appears after it was
+  ///     *    `NEW_IMAGE` - The entire item, as it appears after it was
   /// modified, is written to the stream.
   ///
-  ///     *    `OLD_IMAGE` \- The entire item, as it appeared before it was
+  ///     *    `OLD_IMAGE` - The entire item, as it appeared before it was
   /// modified, is written to the stream.
   ///
-  ///     *    `NEW\_AND\_OLD_IMAGES` \- Both the new and the old item images of
+  ///     *    `NEW_AND_OLD_IMAGES` - Both the new and the old item images of
   /// the item are written to the stream.
   ///
   /// [sseSpecification]: Represents the settings used to enable server-side
   /// encryption.
   ///
   /// [tags]: A list of key-value pairs to label the table. For more
-  /// information, see [Tagging for
-  /// DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html).
+  /// information, see
+  /// [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html).
   Future<CreateTableOutput> createTable(
       {@required List<AttributeDefinition> attributeDefinitions,
       @required String tableName,
@@ -618,11 +615,11 @@ class DynamoDBApi {
   /// as they appeared before they were deleted. For `DeleteItem`, the valid
   /// values are:
   ///
-  /// *    `NONE` \- If `ReturnValues` is not specified, or if its value is
+  /// *    `NONE` - If `ReturnValues` is not specified, or if its value is
   /// `NONE`, then nothing is returned. (This setting is the default for
   /// `ReturnValues`.)
   ///
-  /// *    `ALL_OLD` \- The content of the old item is returned.
+  /// *    `ALL_OLD` - The content of the old item is returned.
   ///
   ///
   ///
@@ -642,18 +639,18 @@ class DynamoDBApi {
   ///
   /// An expression can contain any of the following:
   ///
-  /// *   Functions: `attribute\_exists | attribute\_not\_exists |
-  /// attribute\_type | contains | begins_with | size`
+  /// *   Functions: `attribute_exists | attribute_not_exists | attribute_type |
+  /// contains | begins_with | size`
   ///
   ///     These function names are case-sensitive.
   ///
-  /// *   Comparison operators: `= | <> | < | \> | <= | >= | BETWEEN | IN`
+  /// *   Comparison operators: `= | <> | < | > | <= | >= | BETWEEN | IN`
   ///
   /// *    Logical operators: `AND | OR | NOT`
   ///
   ///
-  /// For more information about condition expressions, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information about condition expressions, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -678,8 +675,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -694,8 +691,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeValues]: One or more values that can be substituted in
@@ -716,8 +713,8 @@ class DynamoDBApi {
   ///
   ///  `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// For more information on expression attribute values, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on expression attribute values, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   Future<DeleteItemOutput> deleteItem(
       {@required String tableName,
@@ -823,12 +820,12 @@ class DynamoDBApi {
   /// [Limits](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
   /// page in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// Although you can increase these limits by filing a case at [AWS Support
-  /// Center](https://console.aws.amazon.com/support/home#/), obtaining the
-  /// increase is not instantaneous. The `DescribeLimits` action lets you write
-  /// code to compare the capacity you are currently using to those limits
-  /// imposed by your account so that you have enough time to apply for an
-  /// increase before you hit a limit.
+  /// Although you can increase these limits by filing a case at
+  /// [AWS Support Center](https://console.aws.amazon.com/support/home#/),
+  /// obtaining the increase is not instantaneous. The `DescribeLimits` action
+  /// lets you write code to compare the capacity you are currently using to
+  /// those limits imposed by your account so that you have enough time to apply
+  /// for an increase before you hit a limit.
   ///
   /// For example, you could use one of the AWS SDKs to do the following:
   ///
@@ -941,8 +938,8 @@ class DynamoDBApi {
   /// any of the requested attributes are not found, they do not appear in the
   /// result.
   ///
-  /// For more information, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -967,8 +964,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -983,8 +980,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   Future<GetItemOutput> getItem(
       {@required String tableName,
@@ -1030,11 +1027,11 @@ class DynamoDBApi {
   ///
   /// Where `BackupType` can be:
   ///
-  /// *    `USER` \- On-demand backup created by you.
+  /// *    `USER` - On-demand backup created by you.
   ///
-  /// *    `SYSTEM` \- On-demand backup automatically created by DynamoDB.
+  /// *    `SYSTEM` - On-demand backup automatically created by DynamoDB.
   ///
-  /// *    `ALL` \- All types of on-demand backups (USER and SYSTEM).
+  /// *    `ALL` - All types of on-demand backups (USER and SYSTEM).
   Future<ListBackupsOutput> listBackups(
       {String tableName,
       int limit,
@@ -1078,8 +1075,8 @@ class DynamoDBApi {
   /// List all tags on an Amazon DynamoDB resource. You can call
   /// ListTagsOfResource up to 10 times per second, per account.
   ///
-  /// For an overview on tagging DynamoDB resources, see [Tagging for
-  /// DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
+  /// For an overview on tagging DynamoDB resources, see
+  /// [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [resourceArn]: The Amazon DynamoDB resource with tags to be listed. This
@@ -1106,32 +1103,32 @@ class DynamoDBApi {
   /// For information on how to call the `PutItem` API using the AWS SDK in
   /// specific languages, see the following:
   ///
-  /// *     [PutItem in the AWS Command Line
-  /// Interface](http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS Command Line Interface](http://docs.aws.amazon.com/goto/aws-cli/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// .NET](http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for .NET](http://docs.aws.amazon.com/goto/DotNetSDKV3/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// C++](http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for C++](http://docs.aws.amazon.com/goto/SdkForCpp/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// Go](http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for Go](http://docs.aws.amazon.com/goto/SdkForGoV1/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// Java](http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for Java](http://docs.aws.amazon.com/goto/SdkForJava/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// JavaScript](http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for JavaScript](http://docs.aws.amazon.com/goto/AWSJavaScriptSDK/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for PHP
-  /// V3](http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for PHP V3](http://docs.aws.amazon.com/goto/SdkForPHPV3/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for
-  /// Python](http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for Python](http://docs.aws.amazon.com/goto/boto3/dynamodb-2012-08-10/PutItem)
   ///
-  /// *     [PutItem in the AWS SDK for Ruby
-  /// V2](http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem)
+  /// *
+  /// [PutItem in the AWS SDK for Ruby V2](http://docs.aws.amazon.com/goto/SdkForRubyV2/dynamodb-2012-08-10/PutItem)
   ///
   ///
   /// When you add an item, the primary key attributes are the only required
@@ -1141,13 +1138,13 @@ class DynamoDBApi {
   /// `ValidationException` exception.
   ///
   ///  To prevent a new item from replacing an existing item, use a conditional
-  /// expression that contains the `attribute\_not\_exists` function with the
-  /// name of the attribute being used as the partition key for the table. Since
-  /// every record must contain that attribute, the `attribute\_not\_exists`
+  /// expression that contains the `attribute_not_exists` function with the name
+  /// of the attribute being used as the partition key for the table. Since
+  /// every record must contain that attribute, the `attribute_not_exists`
   /// function will only succeed if no matching item exists.
   ///
-  /// For more information about `PutItem`, see [Working with
-  /// Items](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html)
+  /// For more information about `PutItem`, see
+  /// [Working with Items](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithItems.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [tableName]: The name of the table to contain the item.
@@ -1165,8 +1162,8 @@ class DynamoDBApi {
   /// types for those attributes must match those of the schema in the table's
   /// attribute definition.
   ///
-  /// For more information about primary keys, see [Primary
-  /// Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)
+  /// For more information about primary keys, see
+  /// [Primary Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.CoreComponents.html#HowItWorks.CoreComponents.PrimaryKey)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// Each element in the `Item` map is an `AttributeValue` object.
@@ -1180,12 +1177,12 @@ class DynamoDBApi {
   /// as they appeared before they were updated with the `PutItem` request. For
   /// `PutItem`, the valid values are:
   ///
-  /// *    `NONE` \- If `ReturnValues` is not specified, or if its value is
+  /// *    `NONE` - If `ReturnValues` is not specified, or if its value is
   /// `NONE`, then nothing is returned. (This setting is the default for
   /// `ReturnValues`.)
   ///
-  /// *    `ALL_OLD` \- If `PutItem` overwrote an attribute name-value pair,
-  /// then the content of the old item is returned.
+  /// *    `ALL_OLD` - If `PutItem` overwrote an attribute name-value pair, then
+  /// the content of the old item is returned.
   ///
   ///
   ///
@@ -1210,18 +1207,18 @@ class DynamoDBApi {
   ///
   /// An expression can contain any of the following:
   ///
-  /// *   Functions: `attribute\_exists | attribute\_not\_exists |
-  /// attribute\_type | contains | begins_with | size`
+  /// *   Functions: `attribute_exists | attribute_not_exists | attribute_type |
+  /// contains | begins_with | size`
   ///
   ///     These function names are case-sensitive.
   ///
-  /// *   Comparison operators: `= | <> | < | \> | <= | >= | BETWEEN | IN`
+  /// *   Comparison operators: `= | <> | < | > | <= | >= | BETWEEN | IN`
   ///
   /// *    Logical operators: `AND | OR | NOT`
   ///
   ///
-  /// For more information on condition expressions, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on condition expressions, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -1246,8 +1243,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -1262,8 +1259,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeValues]: One or more values that can be substituted in
@@ -1284,8 +1281,8 @@ class DynamoDBApi {
   ///
   ///  `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// For more information on expression attribute values, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on expression attribute values, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   Future<PutItemOutput> putItem(
       {@required String tableName,
@@ -1336,8 +1333,8 @@ class DynamoDBApi {
   /// set (if using the `Limit` parameter) or a maximum of 1 MB of data and then
   /// apply any filtering to the results using `FilterExpression`. If
   /// `LastEvaluatedKey` is present in the response, you will need to paginate
-  /// the result set. For more information, see [Paginating the
-  /// Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Pagination)
+  /// the result set. For more information, see
+  /// [Paginating the Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.html#Query.Pagination)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   ///  `FilterExpression` is applied after a `Query` finishes, but before the
@@ -1366,22 +1363,22 @@ class DynamoDBApi {
   /// items, or in the case of an index, some or all of the attributes projected
   /// into the index.
   ///
-  /// *    `ALL_ATTRIBUTES` \- Returns all of the item attributes from the
+  /// *    `ALL_ATTRIBUTES` - Returns all of the item attributes from the
   /// specified table or index. If you query a local secondary index, then for
   /// each matching item in the index, DynamoDB fetches the entire item from the
   /// parent table. If the index is configured to project all item attributes,
   /// then all of the data can be obtained from the local secondary index, and
   /// no fetching is required.
   ///
-  /// *    `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index.
+  /// *    `ALL_PROJECTED_ATTRIBUTES` - Allowed only when querying an index.
   /// Retrieves all attributes that have been projected into the index. If the
   /// index is configured to project all attributes, this return value is
   /// equivalent to specifying `ALL_ATTRIBUTES`.
   ///
-  /// *    `COUNT` \- Returns the number of matching items, rather than the
+  /// *    `COUNT` - Returns the number of matching items, rather than the
   /// matching items themselves.
   ///
-  /// *    `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in
+  /// *    `SPECIFIC_ATTRIBUTES` - Returns only the attributes listed in
   /// `AttributesToGet`. This return value is equivalent to specifying
   /// `AttributesToGet` without specifying any value for `Select`.
   ///
@@ -1398,11 +1395,11 @@ class DynamoDBApi {
   ///
   ///
   /// If neither `Select` nor `AttributesToGet` are specified, DynamoDB defaults
-  /// to `ALL_ATTRIBUTES` when accessing a table, and
-  /// `ALL\_PROJECTED\_ATTRIBUTES` when accessing an index. You cannot use both
-  /// `Select` and `AttributesToGet` together in a single request, unless the
-  /// value for `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to
-  /// specifying `AttributesToGet` without any value for `Select`.)
+  /// to `ALL_ATTRIBUTES` when accessing a table, and `ALL_PROJECTED_ATTRIBUTES`
+  /// when accessing an index. You cannot use both `Select` and
+  /// `AttributesToGet` together in a single request, unless the value for
+  /// `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to specifying
+  /// `AttributesToGet` without any value for `Select`.)
   ///
   ///
   ///
@@ -1423,8 +1420,8 @@ class DynamoDBApi {
   /// off. Also, if the processed dataset size exceeds 1 MB before DynamoDB
   /// reaches this limit, it stops the operation and returns the matching values
   /// up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent
-  /// operation to continue the operation. For more information, see [Query and
-  /// Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html)
+  /// operation to continue the operation. For more information, see
+  /// [Query and Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [consistentRead]: Determines the read consistency model: If set to `true`,
@@ -1482,8 +1479,8 @@ class DynamoDBApi {
   /// If any of the requested attributes are not found, they will not appear in
   /// the result.
   ///
-  /// For more information, see [Accessing Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information, see
+  /// [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [filterExpression]: A string that contains conditions that DynamoDB
@@ -1498,8 +1495,8 @@ class DynamoDBApi {
   /// the process of filtering does not consume any additional read capacity
   /// units.
   ///
-  /// For more information, see [Filter
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults)
+  /// For more information, see
+  /// [Filter Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [keyConditionExpression]: The condition that specifies the key values for
@@ -1527,26 +1524,26 @@ class DynamoDBApi {
   ///
   /// Valid comparisons for the sort key condition are as follows:
   ///
-  /// *    `sortKeyName` `=` `:sortkeyval` \- true if the sort key value is
-  /// equal to `:sortkeyval`.
+  /// *    `sortKeyName` `=` `:sortkeyval` - true if the sort key value is equal
+  /// to `:sortkeyval`.
   ///
-  /// *    `sortKeyName` `<` `:sortkeyval` \- true if the sort key value is less
+  /// *    `sortKeyName` `<` `:sortkeyval` - true if the sort key value is less
   /// than `:sortkeyval`.
   ///
-  /// *    `sortKeyName` `<=` `:sortkeyval` \- true if the sort key value is
-  /// less than or equal to `:sortkeyval`.
+  /// *    `sortKeyName` `<=` `:sortkeyval` - true if the sort key value is less
+  /// than or equal to `:sortkeyval`.
   ///
-  /// *    `sortKeyName` `>` `:sortkeyval` \- true if the sort key value is
+  /// *    `sortKeyName` `>` `:sortkeyval` - true if the sort key value is
   /// greater than `:sortkeyval`.
   ///
-  /// *    `sortKeyName` `>=`  `:sortkeyval` \- true if the sort key value is
+  /// *    `sortKeyName` `>=`  `:sortkeyval` - true if the sort key value is
   /// greater than or equal to `:sortkeyval`.
   ///
-  /// *    `sortKeyName` `BETWEEN` `:sortkeyval1` `AND` `:sortkeyval2` \- true
-  /// if the sort key value is greater than or equal to `:sortkeyval1`, and less
+  /// *    `sortKeyName` `BETWEEN` `:sortkeyval1` `AND` `:sortkeyval2` - true if
+  /// the sort key value is greater than or equal to `:sortkeyval1`, and less
   /// than or equal to `:sortkeyval2`.
   ///
-  /// *    `begins_with (` `sortKeyName`, `:sortkeyval` `)` \- true if the sort
+  /// *    `begins_with (` `sortKeyName`, `:sortkeyval` `)` - true if the sort
   /// key value begins with a particular operand. (You cannot use this function
   /// with a sort key that is of type Number.) Note that the function name
   /// `begins_with` is case-sensitive.
@@ -1570,14 +1567,13 @@ class DynamoDBApi {
   /// *    `#S = :myval`
   ///
   ///
-  /// For a list of reserved words, see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// For a list of reserved words, see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// For more information on `ExpressionAttributeNames` and
-  /// `ExpressionAttributeValues`, see [Using Placeholders for Attribute Names
-  /// and
-  /// Values](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ExpressionPlaceholders.html)
+  /// `ExpressionAttributeValues`, see
+  /// [Using Placeholders for Attribute Names and Values](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ExpressionPlaceholders.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -1602,8 +1598,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -1618,8 +1614,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeValues]: One or more values that can be substituted in
@@ -1640,8 +1636,8 @@ class DynamoDBApi {
   ///
   ///  `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// For more information on expression attribute values, see [Specifying
-  /// Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on expression attribute values, see
+  /// [Specifying Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   Future<QueryOutput> query(String tableName,
       {String indexName,
@@ -1764,15 +1760,15 @@ class DynamoDBApi {
   /// using the `Limit` parameter) or a maximum of 1 MB of data and then apply
   /// any filtering to the results using `FilterExpression`. If
   /// `LastEvaluatedKey` is present in the response, you need to paginate the
-  /// result set. For more information, see [Paginating the
-  /// Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination)
+  /// result set. For more information, see
+  /// [Paginating the Results](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.Pagination)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   ///  `Scan` operations proceed sequentially; however, for faster performance
   /// on a large table or secondary index, applications can request a parallel
   /// `Scan` operation by providing the `Segment` and `TotalSegments`
-  /// parameters. For more information, see [Parallel
-  /// Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan)
+  /// parameters. For more information, see
+  /// [Parallel Scan](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Scan.html#Scan.ParallelScan)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   ///  `Scan` uses eventually consistent reads when accessing the data in a
@@ -1802,9 +1798,8 @@ class DynamoDBApi {
   /// off. Also, if the processed dataset size exceeds 1 MB before DynamoDB
   /// reaches this limit, it stops the operation and returns the matching values
   /// up to the limit, and a key in `LastEvaluatedKey` to apply in a subsequent
-  /// operation to continue the operation. For more information, see [Working
-  /// with
-  /// Queries](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html)
+  /// operation to continue the operation. For more information, see
+  /// [Working with Queries](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [select]: The attributes to be returned in the result. You can retrieve
@@ -1812,22 +1807,22 @@ class DynamoDBApi {
   /// items, or in the case of an index, some or all of the attributes projected
   /// into the index.
   ///
-  /// *    `ALL_ATTRIBUTES` \- Returns all of the item attributes from the
+  /// *    `ALL_ATTRIBUTES` - Returns all of the item attributes from the
   /// specified table or index. If you query a local secondary index, then for
   /// each matching item in the index, DynamoDB fetches the entire item from the
   /// parent table. If the index is configured to project all item attributes,
   /// then all of the data can be obtained from the local secondary index, and
   /// no fetching is required.
   ///
-  /// *    `ALL\_PROJECTED\_ATTRIBUTES` \- Allowed only when querying an index.
+  /// *    `ALL_PROJECTED_ATTRIBUTES` - Allowed only when querying an index.
   /// Retrieves all attributes that have been projected into the index. If the
   /// index is configured to project all attributes, this return value is
   /// equivalent to specifying `ALL_ATTRIBUTES`.
   ///
-  /// *    `COUNT` \- Returns the number of matching items, rather than the
+  /// *    `COUNT` - Returns the number of matching items, rather than the
   /// matching items themselves.
   ///
-  /// *    `SPECIFIC_ATTRIBUTES` \- Returns only the attributes listed in
+  /// *    `SPECIFIC_ATTRIBUTES` - Returns only the attributes listed in
   /// `AttributesToGet`. This return value is equivalent to specifying
   /// `AttributesToGet` without specifying any value for `Select`.
   ///
@@ -1844,11 +1839,11 @@ class DynamoDBApi {
   ///
   ///
   /// If neither `Select` nor `AttributesToGet` are specified, DynamoDB defaults
-  /// to `ALL_ATTRIBUTES` when accessing a table, and
-  /// `ALL\_PROJECTED\_ATTRIBUTES` when accessing an index. You cannot use both
-  /// `Select` and `AttributesToGet` together in a single request, unless the
-  /// value for `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to
-  /// specifying `AttributesToGet` without any value for `Select`.)
+  /// to `ALL_ATTRIBUTES` when accessing a table, and `ALL_PROJECTED_ATTRIBUTES`
+  /// when accessing an index. You cannot use both `Select` and
+  /// `AttributesToGet` together in a single request, unless the value for
+  /// `Select` is `SPECIFIC_ATTRIBUTES`. (This usage is equivalent to specifying
+  /// `AttributesToGet` without any value for `Select`.)
   ///
   ///
   ///
@@ -1916,8 +1911,8 @@ class DynamoDBApi {
   /// If any of the requested attributes are not found, they will not appear in
   /// the result.
   ///
-  /// For more information, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [filterExpression]: A string that contains conditions that DynamoDB
@@ -1929,8 +1924,8 @@ class DynamoDBApi {
   /// the process of filtering does not consume any additional read capacity
   /// units.
   ///
-  /// For more information, see [Filter
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults)
+  /// For more information, see
+  /// [Filter Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#FilteringResults)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -1955,8 +1950,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -1971,8 +1966,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Specifying Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeValues]: One or more values that can be substituted in
@@ -1993,8 +1988,8 @@ class DynamoDBApi {
   ///
   ///  `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// For more information on expression attribute values, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on expression attribute values, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [consistentRead]: A Boolean value that determines the read consistency
@@ -2038,8 +2033,8 @@ class DynamoDBApi {
   /// Cost Management console for cost allocation tracking. You can call
   /// TagResource up to five times per second, per account.
   ///
-  /// For an overview on tagging DynamoDB resources, see [Tagging for
-  /// DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
+  /// For an overview on tagging DynamoDB resources, see
+  /// [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [resourceArn]: Identifies the Amazon DynamoDB resource to which tags
@@ -2115,28 +2110,28 @@ class DynamoDBApi {
   /// The actions are completed atomically so that either all of them succeed,
   /// or all of them fail. They are defined by the following objects:
   ///
-  /// *    `Put`  —   Initiates a `PutItem` operation to write a new item. This
+  /// *    `Put`  —   Initiates a `PutItem` operation to write a new item. This
   /// structure specifies the primary key of the item to be written, the name of
   /// the table to write it in, an optional condition expression that must be
   /// satisfied for the write to succeed, a list of the item's attributes, and a
   /// field indicating whether to retrieve the item's attributes if the
   /// condition is not met.
   ///
-  /// *    `Update`  —   Initiates an `UpdateItem` operation to update an
+  /// *    `Update`  —   Initiates an `UpdateItem` operation to update an
   /// existing item. This structure specifies the primary key of the item to be
   /// updated, the name of the table where it resides, an optional condition
   /// expression that must be satisfied for the update to succeed, an expression
   /// that defines one or more attributes to be updated, and a field indicating
   /// whether to retrieve the item's attributes if the condition is not met.
   ///
-  /// *    `Delete`  —   Initiates a `DeleteItem` operation to delete an
+  /// *    `Delete`  —   Initiates a `DeleteItem` operation to delete an
   /// existing item. This structure specifies the primary key of the item to be
   /// deleted, the name of the table where it resides, an optional condition
   /// expression that must be satisfied for the deletion to succeed, and a field
   /// indicating whether to retrieve the item's attributes if the condition is
   /// not met.
   ///
-  /// *    `ConditionCheck`  —   Applies a condition to an item that is not
+  /// *    `ConditionCheck`  —   Applies a condition to an item that is not
   /// being modified by the transaction. This structure specifies the primary
   /// key of the item to be checked, the name of the table where it resides, a
   /// condition expression that must be satisfied for the transaction to
@@ -2206,8 +2201,8 @@ class DynamoDBApi {
   /// Removes the association of tags from an Amazon DynamoDB resource. You can
   /// call `UntagResource` up to five times per second, per account.
   ///
-  /// For an overview on tagging DynamoDB resources, see [Tagging for
-  /// DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
+  /// For an overview on tagging DynamoDB resources, see
+  /// [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [resourceArn]: The DynamoDB resource that the tags will be removed from.
@@ -2346,20 +2341,20 @@ class DynamoDBApi {
   /// as they appear before or after they are updated. For `UpdateItem`, the
   /// valid values are:
   ///
-  /// *    `NONE` \- If `ReturnValues` is not specified, or if its value is
+  /// *    `NONE` - If `ReturnValues` is not specified, or if its value is
   /// `NONE`, then nothing is returned. (This setting is the default for
   /// `ReturnValues`.)
   ///
-  /// *    `ALL_OLD` \- Returns all of the attributes of the item, as they
+  /// *    `ALL_OLD` - Returns all of the attributes of the item, as they
   /// appeared before the UpdateItem operation.
   ///
-  /// *    `UPDATED_OLD` \- Returns only the updated attributes, as they
-  /// appeared before the UpdateItem operation.
+  /// *    `UPDATED_OLD` - Returns only the updated attributes, as they appeared
+  /// before the UpdateItem operation.
   ///
-  /// *    `ALL_NEW` \- Returns all of the attributes of the item, as they
-  /// appear after the UpdateItem operation.
+  /// *    `ALL_NEW` - Returns all of the attributes of the item, as they appear
+  /// after the UpdateItem operation.
   ///
-  /// *    `UPDATED_NEW` \- Returns only the updated attributes, as they appear
+  /// *    `UPDATED_NEW` - Returns only the updated attributes, as they appear
   /// after the UpdateItem operation.
   ///
   ///
@@ -2380,28 +2375,28 @@ class DynamoDBApi {
   ///
   /// The following action values are available for `UpdateExpression`.
   ///
-  /// *    `SET` \- Adds one or more attributes and values to an item. If any of
+  /// *    `SET` - Adds one or more attributes and values to an item. If any of
   /// these attributes already exist, they are replaced by the new values. You
   /// can also use `SET` to add or subtract from an attribute that is of type
   /// Number. For example: `SET myNum = myNum + :val`
   ///
   ///      `SET` supports the following functions:
   ///
-  ///     *    `if\_not\_exists (path, operand)` \- if the item does not contain
-  /// an attribute at the specified path, then `if\_not\_exists` evaluates to
+  ///     *    `if_not_exists (path, operand)` - if the item does not contain an
+  /// attribute at the specified path, then `if_not_exists` evaluates to
   /// operand; otherwise, it evaluates to path. You can use this function to
   /// avoid overwriting an attribute that may already be present in the item.
   ///
-  ///     *    `list_append (operand, operand)` \- evaluates to a list with a
-  /// new element added to it. You can append the new element to the start or
-  /// the end of the list by reversing the order of the operands.
+  ///     *    `list_append (operand, operand)` - evaluates to a list with a new
+  /// element added to it. You can append the new element to the start or the
+  /// end of the list by reversing the order of the operands.
   ///
   ///
   ///     These function names are case-sensitive.
   ///
-  /// *    `REMOVE` \- Removes one or more attributes from an item.
+  /// *    `REMOVE` - Removes one or more attributes from an item.
   ///
-  /// *    `ADD` \- Adds the specified value to the item, if the attribute does
+  /// *    `ADD` - Adds the specified value to the item, if the attribute does
   /// not already exist. If the attribute does exist, then the behavior of `ADD`
   /// depends on the data type of the attribute:
   ///
@@ -2424,10 +2419,10 @@ class DynamoDBApi {
   /// the item, with a value of `3`.
   ///     *   If the existing data type is a set and if `Value` is also a set,
   /// then `Value` is added to the existing set. For example, if the attribute
-  /// value is the set `\[1,2\]`, and the `ADD` action specified `\[3\]`, then
-  /// the final attribute value is `\[1,2,3\]`. An error occurs if an `ADD`
-  /// action is specified for a set attribute and the attribute type specified
-  /// does not match the existing set type.
+  /// value is the set `[1,2]`, and the `ADD` action specified `[3]`, then the
+  /// final attribute value is `[1,2,3]`. An error occurs if an `ADD` action is
+  /// specified for a set attribute and the attribute type specified does not
+  /// match the existing set type.
   ///
   ///         Both sets must have the same primitive data type. For example, if
   /// the existing data type is a set of strings, the `Value` must also be a set
@@ -2437,12 +2432,12 @@ class DynamoDBApi {
   ///      The `ADD` action only supports Number and set data types. In
   /// addition, `ADD` can only be used on top-level attributes, not nested
   /// attributes.
-  /// *    `DELETE` \- Deletes an element from a set.
+  /// *    `DELETE` - Deletes an element from a set.
   ///
   ///     If a set of values is specified, then those values are subtracted from
-  /// the old set. For example, if the attribute value was the set `\[a,b,c\]`
-  /// and the `DELETE` action specifies `\[a,c\]`, then the final attribute
-  /// value is `\[b\]`. Specifying an empty set is an error.
+  /// the old set. For example, if the attribute value was the set `[a,b,c]` and
+  /// the `DELETE` action specifies `[a,c]`, then the final attribute value is
+  /// `[b]`. Specifying an empty set is an error.
   ///
   ///      The `DELETE` action only supports set data types. In addition,
   /// `DELETE` can only be used on top-level attributes, not nested attributes.
@@ -2450,8 +2445,8 @@ class DynamoDBApi {
   /// You can have many actions in a single expression, such as the following:
   /// `SET a=:value1, b=:value2 DELETE :value3, :value4, :value5`
   ///
-  /// For more information on update expressions, see [Modifying Items and
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.Modifying.html)
+  /// For more information on update expressions, see
+  /// [Modifying Items and Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.Modifying.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [conditionExpression]: A condition that must be satisfied in order for a
@@ -2459,18 +2454,18 @@ class DynamoDBApi {
   ///
   /// An expression can contain any of the following:
   ///
-  /// *   Functions: `attribute\_exists | attribute\_not\_exists |
-  /// attribute\_type | contains | begins_with | size`
+  /// *   Functions: `attribute_exists | attribute_not_exists | attribute_type |
+  /// contains | begins_with | size`
   ///
   ///     These function names are case-sensitive.
   ///
-  /// *   Comparison operators: `= | <> | < | \> | <= | >= | BETWEEN | IN`
+  /// *   Comparison operators: `= | <> | < | > | <= | >= | BETWEEN | IN`
   ///
   /// *    Logical operators: `AND | OR | NOT`
   ///
   ///
-  /// For more information about condition expressions, see [Specifying
-  /// Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information about condition expressions, see
+  /// [Specifying Conditions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeNames]: One or more substitution tokens for attribute
@@ -2495,8 +2490,8 @@ class DynamoDBApi {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_.) To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -2511,9 +2506,8 @@ class DynamoDBApi {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information about expression attribute names, see [Specifying
-  /// Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information about expression attribute names, see
+  /// [Specifying Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [expressionAttributeValues]: One or more values that can be substituted in
@@ -2534,8 +2528,8 @@ class DynamoDBApi {
   ///
   ///  `ProductStatus IN (:avail, :back, :disc)`
   ///
-  /// For more information on expression attribute values, see [Condition
-  /// Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
+  /// For more information on expression attribute values, see
+  /// [Condition Expressions](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.SpecifyingConditions.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   Future<UpdateItemOutput> updateItem(
       {@required String tableName,
@@ -2587,11 +2581,11 @@ class DynamoDBApi {
   /// read and write capacity of your table and global secondary indexes over
   /// the past 30 minutes.
   ///
-  /// *    `PROVISIONED` \- Sets the billing mode to `PROVISIONED`. We recommend
+  /// *    `PROVISIONED` - Sets the billing mode to `PROVISIONED`. We recommend
   /// using `PROVISIONED` for predictable workloads.
   ///
-  /// *    `PAY\_PER\_REQUEST` \- Sets the billing mode to `PAY\_PER\_REQUEST`.
-  /// We recommend using `PAY\_PER\_REQUEST` for unpredictable workloads.
+  /// *    `PAY_PER_REQUEST` - Sets the billing mode to `PAY_PER_REQUEST`. We
+  /// recommend using `PAY_PER_REQUEST` for unpredictable workloads.
   ///
   /// [provisionedThroughput]: The new provisioned throughput settings for the
   /// specified table or index.
@@ -2600,16 +2594,16 @@ class DynamoDBApi {
   /// indexes for the table. For each index in the array, you can request one
   /// action:
   ///
-  /// *    `Create` \- add a new global secondary index to the table.
+  /// *    `Create` - add a new global secondary index to the table.
   ///
-  /// *    `Update` \- modify the provisioned throughput settings of an existing
+  /// *    `Update` - modify the provisioned throughput settings of an existing
   /// global secondary index.
   ///
-  /// *    `Delete` \- remove a global secondary index from the table.
+  /// *    `Delete` - remove a global secondary index from the table.
   ///
   ///
-  /// For more information, see [Managing Global Secondary
-  /// Indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.OnlineOps.html)
+  /// For more information, see
+  /// [Managing Global Secondary Indexes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GSI.OnlineOps.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// [streamSpecification]: Represents the DynamoDB Streams configuration for
@@ -2660,8 +2654,8 @@ class DynamoDBApi {
   /// global secondary index immediately in the same eventually consistent way
   /// as a standard delete operation.
   ///
-  /// For more information, see [Time To
-  /// Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html)
+  /// For more information, see
+  /// [Time To Live](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/TTL.html)
   /// in the Amazon DynamoDB Developer Guide.
   ///
   /// [tableName]: The name of the table to be configured.
@@ -2675,17 +2669,19 @@ class DynamoDBApi {
   }
 }
 
+/// Represents an attribute for describing the key schema for the table and
+/// indexes.
 class AttributeDefinition {
   /// A name for the attribute.
   final String attributeName;
 
   /// The data type for the attribute, where:
   ///
-  /// *    `S` \- the attribute is of type String
+  /// *    `S` - the attribute is of type String
   ///
-  /// *    `N` \- the attribute is of type Number
+  /// *    `N` - the attribute is of type Number
   ///
-  /// *    `B` \- the attribute is of type Binary
+  /// *    `B` - the attribute is of type Binary
   final String attributeType;
 
   AttributeDefinition({
@@ -2696,6 +2692,14 @@ class AttributeDefinition {
       AttributeDefinition();
 }
 
+/// Represents the data for an attribute.
+///
+/// Each attribute value is described as a name-value pair. The name is the data
+/// type, and the value is the data itself.
+///
+/// For more information, see
+/// [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)
+/// in the _Amazon DynamoDB Developer Guide_.
 class AttributeValue {
   /// An attribute of type String. For example:
   ///
@@ -2718,12 +2722,12 @@ class AttributeValue {
 
   /// An attribute of type String Set. For example:
   ///
-  ///  `"SS": \["Giraffe", "Hippo" ,"Zebra"\]`
+  ///  `"SS": ["Giraffe", "Hippo" ,"Zebra"]`
   final List<String> ss;
 
   /// An attribute of type Number Set. For example:
   ///
-  ///  `"NS": \["42.2", "-19", "7.5", "3.14"\]`
+  ///  `"NS": ["42.2", "-19", "7.5", "3.14"]`
   ///
   /// Numbers are sent across the network to DynamoDB as strings, to maximize
   /// compatibility across languages and libraries. However, DynamoDB treats
@@ -2732,7 +2736,7 @@ class AttributeValue {
 
   /// An attribute of type Binary Set. For example:
   ///
-  ///  `"BS": \["U3Vubnk=", "UmFpbnk=", "U25vd3k="\]`
+  ///  `"BS": ["U3Vubnk=", "UmFpbnk=", "U25vd3k="]`
   final List<Uint8List> bs;
 
   /// An attribute of type Map. For example:
@@ -2742,7 +2746,7 @@ class AttributeValue {
 
   /// An attribute of type List. For example:
   ///
-  ///  `"L": \[ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}\]`
+  ///  `"L": [ {"S": "Cookies"} , {"S": "Coffee"}, {"N", "3.14159"}]`
   final List<AttributeValue> l;
 
   /// An attribute of type Null. For example:
@@ -2770,14 +2774,25 @@ class AttributeValue {
   static AttributeValue fromJson(Map<String, dynamic> json) => AttributeValue();
 }
 
+/// For the `UpdateItem` operation, represents the attributes to be modified,
+/// the action to perform on each, and the new value for each.
+///
+///  You cannot use `UpdateItem` to update any primary key attributes. Instead,
+/// you will need to delete the item, and then use `PutItem` to create a new
+/// item with new attributes.
+///
+/// Attribute values cannot be null; string and binary type attributes must have
+/// lengths greater than zero; and set type attributes must not be empty.
+/// Requests with empty values will be rejected with a `ValidationException`
+/// exception.
 class AttributeValueUpdate {
   /// Represents the data for an attribute.
   ///
   /// Each attribute value is described as a name-value pair. The name is the
   /// data type, and the value is the data itself.
   ///
-  /// For more information, see [Data
-  /// Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)
+  /// For more information, see
+  /// [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)
   /// in the _Amazon DynamoDB Developer Guide_.
   final AttributeValue value;
 
@@ -2787,19 +2802,19 @@ class AttributeValueUpdate {
   ///
   ///  **If an item with the specified _Key_ is found in the table:**
   ///
-  /// *    `PUT` \- Adds the specified attribute to the item. If the attribute
+  /// *    `PUT` - Adds the specified attribute to the item. If the attribute
   /// already exists, it is replaced by the new value.
   ///
-  /// *    `DELETE` \- If no value is specified, the attribute and its value are
+  /// *    `DELETE` - If no value is specified, the attribute and its value are
   /// removed from the item. The data type of the specified value must match the
   /// existing value's data type.
   ///
   ///     If a _set_ of values is specified, then those values are subtracted
   /// from the old set. For example, if the attribute value was the set
-  /// `\[a,b,c\]` and the `DELETE` action specified `\[a,c\]`, then the final
-  /// attribute value would be `\[b\]`. Specifying an empty set is an error.
+  /// `[a,b,c]` and the `DELETE` action specified `[a,c]`, then the final
+  /// attribute value would be `[b]`. Specifying an empty set is an error.
   ///
-  /// *    `ADD` \- If the attribute does not already exist, then the attribute
+  /// *    `ADD` - If the attribute does not already exist, then the attribute
   /// and its values are added to the item. If the attribute does exist, then
   /// the behavior of `ADD` depends on the data type of the attribute:
   ///
@@ -2824,10 +2839,10 @@ class AttributeValueUpdate {
   ///     *   If the existing data type is a set, and if the `Value` is also a
   /// set, then the `Value` is added to the existing set. (This is a _set_
   /// operation, not mathematical addition.) For example, if the attribute value
-  /// was the set `\[1,2\]`, and the `ADD` action specified `\[3\]`, then the
-  /// final attribute value would be `\[1,2,3\]`. An error occurs if an Add
-  /// action is specified for a set attribute and the attribute type specified
-  /// does not match the existing set type.
+  /// was the set `[1,2]`, and the `ADD` action specified `[3]`, then the final
+  /// attribute value would be `[1,2,3]`. An error occurs if an Add action is
+  /// specified for a set attribute and the attribute type specified does not
+  /// match the existing set type.
   ///
   ///         Both sets must have the same primitive data type. For example, if
   /// the existing data type is a set of strings, the `Value` must also be a set
@@ -2840,12 +2855,12 @@ class AttributeValueUpdate {
   ///
   ///  **If no item with the specified _Key_ is found:**
   ///
-  /// *    `PUT` \- DynamoDB creates a new item with the specified primary key,
+  /// *    `PUT` - DynamoDB creates a new item with the specified primary key,
   /// and then adds the attribute.
   ///
-  /// *    `DELETE` \- Nothing happens; there is no attribute to delete.
+  /// *    `DELETE` - Nothing happens; there is no attribute to delete.
   ///
-  /// *    `ADD` \- DynamoDB creates an item with the supplied primary key and
+  /// *    `ADD` - DynamoDB creates an item with the supplied primary key and
   /// number (or set of numbers) for the attribute value. The only data types
   /// allowed are number and number set; no other data types can be specified.
   final String action;
@@ -2856,6 +2871,7 @@ class AttributeValueUpdate {
   });
 }
 
+/// Represents the properties of the scaling policy.
 class AutoScalingPolicyDescription {
   /// The name of the scaling policy.
   final String policyName;
@@ -2872,6 +2888,7 @@ class AutoScalingPolicyDescription {
       AutoScalingPolicyDescription();
 }
 
+/// Represents the autoscaling policy to be modified.
 class AutoScalingPolicyUpdate {
   /// The name of the scaling policy.
   final String policyName;
@@ -2886,6 +2903,8 @@ class AutoScalingPolicyUpdate {
   });
 }
 
+/// Represents the autoscaling settings for a global table or global secondary
+/// index.
 class AutoScalingSettingsDescription {
   /// The minimum capacity units that a global table or global secondary index
   /// should be scaled down to.
@@ -2915,6 +2934,8 @@ class AutoScalingSettingsDescription {
       AutoScalingSettingsDescription();
 }
 
+/// Represents the autoscaling settings to be modified for a global table or
+/// global secondary index.
 class AutoScalingSettingsUpdate {
   /// The minimum capacity units that a global table or global secondary index
   /// should be scaled down to.
@@ -2943,6 +2964,7 @@ class AutoScalingSettingsUpdate {
   });
 }
 
+/// Represents the properties of a target tracking scaling policy.
 class AutoScalingTargetTrackingScalingPolicyConfigurationDescription {
   /// Indicates whether scale in by the target tracking policy is disabled. If
   /// the value is true, scale in is disabled and the target tracking policy
@@ -2983,6 +3005,8 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationDescription {
           AutoScalingTargetTrackingScalingPolicyConfigurationDescription();
 }
 
+/// Represents the settings of a target tracking scaling policy that will be
+/// modified.
 class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate {
   /// Indicates whether scale in by the target tracking policy is disabled. If
   /// the value is true, scale in is disabled and the target tracking policy
@@ -3020,6 +3044,7 @@ class AutoScalingTargetTrackingScalingPolicyConfigurationUpdate {
   });
 }
 
+/// Contains the description of the backup created for the table.
 class BackupDescription {
   /// Contains the details of the backup created for the table.
   final BackupDetails backupDetails;
@@ -3040,6 +3065,7 @@ class BackupDescription {
       BackupDescription();
 }
 
+/// Contains the details of the backup created for the table.
 class BackupDetails {
   /// ARN associated with the backup.
   final String backupArn;
@@ -3055,15 +3081,15 @@ class BackupDetails {
 
   /// BackupType:
   ///
-  /// *    `USER` \- You create and manage these using the on-demand backup
+  /// *    `USER` - You create and manage these using the on-demand backup
   /// feature.
   ///
-  /// *    `SYSTEM` \- If you delete a table with point-in-time recovery
-  /// enabled, a `SYSTEM` backup is automatically created and is retained for 35
-  /// days (at no additional cost). System backups allow you to restore the
-  /// deleted table to the state it was in just before the point of deletion.
+  /// *    `SYSTEM` - If you delete a table with point-in-time recovery enabled,
+  /// a `SYSTEM` backup is automatically created and is retained for 35 days (at
+  /// no additional cost). System backups allow you to restore the deleted table
+  /// to the state it was in just before the point of deletion.
   ///
-  /// *    `AWS_BACKUP` \- On-demand backup created by you from AWS Backup
+  /// *    `AWS_BACKUP` - On-demand backup created by you from AWS Backup
   /// service.
   final String backupType;
 
@@ -3088,6 +3114,7 @@ class BackupDetails {
   static BackupDetails fromJson(Map<String, dynamic> json) => BackupDetails();
 }
 
+/// Contains details for the backup.
 class BackupSummary {
   /// Name of the table.
   final String tableName;
@@ -3117,15 +3144,15 @@ class BackupSummary {
 
   /// BackupType:
   ///
-  /// *    `USER` \- You create and manage these using the on-demand backup
+  /// *    `USER` - You create and manage these using the on-demand backup
   /// feature.
   ///
-  /// *    `SYSTEM` \- If you delete a table with point-in-time recovery
-  /// enabled, a `SYSTEM` backup is automatically created and is retained for 35
-  /// days (at no additional cost). System backups allow you to restore the
-  /// deleted table to the state it was in just before the point of deletion.
+  /// *    `SYSTEM` - If you delete a table with point-in-time recovery enabled,
+  /// a `SYSTEM` backup is automatically created and is retained for 35 days (at
+  /// no additional cost). System backups allow you to restore the deleted table
+  /// to the state it was in just before the point of deletion.
   ///
-  /// *    `AWS_BACKUP` \- On-demand backup created by you from AWS Backup
+  /// *    `AWS_BACKUP` - On-demand backup created by you from AWS Backup
   /// service.
   final String backupType;
 
@@ -3147,6 +3174,7 @@ class BackupSummary {
   static BackupSummary fromJson(Map<String, dynamic> json) => BackupSummary();
 }
 
+/// Represents the output of a `BatchGetItem` operation.
 class BatchGetItemOutput {
   /// A map of table name to a list of items. Each object in `Responses`
   /// consists of a table name, along with a map of attribute data consisting of
@@ -3161,14 +3189,14 @@ class BatchGetItemOutput {
   ///
   /// Each element consists of:
   ///
-  /// *    `Keys` \- An array of primary key attribute values that define
+  /// *    `Keys` - An array of primary key attribute values that define
   /// specific items in the table.
   ///
-  /// *    `ProjectionExpression` \- One or more attributes to be retrieved from
+  /// *    `ProjectionExpression` - One or more attributes to be retrieved from
   /// the table or index. By default, all attributes are returned. If a
   /// requested attribute is not found, it does not appear in the result.
   ///
-  /// *    `ConsistentRead` \- The consistency of a read operation. If set to
+  /// *    `ConsistentRead` - The consistency of a read operation. If set to
   /// `true`, then a strongly consistent read is used; otherwise, an eventually
   /// consistent read is used.
   ///
@@ -3181,9 +3209,9 @@ class BatchGetItemOutput {
   ///
   /// Each element consists of:
   ///
-  /// *    `TableName` \- The table that consumed the provisioned throughput.
+  /// *    `TableName` - The table that consumed the provisioned throughput.
   ///
-  /// *    `CapacityUnits` \- The total number of capacity units consumed.
+  /// *    `CapacityUnits` - The total number of capacity units consumed.
   final List<ConsumedCapacity> consumedCapacity;
 
   BatchGetItemOutput({
@@ -3195,6 +3223,7 @@ class BatchGetItemOutput {
       BatchGetItemOutput();
 }
 
+/// Represents the output of a `BatchWriteItem` operation.
 class BatchWriteItemOutput {
   /// A map of tables and requests against those tables that were not processed.
   /// The `UnprocessedItems` value is in the same form as `RequestItems`, so you
@@ -3205,23 +3234,23 @@ class BatchWriteItemOutput {
   /// Each `UnprocessedItems` entry consists of a table name and, for that
   /// table, a list of operations to perform (`DeleteRequest` or `PutRequest`).
   ///
-  /// *    `DeleteRequest` \- Perform a `DeleteItem` operation on the specified
+  /// *    `DeleteRequest` - Perform a `DeleteItem` operation on the specified
   /// item. The item to be deleted is identified by a `Key` subelement:
   ///
-  ///     *    `Key` \- A map of primary key attribute values that uniquely
+  ///     *    `Key` - A map of primary key attribute values that uniquely
   /// identify the item. Each entry in this map consists of an attribute name
   /// and an attribute value.
   ///
   ///
-  /// *    `PutRequest` \- Perform a `PutItem` operation on the specified item.
+  /// *    `PutRequest` - Perform a `PutItem` operation on the specified item.
   /// The item to be put is identified by an `Item` subelement:
   ///
-  ///     *    `Item` \- A map of attributes and their values. Each entry in
-  /// this map consists of an attribute name and an attribute value. Attribute
-  /// values must not be null; string and binary type attributes must have
-  /// lengths greater than zero; and set type attributes must not be empty.
-  /// Requests that contain empty values will be rejected with a
-  /// `ValidationException` exception.
+  ///     *    `Item` - A map of attributes and their values. Each entry in this
+  /// map consists of an attribute name and an attribute value. Attribute values
+  /// must not be null; string and binary type attributes must have lengths
+  /// greater than zero; and set type attributes must not be empty. Requests
+  /// that contain empty values will be rejected with a `ValidationException`
+  /// exception.
   ///
   ///         If you specify any attributes that are part of an index key, then
   /// the data types for those attributes must match those of the schema in the
@@ -3239,10 +3268,10 @@ class BatchWriteItemOutput {
   ///
   /// Each entry consists of the following subelements:
   ///
-  /// *    `ItemCollectionKey` \- The partition key value of the item
-  /// collection. This is the same as the partition key value of the item.
+  /// *    `ItemCollectionKey` - The partition key value of the item collection.
+  /// This is the same as the partition key value of the item.
   ///
-  /// *    `SizeEstimateRangeGB` \- An estimate of item collection size,
+  /// *    `SizeEstimateRangeGB` - An estimate of item collection size,
   /// expressed in GB. This is a two-element array containing a lower bound and
   /// an upper bound for the estimate. The estimate includes the size of all the
   /// items in the table, plus the size of all attributes projected into all of
@@ -3257,9 +3286,9 @@ class BatchWriteItemOutput {
   ///
   /// Each element consists of:
   ///
-  /// *    `TableName` \- The table that consumed the provisioned throughput.
+  /// *    `TableName` - The table that consumed the provisioned throughput.
   ///
-  /// *    `CapacityUnits` \- The total number of capacity units consumed.
+  /// *    `CapacityUnits` - The total number of capacity units consumed.
   final List<ConsumedCapacity> consumedCapacity;
 
   BatchWriteItemOutput({
@@ -3271,20 +3300,21 @@ class BatchWriteItemOutput {
       BatchWriteItemOutput();
 }
 
+/// Contains the details for the read/write capacity mode.
 class BillingModeSummary {
   /// Controls how you are charged for read and write throughput and how you
   /// manage capacity. This setting can be changed later.
   ///
-  /// *    `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`.
+  /// *    `PROVISIONED` - Sets the read/write capacity mode to `PROVISIONED`.
   /// We recommend using `PROVISIONED` for predictable workloads.
   ///
-  /// *    `PAY\_PER\_REQUEST` \- Sets the read/write capacity mode to
-  /// `PAY\_PER\_REQUEST`. We recommend using `PAY\_PER\_REQUEST` for
-  /// unpredictable workloads.
+  /// *    `PAY_PER_REQUEST` - Sets the read/write capacity mode to
+  /// `PAY_PER_REQUEST`. We recommend using `PAY_PER_REQUEST` for unpredictable
+  /// workloads.
   final String billingMode;
 
-  /// Represents the time when `PAY\_PER\_REQUEST` was last set as the
-  /// read/write capacity mode.
+  /// Represents the time when `PAY_PER_REQUEST` was last set as the read/write
+  /// capacity mode.
   final DateTime lastUpdateToPayPerRequestDateTime;
 
   BillingModeSummary({
@@ -3295,6 +3325,8 @@ class BillingModeSummary {
       BillingModeSummary();
 }
 
+/// Represents the amount of provisioned throughput capacity consumed on a table
+/// or an index.
 class Capacity {
   /// The total number of read capacity units consumed on a table or an index.
   final double readCapacityUnits;
@@ -3313,6 +3345,19 @@ class Capacity {
   static Capacity fromJson(Map<String, dynamic> json) => Capacity();
 }
 
+/// Represents the selection criteria for a `Query` or `Scan` operation:
+///
+/// *   For a `Query` operation, `Condition` is used for specifying the
+/// `KeyConditions` to use when querying a table or an index. For
+/// `KeyConditions`, only the following comparison operators are supported:
+///
+///      `EQ | LE | LT | GE | GT | BEGINS_WITH | BETWEEN`
+///
+///      `Condition` is also used in a `QueryFilter`, which evaluates the query
+/// results and returns only the desired values.
+///
+/// *   For a `Scan` operation, `Condition` is used in a `ScanFilter`, which
+/// evaluates the scan results and returns only the desired values.
 class Condition {
   /// One or more values to evaluate against the supplied attribute. The number
   /// of values in the list depends on the `ComparisonOperator` being used.
@@ -3322,7 +3367,7 @@ class Condition {
   /// String value comparisons for greater than, equals, or less than are based
   /// on ASCII character code values. For example, `a` is greater than `A`, and
   /// `a` is greater than `B`. For a list of code values, see
-  /// [http://en.wikipedia.org/wiki/ASCII#ASCII\_printable\_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
+  /// [http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
   ///
   /// For Binary, DynamoDB treats each byte of the binary data as unsigned when
   /// it compares binary values.
@@ -3333,8 +3378,8 @@ class Condition {
   ///
   /// The following comparison operators are available:
   ///
-  ///  `EQ | NE | LE | LT | GE | GT | NOT\_NULL | NULL | CONTAINS |
-  /// NOT\_CONTAINS | BEGINS_WITH | IN | BETWEEN`
+  ///  `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS
+  /// | BEGINS_WITH | IN | BETWEEN`
   ///
   /// The following are descriptions of each comparison operator.
   ///
@@ -3346,7 +3391,7 @@ class Condition {
   /// item contains an `AttributeValue` element of a different type than the one
   /// provided in the request, the value does not match. For example,
   /// `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
-  /// `{"NS":\["6", "2", "1"\]}`.
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `NE` : Not equal. `NE` is supported for all data types, including
   /// lists and maps.
@@ -3355,8 +3400,8 @@ class Condition {
   /// String, Number, Binary, String Set, Number Set, or Binary Set. If an item
   /// contains an `AttributeValue` of a different type than the one provided in
   /// the request, the value does not match. For example, `{"S":"6"}` does not
-  /// equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `LE` : Less than or equal.
   ///
@@ -3364,8 +3409,8 @@ class Condition {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `LT` : Less than.
   ///
@@ -3373,8 +3418,8 @@ class Condition {
   /// String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `GE` : Greater than or equal.
   ///
@@ -3382,8 +3427,8 @@ class Condition {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `GT` : Greater than.
   ///
@@ -3391,8 +3436,8 @@ class Condition {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `NOT_NULL` : The attribute exists. `NOT_NULL` is supported for all
   /// data types, including lists and maps.
@@ -3463,12 +3508,11 @@ class Condition {
   /// contains an `AttributeValue` element of a different type than the one
   /// provided in the request, the value does not match. For example,
   /// `{"S":"6"}` does not compare to `{"N":"6"}`. Also, `{"N":"6"}` does not
-  /// compare to `{"NS":\["6", "2", "1"\]}`
+  /// compare to `{"NS":["6", "2", "1"]}`
   ///
   ///
   /// For usage examples of `AttributeValueList` and `ComparisonOperator`, see
-  /// [Legacy Conditional
-  /// Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html)
+  /// [Legacy Conditional Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final String comparisonOperator;
 
@@ -3478,6 +3522,8 @@ class Condition {
   });
 }
 
+/// Represents a request to perform a check that an item exists or to check the
+/// condition of specific attributes of the item..
 class ConditionCheck {
   /// The primary key of the item to be checked. Each element consists of an
   /// attribute name and a value for that attribute.
@@ -3512,6 +3558,12 @@ class ConditionCheck {
   });
 }
 
+/// The capacity units consumed by an operation. The data returned includes the
+/// total provisioned throughput consumed, along with statistics for the table
+/// and any indexes involved in the operation. `ConsumedCapacity` is only
+/// returned if the request asked for it. For more information, see
+/// [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+/// in the _Amazon DynamoDB Developer Guide_.
 class ConsumedCapacity {
   /// The name of the table that was affected by the operation.
   final String tableName;
@@ -3549,6 +3601,8 @@ class ConsumedCapacity {
       ConsumedCapacity();
 }
 
+/// Represents the continuous backups and point in time recovery settings on the
+/// table.
 class ContinuousBackupsDescription {
   ///  `ContinuousBackupsStatus` can be one of the following states: ENABLED,
   /// DISABLED
@@ -3577,6 +3631,7 @@ class CreateBackupOutput {
       CreateBackupOutput();
 }
 
+/// Represents a new global secondary index to be added to an existing table.
 class CreateGlobalSecondaryIndexAction {
   /// The name of the global secondary index to be created.
   final String indexName;
@@ -3616,6 +3671,7 @@ class CreateGlobalTableOutput {
       CreateGlobalTableOutput();
 }
 
+/// Represents a replica to be added.
 class CreateReplicaAction {
   /// The region of the replica to be added.
   final String regionName;
@@ -3625,6 +3681,7 @@ class CreateReplicaAction {
   });
 }
 
+/// Represents the output of a `CreateTable` operation.
 class CreateTableOutput {
   /// Represents the properties of the table.
   final TableDescription tableDescription;
@@ -3636,6 +3693,7 @@ class CreateTableOutput {
       CreateTableOutput();
 }
 
+/// Represents a request to perform a `DeleteItem` operation.
 class Delete {
   /// The primary key of the item to be deleted. Each element consists of an
   /// attribute name and a value for that attribute.
@@ -3680,6 +3738,7 @@ class DeleteBackupOutput {
       DeleteBackupOutput();
 }
 
+/// Represents a global secondary index to be deleted from an existing table.
 class DeleteGlobalSecondaryIndexAction {
   /// The name of the global secondary index to be deleted.
   final String indexName;
@@ -3689,6 +3748,7 @@ class DeleteGlobalSecondaryIndexAction {
   });
 }
 
+/// Represents the output of a `DeleteItem` operation.
 class DeleteItemOutput {
   /// A map of attribute names to `AttributeValue` objects, representing the
   /// item as it appeared before the `DeleteItem` operation. This map appears in
@@ -3700,8 +3760,8 @@ class DeleteItemOutput {
   /// returned includes the total provisioned throughput consumed, along with
   /// statistics for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Provisioned
-  /// Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Provisioned Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -3713,11 +3773,10 @@ class DeleteItemOutput {
   ///
   /// Each `ItemCollectionMetrics` element consists of:
   ///
-  /// *    `ItemCollectionKey` \- The partition key value of the item
-  /// collection. This is the same as the partition key value of the item
-  /// itself.
+  /// *    `ItemCollectionKey` - The partition key value of the item collection.
+  /// This is the same as the partition key value of the item itself.
   ///
-  /// *    `SizeEstimateRangeGB` \- An estimate of item collection size, in
+  /// *    `SizeEstimateRangeGB` - An estimate of item collection size, in
   /// gigabytes. This value is a two-element array containing a lower bound and
   /// an upper bound for the estimate. The estimate includes the size of all the
   /// items in the table, plus the size of all attributes projected into all of
@@ -3737,6 +3796,7 @@ class DeleteItemOutput {
       DeleteItemOutput();
 }
 
+/// Represents a replica to be removed.
 class DeleteReplicaAction {
   /// The region of the replica to be removed.
   final String regionName;
@@ -3746,6 +3806,7 @@ class DeleteReplicaAction {
   });
 }
 
+/// Represents a request to perform a `DeleteItem` operation on an item.
 class DeleteRequest {
   /// A map of attribute name to attribute values, representing the primary key
   /// of the item to delete. All of the table's primary key attributes must be
@@ -3759,6 +3820,7 @@ class DeleteRequest {
   static DeleteRequest fromJson(Map<String, dynamic> json) => DeleteRequest();
 }
 
+/// Represents the output of a `DeleteTable` operation.
 class DeleteTableOutput {
   /// Represents the properties of a table.
   final TableDescription tableDescription;
@@ -3831,6 +3893,7 @@ class DescribeGlobalTableSettingsOutput {
       DescribeGlobalTableSettingsOutput();
 }
 
+/// Represents the output of a `DescribeLimits` operation.
 class DescribeLimitsOutput {
   /// The maximum total read capacity units that your account allows you to
   /// provision across all of your tables in this Region.
@@ -3860,6 +3923,7 @@ class DescribeLimitsOutput {
       DescribeLimitsOutput();
 }
 
+/// Represents the output of a `DescribeTable` operation.
 class DescribeTableOutput {
   /// The properties of the table.
   final TableDescription table;
@@ -3881,6 +3945,7 @@ class DescribeTimeToLiveOutput {
       DescribeTimeToLiveOutput();
 }
 
+/// An endpoint information details.
 class Endpoint {
   /// IP address of the endpoint.
   final String address;
@@ -3895,14 +3960,36 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+/// Represents a condition to be compared with an attribute value. This
+/// condition can be used with `DeleteItem`, `PutItem` or `UpdateItem`
+/// operations; if the comparison evaluates to true, the operation succeeds; if
+/// not, the operation fails. You can use `ExpectedAttributeValue` in one of two
+/// different ways:
+///
+/// *   Use `AttributeValueList` to specify one or more values to compare
+/// against an attribute. Use `ComparisonOperator` to specify how you want to
+/// perform the comparison. If the comparison evaluates to true, then the
+/// conditional operation succeeds.
+///
+/// *   Use `Value` to specify a value that DynamoDB will compare against an
+/// attribute. If the values match, then `ExpectedAttributeValue` evaluates to
+/// true and the conditional operation succeeds. Optionally, you can also set
+/// `Exists` to false, indicating that you _do not_ expect to find the attribute
+/// value in the table. In this case, the conditional operation succeeds only if
+/// the comparison evaluates to false.
+///
+///
+///  `Value` and `Exists` are incompatible with `AttributeValueList` and
+/// `ComparisonOperator`. Note that if you use both sets of parameters at once,
+/// DynamoDB will return a `ValidationException` exception.
 class ExpectedAttributeValue {
   /// Represents the data for the expected attribute.
   ///
   /// Each attribute value is described as a name-value pair. The name is the
   /// data type, and the value is the data itself.
   ///
-  /// For more information, see [Data
-  /// Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)
+  /// For more information, see
+  /// [Data Types](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes)
   /// in the _Amazon DynamoDB Developer Guide_.
   final AttributeValue value;
 
@@ -3940,8 +4027,8 @@ class ExpectedAttributeValue {
   ///
   /// The following comparison operators are available:
   ///
-  ///  `EQ | NE | LE | LT | GE | GT | NOT\_NULL | NULL | CONTAINS |
-  /// NOT\_CONTAINS | BEGINS_WITH | IN | BETWEEN`
+  ///  `EQ | NE | LE | LT | GE | GT | NOT_NULL | NULL | CONTAINS | NOT_CONTAINS
+  /// | BEGINS_WITH | IN | BETWEEN`
   ///
   /// The following are descriptions of each comparison operator.
   ///
@@ -3953,7 +4040,7 @@ class ExpectedAttributeValue {
   /// item contains an `AttributeValue` element of a different type than the one
   /// provided in the request, the value does not match. For example,
   /// `{"S":"6"}` does not equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
-  /// `{"NS":\["6", "2", "1"\]}`.
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `NE` : Not equal. `NE` is supported for all data types, including
   /// lists and maps.
@@ -3962,8 +4049,8 @@ class ExpectedAttributeValue {
   /// String, Number, Binary, String Set, Number Set, or Binary Set. If an item
   /// contains an `AttributeValue` of a different type than the one provided in
   /// the request, the value does not match. For example, `{"S":"6"}` does not
-  /// equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// equal `{"N":"6"}`. Also, `{"N":"6"}` does not equal
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `LE` : Less than or equal.
   ///
@@ -3971,8 +4058,8 @@ class ExpectedAttributeValue {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `LT` : Less than.
   ///
@@ -3980,8 +4067,8 @@ class ExpectedAttributeValue {
   /// String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `GE` : Greater than or equal.
   ///
@@ -3989,8 +4076,8 @@ class ExpectedAttributeValue {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `GT` : Greater than.
   ///
@@ -3998,8 +4085,8 @@ class ExpectedAttributeValue {
   /// type String, Number, or Binary (not a set type). If an item contains an
   /// `AttributeValue` element of a different type than the one provided in the
   /// request, the value does not match. For example, `{"S":"6"}` does not equal
-  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to `{"NS":\["6", "2",
-  /// "1"\]}`.
+  /// `{"N":"6"}`. Also, `{"N":"6"}` does not compare to
+  /// `{"NS":["6", "2", "1"]}`.
   ///
   /// *    `NOT_NULL` : The attribute exists. `NOT_NULL` is supported for all
   /// data types, including lists and maps.
@@ -4070,7 +4157,7 @@ class ExpectedAttributeValue {
   /// contains an `AttributeValue` element of a different type than the one
   /// provided in the request, the value does not match. For example,
   /// `{"S":"6"}` does not compare to `{"N":"6"}`. Also, `{"N":"6"}` does not
-  /// compare to `{"NS":\["6", "2", "1"\]}`
+  /// compare to `{"NS":["6", "2", "1"]}`
   final String comparisonOperator;
 
   /// One or more values to evaluate against the supplied attribute. The number
@@ -4081,13 +4168,13 @@ class ExpectedAttributeValue {
   /// String value comparisons for greater than, equals, or less than are based
   /// on ASCII character code values. For example, `a` is greater than `A`, and
   /// `a` is greater than `B`. For a list of code values, see
-  /// [http://en.wikipedia.org/wiki/ASCII#ASCII\_printable\_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
+  /// [http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters](http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters).
   ///
   /// For Binary, DynamoDB treats each byte of the binary data as unsigned when
   /// it compares binary values.
   ///
-  /// For information on specifying data types in JSON, see [JSON Data
-  /// Format](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html)
+  /// For information on specifying data types in JSON, see
+  /// [JSON Data Format](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final List<AttributeValue> attributeValueList;
 
@@ -4099,6 +4186,8 @@ class ExpectedAttributeValue {
   });
 }
 
+/// Specifies an item and related attribute values to retrieve in a
+/// `TransactGetItem` object.
 class Get {
   /// A map of attribute names to `AttributeValue` objects that specifies the
   /// primary key of the item to retrieve.
@@ -4126,6 +4215,7 @@ class Get {
   });
 }
 
+/// Represents the output of a `GetItem` operation.
 class GetItemOutput {
   /// A map of attribute names to `AttributeValue` objects, as specified by
   /// `ProjectionExpression`.
@@ -4135,8 +4225,8 @@ class GetItemOutput {
   /// includes the total provisioned throughput consumed, along with statistics
   /// for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Read/Write Capacity
-  /// Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -4147,6 +4237,7 @@ class GetItemOutput {
   static GetItemOutput fromJson(Map<String, dynamic> json) => GetItemOutput();
 }
 
+/// Represents the properties of a global secondary index.
 class GlobalSecondaryIndex {
   /// The name of the global secondary index. The name must be unique among all
   /// other indexes on this table.
@@ -4155,9 +4246,9 @@ class GlobalSecondaryIndex {
   /// The complete key schema for a global secondary index, which consists of
   /// one or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4194,6 +4285,7 @@ class GlobalSecondaryIndex {
   });
 }
 
+/// Represents the properties of a global secondary index.
 class GlobalSecondaryIndexDescription {
   /// The name of the global secondary index.
   final String indexName;
@@ -4201,9 +4293,9 @@ class GlobalSecondaryIndexDescription {
   /// The complete key schema for a global secondary index, which consists of
   /// one or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4226,13 +4318,13 @@ class GlobalSecondaryIndexDescription {
 
   /// The current state of the global secondary index:
   ///
-  /// *    `CREATING` \- The index is being created.
+  /// *    `CREATING` - The index is being created.
   ///
-  /// *    `UPDATING` \- The index is being updated.
+  /// *    `UPDATING` - The index is being updated.
   ///
-  /// *    `DELETING` \- The index is being deleted.
+  /// *    `DELETING` - The index is being deleted.
   ///
-  /// *    `ACTIVE` \- The index is ready for use.
+  /// *    `ACTIVE` - The index is ready for use.
   final String indexStatus;
 
   /// Indicates whether the index is currently backfilling. _Backfilling_ is the
@@ -4284,6 +4376,8 @@ class GlobalSecondaryIndexDescription {
       GlobalSecondaryIndexDescription();
 }
 
+/// Represents the properties of a global secondary index for the table when the
+/// backup was created.
 class GlobalSecondaryIndexInfo {
   /// The name of the global secondary index.
   final String indexName;
@@ -4291,9 +4385,9 @@ class GlobalSecondaryIndexInfo {
   /// The complete key schema for a global secondary index, which consists of
   /// one or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4328,6 +4422,14 @@ class GlobalSecondaryIndexInfo {
       GlobalSecondaryIndexInfo();
 }
 
+/// Represents one of the following:
+///
+/// *   A new global secondary index to be added to an existing table.
+///
+/// *   New provisioned throughput parameters for an existing global secondary
+/// index.
+///
+/// *   An existing global secondary index to be removed from an existing table.
 class GlobalSecondaryIndexUpdate {
   /// The name of an existing global secondary index, along with new provisioned
   /// throughput settings to be applied to that index.
@@ -4357,6 +4459,7 @@ class GlobalSecondaryIndexUpdate {
   });
 }
 
+/// Represents the properties of a global table.
 class GlobalTable {
   /// The global table name.
   final String globalTableName;
@@ -4371,6 +4474,7 @@ class GlobalTable {
   static GlobalTable fromJson(Map<String, dynamic> json) => GlobalTable();
 }
 
+/// Contains details about the global table.
 class GlobalTableDescription {
   /// The regions where the global table has replicas.
   final List<ReplicaDescription> replicationGroup;
@@ -4383,13 +4487,13 @@ class GlobalTableDescription {
 
   /// The current state of the global table:
   ///
-  /// *    `CREATING` \- The global table is being created.
+  /// *    `CREATING` - The global table is being created.
   ///
-  /// *    `UPDATING` \- The global table is being updated.
+  /// *    `UPDATING` - The global table is being updated.
   ///
-  /// *    `DELETING` \- The global table is being deleted.
+  /// *    `DELETING` - The global table is being deleted.
   ///
-  /// *    `ACTIVE` \- The global table is ready for use.
+  /// *    `ACTIVE` - The global table is ready for use.
   final String globalTableStatus;
 
   /// The global table name.
@@ -4406,6 +4510,8 @@ class GlobalTableDescription {
       GlobalTableDescription();
 }
 
+/// Represents the settings of a global secondary index for a global table that
+/// will be modified.
 class GlobalTableGlobalSecondaryIndexSettingsUpdate {
   /// The name of the global secondary index. The name must be unique among all
   /// other indexes on this table.
@@ -4427,6 +4533,10 @@ class GlobalTableGlobalSecondaryIndexSettingsUpdate {
   });
 }
 
+/// Information about item collections, if any, that were affected by the
+/// operation. `ItemCollectionMetrics` is only returned if the request asked for
+/// it. If the table does not have any local secondary indexes, this information
+/// is not returned in the response.
 class ItemCollectionMetrics {
   /// The partition key value of the item collection. This value is the same as
   /// the partition key value of the item.
@@ -4451,6 +4561,7 @@ class ItemCollectionMetrics {
       ItemCollectionMetrics();
 }
 
+/// Details for the requested item.
 class ItemResponse {
   /// Map of attribute data consisting of the data type and attribute value.
   final Map<String, AttributeValue> item;
@@ -4461,15 +4572,28 @@ class ItemResponse {
   static ItemResponse fromJson(Map<String, dynamic> json) => ItemResponse();
 }
 
+/// Represents _a single element_ of a key schema. A key schema specifies the
+/// attributes that make up the primary key of a table, or the key attributes of
+/// an index.
+///
+/// A `KeySchemaElement` represents exactly one attribute of the primary key.
+/// For example, a simple primary key would be represented by one
+/// `KeySchemaElement` (for the partition key). A composite primary key would
+/// require one `KeySchemaElement` for the partition key, and another
+/// `KeySchemaElement` for the sort key.
+///
+/// A `KeySchemaElement` must be a scalar, top-level attribute (not a nested
+/// attribute). The data type must be one of String, Number, or Binary. The
+/// attribute cannot be nested within a List or a Map.
 class KeySchemaElement {
   /// The name of a key attribute.
   final String attributeName;
 
   /// The role that this key attribute will assume:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4493,14 +4617,21 @@ class KeySchemaElement {
       KeySchemaElement();
 }
 
+/// Represents a set of primary keys and, for each key, the attributes to
+/// retrieve from the table.
+///
+/// For each primary key, you must provide _all_ of the key attributes. For
+/// example, with a simple primary key, you only need to provide the partition
+/// key. For a composite primary key, you must provide _both_ the partition key
+/// and the sort key.
 class KeysAndAttributes {
   /// The primary key attribute values that define the items and the attributes
   /// associated with the items.
   final List<Map<String, AttributeValue>> keys;
 
   /// This is a legacy parameter. Use `ProjectionExpression` instead. For more
-  /// information, see [Legacy Conditional
-  /// Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html)
+  /// information, see
+  /// [Legacy Conditional Parameters](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/LegacyConditionalParameters.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final List<String> attributesToGet;
 
@@ -4517,8 +4648,8 @@ class KeysAndAttributes {
   /// If any of the requested attributes are not found, they will not appear in
   /// the result.
   ///
-  /// For more information, see [Accessing Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information, see
+  /// [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final String projectionExpression;
 
@@ -4543,8 +4674,8 @@ class KeysAndAttributes {
   ///
   /// The name of this attribute conflicts with a reserved word, so it cannot be
   /// used directly in an expression. (For the complete list of reserved words,
-  /// see [Reserved
-  /// Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
+  /// see
+  /// [Reserved Words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html)
   /// in the _Amazon DynamoDB Developer Guide_). To work around this, you could
   /// specify the following for `ExpressionAttributeNames`:
   ///
@@ -4559,8 +4690,8 @@ class KeysAndAttributes {
   ///  Tokens that begin with the **:** character are _expression attribute
   /// values_, which are placeholders for the actual value at runtime.
   ///
-  /// For more information on expression attribute names, see [Accessing Item
-  /// Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
+  /// For more information on expression attribute names, see
+  /// [Accessing Item Attributes](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.AccessingItemAttributes.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final Map<String, String> expressionAttributeNames;
 
@@ -4616,6 +4747,7 @@ class ListGlobalTablesOutput {
       ListGlobalTablesOutput();
 }
 
+/// Represents the output of a `ListTables` operation.
 class ListTablesOutput {
   /// The names of the tables associated with the current account at the current
   /// endpoint. The maximum size of this array is 100.
@@ -4658,6 +4790,7 @@ class ListTagsOfResourceOutput {
       ListTagsOfResourceOutput();
 }
 
+/// Represents the properties of a local secondary index.
 class LocalSecondaryIndex {
   /// The name of the local secondary index. The name must be unique among all
   /// other indexes on this table.
@@ -4666,9 +4799,9 @@ class LocalSecondaryIndex {
   /// The complete key schema for the local secondary index, consisting of one
   /// or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4696,6 +4829,7 @@ class LocalSecondaryIndex {
   });
 }
 
+/// Represents the properties of a local secondary index.
 class LocalSecondaryIndexDescription {
   /// Represents the name of the local secondary index.
   final String indexName;
@@ -4703,9 +4837,9 @@ class LocalSecondaryIndexDescription {
   /// The complete key schema for the local secondary index, consisting of one
   /// or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4751,6 +4885,8 @@ class LocalSecondaryIndexDescription {
       LocalSecondaryIndexDescription();
 }
 
+/// Represents the properties of a local secondary index for the table when the
+/// backup was created.
 class LocalSecondaryIndexInfo {
   /// Represents the name of the local secondary index.
   final String indexName;
@@ -4758,9 +4894,9 @@ class LocalSecondaryIndexInfo {
   /// The complete key schema for a local secondary index, which consists of one
   /// or more pairs of attribute names and key types:
   ///
-  /// *    `HASH` \- partition key
+  /// *    `HASH` - partition key
   ///
-  /// *    `RANGE` \- sort key
+  /// *    `RANGE` - sort key
   ///
   ///
   ///
@@ -4790,14 +4926,15 @@ class LocalSecondaryIndexInfo {
       LocalSecondaryIndexInfo();
 }
 
+/// The description of the point in time settings applied to the table.
 class PointInTimeRecoveryDescription {
   /// The current state of point in time recovery:
   ///
-  /// *    `ENABLING` \- Point in time recovery is being enabled.
+  /// *    `ENABLING` - Point in time recovery is being enabled.
   ///
-  /// *    `ENABLED` \- Point in time recovery is enabled.
+  /// *    `ENABLED` - Point in time recovery is enabled.
   ///
-  /// *    `DISABLED` \- Point in time recovery is disabled.
+  /// *    `DISABLED` - Point in time recovery is disabled.
   final String pointInTimeRecoveryStatus;
 
   /// Specifies the earliest point in time you can restore your table to. It You
@@ -4817,6 +4954,7 @@ class PointInTimeRecoveryDescription {
       PointInTimeRecoveryDescription();
 }
 
+/// Represents the settings used to enable point in time recovery.
 class PointInTimeRecoverySpecification {
   /// Indicates whether point in time recovery is enabled (true) or disabled
   /// (false) on the table.
@@ -4827,16 +4965,19 @@ class PointInTimeRecoverySpecification {
   });
 }
 
+/// Represents attributes that are copied (projected) from the table into an
+/// index. These are in addition to the primary key attributes and index key
+/// attributes, which are automatically projected.
 class Projection {
   /// The set of attributes that are projected into the index:
   ///
-  /// *    `KEYS_ONLY` \- Only the index and primary keys are projected into the
+  /// *    `KEYS_ONLY` - Only the index and primary keys are projected into the
   /// index.
   ///
-  /// *    `INCLUDE` \- Only the specified table attributes are projected into
+  /// *    `INCLUDE` - Only the specified table attributes are projected into
   /// the index. The list of projected attributes are in `NonKeyAttributes`.
   ///
-  /// *    `ALL` \- All of the table attributes are projected into the index.
+  /// *    `ALL` - All of the table attributes are projected into the index.
   final String projectionType;
 
   /// Represents the non-key attribute names which will be projected into the
@@ -4855,23 +4996,27 @@ class Projection {
   static Projection fromJson(Map<String, dynamic> json) => Projection();
 }
 
+/// Represents the provisioned throughput settings for a specified table or
+/// index. The settings can be modified using the `UpdateTable` operation.
+///
+/// For current minimum and maximum provisioned throughput values, see
+/// [Limits](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html)
+/// in the _Amazon DynamoDB Developer Guide_.
 class ProvisionedThroughput {
   /// The maximum number of strongly consistent reads consumed per second before
   /// DynamoDB returns a `ThrottlingException`. For more information, see
-  /// [Specifying Read and Write
-  /// Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+  /// [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// If read/write capacity mode is `PAY\_PER\_REQUEST` the value is set to 0.
+  /// If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
   final BigInt readCapacityUnits;
 
   /// The maximum number of writes consumed per second before DynamoDB returns a
-  /// `ThrottlingException`. For more information, see [Specifying Read and
-  /// Write
-  /// Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+  /// `ThrottlingException`. For more information, see
+  /// [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
-  /// If read/write capacity mode is `PAY\_PER\_REQUEST` the value is set to 0.
+  /// If read/write capacity mode is `PAY_PER_REQUEST` the value is set to 0.
   final BigInt writeCapacityUnits;
 
   ProvisionedThroughput({
@@ -4882,6 +5027,9 @@ class ProvisionedThroughput {
       ProvisionedThroughput();
 }
 
+/// Represents the provisioned throughput settings for the table, consisting of
+/// read and write capacity units, along with data about increases and
+/// decreases.
 class ProvisionedThroughputDescription {
   /// The date and time of the last provisioned throughput increase for this
   /// table.
@@ -4920,6 +5068,7 @@ class ProvisionedThroughputDescription {
       ProvisionedThroughputDescription();
 }
 
+/// Represents a request to perform a `PutItem` operation.
 class Put {
   /// A map of attribute name to attribute values, representing the primary key
   /// of the item to be written by `PutItem`. All of the table's primary key
@@ -4957,6 +5106,7 @@ class Put {
   });
 }
 
+/// Represents the output of a `PutItem` operation.
 class PutItemOutput {
   /// The attribute values as they appeared before the `PutItem` operation, but
   /// only if `ReturnValues` is specified as `ALL_OLD` in the request. Each
@@ -4967,8 +5117,8 @@ class PutItemOutput {
   /// includes the total provisioned throughput consumed, along with statistics
   /// for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Read/Write Capacity
-  /// Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Read/Write Capacity Mode](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -4980,11 +5130,10 @@ class PutItemOutput {
   ///
   /// Each `ItemCollectionMetrics` element consists of:
   ///
-  /// *    `ItemCollectionKey` \- The partition key value of the item
-  /// collection. This is the same as the partition key value of the item
-  /// itself.
+  /// *    `ItemCollectionKey` - The partition key value of the item collection.
+  /// This is the same as the partition key value of the item itself.
   ///
-  /// *    `SizeEstimateRangeGB` \- An estimate of item collection size, in
+  /// *    `SizeEstimateRangeGB` - An estimate of item collection size, in
   /// gigabytes. This value is a two-element array containing a lower bound and
   /// an upper bound for the estimate. The estimate includes the size of all the
   /// items in the table, plus the size of all attributes projected into all of
@@ -5003,6 +5152,7 @@ class PutItemOutput {
   static PutItemOutput fromJson(Map<String, dynamic> json) => PutItemOutput();
 }
 
+/// Represents a request to perform a `PutItem` operation on an item.
 class PutRequest {
   /// A map of attribute name to attribute values, representing the primary key
   /// of an item to be processed by `PutItem`. All of the table's primary key
@@ -5018,6 +5168,7 @@ class PutRequest {
   static PutRequest fromJson(Map<String, dynamic> json) => PutRequest();
 }
 
+/// Represents the output of a `Query` operation.
 class QueryOutput {
   /// An array of item attributes that match the query criteria. Each element in
   /// this array consists of an attribute name and the value for that attribute.
@@ -5035,8 +5186,8 @@ class QueryOutput {
 
   /// The number of items evaluated, before any `QueryFilter` is applied. A high
   /// `ScannedCount` value with few, or no, `Count` results indicates an
-  /// inefficient `Query` operation. For more information, see [Count and
-  /// ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count)
+  /// inefficient `Query` operation. For more information, see
+  /// [Count and ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// If you did not use a filter in the request, then `ScannedCount` is the
@@ -5059,8 +5210,8 @@ class QueryOutput {
   /// includes the total provisioned throughput consumed, along with statistics
   /// for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Provisioned
-  /// Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -5074,6 +5225,7 @@ class QueryOutput {
   static QueryOutput fromJson(Map<String, dynamic> json) => QueryOutput();
 }
 
+/// Represents the properties of a replica.
 class Replica {
   /// The region where the replica needs to be created.
   final String regionName;
@@ -5084,6 +5236,7 @@ class Replica {
   static Replica fromJson(Map<String, dynamic> json) => Replica();
 }
 
+/// Contains the details of the replica.
 class ReplicaDescription {
   /// The name of the region.
   final String regionName;
@@ -5095,6 +5248,7 @@ class ReplicaDescription {
       ReplicaDescription();
 }
 
+/// Represents the properties of a global secondary index.
 class ReplicaGlobalSecondaryIndexSettingsDescription {
   /// The name of the global secondary index. The name must be unique among all
   /// other indexes on this table.
@@ -5102,13 +5256,13 @@ class ReplicaGlobalSecondaryIndexSettingsDescription {
 
   ///  The current status of the global secondary index:
   ///
-  /// *    `CREATING` \- The global secondary index is being created.
+  /// *    `CREATING` - The global secondary index is being created.
   ///
-  /// *    `UPDATING` \- The global secondary index is being updated.
+  /// *    `UPDATING` - The global secondary index is being updated.
   ///
-  /// *    `DELETING` \- The global secondary index is being deleted.
+  /// *    `DELETING` - The global secondary index is being deleted.
   ///
-  /// *    `ACTIVE` \- The global secondary index is ready for use.
+  /// *    `ACTIVE` - The global secondary index is ready for use.
   final String indexStatus;
 
   /// The maximum number of strongly consistent reads consumed per second before
@@ -5142,6 +5296,8 @@ class ReplicaGlobalSecondaryIndexSettingsDescription {
       ReplicaGlobalSecondaryIndexSettingsDescription();
 }
 
+/// Represents the settings of a global secondary index for a global table that
+/// will be modified.
 class ReplicaGlobalSecondaryIndexSettingsUpdate {
   /// The name of the global secondary index. The name must be unique among all
   /// other indexes on this table.
@@ -5163,19 +5319,20 @@ class ReplicaGlobalSecondaryIndexSettingsUpdate {
   });
 }
 
+/// Represents the properties of a replica.
 class ReplicaSettingsDescription {
   /// The region name of the replica.
   final String regionName;
 
   /// The current state of the region:
   ///
-  /// *    `CREATING` \- The region is being created.
+  /// *    `CREATING` - The region is being created.
   ///
-  /// *    `UPDATING` \- The region is being updated.
+  /// *    `UPDATING` - The region is being updated.
   ///
-  /// *    `DELETING` \- The region is being deleted.
+  /// *    `DELETING` - The region is being deleted.
   ///
-  /// *    `ACTIVE` \- The region is ready for use.
+  /// *    `ACTIVE` - The region is ready for use.
   final String replicaStatus;
 
   /// The read/write capacity mode of the replica.
@@ -5183,8 +5340,7 @@ class ReplicaSettingsDescription {
 
   /// The maximum number of strongly consistent reads consumed per second before
   /// DynamoDB returns a `ThrottlingException`. For more information, see
-  /// [Specifying Read and Write
-  /// Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+  /// [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
   /// in the _Amazon DynamoDB Developer Guide_.
   final BigInt replicaProvisionedReadCapacityUnits;
 
@@ -5193,9 +5349,8 @@ class ReplicaSettingsDescription {
       replicaProvisionedReadCapacityAutoScalingSettings;
 
   /// The maximum number of writes consumed per second before DynamoDB returns a
-  /// `ThrottlingException`. For more information, see [Specifying Read and
-  /// Write
-  /// Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+  /// `ThrottlingException`. For more information, see
+  /// [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
   /// in the _Amazon DynamoDB Developer Guide_.
   final BigInt replicaProvisionedWriteCapacityUnits;
 
@@ -5221,14 +5376,15 @@ class ReplicaSettingsDescription {
       ReplicaSettingsDescription();
 }
 
+/// Represents the settings for a global table in a region that will be
+/// modified.
 class ReplicaSettingsUpdate {
   /// The region of the replica to be added.
   final String regionName;
 
   /// The maximum number of strongly consistent reads consumed per second before
   /// DynamoDB returns a `ThrottlingException`. For more information, see
-  /// [Specifying Read and Write
-  /// Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
+  /// [Specifying Read and Write Requirements](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.html#ProvisionedThroughput)
   /// in the _Amazon DynamoDB Developer Guide_.
   final BigInt replicaProvisionedReadCapacityUnits;
 
@@ -5250,6 +5406,13 @@ class ReplicaSettingsUpdate {
   });
 }
 
+/// Represents one of the following:
+///
+/// *   A new replica to be added to an existing global table.
+///
+/// *   New parameters for an existing replica.
+///
+/// *   An existing replica to be removed from an existing global table.
 class ReplicaUpdate {
   /// The parameters required for creating a replica on an existing global
   /// table.
@@ -5264,6 +5427,7 @@ class ReplicaUpdate {
   });
 }
 
+/// Contains details for the restore.
 class RestoreSummary {
   /// ARN of the backup from which the table was restored.
   final String sourceBackupArn;
@@ -5308,20 +5472,21 @@ class RestoreTableToPointInTimeOutput {
       RestoreTableToPointInTimeOutput();
 }
 
+/// The description of the server-side encryption status on the specified table.
 class SseDescription {
   /// Represents the current state of server-side encryption. The only supported
   /// values are:
   ///
-  /// *    `ENABLED` \- Server-side encryption is enabled.
+  /// *    `ENABLED` - Server-side encryption is enabled.
   ///
-  /// *    `UPDATING` \- Server-side encryption is being updated.
+  /// *    `UPDATING` - Server-side encryption is being updated.
   final String status;
 
   /// Server-side encryption type. The only supported value is:
   ///
-  /// *    `KMS` \- Server-side encryption which uses AWS Key Management
-  /// Service. Key is stored in your account and is managed by AWS KMS (KMS
-  /// charges apply).
+  /// *    `KMS` - Server-side encryption which uses AWS Key Management Service.
+  /// Key is stored in your account and is managed by AWS KMS (KMS charges
+  /// apply).
   final String sseType;
 
   /// The KMS customer master key (CMK) ARN used for the KMS encryption.
@@ -5335,6 +5500,7 @@ class SseDescription {
   static SseDescription fromJson(Map<String, dynamic> json) => SseDescription();
 }
 
+/// Represents the settings used to enable server-side encryption.
 class SseSpecification {
   /// Indicates whether server-side encryption is done using an AWS managed CMK
   /// or an AWS owned CMK. If enabled (true), server-side encryption type is set
@@ -5345,9 +5511,9 @@ class SseSpecification {
 
   /// Server-side encryption type. The only supported value is:
   ///
-  /// *    `KMS` \- Server-side encryption which uses AWS Key Management
-  /// Service. Key is stored in your account and is managed by AWS KMS (KMS
-  /// charges apply).
+  /// *    `KMS` - Server-side encryption which uses AWS Key Management Service.
+  /// Key is stored in your account and is managed by AWS KMS (KMS charges
+  /// apply).
   final String sseType;
 
   /// The KMS Customer Master Key (CMK) which should be used for the KMS
@@ -5364,6 +5530,7 @@ class SseSpecification {
   });
 }
 
+/// Represents the output of a `Scan` operation.
 class ScanOutput {
   /// An array of item attributes that match the scan criteria. Each element in
   /// this array consists of an attribute name and the value for that attribute.
@@ -5381,8 +5548,8 @@ class ScanOutput {
 
   /// The number of items evaluated, before any `ScanFilter` is applied. A high
   /// `ScannedCount` value with few, or no, `Count` results indicates an
-  /// inefficient `Scan` operation. For more information, see [Count and
-  /// ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count)
+  /// inefficient `Scan` operation. For more information, see
+  /// [Count and ScannedCount](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/QueryAndScan.html#Count)
   /// in the _Amazon DynamoDB Developer Guide_.
   ///
   /// If you did not use a filter in the request, then `ScannedCount` is the
@@ -5405,8 +5572,8 @@ class ScanOutput {
   /// includes the total provisioned throughput consumed, along with statistics
   /// for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Provisioned
-  /// Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -5420,6 +5587,7 @@ class ScanOutput {
   static ScanOutput fromJson(Map<String, dynamic> json) => ScanOutput();
 }
 
+/// Contains the details of the table when the backup was created.
 class SourceTableDetails {
   /// The name of the table for which the backup was created.
   final String tableName;
@@ -5448,12 +5616,12 @@ class SourceTableDetails {
   /// Controls how you are charged for read and write throughput and how you
   /// manage capacity. This setting can be changed later.
   ///
-  /// *    `PROVISIONED` \- Sets the read/write capacity mode to `PROVISIONED`.
+  /// *    `PROVISIONED` - Sets the read/write capacity mode to `PROVISIONED`.
   /// We recommend using `PROVISIONED` for predictable workloads.
   ///
-  /// *    `PAY\_PER\_REQUEST` \- Sets the read/write capacity mode to
-  /// `PAY\_PER\_REQUEST`. We recommend using `PAY\_PER\_REQUEST` for
-  /// unpredictable workloads.
+  /// *    `PAY_PER_REQUEST` - Sets the read/write capacity mode to
+  /// `PAY_PER_REQUEST`. We recommend using `PAY_PER_REQUEST` for unpredictable
+  /// workloads.
   final String billingMode;
 
   SourceTableDetails({
@@ -5471,6 +5639,8 @@ class SourceTableDetails {
       SourceTableDetails();
 }
 
+/// Contains the details of the features enabled on the table when the backup
+/// was created. For example, LSIs, GSIs, streams, TTL.
 class SourceTableFeatureDetails {
   /// Represents the LSI properties for the table when the backup was created.
   /// It includes the IndexName, KeySchema and Projection for the LSIs on the
@@ -5503,6 +5673,7 @@ class SourceTableFeatureDetails {
       SourceTableFeatureDetails();
 }
 
+/// Represents the DynamoDB Streams configuration for a table in DynamoDB.
 class StreamSpecification {
   /// Indicates whether DynamoDB Streams is enabled (true) or disabled (false)
   /// on the table.
@@ -5512,16 +5683,16 @@ class StreamSpecification {
   /// information is written to the stream for this table. Valid values for
   /// `StreamViewType` are:
   ///
-  /// *    `KEYS_ONLY` \- Only the key attributes of the modified item are
+  /// *    `KEYS_ONLY` - Only the key attributes of the modified item are
   /// written to the stream.
   ///
-  /// *    `NEW_IMAGE` \- The entire item, as it appears after it was modified,
+  /// *    `NEW_IMAGE` - The entire item, as it appears after it was modified,
   /// is written to the stream.
   ///
-  /// *    `OLD_IMAGE` \- The entire item, as it appeared before it was
-  /// modified, is written to the stream.
+  /// *    `OLD_IMAGE` - The entire item, as it appeared before it was modified,
+  /// is written to the stream.
   ///
-  /// *    `NEW\_AND\_OLD_IMAGES` \- Both the new and the old item images of the
+  /// *    `NEW_AND_OLD_IMAGES` - Both the new and the old item images of the
   /// item are written to the stream.
   final String streamViewType;
 
@@ -5533,15 +5704,16 @@ class StreamSpecification {
       StreamSpecification();
 }
 
+/// Represents the properties of a table.
 class TableDescription {
   /// An array of `AttributeDefinition` objects. Each of these objects describes
   /// one attribute in the table and index key schema.
   ///
   /// Each `AttributeDefinition` object in this array is composed of:
   ///
-  /// *    `AttributeName` \- The name of the attribute.
+  /// *    `AttributeName` - The name of the attribute.
   ///
-  /// *    `AttributeType` \- The data type for the attribute.
+  /// *    `AttributeType` - The data type for the attribute.
   final List<AttributeDefinition> attributeDefinitions;
 
   /// The name of the table.
@@ -5550,13 +5722,13 @@ class TableDescription {
   /// The primary key structure for the table. Each `KeySchemaElement` consists
   /// of:
   ///
-  /// *    `AttributeName` \- The name of the attribute.
+  /// *    `AttributeName` - The name of the attribute.
   ///
-  /// *    `KeyType` \- The role of the attribute:
+  /// *    `KeyType` - The role of the attribute:
   ///
-  ///     *    `HASH` \- partition key
+  ///     *    `HASH` - partition key
   ///
-  ///     *    `RANGE` \- sort key
+  ///     *    `RANGE` - sort key
   ///
   ///
   ///      The partition key of an item is also known as its _hash attribute_.
@@ -5569,24 +5741,24 @@ class TableDescription {
   /// same partition key physically close together, in sorted order by the sort
   /// key value.
   ///
-  /// For more information about primary keys, see [Primary
-  /// Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey)
+  /// For more information about primary keys, see
+  /// [Primary Key](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataModel.html#DataModelPrimaryKey)
   /// in the _Amazon DynamoDB Developer Guide_.
   final List<KeySchemaElement> keySchema;
 
   /// The current state of the table:
   ///
-  /// *    `CREATING` \- The table is being created.
+  /// *    `CREATING` - The table is being created.
   ///
-  /// *    `UPDATING` \- The table is being updated.
+  /// *    `UPDATING` - The table is being updated.
   ///
-  /// *    `DELETING` \- The table is being deleted.
+  /// *    `DELETING` - The table is being deleted.
   ///
-  /// *    `ACTIVE` \- The table is ready for use.
+  /// *    `ACTIVE` - The table is ready for use.
   final String tableStatus;
 
-  /// The date and time when the table was created, in [UNIX epoch
-  /// time](http://www.epochconverter.com/) format.
+  /// The date and time when the table was created, in
+  /// [UNIX epoch time](http://www.epochconverter.com/) format.
   final DateTime creationDateTime;
 
   /// The provisioned throughput settings for the table, consisting of read and
@@ -5618,31 +5790,31 @@ class TableDescription {
   /// amount of data within a given item collection cannot exceed 10 GB. Each
   /// element is composed of:
   ///
-  /// *    `IndexName` \- The name of the local secondary index.
+  /// *    `IndexName` - The name of the local secondary index.
   ///
-  /// *    `KeySchema` \- Specifies the complete index key schema. The attribute
+  /// *    `KeySchema` - Specifies the complete index key schema. The attribute
   /// names in the key schema must be between 1 and 255 characters (inclusive).
   /// The key schema must begin with the same partition key as the table.
   ///
-  /// *    `Projection` \- Specifies attributes that are copied (projected) from
+  /// *    `Projection` - Specifies attributes that are copied (projected) from
   /// the table into the index. These are in addition to the primary key
   /// attributes and index key attributes, which are automatically projected.
   /// Each attribute specification is composed of:
   ///
-  ///     *    `ProjectionType` \- One of the following:
+  ///     *    `ProjectionType` - One of the following:
   ///
-  ///         *    `KEYS_ONLY` \- Only the index and primary keys are projected
+  ///         *    `KEYS_ONLY` - Only the index and primary keys are projected
   /// into the index.
   ///
-  ///         *    `INCLUDE` \- Only the specified table attributes are
-  /// projected into the index. The list of projected attributes are in
+  ///         *    `INCLUDE` - Only the specified table attributes are projected
+  /// into the index. The list of projected attributes are in
   /// `NonKeyAttributes`.
   ///
-  ///         *    `ALL` \- All of the table attributes are projected into the
+  ///         *    `ALL` - All of the table attributes are projected into the
   /// index.
   ///
   ///
-  ///     *    `NonKeyAttributes` \- A list of one or more non-key attribute
+  ///     *    `NonKeyAttributes` - A list of one or more non-key attribute
   /// names that are projected into the secondary index. The total count of
   /// attributes provided in `NonKeyAttributes`, summed across all of the
   /// secondary indexes, must not exceed 20. If you project the same attribute
@@ -5650,11 +5822,11 @@ class TableDescription {
   /// determining the total.
   ///
   ///
-  /// *    `IndexSizeBytes` \- Represents the total size of the index, in bytes.
+  /// *    `IndexSizeBytes` - Represents the total size of the index, in bytes.
   /// DynamoDB updates this value approximately every six hours. Recent changes
   /// might not be reflected in this value.
   ///
-  /// *    `ItemCount` \- Represents the number of items in the index. DynamoDB
+  /// *    `ItemCount` - Represents the number of items in the index. DynamoDB
   /// updates this value approximately every six hours. Recent changes might not
   /// be reflected in this value.
   ///
@@ -5666,56 +5838,56 @@ class TableDescription {
   /// The global secondary indexes, if any, on the table. Each index is scoped
   /// to a given partition key value. Each element is composed of:
   ///
-  /// *    `Backfilling` \- If true, then the index is currently in the
+  /// *    `Backfilling` - If true, then the index is currently in the
   /// backfilling phase. Backfilling occurs only when a new global secondary
   /// index is added to the table; it is the process by which DynamoDB populates
   /// the new index with data from the table. (This attribute does not appear
   /// for indexes that were created during a `CreateTable` operation.)
   ///
-  /// *    `IndexName` \- The name of the global secondary index.
+  /// *    `IndexName` - The name of the global secondary index.
   ///
-  /// *    `IndexSizeBytes` \- The total size of the global secondary index, in
+  /// *    `IndexSizeBytes` - The total size of the global secondary index, in
   /// bytes. DynamoDB updates this value approximately every six hours. Recent
   /// changes might not be reflected in this value.
   ///
-  /// *    `IndexStatus` \- The current status of the global secondary index:
+  /// *    `IndexStatus` - The current status of the global secondary index:
   ///
-  ///     *    `CREATING` \- The index is being created.
+  ///     *    `CREATING` - The index is being created.
   ///
-  ///     *    `UPDATING` \- The index is being updated.
+  ///     *    `UPDATING` - The index is being updated.
   ///
-  ///     *    `DELETING` \- The index is being deleted.
+  ///     *    `DELETING` - The index is being deleted.
   ///
-  ///     *    `ACTIVE` \- The index is ready for use.
+  ///     *    `ACTIVE` - The index is ready for use.
   ///
   ///
-  /// *    `ItemCount` \- The number of items in the global secondary index.
+  /// *    `ItemCount` - The number of items in the global secondary index.
   /// DynamoDB updates this value approximately every six hours. Recent changes
   /// might not be reflected in this value.
   ///
-  /// *    `KeySchema` \- Specifies the complete index key schema. The attribute
+  /// *    `KeySchema` - Specifies the complete index key schema. The attribute
   /// names in the key schema must be between 1 and 255 characters (inclusive).
   /// The key schema must begin with the same partition key as the table.
   ///
-  /// *    `Projection` \- Specifies attributes that are copied (projected) from
+  /// *    `Projection` - Specifies attributes that are copied (projected) from
   /// the table into the index. These are in addition to the primary key
   /// attributes and index key attributes, which are automatically projected.
   /// Each attribute specification is composed of:
   ///
-  ///     *    `ProjectionType` \- One of the following:
+  ///     *    `ProjectionType` - One of the following:
   ///
-  ///         *    `KEYS_ONLY` \- Only the index and primary keys are projected
+  ///         *    `KEYS_ONLY` - Only the index and primary keys are projected
   /// into the index.
   ///
-  ///         *    `INCLUDE` \- Only the specified table attributes are
-  /// projected into the index. The list of projected attributes are in
+  ///         *    `INCLUDE` - Only the specified table attributes are projected
+  /// into the index. The list of projected attributes are in
   /// `NonKeyAttributes`.
   ///
-  ///         *    `ALL` \- All of the table attributes are projected into the
+  ///         *    `ALL` - All of the table attributes are projected into the
   /// index.
   ///
   ///
-  ///     *    `NonKeyAttributes` \- A list of one or more non-key attribute
+  ///     *    `NonKeyAttributes` - A list of one or more non-key attribute
   /// names that are projected into the secondary index. The total count of
   /// attributes provided in `NonKeyAttributes`, summed across all of the
   /// secondary indexes, must not exceed 20. If you project the same attribute
@@ -5723,9 +5895,9 @@ class TableDescription {
   /// determining the total.
   ///
   ///
-  /// *    `ProvisionedThroughput` \- The provisioned throughput settings for
-  /// the global secondary index, consisting of read and write capacity units,
-  /// along with data about increases and decreases.
+  /// *    `ProvisionedThroughput` - The provisioned throughput settings for the
+  /// global secondary index, consisting of read and write capacity units, along
+  /// with data about increases and decreases.
   ///
   ///
   /// If the table is in the `DELETING` state, no information about indexes will
@@ -5784,6 +5956,17 @@ class TableDescription {
       TableDescription();
 }
 
+/// Describes a tag. A tag is a key-value pair. You can add up to 50 tags to a
+/// single DynamoDB table.
+///
+///  AWS-assigned tag names and values are automatically assigned the `aws:`
+/// prefix, which the user cannot assign. AWS-assigned tag names do not count
+/// towards the tag limit of 50. User-assigned tag names have the prefix `user:`
+/// in the Cost Allocation Report. You cannot backdate the application of a tag.
+///
+/// For an overview on tagging DynamoDB resources, see
+/// [Tagging for DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html)
+/// in the _Amazon DynamoDB Developer Guide_.
 class Tag {
   /// The key of the tag. Tag keys are case sensitive. Each DynamoDB table can
   /// only have up to one tag with the same key. If you try to add an existing
@@ -5800,6 +5983,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The description of the Time to Live (TTL) status on the specified table.
 class TimeToLiveDescription {
   ///  The TTL status for the table.
   final String timeToLiveStatus;
@@ -5815,6 +5999,8 @@ class TimeToLiveDescription {
       TimeToLiveDescription();
 }
 
+/// Represents the settings used to enable or disable Time to Live (TTL) for the
+/// specified table.
 class TimeToLiveSpecification {
   /// Indicates whether TTL is to be enabled (true) or disabled (false) on the
   /// table.
@@ -5832,6 +6018,7 @@ class TimeToLiveSpecification {
       TimeToLiveSpecification();
 }
 
+/// Specifies an item to be retrieved as part of the transaction.
 class TransactGetItem {
   /// Contains the primary key that identifies the item to get, together with
   /// the name of the table that contains the item, and optionally the specific
@@ -5869,6 +6056,8 @@ class TransactGetItemsOutput {
       TransactGetItemsOutput();
 }
 
+/// A list of requests that can perform update, put, delete, or check operations
+/// on multiple items in one or more tables atomically.
 class TransactWriteItem {
   /// A request to perform a check item operation.
   final ConditionCheck conditionCheck;
@@ -5909,6 +6098,7 @@ class TransactWriteItemsOutput {
       TransactWriteItemsOutput();
 }
 
+/// Represents a request to perform an `UpdateItem` operation.
 class Update {
   /// The primary key of the item to be updated. Each element consists of an
   /// attribute name and a value for that attribute.
@@ -5933,8 +6123,7 @@ class Update {
 
   /// Use `ReturnValuesOnConditionCheckFailure` to get the item attributes if
   /// the `Update` condition fails. For `ReturnValuesOnConditionCheckFailure`,
-  /// the valid values are: NONE, ALL\_OLD, UPDATED\_OLD, ALL\_NEW,
-  /// UPDATED\_NEW.
+  /// the valid values are: NONE, ALL_OLD, UPDATED_OLD, ALL_NEW, UPDATED_NEW.
   final String returnValuesOnConditionCheckFailure;
 
   Update({
@@ -5960,6 +6149,8 @@ class UpdateContinuousBackupsOutput {
       UpdateContinuousBackupsOutput();
 }
 
+/// Represents the new provisioned throughput settings to be applied to a global
+/// secondary index.
 class UpdateGlobalSecondaryIndexAction {
   /// The name of the global secondary index to be updated.
   final String indexName;
@@ -6004,6 +6195,7 @@ class UpdateGlobalTableSettingsOutput {
       UpdateGlobalTableSettingsOutput();
 }
 
+/// Represents the output of an `UpdateItem` operation.
 class UpdateItemOutput {
   /// A map of attribute values as they appear before or after the `UpdateItem`
   /// operation, as determined by the `ReturnValues` parameter.
@@ -6017,8 +6209,8 @@ class UpdateItemOutput {
   /// returned includes the total provisioned throughput consumed, along with
   /// statistics for the table and any indexes involved in the operation.
   /// `ConsumedCapacity` is only returned if the `ReturnConsumedCapacity`
-  /// parameter was specified. For more information, see [Provisioned
-  /// Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
+  /// parameter was specified. For more information, see
+  /// [Provisioned Throughput](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ProvisionedThroughputIntro.html)
   /// in the _Amazon DynamoDB Developer Guide_.
   final ConsumedCapacity consumedCapacity;
 
@@ -6030,11 +6222,10 @@ class UpdateItemOutput {
   ///
   /// Each `ItemCollectionMetrics` element consists of:
   ///
-  /// *    `ItemCollectionKey` \- The partition key value of the item
-  /// collection. This is the same as the partition key value of the item
-  /// itself.
+  /// *    `ItemCollectionKey` - The partition key value of the item collection.
+  /// This is the same as the partition key value of the item itself.
   ///
-  /// *    `SizeEstimateRangeGB` \- An estimate of item collection size, in
+  /// *    `SizeEstimateRangeGB` - An estimate of item collection size, in
   /// gigabytes. This value is a two-element array containing a lower bound and
   /// an upper bound for the estimate. The estimate includes the size of all the
   /// items in the table, plus the size of all attributes projected into all of
@@ -6054,6 +6245,7 @@ class UpdateItemOutput {
       UpdateItemOutput();
 }
 
+/// Represents the output of an `UpdateTable` operation.
 class UpdateTableOutput {
   /// Represents the properties of the table.
   final TableDescription tableDescription;
@@ -6076,6 +6268,10 @@ class UpdateTimeToLiveOutput {
       UpdateTimeToLiveOutput();
 }
 
+/// Represents an operation to perform - either `DeleteItem` or `PutItem`. You
+/// can only request one of these operations, not both, in a single
+/// `WriteRequest`. If you do need to perform both of these operations, you will
+/// need to provide two separate `WriteRequest` objects.
 class WriteRequest {
   /// A request to perform a `PutItem` operation.
   final PutRequest putRequest;

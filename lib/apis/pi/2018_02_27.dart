@@ -4,8 +4,8 @@ import 'package:meta/meta.dart';
 /// dimensions of database load based on data captured from a running RDS
 /// instance. The guide provides detailed information about Performance Insights
 /// data types, parameters and errors. For more information about Performance
-/// Insights capabilities see [Using Amazon RDS Performance
-/// Insights](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
+/// Insights capabilities see
+/// [Using Amazon RDS Performance Insights](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
 ///  in the _Amazon RDS User Guide_.
 ///
 ///  The AWS Performance Insights API provides visibility into the performance
@@ -33,13 +33,13 @@ class PIApi {
   ///
   /// [startTime]: The date and time specifying the beginning of the requested
   /// time series data. You can't specify a `StartTime` that's earlier than 7
-  /// days ago. The value specified is _inclusive_ \- data points equal to or
+  /// days ago. The value specified is _inclusive_ - data points equal to or
   /// greater than `StartTime` will be returned.
   ///
   /// The value for `StartTime` must be earlier than the value for `EndTime`.
   ///
   /// [endTime]: The date and time specifying the end of the requested time
-  /// series data. The value specified is _exclusive_ \- data points less than
+  /// series data. The value specified is _exclusive_ - data points less than
   /// (but not equal to) `EndTime` will be returned.
   ///
   /// The value for `EndTime` must be later than the value for `StartTime`.
@@ -48,10 +48,10 @@ class PIApi {
   ///
   /// Valid values for `Metric` are:
   ///
-  /// *    `db.load.avg` \- a scaled representation of the number of active
+  /// *    `db.load.avg` - a scaled representation of the number of active
   /// sessions for the database engine.
   ///
-  /// *    `db.sampledload.avg` \- the raw number of active sessions for the
+  /// *    `db.sampledload.avg` - the raw number of active sessions for the
   /// database engine.
   ///
   /// [periodInSeconds]: The granularity, in seconds, of the data points
@@ -133,13 +133,13 @@ class PIApi {
   ///
   /// [startTime]: The date and time specifying the beginning of the requested
   /// time series data. You can't specify a `StartTime` that's earlier than 7
-  /// days ago. The value specified is _inclusive_ \- data points equal to or
+  /// days ago. The value specified is _inclusive_ - data points equal to or
   /// greater than `StartTime` will be returned.
   ///
   /// The value for `StartTime` must be earlier than the value for `EndTime`.
   ///
   /// [endTime]: The date and time specifiying the end of the requested time
-  /// series data. The value specified is _exclusive_ \- data points less than
+  /// series data. The value specified is _exclusive_ - data points less than
   /// (but not equal to) `EndTime` will be returned.
   ///
   /// The value for `EndTime` must be later than the value for `StartTime`.
@@ -184,6 +184,8 @@ class PIApi {
   }
 }
 
+/// A timestamp, and a single numerical value, which together represent a
+/// measurement at a particular point in time.
 class DataPoint {
   /// The time, in epoch format, associated with a particular `Value`.
   final DateTime timestamp;
@@ -233,6 +235,10 @@ class DescribeDimensionKeysResponse {
       DescribeDimensionKeysResponse();
 }
 
+/// A logical grouping of Performance Insights metrics for a related subject
+/// area. For example, the `db.sql` dimension group consists of the following
+/// dimensions: `db.sql.id`, `db.sql.db_id`, `db.sql.statement`, and
+/// `db.sql.tokenized_id`.
 class DimensionGroup {
   /// The name of the dimension group. Valid values are:
   ///
@@ -246,7 +252,7 @@ class DimensionGroup {
   ///
   /// *    `db.wait_event`
   ///
-  /// *    `db.wait\_event\_type`
+  /// *    `db.wait_event_type`
   final String group;
 
   /// A list of specific dimensions from a dimension group. If this parameter is
@@ -273,7 +279,7 @@ class DimensionGroup {
   ///
   /// *   db.sql_tokenized.id
   ///
-  /// *   db.sql\_tokenized.db\_id
+  /// *   db.sql_tokenized.db_id
   ///
   /// *   db.sql_tokenized.statement
   ///
@@ -281,7 +287,7 @@ class DimensionGroup {
   ///
   /// *   db.wait_event.type
   ///
-  /// *   db.wait\_event\_type.name
+  /// *   db.wait_event_type.name
   final List<String> dimensions;
 
   /// The maximum number of items to fetch for this dimension group.
@@ -294,6 +300,8 @@ class DimensionGroup {
   });
 }
 
+/// An array of descriptions and aggregated values for each dimension within a
+/// dimension group.
 class DimensionKeyDescription {
   /// A map of name-value pairs for the dimensions in the group.
   final Map<String, String> dimensions;
@@ -353,6 +361,8 @@ class GetResourceMetricsResponse {
       GetResourceMetricsResponse();
 }
 
+/// A time-ordered series of data points, correpsonding to a dimension of a
+/// Performance Insights metric.
 class MetricKeyDataPoints {
   /// The dimension(s) to which the data points apply.
   final ResponseResourceMetricKey key;
@@ -369,15 +379,20 @@ class MetricKeyDataPoints {
       MetricKeyDataPoints();
 }
 
+/// A single query to be processed. You must provide the metric to query. If no
+/// other parameters are specified, Performance Insights returns all of the data
+/// points for that metric. You can optionally request that the data points be
+/// aggregated by dimension group ( `GroupBy`), and return only those data
+/// points that match your criteria (`Filter`).
 class MetricQuery {
   /// The name of a Performance Insights metric to be measured.
   ///
   /// Valid values for `Metric` are:
   ///
-  /// *    `db.load.avg` \- a scaled representation of the number of active
+  /// *    `db.load.avg` - a scaled representation of the number of active
   /// sessions for the database engine.
   ///
-  /// *    `db.sampledload.avg` \- the raw number of active sessions for the
+  /// *    `db.sampledload.avg` - the raw number of active sessions for the
   /// database engine.
   final String metric;
 
@@ -403,6 +418,9 @@ class MetricQuery {
   });
 }
 
+/// If `PartitionBy` was specified in a `DescribeDimensionKeys` request, the
+/// dimensions are returned in an array. Each element in the array specifies one
+/// dimension.
 class ResponsePartitionKey {
   /// A dimension map that contains the dimension(s) for this partition.
   final Map<String, String> dimensions;
@@ -414,15 +432,17 @@ class ResponsePartitionKey {
       ResponsePartitionKey();
 }
 
+/// An object describing a Performance Insights metric and one or more
+/// dimensions for that metric.
 class ResponseResourceMetricKey {
   /// The name of a Performance Insights metric to be measured.
   ///
   /// Valid values for `Metric` are:
   ///
-  /// *    `db.load.avg` \- a scaled representation of the number of active
+  /// *    `db.load.avg` - a scaled representation of the number of active
   /// sessions for the database engine.
   ///
-  /// *    `db.sampledload.avg` \- the raw number of active sessions for the
+  /// *    `db.sampledload.avg` - the raw number of active sessions for the
   /// database engine.
   final String metric;
 

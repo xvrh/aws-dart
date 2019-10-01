@@ -45,6 +45,7 @@ class CostAndUsageReportServiceApi {
   }
 }
 
+/// If the action is successful, the service sends back an HTTP 200 response.
 class DeleteReportDefinitionResponse {
   final String responseMessage;
 
@@ -55,6 +56,7 @@ class DeleteReportDefinitionResponse {
       DeleteReportDefinitionResponse();
 }
 
+/// If the action is successful, the service sends back an HTTP 200 response.
 class DescribeReportDefinitionsResponse {
   /// A list of AWS Cost and Usage reports owned by the account.
   final List<ReportDefinition> reportDefinitions;
@@ -76,12 +78,17 @@ class ModifyReportDefinitionResponse {
       ModifyReportDefinitionResponse();
 }
 
+/// If the action is successful, the service sends back an HTTP 200 response
+/// with an empty HTTP body.
 class PutReportDefinitionResponse {
   PutReportDefinitionResponse();
   static PutReportDefinitionResponse fromJson(Map<String, dynamic> json) =>
       PutReportDefinitionResponse();
 }
 
+/// The definition of AWS Cost and Usage Report. You can specify the report
+/// name, time unit, report format, compression format, S3 bucket, additional
+/// artifacts, and schema elements in the definition.
 class ReportDefinition {
   final String reportName;
 

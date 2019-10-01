@@ -187,6 +187,7 @@ class MediaPackageApi {
   }
 }
 
+/// A Channel resource configuration.
 class Channel {
   /// The Amazon Resource Name (ARN) assigned to the Channel.
   final String arn;
@@ -211,6 +212,7 @@ class Channel {
   static Channel fromJson(Map<String, dynamic> json) => Channel();
 }
 
+/// A Common Media Application Format (CMAF) encryption configuration.
 class CmafEncryption {
   /// Time (in seconds) between each encryption key rotation.
   final int keyRotationIntervalSeconds;
@@ -224,6 +226,7 @@ class CmafEncryption {
   static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption();
 }
 
+/// A Common Media Application Format (CMAF) packaging configuration.
 class CmafPackage {
   final CmafEncryption encryption;
 
@@ -250,6 +253,7 @@ class CmafPackage {
   static CmafPackage fromJson(Map<String, dynamic> json) => CmafPackage();
 }
 
+/// A Common Media Application Format (CMAF) packaging configuration.
 class CmafPackageCreateOrUpdateParameters {
   final CmafEncryption encryption;
 
@@ -362,6 +366,7 @@ class CreateOriginEndpointResponse {
       CreateOriginEndpointResponse();
 }
 
+/// A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
 class DashEncryption {
   /// Time (in seconds) between each encryption key rotation.
   final int keyRotationIntervalSeconds;
@@ -375,6 +380,7 @@ class DashEncryption {
   static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption();
 }
 
+/// A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
 class DashPackage {
   final List<String> adTriggers;
 
@@ -409,7 +415,7 @@ class DashPackage {
   final List<String> periodTriggers;
 
   /// The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to
-  /// "HBBTV\_1\_5", HbbTV 1.5 compliant output is enabled.
+  /// "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
   final String profile;
 
   /// Duration (in seconds) of each segment. Actual segments will be rounded to
@@ -417,12 +423,11 @@ class DashPackage {
   final int segmentDurationSeconds;
 
   /// Determines the type of SegmentTemplate included in the Media Presentation
-  /// Description (MPD). When set to NUMBER\_WITH\_TIMELINE, a full timeline is
+  /// Description (MPD). When set to NUMBER_WITH_TIMELINE, a full timeline is
   /// presented in each SegmentTemplate, with $Number$ media URLs. When set to
-  /// TIME\_WITH\_TIMELINE, a full timeline is presented in each
-  /// SegmentTemplate, with $Time$ media URLs. When set to
-  /// NUMBER\_WITH\_DURATION, only a duration is included in each
-  /// SegmentTemplate, with $Number$ media URLs.
+  /// TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate,
+  /// with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration
+  /// is included in each SegmentTemplate, with $Number$ media URLs.
   final String segmentTemplateFormat;
 
   final StreamSelection streamSelection;
@@ -547,6 +552,7 @@ class DescribeOriginEndpointResponse {
       DescribeOriginEndpointResponse();
 }
 
+/// An HTTP Live Streaming (HLS) encryption configuration.
 class HlsEncryption {
   /// A constant initialization vector for encryption (optional). When not
   /// specified the initialization vector will be periodically rotated.
@@ -573,6 +579,7 @@ class HlsEncryption {
   static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption();
 }
 
+/// An HTTP Live Streaming (HLS) ingest resource configuration.
 class HlsIngest {
   /// A list of endpoints to which the source stream should be sent.
   final List<IngestEndpoint> ingestEndpoints;
@@ -583,6 +590,7 @@ class HlsIngest {
   static HlsIngest fromJson(Map<String, dynamic> json) => HlsIngest();
 }
 
+/// A HTTP Live Streaming (HLS) manifest configuration.
 class HlsManifest {
   /// This setting controls how ad markers are included in the packaged
   /// OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the output.
@@ -637,6 +645,7 @@ class HlsManifest {
   static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest();
 }
 
+/// A HTTP Live Streaming (HLS) manifest configuration.
 class HlsManifestCreateOrUpdateParameters {
   /// This setting controls how ad markers are included in the packaged
   /// OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the output.
@@ -692,6 +701,7 @@ class HlsManifestCreateOrUpdateParameters {
   });
 }
 
+/// An HTTP Live Streaming (HLS) packaging configuration.
 class HlsPackage {
   /// This setting controls how ad markers are included in the packaged
   /// OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the output.
@@ -754,6 +764,7 @@ class HlsPackage {
   static HlsPackage fromJson(Map<String, dynamic> json) => HlsPackage();
 }
 
+/// An endpoint for ingesting source content for a Channel.
 class IngestEndpoint {
   /// The system generated unique identifier for the IngestEndpoint
   final String id;
@@ -818,6 +829,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// A Microsoft Smooth Streaming (MSS) encryption configuration.
 class MssEncryption {
   final SpekeKeyProvider spekeKeyProvider;
 
@@ -827,6 +839,7 @@ class MssEncryption {
   static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption();
 }
 
+/// A Microsoft Smooth Streaming (MSS) packaging configuration.
 class MssPackage {
   final MssEncryption encryption;
 
@@ -847,6 +860,7 @@ class MssPackage {
   static MssPackage fromJson(Map<String, dynamic> json) => MssPackage();
 }
 
+/// An OriginEndpoint resource configuration.
 class OriginEndpoint {
   /// The Amazon Resource Name (ARN) assigned to the OriginEndpoint.
   final String arn;
@@ -959,6 +973,8 @@ class RotateIngestEndpointCredentialsResponse {
       RotateIngestEndpointCredentialsResponse();
 }
 
+/// A configuration for accessing an external Secure Packager and Encoder Key
+/// Exchange (SPEKE) service that will provide encryption keys.
 class SpekeKeyProvider {
   /// An Amazon Resource Name (ARN) of a Certificate Manager certificate that
   /// MediaPackage will use for enforcing secure end-to-end data transfer with
@@ -989,6 +1005,7 @@ class SpekeKeyProvider {
       SpekeKeyProvider();
 }
 
+/// A StreamSelection configuration.
 class StreamSelection {
   /// The maximum video bitrate (bps) to include in output.
   final int maxVideoBitsPerSecond;

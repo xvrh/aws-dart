@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 /// This is the AWS CodePipeline API Reference. This guide provides descriptions
 /// of the actions and data types for AWS CodePipeline. Some functionality for
 /// your pipeline is only configurable through the API. For additional
-/// information, see the [AWS CodePipeline User
-/// Guide](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html).
+/// information, see the
+/// [AWS CodePipeline User Guide](https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html).
 ///
 /// You can use the AWS CodePipeline API to work with pipelines, stages,
 /// actions, and transitions, as described below.
@@ -58,8 +58,8 @@ import 'package:meta/meta.dart';
 /// status of a pipeline, including the status of stages in the pipeline, or
 /// GetPipeline, which returns the entire structure of the pipeline, including
 /// the stages of that pipeline. For more information about the structure of
-/// stages and actions, also refer to the [AWS CodePipeline Pipeline Structure
-/// Reference](https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-structure.html).
+/// stages and actions, also refer to the
+/// [AWS CodePipeline Pipeline Structure Reference](https://docs.aws.amazon.com/codepipeline/latest/userguide/pipeline-structure.html).
 ///
 /// Pipeline stages include _actions_, which are categorized into categories
 /// such as source or build actions performed within a stage of a pipeline. For
@@ -199,8 +199,8 @@ class CodePipelineApi {
   /// You can refer to a name in the configuration properties of the custom
   /// action within the URL templates by following the format of {Config:name},
   /// as long as the configuration property is both required and not secret. For
-  /// more information, see [Create a Custom Action for a
-  /// Pipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html).
+  /// more information, see
+  /// [Create a Custom Action for a Pipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/how-to-create-custom-action.html).
   ///
   /// [inputArtifactDetails]: The details of the input artifact for the action,
   /// such as its commit ID.
@@ -778,6 +778,10 @@ class CodePipelineApi {
   }
 }
 
+/// Represents an AWS session credentials object. These credentials are
+/// temporary credentials that are issued by AWS Secure Token Service (STS).
+/// They can be used to access input and output artifacts in the Amazon S3
+/// bucket used to store artifact for the pipeline in AWS CodePipeline.
 class AwsSessionCredentials {
   /// The access key for the session.
   final String accessKeyId;
@@ -797,6 +801,7 @@ class AwsSessionCredentials {
       AwsSessionCredentials();
 }
 
+/// Represents the output of an AcknowledgeJob action.
 class AcknowledgeJobOutput {
   /// Whether the job worker has received the specified job.
   final String status;
@@ -808,6 +813,7 @@ class AcknowledgeJobOutput {
       AcknowledgeJobOutput();
 }
 
+/// Represents the output of an AcknowledgeThirdPartyJob action.
 class AcknowledgeThirdPartyJobOutput {
   /// The status information for the third party job, if any.
   final String status;
@@ -819,6 +825,7 @@ class AcknowledgeThirdPartyJobOutput {
       AcknowledgeThirdPartyJobOutput();
 }
 
+/// Represents information about an action configuration.
 class ActionConfiguration {
   /// The configuration data for the action.
   final Map<String, String> configuration;
@@ -830,6 +837,7 @@ class ActionConfiguration {
       ActionConfiguration();
 }
 
+/// Represents information about an action configuration property.
 class ActionConfigurationProperty {
   /// The name of the action configuration property.
   final String name;
@@ -880,6 +888,8 @@ class ActionConfigurationProperty {
       ActionConfigurationProperty();
 }
 
+/// Represents the context of an action within the stage of a pipeline to a job
+/// worker.
 class ActionContext {
   /// The name of the action within the context of a job.
   final String name;
@@ -894,6 +904,7 @@ class ActionContext {
   static ActionContext fromJson(Map<String, dynamic> json) => ActionContext();
 }
 
+/// Represents information about an action declaration.
 class ActionDeclaration {
   /// The action declaration's name.
   final String name;
@@ -905,15 +916,14 @@ class ActionDeclaration {
   final int runOrder;
 
   /// The action's configuration. These are key-value pairs that specify input
-  /// values for an action. For more information, see [Action Structure
-  /// Requirements in
-  /// CodePipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements).
+  /// values for an action. For more information, see
+  /// [Action Structure Requirements in CodePipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements).
   /// For the list of configuration properties for the AWS CloudFormation action
-  /// type in CodePipeline, see [Configuration Properties
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html)
+  /// type in CodePipeline, see
+  /// [Configuration Properties Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-action-reference.html)
   /// in the _AWS CloudFormation User Guide_. For template snippets with
-  /// examples, see [Using Parameter Override Functions with CodePipeline
-  /// Pipelines](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html)
+  /// examples, see
+  /// [Using Parameter Override Functions with CodePipeline Pipelines](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/continuous-delivery-codepipeline-parameter-override-functions.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
   /// The values can be represented in either JSON or YAML format. For example,
@@ -953,6 +963,7 @@ class ActionDeclaration {
       ActionDeclaration();
 }
 
+/// Represents information about the run of an action.
 class ActionExecution {
   /// The status of the action, or for a completed action, the last status of
   /// the action.
@@ -1001,6 +1012,8 @@ class ActionExecution {
       ActionExecution();
 }
 
+/// Returns information about an execution of an action, including the action
+/// execution ID, and the name, version, and timing of the action.
 class ActionExecutionDetail {
   /// The pipeline execution ID for the action execution.
   final String pipelineExecutionId;
@@ -1051,6 +1064,7 @@ class ActionExecutionDetail {
       ActionExecutionDetail();
 }
 
+/// Filter values for the action execution.
 class ActionExecutionFilter {
   /// The pipeline execution ID used to filter action execution history.
   final String pipelineExecutionId;
@@ -1060,6 +1074,7 @@ class ActionExecutionFilter {
   });
 }
 
+/// Input information used for an action execution.
 class ActionExecutionInput {
   final ActionTypeId actionTypeId;
 
@@ -1088,6 +1103,8 @@ class ActionExecutionInput {
       ActionExecutionInput();
 }
 
+/// Output details listed for an action execution, such as the action execution
+/// result.
 class ActionExecutionOutput {
   /// Details of output artifacts of the action that correspond to the action
   /// execution.
@@ -1105,6 +1122,7 @@ class ActionExecutionOutput {
       ActionExecutionOutput();
 }
 
+/// Execution result information, such as the external execution ID.
 class ActionExecutionResult {
   /// The action provider's external ID for the action execution.
   final String externalExecutionId;
@@ -1126,6 +1144,7 @@ class ActionExecutionResult {
       ActionExecutionResult();
 }
 
+/// Represents information about the version (or revision) of an action.
 class ActionRevision {
   /// The system-generated unique ID that identifies the revision number of the
   /// action.
@@ -1147,6 +1166,7 @@ class ActionRevision {
   static ActionRevision fromJson(Map<String, dynamic> json) => ActionRevision();
 }
 
+/// Represents information about the state of an action.
 class ActionState {
   /// The name of the action.
   final String actionName;
@@ -1175,6 +1195,7 @@ class ActionState {
   static ActionState fromJson(Map<String, dynamic> json) => ActionState();
 }
 
+/// Returns information about the details of an action type.
 class ActionType {
   /// Represents information about an action type.
   final ActionTypeId id;
@@ -1201,6 +1222,7 @@ class ActionType {
   static ActionType fromJson(Map<String, dynamic> json) => ActionType();
 }
 
+/// Represents information about an action type.
 class ActionTypeId {
   /// A category defines what kind of action can be taken in the stage, and
   /// constrains the provider type for the action. Valid categories are limited
@@ -1214,8 +1236,8 @@ class ActionTypeId {
   /// are determined by the action category. For example, an action in the
   /// Deploy category type might have a provider of AWS CodeDeploy, which would
   /// be specified as CodeDeploy. To reference a list of action providers by
-  /// action type, see [Valid Action Types and Providers in
-  /// CodePipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers).
+  /// action type, see
+  /// [Valid Action Types and Providers in CodePipeline](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#actions-valid-providers).
   final String provider;
 
   /// A string that describes the action version.
@@ -1230,6 +1252,7 @@ class ActionTypeId {
   static ActionTypeId fromJson(Map<String, dynamic> json) => ActionTypeId();
 }
 
+/// Returns information about the settings for an action type.
 class ActionTypeSettings {
   /// The URL of a sign-up page where users can sign up for an external service
   /// and perform initial configuration of the action provided by that service.
@@ -1263,6 +1286,7 @@ class ActionTypeSettings {
       ActionTypeSettings();
 }
 
+/// Represents information about the result of an approval request.
 class ApprovalResult {
   /// The summary of the current status of the approval request.
   final String summary;
@@ -1277,6 +1301,8 @@ class ApprovalResult {
   });
 }
 
+/// Represents information about an artifact that will be worked upon by actions
+/// in the pipeline.
 class Artifact {
   /// The artifact's name.
   final String name;
@@ -1296,6 +1322,7 @@ class Artifact {
   static Artifact fromJson(Map<String, dynamic> json) => Artifact();
 }
 
+/// Artifact details for the action execution, such as the artifact location.
 class ArtifactDetail {
   /// The artifact object name for the action execution.
   final String name;
@@ -1310,6 +1337,7 @@ class ArtifactDetail {
   static ArtifactDetail fromJson(Map<String, dynamic> json) => ArtifactDetail();
 }
 
+/// Returns information about the details of an artifact.
 class ArtifactDetails {
   /// The minimum number of artifacts allowed for the action type.
   final int minimumCount;
@@ -1325,6 +1353,7 @@ class ArtifactDetails {
       ArtifactDetails();
 }
 
+/// Represents information about the location of an artifact.
 class ArtifactLocation {
   /// The type of artifact in the location.
   final String type;
@@ -1340,6 +1369,7 @@ class ArtifactLocation {
       ArtifactLocation();
 }
 
+/// Represents revision details of an artifact.
 class ArtifactRevision {
   /// The name of an artifact. This name might be system-generated, such as
   /// "MyApp", or might be defined by the user when an action is created.
@@ -1380,6 +1410,13 @@ class ArtifactRevision {
       ArtifactRevision();
 }
 
+/// The Amazon S3 bucket where artifacts are stored for the pipeline.
+///
+///
+///
+/// You must include either `artifactStore` or `artifactStores` in your
+/// pipeline, but you cannot use both. If you create a cross-region action in
+/// your pipeline, you must use `artifactStores`.
 class ArtifactStore {
   /// The type of the artifact store, such as S3.
   final String type;
@@ -1404,6 +1441,7 @@ class ArtifactStore {
   static ArtifactStore fromJson(Map<String, dynamic> json) => ArtifactStore();
 }
 
+/// Reserved for future use.
 class BlockerDeclaration {
   /// Reserved for future use.
   final String name;
@@ -1419,6 +1457,7 @@ class BlockerDeclaration {
       BlockerDeclaration();
 }
 
+/// Represents the output of a `CreateCustomActionType` operation.
 class CreateCustomActionTypeOutput {
   /// Returns information about the details of an action type.
   final ActionType actionType;
@@ -1434,6 +1473,7 @@ class CreateCustomActionTypeOutput {
       CreateCustomActionTypeOutput();
 }
 
+/// Represents the output of a `CreatePipeline` action.
 class CreatePipelineOutput {
   /// Represents the structure of actions and stages to be performed in the
   /// pipeline.
@@ -1450,6 +1490,7 @@ class CreatePipelineOutput {
       CreatePipelineOutput();
 }
 
+/// Represents information about a current revision.
 class CurrentRevision {
   /// The revision ID of the current version of an artifact.
   final String revision;
@@ -1485,6 +1526,8 @@ class DeregisterWebhookWithThirdPartyOutput {
       DeregisterWebhookWithThirdPartyOutput();
 }
 
+/// Represents information about the key used to encrypt data in the artifact
+/// store, such as an AWS Key Management Service (AWS KMS) key.
 class EncryptionKey {
   /// The ID used to identify the key. For an AWS KMS key, you can use the key
   /// ID, the key ARN, or the alias ARN.
@@ -1508,6 +1551,7 @@ class EncryptionKey {
   static EncryptionKey fromJson(Map<String, dynamic> json) => EncryptionKey();
 }
 
+/// Represents information about an error in AWS CodePipeline.
 class ErrorDetails {
   /// The system ID or error number code of the error.
   final String code;
@@ -1522,6 +1566,8 @@ class ErrorDetails {
   static ErrorDetails fromJson(Map<String, dynamic> json) => ErrorDetails();
 }
 
+/// The details of the actions taken and results produced on an artifact as it
+/// passes through stages in the pipeline.
 class ExecutionDetails {
   /// The summary of the current status of the actions.
   final String summary;
@@ -1541,6 +1587,7 @@ class ExecutionDetails {
   });
 }
 
+/// The interaction or event that started a pipeline execution.
 class ExecutionTrigger {
   /// The type of change-detection method, command, or user interaction that
   /// started a pipeline execution.
@@ -1559,6 +1606,7 @@ class ExecutionTrigger {
       ExecutionTrigger();
 }
 
+/// Represents information about failure details.
 class FailureDetails {
   /// The type of the failure.
   final String type;
@@ -1576,6 +1624,7 @@ class FailureDetails {
   });
 }
 
+/// Represents the output of a `GetJobDetails` action.
 class GetJobDetailsOutput {
   /// The details of the job.
   ///
@@ -1592,6 +1641,7 @@ class GetJobDetailsOutput {
       GetJobDetailsOutput();
 }
 
+/// Represents the output of a `GetPipelineExecution` action.
 class GetPipelineExecutionOutput {
   /// Represents information about the execution of a pipeline.
   final PipelineExecution pipelineExecution;
@@ -1603,6 +1653,7 @@ class GetPipelineExecutionOutput {
       GetPipelineExecutionOutput();
 }
 
+/// Represents the output of a `GetPipeline` action.
 class GetPipelineOutput {
   /// Represents the structure of actions and stages to be performed in the
   /// pipeline.
@@ -1620,6 +1671,7 @@ class GetPipelineOutput {
       GetPipelineOutput();
 }
 
+/// Represents the output of a `GetPipelineState` action.
 class GetPipelineStateOutput {
   /// The name of the pipeline for which you want to get the state.
   final String pipelineName;
@@ -1653,6 +1705,7 @@ class GetPipelineStateOutput {
       GetPipelineStateOutput();
 }
 
+/// Represents the output of a `GetThirdPartyJobDetails` action.
 class GetThirdPartyJobDetailsOutput {
   /// The details of the job, including any protected values defined for the
   /// job.
@@ -1665,6 +1718,8 @@ class GetThirdPartyJobDetailsOutput {
       GetThirdPartyJobDetailsOutput();
 }
 
+/// Represents information about an artifact to be worked on, such as a test or
+/// build artifact.
 class InputArtifact {
   /// The name of the artifact to be worked on, for example, "My App".
   ///
@@ -1681,6 +1736,7 @@ class InputArtifact {
   static InputArtifact fromJson(Map<String, dynamic> json) => InputArtifact();
 }
 
+/// Represents information about a job.
 class Job {
   /// The unique system-generated ID of the job.
   final String id;
@@ -1705,6 +1761,8 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// Represents additional information about a job required for a job worker to
+/// complete the job.
 class JobData {
   /// Represents information about an action type.
   final ActionTypeId actionTypeId;
@@ -1752,6 +1810,7 @@ class JobData {
   static JobData fromJson(Map<String, dynamic> json) => JobData();
 }
 
+/// Represents information about the details of a job.
 class JobDetails {
   /// The unique system-generated ID of the job.
   final String id;
@@ -1789,6 +1848,7 @@ class ListActionExecutionsOutput {
       ListActionExecutionsOutput();
 }
 
+/// Represents the output of a `ListActionTypes` action.
 class ListActionTypesOutput {
   /// Provides details of the action types.
   final List<ActionType> actionTypes;
@@ -1806,6 +1866,7 @@ class ListActionTypesOutput {
       ListActionTypesOutput();
 }
 
+/// Represents the output of a `ListPipelineExecutions` action.
 class ListPipelineExecutionsOutput {
   /// A list of executions in the history of a pipeline.
   final List<PipelineExecutionSummary> pipelineExecutionSummaries;
@@ -1823,6 +1884,7 @@ class ListPipelineExecutionsOutput {
       ListPipelineExecutionsOutput();
 }
 
+/// Represents the output of a `ListPipelines` action.
 class ListPipelinesOutput {
   /// The list of pipelines.
   final List<PipelineSummary> pipelines;
@@ -1858,6 +1920,8 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// The detail returned for each webhook after listing webhooks, such as the
+/// webhook URL, the webhook name, and the webhook ARN.
 class ListWebhookItem {
   /// The detail returned for each webhook, such as the webhook authentication
   /// type and filter rules.
@@ -1917,6 +1981,7 @@ class ListWebhooksOutput {
       ListWebhooksOutput();
 }
 
+/// Represents information about the output of an action.
 class OutputArtifact {
   /// The name of the output of an artifact, such as "My App".
   ///
@@ -1935,6 +2000,13 @@ class OutputArtifact {
   static OutputArtifact fromJson(Map<String, dynamic> json) => OutputArtifact();
 }
 
+/// Represents information about a pipeline to a job worker.
+///
+///
+///
+/// PipelineContext contains `pipelineArn` and `pipelineExecutionId` for custom
+/// action jobs. The `pipelineArn` and `pipelineExecutionId` fields are not
+/// populated for ThirdParty action jobs.
 class PipelineContext {
   /// The name of the pipeline. This is a user-specified value. Pipeline names
   /// must be unique across all pipeline names under an Amazon Web Services
@@ -1964,6 +2036,8 @@ class PipelineContext {
       PipelineContext();
 }
 
+/// Represents the structure of actions and stages to be performed in the
+/// pipeline.
 class PipelineDeclaration {
   /// The name of the action to be performed.
   final String name;
@@ -2014,6 +2088,7 @@ class PipelineDeclaration {
       PipelineDeclaration();
 }
 
+/// Represents information about an execution of a pipeline.
 class PipelineExecution {
   /// The name of the pipeline that was executed.
   final String pipelineName;
@@ -2051,6 +2126,7 @@ class PipelineExecution {
       PipelineExecution();
 }
 
+/// Summary information about a pipeline execution.
 class PipelineExecutionSummary {
   /// The ID of the pipeline execution.
   final String pipelineExecutionId;
@@ -2095,6 +2171,7 @@ class PipelineExecutionSummary {
       PipelineExecutionSummary();
 }
 
+/// Information about a pipeline.
 class PipelineMetadata {
   /// The Amazon Resource Name (ARN) of the pipeline.
   final String pipelineArn;
@@ -2114,6 +2191,7 @@ class PipelineMetadata {
       PipelineMetadata();
 }
 
+/// Returns a summary of a pipeline.
 class PipelineSummary {
   /// The name of the pipeline.
   final String name;
@@ -2137,6 +2215,7 @@ class PipelineSummary {
       PipelineSummary();
 }
 
+/// Represents the output of a `PollForJobs` action.
 class PollForJobsOutput {
   /// Information about the jobs to take action on.
   final List<Job> jobs;
@@ -2148,6 +2227,7 @@ class PollForJobsOutput {
       PollForJobsOutput();
 }
 
+/// Represents the output of a `PollForThirdPartyJobs` action.
 class PollForThirdPartyJobsOutput {
   /// Information about the jobs to take action on.
   final List<ThirdPartyJob> jobs;
@@ -2159,6 +2239,7 @@ class PollForThirdPartyJobsOutput {
       PollForThirdPartyJobsOutput();
 }
 
+/// Represents the output of a `PutActionRevision` action.
 class PutActionRevisionOutput {
   /// Indicates whether the artifact revision was previously used in an
   /// execution of the specified pipeline.
@@ -2175,6 +2256,7 @@ class PutActionRevisionOutput {
       PutActionRevisionOutput();
 }
 
+/// Represents the output of a `PutApprovalResult` action.
 class PutApprovalResultOutput {
   /// The timestamp showing when the approval or rejection was submitted.
   final DateTime approvedAt;
@@ -2205,6 +2287,7 @@ class RegisterWebhookWithThirdPartyOutput {
       RegisterWebhookWithThirdPartyOutput();
 }
 
+/// Represents the output of a `RetryStageExecution` action.
 class RetryStageExecutionOutput {
   /// The ID of the current workflow execution in the failed stage.
   final String pipelineExecutionId;
@@ -2216,6 +2299,7 @@ class RetryStageExecutionOutput {
       RetryStageExecutionOutput();
 }
 
+/// The location of the Amazon S3 bucket that contains a revision.
 class S3ArtifactLocation {
   /// The name of the Amazon S3 bucket.
   final String bucketName;
@@ -2232,6 +2316,7 @@ class S3ArtifactLocation {
       S3ArtifactLocation();
 }
 
+/// The Amazon S3 artifact location for an action's artifacts.
 class S3Location {
   /// The Amazon S3 artifact bucket for an action's artifacts.
   final String bucket;
@@ -2246,6 +2331,8 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+/// Information about the version (or revision) of a source artifact that
+/// initiated a pipeline execution.
 class SourceRevision {
   /// The name of the action that processed the revision to the source artifact.
   final String actionName;
@@ -2275,6 +2362,7 @@ class SourceRevision {
   static SourceRevision fromJson(Map<String, dynamic> json) => SourceRevision();
 }
 
+/// Represents information about a stage to a job worker.
 class StageContext {
   /// The name of the stage.
   final String name;
@@ -2285,6 +2373,7 @@ class StageContext {
   static StageContext fromJson(Map<String, dynamic> json) => StageContext();
 }
 
+/// Represents information about a stage and its definition.
 class StageDeclaration {
   /// The name of the stage.
   final String name;
@@ -2304,6 +2393,7 @@ class StageDeclaration {
       StageDeclaration();
 }
 
+/// Represents information about the run of a stage.
 class StageExecution {
   /// The ID of the pipeline execution associated with the stage.
   final String pipelineExecutionId;
@@ -2319,6 +2409,7 @@ class StageExecution {
   static StageExecution fromJson(Map<String, dynamic> json) => StageExecution();
 }
 
+/// Represents information about the state of the stage.
 class StageState {
   /// The name of the stage.
   final String stageName;
@@ -2342,6 +2433,7 @@ class StageState {
   static StageState fromJson(Map<String, dynamic> json) => StageState();
 }
 
+/// Represents the output of a `StartPipelineExecution` action.
 class StartPipelineExecutionOutput {
   /// The unique system-generated ID of the pipeline execution that was started.
   final String pipelineExecutionId;
@@ -2353,6 +2445,7 @@ class StartPipelineExecutionOutput {
       StartPipelineExecutionOutput();
 }
 
+/// A tag is a key/value pair that is used to manage the resource.
 class Tag {
   /// The tag's key.
   final String key;
@@ -2373,6 +2466,8 @@ class TagResourceOutput {
       TagResourceOutput();
 }
 
+/// A response to a `PollForThirdPartyJobs` request returned by AWS CodePipeline
+/// when there is a job to be worked upon by a partner action.
 class ThirdPartyJob {
   /// The `clientToken` portion of the `clientId` and `clientToken` pair used to
   /// verify that the calling entity is allowed access to the job and its
@@ -2389,6 +2484,7 @@ class ThirdPartyJob {
   static ThirdPartyJob fromJson(Map<String, dynamic> json) => ThirdPartyJob();
 }
 
+/// Represents information about the job data for a partner action.
 class ThirdPartyJobData {
   /// Represents information about an action type.
   final ActionTypeId actionTypeId;
@@ -2445,6 +2541,8 @@ class ThirdPartyJobData {
       ThirdPartyJobData();
 }
 
+/// The details of a job sent in response to a `GetThirdPartyJobDetails`
+/// request.
 class ThirdPartyJobDetails {
   /// The identifier used to identify the job details in AWS CodePipeline.
   final String id;
@@ -2466,6 +2564,8 @@ class ThirdPartyJobDetails {
       ThirdPartyJobDetails();
 }
 
+/// Represents information about the state of transitions between one stage and
+/// another stage.
 class TransitionState {
   /// Whether the transition between stages is enabled (true) or disabled
   /// (false).
@@ -2497,6 +2597,7 @@ class UntagResourceOutput {
       UntagResourceOutput();
 }
 
+/// Represents the output of an `UpdatePipeline` action.
 class UpdatePipelineOutput {
   /// The structure of the updated pipeline.
   final PipelineDeclaration pipeline;
@@ -2508,6 +2609,7 @@ class UpdatePipelineOutput {
       UpdatePipelineOutput();
 }
 
+/// The authentication applied to incoming webhook trigger requests.
 class WebhookAuthConfiguration {
   /// The property used to configure acceptance of webhooks within a specific IP
   /// range. For IP, only the `AllowedIPRange` property must be set, and this
@@ -2526,6 +2628,7 @@ class WebhookAuthConfiguration {
       WebhookAuthConfiguration();
 }
 
+/// Represents information about a webhook and its definition.
 class WebhookDefinition {
   /// The name of the webhook.
   final String name;
@@ -2545,9 +2648,9 @@ class WebhookDefinition {
   /// Supported options are GITHUB_HMAC, IP and UNAUTHENTICATED.
   ///
   /// *   For information about the authentication scheme implemented by
-  /// GITHUB_HMAC, see [Securing your
-  /// webhooks](https://developer.github.com/webhooks/securing/) on the GitHub
-  /// Developer website.
+  /// GITHUB_HMAC, see
+  /// [Securing your webhooks](https://developer.github.com/webhooks/securing/)
+  /// on the GitHub Developer website.
   ///
   /// *    IP will reject webhooks trigger requests unless they originate from
   /// an IP within the IP range whitelisted in the authentication configuration.
@@ -2575,12 +2678,15 @@ class WebhookDefinition {
       WebhookDefinition();
 }
 
+/// The event criteria that specify when a webhook notification is sent to your
+/// URL.
 class WebhookFilterRule {
   /// A JsonPath expression that will be applied to the body/payload of the
   /// webhook. The value selected by the JsonPath expression must match the
   /// value specified in the `MatchEquals` field, otherwise the request will be
-  /// ignored. For more information about JsonPath expressions, see [Java
-  /// JsonPath implementation](https://github.com/json-path/JsonPath) in GitHub.
+  /// ignored. For more information about JsonPath expressions, see
+  /// [Java JsonPath implementation](https://github.com/json-path/JsonPath) in
+  /// GitHub.
   final String jsonPath;
 
   /// The value selected by the `JsonPath` expression must match what is
@@ -2591,9 +2697,8 @@ class WebhookFilterRule {
   /// "refs/heads/{Branch}" and the target action has an action configuration
   /// property called "Branch" with a value of "master", the `MatchEquals` value
   /// will be evaluated as "refs/heads/master". For a list of action
-  /// configuration properties for built-in action types, see [Pipeline
-  /// Structure Reference Action
-  /// Requirements](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements).
+  /// configuration properties for built-in action types, see
+  /// [Pipeline Structure Reference Action Requirements](https://docs.aws.amazon.com/codepipeline/latest/userguide/reference-pipeline-structure.html#action-requirements).
   final String matchEquals;
 
   WebhookFilterRule({

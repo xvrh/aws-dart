@@ -271,6 +271,7 @@ class LicenseManagerApi {
   }
 }
 
+/// Details about license consumption.
 class ConsumedLicenseSummary {
   /// Resource type of the resource consuming a license (instance, host, or
   /// AMI).
@@ -306,6 +307,11 @@ class DeleteLicenseConfigurationResponse {
       DeleteLicenseConfigurationResponse();
 }
 
+/// A filter name and value pair that is used to return a more specific list of
+/// results from a describe operation. Filters can be used to match a set of
+/// resources by specific criteria, such as tags, attributes, or IDs. The
+/// filters supported by a `Describe` operation are documented with the
+/// `Describe` operation.
 class Filter {
   /// Name of the filter. Filter names are case-sensitive.
   final String name;
@@ -408,6 +414,7 @@ class GetServiceSettingsResponse {
       GetServiceSettingsResponse();
 }
 
+/// An inventory filter object.
 class InventoryFilter {
   /// The name of the filter.
   final String name;
@@ -425,6 +432,12 @@ class InventoryFilter {
   });
 }
 
+/// A license configuration is an abstraction of a customer license agreement
+/// that can be consumed and enforced by License Manager. Components include
+/// specifications for the license type (licensing by instance, socket, CPU, or
+/// VCPU), tenancy (shared tenancy, Amazon EC2 Dedicated Instance, Amazon EC2
+/// Dedicated Host, or any of these), host affinity (how long a VM must be
+/// associated with a host), the number of licenses purchased and used.
 class LicenseConfiguration {
   /// Unique ID of the `LicenseConfiguration` object.
   final String licenseConfigurationId;
@@ -484,6 +497,7 @@ class LicenseConfiguration {
       LicenseConfiguration();
 }
 
+/// Describes a server resource that is associated with a license configuration.
 class LicenseConfigurationAssociation {
   /// ARN of the resource associated with the license configuration.
   final String resourceArn;
@@ -507,6 +521,7 @@ class LicenseConfigurationAssociation {
       LicenseConfigurationAssociation();
 }
 
+/// Contains details of the usage of each resource from the license pool.
 class LicenseConfigurationUsage {
   /// ARN of the resource associated with a license configuration.
   final String resourceArn;
@@ -541,6 +556,7 @@ class LicenseConfigurationUsage {
       LicenseConfigurationUsage();
 }
 
+/// Object used for associating a license configuration with a resource.
 class LicenseSpecification {
   /// ARN of the `LicenseConfiguration` object.
   final String licenseConfigurationArn;
@@ -644,6 +660,7 @@ class ListUsageForLicenseConfigurationResponse {
       ListUsageForLicenseConfigurationResponse();
 }
 
+/// Summary for a resource.
 class ManagedResourceSummary {
   /// Type of resource associated with a license (instance, host, or AMI).
   final String resourceType;
@@ -659,6 +676,7 @@ class ManagedResourceSummary {
       ManagedResourceSummary();
 }
 
+/// Object containing configuration information for AWS Organizations.
 class OrganizationConfiguration {
   /// Flag to activate AWS Organization integration.
   final bool enableIntegration;
@@ -670,6 +688,7 @@ class OrganizationConfiguration {
       OrganizationConfiguration();
 }
 
+/// A set of attributes that describe a resource.
 class ResourceInventory {
   /// Unique ID of the resource.
   final String resourceId;
@@ -701,6 +720,7 @@ class ResourceInventory {
       ResourceInventory();
 }
 
+/// Tag for a resource in a key-value format.
 class Tag {
   /// Key for the resource tag.
   final String key;

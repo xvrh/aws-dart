@@ -18,11 +18,11 @@ import 'dart:typed_data';
 /// convenient way to create programmatic access to AWSCloudTrail. For example,
 /// the SDKs take care of cryptographically signing requests, managing errors,
 /// and retrying requests automatically. For information about the AWS SDKs,
-/// including how to download and install them, see the [Tools for Amazon Web
-/// Services page](http://aws.amazon.com/tools/).
+/// including how to download and install them, see the
+/// [Tools for Amazon Web Services page](http://aws.amazon.com/tools/).
 ///
-/// See the [AWS CloudTrail User
-/// Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+/// See the
+/// [AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
 /// for information about the data that is included with each AWS API call
 /// listed in the log files.
 class CloudTrailApi {
@@ -64,13 +64,13 @@ class CloudTrailApi {
   /// *   Not be in IP address format (for example, 192.168.5.4)
   ///
   /// [s3BucketName]: Specifies the name of the Amazon S3 bucket designated for
-  /// publishing log files. See [Amazon S3 Bucket Naming
-  /// Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
+  /// publishing log files. See
+  /// [Amazon S3 Bucket Naming Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
   ///
   /// [s3KeyPrefix]: Specifies the Amazon S3 key prefix that comes after the
   /// name of the bucket you have designated for log file delivery. For more
-  /// information, see [Finding Your CloudTrail Log
-  /// Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
+  /// information, see
+  /// [Finding Your CloudTrail Log Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
   /// The maximum length is 200 characters.
   ///
   /// [snsTopicName]: Specifies the name of the Amazon SNS topic defined for
@@ -202,8 +202,8 @@ class CloudTrailApi {
   /// AWS Lambda functions that you are logging for data events.
   ///
   ///
-  /// For more information, see [Logging Data and Management Events for
-  /// Trails](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html)
+  /// For more information, see
+  /// [Logging Data and Management Events for Trails](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html)
   ///  in the _AWS CloudTrail User Guide_.
   ///
   /// [trailName]: Specifies the name of the trail or trail ARN. If you specify
@@ -283,8 +283,8 @@ class CloudTrailApi {
     return ListTagsResponse.fromJson({});
   }
 
-  /// Looks up [management
-  /// events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-management-events)
+  /// Looks up
+  /// [management events](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html#cloudtrail-concepts-management-events)
   /// captured by CloudTrail. Events for a region can be looked up in that
   /// region during the last 90 days. Lookup supports the following attributes:
   ///
@@ -376,10 +376,10 @@ class CloudTrailApi {
   /// thrown.
   ///
   /// You can configure up to five event selectors for each trail. For more
-  /// information, see [Logging Data and Management Events for
-  /// Trails](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html)
-  ///  and [Limits in AWS
-  /// CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html)
+  /// information, see
+  /// [Logging Data and Management Events for Trails](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html)
+  ///  and
+  /// [Limits in AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html)
   /// in the _AWS CloudTrail User Guide_.
   ///
   /// [trailName]: Specifies the name of the trail or trail ARN. If you specify
@@ -482,13 +482,13 @@ class CloudTrailApi {
   ///  `arn:aws:cloudtrail:us-east-2:123456789012:trail/MyTrail`
   ///
   /// [s3BucketName]: Specifies the name of the Amazon S3 bucket designated for
-  /// publishing log files. See [Amazon S3 Bucket Naming
-  /// Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
+  /// publishing log files. See
+  /// [Amazon S3 Bucket Naming Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
   ///
   /// [s3KeyPrefix]: Specifies the Amazon S3 key prefix that comes after the
   /// name of the bucket you have designated for log file delivery. For more
-  /// information, see [Finding Your CloudTrail Log
-  /// Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
+  /// information, see
+  /// [Finding Your CloudTrail Log Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
   /// The maximum length is 200 characters.
   ///
   /// [snsTopicName]: Specifies the name of the Amazon SNS topic defined for
@@ -567,12 +567,16 @@ class CloudTrailApi {
   }
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class AddTagsResponse {
   AddTagsResponse();
   static AddTagsResponse fromJson(Map<String, dynamic> json) =>
       AddTagsResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class CreateTrailResponse {
   /// Specifies the name of the trail.
   final String name;
@@ -583,8 +587,7 @@ class CreateTrailResponse {
 
   /// Specifies the Amazon S3 key prefix that comes after the name of the bucket
   /// you have designated for log file delivery. For more information, see
-  /// [Finding Your CloudTrail Log
-  /// Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
+  /// [Finding Your CloudTrail Log Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
   final String s3KeyPrefix;
 
   /// This field is deprecated. Use SnsTopicARN.
@@ -649,6 +652,53 @@ class CreateTrailResponse {
       CreateTrailResponse();
 }
 
+/// The Amazon S3 buckets or AWS Lambda functions that you specify in your event
+/// selectors for your trail to log data events. Data events provide insight
+/// into the resource operations performed on or within a resource itself. These
+/// are also known as data plane operations. You can specify up to 250 data
+/// resources for a trail.
+///
+///  The total number of allowed data resources is 250. This number can be
+/// distributed between 1 and 5 event selectors, but the total cannot exceed 250
+/// across all selectors.
+///
+/// The following example demonstrates how logging works when you configure
+/// logging of all data events for an S3 bucket named `bucket-1`. In this
+/// example, the CloudTrail user spcified an empty prefix, and the option to log
+/// both `Read` and `Write` data events.
+///
+/// 1.  A user uploads an image file to `bucket-1`.
+///
+/// 2.  The `PutObject` API operation is an Amazon S3 object-level API. It is
+/// recorded as a data event in CloudTrail. Because the CloudTrail user
+/// specified an S3 bucket with an empty prefix, events that occur on any object
+/// in that bucket are logged. The trail processes and logs the event.
+///
+/// 3.  A user uploads an object to an Amazon S3 bucket named
+/// `arn:aws:s3:::bucket-2`.
+///
+/// 4.  The `PutObject` API operation occurred for an object in an S3 bucket
+/// that the CloudTrail user didn't specify for the trail. The trail doesn’t log
+/// the event.
+///
+///
+/// The following example demonstrates how logging works when you configure
+/// logging of AWS Lambda data events for a Lambda function named
+/// _MyLambdaFunction_, but not for all AWS Lambda functions.
+///
+/// 1.  A user runs a script that includes a call to the _MyLambdaFunction_
+/// function and the _MyOtherLambdaFunction_ function.
+///
+/// 2.  The `Invoke` API operation on _MyLambdaFunction_ is an AWS Lambda API.
+/// It is recorded as a data event in CloudTrail. Because the CloudTrail user
+/// specified logging data events for _MyLambdaFunction_, any invocations of
+/// that function are logged. The trail processes and logs the event.
+///
+/// 3.  The `Invoke` API operation on _MyOtherLambdaFunction_ is an AWS Lambda
+/// API. Because the CloudTrail user did not specify logging data events for all
+/// Lambda functions, the `Invoke` operation for _MyOtherLambdaFunction_ does
+/// not match the function specified for the trail. The trail doesn’t log the
+/// event.
 class DataResource {
   /// The resource type in which you want to log data events. You can specify
   /// `AWS::S3::Object` or `AWS::Lambda::Function` resources.
@@ -701,12 +751,16 @@ class DataResource {
   static DataResource fromJson(Map<String, dynamic> json) => DataResource();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class DeleteTrailResponse {
   DeleteTrailResponse();
   static DeleteTrailResponse fromJson(Map<String, dynamic> json) =>
       DeleteTrailResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class DescribeTrailsResponse {
   /// The list of trail objects.
   final List<Trail> trailList;
@@ -718,6 +772,8 @@ class DescribeTrailsResponse {
       DescribeTrailsResponse();
 }
 
+/// Contains information about an event that was returned by a lookup request.
+/// The result includes a representation of a CloudTrail event.
 class Event {
   /// The CloudTrail ID of the event returned.
   final String eventId;
@@ -763,6 +819,15 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Use event selectors to further specify the management and data event
+/// settings for your trail. By default, trails created without specific event
+/// selectors will be configured to log all read and write management events,
+/// and no data events. When an event occurs in your account, CloudTrail
+/// evaluates the event selector for all trails. For each trail, if the event
+/// matches any event selector, the trail processes and logs the event. If the
+/// event doesn't match any event selector, the trail doesn't log the event.
+///
+/// You can configure up to five event selectors for a trail.
 class EventSelector {
   /// Specify if you want your trail to log read-only events, write-only events,
   /// or all. For example, the EC2 `GetConsoleOutput` is a read-only API
@@ -774,8 +839,8 @@ class EventSelector {
   /// Specify if you want your event selector to include management events for
   /// your trail.
   ///
-  ///  For more information, see [Management
-  /// Events](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html#logging-management-events)
+  ///  For more information, see
+  /// [Management Events](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html#logging-management-events)
   /// in the _AWS CloudTrail User Guide_.
   ///
   /// By default, the value is `true`.
@@ -787,10 +852,10 @@ class EventSelector {
   /// across all event selectors in a trail. This limit does not apply if you
   /// configure resource logging for all data events.
   ///
-  /// For more information, see [Data
-  /// Events](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html#logging-data-events)
-  /// and [Limits in AWS
-  /// CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html)
+  /// For more information, see
+  /// [Data Events](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/logging-management-and-data-events-with-cloudtrail.html#logging-data-events)
+  /// and
+  /// [Limits in AWS CloudTrail](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html)
   /// in the _AWS CloudTrail User Guide_.
   final List<DataResource> dataResources;
 
@@ -817,14 +882,16 @@ class GetEventSelectorsResponse {
       GetEventSelectorsResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class GetTrailStatusResponse {
   /// Whether the CloudTrail is currently logging AWS API calls.
   final bool isLogging;
 
   /// Displays any Amazon S3 error that CloudTrail encountered when attempting
   /// to deliver log files to the designated bucket. For more information see
-  /// the topic [Error
-  /// Responses](http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html)
+  /// the topic
+  /// [Error Responses](http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html)
   /// in the Amazon S3 API Reference.
   ///
   ///
@@ -837,8 +904,8 @@ class GetTrailStatusResponse {
 
   /// Displays any Amazon SNS error that CloudTrail encountered when attempting
   /// to send a notification. For more information about Amazon SNS errors, see
-  /// the [Amazon SNS Developer
-  /// Guide](http://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+  /// the
+  /// [Amazon SNS Developer Guide](http://docs.aws.amazon.com/sns/latest/dg/welcome.html).
   final String latestNotificationError;
 
   /// Specifies the date and time that CloudTrail last delivered log files to an
@@ -872,8 +939,8 @@ class GetTrailStatusResponse {
 
   /// Displays any Amazon S3 error that CloudTrail encountered when attempting
   /// to deliver a digest file to the designated bucket. For more information
-  /// see the topic [Error
-  /// Responses](http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html)
+  /// see the topic
+  /// [Error Responses](http://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html)
   /// in the Amazon S3 API Reference.
   ///
   ///
@@ -925,6 +992,8 @@ class GetTrailStatusResponse {
       GetTrailStatusResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class ListPublicKeysResponse {
   /// Contains an array of PublicKey objects.
   ///
@@ -944,6 +1013,8 @@ class ListPublicKeysResponse {
       ListPublicKeysResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class ListTagsResponse {
   /// A list of resource tags.
   final List<ResourceTag> resourceTagList;
@@ -959,6 +1030,7 @@ class ListTagsResponse {
       ListTagsResponse();
 }
 
+/// Specifies an attribute and value that filter the events returned.
 class LookupAttribute {
   /// Specifies an attribute on which to filter the events returned.
   final String attributeKey;
@@ -972,6 +1044,7 @@ class LookupAttribute {
   });
 }
 
+/// Contains a response to a LookupEvents action.
 class LookupEventsResponse {
   /// A list of events returned based on the lookup attributes specified and the
   /// CloudTrail event. The events list is sorted by time. The most recent event
@@ -994,6 +1067,7 @@ class LookupEventsResponse {
       LookupEventsResponse();
 }
 
+/// Contains information about a returned public key.
 class PublicKey {
   /// The DER encoded public key value in PKCS#1 format.
   final Uint8List value;
@@ -1034,19 +1108,22 @@ class PutEventSelectorsResponse {
       PutEventSelectorsResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class RemoveTagsResponse {
   RemoveTagsResponse();
   static RemoveTagsResponse fromJson(Map<String, dynamic> json) =>
       RemoveTagsResponse();
 }
 
+/// Specifies the type and name of a resource referenced by an event.
 class Resource {
   /// The type of a resource referenced by the event returned. When the resource
   /// type cannot be determined, null is returned. Some examples of resource
   /// types are: **Instance** for EC2, **Trail** for CloudTrail, **DBInstance**
   /// for RDS, and **AccessKey** for IAM. For a list of resource types supported
-  /// for event lookup, see [Resource Types Supported for Event
-  /// Lookup](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html).
+  /// for event lookup, see
+  /// [Resource Types Supported for Event Lookup](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/lookup_supported_resourcetypes.html).
   final String resourceType;
 
   /// The name of the resource referenced by the event returned. These are
@@ -1062,6 +1139,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// A resource tag.
 class ResourceTag {
   /// Specifies the ARN of the resource.
   final String resourceId;
@@ -1076,18 +1154,24 @@ class ResourceTag {
   static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class StartLoggingResponse {
   StartLoggingResponse();
   static StartLoggingResponse fromJson(Map<String, dynamic> json) =>
       StartLoggingResponse();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class StopLoggingResponse {
   StopLoggingResponse();
   static StopLoggingResponse fromJson(Map<String, dynamic> json) =>
       StopLoggingResponse();
 }
 
+/// A custom key-value pair associated with a resource such as a CloudTrail
+/// trail.
 class Tag {
   /// The key in a key-value pair. The key must be must be no longer than 128
   /// Unicode characters. The key must be unique for the resource to which it
@@ -1105,20 +1189,20 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The settings for a trail.
 class Trail {
   /// Name of the trail set by calling CreateTrail. The maximum length is 128
   /// characters.
   final String name;
 
   /// Name of the Amazon S3 bucket into which CloudTrail delivers your trail
-  /// files. See [Amazon S3 Bucket Naming
-  /// Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
+  /// files. See
+  /// [Amazon S3 Bucket Naming Requirements](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/create_trail_naming_policy.html).
   final String s3BucketName;
 
   /// Specifies the Amazon S3 key prefix that comes after the name of the bucket
   /// you have designated for log file delivery. For more information, see
-  /// [Finding Your CloudTrail Log
-  /// Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).The
+  /// [Finding Your CloudTrail Log Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).The
   /// maximum length is 200 characters.
   final String s3KeyPrefix;
 
@@ -1191,6 +1275,8 @@ class Trail {
   static Trail fromJson(Map<String, dynamic> json) => Trail();
 }
 
+/// Returns the objects or data listed below if successful. Otherwise, returns
+/// an error.
 class UpdateTrailResponse {
   /// Specifies the name of the trail.
   final String name;
@@ -1201,8 +1287,7 @@ class UpdateTrailResponse {
 
   /// Specifies the Amazon S3 key prefix that comes after the name of the bucket
   /// you have designated for log file delivery. For more information, see
-  /// [Finding Your CloudTrail Log
-  /// Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
+  /// [Finding Your CloudTrail Log Files](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-find-log-files.html).
   final String s3KeyPrefix;
 
   /// This field is deprecated. Use SnsTopicARN.

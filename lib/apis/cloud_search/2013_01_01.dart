@@ -10,18 +10,18 @@ import 'package:meta/meta.dart';
 /// The endpoint for configuration service requests is region-specific:
 /// cloudsearch._region_.amazonaws.com. For example,
 /// cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions
-/// and endpoints, see [Regions and
-/// Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
+/// and endpoints, see
+/// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
 class CloudSearchApi {
-  /// Indexes the search suggestions. For more information, see [Configuring
-  /// Suggesters](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters)
+  /// Indexes the search suggestions. For more information, see
+  /// [Configuring Suggesters](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html#configuring-suggesters)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<BuildSuggestersResponse> buildSuggesters(String domainName) async {
     return BuildSuggestersResponse.fromJson({});
   }
 
-  /// Creates a new search domain. For more information, see [Creating a Search
-  /// Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html)
+  /// Creates a new search domain. For more information, see
+  /// [Creating a Search Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/creating-domains.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: A name for the domain you are creating. Allowed characters
@@ -34,8 +34,8 @@ class CloudSearchApi {
 
   /// Configures an analysis scheme that can be applied to a `text` or
   /// `text-array` field to define language-specific text processing options.
-  /// For more information, see [Configuring Analysis
-  /// Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
+  /// For more information, see
+  /// [Configuring Analysis Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DefineAnalysisSchemeResponse> defineAnalysisScheme(
       {@required String domainName,
@@ -45,8 +45,8 @@ class CloudSearchApi {
 
   /// Configures an `Expression` for the search domain. Used to create new
   /// expressions and modify existing ones. If the expression exists, the new
-  /// configuration replaces the old one. For more information, see [Configuring
-  /// Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
+  /// configuration replaces the old one. For more information, see
+  /// [Configuring Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DefineExpressionResponse> defineExpression(
       {@required String domainName, @required Expression expression}) async {
@@ -59,8 +59,8 @@ class CloudSearchApi {
   /// configuration specifies a unique name, the index field type, and the
   /// options you want to configure for the field. The options you can specify
   /// depend on the `IndexFieldType`. If the field exists, the new configuration
-  /// replaces the old one. For more information, see [Configuring Index
-  /// Fields](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html)
+  /// replaces the old one. For more information, see
+  /// [Configuring Index Fields](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [indexField]: The index field and field options you want to configure.
@@ -73,17 +73,16 @@ class CloudSearchApi {
   /// possible matches before users finish typing their queries. When you
   /// configure a suggester, you must specify the name of the text field you
   /// want to search for possible matches and a unique name for the suggester.
-  /// For more information, see [Getting Search
-  /// Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
+  /// For more information, see
+  /// [Getting Search Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DefineSuggesterResponse> defineSuggester(
       {@required String domainName, @required Suggester suggester}) async {
     return DefineSuggesterResponse.fromJson({});
   }
 
-  /// Deletes an analysis scheme. For more information, see [Configuring
-  /// Analysis
-  /// Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
+  /// Deletes an analysis scheme. For more information, see
+  /// [Configuring Analysis Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [analysisSchemeName]: The name of the analysis scheme you want to delete.
@@ -94,9 +93,8 @@ class CloudSearchApi {
   }
 
   /// Permanently deletes a search domain and all of its data. Once a domain has
-  /// been deleted, it cannot be recovered. For more information, see [Deleting
-  /// a Search
-  /// Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/deleting-domains.html)
+  /// been deleted, it cannot be recovered. For more information, see
+  /// [Deleting a Search Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/deleting-domains.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to permanently delete.
@@ -105,8 +103,7 @@ class CloudSearchApi {
   }
 
   /// Removes an `Expression` from the search domain. For more information, see
-  /// [Configuring
-  /// Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
+  /// [Configuring Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [expressionName]: The name of the `Expression` to delete.
@@ -116,8 +113,7 @@ class CloudSearchApi {
   }
 
   /// Removes an `IndexField` from the search domain. For more information, see
-  /// [Configuring Index
-  /// Fields](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html)
+  /// [Configuring Index Fields](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-index-fields.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [indexFieldName]: The name of the index field your want to remove from the
@@ -127,8 +123,8 @@ class CloudSearchApi {
     return DeleteIndexFieldResponse.fromJson({});
   }
 
-  /// Deletes a suggester. For more information, see [Getting Search
-  /// Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
+  /// Deletes a suggester. For more information, see
+  /// [Getting Search Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [suggesterName]: Specifies the name of the suggester you want to delete.
@@ -142,8 +138,8 @@ class CloudSearchApi {
   /// be limited to specific analysis schemes by name. By default, shows all
   /// analysis schemes and includes any pending changes to the configuration.
   /// Set the `Deployed` option to `true` to show the active configuration and
-  /// exclude pending changes. For more information, see [Configuring Analysis
-  /// Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
+  /// exclude pending changes. For more information, see
+  /// [Configuring Analysis Schemes](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-analysis-schemes.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -162,8 +158,8 @@ class CloudSearchApi {
   /// Gets the availability options configured for a domain. By default, shows
   /// the configuration with any pending changes. Set the `Deployed` option to
   /// `true` to show the active configuration and exclude pending changes. For
-  /// more information, see [Configuring Availability
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
+  /// more information, see
+  /// [Configuring Availability Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -181,8 +177,7 @@ class CloudSearchApi {
   /// number of searchable documents in a domain, use the console or submit a
   /// `matchall` request to your domain's search endpoint:
   /// `q=matchall&amp;q.parser=structured&amp;size=0`. For more information, see
-  /// [Getting Information about a Search
-  /// Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html)
+  /// [Getting Information about a Search Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainNames]: The names of the domains you want to include in the
@@ -196,8 +191,8 @@ class CloudSearchApi {
   /// specific expressions by name. By default, shows all expressions and
   /// includes any pending changes to the configuration. Set the `Deployed`
   /// option to `true` to show the active configuration and exclude pending
-  /// changes. For more information, see [Configuring
-  /// Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
+  /// changes. For more information, see
+  /// [Configuring Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -216,8 +211,8 @@ class CloudSearchApi {
   /// Can be limited to specific fields by name. By default, shows all fields
   /// and includes any pending changes to the configuration. Set the `Deployed`
   /// option to `true` to show the active configuration and exclude pending
-  /// changes. For more information, see [Getting Domain
-  /// Information](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html)
+  /// changes. For more information, see
+  /// [Getting Domain Information](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-domain-info.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -234,8 +229,8 @@ class CloudSearchApi {
 
   /// Gets the scaling parameters configured for a domain. A domain's scaling
   /// parameters specify the desired search instance type and replication count.
-  /// For more information, see [Configuring Scaling
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html)
+  /// For more information, see
+  /// [Configuring Scaling Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<DescribeScalingParametersResponse> describeScalingParameters(
       String domainName) async {
@@ -246,8 +241,8 @@ class CloudSearchApi {
   /// domain's document and search endpoints. By default, shows the
   /// configuration with any pending changes. Set the `Deployed` option to
   /// `true` to show the active configuration and exclude pending changes. For
-  /// more information, see [Configuring Access for a Search
-  /// Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html)
+  /// more information, see
+  /// [Configuring Access for a Search Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -265,8 +260,8 @@ class CloudSearchApi {
   /// limited to specific suggesters by name. By default, shows all suggesters
   /// and includes any pending changes to the configuration. Set the `Deployed`
   /// option to `true` to show the active configuration and exclude pending
-  /// changes. For more information, see [Getting Search
-  /// Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
+  /// changes. For more information, see
+  /// [Getting Search Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -296,8 +291,8 @@ class CloudSearchApi {
   /// option expands an Amazon CloudSearch domain to an additional Availability
   /// Zone in the same Region to increase fault tolerance in the event of a
   /// service disruption. Changes to the Multi-AZ option can take about half an
-  /// hour to become active. For more information, see [Configuring Availability
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
+  /// hour to become active. For more information, see
+  /// [Configuring Availability Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [multiAZ]: You expand an existing search domain to a second Availability
@@ -315,8 +310,7 @@ class CloudSearchApi {
   /// of data and traffic, but not below the desired instance type and
   /// replication count. If the Multi-AZ option is enabled, these values control
   /// the resources used per Availability Zone. For more information, see
-  /// [Configuring Scaling
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html)
+  /// [Configuring Scaling Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-scaling-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   Future<UpdateScalingParametersResponse> updateScalingParameters(
       {@required String domainName,
@@ -325,9 +319,8 @@ class CloudSearchApi {
   }
 
   /// Configures the access rules that control access to the domain's document
-  /// and search endpoints. For more information, see  [Configuring Access for
-  /// an Amazon CloudSearch
-  /// Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html).
+  /// and search endpoints. For more information, see
+  /// [Configuring Access for an Amazon CloudSearch Domain](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-access.html).
   ///
   /// [accessPolicies]: The access rules you want to configure. These rules
   /// replace any existing rules.
@@ -337,6 +330,8 @@ class CloudSearchApi {
   }
 }
 
+/// The configured access rules for the domain's document and search endpoints,
+/// and the current status of those rules.
 class AccessPoliciesStatus {
   final String options;
 
@@ -350,6 +345,8 @@ class AccessPoliciesStatus {
       AccessPoliciesStatus();
 }
 
+/// Synonyms, stopwords, and stemming options for an analysis scheme. Includes
+/// tokenization dictionary for Japanese.
 class AnalysisOptions {
   /// A JSON object that defines synonym groups and aliases. A synonym group is
   /// an array of arrays, where each sub-array is a group of terms where each
@@ -364,7 +361,7 @@ class AnalysisOptions {
   final String synonyms;
 
   /// A JSON array of terms to ignore during indexing and searching. For
-  /// example, `\["a", "an", "the", "of"\]`. The stopwords dictionary must
+  /// example, `["a", "an", "the", "of"]`. The stopwords dictionary must
   /// explicitly list each word you want to ignore. Wildcards and regular
   /// expressions are not supported.
   final String stopwords;
@@ -385,8 +382,8 @@ class AnalysisOptions {
 
   /// The level of algorithmic stemming to perform: `none`, `minimal`, `light`,
   /// or `full`. The available levels vary depending on the language. For more
-  /// information, see [Language Specific Text Processing
-  /// Settings](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings)
+  /// information, see
+  /// [Language Specific Text Processing Settings](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/text-processing.html#text-processing-settings)
   /// in the _Amazon CloudSearch Developer Guide_
   final String algorithmicStemming;
 
@@ -401,6 +398,11 @@ class AnalysisOptions {
       AnalysisOptions();
 }
 
+/// Configuration information for an analysis scheme. Each analysis scheme has a
+/// unique name and specifies the language of the text to be processed. The
+/// following options can be configured for an analysis scheme: `Synonyms`,
+/// `Stopwords`, `StemmingDictionary`, `JapaneseTokenizationDictionary` and
+/// `AlgorithmicStemming`.
 class AnalysisScheme {
   final String analysisSchemeName;
 
@@ -416,6 +418,7 @@ class AnalysisScheme {
   static AnalysisScheme fromJson(Map<String, dynamic> json) => AnalysisScheme();
 }
 
+/// The status and configuration of an `AnalysisScheme`.
 class AnalysisSchemeStatus {
   final AnalysisScheme options;
 
@@ -429,6 +432,7 @@ class AnalysisSchemeStatus {
       AnalysisSchemeStatus();
 }
 
+/// The status and configuration of the domain's availability options.
 class AvailabilityOptionsStatus {
   /// The availability options configured for the domain.
   final bool options;
@@ -443,6 +447,8 @@ class AvailabilityOptionsStatus {
       AvailabilityOptionsStatus();
 }
 
+/// The result of a `BuildSuggester` request. Contains a list of the fields used
+/// for suggestions.
 class BuildSuggestersResponse {
   final List<String> fieldNames;
 
@@ -453,6 +459,8 @@ class BuildSuggestersResponse {
       BuildSuggestersResponse();
 }
 
+/// The result of a `CreateDomainRequest`. Contains the status of a newly
+/// created domain.
 class CreateDomainResponse {
   final DomainStatus domainStatus;
 
@@ -463,6 +471,9 @@ class CreateDomainResponse {
       CreateDomainResponse();
 }
 
+/// Options for a field that contains an array of dates. Present if
+/// `IndexFieldType` specifies the field is of type `date-array`. All options
+/// are enabled by default.
 class DateArrayOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -490,6 +501,10 @@ class DateArrayOptions {
       DateArrayOptions();
 }
 
+/// Options for a date field. Dates and times are specified in UTC (Coordinated
+/// Universal Time) according to IETF RFC3339: yyyy-mm-ddT00:00:00Z. Present if
+/// `IndexFieldType` specifies the field is of type `date`. All options are
+/// enabled by default.
 class DateOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -519,6 +534,8 @@ class DateOptions {
   static DateOptions fromJson(Map<String, dynamic> json) => DateOptions();
 }
 
+/// The result of a `DefineAnalysisScheme` request. Contains the status of the
+/// newly-configured analysis scheme.
 class DefineAnalysisSchemeResponse {
   final AnalysisSchemeStatus analysisScheme;
 
@@ -529,6 +546,8 @@ class DefineAnalysisSchemeResponse {
       DefineAnalysisSchemeResponse();
 }
 
+/// The result of a `DefineExpression` request. Contains the status of the
+/// newly-configured expression.
 class DefineExpressionResponse {
   final ExpressionStatus expression;
 
@@ -539,6 +558,8 @@ class DefineExpressionResponse {
       DefineExpressionResponse();
 }
 
+/// The result of a `DefineIndexField` request. Contains the status of the
+/// newly-configured index field.
 class DefineIndexFieldResponse {
   final IndexFieldStatus indexField;
 
@@ -549,6 +570,8 @@ class DefineIndexFieldResponse {
       DefineIndexFieldResponse();
 }
 
+/// The result of a `DefineSuggester` request. Contains the status of the
+/// newly-configured suggester.
 class DefineSuggesterResponse {
   final SuggesterStatus suggester;
 
@@ -559,6 +582,8 @@ class DefineSuggesterResponse {
       DefineSuggesterResponse();
 }
 
+/// The result of a `DeleteAnalysisScheme` request. Contains the status of the
+/// deleted analysis scheme.
 class DeleteAnalysisSchemeResponse {
   /// The status of the analysis scheme being deleted.
   final AnalysisSchemeStatus analysisScheme;
@@ -570,6 +595,9 @@ class DeleteAnalysisSchemeResponse {
       DeleteAnalysisSchemeResponse();
 }
 
+/// The result of a `DeleteDomain` request. Contains the status of a newly
+/// deleted domain, or no status if the domain has already been completely
+/// deleted.
 class DeleteDomainResponse {
   final DomainStatus domainStatus;
 
@@ -580,6 +608,8 @@ class DeleteDomainResponse {
       DeleteDomainResponse();
 }
 
+/// The result of a `DeleteExpression` request. Specifies the expression being
+/// deleted.
 class DeleteExpressionResponse {
   /// The status of the expression being deleted.
   final ExpressionStatus expression;
@@ -591,6 +621,7 @@ class DeleteExpressionResponse {
       DeleteExpressionResponse();
 }
 
+/// The result of a `DeleteIndexField` request.
 class DeleteIndexFieldResponse {
   /// The status of the index field being deleted.
   final IndexFieldStatus indexField;
@@ -602,6 +633,8 @@ class DeleteIndexFieldResponse {
       DeleteIndexFieldResponse();
 }
 
+/// The result of a `DeleteSuggester` request. Contains the status of the
+/// deleted suggester.
 class DeleteSuggesterResponse {
   /// The status of the suggester being deleted.
   final SuggesterStatus suggester;
@@ -613,6 +646,8 @@ class DeleteSuggesterResponse {
       DeleteSuggesterResponse();
 }
 
+/// The result of a `DescribeAnalysisSchemes` request. Contains the analysis
+/// schemes configured for the domain specified in the request.
 class DescribeAnalysisSchemesResponse {
   /// The analysis scheme descriptions.
   final List<AnalysisSchemeStatus> analysisSchemes;
@@ -624,6 +659,8 @@ class DescribeAnalysisSchemesResponse {
       DescribeAnalysisSchemesResponse();
 }
 
+/// The result of a `DescribeAvailabilityOptions` request. Indicates whether or
+/// not the Multi-AZ option is enabled for the domain specified in the request.
 class DescribeAvailabilityOptionsResponse {
   /// The availability options configured for the domain. Indicates whether
   /// Multi-AZ is enabled for the domain.
@@ -637,6 +674,8 @@ class DescribeAvailabilityOptionsResponse {
       DescribeAvailabilityOptionsResponse();
 }
 
+/// The result of a `DescribeDomains` request. Contains the status of the
+/// domains specified in the request or all domains owned by the account.
 class DescribeDomainsResponse {
   final List<DomainStatus> domainStatusList;
 
@@ -647,6 +686,8 @@ class DescribeDomainsResponse {
       DescribeDomainsResponse();
 }
 
+/// The result of a `DescribeExpressions` request. Contains the expressions
+/// configured for the domain specified in the request.
 class DescribeExpressionsResponse {
   /// The expressions configured for the domain.
   final List<ExpressionStatus> expressions;
@@ -658,6 +699,8 @@ class DescribeExpressionsResponse {
       DescribeExpressionsResponse();
 }
 
+/// The result of a `DescribeIndexFields` request. Contains the index fields
+/// configured for the domain specified in the request.
 class DescribeIndexFieldsResponse {
   /// The index fields configured for the domain.
   final List<IndexFieldStatus> indexFields;
@@ -669,6 +712,8 @@ class DescribeIndexFieldsResponse {
       DescribeIndexFieldsResponse();
 }
 
+/// The result of a `DescribeScalingParameters` request. Contains the scaling
+/// parameters configured for the domain specified in the request.
 class DescribeScalingParametersResponse {
   final ScalingParametersStatus scalingParameters;
 
@@ -680,6 +725,7 @@ class DescribeScalingParametersResponse {
       DescribeScalingParametersResponse();
 }
 
+/// The result of a `DescribeServiceAccessPolicies` request.
 class DescribeServiceAccessPoliciesResponse {
   /// The access rules configured for the domain specified in the request.
   final AccessPoliciesStatus accessPolicies;
@@ -692,6 +738,7 @@ class DescribeServiceAccessPoliciesResponse {
       DescribeServiceAccessPoliciesResponse();
 }
 
+/// The result of a `DescribeSuggesters` request.
 class DescribeSuggestersResponse {
   /// The suggesters configured for the domain specified in the request.
   final List<SuggesterStatus> suggesters;
@@ -703,6 +750,7 @@ class DescribeSuggestersResponse {
       DescribeSuggestersResponse();
 }
 
+/// Options for a search suggester.
 class DocumentSuggesterOptions {
   /// The name of the index field you want to use for suggestions.
   final String sourceField;
@@ -733,6 +781,7 @@ class DocumentSuggesterOptions {
       DocumentSuggesterOptions();
 }
 
+/// The current status of the search domain.
 class DomainStatus {
   final String domainId;
 
@@ -797,6 +846,9 @@ class DomainStatus {
   static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus();
 }
 
+/// Options for a field that contains an array of double-precision 64-bit
+/// floating point values. Present if `IndexFieldType` specifies the field is of
+/// type `double-array`. All options are enabled by default.
 class DoubleArrayOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final double defaultValue;
@@ -824,6 +876,9 @@ class DoubleArrayOptions {
       DoubleArrayOptions();
 }
 
+/// Options for a double-precision 64-bit floating point field. Present if
+/// `IndexFieldType` specifies the field is of type `double`. All options are
+/// enabled by default.
 class DoubleOptions {
   /// A value to use for the field if the field isn't specified for a document.
   /// This can be important if you are using the field in an expression and that
@@ -856,6 +911,9 @@ class DoubleOptions {
   static DoubleOptions fromJson(Map<String, dynamic> json) => DoubleOptions();
 }
 
+/// A named expression that can be evaluated at search time. Can be used to sort
+/// the search results, define other expressions, or return computed information
+/// in the search results.
 class Expression {
   final String expressionName;
 
@@ -868,6 +926,7 @@ class Expression {
   static Expression fromJson(Map<String, dynamic> json) => Expression();
 }
 
+/// The value of an `Expression` and its current status.
 class ExpressionStatus {
   /// The expression that is evaluated for sorting while processing a search
   /// request.
@@ -883,6 +942,8 @@ class ExpressionStatus {
       ExpressionStatus();
 }
 
+/// The result of an `IndexDocuments` request. Contains the status of the
+/// indexing operation, including the fields being indexed.
 class IndexDocumentsResponse {
   /// The names of the fields that are currently being indexed.
   final List<String> fieldNames;
@@ -894,6 +955,8 @@ class IndexDocumentsResponse {
       IndexDocumentsResponse();
 }
 
+/// Configuration information for a field in the index, including its name,
+/// type, and options. The supported options depend on the `IndexFieldType`.
 class IndexField {
   /// A string that represents the name of an index field. CloudSearch supports
   /// regular index fields as well as dynamic fields. A dynamic field's name
@@ -953,6 +1016,7 @@ class IndexField {
   static IndexField fromJson(Map<String, dynamic> json) => IndexField();
 }
 
+/// The value of an `IndexField` and its current status.
 class IndexFieldStatus {
   final IndexField options;
 
@@ -966,6 +1030,9 @@ class IndexFieldStatus {
       IndexFieldStatus();
 }
 
+/// Options for a field that contains an array of 64-bit signed integers.
+/// Present if `IndexFieldType` specifies the field is of type `int-array`. All
+/// options are enabled by default.
 class IntArrayOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final BigInt defaultValue;
@@ -993,6 +1060,8 @@ class IntArrayOptions {
       IntArrayOptions();
 }
 
+/// Options for a 64-bit signed integer field. Present if `IndexFieldType`
+/// specifies the field is of type `int`. All options are enabled by default.
 class IntOptions {
   /// A value to use for the field if the field isn't specified for a document.
   /// This can be important if you are using the field in an expression and that
@@ -1025,6 +1094,9 @@ class IntOptions {
   static IntOptions fromJson(Map<String, dynamic> json) => IntOptions();
 }
 
+/// Options for a latlon field. A latlon field contains a location stored as a
+/// latitude and longitude value pair. Present if `IndexFieldType` specifies the
+/// field is of type `latlon`. All options are enabled by default.
 class LatLonOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -1066,6 +1138,8 @@ class Limits {
   static Limits fromJson(Map<String, dynamic> json) => Limits();
 }
 
+/// The result of a `ListDomainNames` request. Contains a list of the domains
+/// owned by an account.
 class ListDomainNamesResponse {
   /// The names of the search domains owned by an account.
   final Map<String, String> domainNames;
@@ -1077,6 +1151,9 @@ class ListDomainNamesResponse {
       ListDomainNamesResponse();
 }
 
+/// Options for a field that contains an array of literal strings. Present if
+/// `IndexFieldType` specifies the field is of type `literal-array`. All options
+/// are enabled by default.
 class LiteralArrayOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -1104,6 +1181,8 @@ class LiteralArrayOptions {
       LiteralArrayOptions();
 }
 
+/// Options for literal field. Present if `IndexFieldType` specifies the field
+/// is of type `literal`. All options are enabled by default.
 class LiteralOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -1133,6 +1212,7 @@ class LiteralOptions {
   static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions();
 }
 
+/// The status of domain configuration option.
 class OptionStatus {
   /// A timestamp for when this option was created.
   final DateTime creationDate;
@@ -1168,6 +1248,8 @@ class OptionStatus {
   static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
 }
 
+/// The desired instance type and desired number of replicas of each index
+/// partition.
 class ScalingParameters {
   /// The instance type that you want to preconfigure for your domain. For
   /// example, `search.m1.small`.
@@ -1189,6 +1271,7 @@ class ScalingParameters {
       ScalingParameters();
 }
 
+/// The status and configuration of a search domain's scaling parameters.
 class ScalingParametersStatus {
   final ScalingParameters options;
 
@@ -1202,6 +1285,7 @@ class ScalingParametersStatus {
       ScalingParametersStatus();
 }
 
+/// The endpoint to which service requests can be submitted.
 class ServiceEndpoint {
   final String endpoint;
 
@@ -1212,6 +1296,10 @@ class ServiceEndpoint {
       ServiceEndpoint();
 }
 
+/// Configuration information for a search suggester. Each suggester has a
+/// unique name and specifies the text field you want to use for suggestions.
+/// The following options can be configured for a suggester: `FuzzyMatching`,
+/// `SortExpression`.
 class Suggester {
   final String suggesterName;
 
@@ -1224,6 +1312,7 @@ class Suggester {
   static Suggester fromJson(Map<String, dynamic> json) => Suggester();
 }
 
+/// The value of a `Suggester` and its current status.
 class SuggesterStatus {
   final Suggester options;
 
@@ -1237,6 +1326,9 @@ class SuggesterStatus {
       SuggesterStatus();
 }
 
+/// Options for a field that contains an array of text strings. Present if
+/// `IndexFieldType` specifies the field is of type `text-array`. A `text-array`
+/// field is always searchable. All options are enabled by default.
 class TextArrayOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -1264,6 +1356,9 @@ class TextArrayOptions {
       TextArrayOptions();
 }
 
+/// Options for text field. Present if `IndexFieldType` specifies the field is
+/// of type `text`. A `text` field is always searchable. All options are enabled
+/// by default.
 class TextOptions {
   /// A value to use for the field if the field isn't specified for a document.
   final String defaultValue;
@@ -1293,6 +1388,8 @@ class TextOptions {
   static TextOptions fromJson(Map<String, dynamic> json) => TextOptions();
 }
 
+/// The result of a `UpdateAvailabilityOptions` request. Contains the status of
+/// the domain's availability options.
 class UpdateAvailabilityOptionsResponse {
   /// The newly-configured availability options. Indicates whether Multi-AZ is
   /// enabled for the domain.
@@ -1306,6 +1403,8 @@ class UpdateAvailabilityOptionsResponse {
       UpdateAvailabilityOptionsResponse();
 }
 
+/// The result of a `UpdateScalingParameters` request. Contains the status of
+/// the newly-configured scaling parameters.
 class UpdateScalingParametersResponse {
   final ScalingParametersStatus scalingParameters;
 
@@ -1316,6 +1415,8 @@ class UpdateScalingParametersResponse {
       UpdateScalingParametersResponse();
 }
 
+/// The result of an `UpdateServiceAccessPolicies` request. Contains the new
+/// access policies.
 class UpdateServiceAccessPoliciesResponse {
   /// The access rules configured for the domain.
   final AccessPoliciesStatus accessPolicies;

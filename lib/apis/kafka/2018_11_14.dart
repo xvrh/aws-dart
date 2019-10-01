@@ -18,8 +18,8 @@ class KafkaApi {
   /// [encryptionInfo]: Includes all encryption-related information.
   ///
   /// [enhancedMonitoring]: Specifies the level of monitoring for the MSK
-  /// cluster. The possible values are DEFAULT, PER\_BROKER, and
-  /// PER\_TOPIC\_PER\_BROKER.
+  /// cluster. The possible values are DEFAULT, PER_BROKER, and
+  /// PER_TOPIC_PER_BROKER.
   ///
   /// [kafkaVersion]: The version of Apache Kafka.
   ///
@@ -277,6 +277,9 @@ class KafkaApi {
   }
 }
 
+/// Specifies the EBS volume upgrade information. The broker identifier must be
+/// set to the keyword ALL. This means the changes apply to all the brokers in
+/// the cluster.
 class BrokerEbsVolumeInfo {
   /// The ID of the broker to update.
   final String kafkaBrokerNodeId;
@@ -292,6 +295,7 @@ class BrokerEbsVolumeInfo {
       BrokerEbsVolumeInfo();
 }
 
+/// Describes the setup to be used for Kafka broker nodes in the cluster.
 class BrokerNodeGroupInfo {
   /// The distribution of broker nodes across Availability Zones.
   final String brokerAZDistribution;
@@ -328,6 +332,7 @@ class BrokerNodeGroupInfo {
       BrokerNodeGroupInfo();
 }
 
+/// BrokerNodeInfo
 class BrokerNodeInfo {
   /// The attached elastic network interface of the broker.
   final String attachedEniId;
@@ -359,6 +364,7 @@ class BrokerNodeInfo {
   static BrokerNodeInfo fromJson(Map<String, dynamic> json) => BrokerNodeInfo();
 }
 
+/// Information about the current software installed on the cluster.
 class BrokerSoftwareInfo {
   /// The Amazon Resource Name (ARN) of the configuration used for the cluster.
   /// This field isn't visible in this preview release.
@@ -380,6 +386,7 @@ class BrokerSoftwareInfo {
       BrokerSoftwareInfo();
 }
 
+/// Includes all client authentication information.
 class ClientAuthentication {
   /// Details for ClientAuthentication using TLS.
   final Tls tls;
@@ -391,6 +398,7 @@ class ClientAuthentication {
       ClientAuthentication();
 }
 
+/// Returns information about a cluster.
 class ClusterInfo {
   /// Arn of active cluster operation.
   final String activeOperationArn;
@@ -421,9 +429,9 @@ class ClusterInfo {
   final EncryptionInfo encryptionInfo;
 
   /// Specifies which metrics are gathered for the MSK cluster. This property
-  /// has three possible values: DEFAULT, PER\_BROKER, and
-  /// PER\_TOPIC\_PER\_BROKER. For a list of the metrics associated with each of
-  /// these three levels of monitoring, see
+  /// has three possible values: DEFAULT, PER_BROKER, and PER_TOPIC_PER_BROKER.
+  /// For a list of the metrics associated with each of these three levels of
+  /// monitoring, see
   /// [Monitoring](https://docs.aws.amazon.com/msk/latest/developerguide/monitoring.html).
   final String enhancedMonitoring;
 
@@ -459,6 +467,7 @@ class ClusterInfo {
   static ClusterInfo fromJson(Map<String, dynamic> json) => ClusterInfo();
 }
 
+/// Returns information about a cluster operation.
 class ClusterOperationInfo {
   /// The ID of the API request that triggered this operation.
   final String clientRequestId;
@@ -506,6 +515,7 @@ class ClusterOperationInfo {
       ClusterOperationInfo();
 }
 
+/// Represents an MSK Configuration.
 class Configuration {
   /// The Amazon Resource Name (ARN) of the configuration.
   final String arn;
@@ -538,6 +548,7 @@ class Configuration {
   static Configuration fromJson(Map<String, dynamic> json) => Configuration();
 }
 
+/// Specifies the configuration to use for the brokers.
 class ConfigurationInfo {
   /// ARN of the configuration to use.
   final String arn;
@@ -553,6 +564,7 @@ class ConfigurationInfo {
       ConfigurationInfo();
 }
 
+/// Describes a configuration revision.
 class ConfigurationRevision {
   /// The time when the configuration revision was created.
   final DateTime creationTime;
@@ -716,6 +728,8 @@ class DescribeConfigurationRevisionResponse {
       DescribeConfigurationRevisionResponse();
 }
 
+/// Contains information about the EBS storage volumes attached to Kafka broker
+/// nodes.
 class EbsStorageInfo {
   /// The size in GiB of the EBS volume for the data drive on each broker node.
   final int volumeSize;
@@ -726,6 +740,7 @@ class EbsStorageInfo {
   static EbsStorageInfo fromJson(Map<String, dynamic> json) => EbsStorageInfo();
 }
 
+/// The data-volume encryption details.
 class EncryptionAtRest {
   /// The ARN of the AWS KMS key for encrypting data at rest. If you don't
   /// specify a KMS key, MSK creates one for you and uses it.
@@ -738,6 +753,7 @@ class EncryptionAtRest {
       EncryptionAtRest();
 }
 
+/// The settings for encrypting data in transit.
 class EncryptionInTransit {
   /// Indicates the encryption setting for data in transit between clients and
   /// brokers. The following are the possible values.
@@ -768,6 +784,9 @@ class EncryptionInTransit {
       EncryptionInTransit();
 }
 
+/// Includes encryption-related information, such as the AWS KMS key used for
+/// encrypting data at rest and whether you want MSK to encrypt your data in
+/// transit.
 class EncryptionInfo {
   /// The data-volume encryption details.
   final EncryptionAtRest encryptionAtRest;
@@ -782,6 +801,7 @@ class EncryptionInfo {
   static EncryptionInfo fromJson(Map<String, dynamic> json) => EncryptionInfo();
 }
 
+/// Returns information about an error state of the cluster.
 class ErrorInfo {
   /// A number describing the error programmatically.
   final String errorCode;
@@ -906,6 +926,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Information about cluster attributes that can be updated via update APIs.
 class MutableClusterInfo {
   /// Specifies the size of the EBS volume and the ID of the associated broker.
   final List<BrokerEbsVolumeInfo> brokerEbsVolumeInfo;
@@ -925,6 +946,7 @@ class MutableClusterInfo {
       MutableClusterInfo();
 }
 
+/// The node information object.
 class NodeInfo {
   /// The start time.
   final String addedToClusterTime;
@@ -955,6 +977,7 @@ class NodeInfo {
   static NodeInfo fromJson(Map<String, dynamic> json) => NodeInfo();
 }
 
+/// Contains information about storage volumes attached to MSK broker nodes.
 class StorageInfo {
   /// EBS volume information.
   final EbsStorageInfo ebsStorageInfo;
@@ -965,6 +988,7 @@ class StorageInfo {
   static StorageInfo fromJson(Map<String, dynamic> json) => StorageInfo();
 }
 
+/// Details for client authentication using TLS.
 class Tls {
   /// List of ACM Certificate Authority ARNs.
   final List<String> certificateAuthorityArnList;
@@ -1006,6 +1030,7 @@ class UpdateClusterConfigurationResponse {
       UpdateClusterConfigurationResponse();
 }
 
+/// Zookeeper node information.
 class ZookeeperNodeInfo {
   /// The attached elastic network interface of the broker.
   final String attachedEniId;

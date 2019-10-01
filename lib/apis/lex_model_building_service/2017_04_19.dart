@@ -405,8 +405,8 @@ class LexModelBuildingServiceApi {
   /// This operation requires permission for the `lex:GetBuiltinIntent` action.
   ///
   /// [signature]: The unique identifier for a built-in intent. To find the
-  /// signature for an intent, see [Standard Built-in
-  /// Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
+  /// signature for an intent, see
+  /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   Future<GetBuiltinIntentResponse> getBuiltinIntent(String signature) async {
     return GetBuiltinIntentResponse.fromJson({});
@@ -421,8 +421,8 @@ class LexModelBuildingServiceApi {
   /// [signatureContains]: Substring to match in built-in intent signatures. An
   /// intent will be returned if any part of its signature matches the
   /// substring. For example, "xyz" matches both "xyzabc" and "abcxyz." To find
-  /// the signature for an intent, see [Standard Built-in
-  /// Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
+  /// the signature for an intent, see
+  /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   ///
   /// [nextToken]: A pagination token that fetches the next page of intents. If
@@ -442,8 +442,8 @@ class LexModelBuildingServiceApi {
 
   /// Gets a list of built-in slot types that meet the specified criteria.
   ///
-  /// For a list of built-in slot types, see [Slot Type
-  /// Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
+  /// For a list of built-in slot types, see
+  /// [Slot Type Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
   /// in the _Alexa Skills Kit_.
   ///
   /// This operation requires permission for the `lex:GetBuiltInSlotTypes`
@@ -748,9 +748,9 @@ class LexModelBuildingServiceApi {
   ///
   /// [voiceId]: The Amazon Polly voice ID that you want Amazon Lex to use for
   /// voice interactions with the user. The locale configured for the voice must
-  /// match the locale of the bot. For more information, see [Available
-  /// Voices](http://docs.aws.amazon.com/polly/latest/dg/voicelist.html) in the
-  /// _Amazon Polly Developer Guide_.
+  /// match the locale of the bot. For more information, see
+  /// [Available Voices](http://docs.aws.amazon.com/polly/latest/dg/voicelist.html)
+  /// in the _Amazon Polly Developer Guide_.
   ///
   /// [checksum]: Identifies a specific revision of the `$LATEST` version.
   ///
@@ -796,8 +796,8 @@ class LexModelBuildingServiceApi {
   /// 13, you must obtain any required verifiable parental consent under COPPA.
   /// For information regarding the use of Amazon Lex in connection with
   /// websites, programs, or other applications that are directed or targeted,
-  /// in whole or in part, to children under age 13, see the [Amazon Lex
-  /// FAQ.](https://aws.amazon.com/lex/faqs#data-security)
+  /// in whole or in part, to children under age 13, see the
+  /// [Amazon Lex FAQ.](https://aws.amazon.com/lex/faqs#data-security)
   Future<PutBotResponse> putBot(
       {@required String name,
       String description,
@@ -905,8 +905,8 @@ class LexModelBuildingServiceApi {
   /// called `AMAZON.HelpIntent`, you can't create a custom intent called
   /// `HelpIntent`.
   ///
-  /// For a list of built-in intents, see [Standard Built-in
-  /// Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
+  /// For a list of built-in intents, see
+  /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   ///
   /// [description]: A description of the intent.
@@ -1002,9 +1002,8 @@ class LexModelBuildingServiceApi {
   /// process the intent (for example, place an order with a pizzeria).
   ///
   /// [parentIntentSignature]: A unique identifier for the built-in intent to
-  /// base this intent on. To find the signature for an intent, see [Standard
-  /// Built-in
-  /// Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
+  /// base this intent on. To find the signature for an intent, see
+  /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   ///
   /// [checksum]: Identifies a specific revision of the `$LATEST` version.
@@ -1055,8 +1054,8 @@ class LexModelBuildingServiceApi {
   /// type called `AMAZON.DATE`, you can't create a custom slot type called
   /// `DATE`.
   ///
-  /// For a list of built-in slot types, see [Slot Type
-  /// Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
+  /// For a list of built-in slot types, see
+  /// [Slot Type Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
   /// in the _Alexa Skills Kit_.
   ///
   /// [description]: A description of the slot type.
@@ -1087,12 +1086,12 @@ class LexModelBuildingServiceApi {
   /// Amazon Lex uses to return slot type values. The field can be set to one of
   /// the following values:
   ///
-  /// *    `ORIGINAL_VALUE` \- Returns the value entered by the user, if the
-  /// user value is similar to the slot value.
+  /// *    `ORIGINAL_VALUE` - Returns the value entered by the user, if the user
+  /// value is similar to the slot value.
   ///
-  /// *    `TOP_RESOLUTION` \- If there is a resolution list for the slot,
-  /// return the first value in the resolution list as the slot type value. If
-  /// there is no resolution list, null is returned.
+  /// *    `TOP_RESOLUTION` - If there is a resolution list for the slot, return
+  /// the first value in the resolution list as the slot type value. If there is
+  /// no resolution list, null is returned.
   ///
   ///
   /// If you don't specify the `valueSelectionStrategy`, the default is
@@ -1122,7 +1121,7 @@ class LexModelBuildingServiceApi {
   /// [mergeStrategy]: Specifies the action that the `StartImport` operation
   /// should take when there is an existing resource with the same name.
   ///
-  /// *   FAIL\_ON\_CONFLICT - The import operation is stopped on the first
+  /// *   FAIL_ON_CONFLICT - The import operation is stopped on the first
   /// conflict between a resource in the import file and an existing resource.
   /// The name of the resource causing the conflict is in the `failureReason`
   /// field of the response to the `GetImport` operation.
@@ -1138,6 +1137,7 @@ class LexModelBuildingServiceApi {
   }
 }
 
+/// Provides information about a bot alias.
 class BotAliasMetadata {
   /// The name of the bot alias.
   final String name;
@@ -1174,6 +1174,8 @@ class BotAliasMetadata {
       BotAliasMetadata();
 }
 
+/// Represents an association between an Amazon Lex bot and an external
+/// messaging platform.
 class BotChannelAssociation {
   /// The name of the association between the bot and the channel.
   final String name;
@@ -1207,11 +1209,11 @@ class BotChannelAssociation {
 
   /// The status of the bot channel.
   ///
-  /// *    `CREATED` \- The channel has been created and is ready for use.
+  /// *    `CREATED` - The channel has been created and is ready for use.
   ///
-  /// *    `IN_PROGRESS` \- Channel creation is in progress.
+  /// *    `IN_PROGRESS` - Channel creation is in progress.
   ///
-  /// *    `FAILED` \- There was an error creating the channel. For information
+  /// *    `FAILED` - There was an error creating the channel. For information
   /// about the reason for the failure, see the `failureReason` field.
   final String status;
 
@@ -1234,6 +1236,7 @@ class BotChannelAssociation {
       BotChannelAssociation();
 }
 
+/// Provides information about a bot. .
 class BotMetadata {
   /// The name of the bot.
   final String name;
@@ -1265,10 +1268,11 @@ class BotMetadata {
   static BotMetadata fromJson(Map<String, dynamic> json) => BotMetadata();
 }
 
+/// Provides metadata for a built-in intent.
 class BuiltinIntentMetadata {
   /// A unique identifier for the built-in intent. To find the signature for an
-  /// intent, see [Standard Built-in
-  /// Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
+  /// intent, see
+  /// [Standard Built-in Intents](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/standard-intents)
   /// in the _Alexa Skills Kit_.
   final String signature;
 
@@ -1283,6 +1287,7 @@ class BuiltinIntentMetadata {
       BuiltinIntentMetadata();
 }
 
+/// Provides information about a slot used in a built-in intent.
 class BuiltinIntentSlot {
   /// A list of the slots defined for the intent.
   final String name;
@@ -1294,10 +1299,11 @@ class BuiltinIntentSlot {
       BuiltinIntentSlot();
 }
 
+/// Provides information about a built in slot type.
 class BuiltinSlotTypeMetadata {
   /// A unique identifier for the built-in slot type. To find the signature for
-  /// a slot type, see [Slot Type
-  /// Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
+  /// a slot type, see
+  /// [Slot Type Reference](https://developer.amazon.com/public/solutions/alexa/alexa-skills-kit/docs/built-in-intent-ref/slot-type-reference)
   /// in the _Alexa Skills Kit_.
   final String signature;
 
@@ -1312,6 +1318,8 @@ class BuiltinSlotTypeMetadata {
       BuiltinSlotTypeMetadata();
 }
 
+/// Specifies a Lambda function that verifies requests to a bot or fulfills the
+/// user's request to a bot..
 class CodeHook {
   /// The Amazon Resource Name (ARN) of the Lambda function.
   final String uri;
@@ -1402,8 +1410,8 @@ class CreateBotVersionResponse {
   /// 13, you must obtain any required verifiable parental consent under COPPA.
   /// For information regarding the use of Amazon Lex in connection with
   /// websites, programs, or other applications that are directed or targeted,
-  /// in whole or in part, to children under age 13, see the [Amazon Lex
-  /// FAQ.](https://aws.amazon.com/lex/faqs#data-security)
+  /// in whole or in part, to children under age 13, see the
+  /// [Amazon Lex FAQ.](https://aws.amazon.com/lex/faqs#data-security)
   final bool childDirected;
 
   CreateBotVersionResponse({
@@ -1542,6 +1550,18 @@ class CreateSlotTypeVersionResponse {
       CreateSlotTypeVersionResponse();
 }
 
+/// Each slot type can have a set of values. Each enumeration value represents a
+/// value the slot type can take.
+///
+/// For example, a pizza ordering bot could have a slot type that specifies the
+/// type of crust that the pizza should have. The slot type could include the
+/// values
+///
+/// *   thick
+///
+/// *   thin
+///
+/// *   stuffed
 class EnumerationValue {
   /// The value of the slot type.
   final String value;
@@ -1557,6 +1577,9 @@ class EnumerationValue {
       EnumerationValue();
 }
 
+/// A prompt for additional activity after an intent is fulfilled. For example,
+/// after the `OrderPizza` intent is fulfilled, you might prompt the user to
+/// find out whether the user wants to order drinks.
 class FollowUpPrompt {
   /// Prompts for information from the user.
   final Prompt prompt;
@@ -1573,6 +1596,24 @@ class FollowUpPrompt {
   static FollowUpPrompt fromJson(Map<String, dynamic> json) => FollowUpPrompt();
 }
 
+///  Describes how the intent is fulfilled after the user provides all of the
+/// information required for the intent. You can provide a Lambda function to
+/// process the intent, or you can return the intent information to the client
+/// application. We recommend that you use a Lambda function so that the
+/// relevant logic lives in the Cloud and limit the client-side code primarily
+/// to presentation. If you need to update the logic, you only update the Lambda
+/// function; you don't need to upgrade your client application.
+///
+/// Consider the following examples:
+///
+/// *   In a pizza ordering application, after the user provides all of the
+/// information for placing an order, you use a Lambda function to place an
+/// order with a pizzeria.
+///
+/// *   In a gaming application, when a user says "pick up a rock," this
+/// information must go back to the client application so that it can perform
+/// the operation and update the graphics. In this case, you want Amazon Lex to
+/// return the intent data to the client.
 class FulfillmentActivity {
   ///  How the intent should be fulfilled, either by running a Lambda function
   /// or by returning the slot data to the client application.
@@ -1669,11 +1710,11 @@ class GetBotChannelAssociationResponse {
 
   /// The status of the bot channel.
   ///
-  /// *    `CREATED` \- The channel has been created and is ready for use.
+  /// *    `CREATED` - The channel has been created and is ready for use.
   ///
-  /// *    `IN_PROGRESS` \- Channel creation is in progress.
+  /// *    `IN_PROGRESS` - Channel creation is in progress.
   ///
-  /// *    `FAILED` \- There was an error creating the channel. For information
+  /// *    `FAILED` - There was an error creating the channel. For information
   /// about the reason for the failure, see the `failureReason` field.
   final String status;
 
@@ -1792,8 +1833,8 @@ class GetBotResponse {
   /// 13, you must obtain any required verifiable parental consent under COPPA.
   /// For information regarding the use of Amazon Lex in connection with
   /// websites, programs, or other applications that are directed or targeted,
-  /// in whole or in part, to children under age 13, see the [Amazon Lex
-  /// FAQ.](https://aws.amazon.com/lex/faqs#data-security)
+  /// in whole or in part, to children under age 13, see the
+  /// [Amazon Lex FAQ.](https://aws.amazon.com/lex/faqs#data-security)
   final bool childDirected;
 
   GetBotResponse({
@@ -1923,11 +1964,11 @@ class GetExportResponse {
 
   /// The status of the export.
   ///
-  /// *    `IN_PROGRESS` \- The export is in progress.
+  /// *    `IN_PROGRESS` - The export is in progress.
   ///
-  /// *    `READY` \- The export is complete.
+  /// *    `READY` - The export is complete.
   ///
-  /// *    `FAILED` \- The export could not be completed.
+  /// *    `FAILED` - The export could not be completed.
   final String exportStatus;
 
   /// If `status` is `FAILED`, Amazon Lex provides the reason that it failed to
@@ -2198,6 +2239,7 @@ class GetUtterancesViewResponse {
       GetUtterancesViewResponse();
 }
 
+/// Identifies the specific version of an intent.
 class Intent {
   /// The name of the intent.
   final String intentName;
@@ -2212,6 +2254,7 @@ class Intent {
   static Intent fromJson(Map<String, dynamic> json) => Intent();
 }
 
+/// Provides information about an intent.
 class IntentMetadata {
   /// The name of the intent.
   final String name;
@@ -2239,6 +2282,7 @@ class IntentMetadata {
   static IntentMetadata fromJson(Map<String, dynamic> json) => IntentMetadata();
 }
 
+/// The message object that provides the message text and its type.
 class Message {
   /// The content type of the message string.
   final String contentType;
@@ -2259,6 +2303,10 @@ class Message {
   static Message fromJson(Map<String, dynamic> json) => Message();
 }
 
+/// Obtains information from the user. To define a prompt, provide one or more
+/// messages and specify the number of attempts to get information from the
+/// user. If you provide more than one message, Amazon Lex chooses one of the
+/// messages to use to prompt the user. For more information, see how-it-works.
 class Prompt {
   /// An array of objects, each of which provides a message string and its type.
   /// You can specify the message string in plain text or in Speech Synthesis
@@ -2397,8 +2445,8 @@ class PutBotResponse {
   /// 13, you must obtain any required verifiable parental consent under COPPA.
   /// For information regarding the use of Amazon Lex in connection with
   /// websites, programs, or other applications that are directed or targeted,
-  /// in whole or in part, to children under age 13, see the [Amazon Lex
-  /// FAQ.](https://aws.amazon.com/lex/faqs#data-security)
+  /// in whole or in part, to children under age 13, see the
+  /// [Amazon Lex FAQ.](https://aws.amazon.com/lex/faqs#data-security)
   final bool childDirected;
 
   final bool createVersion;
@@ -2550,6 +2598,7 @@ class PutSlotTypeResponse {
       PutSlotTypeResponse();
 }
 
+/// Identifies the version of a specific slot.
 class Slot {
   /// The name of the slot.
   final String name;
@@ -2603,6 +2652,7 @@ class Slot {
   static Slot fromJson(Map<String, dynamic> json) => Slot();
 }
 
+/// Provides information about a slot type..
 class SlotTypeMetadata {
   /// The name of the slot type.
   final String name;
@@ -2663,6 +2713,8 @@ class StartImportResponse {
       StartImportResponse();
 }
 
+/// A collection of messages that convey information to the user. At runtime,
+/// Amazon Lex selects the message to convey.
 class Statement {
   /// A collection of message objects.
   final List<Message> messages;
@@ -2681,6 +2733,7 @@ class Statement {
   static Statement fromJson(Map<String, dynamic> json) => Statement();
 }
 
+/// Provides information about a single utterance that was made to your bot.
 class UtteranceData {
   /// The text that was entered by the user or the text representation of an
   /// audio clip.
@@ -2708,6 +2761,8 @@ class UtteranceData {
   static UtteranceData fromJson(Map<String, dynamic> json) => UtteranceData();
 }
 
+/// Provides a list of utterances that have been made to a specific version of
+/// your bot. The list contains a maximum of 100 utterances.
 class UtteranceList {
   /// The version of the bot that processed the list.
   final String botVersion;

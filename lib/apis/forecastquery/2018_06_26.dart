@@ -5,9 +5,9 @@ class ForecastqueryApi {
   /// Retrieves a forecast filtered by the supplied criteria.
   ///
   /// The criteria is a key-value pair. The key is either `item_id` (or the
-  /// equivalent non-timestamp, non-target field) from the
-  /// `TARGET\_TIME\_SERIES` dataset, or one of the forecast dimensions
-  /// specified as part of the `FeaturizationConfig` object.
+  /// equivalent non-timestamp, non-target field) from the `TARGET_TIME_SERIES`
+  /// dataset, or one of the forecast dimensions specified as part of the
+  /// `FeaturizationConfig` object.
   ///
   /// By default, the complete date range of the filtered forecast is returned.
   /// Optionally, you can request a specific date range within the forecast.
@@ -32,13 +32,13 @@ class ForecastqueryApi {
   ///
   /// *   To get a forecast for a specific item specify the following:
   ///
-  ///      `{"item\_id" : "client\_1"}`
+  ///      `{"item_id" : "client_1"}`
   ///
   ///
   /// *   To get a forecast for a specific item sold in a specific location,
   /// specify the following:
   ///
-  ///      `{"item\_id" : "client\_1", "location" : "ny"}`
+  ///      `{"item_id" : "client_1", "location" : "ny"}`
   ///
   ///
   /// *   To get a forecast for all blue items sold in a specific location,
@@ -62,6 +62,7 @@ class ForecastqueryApi {
   }
 }
 
+/// The forecast value for a specific date. Part of the Forecast object.
 class DataPoint {
   /// The timestamp of the specific forecast.
   final String timestamp;
@@ -76,6 +77,8 @@ class DataPoint {
   static DataPoint fromJson(Map<String, dynamic> json) => DataPoint();
 }
 
+/// Provides information about a forecast. Returned as part of the QueryForecast
+/// response.
 class Forecast {
   /// The forecast.
   ///

@@ -172,8 +172,8 @@ class AppSyncApi {
   /// [definition]: The type definition, in GraphQL Schema Definition Language
   /// (SDL) format.
   ///
-  /// For more information, see the [GraphQL SDL
-  /// documentation](http://graphql.org/learn/schema/).
+  /// For more information, see the
+  /// [GraphQL SDL documentation](http://graphql.org/learn/schema/).
   ///
   /// [format]: The type format: SDL or JSON.
   Future<CreateTypeResponse> createType(
@@ -662,6 +662,7 @@ class AppSyncApi {
   }
 }
 
+/// Describes an additional authentication provider.
 class AdditionalAuthenticationProvider {
   /// The authentication type: API key, AWS IAM, OIDC, or Amazon Cognito user
   /// pools.
@@ -682,6 +683,45 @@ class AdditionalAuthenticationProvider {
       AdditionalAuthenticationProvider();
 }
 
+/// Describes an API key.
+///
+/// Customers invoke AWS AppSync GraphQL API operations with API keys as an
+/// identity mechanism. There are two key versions:
+///
+///  **da1**: This version was introduced at launch in November 2017. These keys
+/// always expire after 7 days. Key expiration is managed by Amazon DynamoDB
+/// TTL. The keys ceased to be valid after February 21, 2018 and should not be
+/// used after that date.
+///
+/// *    `ListApiKeys` returns the expiration time in milliseconds.
+///
+/// *    `CreateApiKey` returns the expiration time in milliseconds.
+///
+/// *    `UpdateApiKey` is not available for this key version.
+///
+/// *    `DeleteApiKey` deletes the item from the table.
+///
+/// *   Expiration is stored in Amazon DynamoDB as milliseconds. This results in
+/// a bug where keys are not automatically deleted because DynamoDB expects the
+/// TTL to be stored in seconds. As a one-time action, we will delete these keys
+/// from the table after February 21, 2018.
+///
+///
+///  **da2**: This version was introduced in February 2018 when AppSync added
+/// support to extend key expiration.
+///
+/// *    `ListApiKeys` returns the expiration time in seconds.
+///
+/// *    `CreateApiKey` returns the expiration time in seconds and accepts a
+/// user-provided expiration time in seconds.
+///
+/// *    `UpdateApiKey` returns the expiration time in seconds and accepts a
+/// user-provided expiration time in seconds. Key expiration can only be updated
+/// while the key has not expired.
+///
+/// *    `DeleteApiKey` deletes the item from the table.
+///
+/// *   Expiration is stored in Amazon DynamoDB as seconds.
 class ApiKey {
   /// The API key ID.
   final String id;
@@ -701,6 +741,7 @@ class ApiKey {
   static ApiKey fromJson(Map<String, dynamic> json) => ApiKey();
 }
 
+/// The authorization config in case the HTTP endpoint requires authorization.
 class AuthorizationConfig {
   /// The authorization type required by the HTTP endpoint.
   ///
@@ -718,6 +759,7 @@ class AuthorizationConfig {
       AuthorizationConfig();
 }
 
+/// The AWS IAM configuration.
 class AwsIamConfig {
   /// The signing region for AWS IAM authorization.
   final String signingRegion;
@@ -732,6 +774,7 @@ class AwsIamConfig {
   static AwsIamConfig fromJson(Map<String, dynamic> json) => AwsIamConfig();
 }
 
+/// Describes an Amazon Cognito user pool configuration.
 class CognitoUserPoolConfig {
   /// The user pool ID.
   final String userPoolId;
@@ -818,6 +861,7 @@ class CreateTypeResponse {
       CreateTypeResponse();
 }
 
+/// Describes a data source.
 class DataSource {
   /// The data source ARN.
   final String dataSourceArn;
@@ -917,6 +961,7 @@ class DeleteTypeResponse {
       DeleteTypeResponse();
 }
 
+/// Describes an Amazon DynamoDB data source configuration.
 class DynamodbDataSourceConfig {
   /// The table name.
   final String tableName;
@@ -936,6 +981,7 @@ class DynamodbDataSourceConfig {
       DynamodbDataSourceConfig();
 }
 
+/// Describes an Elasticsearch data source configuration.
 class ElasticsearchDataSourceConfig {
   /// The endpoint.
   final String endpoint;
@@ -951,6 +997,8 @@ class ElasticsearchDataSourceConfig {
       ElasticsearchDataSourceConfig();
 }
 
+/// A function is a reusable entity. Multiple functions can be used to compose
+/// the resolver logic.
 class FunctionConfiguration {
   /// A unique ID representing the `Function` object.
   final String functionId;
@@ -1028,8 +1076,8 @@ class GetGraphqlApiResponse {
 class GetIntrospectionSchemaResponse {
   /// The schema, in GraphQL Schema Definition Language (SDL) format.
   ///
-  /// For more information, see the [GraphQL SDL
-  /// documentation](http://graphql.org/learn/schema/).
+  /// For more information, see the
+  /// [GraphQL SDL documentation](http://graphql.org/learn/schema/).
   final Uint8List schema;
 
   GetIntrospectionSchemaResponse({
@@ -1077,6 +1125,7 @@ class GetTypeResponse {
       GetTypeResponse();
 }
 
+/// Describes a GraphQL API.
 class GraphqlApi {
   /// The API name.
   final String name;
@@ -1124,6 +1173,7 @@ class GraphqlApi {
   static GraphqlApi fromJson(Map<String, dynamic> json) => GraphqlApi();
 }
 
+/// Describes an HTTP data source configuration.
 class HttpDataSourceConfig {
   /// The HTTP URL endpoint. You can either specify the domain name or IP, and
   /// port combination, and the URL scheme must be HTTP or HTTPS. If the port is
@@ -1142,6 +1192,7 @@ class HttpDataSourceConfig {
       HttpDataSourceConfig();
 }
 
+/// Describes an AWS Lambda data source configuration.
 class LambdaDataSourceConfig {
   /// The ARN for the Lambda function.
   final String lambdaFunctionArn;
@@ -1276,6 +1327,7 @@ class ListTypesResponse {
       ListTypesResponse();
 }
 
+/// The CloudWatch Logs configuration.
 class LogConfig {
   /// The field logging level. Values can be NONE, ERROR, or ALL.
   ///
@@ -1317,6 +1369,7 @@ class LogConfig {
   static LogConfig fromJson(Map<String, dynamic> json) => LogConfig();
 }
 
+/// Describes an OpenID Connect configuration.
 class OpenIDConnectConfig {
   /// The issuer for the OpenID Connect configuration. The issuer returned by
   /// discovery must exactly match the value of `iss` in the ID token.
@@ -1345,6 +1398,7 @@ class OpenIDConnectConfig {
       OpenIDConnectConfig();
 }
 
+/// The pipeline configuration for a resolver of kind `PIPELINE`.
 class PipelineConfig {
   /// A list of `Function` objects.
   final List<String> functions;
@@ -1355,6 +1409,7 @@ class PipelineConfig {
   static PipelineConfig fromJson(Map<String, dynamic> json) => PipelineConfig();
 }
 
+/// The Amazon RDS HTTP endpoint configuration.
 class RdsHttpEndpointConfig {
   /// AWS Region for RDS HTTP endpoint.
   final String awsRegion;
@@ -1382,10 +1437,11 @@ class RdsHttpEndpointConfig {
       RdsHttpEndpointConfig();
 }
 
+/// Describes a relational database data source configuration.
 class RelationalDatabaseDataSourceConfig {
   /// Source type for the relational database.
   ///
-  /// *    **RDS\_HTTP\_ENDPOINT**: The relational database source type is an
+  /// *    **RDS_HTTP_ENDPOINT**: The relational database source type is an
   /// Amazon RDS HTTP endpoint.
   final String relationalDatabaseSourceType;
 
@@ -1401,6 +1457,7 @@ class RelationalDatabaseDataSourceConfig {
       RelationalDatabaseDataSourceConfig();
 }
 
+/// Describes a resolver.
 class Resolver {
   /// The resolver type name.
   final String typeName;
@@ -1466,6 +1523,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Describes a type.
 class Type {
   /// The type name.
   final String name;
@@ -1564,6 +1622,7 @@ class UpdateTypeResponse {
       UpdateTypeResponse();
 }
 
+/// Describes an Amazon Cognito user pool configuration.
 class UserPoolConfig {
   /// The user pool ID.
   final String userPoolId;

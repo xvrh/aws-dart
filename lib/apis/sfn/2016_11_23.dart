@@ -18,8 +18,9 @@ import 'package:meta/meta.dart';
 /// your application is available at any scale. You can run tasks on AWS, your
 /// own servers, or any system that has access to AWS. You can access and use
 /// Step Functions using the console, the AWS SDKs, or an HTTP API. For more
-/// information about Step Functions, see the  _[AWS Step Functions Developer
-/// Guide](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)_ .
+/// information about Step Functions, see the
+/// _[AWS Step Functions Developer Guide](https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html)_
+/// .
 class SfnApi {
   /// Creates an activity. An activity is a task that you write in any
   /// programming language and host on any machine that has access to AWS Step
@@ -39,30 +40,27 @@ class SfnApi {
   ///
   /// [name]: The name of the activity to create. This name must be unique for
   /// your AWS account and region for 90 days. For more information, see
-  /// [Limits Related to State Machine
-  /// Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
+  /// [Limits Related to State Machine Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
   /// in the _AWS Step Functions Developer Guide_.
   ///
   /// A name must _not_ contain:
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   ///
   /// [tags]: The list of tags to add to a resource.
   ///
-  /// An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
-  /// in the _AWS Billing and Cost Management User Guide_, and [Controlling
-  /// Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  /// An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the _AWS Billing and Cost Management User Guide_, and
+  /// [Controlling Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
   ///
   /// Tags may only contain Unicode letters, digits, white space, or these
   /// symbols: `_ . : / = + - @`.
@@ -93,29 +91,27 @@ class SfnApi {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   ///
   /// [definition]: The Amazon States Language definition of the state machine.
-  /// See [Amazon States
-  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  /// See
+  /// [Amazon States Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role to use for this
   /// state machine.
   ///
   /// [tags]: Tags to be added when creating a state machine.
   ///
-  /// An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
-  /// in the _AWS Billing and Cost Management User Guide_, and [Controlling
-  /// Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  /// An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the _AWS Billing and Cost Management User Guide_, and
+  /// [Controlling Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
   ///
   /// Tags may only contain Unicode letters, digits, white space, or these
   /// symbols: `_ . : / = + - @`.
@@ -219,8 +215,8 @@ class SfnApi {
   /// request).
   ///
   /// Polling with `GetActivityTask` can cause latency in some implementations.
-  /// See [Avoid Latency When Polling for Activity
-  /// Tasks](https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html)
+  /// See
+  /// [Avoid Latency When Polling for Activity Tasks](https://docs.aws.amazon.com/step-functions/latest/dg/bp-activity-pollers.html)
   /// in the Step Functions Developer Guide.
   ///
   /// [activityArn]: The Amazon Resource Name (ARN) of the activity to retrieve
@@ -389,8 +385,7 @@ class SfnApi {
   ///
   /// [taskToken]: The token that represents this task. Task tokens are
   /// generated by Step Functions when tasks are assigned to a worker, or in the
-  /// [context
-  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// [context object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
   /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
   ///
   /// [error]: The error code of the failure.
@@ -410,8 +405,8 @@ class SfnApi {
   /// action does not in itself create an event in the execution history.
   /// However, if the task times out, the execution history contains an
   /// `ActivityTimedOut` entry for activities, or a `TaskTimedOut` entry for for
-  /// tasks using the [job
-  /// run](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync)
+  /// tasks using the
+  /// [job run](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-sync)
   /// or
   /// [callback](https://docs.aws.amazon.com/step-functions/latest/dg/connect-to-resource.html#connect-wait-token)
   /// pattern.
@@ -425,8 +420,7 @@ class SfnApi {
   ///
   /// [taskToken]: The token that represents this task. Task tokens are
   /// generated by Step Functions when tasks are assigned to a worker, or in the
-  /// [context
-  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// [context object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
   /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
   Future<SendTaskHeartbeatOutput> sendTaskHeartbeat(String taskToken) async {
     return SendTaskHeartbeatOutput.fromJson({});
@@ -439,8 +433,7 @@ class SfnApi {
   ///
   /// [taskToken]: The token that represents this task. Task tokens are
   /// generated by Step Functions when tasks are assigned to a worker, or in the
-  /// [context
-  /// object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
+  /// [context object](https://docs.aws.amazon.com/step-functions/latest/dg/input-output-contextobject.html)
   /// when a workflow enters a task state. See GetActivityTaskOutput$taskToken.
   ///
   /// [output]: The JSON output of the task.
@@ -462,26 +455,25 @@ class SfnApi {
   ///
   /// [name]: The name of the execution. This name must be unique for your AWS
   /// account, region, and state machine for 90 days. For more information, see
-  /// [Limits Related to State Machine
-  /// Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
+  /// [Limits Related to State Machine Executions](https://docs.aws.amazon.com/step-functions/latest/dg/limits.html#service-limits-state-machine-executions)
   /// in the _AWS Step Functions Developer Guide_.
   ///
   /// A name must _not_ contain:
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   ///
   /// [input]: The string that contains the JSON input data for the execution,
   /// for example:
   ///
-  ///  `"input": "{\\"first_name\\" : \\"test\\"}"`
+  ///  `"input": "{"first_name" : "test"}"`
   ///
   ///
   ///
@@ -506,12 +498,10 @@ class SfnApi {
 
   /// Add a tag to a Step Functions resource.
   ///
-  /// An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
-  /// in the _AWS Billing and Cost Management User Guide_, and [Controlling
-  /// Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  /// An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// in the _AWS Billing and Cost Management User Guide_, and
+  /// [Controlling Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
   ///
   /// Tags may only contain Unicode letters, digits, white space, or these
   /// symbols: `_ . : / = + - @`.
@@ -554,8 +544,8 @@ class SfnApi {
   /// [stateMachineArn]: The Amazon Resource Name (ARN) of the state machine.
   ///
   /// [definition]: The Amazon States Language definition of the state machine.
-  /// See [Amazon States
-  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  /// See
+  /// [Amazon States Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role of the state
   /// machine.
@@ -565,6 +555,7 @@ class SfnApi {
   }
 }
 
+/// Contains details about an activity that failed during an execution.
 class ActivityFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -580,6 +571,7 @@ class ActivityFailedEventDetails {
       ActivityFailedEventDetails();
 }
 
+/// Contains details about an activity.
 class ActivityListItem {
   /// The Amazon Resource Name (ARN) that identifies the activity.
   final String activityArn;
@@ -590,11 +582,11 @@ class ActivityListItem {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -611,6 +603,8 @@ class ActivityListItem {
       ActivityListItem();
 }
 
+/// Contains details about an activity schedule failure that occurred during an
+/// execution.
 class ActivityScheduleFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -627,6 +621,7 @@ class ActivityScheduleFailedEventDetails {
       ActivityScheduleFailedEventDetails();
 }
 
+/// Contains details about an activity scheduled during an execution.
 class ActivityScheduledEventDetails {
   /// The Amazon Resource Name (ARN) of the scheduled activity.
   final String resource;
@@ -650,6 +645,7 @@ class ActivityScheduledEventDetails {
       ActivityScheduledEventDetails();
 }
 
+/// Contains details about the start of an activity during an execution.
 class ActivityStartedEventDetails {
   /// The name of the worker that the task is assigned to. These names are
   /// provided by the workers when calling GetActivityTask.
@@ -662,6 +658,8 @@ class ActivityStartedEventDetails {
       ActivityStartedEventDetails();
 }
 
+/// Contains details about an activity that successfully terminated during an
+/// execution.
 class ActivitySucceededEventDetails {
   /// The JSON data output by the activity task.
   final String output;
@@ -673,6 +671,8 @@ class ActivitySucceededEventDetails {
       ActivitySucceededEventDetails();
 }
 
+/// Contains details about an activity timeout that occurred during an
+/// execution.
 class ActivityTimedOutEventDetails {
   /// The error code of the failure.
   final String error;
@@ -740,11 +740,11 @@ class DescribeActivityOutput {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -774,11 +774,11 @@ class DescribeExecutionOutput {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -825,9 +825,8 @@ class DescribeStateMachineForExecutionOutput {
   /// The name of the state machine associated with the execution.
   final String name;
 
-  /// The Amazon States Language definition of the state machine. See [Amazon
-  /// States
-  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  /// The Amazon States Language definition of the state machine. See
+  /// [Amazon States Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
   final String definition;
 
   /// The Amazon Resource Name (ARN) of the IAM role of the State Machine for
@@ -860,11 +859,11 @@ class DescribeStateMachineOutput {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -872,9 +871,8 @@ class DescribeStateMachineOutput {
   /// The current status of the state machine.
   final String status;
 
-  /// The Amazon States Language definition of the state machine. See [Amazon
-  /// States
-  /// Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
+  /// The Amazon States Language definition of the state machine. See
+  /// [Amazon States Language](https://docs.aws.amazon.com/step-functions/latest/dg/concepts-amazon-states-language.html).
   final String definition;
 
   /// The Amazon Resource Name (ARN) of the IAM role used when creating this
@@ -897,6 +895,7 @@ class DescribeStateMachineOutput {
       DescribeStateMachineOutput();
 }
 
+/// Contains details about an abort of an execution.
 class ExecutionAbortedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -912,6 +911,7 @@ class ExecutionAbortedEventDetails {
       ExecutionAbortedEventDetails();
 }
 
+/// Contains details about an execution failure event.
 class ExecutionFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -927,6 +927,7 @@ class ExecutionFailedEventDetails {
       ExecutionFailedEventDetails();
 }
 
+/// Contains details about an execution.
 class ExecutionListItem {
   /// The Amazon Resource Name (ARN) that identifies the execution.
   final String executionArn;
@@ -940,11 +941,11 @@ class ExecutionListItem {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -970,6 +971,7 @@ class ExecutionListItem {
       ExecutionListItem();
 }
 
+/// Contains details about the start of the execution.
 class ExecutionStartedEventDetails {
   /// The JSON data input to the execution.
   final String input;
@@ -986,6 +988,7 @@ class ExecutionStartedEventDetails {
       ExecutionStartedEventDetails();
 }
 
+/// Contains details about the successful termination of the execution.
 class ExecutionSucceededEventDetails {
   /// The JSON data output by the execution.
   final String output;
@@ -997,6 +1000,8 @@ class ExecutionSucceededEventDetails {
       ExecutionSucceededEventDetails();
 }
 
+/// Contains details about the execution timeout that occurred during the
+/// execution.
 class ExecutionTimedOutEventDetails {
   /// The error code of the failure.
   final String error;
@@ -1048,6 +1053,7 @@ class GetExecutionHistoryOutput {
       GetExecutionHistoryOutput();
 }
 
+/// Contains details about the events of an execution.
 class HistoryEvent {
   /// The date and time the event occurred.
   final DateTime timestamp;
@@ -1187,6 +1193,7 @@ class HistoryEvent {
   static HistoryEvent fromJson(Map<String, dynamic> json) => HistoryEvent();
 }
 
+/// Contains details about a lambda function that failed during an execution.
 class LambdaFunctionFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -1202,6 +1209,8 @@ class LambdaFunctionFailedEventDetails {
       LambdaFunctionFailedEventDetails();
 }
 
+/// Contains details about a failed lambda function schedule event that occurred
+/// during an execution.
 class LambdaFunctionScheduleFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -1218,6 +1227,7 @@ class LambdaFunctionScheduleFailedEventDetails {
       LambdaFunctionScheduleFailedEventDetails();
 }
 
+/// Contains details about a lambda function scheduled during an execution.
 class LambdaFunctionScheduledEventDetails {
   /// The Amazon Resource Name (ARN) of the scheduled lambda function.
   final String resource;
@@ -1238,6 +1248,8 @@ class LambdaFunctionScheduledEventDetails {
       LambdaFunctionScheduledEventDetails();
 }
 
+/// Contains details about a lambda function that failed to start during an
+/// execution.
 class LambdaFunctionStartFailedEventDetails {
   /// The error code of the failure.
   final String error;
@@ -1254,6 +1266,8 @@ class LambdaFunctionStartFailedEventDetails {
       LambdaFunctionStartFailedEventDetails();
 }
 
+/// Contains details about a lambda function that successfully terminated during
+/// an execution.
 class LambdaFunctionSucceededEventDetails {
   /// The JSON data output by the lambda function.
   final String output;
@@ -1266,6 +1280,8 @@ class LambdaFunctionSucceededEventDetails {
       LambdaFunctionSucceededEventDetails();
 }
 
+/// Contains details about a lambda function timeout that occurred during an
+/// execution.
 class LambdaFunctionTimedOutEventDetails {
   /// The error code of the failure.
   final String error;
@@ -1349,6 +1365,7 @@ class ListTagsForResourceOutput {
       ListTagsForResourceOutput();
 }
 
+/// Contains details about an iteration of a Map state.
 class MapIterationEventDetails {
   /// The name of the iteration’s parent Map state.
   final String name;
@@ -1364,6 +1381,7 @@ class MapIterationEventDetails {
       MapIterationEventDetails();
 }
 
+/// Details about a Map state that was started.
 class MapStateStartedEventDetails {
   /// The size of the array for Map state iterations.
   final int length;
@@ -1408,6 +1426,7 @@ class StartExecutionOutput {
       StartExecutionOutput();
 }
 
+/// Contains details about a state entered during an execution.
 class StateEnteredEventDetails {
   /// The name of the state.
   final String name;
@@ -1423,6 +1442,7 @@ class StateEnteredEventDetails {
       StateEnteredEventDetails();
 }
 
+/// Contains details about an exit from a state during an execution.
 class StateExitedEventDetails {
   /// The name of the state.
   ///
@@ -1430,11 +1450,11 @@ class StateExitedEventDetails {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -1450,6 +1470,7 @@ class StateExitedEventDetails {
       StateExitedEventDetails();
 }
 
+/// Contains details about the state machine.
 class StateMachineListItem {
   /// The Amazon Resource Name (ARN) that identifies the state machine.
   final String stateMachineArn;
@@ -1460,11 +1481,11 @@ class StateMachineListItem {
   ///
   /// *   white space
   ///
-  /// *   brackets `< \> { } \[ \]`
+  /// *   brackets `< > { } [ ]`
   ///
   /// *   wildcard characters `? *`
   ///
-  /// *   special characters ``" # % \ ^ | ~ ` $ & , ; : /``
+  /// *   special characters ``" # %  ^ | ~ ` $ & , ; : /``
   ///
   /// *   control characters (`U+0000-001F`, `U+007F-009F`)
   final String name;
@@ -1492,6 +1513,16 @@ class StopExecutionOutput {
       StopExecutionOutput();
 }
 
+/// Tags are key-value pairs that can be associated with Step Functions state
+/// machines and activities.
+///
+/// An array of key-value pairs. For more information, see
+/// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+/// in the _AWS Billing and Cost Management User Guide_, and
+/// [Controlling Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+///
+/// Tags may only contain Unicode letters, digits, white space, or these
+/// symbols: `_ . : / = + - @`.
 class Tag {
   /// The key of a tag.
   final String key;
@@ -1512,6 +1543,7 @@ class TagResourceOutput {
       TagResourceOutput();
 }
 
+/// Contains details about a task failure event.
 class TaskFailedEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1535,6 +1567,7 @@ class TaskFailedEventDetails {
       TaskFailedEventDetails();
 }
 
+/// Contains details about a task scheduled during an execution.
 class TaskScheduledEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1562,6 +1595,7 @@ class TaskScheduledEventDetails {
       TaskScheduledEventDetails();
 }
 
+/// Contains details about a task that failed to start during an execution.
 class TaskStartFailedEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1585,6 +1619,7 @@ class TaskStartFailedEventDetails {
       TaskStartFailedEventDetails();
 }
 
+/// Contains details about the start of a task during an execution.
 class TaskStartedEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1600,6 +1635,7 @@ class TaskStartedEventDetails {
       TaskStartedEventDetails();
 }
 
+/// Contains details about a task that failed to submit during an execution.
 class TaskSubmitFailedEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1623,6 +1659,7 @@ class TaskSubmitFailedEventDetails {
       TaskSubmitFailedEventDetails();
 }
 
+/// Contains details about a task submitted to a resource .
 class TaskSubmittedEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1642,6 +1679,7 @@ class TaskSubmittedEventDetails {
       TaskSubmittedEventDetails();
 }
 
+/// Contains details about the successful completion of a task state.
 class TaskSucceededEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;
@@ -1662,6 +1700,7 @@ class TaskSucceededEventDetails {
       TaskSucceededEventDetails();
 }
 
+/// Contains details about a resource timeout that occurred during an execution.
 class TaskTimedOutEventDetails {
   /// The action of the resource called by a task state.
   final String resourceType;

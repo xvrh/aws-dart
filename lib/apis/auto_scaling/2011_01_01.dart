@@ -8,9 +8,8 @@ import 'package:meta/meta.dart';
 /// and Elastic Load Balancing.
 ///
 /// For more information, including information about granting IAM users
-/// required permissions for Amazon EC2 Auto Scaling actions, see the [Amazon
-/// EC2 Auto Scaling User
-/// Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html).
+/// required permissions for Amazon EC2 Auto Scaling actions, see the
+/// [Amazon EC2 Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html).
 class AutoScalingApi {
   /// Attaches one or more EC2 instances to the specified Auto Scaling group.
   ///
@@ -24,8 +23,8 @@ class AutoScalingApi {
   /// target groups attached to your Auto Scaling group, the instances are also
   /// registered with the target groups.
   ///
-  /// For more information, see [Attach EC2 Instances to Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-instance-asg.html)
+  /// For more information, see
+  /// [Attach EC2 Instances to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-instance-asg.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceIds]: The IDs of the instances. You can specify up to 20
@@ -44,8 +43,7 @@ class AutoScalingApi {
   /// With Application Load Balancers and Network Load Balancers, instances are
   /// registered as targets with a target group. With Classic Load Balancers,
   /// instances are registered with the load balancer. For more information, see
-  /// [Attaching a Load Balancer to Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html)
+  /// [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -69,8 +67,8 @@ class AutoScalingApi {
   /// DescribeLoadBalancers. To detach the load balancer from the Auto Scaling
   /// group, use DetachLoadBalancers.
   ///
-  /// For more information, see [Attaching a Load Balancer to Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html)
+  /// For more information, see
+  /// [Attaching a Load Balancer to Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/attach-load-balancer-asg.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -138,8 +136,8 @@ class AutoScalingApi {
   /// lifecycle action.**
   ///
   ///
-  /// For more information, see [Amazon EC2 Auto Scaling Lifecycle
-  /// Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
+  /// For more information, see
+  /// [Amazon EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [lifecycleHookName]: The name of the lifecycle hook.
@@ -168,8 +166,8 @@ class AutoScalingApi {
   ///
   /// If you exceed your maximum limit of Auto Scaling groups, the call fails.
   /// For information about viewing this limit, see DescribeAccountLimits. For
-  /// information about updating this limit, see [Amazon EC2 Auto Scaling
-  /// Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
+  /// information about updating this limit, see
+  /// [Amazon EC2 Auto Scaling Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group. This name must
@@ -204,9 +202,8 @@ class AutoScalingApi {
   ///
   /// For more information, see
   /// [MixedInstancesPolicy](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_MixedInstancesPolicy.html)
-  /// in the _Amazon EC2 Auto Scaling API Reference_ and [Auto Scaling Groups
-  /// with Multiple Instance Types and Purchase
-  /// Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
+  /// in the _Amazon EC2 Auto Scaling API Reference_ and
+  /// [Auto Scaling Groups with Multiple Instance Types and Purchase Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// You must specify one of the following parameters in your request:
@@ -221,8 +218,8 @@ class AutoScalingApi {
   /// configuration derives its attributes from the specified instance, except
   /// for the block device mapping.
   ///
-  /// For more information, see [Create an Auto Scaling Group Using an EC2
-  /// Instance](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-asg-from-instance.html)
+  /// For more information, see
+  /// [Create an Auto Scaling Group Using an EC2 Instance](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-asg-from-instance.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// You must specify one of the following parameters in your request:
@@ -243,8 +240,8 @@ class AutoScalingApi {
   /// activity completes before another scaling activity can start. The default
   /// value is `300`.
   ///
-  /// For more information, see [Scaling
-  /// Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
+  /// For more information, see
+  /// [Scaling Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [availabilityZones]: One or more Availability Zones for the group. This
@@ -259,16 +256,16 @@ class AutoScalingApi {
   /// Balancers, specify a list of target groups using the `TargetGroupARNs`
   /// property instead.
   ///
-  /// For more information, see [Using a Load Balancer with an Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html)
+  /// For more information, see
+  /// [Using a Load Balancer with an Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [targetGroupARNs]: The Amazon Resource Names (ARN) of the target groups to
   /// associate with the Auto Scaling group. Instances are registered as targets
   /// in a target group, and traffic is routed to the target group.
   ///
-  /// For more information, see [Using a Load Balancer with an Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html)
+  /// For more information, see
+  /// [Using a Load Balancer with an Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [healthCheckType]: The service to use for the health checks. The valid
@@ -277,8 +274,8 @@ class AutoScalingApi {
   /// unhealthy if it fails either the EC2 status checks or the load balancer
   /// health checks.
   ///
-  /// For more information, see [Health Checks for Auto Scaling
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html)
+  /// For more information, see
+  /// [Health Checks for Auto Scaling Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [healthCheckGracePeriod]: The amount of time, in seconds, that Amazon EC2
@@ -286,8 +283,8 @@ class AutoScalingApi {
   /// that has come into service. During this time, any health check failures
   /// for the instance are ignored. The default value is `0`.
   ///
-  /// For more information, see [Health Check Grace
-  /// Period](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html#health-check-grace-period)
+  /// For more information, see
+  /// [Health Check Grace Period](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html#health-check-grace-period)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// Conditional: This parameter is required if you are adding an `ELB` health
@@ -297,8 +294,7 @@ class AutoScalingApi {
   /// your instances, if any. A placement group is a logical grouping of
   /// instances within a single Availability Zone. You cannot specify multiple
   /// Availability Zones and a placement group. For more information, see
-  /// [Placement
-  /// Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
+  /// [Placement Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [vpcZoneIdentifier]: A comma-separated list of subnet IDs for your virtual
@@ -315,9 +311,8 @@ class AutoScalingApi {
   /// instance to terminate. These policies are executed in the order that they
   /// are listed.
   ///
-  /// For more information, see [Controlling Which Instances Auto Scaling
-  /// Terminates During Scale
-  /// In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
+  /// For more information, see
+  /// [Controlling Which Instances Auto Scaling Terminates During Scale In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [newInstancesProtectedFromScaleIn]: Indicates whether newly launched
@@ -325,24 +320,24 @@ class AutoScalingApi {
   /// scaling in.
   ///
   /// For more information about preventing instances from terminating on scale
-  /// in, see [Instance
-  /// Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
+  /// in, see
+  /// [Instance Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [lifecycleHookSpecificationList]: One or more lifecycle hooks.
   ///
   /// [tags]: One or more tags.
   ///
-  /// For more information, see [Tagging Auto Scaling Groups and
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html)
+  /// For more information, see
+  /// [Tagging Auto Scaling Groups and Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [serviceLinkedRoleArn]: The Amazon Resource Name (ARN) of the
   /// service-linked role that the Auto Scaling group uses to call other AWS
   /// services on your behalf. By default, Amazon EC2 Auto Scaling uses a
   /// service-linked role named AWSServiceRoleForAutoScaling, which it creates
-  /// if it does not exist. For more information, see [Service-Linked
-  /// Roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html)
+  /// if it does not exist. For more information, see
+  /// [Service-Linked Roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<void> createAutoScalingGroup(
       {@required String autoScalingGroupName,
@@ -371,48 +366,45 @@ class AutoScalingApi {
   ///
   /// If you exceed your maximum limit of launch configurations, the call fails.
   /// For information about viewing this limit, see DescribeAccountLimits. For
-  /// information about updating this limit, see [Amazon EC2 Auto Scaling
-  /// Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
+  /// information about updating this limit, see
+  /// [Amazon EC2 Auto Scaling Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
-  /// For more information, see [Launch
-  /// Configurations](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html)
+  /// For more information, see
+  /// [Launch Configurations](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchConfiguration.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [launchConfigurationName]: The name of the launch configuration. This name
   /// must be unique per Region per account.
   ///
   /// [imageId]: The ID of the Amazon Machine Image (AMI) that was assigned
-  /// during registration. For more information, see [Finding an
-  /// AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
+  /// during registration. For more information, see
+  /// [Finding an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// If you do not specify `InstanceId`, you must specify `ImageId`.
   ///
-  /// [keyName]: The name of the key pair. For more information, see [Amazon EC2
-  /// Key
-  /// Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+  /// [keyName]: The name of the key pair. For more information, see
+  /// [Amazon EC2 Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [securityGroups]: A list that contains the security groups to assign to
   /// the instances in the Auto Scaling group.
   ///
-  /// \[EC2-VPC\] Specify the security group IDs. For more information, see
-  /// [Security Groups for Your
-  /// VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
+  /// [EC2-VPC] Specify the security group IDs. For more information, see
+  /// [Security Groups for Your VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
   /// in the _Amazon Virtual Private Cloud User Guide_.
   ///
-  /// \[EC2-Classic\] Specify either the security group names or the security
-  /// group IDs. For more information, see [Amazon EC2 Security
-  /// Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html)
+  /// [EC2-Classic] Specify either the security group names or the security
+  /// group IDs. For more information, see
+  /// [Amazon EC2 Security Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [classicLinkVpcId]: The ID of a ClassicLink-enabled VPC to link your
   /// EC2-Classic instances to. For more information, see
   /// [ClassicLink](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html)
-  /// in the _Amazon EC2 User Guide for Linux Instances_ and [Linking
-  /// EC2-Classic Instances to a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
+  /// in the _Amazon EC2 User Guide for Linux Instances_ and
+  /// [Linking EC2-Classic Instances to a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// This parameter can only be used if you are launching EC2-Classic
@@ -421,17 +413,16 @@ class AutoScalingApi {
   /// [classicLinkVpcSecurityGroups]: The IDs of one or more security groups for
   /// the specified ClassicLink-enabled VPC. For more information, see
   /// [ClassicLink](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html)
-  /// in the _Amazon EC2 User Guide for Linux Instances_ and [Linking
-  /// EC2-Classic Instances to a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
+  /// in the _Amazon EC2 User Guide for Linux Instances_ and
+  /// [Linking EC2-Classic Instances to a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// If you specify the `ClassicLinkVPCId` parameter, you must specify this
   /// parameter.
   ///
   /// [userData]: The Base64-encoded user data to make available to the launched
-  /// EC2 instances. For more information, see [Instance Metadata and User
-  /// Data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+  /// EC2 instances. For more information, see
+  /// [Instance Metadata and User Data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [instanceId]: The ID of the instance to use to create the launch
@@ -441,8 +432,8 @@ class AutoScalingApi {
   /// To create a launch configuration with a block device mapping or override
   /// any other instance attributes, specify them as part of the same request.
   ///
-  /// For more information, see [Create a Launch Configuration Using an EC2
-  /// Instance](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-lc-with-instanceID.html)
+  /// For more information, see
+  /// [Create a Launch Configuration Using an EC2 Instance](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-lc-with-instanceID.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// If you do not specify `InstanceId`, you must specify both `ImageId` and
@@ -450,8 +441,8 @@ class AutoScalingApi {
   ///
   /// [instanceType]: Specifies the instance type of the EC2 instance.
   ///
-  /// For information about available instance types, see [Available Instance
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
+  /// For information about available instance types, see
+  /// [Available Instance Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
   /// in the _Amazon EC2 User Guide for Linux Instances._
   ///
   /// If you do not specify `InstanceId`, you must specify `InstanceType`.
@@ -462,8 +453,8 @@ class AutoScalingApi {
   ///
   /// [blockDeviceMappings]: A block device mapping, which specifies the block
   /// devices for the instance. You can specify virtual devices and EBS volumes.
-  /// For more information, see [Block Device
-  /// Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
+  /// For more information, see
+  /// [Block Device Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [instanceMonitoring]: Controls whether instances in this group are
@@ -476,15 +467,15 @@ class AutoScalingApi {
   /// When detailed monitoring is enabled, Amazon CloudWatch generates metrics
   /// every minute and your account is charged a fee. When you disable detailed
   /// monitoring, CloudWatch generates metrics every 5 minutes. For more
-  /// information, see [Configure Monitoring for Auto Scaling
-  /// Instances](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-instance-monitoring.html#enable-as-instance-metrics)
+  /// information, see
+  /// [Configure Monitoring for Auto Scaling Instances](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-instance-monitoring.html#enable-as-instance-metrics)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [spotPrice]: The maximum hourly price to be paid for any Spot Instance
   /// launched to fulfill the request. Spot Instances are launched when the
   /// price you specify exceeds the current Spot market price. For more
-  /// information, see [Launching Spot Instances in Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-launch-spot-instances.html)
+  /// information, see
+  /// [Launching Spot Instances in Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-launch-spot-instances.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// If a Spot price is set, then the Auto Scaling group will only launch
@@ -501,9 +492,8 @@ class AutoScalingApi {
   /// instance profile associated with the IAM role for the instance. The
   /// instance profile contains the IAM role.
   ///
-  /// For more information, see [IAM Role for Applications That Run on Amazon
-  /// EC2
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html)
+  /// For more information, see
+  /// [IAM Role for Applications That Run on Amazon EC2 Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [ebsOptimized]: Specifies whether the launch configuration is optimized
@@ -512,8 +502,8 @@ class AutoScalingApi {
   /// optimal I/O performance. This optimization is not available with all
   /// instance types. Additional fees are incurred when you enable EBS
   /// optimization for an instance type that is not EBS-optimized by default.
-  /// For more information, see [Amazon EBS-Optimized
-  /// Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html)
+  /// For more information, see
+  /// [Amazon EBS-Optimized Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// The default value is `false`.
@@ -522,8 +512,8 @@ class AutoScalingApi {
   /// virtual private cloud (VPC), specifies whether to assign a public IP
   /// address to the group's instances. If you specify `true`, each instance in
   /// the Auto Scaling group receives a unique public IP address. For more
-  /// information, see [Launching Auto Scaling Instances in a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html)
+  /// information, see
+  /// [Launching Auto Scaling Instances in a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// If you specify this parameter, you must specify at least one subnet for
@@ -548,8 +538,8 @@ class AutoScalingApi {
   /// If you specify `PlacementTenancy`, you must specify at least one subnet
   /// for `VPCZoneIdentifier` when you create your group.
   ///
-  /// For more information, see [Instance Placement
-  /// Tenancy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-vpc-tenancy)
+  /// For more information, see
+  /// [Instance Placement Tenancy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-vpc-tenancy)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// Valid values: `default` | `dedicated`
@@ -578,8 +568,8 @@ class AutoScalingApi {
   /// overwrites the previous tag definition, and you do not get an error
   /// message.
   ///
-  /// For more information, see [Tagging Auto Scaling Groups and
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html)
+  /// For more information, see
+  /// [Tagging Auto Scaling Groups and Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [tags]: One or more tags.
@@ -652,8 +642,8 @@ class AutoScalingApi {
   /// the underlying alarm action, but does not delete the alarm, even if it no
   /// longer has an associated action.
   ///
-  /// For more information, see [Deleting a Scaling
-  /// Policy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/deleting-scaling-policy.html)
+  /// For more information, see
+  /// [Deleting a Scaling Policy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/deleting-scaling-policy.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -679,9 +669,8 @@ class AutoScalingApi {
   /// Describes the current Amazon EC2 Auto Scaling resource limits for your AWS
   /// account.
   ///
-  /// For information about requesting an increase in these limits, see [Amazon
-  /// EC2 Auto Scaling
-  /// Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
+  /// For information about requesting an increase in these limits, see
+  /// [Amazon EC2 Auto Scaling Limits](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-account-limits.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<DescribeAccountLimitsAnswer> describeAccountLimits() async {
     return DescribeAccountLimitsAnswer.fromJson({});
@@ -758,9 +747,9 @@ class AutoScalingApi {
   ///
   /// The following hook types are supported:
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_LAUNCHING
+  /// *   autoscaling:EC2_INSTANCE_LAUNCHING
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_TERMINATING
+  /// *   autoscaling:EC2_INSTANCE_TERMINATING
   Future<DescribeLifecycleHookTypesAnswer> describeLifecycleHookTypes() async {
     return DescribeLifecycleHookTypesAnswer.fromJson({});
   }
@@ -954,9 +943,8 @@ class AutoScalingApi {
 
   /// Describes the termination policies supported by Amazon EC2 Auto Scaling.
   ///
-  /// For more information, see [Controlling Which Auto Scaling Instances
-  /// Terminate During Scale
-  /// In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
+  /// For more information, see
+  /// [Controlling Which Auto Scaling Instances Terminate During Scale In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<DescribeTerminationPolicyTypesAnswer>
       describeTerminationPolicyTypes() async {
@@ -976,8 +964,8 @@ class AutoScalingApi {
   /// groups attached to the Auto Scaling group, the instances are deregistered
   /// from the target groups.
   ///
-  /// For more information, see [Detach EC2 Instances from Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/detach-instance-asg.html)
+  /// For more information, see
+  /// [Detach EC2 Instances from Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/detach-instance-asg.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceIds]: The IDs of the instances. You can specify up to 20
@@ -1055,8 +1043,8 @@ class AutoScalingApi {
       {List<String> metrics}) async {}
 
   /// Enables group metrics for the specified Auto Scaling group. For more
-  /// information, see [Monitoring Your Auto Scaling Groups and
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html)
+  /// information, see
+  /// [Monitoring Your Auto Scaling Groups and Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-monitoring.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1089,9 +1077,8 @@ class AutoScalingApi {
 
   /// Moves the specified instances into the standby state.
   ///
-  /// For more information, see [Temporarily Removing Instances from Your Auto
-  /// Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html)
+  /// For more information, see
+  /// [Temporarily Removing Instances from Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceIds]: The IDs of the instances. You can specify up to 20
@@ -1121,8 +1108,8 @@ class AutoScalingApi {
   /// This parameter is not supported if the policy type is `StepScaling` or
   /// `TargetTrackingScaling`.
   ///
-  /// For more information, see [Scaling
-  /// Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
+  /// For more information, see
+  /// [Scaling Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [metricValue]: The metric value to compare to `BreachThreshold`. This
@@ -1149,9 +1136,8 @@ class AutoScalingApi {
 
   /// Moves the specified instances out of the standby state.
   ///
-  /// For more information, see [Temporarily Removing Instances from Your Auto
-  /// Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html)
+  /// For more information, see
+  /// [Temporarily Removing Instances from Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-enter-exit-standby.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceIds]: The IDs of the instances. You can specify up to 20
@@ -1190,8 +1176,8 @@ class AutoScalingApi {
   /// action using CompleteLifecycleAction.
   ///
   ///
-  /// For more information, see [Amazon EC2 Auto Scaling Lifecycle
-  /// Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
+  /// For more information, see
+  /// [Amazon EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// If you exceed your maximum limit of lifecycle hooks, which by default is
@@ -1208,9 +1194,9 @@ class AutoScalingApi {
   /// [lifecycleTransition]: The instance state to which you want to attach the
   /// lifecycle hook. The valid values are:
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_LAUNCHING
+  /// *   autoscaling:EC2_INSTANCE_LAUNCHING
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_TERMINATING
+  /// *   autoscaling:EC2_INSTANCE_TERMINATING
   ///
   ///
   /// Conditional: This parameter is required for new lifecycle hooks, but
@@ -1273,9 +1259,8 @@ class AutoScalingApi {
   ///
   /// This configuration overwrites any existing configuration.
   ///
-  /// For more information, see [Getting Amazon SNS Notifications When Your Auto
-  /// Scaling Group
-  /// Scales](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html)
+  /// For more information, see
+  /// [Getting Amazon SNS Notifications When Your Auto Scaling Group Scales](https://docs.aws.amazon.com/autoscaling/ec2/userguide/ASGettingNotifications.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1297,8 +1282,8 @@ class AutoScalingApi {
   /// an existing policy is not changed in this update request.
   ///
   /// For more information about using scaling policies to scale your Auto
-  /// Scaling group automatically, see [Dynamic
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html)
+  /// Scaling group automatically, see
+  /// [Dynamic Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scale-based-on-demand.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1315,8 +1300,8 @@ class AutoScalingApi {
   /// `PercentChangeInCapacity`.
   ///
   /// Valid only if the policy type is `StepScaling` or `SimpleScaling`. For
-  /// more information, see [Scaling Adjustment
-  /// Types](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html#as-scaling-adjustment)
+  /// more information, see
+  /// [Scaling Adjustment Types](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html#as-scaling-adjustment)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [minAdjustmentStep]: Available for backward compatibility. Use
@@ -1352,8 +1337,8 @@ class AutoScalingApi {
   /// applies.
   ///
   /// Valid only if the policy type is `SimpleScaling`. For more information,
-  /// see [Scaling
-  /// Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
+  /// see
+  /// [Scaling Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [metricAggregationType]: The aggregation type for the CloudWatch metrics.
@@ -1403,8 +1388,8 @@ class AutoScalingApi {
   /// If you leave a parameter unspecified when updating a scheduled scaling
   /// action, the corresponding value remains unchanged.
   ///
-  /// For more information, see [Scheduled
-  /// Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)
+  /// For more information, see
+  /// [Scheduled Scaling](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1429,10 +1414,9 @@ class AutoScalingApi {
   ///
   /// [recurrence]: The recurring schedule for this action, in Unix cron syntax
   /// format. This format consists of five fields separated by white spaces:
-  /// \[Minute\] \[Hour\] \[Day\_of\_Month\] \[Month\_of\_Year\]
-  /// \[Day\_of\_Week\]. The value must be in quotes (for example, `"30 0 1
-  /// 1,6,12 *"`). For more information about this format, see
-  /// [Crontab](http://crontab.org).
+  /// [Minute] [Hour] [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value
+  /// must be in quotes (for example, `"30 0 1 1,6,12 *"`). For more information
+  /// about this format, see [Crontab](http://crontab.org).
   ///
   /// When `StartTime` and `EndTime` are specified with `Recurrence`, they form
   /// the boundaries of when the recurring action starts and stops.
@@ -1479,8 +1463,8 @@ class AutoScalingApi {
   /// action.
   ///
   ///
-  /// For more information, see [Auto Scaling
-  /// Lifecycle](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html)
+  /// For more information, see
+  /// [Auto Scaling Lifecycle](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [lifecycleHookName]: The name of the lifecycle hook.
@@ -1504,8 +1488,8 @@ class AutoScalingApi {
   /// Resumes the specified suspended automatic scaling processes, or all
   /// suspended process, for the specified Auto Scaling group.
   ///
-  /// For more information, see [Suspending and Resuming Scaling
-  /// Processes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html)
+  /// For more information, see
+  /// [Suspending and Resuming Scaling Processes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1533,8 +1517,8 @@ class AutoScalingApi {
 
   /// Sets the size of the specified Auto Scaling group.
   ///
-  /// For more information about desired capacity, see [What Is Amazon EC2 Auto
-  /// Scaling?](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
+  /// For more information about desired capacity, see
+  /// [What Is Amazon EC2 Auto Scaling?](https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1554,8 +1538,8 @@ class AutoScalingApi {
 
   /// Sets the health status of the specified instance.
   ///
-  /// For more information, see [Health Checks for Auto Scaling
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html)
+  /// For more information, see
+  /// [Health Checks for Auto Scaling Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceId]: The ID of the instance.
@@ -1580,8 +1564,8 @@ class AutoScalingApi {
   /// Updates the instance protection settings of the specified instances.
   ///
   /// For more information about preventing instances that are part of an Auto
-  /// Scaling group from terminating on scale in, see [Instance
-  /// Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
+  /// Scaling group from terminating on scale in, see
+  /// [Instance Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [instanceIds]: One or more instance IDs.
@@ -1605,8 +1589,8 @@ class AutoScalingApi {
   ///
   /// To resume processes that have been suspended, use ResumeProcesses.
   ///
-  /// For more information, see [Suspending and Resuming Scaling
-  /// Processes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html)
+  /// For more information, see
+  /// [Suspending and Resuming Scaling Processes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [autoScalingGroupName]: The name of the Auto Scaling group.
@@ -1724,9 +1708,8 @@ class AutoScalingApi {
   ///
   /// For more information, see
   /// [MixedInstancesPolicy](https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_MixedInstancesPolicy.html)
-  /// in the _Amazon EC2 Auto Scaling API Reference_ and [Auto Scaling Groups
-  /// with Multiple Instance Types and Purchase
-  /// Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
+  /// in the _Amazon EC2 Auto Scaling API Reference_ and
+  /// [Auto Scaling Groups with Multiple Instance Types and Purchase Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [minSize]: The minimum size of the Auto Scaling group.
@@ -1745,8 +1728,7 @@ class AutoScalingApi {
   ///
   /// Cooldown periods are not supported for target tracking scaling policies,
   /// step scaling policies, or scheduled scaling. For more information, see
-  /// [Scaling
-  /// Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
+  /// [Scaling Cooldowns](https://docs.aws.amazon.com/autoscaling/ec2/userguide/Cooldown.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [availabilityZones]: One or more Availability Zones for the group.
@@ -1760,8 +1742,8 @@ class AutoScalingApi {
   /// Auto Scaling waits before checking the health status of an EC2 instance
   /// that has come into service. The default value is `0`.
   ///
-  /// For more information, see [Health Check Grace
-  /// Period](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html#health-check-grace-period)
+  /// For more information, see
+  /// [Health Check Grace Period](https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html#health-check-grace-period)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// Conditional: This parameter is required if you are adding an `ELB` health
@@ -1771,8 +1753,7 @@ class AutoScalingApi {
   /// your instances, if any. A placement group is a logical grouping of
   /// instances within a single Availability Zone. You cannot specify multiple
   /// Availability Zones and a placement group. For more information, see
-  /// [Placement
-  /// Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
+  /// [Placement Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// [vpcZoneIdentifier]: A comma-separated list of subnet IDs for virtual
@@ -1786,9 +1767,8 @@ class AutoScalingApi {
   /// termination policies used to select the instance to terminate. The
   /// policies are executed in the order that they are listed.
   ///
-  /// For more information, see [Controlling Which Instances Auto Scaling
-  /// Terminates During Scale
-  /// In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
+  /// For more information, see
+  /// [Controlling Which Instances Auto Scaling Terminates During Scale In](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [newInstancesProtectedFromScaleIn]: Indicates whether newly launched
@@ -1796,14 +1776,14 @@ class AutoScalingApi {
   /// scaling in.
   ///
   /// For more information about preventing instances from terminating on scale
-  /// in, see [Instance
-  /// Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
+  /// in, see
+  /// [Instance Protection](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   ///
   /// [serviceLinkedRoleArn]: The Amazon Resource Name (ARN) of the
   /// service-linked role that the Auto Scaling group uses to call other AWS
-  /// services on your behalf. For more information, see [Service-Linked
-  /// Roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html)
+  /// services on your behalf. For more information, see
+  /// [Service-Linked Roles](https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-service-linked-role.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   Future<void> updateAutoScalingGroup(String autoScalingGroupName,
       {String launchConfigurationName,
@@ -1841,6 +1821,9 @@ class ActivitiesType {
   static ActivitiesType fromJson(Map<String, dynamic> json) => ActivitiesType();
 }
 
+/// Describes scaling activity, which is a long-running process that represents
+/// a change to your Auto Scaling group, such as changing its size or replacing
+/// an instance.
 class Activity {
   /// The ID of the activity.
   final String activityId;
@@ -1897,6 +1880,7 @@ class ActivityType {
   static ActivityType fromJson(Map<String, dynamic> json) => ActivityType();
 }
 
+/// Describes a policy adjustment type.
 class AdjustmentType {
   /// The policy adjustment type. The valid values are `ChangeInCapacity`,
   /// `ExactCapacity`, and `PercentChangeInCapacity`.
@@ -1908,6 +1892,7 @@ class AdjustmentType {
   static AdjustmentType fromJson(Map<String, dynamic> json) => AdjustmentType();
 }
 
+/// Describes an alarm.
 class Alarm {
   /// The name of the alarm.
   final String alarmName;
@@ -1935,6 +1920,7 @@ class AttachLoadBalancersResultType {
       AttachLoadBalancersResultType();
 }
 
+/// Describes an Auto Scaling group.
 class AutoScalingGroup {
   /// The name of the Auto Scaling group.
   final String autoScalingGroupName;
@@ -2069,6 +2055,7 @@ class AutoScalingGroupsType {
       AutoScalingGroupsType();
 }
 
+/// Describes an EC2 instance associated with an Auto Scaling group.
 class AutoScalingInstanceDetails {
   /// The ID of the instance.
   final String instanceId;
@@ -2157,13 +2144,14 @@ class BatchPutScheduledUpdateGroupActionAnswer {
       BatchPutScheduledUpdateGroupActionAnswer();
 }
 
+/// Describes a block device mapping.
 class BlockDeviceMapping {
   /// The name of the virtual device (for example, `ephemeral0`).
   final String virtualName;
 
   /// The device name exposed to the EC2 instance (for example, `/dev/sdh` or
-  /// `xvdh`). For more information, see [Device Naming on Linux
-  /// Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html)
+  /// `xvdh`). For more information, see
+  /// [Device Naming on Linux Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/device_naming.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final String deviceName;
 
@@ -2193,6 +2181,25 @@ class CompleteLifecycleActionAnswer {
       CompleteLifecycleActionAnswer();
 }
 
+/// Represents a CloudWatch metric of your choosing for a target tracking
+/// scaling policy to use with Amazon EC2 Auto Scaling.
+///
+/// To create your customized metric specification:
+///
+/// *   Add values for each required parameter from CloudWatch. You can use an
+/// existing metric, or a new metric that you create. To use your own metric,
+/// you must first publish the metric to CloudWatch. For more information, see
+/// [Publish Custom Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
+/// in the _Amazon CloudWatch User Guide_.
+///
+/// *   Choose a metric that changes proportionally with capacity. The value of
+/// the metric should increase or decrease in inverse proportion to the number
+/// of capacity units. That is, the value of the metric should decrease when
+/// capacity increases.
+///
+///
+/// For more information about CloudWatch, see
+/// [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
 class CustomizedMetricSpecification {
   /// The name of the metric.
   final String metricName;
@@ -2411,6 +2418,7 @@ class DetachLoadBalancersResultType {
       DetachLoadBalancersResultType();
 }
 
+/// Describes an Amazon EBS volume. Used in combination with BlockDeviceMapping.
 class Ebs {
   /// The snapshot ID of the volume to use.
   ///
@@ -2436,9 +2444,8 @@ class Ebs {
 
   /// The volume type, which can be `standard` for Magnetic, `io1` for
   /// Provisioned IOPS SSD, `gp2` for General Purpose SSD, `st1` for Throughput
-  /// Optimized HDD, or `sc1` for Cold HDD. For more information, see [Amazon
-  /// EBS Volume
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
+  /// Optimized HDD, or `sc1` for Cold HDD. For more information, see
+  /// [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// Valid values: `standard` | `io1` | `gp2` | `st1` | `sc1`
@@ -2450,8 +2457,8 @@ class Ebs {
 
   /// The number of I/O operations per second (IOPS) to provision for the
   /// volume. The maximum ratio of IOPS to volume size (in GiB) is 50:1. For
-  /// more information, see [Amazon EBS Volume
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
+  /// more information, see
+  /// [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// Conditional: This parameter is required when the volume type is `io1`.
@@ -2460,8 +2467,8 @@ class Ebs {
 
   /// Specifies whether the volume should be encrypted. Encrypted EBS volumes
   /// can only be attached to instances that support Amazon EBS encryption. For
-  /// more information, see [Supported Instance
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances).
+  /// more information, see
+  /// [Supported Instance Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances).
   /// If your AMI uses encrypted volumes, you can also only launch it on
   /// supported instance types.
   ///
@@ -2475,16 +2482,15 @@ class Ebs {
   /// already-encrypted snapshot. Volumes restored from the resulting copy are
   /// only accessible using the new CMK.
   ///
-  /// Enabling [encryption by
-  /// default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default)
+  /// Enabling
+  /// [encryption by default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default)
   /// results in all EBS volumes being encrypted with the AWS managed CMK or a
   /// customer managed CMK, whether or not the snapshot was encrypted.
   ///
-  /// For more information, see [Using Encryption with EBS-Backed
-  /// AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIEncryption.html)
-  /// in the _Amazon EC2 User Guide for Linux Instances_ and [Required CMK Key
-  /// Policy for Use with Encrypted
-  /// Volumes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/key-policy-requirements-EBS-encryption.html)
+  /// For more information, see
+  /// [Using Encryption with EBS-Backed AMIs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIEncryption.html)
+  /// in the _Amazon EC2 User Guide for Linux Instances_ and
+  /// [Required CMK Key Policy for Use with Encrypted Volumes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/key-policy-requirements-EBS-encryption.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final bool encrypted;
 
@@ -2499,6 +2505,7 @@ class Ebs {
   static Ebs fromJson(Map<String, dynamic> json) => Ebs();
 }
 
+/// Describes an enabled metric.
 class EnabledMetric {
   /// One of the following metrics:
   ///
@@ -2551,6 +2558,7 @@ class ExitStandbyAnswer {
       ExitStandbyAnswer();
 }
 
+/// Describes a scheduled action that could not be created, updated, or deleted.
 class FailedScheduledUpdateGroupActionRequest {
   /// The name of the scheduled action.
   final String scheduledActionName;
@@ -2571,6 +2579,7 @@ class FailedScheduledUpdateGroupActionRequest {
       FailedScheduledUpdateGroupActionRequest();
 }
 
+/// Describes a filter.
 class Filter {
   /// The name of the filter. The valid values are: `"auto-scaling-group"`,
   /// `"key"`, `"value"`, and `"propagate-at-launch"`.
@@ -2585,6 +2594,7 @@ class Filter {
   });
 }
 
+/// Describes an EC2 instance.
 class Instance {
   /// The ID of the instance.
   final String instanceId;
@@ -2624,6 +2634,8 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// Describes whether detailed monitoring is enabled for the Auto Scaling
+/// instances.
 class InstanceMonitoring {
   /// If `true`, detailed monitoring is enabled. Otherwise, basic monitoring is
   /// enabled.
@@ -2636,6 +2648,13 @@ class InstanceMonitoring {
       InstanceMonitoring();
 }
 
+/// Describes an instances distribution for an Auto Scaling group with
+/// MixedInstancesPolicy.
+///
+/// The instances distribution specifies the distribution of On-Demand Instances
+/// and Spot Instances, the maximum price to pay for Spot Instances, and how the
+/// Auto Scaling group allocates instance types to fulfill On-Demand and Spot
+/// capacity.
 class InstancesDistribution {
   /// Indicates how to allocate instance types to fulfill On-Demand capacity.
   ///
@@ -2711,6 +2730,7 @@ class InstancesDistribution {
       InstancesDistribution();
 }
 
+/// Describes a launch configuration.
 class LaunchConfiguration {
   /// The name of the launch configuration.
   final String launchConfigurationName;
@@ -2721,23 +2741,23 @@ class LaunchConfiguration {
   /// The ID of the Amazon Machine Image (AMI) to use to launch your EC2
   /// instances.
   ///
-  /// For more information, see [Finding an
-  /// AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
+  /// For more information, see
+  /// [Finding an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final String imageId;
 
   /// The name of the key pair.
   ///
-  /// For more information, see [Amazon EC2 Key
-  /// Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
+  /// For more information, see
+  /// [Amazon EC2 Key Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final String keyName;
 
   /// A list that contains the security groups to assign to the instances in the
   /// Auto Scaling group.
   ///
-  /// For more information, see [Security Groups for Your
-  /// VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
+  /// For more information, see
+  /// [Security Groups for Your VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
   /// in the _Amazon Virtual Private Cloud User Guide_.
   final List<String> securityGroups;
 
@@ -2745,9 +2765,8 @@ class LaunchConfiguration {
   ///
   /// For more information, see
   /// [ClassicLink](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html)
-  /// in the _Amazon EC2 User Guide for Linux Instances_ and [Linking
-  /// EC2-Classic Instances to a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
+  /// in the _Amazon EC2 User Guide for Linux Instances_ and
+  /// [Linking EC2-Classic Instances to a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final String classicLinkVpcId;
 
@@ -2756,24 +2775,23 @@ class LaunchConfiguration {
   ///
   /// For more information, see
   /// [ClassicLink](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-classiclink.html)
-  /// in the _Amazon EC2 User Guide for Linux Instances_ and [Linking
-  /// EC2-Classic Instances to a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
+  /// in the _Amazon EC2 User Guide for Linux Instances_ and
+  /// [Linking EC2-Classic Instances to a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-ClassicLink)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final List<String> classicLinkVpcSecurityGroups;
 
   /// The Base64-encoded user data to make available to the launched EC2
   /// instances.
   ///
-  /// For more information, see [Instance Metadata and User
-  /// Data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
+  /// For more information, see
+  /// [Instance Metadata and User Data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final String userData;
 
   /// The instance type for the instances.
   ///
-  /// For information about available instance types, see [Available Instance
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
+  /// For information about available instance types, see
+  /// [Available Instance Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
   /// in the _Amazon EC2 User Guide for Linux Instances._
   final String instanceType;
 
@@ -2786,16 +2804,16 @@ class LaunchConfiguration {
   /// A block device mapping, which specifies the block devices for the
   /// instance.
   ///
-  /// For more information, see [Block Device
-  /// Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
+  /// For more information, see
+  /// [Block Device Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final List<BlockDeviceMapping> blockDeviceMappings;
 
   /// Controls whether instances in this group are launched with detailed
   /// (`true`) or basic (`false`) monitoring.
   ///
-  /// For more information, see [Configure Monitoring for Auto Scaling
-  /// Instances](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-instance-monitoring.html#enable-as-instance-metrics)
+  /// For more information, see
+  /// [Configure Monitoring for Auto Scaling Instances](https://docs.aws.amazon.com/autoscaling/latest/userguide/as-instance-monitoring.html#enable-as-instance-metrics)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final InstanceMonitoring instanceMonitoring;
 
@@ -2803,8 +2821,8 @@ class LaunchConfiguration {
   /// fulfill the request. Spot Instances are launched when the price you
   /// specify exceeds the current Spot market price.
   ///
-  /// For more information, see [Launching Spot Instances in Your Auto Scaling
-  /// Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-launch-spot-instances.html)
+  /// For more information, see
+  /// [Launching Spot Instances in Your Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-launch-spot-instances.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final String spotPrice;
 
@@ -2812,9 +2830,8 @@ class LaunchConfiguration {
   /// associated with the IAM role for the instance. The instance profile
   /// contains the IAM role.
   ///
-  /// For more information, see [IAM Role for Applications That Run on Amazon
-  /// EC2
-  /// Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html)
+  /// For more information, see
+  /// [IAM Role for Applications That Run on Amazon EC2 Instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/us-iam-role.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final String iamInstanceProfile;
 
@@ -2824,16 +2841,16 @@ class LaunchConfiguration {
   /// Specifies whether the launch configuration is optimized for EBS I/O
   /// (`true`) or not (`false`).
   ///
-  /// For more information, see [Amazon EBS-Optimized
-  /// Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html)
+  /// For more information, see
+  /// [Amazon EBS-Optimized Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSOptimized.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final bool ebsOptimized;
 
   /// For Auto Scaling groups that are running in a VPC, specifies whether to
   /// assign a public IP address to the group's instances.
   ///
-  /// For more information, see [Launching Auto Scaling Instances in a
-  /// VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html)
+  /// For more information, see
+  /// [Launching Auto Scaling Instances in a VPC](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final bool associatePublicIpAddress;
 
@@ -2841,8 +2858,8 @@ class LaunchConfiguration {
   /// with `dedicated` tenancy runs on isolated, single-tenant hardware and can
   /// only be launched into a VPC.
   ///
-  /// For more information, see [Instance Placement
-  /// Tenancy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-vpc-tenancy)
+  /// For more information, see
+  /// [Instance Placement Tenancy](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-in-vpc.html#as-vpc-tenancy)
   /// in the _Amazon EC2 Auto Scaling User Guide_.
   final String placementTenancy;
 
@@ -2889,6 +2906,11 @@ class LaunchConfigurationsType {
       LaunchConfigurationsType();
 }
 
+/// Describes a launch template and overrides.
+///
+/// The overrides are used to override the instance type specified by the launch
+/// template with multiple instance types that can be used to launch On-Demand
+/// Instances and Spot Instances.
 class LaunchTemplate {
   /// The launch template to use. You must specify either the launch template ID
   /// or launch template name in the request.
@@ -2906,11 +2928,12 @@ class LaunchTemplate {
   static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate();
 }
 
+/// Describes an override for a launch template.
 class LaunchTemplateOverrides {
   /// The instance type.
   ///
-  /// For information about available instance types, see [Available Instance
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
+  /// For information about available instance types, see
+  /// [Available Instance Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#AvailableInstanceTypes)
   /// in the _Amazon Elastic Compute Cloud User Guide._
   final String instanceType;
 
@@ -2921,6 +2944,12 @@ class LaunchTemplateOverrides {
       LaunchTemplateOverrides();
 }
 
+/// Describes a launch template and the launch template version.
+///
+/// The launch template that is specified must be configured for use with an
+/// Auto Scaling group. For more information, see
+/// [Creating a Launch Template for an Auto Scaling Group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/create-launch-template.html)
+/// in the _Amazon EC2 Auto Scaling User Guide_.
 class LaunchTemplateSpecification {
   /// The ID of the launch template. You must specify either a template ID or a
   /// template name.
@@ -2946,6 +2975,9 @@ class LaunchTemplateSpecification {
       LaunchTemplateSpecification();
 }
 
+/// Describes a lifecycle hook, which tells Amazon EC2 Auto Scaling that you
+/// want to perform an action whenever it launches instances or terminates
+/// instances. Used in response to DescribeLifecycleHooks.
 class LifecycleHook {
   /// The name of the lifecycle hook.
   final String lifecycleHookName;
@@ -2956,9 +2988,9 @@ class LifecycleHook {
   /// The state of the EC2 instance to which to attach the lifecycle hook. The
   /// following are possible values:
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_LAUNCHING
+  /// *   autoscaling:EC2_INSTANCE_LAUNCHING
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_TERMINATING
+  /// *   autoscaling:EC2_INSTANCE_TERMINATING
   final String lifecycleTransition;
 
   /// The ARN of the target that Amazon EC2 Auto Scaling sends notifications to
@@ -3003,6 +3035,41 @@ class LifecycleHook {
   static LifecycleHook fromJson(Map<String, dynamic> json) => LifecycleHook();
 }
 
+/// Describes a lifecycle hook. Used in combination with CreateAutoScalingGroup.
+///
+/// A lifecycle hook tells Amazon EC2 Auto Scaling to perform an action on an
+/// instance when the instance launches (before it is put into service) or as
+/// the instance terminates (before it is fully terminated).
+///
+/// This step is a part of the procedure for creating a lifecycle hook for an
+/// Auto Scaling group:
+///
+/// 1.  (Optional) Create a Lambda function and a rule that allows CloudWatch
+/// Events to invoke your Lambda function when Amazon EC2 Auto Scaling launches
+/// or terminates instances.
+///
+/// 2.  (Optional) Create a notification target and an IAM role. The target can
+/// be either an Amazon SQS queue or an Amazon SNS topic. The role allows Amazon
+/// EC2 Auto Scaling to publish lifecycle notifications to the target.
+///
+/// 3.   **Create the lifecycle hook. Specify whether the hook is used when the
+/// instances launch or terminate.**
+///
+/// 4.  If you need more time, record the lifecycle action heartbeat to keep the
+/// instance in a pending state using RecordLifecycleActionHeartbeat.
+///
+/// 5.  If you finish before the timeout period ends, complete the lifecycle
+/// action using CompleteLifecycleAction.
+///
+///
+/// For more information, see
+/// [Amazon EC2 Auto Scaling Lifecycle Hooks](https://docs.aws.amazon.com/autoscaling/ec2/userguide/lifecycle-hooks.html)
+/// in the _Amazon EC2 Auto Scaling User Guide_.
+///
+/// You can view the lifecycle hooks for an Auto Scaling group using
+/// DescribeLifecycleHooks. You can modify an existing lifecycle hook or create
+/// new lifecycle hooks using PutLifecycleHook. If you are no longer using a
+/// lifecycle hook, you can delete it using DeleteLifecycleHook.
 class LifecycleHookSpecification {
   /// The name of the lifecycle hook.
   final String lifecycleHookName;
@@ -3010,9 +3077,9 @@ class LifecycleHookSpecification {
   /// The state of the EC2 instance to which you want to attach the lifecycle
   /// hook. The valid values are:
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_LAUNCHING
+  /// *   autoscaling:EC2_INSTANCE_LAUNCHING
   ///
-  /// *   autoscaling:EC2\_INSTANCE\_TERMINATING
+  /// *   autoscaling:EC2_INSTANCE_TERMINATING
   final String lifecycleTransition;
 
   /// Additional information that you want to include any time Amazon EC2 Auto
@@ -3054,28 +3121,40 @@ class LifecycleHookSpecification {
   });
 }
 
+/// Describes the state of a Classic Load Balancer.
+///
+/// If you specify a load balancer when creating the Auto Scaling group, the
+/// state of the load balancer is `InService`.
+///
+/// If you attach a load balancer to an existing Auto Scaling group, the initial
+/// state is `Adding`. The state transitions to `Added` after all instances in
+/// the group are registered with the load balancer. If Elastic Load Balancing
+/// health checks are enabled for the load balancer, the state transitions to
+/// `InService` after at least one instance in the group passes the health
+/// check. If EC2 health checks are enabled instead, the load balancer remains
+/// in the `Added` state.
 class LoadBalancerState {
   /// The name of the load balancer.
   final String loadBalancerName;
 
   /// One of the following load balancer states:
   ///
-  /// *    `Adding` \- The instances in the group are being registered with the
+  /// *    `Adding` - The instances in the group are being registered with the
   /// load balancer.
   ///
-  /// *    `Added` \- All instances in the group are registered with the load
+  /// *    `Added` - All instances in the group are registered with the load
   /// balancer.
   ///
-  /// *    `InService` \- At least one instance in the group passed an ELB
-  /// health check.
+  /// *    `InService` - At least one instance in the group passed an ELB health
+  /// check.
   ///
-  /// *    `Removing` \- The instances in the group are being deregistered from
+  /// *    `Removing` - The instances in the group are being deregistered from
   /// the load balancer. If connection draining is enabled, Elastic Load
   /// Balancing waits for in-flight requests to complete before deregistering
   /// the instances.
   ///
-  /// *    `Removed` \- All instances in the group are deregistered from the
-  /// load balancer.
+  /// *    `Removed` - All instances in the group are deregistered from the load
+  /// balancer.
   final String state;
 
   LoadBalancerState({
@@ -3086,27 +3165,35 @@ class LoadBalancerState {
       LoadBalancerState();
 }
 
+/// Describes the state of a target group.
+///
+/// If you attach a target group to an existing Auto Scaling group, the initial
+/// state is `Adding`. The state transitions to `Added` after all Auto Scaling
+/// instances are registered with the target group. If Elastic Load Balancing
+/// health checks are enabled, the state transitions to `InService` after at
+/// least one Auto Scaling instance passes the health check. If EC2 health
+/// checks are enabled instead, the target group remains in the `Added` state.
 class LoadBalancerTargetGroupState {
   /// The Amazon Resource Name (ARN) of the target group.
   final String loadBalancerTargetGroupArn;
 
   /// The state of the target group.
   ///
-  /// *    `Adding` \- The Auto Scaling instances are being registered with the
+  /// *    `Adding` - The Auto Scaling instances are being registered with the
   /// target group.
   ///
-  /// *    `Added` \- All Auto Scaling instances are registered with the target
+  /// *    `Added` - All Auto Scaling instances are registered with the target
   /// group.
   ///
-  /// *    `InService` \- At least one Auto Scaling instance passed an ELB
-  /// health check.
+  /// *    `InService` - At least one Auto Scaling instance passed an ELB health
+  /// check.
   ///
-  /// *    `Removing` \- The Auto Scaling instances are being deregistered from
+  /// *    `Removing` - The Auto Scaling instances are being deregistered from
   /// the target group. If connection draining is enabled, Elastic Load
   /// Balancing waits for in-flight requests to complete before deregistering
   /// the instances.
   ///
-  /// *    `Removed` \- All Auto Scaling instances are deregistered from the
+  /// *    `Removed` - All Auto Scaling instances are deregistered from the
   /// target group.
   final String state;
 
@@ -3118,6 +3205,7 @@ class LoadBalancerTargetGroupState {
       LoadBalancerTargetGroupState();
 }
 
+/// Describes a metric.
 class MetricCollectionType {
   /// One of the following metrics:
   ///
@@ -3145,6 +3233,7 @@ class MetricCollectionType {
       MetricCollectionType();
 }
 
+/// Describes the dimension of a metric.
 class MetricDimension {
   /// The name of the dimension.
   final String name;
@@ -3160,6 +3249,7 @@ class MetricDimension {
       MetricDimension();
 }
 
+/// Describes a granularity of a metric.
 class MetricGranularityType {
   /// The granularity. The only valid value is `1Minute`.
   final String granularity;
@@ -3171,6 +3261,18 @@ class MetricGranularityType {
       MetricGranularityType();
 }
 
+/// Describes a mixed instances policy for an Auto Scaling group. With mixed
+/// instances, your Auto Scaling group can provision a combination of On-Demand
+/// Instances and Spot Instances across multiple instance types. For more
+/// information, see
+/// [Auto Scaling Groups with Multiple Instance Types and Purchase Options](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-purchase-options.html)
+/// in the _Amazon EC2 Auto Scaling User Guide_.
+///
+/// You can create a mixed instances policy for a new Auto Scaling group, or you
+/// can create it for an existing group by updating the group to specify
+/// `MixedInstancesPolicy` as the top-level parameter instead of a launch
+/// configuration or template. For more information, see CreateAutoScalingGroup
+/// and UpdateAutoScalingGroup.
 class MixedInstancesPolicy {
   /// The launch template and instance types (overrides).
   ///
@@ -3191,6 +3293,7 @@ class MixedInstancesPolicy {
       MixedInstancesPolicy();
 }
 
+/// Describes a notification.
 class NotificationConfiguration {
   /// The name of the Auto Scaling group.
   final String autoScalingGroupName;
@@ -3201,13 +3304,13 @@ class NotificationConfiguration {
 
   /// One of the following event notification types:
   ///
-  /// *    `autoscaling:EC2\_INSTANCE\_LAUNCH`
+  /// *    `autoscaling:EC2_INSTANCE_LAUNCH`
   ///
-  /// *    `autoscaling:EC2\_INSTANCE\_LAUNCH_ERROR`
+  /// *    `autoscaling:EC2_INSTANCE_LAUNCH_ERROR`
   ///
-  /// *    `autoscaling:EC2\_INSTANCE\_TERMINATE`
+  /// *    `autoscaling:EC2_INSTANCE_TERMINATE`
   ///
-  /// *    `autoscaling:EC2\_INSTANCE\_TERMINATE_ERROR`
+  /// *    `autoscaling:EC2_INSTANCE_TERMINATE_ERROR`
   ///
   /// *    `autoscaling:TEST_NOTIFICATION`
   final String notificationType;
@@ -3238,6 +3341,7 @@ class PoliciesType {
   static PoliciesType fromJson(Map<String, dynamic> json) => PoliciesType();
 }
 
+/// Contains the output of PutScalingPolicy.
 class PolicyArnType {
   /// The Amazon Resource Name (ARN) of the policy.
   final String policyArn;
@@ -3252,6 +3356,8 @@ class PolicyArnType {
   static PolicyArnType fromJson(Map<String, dynamic> json) => PolicyArnType();
 }
 
+/// Represents a predefined metric for a target tracking scaling policy to use
+/// with Amazon EC2 Auto Scaling.
 class PredefinedMetricSpecification {
   /// The metric type.
   final String predefinedMetricType;
@@ -3259,16 +3365,16 @@ class PredefinedMetricSpecification {
   /// Identifies the resource associated with the metric type. The following
   /// predefined metrics are available:
   ///
-  /// *    `ASGAverageCPUUtilization` \- Average CPU utilization of the Auto
+  /// *    `ASGAverageCPUUtilization` - Average CPU utilization of the Auto
   /// Scaling group.
   ///
-  /// *    `ASGAverageNetworkIn` \- Average number of bytes received on all
+  /// *    `ASGAverageNetworkIn` - Average number of bytes received on all
   /// network interfaces by the Auto Scaling group.
   ///
-  /// *    `ASGAverageNetworkOut` \- Average number of bytes sent out on all
+  /// *    `ASGAverageNetworkOut` - Average number of bytes sent out on all
   /// network interfaces by the Auto Scaling group.
   ///
-  /// *    `ALBRequestCountPerTarget` \- Number of requests completed per target
+  /// *    `ALBRequestCountPerTarget` - Number of requests completed per target
   /// in an Application Load Balancer target group.
   ///
   ///
@@ -3293,6 +3399,11 @@ class PredefinedMetricSpecification {
       PredefinedMetricSpecification();
 }
 
+/// Describes a process type.
+///
+/// For more information, see
+/// [Scaling Processes](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-suspend-resume-processes.html#process-types)
+/// in the _Amazon EC2 Auto Scaling User Guide_.
 class ProcessType {
   /// One of the following processes:
   ///
@@ -3342,6 +3453,7 @@ class RecordLifecycleActionHeartbeatAnswer {
       RecordLifecycleActionHeartbeatAnswer();
 }
 
+/// Describes a scaling policy.
 class ScalingPolicy {
   /// The name of the Auto Scaling group.
   final String autoScalingGroupName;
@@ -3435,6 +3547,8 @@ class ScheduledActionsType {
       ScheduledActionsType();
 }
 
+/// Describes a scheduled scaling action. Used in response to
+/// DescribeScheduledActions.
 class ScheduledUpdateGroupAction {
   /// The name of the Auto Scaling group.
   final String autoScalingGroupName;
@@ -3487,6 +3601,11 @@ class ScheduledUpdateGroupAction {
       ScheduledUpdateGroupAction();
 }
 
+/// Describes one or more scheduled scaling action updates for a specified Auto
+/// Scaling group. Used in combination with BatchPutScheduledUpdateGroupAction.
+///
+/// When updating a scheduled scaling action, all optional parameters are left
+/// unchanged if not specified.
 class ScheduledUpdateGroupActionRequest {
   /// The name of the scaling action.
   final String scheduledActionName;
@@ -3507,10 +3626,10 @@ class ScheduledUpdateGroupActionRequest {
   final DateTime endTime;
 
   /// The recurring schedule for the action, in Unix cron syntax format. This
-  /// format consists of five fields separated by white spaces: \[Minute\]
-  /// \[Hour\] \[Day\_of\_Month\] \[Month\_of\_Year\] \[Day\_of\_Week\]. The
-  /// value must be in quotes (for example, `"30 0 1 1,6,12 *"`). For more
-  /// information about this format, see [Crontab](http://crontab.org).
+  /// format consists of five fields separated by white spaces: [Minute] [Hour]
+  /// [Day_of_Month] [Month_of_Year] [Day_of_Week]. The value must be in quotes
+  /// (for example, `"30 0 1 1,6,12 *"`). For more information about this
+  /// format, see [Crontab](http://crontab.org).
   ///
   /// When `StartTime` and `EndTime` are specified with `Recurrence`, they form
   /// the boundaries of when the recurring action starts and stops.
@@ -3542,6 +3661,33 @@ class SetInstanceProtectionAnswer {
       SetInstanceProtectionAnswer();
 }
 
+/// Describes an adjustment based on the difference between the value of the
+/// aggregated CloudWatch metric and the breach threshold that you've defined
+/// for the alarm. Used in combination with PutScalingPolicy.
+///
+/// For the following examples, suppose that you have an alarm with a breach
+/// threshold of 50:
+///
+/// *   To trigger the adjustment when the metric is greater than or equal to 50
+/// and less than 60, specify a lower bound of 0 and an upper bound of 10.
+///
+/// *   To trigger the adjustment when the metric is greater than 40 and less
+/// than or equal to 50, specify a lower bound of -10 and an upper bound of 0.
+///
+///
+/// There are a few rules for the step adjustments for your step policy:
+///
+/// *   The ranges of your step adjustments can't overlap or have a gap.
+///
+/// *   At most, one step adjustment can have a null lower bound. If one step
+/// adjustment has a negative lower bound, then there must be a step adjustment
+/// with a null lower bound.
+///
+/// *   At most, one step adjustment can have a null upper bound. If one step
+/// adjustment has a positive upper bound, then there must be a step adjustment
+/// with a null upper bound.
+///
+/// *   The upper and lower bound can't be null in the same step adjustment.
 class StepAdjustment {
   /// The lower bound for the difference between the alarm threshold and the
   /// CloudWatch metric. If the metric value is above the breach threshold, the
@@ -3574,6 +3720,8 @@ class StepAdjustment {
   static StepAdjustment fromJson(Map<String, dynamic> json) => StepAdjustment();
 }
 
+/// Describes an automatic scaling process that has been suspended. For more
+/// information, see ProcessType.
 class SuspendedProcess {
   /// The name of the suspended process.
   final String processName;
@@ -3589,6 +3737,7 @@ class SuspendedProcess {
       SuspendedProcess();
 }
 
+/// Describes a tag for an Auto Scaling group.
 class Tag {
   /// The name of the group.
   final String resourceId;
@@ -3615,6 +3764,7 @@ class Tag {
   });
 }
 
+/// Describes a tag for an Auto Scaling group.
 class TagDescription {
   /// The name of the group.
   final String resourceId;
@@ -3659,6 +3809,8 @@ class TagsType {
   static TagsType fromJson(Map<String, dynamic> json) => TagsType();
 }
 
+/// Represents a target tracking scaling policy configuration to use with Amazon
+/// EC2 Auto Scaling.
 class TargetTrackingConfiguration {
   /// A predefined metric. You must specify either a predefined metric or a
   /// customized metric.

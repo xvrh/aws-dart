@@ -12,19 +12,19 @@ import 'dart:typed_data';
 /// on-premises machine in your hybrid environment that has been configured for
 /// Systems Manager.
 ///
-/// This reference is intended to be used with the [AWS Systems Manager User
-/// Guide](http://docs.aws.amazon.com/systems-manager/latest/userguide/).
+/// This reference is intended to be used with the
+/// [AWS Systems Manager User Guide](http://docs.aws.amazon.com/systems-manager/latest/userguide/).
 ///
 /// To get started, verify prerequisites and configure managed instances. For
-/// more information, see [Setting Up AWS Systems
-/// Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html)
+/// more information, see
+/// [Setting Up AWS Systems Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-setting-up.html)
 /// in the _AWS Systems Manager User Guide_.
 ///
 /// For information about other API actions you can perform on Amazon EC2
-/// instances, see the [Amazon EC2 API
-/// Reference](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/). For
-/// information about how to use a Query API, see [Making API
-/// Requests](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html).
+/// instances, see the
+/// [Amazon EC2 API Reference](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/).
+/// For information about how to use a Query API, see
+/// [Making API Requests](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/making-api-requests.html).
 class SsmApi {
   /// Adds or overwrites one or more tags for the specified resource. Tags are
   /// metadata that you can assign to your documents, managed instances,
@@ -45,8 +45,8 @@ class SsmApi {
   /// based on the tags you add. Tags don't have any semantic meaning to Amazon
   /// EC2 and are interpreted strictly as a string of characters.
   ///
-  /// For more information about tags, see [Tagging Your Amazon EC2
-  /// Resources](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
+  /// For more information about tags, see
+  /// [Tagging Your Amazon EC2 Resources](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
   /// in the _Amazon EC2 User Guide_.
   ///
   /// [resourceType]: Specifies the type of resource you are tagging.
@@ -116,9 +116,8 @@ class SsmApi {
   /// Registers your on-premises server or virtual machine with Amazon EC2 so
   /// that you can manage these resources using Run Command. An on-premises
   /// server or virtual machine that has been registered with EC2 is called a
-  /// managed instance. For more information about activations, see [Setting Up
-  /// AWS Systems Manager for Hybrid
-  /// Environments](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html).
+  /// managed instance. For more information about activations, see
+  /// [Setting Up AWS Systems Manager for Hybrid Environments](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-managedinstances.html).
   ///
   /// [description]: A user-defined description of the resource that you want to
   /// register with Amazon EC2.
@@ -337,8 +336,8 @@ class SsmApi {
   /// specify the following value: /AWS::EC2::Instance. If you specify a value
   /// of '/' the document can run on all types of resources. If you don't
   /// specify a value, the document can't run on any resources. For a list of
-  /// valid resource types, see [AWS Resource Types
-  /// Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// valid resource types, see
+  /// [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the _AWS CloudFormation User Guide_.
   ///
   /// [tags]: Optional metadata that you assign to a resource. Tags enable you
@@ -391,8 +390,8 @@ class SsmApi {
   /// [scheduleTimezone]: The time zone that the scheduled maintenance window
   /// executions are based on, in Internet Assigned Numbers Authority (IANA)
   /// format. For example: "America/Los_Angeles", "etc/UTC", or "Asia/Seoul".
-  /// For more information, see the [Time Zone
-  /// Database](https://www.iana.org/time-zones) on the IANA website.
+  /// For more information, see the
+  /// [Time Zone Database](https://www.iana.org/time-zones) on the IANA website.
   ///
   /// [duration]: The duration of the maintenance window in hours.
   ///
@@ -445,15 +444,13 @@ class SsmApi {
 
   /// Creates a new OpsItem. You must have permission in AWS Identity and Access
   /// Management (IAM) to create a new OpsItem. For more information, see
-  /// [Getting Started with
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
+  /// [Getting Started with OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Operations engineers and IT professionals use OpsCenter to view,
   /// investigate, and remediate operational issues impacting the performance
-  /// and health of their AWS resources. For more information, see [AWS Systems
-  /// Manager
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+  /// and health of their AWS resources. For more information, see
+  /// [AWS Systems Manager OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [description]: Information about the OpsItem.
@@ -477,8 +474,8 @@ class SsmApi {
   /// Use the `/aws/resources` key in OperationalData to specify a related
   /// resource in the request. Use the `/aws/automations` key in OperationalData
   /// to associate an Automation runbook with the OpsItem. To view AWS CLI
-  /// example commands that use these keys, see [Creating OpsItems
-  /// Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
+  /// example commands that use these keys, see
+  /// [Creating OpsItems Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [notifications]: The Amazon Resource Name (ARN) of an SNS topic where
@@ -500,8 +497,8 @@ class SsmApi {
   ///
   /// [tags]: Optional metadata that you assign to a resource. You can restrict
   /// access to OpsItems by using an inline IAM policy that specifies tags. For
-  /// more information, see [Getting Started with
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions)
+  /// more information, see
+  /// [Getting Started with OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html#OpsCenter-getting-started-user-permissions)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Tags use a key-value pair. For example:
@@ -544,9 +541,8 @@ class SsmApi {
   /// [approvedPatches]: A list of explicitly approved patches for the baseline.
   ///
   /// For information about accepted formats for lists of approved patches and
-  /// rejected patches, see [Package Name Formats for Approved and Rejected
-  /// Patch
-  /// Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
+  /// rejected patches, see
+  /// [Package Name Formats for Approved and Rejected Patch Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [approvedPatchesComplianceLevel]: Defines the compliance level for
@@ -561,15 +557,14 @@ class SsmApi {
   /// [rejectedPatches]: A list of explicitly rejected patches for the baseline.
   ///
   /// For information about accepted formats for lists of approved patches and
-  /// rejected patches, see [Package Name Formats for Approved and Rejected
-  /// Patch
-  /// Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
+  /// rejected patches, see
+  /// [Package Name Formats for Approved and Rejected Patch Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [rejectedPatchesAction]: The action for Patch Manager to take on patches
   /// included in the RejectedPackages list.
   ///
-  /// *    **ALLOW\_AS\_DEPENDENCY**: A package in the Rejected patches list is
+  /// *    **ALLOW_AS_DEPENDENCY**: A package in the Rejected patches list is
   /// installed only if it is a dependency of another package. It is considered
   /// compliant with the patch baseline, and its status is reported as
   /// _InstalledOther_. This is the default action if no option is specified.
@@ -629,9 +624,8 @@ class SsmApi {
   /// By default, data is not encrypted in Amazon S3. We strongly recommend that
   /// you enable encryption in Amazon S3 to ensure secure data storage. We also
   /// recommend that you secure access to the Amazon S3 bucket by creating a
-  /// restrictive bucket policy. For more information, see [Configuring Resource
-  /// Data Sync for
-  /// Inventory](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html)
+  /// restrictive bucket policy. For more information, see
+  /// [Configuring Resource Data Sync for Inventory](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [syncName]: A name for the configuration.
@@ -908,7 +902,7 @@ class SsmApi {
   ///
   /// Status (EQUAL)
   ///
-  /// CreatedTime (EQUAL, GREATER\_THAN, LESS\_THAN)
+  /// CreatedTime (EQUAL, GREATER_THAN, LESS_THAN)
   ///
   /// [maxResults]: The maximum number of items to return for this call. The
   /// call also returns a token that you can specify in a subsequent call to get
@@ -1196,7 +1190,7 @@ class SsmApi {
   ///
   /// [filters]: Optional filters used to scope down the returned task
   /// invocations. The supported filter key is STATUS with the corresponding
-  /// values PENDING, IN\_PROGRESS, SUCCESS, FAILED, TIMED\_OUT, CANCELLING, and
+  /// values PENDING, IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and
   /// CANCELLED.
   ///
   /// [maxResults]: The maximum number of items to return for this call. The
@@ -1222,7 +1216,7 @@ class SsmApi {
   ///
   /// [filters]: Optional filters used to scope down the returned tasks. The
   /// supported filter key is STATUS with the corresponding values PENDING,
-  /// IN\_PROGRESS, SUCCESS, FAILED, TIMED\_OUT, CANCELLING, and CANCELLED.
+  /// IN_PROGRESS, SUCCESS, FAILED, TIMED_OUT, CANCELLING, and CANCELLED.
   ///
   /// [maxResults]: The maximum number of items to return for this call. The
   /// call also returns a token that you can specify in a subsequent call to get
@@ -1390,15 +1384,14 @@ class SsmApi {
 
   /// Query a set of OpsItems. You must have permission in AWS Identity and
   /// Access Management (IAM) to query a list of OpsItems. For more information,
-  /// see [Getting Started with
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
+  /// see
+  /// [Getting Started with OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Operations engineers and IT professionals use OpsCenter to view,
   /// investigate, and remediate operational issues impacting the performance
-  /// and health of their AWS resources. For more information, see [AWS Systems
-  /// Manager
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+  /// and health of their AWS resources. For more information, see
+  /// [AWS Systems Manager OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [opsItemFilters]: One or more filters to limit the reponse.
@@ -1458,7 +1451,7 @@ class SsmApi {
   ///
   /// *If you filter the response by using the OperationalData operator, specify
   /// a key-value pair by using the following JSON format:
-  /// {"key":"key\_name","value":"a\_value"}
+  /// {"key":"key_name","value":"a_value"}
   ///
   /// [maxResults]: The maximum number of items to return for this call. The
   /// call also returns a token that you can specify in a subsequent call to get
@@ -1557,13 +1550,13 @@ class SsmApi {
   ///
   /// WINDOWS
   ///
-  /// Valid properties: PRODUCT, PRODUCT\_FAMILY, CLASSIFICATION, MSRC\_SEVERITY
+  /// Valid properties: PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, MSRC_SEVERITY
   ///
   /// AMAZON_LINUX
   ///
   /// Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
   ///
-  /// AMAZON\_LINUX\_2
+  /// AMAZON_LINUX_2
   ///
   /// Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
   ///
@@ -1571,7 +1564,7 @@ class SsmApi {
   ///
   /// Valid properties: PRODUCT, PRIORITY
   ///
-  /// REDHAT\_ENTERPRISE\_LINUX
+  /// REDHAT_ENTERPRISE_LINUX
   ///
   /// Valid properties: PRODUCT, CLASSIFICATION, SEVERITY
   ///
@@ -1827,15 +1820,14 @@ class SsmApi {
 
   /// Get information about an OpsItem by using the ID. You must have permission
   /// in AWS Identity and Access Management (IAM) to view information about an
-  /// OpsItem. For more information, see [Getting Started with
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
+  /// OpsItem. For more information, see
+  /// [Getting Started with OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Operations engineers and IT professionals use OpsCenter to view,
   /// investigate, and remediate operational issues impacting the performance
-  /// and health of their AWS resources. For more information, see [AWS Systems
-  /// Manager
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+  /// and health of their AWS resources. For more information, see
+  /// [AWS Systems Manager OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [opsItemId]: The ID of the OpsItem that you want to get.
@@ -1905,8 +1897,7 @@ class SsmApi {
   }
 
   /// Retrieve parameters in a specific hierarchy. For more information, see
-  /// [Working with Systems Manager
-  /// Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html)
+  /// [Working with Systems Manager Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-working.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Request results are returned on a best-effort basis. If you specify
@@ -2452,8 +2443,7 @@ class SsmApi {
   ///
   ///
   /// For additional information about valid values for parameter names, see
-  /// [Requirements and Constraints for Parameter
-  /// Names](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html)
+  /// [Requirements and Constraints for Parameter Names](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-parameter-name-constraints.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   ///
@@ -2503,7 +2493,7 @@ class SsmApi {
   ///
   /// [allowedPattern]: A regular expression used to validate the parameter
   /// value. For example, for String types with values restricted to numbers,
-  /// you can specify the following: AllowedPattern=^\\d+$
+  /// you can specify the following: AllowedPattern=^d+$
   ///
   /// [tags]: Optional metadata that you assign to a resource. Tags enable you
   /// to categorize a resource in different ways, such as by purpose, owner, or
@@ -2536,8 +2526,8 @@ class SsmApi {
   /// Advanced parameters have a content size limit of 8 KB and can be
   /// configured to use parameter policies. You can create a maximum of 100,000
   /// advanced parameters for each Region in an AWS account. Advanced parameters
-  /// incur a charge. For more information, see [About Advanced
-  /// Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html)
+  /// incur a charge. For more information, see
+  /// [About Advanced Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-advanced-parameters.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// You can change a standard parameter to an advanced parameter any time. But
@@ -2591,8 +2581,7 @@ class SsmApi {
   ///
   ///
   /// For more information about configuring the default tier option, see
-  /// [Specifying a Default Parameter
-  /// Tier](http://docs.aws.amazon.com/systems-manager/latest/userguide/ps-default-tier.html)
+  /// [Specifying a Default Parameter Tier](http://docs.aws.amazon.com/systems-manager/latest/userguide/ps-default-tier.html)
   /// in the AWS Systems Manager User Guide.
   ///
   /// [policies]: One or more policies to apply to a parameter. This action
@@ -2615,9 +2604,8 @@ class SsmApi {
   /// within a period of time, but it has not been changed.
   ///
   /// All existing policies are preserved until you send new policies or an
-  /// empty policy. For more information about parameter policies, see [Working
-  /// with Parameter
-  /// Policies](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html).
+  /// empty policy. For more information about parameter policies, see
+  /// [Working with Parameter Policies](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-su-policies.html).
   Future<PutParameterResult> putParameter(
       {@required String name,
       String description,
@@ -2704,8 +2692,8 @@ class SsmApi {
   ///
   ///
   /// For more information about these examples formats, including the best use
-  /// case for each one, see [Examples: Register Targets with a Maintenance
-  /// Window](https://docs.aws.amazon.com/systems-manager/latest/userguide/mw-cli-tutorial-targets-examples.html)
+  /// case for each one, see
+  /// [Examples: Register Targets with a Maintenance Window](https://docs.aws.amazon.com/systems-manager/latest/userguide/mw-cli-tutorial-targets-examples.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [ownerInformation]: User-provided value that will be included in any
@@ -2754,12 +2742,11 @@ class SsmApi {
   /// For more information, see the following topics in the in the _AWS Systems
   /// Manager User Guide_:
   ///
-  /// *    [Service-Linked Role Permissions for Systems
-  /// Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions)
+  /// *
+  /// [Service-Linked Role Permissions for Systems Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions)
   ///
-  /// *    [Should I Use a Service-Linked Role or a Custom Service Role to Run
-  /// Maintenance Window
-  /// Tasks?](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role)
+  /// *
+  /// [Should I Use a Service-Linked Role or a Custom Service Role to Run Maintenance Window Tasks?](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role)
   ///
   /// [taskType]: The type of task being registered.
   ///
@@ -2933,15 +2920,15 @@ class SsmApi {
   /// specify a maximum of 50 IDs. If you prefer not to list individual instance
   /// IDs, you can instead send commands to a fleet of instances using the
   /// Targets parameter, which accepts EC2 tags. For more information about how
-  /// to use targets, see [Sending Commands to a
-  /// Fleet](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html)
+  /// to use targets, see
+  /// [Sending Commands to a Fleet](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [targets]: (Optional) An array of search criteria that targets instances
   /// using a Key,Value combination that you specify. Targets is required if you
   /// don't provide one or more instance IDs in the call. For more information
-  /// about how to use targets, see [Sending Commands to a
-  /// Fleet](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html)
+  /// about how to use targets, see
+  /// [Sending Commands to a Fleet](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [documentName]: Required. The name of the Systems Manager document to run.
@@ -2953,9 +2940,9 @@ class SsmApi {
   /// by using a backslash. If you specify a version number, then you don't need
   /// to use the backslash. For example:
   ///
-  /// --document-version "\\$DEFAULT"
+  /// --document-version "$DEFAULT"
   ///
-  /// --document-version "\\$LATEST"
+  /// --document-version "$LATEST"
   ///
   /// --document-version "3"
   ///
@@ -2994,17 +2981,16 @@ class SsmApi {
   /// [maxConcurrency]: (Optional) The maximum number of instances that are
   /// allowed to run the command at the same time. You can specify a number such
   /// as 10 or a percentage such as 10%. The default value is 50. For more
-  /// information about how to use MaxConcurrency, see [Using Concurrency
-  /// Controls](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-velocity)
+  /// information about how to use MaxConcurrency, see
+  /// [Using Concurrency Controls](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-velocity)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [maxErrors]: The maximum number of errors allowed without the command
   /// failing. When the command fails one more time beyond the value of
   /// MaxErrors, the systems stops sending the command to additional targets.
   /// You can specify a number like 10 or a percentage like 10%. The default
-  /// value is 0. For more information about how to use MaxErrors, see [Using
-  /// Error
-  /// Controls](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-maxerrors)
+  /// value is 0. For more information about how to use MaxErrors, see
+  /// [Using Error Controls](http://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-maxerrors)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [serviceRoleArn]: The ARN of the IAM service role to use to publish Amazon
@@ -3095,8 +3081,8 @@ class SsmApi {
   /// [targetLocations]: A location is a combination of AWS Regions and/or AWS
   /// accounts where you want to run the Automation. Use this action to start an
   /// Automation in multiple Regions and multiple accounts. For more
-  /// information, see [Executing Automations in Multiple AWS Regions and
-  /// Accounts](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html)
+  /// information, see
+  /// [Executing Automations in Multiple AWS Regions and Accounts](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html)
   /// in the _AWS Systems Manager User Guide_.
   Future<StartAutomationExecutionResult> startAutomationExecution(
       String documentName,
@@ -3121,9 +3107,8 @@ class SsmApi {
   ///
   /// AWS CLI usage: `start-session` is an interactive command that requires the
   /// Session Manager plugin to be installed on the client machine making the
-  /// call. For information, see  [Install the Session Manager Plugin for the
-  /// AWS
-  /// CLI](http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
+  /// call. For information, see
+  /// [Install the Session Manager Plugin for the AWS CLI](http://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [target]: The instance to connect to for the session.
@@ -3331,8 +3316,8 @@ class SsmApi {
   /// [startDate]: The time zone that the scheduled maintenance window
   /// executions are based on, in Internet Assigned Numbers Authority (IANA)
   /// format. For example: "America/Los_Angeles", "etc/UTC", or "Asia/Seoul".
-  /// For more information, see the [Time Zone
-  /// Database](https://www.iana.org/time-zones) on the IANA website.
+  /// For more information, see the
+  /// [Time Zone Database](https://www.iana.org/time-zones) on the IANA website.
   ///
   /// [endDate]: The date and time, in ISO-8601 Extended format, for when you
   /// want the maintenance window to become inactive. EndDate allows you to set
@@ -3345,8 +3330,8 @@ class SsmApi {
   /// [scheduleTimezone]: The time zone that the scheduled maintenance window
   /// executions are based on, in Internet Assigned Numbers Authority (IANA)
   /// format. For example: "America/Los_Angeles", "etc/UTC", or "Asia/Seoul".
-  /// For more information, see the [Time Zone
-  /// Database](https://www.iana.org/time-zones) on the IANA website.
+  /// For more information, see the
+  /// [Time Zone Database](https://www.iana.org/time-zones) on the IANA website.
   ///
   /// [duration]: The duration of the maintenance window in hours.
   ///
@@ -3453,8 +3438,8 @@ class SsmApi {
   /// [windowTaskId]: The task ID to modify.
   ///
   /// [targets]: The targets (either instances or tags) to modify. Instances are
-  /// specified using Key=instanceids,Values=instanceID\_1,instanceID\_2. Tags
-  /// are specified using Key=tag\_name,Values=tag\_value.
+  /// specified using Key=instanceids,Values=instanceID_1,instanceID_2. Tags are
+  /// specified using Key=tag_name,Values=tag_value.
   ///
   /// [taskArn]: The task ARN to modify.
   ///
@@ -3467,12 +3452,11 @@ class SsmApi {
   /// For more information, see the following topics in the in the _AWS Systems
   /// Manager User Guide_:
   ///
-  /// *    [Service-Linked Role Permissions for Systems
-  /// Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions)
+  /// *
+  /// [Service-Linked Role Permissions for Systems Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/using-service-linked-roles.html#slr-permissions)
   ///
-  /// *    [Should I Use a Service-Linked Role or a Custom Service Role to Run
-  /// Maintenance Window
-  /// Tasks?](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role)
+  /// *
+  /// [Should I Use a Service-Linked Role or a Custom Service Role to Run Maintenance Window Tasks?](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-maintenance-permissions.html#maintenance-window-tasks-service-role)
   ///
   /// [taskParameters]: The parameters to modify.
   ///
@@ -3551,15 +3535,13 @@ class SsmApi {
 
   /// Edit or change an OpsItem. You must have permission in AWS Identity and
   /// Access Management (IAM) to update an OpsItem. For more information, see
-  /// [Getting Started with
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
+  /// [Getting Started with OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-getting-started.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// Operations engineers and IT professionals use OpsCenter to view,
   /// investigate, and remediate operational issues impacting the performance
-  /// and health of their AWS resources. For more information, see [AWS Systems
-  /// Manager
-  /// OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+  /// and health of their AWS resources. For more information, see
+  /// [AWS Systems Manager OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [description]: Update the information about the OpsItem. Provide enough
@@ -3588,8 +3570,8 @@ class SsmApi {
   /// Use the `/aws/resources` key in OperationalData to specify a related
   /// resource in the request. Use the `/aws/automations` key in OperationalData
   /// to associate an Automation runbook with the OpsItem. To view AWS CLI
-  /// example commands that use these keys, see [Creating OpsItems
-  /// Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
+  /// example commands that use these keys, see
+  /// [Creating OpsItems Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [operationalDataToDelete]: Keys that you want to remove from the
@@ -3607,8 +3589,8 @@ class SsmApi {
   /// the impacted resource.
   ///
   /// [status]: The OpsItem status. Status can be `Open`, `In Progress`, or
-  /// `Resolved`. For more information, see [Editing OpsItem
-  /// Details](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems-editing-details.html)
+  /// `Resolved`. For more information, see
+  /// [Editing OpsItem Details](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems-editing-details.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [opsItemId]: The ID of the OpsItem.
@@ -3648,9 +3630,8 @@ class SsmApi {
   /// [approvedPatches]: A list of explicitly approved patches for the baseline.
   ///
   /// For information about accepted formats for lists of approved patches and
-  /// rejected patches, see [Package Name Formats for Approved and Rejected
-  /// Patch
-  /// Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
+  /// rejected patches, see
+  /// [Package Name Formats for Approved and Rejected Patch Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [approvedPatchesComplianceLevel]: Assigns a new compliance severity level
@@ -3663,15 +3644,14 @@ class SsmApi {
   /// [rejectedPatches]: A list of explicitly rejected patches for the baseline.
   ///
   /// For information about accepted formats for lists of approved patches and
-  /// rejected patches, see [Package Name Formats for Approved and Rejected
-  /// Patch
-  /// Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
+  /// rejected patches, see
+  /// [Package Name Formats for Approved and Rejected Patch Lists](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-approved-rejected-package-name-formats.html)
   /// in the _AWS Systems Manager User Guide_.
   ///
   /// [rejectedPatchesAction]: The action for Patch Manager to take on patches
   /// included in the RejectedPackages list.
   ///
-  /// *    **ALLOW\_AS\_DEPENDENCY**: A package in the Rejected patches list is
+  /// *    **ALLOW_AS_DEPENDENCY**: A package in the Rejected patches list is
   /// installed only if it is a dependency of another package. It is considered
   /// compliant with the patch baseline, and its status is reported as
   /// _InstalledOther_. This is the default action if no option is specified.
@@ -3733,6 +3713,10 @@ class SsmApi {
   }
 }
 
+/// An activation registers one or more on-premises servers or virtual machines
+/// (VMs) with AWS so that you can configure those servers or VMs using Run
+/// Command. A server or VM that has been registered with AWS is called a
+/// managed instance.
 class Activation {
   /// The ID created by Systems Manager when you submitted the activation.
   final String activationId;
@@ -3788,6 +3772,7 @@ class AddTagsToResourceResult {
       AddTagsToResourceResult();
 }
 
+/// Describes an association of a Systems Manager document and an instance.
 class Association {
   /// The name of the Systems Manager document.
   final String name;
@@ -3836,6 +3821,7 @@ class Association {
   static Association fromJson(Map<String, dynamic> json) => Association();
 }
 
+/// Describes the parameters for a document.
 class AssociationDescription {
   /// The name of the Systems Manager document.
   final String name;
@@ -3948,6 +3934,7 @@ class AssociationDescription {
       AssociationDescription();
 }
 
+/// Includes information about the specified association.
 class AssociationExecution {
   /// The association ID.
   final String associationId;
@@ -3988,6 +3975,7 @@ class AssociationExecution {
       AssociationExecution();
 }
 
+/// Filters used in the request.
 class AssociationExecutionFilter {
   /// The key value used in the request.
   final String key;
@@ -4005,6 +3993,7 @@ class AssociationExecutionFilter {
   });
 }
 
+/// Includes information about the specified association execution.
 class AssociationExecutionTarget {
   /// The association ID.
   final String associationId;
@@ -4048,6 +4037,7 @@ class AssociationExecutionTarget {
       AssociationExecutionTarget();
 }
 
+/// Filters for the association execution.
 class AssociationExecutionTargetsFilter {
   /// The key value used in the request.
   final String key;
@@ -4061,6 +4051,7 @@ class AssociationExecutionTargetsFilter {
   });
 }
 
+/// Describes a filter.
 class AssociationFilter {
   /// The name of the filter.
   final String key;
@@ -4074,6 +4065,7 @@ class AssociationFilter {
   });
 }
 
+/// Information about the association.
 class AssociationOverview {
   /// The status of the association. Status can be: Pending, Success, or Failed.
   final String status;
@@ -4095,6 +4087,7 @@ class AssociationOverview {
       AssociationOverview();
 }
 
+/// Describes an association status.
 class AssociationStatus {
   /// The date when the status changed.
   final DateTime date;
@@ -4118,6 +4111,7 @@ class AssociationStatus {
       AssociationStatus();
 }
 
+/// Information about the association version.
 class AssociationVersionInfo {
   /// The ID created by the system when the association was created.
   final String associationId;
@@ -4204,6 +4198,7 @@ class AssociationVersionInfo {
       AssociationVersionInfo();
 }
 
+/// A structure that includes attributes that describe a document attachment.
 class AttachmentContent {
   /// The name of an attachment.
   final String name;
@@ -4231,6 +4226,7 @@ class AttachmentContent {
       AttachmentContent();
 }
 
+/// An attribute of an attachment, such as the attachment name.
 class AttachmentInformation {
   /// The name of the attachment.
   final String name;
@@ -4242,6 +4238,8 @@ class AttachmentInformation {
       AttachmentInformation();
 }
 
+/// A key and value pair that identifies the location of an attachment to a
+/// document.
 class AttachmentsSource {
   /// The key of a key and value pair that identifies the location of an
   /// attachment to a document.
@@ -4257,6 +4255,8 @@ class AttachmentsSource {
   });
 }
 
+/// Detailed information about the current state of an individual Automation
+/// execution.
 class AutomationExecution {
   /// The execution ID.
   final String automationExecutionId;
@@ -4374,6 +4374,8 @@ class AutomationExecution {
       AutomationExecution();
 }
 
+/// A filter used to match specific automation executions. This is used to limit
+/// the scope of Automation execution information returned.
 class AutomationExecutionFilter {
   /// One or more keys to limit the results. Valid filter keys include the
   /// following: DocumentNamePrefix, ExecutionStatus, ExecutionId,
@@ -4390,6 +4392,7 @@ class AutomationExecutionFilter {
   });
 }
 
+/// Details about a specific Automation execution.
 class AutomationExecutionMetadata {
   /// The execution ID.
   final String automationExecutionId;
@@ -4460,9 +4463,8 @@ class AutomationExecutionMetadata {
 
   /// Use this filter with DescribeAutomationExecutions. Specify either Local or
   /// CrossAccount. CrossAccount is an Automation that runs in multiple AWS
-  /// Regions and accounts. For more information, see [Executing Automations in
-  /// Multiple AWS Regions and
-  /// Accounts](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html)
+  /// Regions and accounts. For more information, see
+  /// [Executing Automations in Multiple AWS Regions and Accounts](http://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation-multiple-accounts-and-regions.html)
   /// in the _AWS Systems Manager User Guide_.
   final String automationType;
 
@@ -4494,6 +4496,8 @@ class AutomationExecutionMetadata {
       AutomationExecutionMetadata();
 }
 
+/// Whether or not the command was successfully canceled. There is no guarantee
+/// that a request can be canceled.
 class CancelCommandResult {
   CancelCommandResult();
   static CancelCommandResult fromJson(Map<String, dynamic> json) =>
@@ -4512,6 +4516,7 @@ class CancelMaintenanceWindowExecutionResult {
       CancelMaintenanceWindowExecutionResult();
 }
 
+/// Configuration options for sending command output to CloudWatch Logs.
 class CloudWatchOutputConfig {
   /// The name of the CloudWatch log group where you want to send command
   /// output. If you don't specify a group name, Systems Manager automatically
@@ -4530,6 +4535,7 @@ class CloudWatchOutputConfig {
       CloudWatchOutputConfig();
 }
 
+/// Describes a command request.
 class Command {
   /// A unique identifier for this command.
   final String commandId;
@@ -4571,8 +4577,7 @@ class Command {
   /// information than Status because it includes states resulting from error
   /// and concurrency control parameters. StatusDetails can show different
   /// results than Status. For more information about these statuses, see
-  /// [Understanding Command
-  /// Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
+  /// [Understanding Command Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
   /// in the _AWS Systems Manager User Guide_. StatusDetails can be one of the
   /// following values:
   ///
@@ -4623,18 +4628,16 @@ class Command {
   /// The maximum number of instances that are allowed to run the command at the
   /// same time. You can specify a number of instances, such as 10, or a
   /// percentage of instances, such as 10%. The default value is 50. For more
-  /// information about how to use MaxConcurrency, see [Running Commands Using
-  /// Systems Manager Run
-  /// Command](http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html)
+  /// information about how to use MaxConcurrency, see
+  /// [Running Commands Using Systems Manager Run Command](http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html)
   /// in the _AWS Systems Manager User Guide_.
   final String maxConcurrency;
 
   /// The maximum number of errors allowed before the system stops sending the
   /// command to additional targets. You can specify a number of errors, such as
   /// 10, or a percentage or errors, such as 10%. The default value is 0. For
-  /// more information about how to use MaxErrors, see [Running Commands Using
-  /// Systems Manager Run
-  /// Command](http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html)
+  /// more information about how to use MaxErrors, see
+  /// [Running Commands Using Systems Manager Run Command](http://docs.aws.amazon.com/systems-manager/latest/userguide/run-command.html)
   /// in the _AWS Systems Manager User Guide_.
   final String maxErrors;
 
@@ -4692,6 +4695,7 @@ class Command {
   static Command fromJson(Map<String, dynamic> json) => Command();
 }
 
+/// Describes a command filter.
 class CommandFilter {
   /// The name of the filter.
   final String key;
@@ -4745,6 +4749,12 @@ class CommandFilter {
   });
 }
 
+/// An invocation is copy of a command sent to a specific instance. A command
+/// can apply to one or more instances. A command invocation applies to one
+/// instance. For example, if a user runs SendCommand against three instances,
+/// then a command invocation is created for each requested instance ID. A
+/// command invocation returns status and detail information about a command you
+/// ran.
 class CommandInvocation {
   /// The command against which this invocation was requested.
   final String commandId;
@@ -4777,9 +4787,8 @@ class CommandInvocation {
   /// instance targeted by the command). StatusDetails includes more information
   /// than Status because it includes states resulting from error and
   /// concurrency control parameters. StatusDetails can show different results
-  /// than Status. For more information about these statuses, see [Understanding
-  /// Command
-  /// Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
+  /// than Status. For more information about these statuses, see
+  /// [Understanding Command Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
   /// in the _AWS Systems Manager User Guide_. StatusDetails can be one of the
   /// following values:
   ///
@@ -4874,6 +4883,7 @@ class CommandInvocation {
       CommandInvocation();
 }
 
+/// Describes plugin details.
 class CommandPlugin {
   /// The name of the plugin. Must be one of the following: aws:updateAgent,
   /// aws:domainjoin, aws:applications, aws:runPowerShellScript, aws:psmodule,
@@ -4887,8 +4897,7 @@ class CommandPlugin {
   /// information than Status because it includes states resulting from error
   /// and concurrency control parameters. StatusDetails can show different
   /// results than Status. For more information about these statuses, see
-  /// [Understanding Command
-  /// Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
+  /// [Understanding Command Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
   /// in the _AWS Systems Manager User Guide_. StatusDetails can be one of the
   /// following values:
   ///
@@ -5007,6 +5016,10 @@ class CommandPlugin {
   static CommandPlugin fromJson(Map<String, dynamic> json) => CommandPlugin();
 }
 
+/// A summary of the call execution that includes an execution ID, the type of
+/// execution (for example, `Command`), and the date/time of the execution using
+/// a datetime object that is saved in the following format:
+/// yyyy-MM-dd'T'HH:mm:ss'Z'.
 class ComplianceExecutionSummary {
   /// The time the execution ran as a datetime object that is saved in the
   /// following format: yyyy-MM-dd'T'HH:mm:ss'Z'.
@@ -5029,6 +5042,9 @@ class ComplianceExecutionSummary {
       ComplianceExecutionSummary();
 }
 
+/// Information about the compliance as defined by the resource type. For
+/// example, for a patch resource type, `Items` includes information about the
+/// PatchSeverity, Classification, etc.
 class ComplianceItem {
   /// The compliance type. For example, Association (for a State Manager
   /// association), Patch, or Custom:`string` are all valid compliance types.
@@ -5081,6 +5097,7 @@ class ComplianceItem {
   static ComplianceItem fromJson(Map<String, dynamic> json) => ComplianceItem();
 }
 
+/// Information about a compliance item.
 class ComplianceItemEntry {
   /// The compliance item ID. For example, if the compliance item is a Windows
   /// patch, the ID could be the number of the KB article.
@@ -5112,6 +5129,7 @@ class ComplianceItemEntry {
   });
 }
 
+/// One or more filters. Use a filter to return a more specific list of results.
 class ComplianceStringFilter {
   /// The name of the filter.
   final String key;
@@ -5130,6 +5148,7 @@ class ComplianceStringFilter {
   });
 }
 
+/// A summary of compliance information by compliance type.
 class ComplianceSummaryItem {
   /// The type of compliance item. For example, the compliance type can be
   /// Association, Patch, or Custom:string.
@@ -5150,6 +5169,8 @@ class ComplianceSummaryItem {
       ComplianceSummaryItem();
 }
 
+/// A summary of resources that are compliant. The summary is organized
+/// according to the resource count for each compliance type.
 class CompliantSummary {
   /// The total number of resources that are compliant.
   final int compliantCount;
@@ -5182,6 +5203,7 @@ class CreateActivationResult {
       CreateActivationResult();
 }
 
+/// Describes the association of a Systems Manager SSM document and an instance.
 class CreateAssociationBatchRequestEntry {
   /// The name of the SSM document that contains the configuration information
   /// for the instance. You can specify Command or Automation documents.
@@ -5384,8 +5406,8 @@ class DeleteInventoryResult {
   final String typeName;
 
   /// A summary of the delete operation. For more information about this
-  /// summary, see [Understanding the Delete Inventory
-  /// Summary](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary)
+  /// summary, see
+  /// [Understanding the Delete Inventory Summary](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-delete.html#sysman-inventory-delete-summary)
   /// in the _AWS Systems Manager User Guide_.
   final InventoryDeletionSummary deletionSummary;
 
@@ -5502,6 +5524,7 @@ class DeregisterTaskFromMaintenanceWindowResult {
       DeregisterTaskFromMaintenanceWindowResult();
 }
 
+/// Filter for the DescribeActivation API.
 class DescribeActivationsFilter {
   /// The name of the filter.
   final String filterKey;
@@ -6004,9 +6027,9 @@ class DescribePatchGroupStateResult {
   ///
   ///
   ///
-  /// If ALLOW\_AS\_DEPENDENCY is the specified option for
-  /// RejectedPatchesAction, the value of InstancesWithInstalledRejectedPatches
-  /// will always be 0 (zero).
+  /// If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction,
+  /// the value of InstancesWithInstalledRejectedPatches will always be 0
+  /// (zero).
   final int instancesWithInstalledRejectedPatches;
 
   /// The number of instances with missing patches from the patch baseline.
@@ -6041,7 +6064,7 @@ class DescribePatchGroupsResult {
   /// Each entry in the array contains:
   ///
   /// PatchGroup: string (between 1 and 256 characters, Regex:
-  /// ^(\[\\p{L}\\p{Z}\\p{N}_.:/=+\\-@\]*)$)
+  /// ^([p{L}p{Z}p{N}_.:/=+-@]*)$)
   ///
   /// PatchBaselineIdentity: A PatchBaselineIdentity element.
   final List<PatchGroupPatchBaselineMapping> mappings;
@@ -6091,6 +6114,7 @@ class DescribeSessionsResponse {
       DescribeSessionsResponse();
 }
 
+/// A default version of a document.
 class DocumentDefaultVersionDescription {
   /// The name of the document.
   final String name;
@@ -6111,6 +6135,7 @@ class DocumentDefaultVersionDescription {
       DocumentDefaultVersionDescription();
 }
 
+/// Describes a Systems Manager document.
 class DocumentDescription {
   /// The SHA1 hash of the document, which you can use for verification.
   final String sha1;
@@ -6180,8 +6205,8 @@ class DocumentDescription {
 
   /// The target type which defines the kinds of resources the document can run
   /// on. For example, /AWS::EC2::Instance. For a list of valid resource types,
-  /// see [AWS Resource Types
-  /// Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// see
+  /// [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the _AWS CloudFormation User Guide_.
   final String targetType;
 
@@ -6219,6 +6244,7 @@ class DocumentDescription {
       DocumentDescription();
 }
 
+/// Describes a filter.
 class DocumentFilter {
   /// The name of the filter.
   final String key;
@@ -6232,6 +6258,7 @@ class DocumentFilter {
   });
 }
 
+/// Describes the name of a Systems Manager document.
 class DocumentIdentifier {
   /// The name of the Systems Manager document.
   final String name;
@@ -6261,8 +6288,8 @@ class DocumentIdentifier {
 
   /// The target type which defines the kinds of resources the document can run
   /// on. For example, /AWS::EC2::Instance. For a list of valid resource types,
-  /// see [AWS Resource Types
-  /// Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
+  /// see
+  /// [AWS Resource Types Reference](http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html)
   /// in the _AWS CloudFormation User Guide_.
   final String targetType;
 
@@ -6285,6 +6312,36 @@ class DocumentIdentifier {
       DocumentIdentifier();
 }
 
+/// One or more filters. Use a filter to return a more specific list of
+/// documents.
+///
+/// For keys, you can specify one or more tags that have been applied to a
+/// document.
+///
+/// Other valid values include Owner, Name, PlatformTypes, and DocumentType.
+///
+/// Note that only one Owner can be specified in a request. For example:
+/// `Key=Owner,Values=Self`.
+///
+/// If you use Name as a key, you can use a name prefix to return a list of
+/// documents. For example, in the AWS CLI, to return a list of all documents
+/// that begin with `Te`, run the following command:
+///
+///  `aws ssm list-documents --filters Key=Name,Values=Te`
+///
+/// If you specify more than two keys, only documents that are identified by all
+/// the tags are returned in the results. If you specify more than two values
+/// for a key, documents that are identified by any of the values are returned
+/// in the results.
+///
+/// To specify a custom key and value pair, use the format
+/// `Key=tag:[tagName],Values=[valueName]`.
+///
+/// For example, if you created a Key called region and are using the AWS CLI to
+/// call the `list-documents` command:
+///
+///  `aws ssm list-documents --filters Key=tag:region,Values=east,west
+/// Key=Owner,Values=Self`
 class DocumentKeyValuesFilter {
   /// The name of the filter key.
   final String key;
@@ -6298,6 +6355,8 @@ class DocumentKeyValuesFilter {
   });
 }
 
+/// Parameters specified in a System Manager document that run on the server
+/// when the command is run.
 class DocumentParameter {
   /// The name of the parameter.
   final String name;
@@ -6323,6 +6382,7 @@ class DocumentParameter {
       DocumentParameter();
 }
 
+/// Version information about the document.
 class DocumentVersionInfo {
   /// The document name.
   final String name;
@@ -6368,6 +6428,11 @@ class DocumentVersionInfo {
       DocumentVersionInfo();
 }
 
+/// The EffectivePatch structure defines metadata about a patch along with the
+/// approval state of the patch in a particular patch baseline. The approval
+/// state includes information about whether the patch is currently approved,
+/// due to be approved by a rule, explicitly approved, or explicitly rejected
+/// and the date the patch was or will be approved.
 class EffectivePatch {
   /// Provides metadata for a patch, including information such as the KB ID,
   /// severity, classification and a URL for where more information can be
@@ -6387,6 +6452,7 @@ class EffectivePatch {
   static EffectivePatch fromJson(Map<String, dynamic> json) => EffectivePatch();
 }
 
+/// Describes a failed association.
 class FailedCreateAssociation {
   /// The association.
   final CreateAssociationBatchRequestEntry entry;
@@ -6406,6 +6472,7 @@ class FailedCreateAssociation {
       FailedCreateAssociation();
 }
 
+/// Information about an Automation failure.
 class FailureDetails {
   /// The stage of the Automation execution when the failure occurred. The
   /// stages include the following: InputValidation, PreVerification,
@@ -6497,8 +6564,8 @@ class GetCommandInvocationResult {
   /// StatusDetails includes more information than Status because it includes
   /// states resulting from error and concurrency control parameters.
   /// StatusDetails can show different results than Status. For more information
-  /// about these statuses, see [Understanding Command
-  /// Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
+  /// about these statuses, see
+  /// [Understanding Command Statuses](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitor-commands.html)
   /// in the _AWS Systems Manager User Guide_. StatusDetails can be one of the
   /// following values:
   ///
@@ -6776,7 +6843,7 @@ class GetMaintenanceWindowExecutionTaskInvocationResult {
   final String executionId;
 
   /// Retrieves the task type for a maintenance window. Task types include the
-  /// following: LAMBDA, STEP\_FUNCTIONS, AUTOMATION, RUN\_COMMAND.
+  /// following: LAMBDA, STEP_FUNCTIONS, AUTOMATION, RUN_COMMAND.
   final String taskType;
 
   /// The parameters used at the time that the task ran.
@@ -6984,10 +7051,10 @@ class GetMaintenanceWindowTaskResult {
   /// The targets where the task should run.
   final List<Target> targets;
 
-  /// The resource that the task used during execution. For RUN\_COMMAND and
+  /// The resource that the task used during execution. For RUN_COMMAND and
   /// AUTOMATION task types, the TaskArn is the Systems Manager Document
   /// name/ARN. For LAMBDA tasks, the value is the function name/ARN. For
-  /// STEP\_FUNCTIONS tasks, the value is the state machine ARN.
+  /// STEP_FUNCTIONS tasks, the value is the state machine ARN.
   final String taskArn;
 
   /// The ARN of the IAM service role to use to publish Amazon Simple
@@ -7239,6 +7306,7 @@ class GetPatchBaselineResult {
       GetPatchBaselineResult();
 }
 
+/// The query result body of the GetServiceSetting API action.
 class GetServiceSettingResult {
   /// The query result of the current service setting.
   final ServiceSetting serviceSetting;
@@ -7250,6 +7318,7 @@ class GetServiceSettingResult {
       GetServiceSettingResult();
 }
 
+/// Status information about the aggregated associations.
 class InstanceAggregatedAssociationOverview {
   /// Detailed status information about the aggregated associations.
   final String detailedStatus;
@@ -7266,6 +7335,7 @@ class InstanceAggregatedAssociationOverview {
       InstanceAggregatedAssociationOverview();
 }
 
+/// One or more association documents on the instance.
 class InstanceAssociation {
   /// The association ID.
   final String associationId;
@@ -7289,6 +7359,7 @@ class InstanceAssociation {
       InstanceAssociation();
 }
 
+/// An Amazon S3 bucket where you want to store the results of this request.
 class InstanceAssociationOutputLocation {
   /// An Amazon S3 bucket where you want to store the results of this request.
   final S3OutputLocation s3Location;
@@ -7301,6 +7372,8 @@ class InstanceAssociationOutputLocation {
       InstanceAssociationOutputLocation();
 }
 
+/// The URL of Amazon S3 bucket where you want to store the results of this
+/// request.
 class InstanceAssociationOutputUrl {
   /// The URL of Amazon S3 bucket where you want to store the results of this
   /// request.
@@ -7313,6 +7386,7 @@ class InstanceAssociationOutputUrl {
       InstanceAssociationOutputUrl();
 }
 
+/// Status information about the instance association.
 class InstanceAssociationStatusInfo {
   /// The association ID.
   final String associationId;
@@ -7369,6 +7443,7 @@ class InstanceAssociationStatusInfo {
       InstanceAssociationStatusInfo();
 }
 
+/// Describes a filter for a specific list of instances.
 class InstanceInformation {
   /// The instance ID.
   final String instanceId;
@@ -7459,6 +7534,14 @@ class InstanceInformation {
       InstanceInformation();
 }
 
+/// Describes a filter for a specific list of instances. You can filter
+/// instances information by using tags. You specify tags by using a key-value
+/// mapping.
+///
+/// Use this action instead of the
+/// DescribeInstanceInformationRequest$InstanceInformationFilterList method. The
+/// `InstanceInformationFilterList` method is a legacy method and does not
+/// support tags.
 class InstanceInformationFilter {
   /// The name of the filter.
   final String key;
@@ -7472,6 +7555,7 @@ class InstanceInformationFilter {
   });
 }
 
+/// The filters to describe or get information about your managed instances.
 class InstanceInformationStringFilter {
   /// The filter key name to describe your instances. For example:
   ///
@@ -7488,6 +7572,10 @@ class InstanceInformationStringFilter {
   });
 }
 
+/// Defines the high-level patch compliance state for a managed instance,
+/// providing information about the number of installed, missing, not
+/// applicable, and failed patches along with metadata about the operation when
+/// this information was gathered for the instance.
 class InstancePatchState {
   /// The ID of the managed instance the high-level patch compliance information
   /// was collected for.
@@ -7509,9 +7597,8 @@ class InstancePatchState {
   /// `AWS-RunPatchBaseline`, overrides the patches specified by the default
   /// patch baseline.
   ///
-  /// For more information about the `InstallOverrideList` parameter, see [About
-  /// the SSM Document
-  /// AWS-RunPatchBaseline](http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html)
+  /// For more information about the `InstallOverrideList` parameter, see
+  /// [About the SSM Document AWS-RunPatchBaseline](http://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaseline.html)
   /// in the _AWS Systems Manager User Guide_.
   final String installOverrideList;
 
@@ -7533,9 +7620,8 @@ class InstancePatchState {
   ///
   ///
   ///
-  /// If ALLOW\_AS\_DEPENDENCY is the specified option for
-  /// RejectedPatchesAction, the value of InstalledRejectedCount will always be
-  /// 0 (zero).
+  /// If ALLOW_AS_DEPENDENCY is the specified option for RejectedPatchesAction,
+  /// the value of InstalledRejectedCount will always be 0 (zero).
   final int installedRejectedCount;
 
   /// The number of patches from the patch baseline that are applicable for the
@@ -7588,6 +7674,8 @@ class InstancePatchState {
       InstancePatchState();
 }
 
+/// Defines a filter used in DescribeInstancePatchStatesForPatchGroup used to
+/// scope down the information returned by the API.
 class InstancePatchStateFilter {
   /// The key for the filter. Supported values are FailedCount, InstalledCount,
   /// InstalledOtherCount, MissingCount and NotApplicableCount.
@@ -7607,6 +7695,7 @@ class InstancePatchStateFilter {
   });
 }
 
+/// Specifies the inventory type and attribute for the aggregation execution.
 class InventoryAggregator {
   /// The inventory type and attribute name for aggregation.
   final String expression;
@@ -7626,6 +7715,7 @@ class InventoryAggregator {
   });
 }
 
+/// Status information returned by the `DeleteInventory` action.
 class InventoryDeletionStatusItem {
   /// The deletion ID returned by the `DeleteInventory` action.
   final String deletionId;
@@ -7643,8 +7733,8 @@ class InventoryDeletionStatusItem {
   final String lastStatusMessage;
 
   /// Information about the delete operation. For more information about this
-  /// summary, see [Understanding the Delete Inventory
-  /// Summary](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete)
+  /// summary, see
+  /// [Understanding the Delete Inventory Summary](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete)
   /// in the _AWS Systems Manager User Guide_.
   final InventoryDeletionSummary deletionSummary;
 
@@ -7664,6 +7754,7 @@ class InventoryDeletionStatusItem {
       InventoryDeletionStatusItem();
 }
 
+/// Information about the delete operation.
 class InventoryDeletionSummary {
   /// The total number of items to delete. This count does not change during the
   /// delete operation.
@@ -7684,6 +7775,8 @@ class InventoryDeletionSummary {
       InventoryDeletionSummary();
 }
 
+/// Either a count, remaining count, or a version number in a delete inventory
+/// summary.
 class InventoryDeletionSummaryItem {
   /// The inventory type version.
   final String version;
@@ -7703,6 +7796,7 @@ class InventoryDeletionSummaryItem {
       InventoryDeletionSummaryItem();
 }
 
+/// One or more filters. Use a filter to return a more specific list of results.
 class InventoryFilter {
   /// The name of the filter key.
   final String key;
@@ -7723,6 +7817,9 @@ class InventoryFilter {
   });
 }
 
+/// A user-defined set of one or more filters on which to aggregate inventory
+/// data. Groups return a count of resources that match and don't match the
+/// specified criteria.
 class InventoryGroup {
   /// The name of the group.
   final String name;
@@ -7739,6 +7836,8 @@ class InventoryGroup {
   });
 }
 
+/// Information collected from managed instances based on your inventory policy
+/// document
 class InventoryItem {
   /// The name of the inventory type. Default inventory item type names start
   /// with AWS. Custom inventory type names will start with Custom. Default
@@ -7778,6 +7877,8 @@ class InventoryItem {
   });
 }
 
+/// Attributes are the entries within the inventory item content. It contains
+/// name and value.
 class InventoryItemAttribute {
   /// Name of the inventory item attribute.
   final String name;
@@ -7793,6 +7894,8 @@ class InventoryItemAttribute {
       InventoryItemAttribute();
 }
 
+/// The inventory item schema definition. Users can use this to compose
+/// inventory query filters.
 class InventoryItemSchema {
   /// The name of the inventory type. Default inventory item type names start
   /// with AWS. Custom inventory type names will start with Custom. Default
@@ -7822,6 +7925,7 @@ class InventoryItemSchema {
       InventoryItemSchema();
 }
 
+/// Inventory query results.
 class InventoryResultEntity {
   /// ID of the inventory result entity. For example, for managed instance
   /// inventory the result will be the managed instance ID. For EC2 instance
@@ -7839,6 +7943,7 @@ class InventoryResultEntity {
       InventoryResultEntity();
 }
 
+/// The inventory result item.
 class InventoryResultItem {
   /// The name of the inventory result item type.
   final String typeName;
@@ -7872,8 +7977,8 @@ class InventoryResultItem {
 
 class LabelParameterVersionResult {
   /// The label does not meet the requirements. For information about parameter
-  /// label requirements, see [Labeling
-  /// Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html)
+  /// label requirements, see
+  /// [Labeling Parameters](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-paramstore-labels.html)
   /// in the _AWS Systems Manager User Guide_.
   final List<String> invalidLabels;
 
@@ -8096,6 +8201,13 @@ class ListTagsForResourceResult {
       ListTagsForResourceResult();
 }
 
+/// Information about an Amazon S3 bucket to write instance-level logs to.
+///
+///   `LoggingInfo` has been deprecated. To specify an S3 bucket to contain
+/// logs, instead use the `OutputS3BucketName` and `OutputS3KeyPrefix` options
+/// in the `TaskInvocationParameters` structure. For information about how
+/// Systems Manager handles these options for the supported maintenance window
+/// task types, see MaintenanceWindowTaskInvocationParameters.
 class LoggingInfo {
   /// The name of an Amazon S3 bucket where execution logs are stored .
   final String s3BucketName;
@@ -8114,6 +8226,7 @@ class LoggingInfo {
   static LoggingInfo fromJson(Map<String, dynamic> json) => LoggingInfo();
 }
 
+/// The parameters for an AUTOMATION task type.
 class MaintenanceWindowAutomationParameters {
   /// The version of an Automation document to use during task execution.
   final String documentVersion;
@@ -8148,6 +8261,7 @@ class MaintenanceWindowAutomationParameters {
       MaintenanceWindowAutomationParameters();
 }
 
+/// Describes the information about an execution of a maintenance window.
 class MaintenanceWindowExecution {
   /// The ID of the maintenance window.
   final String windowId;
@@ -8180,6 +8294,8 @@ class MaintenanceWindowExecution {
       MaintenanceWindowExecution();
 }
 
+/// Information about a task execution performed as part of a maintenance window
+/// execution.
 class MaintenanceWindowExecutionTaskIdentity {
   /// The ID of the maintenance window execution that ran the task.
   final String windowExecutionId;
@@ -8221,6 +8337,9 @@ class MaintenanceWindowExecutionTaskIdentity {
       MaintenanceWindowExecutionTaskIdentity();
 }
 
+/// Describes the information about a task invocation for a particular target as
+/// part of a task execution performed as part of a maintenance window
+/// execution.
 class MaintenanceWindowExecutionTaskInvocationIdentity {
   /// The ID of the maintenance window execution that ran the task.
   final String windowExecutionId;
@@ -8283,6 +8402,7 @@ class MaintenanceWindowExecutionTaskInvocationIdentity {
       MaintenanceWindowExecutionTaskInvocationIdentity();
 }
 
+/// Filter used in the request. Supported filter keys are Name and Enabled.
 class MaintenanceWindowFilter {
   /// The name of the filter.
   final String key;
@@ -8296,6 +8416,7 @@ class MaintenanceWindowFilter {
   });
 }
 
+/// Information about the maintenance window.
 class MaintenanceWindowIdentity {
   /// The ID of the maintenance window.
   final String windowId;
@@ -8354,6 +8475,7 @@ class MaintenanceWindowIdentity {
       MaintenanceWindowIdentity();
 }
 
+/// The maintenance window to which the specified target belongs.
 class MaintenanceWindowIdentityForTarget {
   /// The ID of the maintenance window.
   final String windowId;
@@ -8370,6 +8492,25 @@ class MaintenanceWindowIdentityForTarget {
       MaintenanceWindowIdentityForTarget();
 }
 
+/// The parameters for a LAMBDA task type.
+///
+/// For information about specifying and updating task parameters, see
+/// RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+///
+///   `LoggingInfo` has been deprecated. To specify an S3 bucket to contain
+/// logs, instead use the `OutputS3BucketName` and `OutputS3KeyPrefix` options
+/// in the `TaskInvocationParameters` structure. For information about how
+/// Systems Manager handles these options for the supported maintenance window
+/// task types, see MaintenanceWindowTaskInvocationParameters.
+///
+///  `TaskParameters` has been deprecated. To specify parameters to pass to a
+/// task when it runs, instead use the `Parameters` option in the
+/// `TaskInvocationParameters` structure. For information about how Systems
+/// Manager handles these options for the supported maintenance window task
+/// types, see MaintenanceWindowTaskInvocationParameters.
+///
+/// For Lambda tasks, Systems Manager ignores any values specified for
+/// TaskParameters and LoggingInfo.
 class MaintenanceWindowLambdaParameters {
   /// Pass client-specific information to the Lambda function that you are
   /// invoking. You can then process the client information in your Lambda
@@ -8396,6 +8537,26 @@ class MaintenanceWindowLambdaParameters {
       MaintenanceWindowLambdaParameters();
 }
 
+/// The parameters for a RUN_COMMAND task type.
+///
+/// For information about specifying and updating task parameters, see
+/// RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+///
+///   `LoggingInfo` has been deprecated. To specify an S3 bucket to contain
+/// logs, instead use the `OutputS3BucketName` and `OutputS3KeyPrefix` options
+/// in the `TaskInvocationParameters` structure. For information about how
+/// Systems Manager handles these options for the supported maintenance window
+/// task types, see MaintenanceWindowTaskInvocationParameters.
+///
+///  `TaskParameters` has been deprecated. To specify parameters to pass to a
+/// task when it runs, instead use the `Parameters` option in the
+/// `TaskInvocationParameters` structure. For information about how Systems
+/// Manager handles these options for the supported maintenance window task
+/// types, see MaintenanceWindowTaskInvocationParameters.
+///
+/// For Run Command tasks, Systems Manager uses specified values for
+/// `TaskParameters` and `LoggingInfo` only if no values are specified for
+/// `TaskInvocationParameters`.
 class MaintenanceWindowRunCommandParameters {
   /// Information about the commands to run.
   final String comment;
@@ -8445,6 +8606,25 @@ class MaintenanceWindowRunCommandParameters {
       MaintenanceWindowRunCommandParameters();
 }
 
+/// The parameters for a STEP_FUNCTIONS task.
+///
+/// For information about specifying and updating task parameters, see
+/// RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
+///
+///   `LoggingInfo` has been deprecated. To specify an S3 bucket to contain
+/// logs, instead use the `OutputS3BucketName` and `OutputS3KeyPrefix` options
+/// in the `TaskInvocationParameters` structure. For information about how
+/// Systems Manager handles these options for the supported maintenance window
+/// task types, see MaintenanceWindowTaskInvocationParameters.
+///
+///  `TaskParameters` has been deprecated. To specify parameters to pass to a
+/// task when it runs, instead use the `Parameters` option in the
+/// `TaskInvocationParameters` structure. For information about how Systems
+/// Manager handles these options for the supported maintenance window task
+/// types, see MaintenanceWindowTaskInvocationParameters.
+///
+/// For Step Functions tasks, Systems Manager ignores any values specified for
+/// `TaskParameters` and `LoggingInfo`.
 class MaintenanceWindowStepFunctionsParameters {
   /// The inputs for the STEP_FUNCTIONS task.
   final String input;
@@ -8461,6 +8641,7 @@ class MaintenanceWindowStepFunctionsParameters {
       MaintenanceWindowStepFunctionsParameters();
 }
 
+/// The target registered with the maintenance window.
 class MaintenanceWindowTarget {
   /// The ID of the maintenance window to register the target with.
   final String windowId;
@@ -8506,6 +8687,7 @@ class MaintenanceWindowTarget {
       MaintenanceWindowTarget();
 }
 
+/// Information about a task defined for a maintenance window.
 class MaintenanceWindowTask {
   /// The ID of the maintenance window where the task is registered.
   final String windowId;
@@ -8519,8 +8701,8 @@ class MaintenanceWindowTask {
   /// tasks, it's the state machine ARN.
   final String taskArn;
 
-  /// The type of task. The type can be one of the following: RUN\_COMMAND,
-  /// AUTOMATION, LAMBDA, or STEP\_FUNCTIONS.
+  /// The type of task. The type can be one of the following: RUN_COMMAND,
+  /// AUTOMATION, LAMBDA, or STEP_FUNCTIONS.
   final String type;
 
   /// The targets (either instances or tags). Instances are specified using
@@ -8589,6 +8771,7 @@ class MaintenanceWindowTask {
       MaintenanceWindowTask();
 }
 
+/// The parameters for task execution.
 class MaintenanceWindowTaskInvocationParameters {
   /// The parameters for a RUN_COMMAND task type.
   final MaintenanceWindowRunCommandParameters runCommand;
@@ -8613,6 +8796,7 @@ class MaintenanceWindowTaskInvocationParameters {
       MaintenanceWindowTaskInvocationParameters();
 }
 
+/// Defines the values for a task parameter.
 class MaintenanceWindowTaskParameterValueExpression {
   /// This field contains an array of 0 or more strings, each 1 to 255
   /// characters in length.
@@ -8632,6 +8816,8 @@ class ModifyDocumentPermissionResponse {
       ModifyDocumentPermissionResponse();
 }
 
+/// A summary of resources that are not compliant. The summary is organized
+/// according to resource type.
 class NonCompliantSummary {
   /// The total number of compliance items that are not compliant.
   final int nonCompliantCount;
@@ -8647,6 +8833,7 @@ class NonCompliantSummary {
       NonCompliantSummary();
 }
 
+/// Configurations for sending notifications.
 class NotificationConfig {
   /// An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
   /// (Amazon SNS) topic. Run Command pushes notifications about command status
@@ -8655,9 +8842,8 @@ class NotificationConfig {
 
   /// The different events for which you can receive notifications. These events
   /// include the following: All (events), InProgress, Success, TimedOut,
-  /// Cancelled, Failed. To learn more about these events, see [Configuring
-  /// Amazon SNS Notifications for AWS Systems
-  /// Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html)
+  /// Cancelled, Failed. To learn more about these events, see
+  /// [Configuring Amazon SNS Notifications for AWS Systems Manager](http://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html)
   /// in the _AWS Systems Manager User Guide_.
   final List<String> notificationEvents;
 
@@ -8675,6 +8861,9 @@ class NotificationConfig {
       NotificationConfig();
 }
 
+/// One or more aggregators for viewing counts of OpsItems using different
+/// dimensions such as `Source`, `CreatedTime`, or `Source and CreatedTime`, to
+/// name a few.
 class OpsAggregator {
   /// Either a Range or Count aggregator for limiting an OpsItem summary.
   final String aggregatorType;
@@ -8704,6 +8893,7 @@ class OpsAggregator {
   });
 }
 
+/// The result of the query.
 class OpsEntity {
   /// The query ID.
   final String id;
@@ -8718,6 +8908,7 @@ class OpsEntity {
   static OpsEntity fromJson(Map<String, dynamic> json) => OpsEntity();
 }
 
+/// The OpsItem summaries result item.
 class OpsEntityItem {
   /// The detailed data content for an OpsItem summaries result item.
   final List<Map<String, String>> content;
@@ -8728,6 +8919,7 @@ class OpsEntityItem {
   static OpsEntityItem fromJson(Map<String, dynamic> json) => OpsEntityItem();
 }
 
+/// A filter for viewing OpsItem summaries.
 class OpsFilter {
   /// The name of the filter.
   final String key;
@@ -8745,6 +8937,11 @@ class OpsFilter {
   });
 }
 
+/// Operations engineers and IT professionals use OpsCenter to view,
+/// investigate, and remediate operational issues impacting the performance and
+/// health of their AWS resources. For more information, see
+/// [AWS Systems Manager OpsCenter](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+/// in the _AWS Systems Manager User Guide_.
 class OpsItem {
   /// The ARN of the AWS account that created the OpsItem.
   final String createdBy;
@@ -8775,8 +8972,8 @@ class OpsItem {
   final List<RelatedOpsItem> relatedOpsItems;
 
   /// The OpsItem status. Status can be `Open`, `In Progress`, or `Resolved`.
-  /// For more information, see [Editing OpsItem
-  /// Details](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems-editing-details.html)
+  /// For more information, see
+  /// [Editing OpsItem Details](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems-editing-details.html)
   /// in the _AWS Systems Manager User Guide_.
   final String status;
 
@@ -8814,8 +9011,8 @@ class OpsItem {
   /// Use the `/aws/resources` key in OperationalData to specify a related
   /// resource in the request. Use the `/aws/automations` key in OperationalData
   /// to associate an Automation runbook with the OpsItem. To view AWS CLI
-  /// example commands that use these keys, see [Creating OpsItems
-  /// Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
+  /// example commands that use these keys, see
+  /// [Creating OpsItems Manually](http://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-creating-OpsItems.html#OpsCenter-manually-create-OpsItems)
   /// in the _AWS Systems Manager User Guide_.
   final Map<String, OpsItemDataValue> operationalData;
 
@@ -8838,6 +9035,8 @@ class OpsItem {
   static OpsItem fromJson(Map<String, dynamic> json) => OpsItem();
 }
 
+/// An object that defines the value of the key and its type in the
+/// OperationalData map.
 class OpsItemDataValue {
   /// The value of the OperationalData key.
   final String value;
@@ -8854,6 +9053,7 @@ class OpsItemDataValue {
       OpsItemDataValue();
 }
 
+/// Describes an OpsItem filter.
 class OpsItemFilter {
   /// The name of the filter.
   final String key;
@@ -8871,6 +9071,7 @@ class OpsItemFilter {
   });
 }
 
+/// A notification about the OpsItem.
 class OpsItemNotification {
   /// The Amazon Resource Name (ARN) of an SNS topic where notifications are
   /// sent when this OpsItem is edited or changed.
@@ -8883,6 +9084,7 @@ class OpsItemNotification {
       OpsItemNotification();
 }
 
+/// A count of OpsItems.
 class OpsItemSummary {
   /// The Amazon Resource Name (ARN) of the IAM entity that created the OpsItem.
   final String createdBy;
@@ -8932,6 +9134,8 @@ class OpsItemSummary {
   static OpsItemSummary fromJson(Map<String, dynamic> json) => OpsItemSummary();
 }
 
+/// Information about the source where the association execution details are
+/// stored.
 class OutputSource {
   /// The ID of the output source, for example the URL of an Amazon S3 bucket.
   final String outputSourceId;
@@ -8947,6 +9151,7 @@ class OutputSource {
   static OutputSource fromJson(Map<String, dynamic> json) => OutputSource();
 }
 
+/// An Amazon EC2 Systems Manager parameter in Parameter Store.
 class Parameter {
   /// The name of the parameter.
   final String name;
@@ -8993,6 +9198,7 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// Information about parameter usage.
 class ParameterHistory {
   /// The name of the parameter.
   final String name;
@@ -9031,8 +9237,8 @@ class ParameterHistory {
 
   /// Information about the policies assigned to a parameter.
   ///
-  ///  [Working with Parameter
-  /// Policies](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html)
+  ///
+  /// [Working with Parameter Policies](https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html)
   /// in the _AWS Systems Manager User Guide_.
   final List<ParameterInlinePolicy> policies;
 
@@ -9054,6 +9260,7 @@ class ParameterHistory {
       ParameterHistory();
 }
 
+/// One or more policies assigned to a parameter.
 class ParameterInlinePolicy {
   /// The JSON text of the policy.
   final String policyText;
@@ -9077,6 +9284,8 @@ class ParameterInlinePolicy {
       ParameterInlinePolicy();
 }
 
+/// Metadata includes information like the ARN of the last user and the
+/// date/time the parameter was last used.
 class ParameterMetadata {
   /// The parameter name.
   final String name;
@@ -9127,6 +9336,13 @@ class ParameterMetadata {
       ParameterMetadata();
 }
 
+/// One or more filters. Use a filter to return a more specific list of results.
+///
+///
+///
+/// The `Name` and `Tier` filter keys can't be used with the GetParametersByPath
+/// API action. Also, the `Label` filter key can't be used with the
+/// DescribeParameters API action.
 class ParameterStringFilter {
   /// The name of the filter.
   final String key;
@@ -9145,6 +9361,7 @@ class ParameterStringFilter {
   });
 }
 
+/// This data type is deprecated. Instead, use ParameterStringFilter.
 class ParametersFilter {
   /// The name of the filter.
   final String key;
@@ -9158,6 +9375,7 @@ class ParametersFilter {
   });
 }
 
+/// Represents metadata about a patch.
 class Patch {
   /// The ID of the patch (this is different than the Microsoft Knowledge Base
   /// ID).
@@ -9219,6 +9437,7 @@ class Patch {
   static Patch fromJson(Map<String, dynamic> json) => Patch();
 }
 
+/// Defines the basic information about a patch baseline.
 class PatchBaselineIdentity {
   /// The ID of the patch baseline.
   final String baselineId;
@@ -9249,6 +9468,8 @@ class PatchBaselineIdentity {
       PatchBaselineIdentity();
 }
 
+/// Information about the state of a patch on a particular instance as it
+/// relates to the patch baseline used to patch the instance.
 class PatchComplianceData {
   /// The title of the patch.
   final String title;
@@ -9265,8 +9486,8 @@ class PatchComplianceData {
 
   /// The state of the patch on the instance, such as INSTALLED or FAILED.
   ///
-  /// For descriptions of each patch state, see [About Patch
-  /// Compliance](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-compliance-about.html#sysman-compliance-monitor-patch)
+  /// For descriptions of each patch state, see
+  /// [About Patch Compliance](http://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-compliance-about.html#sysman-compliance-monitor-patch)
   /// in the _AWS Systems Manager User Guide_.
   final String state;
 
@@ -9286,6 +9507,22 @@ class PatchComplianceData {
       PatchComplianceData();
 }
 
+///  Defines which patches should be included in a patch baseline.
+///
+/// A patch filter consists of a key and a set of values. The filter key is a
+/// patch property. For example, the available filter keys for WINDOWS are
+/// PATCH_SET, PRODUCT, PRODUCT_FAMILY, CLASSIFICATION, and MSRC_SEVERITY. The
+/// filter values define a matching criterion for the patch property indicated
+/// by the key. For example, if the filter key is PRODUCT and the filter values
+/// are ["Office 2013", "Office 2016"], then the filter accepts all patches
+/// where product name is either "Office 2013" or "Office 2016". The filter
+/// values can be exact values for the patch property given as a key, or a
+/// wildcard (*), which matches all values.
+///
+/// You can view lists of valid values for the patch properties by running the
+/// `DescribePatchProperties` command. For information about which patch
+/// properties can be used with each major operating system, see
+/// DescribePatchProperties.
 class PatchFilter {
   /// The key for the filter.
   ///
@@ -9306,6 +9543,7 @@ class PatchFilter {
   static PatchFilter fromJson(Map<String, dynamic> json) => PatchFilter();
 }
 
+/// A set of patch filters, typically used for approval rules.
 class PatchFilterGroup {
   /// The set of patch filters that make up the group.
   final List<PatchFilter> patchFilters;
@@ -9317,6 +9555,8 @@ class PatchFilterGroup {
       PatchFilterGroup();
 }
 
+/// The mapping between a patch group and the patch baseline the patch group is
+/// registered with.
 class PatchGroupPatchBaselineMapping {
   /// The name of the patch group registered with the patch baseline.
   final String patchGroup;
@@ -9332,6 +9572,7 @@ class PatchGroupPatchBaselineMapping {
       PatchGroupPatchBaselineMapping();
 }
 
+/// Defines a filter used in Patch Manager APIs.
 class PatchOrchestratorFilter {
   /// The key for the filter.
   final String key;
@@ -9345,6 +9586,7 @@ class PatchOrchestratorFilter {
   });
 }
 
+/// Defines an approval rule for a patch baseline.
 class PatchRule {
   /// The patch filter group that defines the criteria for the rule.
   final PatchFilterGroup patchFilterGroup;
@@ -9374,6 +9616,7 @@ class PatchRule {
   static PatchRule fromJson(Map<String, dynamic> json) => PatchRule();
 }
 
+/// A set of rules defining the approval rules for a patch baseline.
 class PatchRuleGroup {
   /// The rules that make up the rule group.
   final List<PatchRule> patchRules;
@@ -9384,6 +9627,9 @@ class PatchRuleGroup {
   static PatchRuleGroup fromJson(Map<String, dynamic> json) => PatchRuleGroup();
 }
 
+/// Information about the patches to use to update the instances, including
+/// target operating systems and source repository. Applies to Linux instances
+/// only.
 class PatchSource {
   /// The name specified to identify the patch source.
   final String name;
@@ -9395,7 +9641,7 @@ class PatchSource {
 
   /// The value of the yum repo configuration. For example:
   ///
-  ///  `\[main\]`
+  ///  `[main]`
   ///
   ///  `cachedir=/var/cache/yum/$basesearch$releasever`
   ///
@@ -9412,9 +9658,10 @@ class PatchSource {
   static PatchSource fromJson(Map<String, dynamic> json) => PatchSource();
 }
 
+/// Information about the approval status of a patch.
 class PatchStatus {
-  /// The approval status of a patch (APPROVED, PENDING\_APPROVAL,
-  /// EXPLICIT\_APPROVED, EXPLICIT_REJECTED).
+  /// The approval status of a patch (APPROVED, PENDING_APPROVAL,
+  /// EXPLICIT_APPROVED, EXPLICIT_REJECTED).
   final String deploymentStatus;
 
   /// The compliance severity level for a patch.
@@ -9432,6 +9679,8 @@ class PatchStatus {
   static PatchStatus fromJson(Map<String, dynamic> json) => PatchStatus();
 }
 
+/// An aggregate of step execution statuses displayed in the AWS Console for a
+/// multi-Region and multi-account Automation execution.
 class ProgressCounters {
   /// The total number of steps run in all specified AWS Regions and accounts
   /// for the current Automation execution.
@@ -9549,6 +9798,9 @@ class RegisterTaskWithMaintenanceWindowResult {
       RegisterTaskWithMaintenanceWindowResult();
 }
 
+/// An OpsItems that shares something in common with the current OpsItem. For
+/// example, related OpsItems can include OpsItems with similar error messages,
+/// impacted resources, or statuses for the impacted resource.
 class RelatedOpsItem {
   /// The ID of an OpsItem related to the current OpsItem.
   final String opsItemId;
@@ -9565,6 +9817,7 @@ class RemoveTagsFromResourceResult {
       RemoveTagsFromResourceResult();
 }
 
+/// The result body of the ResetServiceSetting API action.
 class ResetServiceSettingResult {
   /// The current, effective service setting after calling the
   /// ResetServiceSetting API action.
@@ -9577,6 +9830,7 @@ class ResetServiceSettingResult {
       ResetServiceSettingResult();
 }
 
+/// Information about targets that resolved during the Automation execution.
 class ResolvedTargets {
   /// A list of parameter values sent to targets that resolved during the
   /// Automation execution.
@@ -9593,6 +9847,7 @@ class ResolvedTargets {
       ResolvedTargets();
 }
 
+/// Compliance summary information for a specific resource.
 class ResourceComplianceSummaryItem {
   /// The compliance type.
   final String complianceType;
@@ -9633,6 +9888,8 @@ class ResourceComplianceSummaryItem {
       ResourceComplianceSummaryItem();
 }
 
+/// Information about a Resource Data Sync configuration, including its current
+/// status and last successful sync.
 class ResourceDataSyncItem {
   /// The name of the Resource Data Sync.
   final String syncName;
@@ -9668,6 +9925,7 @@ class ResourceDataSyncItem {
       ResourceDataSyncItem();
 }
 
+/// Information about the target Amazon S3 bucket for the Resource Data Sync.
 class ResourceDataSyncS3Destination {
   /// The name of the Amazon S3 bucket where the aggregated data is stored.
   final String bucketName;
@@ -9698,6 +9956,7 @@ class ResourceDataSyncS3Destination {
       ResourceDataSyncS3Destination();
 }
 
+/// The inventory item result attribute.
 class ResultAttribute {
   /// Name of the inventory item type. Valid value: AWS:InstanceInformation.
   /// Default Value: AWS:InstanceInformation.
@@ -9723,8 +9982,8 @@ class ResumeSessionResponse {
   ///  **region** represents the Region identifier for an AWS Region supported
   /// by AWS Systems Manager, such as `us-east-2` for the US East (Ohio) Region.
   /// For a list of supported **region** values, see the **Region** column in
-  /// the [AWS Systems Manager table of regions and
-  /// endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ssm_region)
+  /// the
+  /// [AWS Systems Manager table of regions and endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ssm_region)
   /// in the _AWS General Reference_.
   ///
   ///  **session-id** represents the ID of a Session Manager session, such as
@@ -9740,6 +9999,7 @@ class ResumeSessionResponse {
       ResumeSessionResponse();
 }
 
+/// An Amazon S3 bucket where you want to store the results of this request.
 class S3OutputLocation {
   /// (Deprecated) You can no longer specify this parameter. The system ignores
   /// it. Instead, Systems Manager automatically determines the Amazon S3 bucket
@@ -9761,6 +10021,8 @@ class S3OutputLocation {
       S3OutputLocation();
 }
 
+/// A URL for the Amazon S3 bucket where you want to store the results of this
+/// request.
 class S3OutputUrl {
   /// A URL for an Amazon S3 bucket where you want to store the results of this
   /// request.
@@ -9772,6 +10034,7 @@ class S3OutputUrl {
   static S3OutputUrl fromJson(Map<String, dynamic> json) => S3OutputUrl();
 }
 
+/// Information about a scheduled execution for a maintenance window.
 class ScheduledWindowExecution {
   /// The ID of the maintenance window to be run.
   final String windowId;
@@ -9810,6 +10073,23 @@ class SendCommandResult {
       SendCommandResult();
 }
 
+/// The service setting data structure.
+///
+///  `ServiceSetting` is an account-level setting for an AWS service. This
+/// setting defines how a user interacts with or uses a service or a feature of
+/// a service. For example, if an AWS service charges money to the account based
+/// on feature or service usage, then the AWS service team might create a
+/// default setting of "false". This means the user can't use this feature
+/// unless they change the setting to "true" and intentionally opt in for a paid
+/// feature.
+///
+/// Services map a `SettingId` object to a setting value. AWS services teams
+/// define the default value for a `SettingId`. You can't create a new
+/// `SettingId`, but you can overwrite the default value if you have the
+/// `ssm:UpdateServiceSetting` permission for the setting. Use the
+/// UpdateServiceSetting API action to change the default setting. Or, use the
+/// ResetServiceSetting to change the value back to the original value defined
+/// by the AWS service team.
 class ServiceSetting {
   /// The ID of the service setting.
   final String settingId;
@@ -9851,6 +10131,7 @@ class ServiceSetting {
   static ServiceSetting fromJson(Map<String, dynamic> json) => ServiceSetting();
 }
 
+/// Information about a Session Manager connection to an instance.
 class Session {
   /// The ID of the session.
   final String sessionId;
@@ -9896,6 +10177,7 @@ class Session {
   static Session fromJson(Map<String, dynamic> json) => Session();
 }
 
+/// Describes a filter for Session Manager information.
 class SessionFilter {
   /// The name of the filter.
   final String key;
@@ -9938,6 +10220,7 @@ class SessionFilter {
   });
 }
 
+/// Reserved for future use.
 class SessionManagerOutputUrl {
   /// Reserved for future use.
   final String s3OutputUrl;
@@ -9953,6 +10236,8 @@ class SessionManagerOutputUrl {
       SessionManagerOutputUrl();
 }
 
+/// The number of managed instances found for each patch severity level defined
+/// in the request filter.
 class SeveritySummary {
   /// The total number of resources or compliance items that have a severity
   /// level of critical. Critical severity is determined by the organization
@@ -10028,8 +10313,8 @@ class StartSessionResponse {
   ///  **region** represents the Region identifier for an AWS Region supported
   /// by AWS Systems Manager, such as `us-east-2` for the US East (Ohio) Region.
   /// For a list of supported **region** values, see the **Region** column in
-  /// the [AWS Systems Manager table of regions and
-  /// endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ssm_region)
+  /// the
+  /// [AWS Systems Manager table of regions and endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#ssm_region)
   /// in the _AWS General Reference_.
   ///
   ///  **session-id** represents the ID of a Session Manager session, such as
@@ -10045,6 +10330,7 @@ class StartSessionResponse {
       StartSessionResponse();
 }
 
+/// Detailed information about an the execution state of an Automation step.
 class StepExecution {
   /// The name of this execution step.
   final String stepName;
@@ -10151,6 +10437,8 @@ class StepExecution {
   static StepExecution fromJson(Map<String, dynamic> json) => StepExecution();
 }
 
+/// A filter to limit the amount of step execution information returned by the
+/// call.
 class StepExecutionFilter {
   /// One or more keys to limit the results. Valid filter keys include the
   /// following: StepName, Action, StepExecutionId, StepExecutionStatus,
@@ -10172,6 +10460,11 @@ class StopAutomationExecutionResult {
       StopAutomationExecutionResult();
 }
 
+/// Metadata that you assign to your AWS resources. Tags enable you to
+/// categorize your resources in different ways, for example, by purpose, owner,
+/// or environment. In Systems Manager, you can apply tags to documents, managed
+/// instances, maintenance windows, Parameter Store parameters, and patch
+/// baselines.
 class Tag {
   /// The name of the tag.
   final String key;
@@ -10186,6 +10479,47 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// An array of search criteria that targets instances using a Key,Value
+/// combination that you specify.
+///
+/// Supported formats include the following.
+///
+/// *
+/// `Key=InstanceIds,Values=_instance-id-1_,_instance-id-2_,_instance-id-3_`
+///
+/// *    `Key=tag:_my-tag-key_,Values=_my-tag-value-1_,_my-tag-value-2_`
+///
+/// *    `Key=tag-key,Values=_my-tag-key-1_,_my-tag-key-2_`
+///
+/// *   (Maintenance window targets only)
+/// `Key=resource-groups:Name,Values=_resource-group-name_`
+///
+/// *   (Maintenance window targets only)
+/// `Key=resource-groups:ResourceTypeFilters,Values=_resource-type-1_,_resource-type-2_`
+///
+///
+///
+/// For example:
+///
+/// *
+/// `Key=InstanceIds,Values=i-02573cafcfEXAMPLE,i-0471e04240EXAMPLE,i-07782c72faEXAMPLE`
+///
+/// *    `Key=tag:CostCenter,Values=CostCenter1,CostCenter2,CostCenter3`
+///
+/// *    `Key=tag-key,Values=Name,Instance-Type,CostCenter`
+///
+/// *   (Maintenance window targets only)
+/// `Key=resource-groups:Name,Values=ProductionResourceGroup`
+///
+/// *   (Maintenance window targets only)
+/// `Key=resource-groups:ResourceTypeFilters,Values=_AWS::EC2::INSTANCE_,_AWS::EC2::VPC_`
+///
+///
+///
+/// For information about how to send commands that target instances using
+/// `Key,Value` parameters, see
+/// [Using Targets and Rate Controls to Send Commands to a Fleet](https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-targeting)
+/// in the _AWS Systems Manager User Guide_.
 class Target {
   /// User-defined criteria for sending commands that target instances that meet
   /// the criteria.
@@ -10203,6 +10537,8 @@ class Target {
   static Target fromJson(Map<String, dynamic> json) => Target();
 }
 
+/// The combination of AWS Regions and accounts targeted by the current
+/// Automation execution.
 class TargetLocation {
   /// The AWS accounts targeted by the current Automation execution.
   final List<String> accounts;
@@ -10540,6 +10876,7 @@ class UpdatePatchBaselineResult {
       UpdatePatchBaselineResult();
 }
 
+/// The result body of the UpdateServiceSetting API action.
 class UpdateServiceSettingResult {
   UpdateServiceSettingResult();
   static UpdateServiceSettingResult fromJson(Map<String, dynamic> json) =>

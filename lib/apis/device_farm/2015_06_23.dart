@@ -174,9 +174,9 @@ class DeviceFarmApi {
   /// not sign your app again. For public devices, Device Farm always signs your
   /// apps again and this parameter has no effect.
   ///
-  /// For more information about how Device Farm re-signs your app(s), see [Do
-  /// you modify my app?](https://aws.amazon.com/device-farm/faq/) in the _AWS
-  /// Device Farm FAQs_.
+  /// For more information about how Device Farm re-signs your app(s), see
+  /// [Do you modify my app?](https://aws.amazon.com/device-farm/faq/) in the
+  /// _AWS Device Farm FAQs_.
   Future<CreateRemoteAccessSessionResult> createRemoteAccessSession(
       {@required String projectArn,
       @required String deviceArn,
@@ -215,75 +215,73 @@ class DeviceFarmApi {
   ///
   /// *   EXTERNAL_DATA: An external data upload.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_PACKAGE: An Appium Java JUnit test package
+  /// *   APPIUM_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_PACKAGE: An Appium Java TestNG test
-  /// package upload.
+  /// *   APPIUM_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test package
+  /// upload.
   ///
-  /// *   APPIUM\_PYTHON\_TEST_PACKAGE: An Appium Python test package upload.
+  /// *   APPIUM_PYTHON_TEST_PACKAGE: An Appium Python test package upload.
   ///
-  /// *   APPIUM\_NODE\_TEST_PACKAGE: An Appium Node.js test package upload.
+  /// *   APPIUM_NODE_TEST_PACKAGE: An Appium Node.js test package upload.
   ///
-  /// *   APPIUM\_RUBY\_TEST_PACKAGE: An Appium Ruby test package upload.
+  /// *   APPIUM_RUBY_TEST_PACKAGE: An Appium Ruby test package upload.
   ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_PACKAGE: An Appium Java JUnit test
-  /// package upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_PACKAGE: An Appium Java TestNG test
-  /// package upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_PACKAGE: An Appium Python test package
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload for a web app.
   ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_PACKAGE: An Appium Node.js test package
-  /// upload for a web app.
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test
+  /// package upload for a web app.
   ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_PACKAGE: An Appium Ruby test package upload
+  /// *   APPIUM_WEB_PYTHON_TEST_PACKAGE: An Appium Python test package upload
   /// for a web app.
   ///
-  /// *   CALABASH\_TEST\_PACKAGE: A Calabash test package upload.
+  /// *   APPIUM_WEB_NODE_TEST_PACKAGE: An Appium Node.js test package upload
+  /// for a web app.
   ///
-  /// *   INSTRUMENTATION\_TEST\_PACKAGE: An instrumentation upload.
-  ///
-  /// *   UIAUTOMATION\_TEST\_PACKAGE: A uiautomation test package upload.
-  ///
-  /// *   UIAUTOMATOR\_TEST\_PACKAGE: A uiautomator test package upload.
-  ///
-  /// *   XCTEST\_TEST\_PACKAGE: An Xcode test package upload.
-  ///
-  /// *   XCTEST\_UI\_TEST_PACKAGE: An Xcode UI test package upload.
-  ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_SPEC: An Appium Java JUnit test spec
-  /// upload.
-  ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_SPEC: An Appium Java TestNG test spec
-  /// upload.
-  ///
-  /// *   APPIUM\_PYTHON\_TEST_SPEC: An Appium Python test spec upload.
-  ///
-  /// *   APPIUM\_NODE\_TEST_SPEC: An Appium Node.js test spec upload.
-  ///
-  /// *   APPIUM\_RUBY\_TEST_SPEC: An Appium Ruby test spec upload.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_SPEC: An Appium Java JUnit test spec
-  /// upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_SPEC: An Appium Java TestNG test spec
-  /// upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_SPEC: An Appium Python test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_SPEC: An Appium Node.js test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_SPEC: An Appium Ruby test spec upload for a
+  /// *   APPIUM_WEB_RUBY_TEST_PACKAGE: An Appium Ruby test package upload for a
   /// web app.
   ///
-  /// *   INSTRUMENTATION\_TEST\_SPEC: An instrumentation test spec upload.
+  /// *   CALABASH_TEST_PACKAGE: A Calabash test package upload.
   ///
-  /// *   XCTEST\_UI\_TEST_SPEC: An Xcode UI test spec upload.
+  /// *   INSTRUMENTATION_TEST_PACKAGE: An instrumentation upload.
+  ///
+  /// *   UIAUTOMATION_TEST_PACKAGE: A uiautomation test package upload.
+  ///
+  /// *   UIAUTOMATOR_TEST_PACKAGE: A uiautomator test package upload.
+  ///
+  /// *   XCTEST_TEST_PACKAGE: An Xcode test package upload.
+  ///
+  /// *   XCTEST_UI_TEST_PACKAGE: An Xcode UI test package upload.
+  ///
+  /// *   APPIUM_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload.
+  ///
+  /// *   APPIUM_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec upload.
+  ///
+  /// *   APPIUM_PYTHON_TEST_SPEC: An Appium Python test spec upload.
+  ///
+  /// *   APPIUM_NODE_TEST_SPEC: An Appium Node.js test spec upload.
+  ///
+  /// *   APPIUM_RUBY_TEST_SPEC: An Appium Ruby test spec upload.
+  ///
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload
+  /// for a web app.
+  ///
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec
+  /// upload for a web app.
+  ///
+  /// *   APPIUM_WEB_PYTHON_TEST_SPEC: An Appium Python test spec upload for a
+  /// web app.
+  ///
+  /// *   APPIUM_WEB_NODE_TEST_SPEC: An Appium Node.js test spec upload for a
+  /// web app.
+  ///
+  /// *   APPIUM_WEB_RUBY_TEST_SPEC: An Appium Ruby test spec upload for a web
+  /// app.
+  ///
+  /// *   INSTRUMENTATION_TEST_SPEC: An instrumentation test spec upload.
+  ///
+  /// *   XCTEST_UI_TEST_SPEC: An Xcode UI test spec upload.
   ///
   ///
   ///  **Note** If you call `CreateUpload` with `WEB_APP` specified, AWS Device
@@ -439,9 +437,9 @@ class DeviceFarmApi {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -449,15 +447,15 @@ class DeviceFarmApi {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -674,18 +672,17 @@ class DeviceFarmApi {
   ///     *   MODEL: The device model. For example, "iPad 5th Gen".
   ///
   ///     *   AVAILABILITY: The current availability of the device. Valid values
-  /// are "AVAILABLE", "HIGHLY\_AVAILABLE", "BUSY", or
-  /// "TEMPORARY\_NOT_AVAILABLE".
+  /// are "AVAILABLE", "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   ///     *   FORM_FACTOR: The device form factor. Valid values are "PHONE" or
   /// "TABLET".
   ///
   ///     *   MANUFACTURER: The device manufacturer. For example, "Apple".
   ///
-  ///     *   REMOTE\_ACCESS\_ENABLED: Whether the device is enabled for remote
+  ///     *   REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote
   /// access. Valid values are "TRUE" or "FALSE".
   ///
-  ///     *   REMOTE\_DEBUG\_ENABLED: Whether the device is enabled for remote
+  ///     *   REMOTE_DEBUG_ENABLED: Whether the device is enabled for remote
   /// debugging. Valid values are "TRUE" or "FALSE".
   ///
   ///     *   INSTANCE_ARN: The Amazon Resource Name (ARN) of the device
@@ -705,11 +702,11 @@ class DeviceFarmApi {
   ///     *   The CONTAINS operator is available for the INSTANCE_LABELS and
   /// MODEL attributes.
   ///
-  ///     *   The IN and NOT\_IN operators are available for the ARN,
-  /// OS\_VERSION, MODEL, MANUFACTURER, and INSTANCE_ARN attributes.
+  ///     *   The IN and NOT_IN operators are available for the ARN, OS_VERSION,
+  /// MODEL, MANUFACTURER, and INSTANCE_ARN attributes.
   ///
-  ///     *   The LESS\_THAN, GREATER\_THAN, LESS\_THAN\_OR\_EQUALS, and
-  /// GREATER\_THAN\_OR\_EQUALS operators are also available for the OS_VERSION
+  ///     *   The LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUALS, and
+  /// GREATER_THAN_OR_EQUALS operators are also available for the OS_VERSION
   /// attribute.
   ///
   ///
@@ -721,7 +718,7 @@ class DeviceFarmApi {
   ///     *   The other operators require an array with a single element.
   ///
   ///     *   In a request, the AVAILABILITY attribute takes "AVAILABLE",
-  /// "HIGHLY\_AVAILABLE", "BUSY", or "TEMPORARY\_NOT_AVAILABLE" as values.
+  /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE" as values.
   Future<ListDevicesResult> listDevices(
       {String arn, String nextToken, List<DeviceFilter> filters}) async {
     return ListDevicesResult.fromJson({});
@@ -925,75 +922,73 @@ class DeviceFarmApi {
   ///
   /// *   EXTERNAL_DATA: An external data upload.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_PACKAGE: An Appium Java JUnit test package
+  /// *   APPIUM_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_PACKAGE: An Appium Java TestNG test
-  /// package upload.
+  /// *   APPIUM_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test package
+  /// upload.
   ///
-  /// *   APPIUM\_PYTHON\_TEST_PACKAGE: An Appium Python test package upload.
+  /// *   APPIUM_PYTHON_TEST_PACKAGE: An Appium Python test package upload.
   ///
-  /// *   APPIUM\_NODE\_TEST_PACKAGE: An Appium Node.js test package upload.
+  /// *   APPIUM_NODE_TEST_PACKAGE: An Appium Node.js test package upload.
   ///
-  /// *   APPIUM\_RUBY\_TEST_PACKAGE: An Appium Ruby test package upload.
+  /// *   APPIUM_RUBY_TEST_PACKAGE: An Appium Ruby test package upload.
   ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_PACKAGE: An Appium Java JUnit test
-  /// package upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_PACKAGE: An Appium Java TestNG test
-  /// package upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_PACKAGE: An Appium Python test package
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload for a web app.
   ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_PACKAGE: An Appium Node.js test package
-  /// upload for a web app.
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test
+  /// package upload for a web app.
   ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_PACKAGE: An Appium Ruby test package upload
+  /// *   APPIUM_WEB_PYTHON_TEST_PACKAGE: An Appium Python test package upload
   /// for a web app.
   ///
-  /// *   CALABASH\_TEST\_PACKAGE: A Calabash test package upload.
+  /// *   APPIUM_WEB_NODE_TEST_PACKAGE: An Appium Node.js test package upload
+  /// for a web app.
   ///
-  /// *   INSTRUMENTATION\_TEST\_PACKAGE: An instrumentation upload.
-  ///
-  /// *   UIAUTOMATION\_TEST\_PACKAGE: A uiautomation test package upload.
-  ///
-  /// *   UIAUTOMATOR\_TEST\_PACKAGE: A uiautomator test package upload.
-  ///
-  /// *   XCTEST\_TEST\_PACKAGE: An Xcode test package upload.
-  ///
-  /// *   XCTEST\_UI\_TEST_PACKAGE: An Xcode UI test package upload.
-  ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_SPEC: An Appium Java JUnit test spec
-  /// upload.
-  ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_SPEC: An Appium Java TestNG test spec
-  /// upload.
-  ///
-  /// *   APPIUM\_PYTHON\_TEST_SPEC: An Appium Python test spec upload.
-  ///
-  /// *   APPIUM\_NODE\_TEST_SPEC: An Appium Node.js test spec upload.
-  ///
-  /// *    APPIUM\_RUBY\_TEST_SPEC: An Appium Ruby test spec upload.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_SPEC: An Appium Java JUnit test spec
-  /// upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_SPEC: An Appium Java TestNG test spec
-  /// upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_SPEC: An Appium Python test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_SPEC: An Appium Node.js test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_SPEC: An Appium Ruby test spec upload for a
+  /// *   APPIUM_WEB_RUBY_TEST_PACKAGE: An Appium Ruby test package upload for a
   /// web app.
   ///
-  /// *   INSTRUMENTATION\_TEST\_SPEC: An instrumentation test spec upload.
+  /// *   CALABASH_TEST_PACKAGE: A Calabash test package upload.
   ///
-  /// *   XCTEST\_UI\_TEST_SPEC: An Xcode UI test spec upload.
+  /// *   INSTRUMENTATION_TEST_PACKAGE: An instrumentation upload.
+  ///
+  /// *   UIAUTOMATION_TEST_PACKAGE: A uiautomation test package upload.
+  ///
+  /// *   UIAUTOMATOR_TEST_PACKAGE: A uiautomator test package upload.
+  ///
+  /// *   XCTEST_TEST_PACKAGE: An Xcode test package upload.
+  ///
+  /// *   XCTEST_UI_TEST_PACKAGE: An Xcode UI test package upload.
+  ///
+  /// *   APPIUM_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload.
+  ///
+  /// *   APPIUM_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec upload.
+  ///
+  /// *   APPIUM_PYTHON_TEST_SPEC: An Appium Python test spec upload.
+  ///
+  /// *   APPIUM_NODE_TEST_SPEC: An Appium Node.js test spec upload.
+  ///
+  /// *    APPIUM_RUBY_TEST_SPEC: An Appium Ruby test spec upload.
+  ///
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload
+  /// for a web app.
+  ///
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec
+  /// upload for a web app.
+  ///
+  /// *   APPIUM_WEB_PYTHON_TEST_SPEC: An Appium Python test spec upload for a
+  /// web app.
+  ///
+  /// *   APPIUM_WEB_NODE_TEST_SPEC: An Appium Node.js test spec upload for a
+  /// web app.
+  ///
+  /// *   APPIUM_WEB_RUBY_TEST_SPEC: An Appium Ruby test spec upload for a web
+  /// app.
+  ///
+  /// *   INSTRUMENTATION_TEST_SPEC: An instrumentation test spec upload.
+  ///
+  /// *   XCTEST_UI_TEST_SPEC: An Xcode UI test spec upload.
   ///
   /// [nextToken]: An identifier that was returned from the previous call to
   /// this operation, which can be used to return the next set of items in the
@@ -1358,6 +1353,7 @@ class DeviceFarmApi {
   }
 }
 
+/// A container for account-level settings within AWS Device Farm.
 class AccountSettings {
   /// The AWS account number specified in the `AccountSettings` container.
   final String awsAccountNumber;
@@ -1389,9 +1385,9 @@ class AccountSettings {
   /// app again. For public devices, Device Farm always signs your apps again
   /// and this parameter has no effect.
   ///
-  /// For more information about how Device Farm re-signs your app(s), see [Do
-  /// you modify my app?](https://aws.amazon.com/device-farm/faq/) in the _AWS
-  /// Device Farm FAQs_.
+  /// For more information about how Device Farm re-signs your app(s), see
+  /// [Do you modify my app?](https://aws.amazon.com/device-farm/faq/) in the
+  /// _AWS Device Farm FAQs_.
   final bool skipAppResign;
 
   AccountSettings({
@@ -1408,6 +1404,8 @@ class AccountSettings {
       AccountSettings();
 }
 
+/// Represents the output of a test. Examples of artifacts include logs and
+/// screenshots.
 class Artifact {
   /// The artifact's ARN.
   final String arn;
@@ -1437,34 +1435,34 @@ class Artifact {
   ///
   /// *   INSTRUMENTATION_OUTPUT: The instrumentation type.
   ///
-  /// *   EXERCISER\_MONKEY\_OUTPUT: For Android, the artifact (log) generated
-  /// by an Android fuzz test.
+  /// *   EXERCISER_MONKEY_OUTPUT: For Android, the artifact (log) generated by
+  /// an Android fuzz test.
   ///
-  /// *   CALABASH\_JSON\_OUTPUT: The Calabash JSON output type.
+  /// *   CALABASH_JSON_OUTPUT: The Calabash JSON output type.
   ///
-  /// *   CALABASH\_PRETTY\_OUTPUT: The Calabash pretty output type.
+  /// *   CALABASH_PRETTY_OUTPUT: The Calabash pretty output type.
   ///
-  /// *   CALABASH\_STANDARD\_OUTPUT: The Calabash standard output type.
+  /// *   CALABASH_STANDARD_OUTPUT: The Calabash standard output type.
   ///
-  /// *   CALABASH\_JAVA\_XML_OUTPUT: The Calabash Java XML output type.
+  /// *   CALABASH_JAVA_XML_OUTPUT: The Calabash Java XML output type.
   ///
   /// *   AUTOMATION_OUTPUT: The automation output type.
   ///
-  /// *   APPIUM\_SERVER\_OUTPUT: The Appium server output type.
+  /// *   APPIUM_SERVER_OUTPUT: The Appium server output type.
   ///
-  /// *   APPIUM\_JAVA\_OUTPUT: The Appium Java output type.
+  /// *   APPIUM_JAVA_OUTPUT: The Appium Java output type.
   ///
-  /// *   APPIUM\_JAVA\_XML_OUTPUT: The Appium Java XML output type.
+  /// *   APPIUM_JAVA_XML_OUTPUT: The Appium Java XML output type.
   ///
-  /// *   APPIUM\_PYTHON\_OUTPUT: The Appium Python output type.
+  /// *   APPIUM_PYTHON_OUTPUT: The Appium Python output type.
   ///
-  /// *   APPIUM\_PYTHON\_XML_OUTPUT: The Appium Python XML output type.
+  /// *   APPIUM_PYTHON_XML_OUTPUT: The Appium Python XML output type.
   ///
-  /// *   EXPLORER\_EVENT\_LOG: The Explorer event log output type.
+  /// *   EXPLORER_EVENT_LOG: The Explorer event log output type.
   ///
-  /// *   EXPLORER\_SUMMARY\_LOG: The Explorer summary log output type.
+  /// *   EXPLORER_SUMMARY_LOG: The Explorer summary log output type.
   ///
-  /// *   APPLICATION\_CRASH\_REPORT: The application crash report output type.
+  /// *   APPLICATION_CRASH_REPORT: The application crash report output type.
   ///
   /// *   XCTEST_LOG: The Xcode test output type.
   ///
@@ -1472,7 +1470,7 @@ class Artifact {
   ///
   /// *   CUSTOMER_ARTIFACT:The Customer Artifact output type.
   ///
-  /// *   CUSTOMER\_ARTIFACT\_LOG: The Customer Artifact Log output type.
+  /// *   CUSTOMER_ARTIFACT_LOG: The Customer Artifact Log output type.
   ///
   /// *   TESTSPEC_OUTPUT: The Test Spec Output type.
   final String type;
@@ -1494,6 +1492,9 @@ class Artifact {
   static Artifact fromJson(Map<String, dynamic> json) => Artifact();
 }
 
+/// Represents the amount of CPU that an app is using on a physical device.
+///
+/// Note that this does not represent system-wide CPU usage.
 class Cpu {
   /// The CPU's frequency.
   final String frequency;
@@ -1513,6 +1514,7 @@ class Cpu {
   static Cpu fromJson(Map<String, dynamic> json) => Cpu();
 }
 
+/// Represents entity counters.
 class Counters {
   /// The total number of entities.
   final int total;
@@ -1547,6 +1549,7 @@ class Counters {
   static Counters fromJson(Map<String, dynamic> json) => Counters();
 }
 
+/// Represents the result of a create device pool request.
 class CreateDevicePoolResult {
   /// The newly created device pool.
   final DevicePool devicePool;
@@ -1581,6 +1584,7 @@ class CreateNetworkProfileResult {
       CreateNetworkProfileResult();
 }
 
+/// Represents the result of a create project request.
 class CreateProjectResult {
   /// The newly created project.
   final Project project;
@@ -1592,6 +1596,8 @@ class CreateProjectResult {
       CreateProjectResult();
 }
 
+/// Configuration settings for a remote access session, including billing
+/// method.
 class CreateRemoteAccessSessionConfiguration {
   /// The billing method for the remote access session.
   final String billingMethod;
@@ -1606,6 +1612,8 @@ class CreateRemoteAccessSessionConfiguration {
   });
 }
 
+/// Represents the server response from a request to create a remote access
+/// session.
 class CreateRemoteAccessSessionResult {
   /// A container that describes the remote access session when the request to
   /// create a remote access session is sent.
@@ -1618,6 +1626,7 @@ class CreateRemoteAccessSessionResult {
       CreateRemoteAccessSessionResult();
 }
 
+/// Represents the result of a create upload request.
 class CreateUploadResult {
   /// The newly created upload.
   final Upload upload;
@@ -1640,6 +1649,14 @@ class CreateVpceConfigurationResult {
       CreateVpceConfigurationResult();
 }
 
+/// A JSON object specifying the paths where the artifacts generated by the
+/// customer's tests, on the device or in the test environment, will be pulled
+/// from.
+///
+/// Specify `deviceHostPaths` and optionally specify either `iosPaths` or
+/// `androidPaths`.
+///
+/// For web app tests, you can specify both `iosPaths` and `androidPaths`.
 class CustomerArtifactPaths {
   /// Comma-separated list of paths on the iOS device where the artifacts
   /// generated by the customer's tests will be pulled from.
@@ -1662,6 +1679,7 @@ class CustomerArtifactPaths {
       CustomerArtifactPaths();
 }
 
+/// Represents the result of a delete device pool request.
 class DeleteDevicePoolResult {
   DeleteDevicePoolResult();
   static DeleteDevicePoolResult fromJson(Map<String, dynamic> json) =>
@@ -1680,24 +1698,29 @@ class DeleteNetworkProfileResult {
       DeleteNetworkProfileResult();
 }
 
+/// Represents the result of a delete project request.
 class DeleteProjectResult {
   DeleteProjectResult();
   static DeleteProjectResult fromJson(Map<String, dynamic> json) =>
       DeleteProjectResult();
 }
 
+/// The response from the server when a request is made to delete the remote
+/// access session.
 class DeleteRemoteAccessSessionResult {
   DeleteRemoteAccessSessionResult();
   static DeleteRemoteAccessSessionResult fromJson(Map<String, dynamic> json) =>
       DeleteRemoteAccessSessionResult();
 }
 
+/// Represents the result of a delete run request.
 class DeleteRunResult {
   DeleteRunResult();
   static DeleteRunResult fromJson(Map<String, dynamic> json) =>
       DeleteRunResult();
 }
 
+/// Represents the result of a delete upload request.
 class DeleteUploadResult {
   DeleteUploadResult();
   static DeleteUploadResult fromJson(Map<String, dynamic> json) =>
@@ -1710,6 +1733,7 @@ class DeleteVpceConfigurationResult {
       DeleteVpceConfigurationResult();
 }
 
+/// Represents a device type that an app is tested against.
 class Device {
   /// The device's ARN.
   final String arn;
@@ -1814,6 +1838,13 @@ class Device {
   static Device fromJson(Map<String, dynamic> json) => Device();
 }
 
+/// Represents a device filter used to select a set of devices to be included in
+/// a test run. This data structure is passed in as the
+/// `deviceSelectionConfiguration` parameter to ScheduleRun. For an example of
+/// the JSON request syntax, see ScheduleRun.
+///
+/// It is also passed in as the `filters` parameter to ListDevices. For an
+/// example of the JSON request syntax, see ListDevices.
 class DeviceFilter {
   /// The aspect of a device such as platform or model used as the selection
   /// criteria in a device filter.
@@ -1839,7 +1870,7 @@ class DeviceFilter {
   /// The operating system version. For example, "10.3.2".
   ///
   ///  _Supported operators_: `EQUALS`, `GREATER_THAN`,
-  /// `GREATER\_THAN\_OR_EQUALS`, `IN`, `LESS_THAN`, `LESS\_THAN\_OR_EQUALS`,
+  /// `GREATER_THAN_OR_EQUALS`, `IN`, `LESS_THAN`, `LESS_THAN_OR_EQUALS`,
   /// `NOT_IN`
   ///
   /// MODEL
@@ -1851,7 +1882,7 @@ class DeviceFilter {
   /// AVAILABILITY
   ///
   /// The current availability of the device. Valid values are "AVAILABLE",
-  /// "HIGHLY\_AVAILABLE", "BUSY", or "TEMPORARY\_NOT_AVAILABLE".
+  /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   ///  _Supported operators_: `EQUALS`
   ///
@@ -1867,14 +1898,14 @@ class DeviceFilter {
   ///
   ///  _Supported operators_: `EQUALS`, `IN`, `NOT_IN`
   ///
-  /// REMOTE\_ACCESS\_ENABLED
+  /// REMOTE_ACCESS_ENABLED
   ///
   /// Whether the device is enabled for remote access. Valid values are "TRUE"
   /// or "FALSE".
   ///
   ///  _Supported operators_: `EQUALS`
   ///
-  /// REMOTE\_DEBUG\_ENABLED
+  /// REMOTE_DEBUG_ENABLED
   ///
   /// Whether the device is enabled for remote debugging. Valid values are
   /// "TRUE" or "FALSE".
@@ -1920,7 +1951,7 @@ class DeviceFilter {
   /// *   The PLATFORM attribute can be set to "ANDROID" or "IOS".
   ///
   /// *   The AVAILABILITY attribute can be set to "AVAILABLE",
-  /// "HIGHLY\_AVAILABLE", "BUSY", or "TEMPORARY\_NOT_AVAILABLE".
+  /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   /// *   The FORM_FACTOR attribute can be set to "PHONE" or "TABLET".
   ///
@@ -1935,6 +1966,7 @@ class DeviceFilter {
   static DeviceFilter fromJson(Map<String, dynamic> json) => DeviceFilter();
 }
 
+/// Represents the device instance.
 class DeviceInstance {
   /// The Amazon Resource Name (ARN) of the device instance.
   final String arn;
@@ -1965,6 +1997,8 @@ class DeviceInstance {
   static DeviceInstance fromJson(Map<String, dynamic> json) => DeviceInstance();
 }
 
+/// Represents the total (metered or unmetered) minutes used by the resource to
+/// run tests. Contains the sum of minutes consumed by all children.
 class DeviceMinutes {
   /// When specified, represents the total minutes used by the resource to run
   /// tests.
@@ -1986,6 +2020,7 @@ class DeviceMinutes {
   static DeviceMinutes fromJson(Map<String, dynamic> json) => DeviceMinutes();
 }
 
+/// Represents a collection of device types.
 class DevicePool {
   /// The device pool's ARN.
   final String arn;
@@ -2030,6 +2065,7 @@ class DevicePool {
   static DevicePool fromJson(Map<String, dynamic> json) => DevicePool();
 }
 
+/// Represents a device pool compatibility result.
 class DevicePoolCompatibilityResult {
   /// The device (phone or tablet) that you wish to return information about.
   final Device device;
@@ -2049,6 +2085,9 @@ class DevicePoolCompatibilityResult {
       DevicePoolCompatibilityResult();
 }
 
+/// Represents the device filters used in a test run as well as the maximum
+/// number of devices to be included in the run. It is passed in as the
+/// `deviceSelectionConfiguration` request parameter in ScheduleRun.
 class DeviceSelectionConfiguration {
   /// Used to dynamically select a set of devices for a test run. A filter is
   /// made up of an attribute, an operator, and one or more values.
@@ -2071,18 +2110,17 @@ class DeviceSelectionConfiguration {
   ///     *   MODEL: The device model. For example, "iPad 5th Gen".
   ///
   ///     *   AVAILABILITY: The current availability of the device. Valid values
-  /// are "AVAILABLE", "HIGHLY\_AVAILABLE", "BUSY", or
-  /// "TEMPORARY\_NOT_AVAILABLE".
+  /// are "AVAILABLE", "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   ///     *   FORM_FACTOR: The device form factor. Valid values are "PHONE" or
   /// "TABLET".
   ///
   ///     *   MANUFACTURER: The device manufacturer. For example, "Apple".
   ///
-  ///     *   REMOTE\_ACCESS\_ENABLED: Whether the device is enabled for remote
+  ///     *   REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote
   /// access. Valid values are "TRUE" or "FALSE".
   ///
-  ///     *   REMOTE\_DEBUG\_ENABLED: Whether the device is enabled for remote
+  ///     *   REMOTE_DEBUG_ENABLED: Whether the device is enabled for remote
   /// debugging. Valid values are "TRUE" or "FALSE".
   ///
   ///     *   INSTANCE_ARN: The Amazon Resource Name (ARN) of the device
@@ -2104,11 +2142,11 @@ class DeviceSelectionConfiguration {
   ///     *   The CONTAINS operator is available for the INSTANCE_LABELS and
   /// MODEL attributes.
   ///
-  ///     *   The IN and NOT\_IN operators are available for the ARN,
-  /// OS\_VERSION, MODEL, MANUFACTURER, and INSTANCE_ARN attributes.
+  ///     *   The IN and NOT_IN operators are available for the ARN, OS_VERSION,
+  /// MODEL, MANUFACTURER, and INSTANCE_ARN attributes.
   ///
-  ///     *   The LESS\_THAN, GREATER\_THAN, LESS\_THAN\_OR\_EQUALS, and
-  /// GREATER\_THAN\_OR\_EQUALS operators are also available for the OS_VERSION
+  ///     *   The LESS_THAN, GREATER_THAN, LESS_THAN_OR_EQUALS, and
+  /// GREATER_THAN_OR_EQUALS operators are also available for the OS_VERSION
   /// attribute.
   ///
   ///
@@ -2129,7 +2167,7 @@ class DeviceSelectionConfiguration {
   ///     *   The PLATFORM attribute can be set to "ANDROID" or "IOS".
   ///
   ///     *   The AVAILABILITY attribute can be set to "AVAILABLE",
-  /// "HIGHLY\_AVAILABLE", "BUSY", or "TEMPORARY\_NOT_AVAILABLE".
+  /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   ///     *   The FORM_FACTOR attribute can be set to "PHONE" or "TABLET".
   ///
@@ -2145,6 +2183,9 @@ class DeviceSelectionConfiguration {
   });
 }
 
+/// Contains the run results requested by the device selection configuration as
+/// well as how many devices were returned. For an example of the JSON response
+/// syntax, see ScheduleRun.
 class DeviceSelectionResult {
   /// The filters in a device selection result.
   final List<DeviceFilter> filters;
@@ -2165,6 +2206,8 @@ class DeviceSelectionResult {
       DeviceSelectionResult();
 }
 
+/// Represents configuration information about a test run, such as the execution
+/// timeout (in minutes).
 class ExecutionConfiguration {
   /// The number of minutes a test run will execute before it times out.
   final int jobTimeoutMinutes;
@@ -2185,9 +2228,9 @@ class ExecutionConfiguration {
   /// app again. For public devices, Device Farm always signs your apps again
   /// and this parameter has no effect.
   ///
-  /// For more information about how Device Farm re-signs your app(s), see [Do
-  /// you modify my app?](https://aws.amazon.com/device-farm/faq/) in the _AWS
-  /// Device Farm FAQs_.
+  /// For more information about how Device Farm re-signs your app(s), see
+  /// [Do you modify my app?](https://aws.amazon.com/device-farm/faq/) in the
+  /// _AWS Device Farm FAQs_.
   final bool skipAppResign;
 
   ExecutionConfiguration({
@@ -2199,6 +2242,8 @@ class ExecutionConfiguration {
   });
 }
 
+/// Represents the account settings return values from the `GetAccountSettings`
+/// request.
 class GetAccountSettingsResult {
   /// The account settings.
   final AccountSettings accountSettings;
@@ -2221,6 +2266,7 @@ class GetDeviceInstanceResult {
       GetDeviceInstanceResult();
 }
 
+/// Represents the result of describe device pool compatibility request.
 class GetDevicePoolCompatibilityResult {
   /// Information about compatible devices.
   final List<DevicePoolCompatibilityResult> compatibleDevices;
@@ -2236,6 +2282,7 @@ class GetDevicePoolCompatibilityResult {
       GetDevicePoolCompatibilityResult();
 }
 
+/// Represents the result of a get device pool request.
 class GetDevicePoolResult {
   /// An object containing information about the requested device pool.
   final DevicePool devicePool;
@@ -2247,6 +2294,7 @@ class GetDevicePoolResult {
       GetDevicePoolResult();
 }
 
+/// Represents the result of a get device request.
 class GetDeviceResult {
   /// An object containing information about the requested device.
   final Device device;
@@ -2269,6 +2317,7 @@ class GetInstanceProfileResult {
       GetInstanceProfileResult();
 }
 
+/// Represents the result of a get job request.
 class GetJobResult {
   /// An object containing information about the requested job.
   final Job job;
@@ -2290,6 +2339,7 @@ class GetNetworkProfileResult {
       GetNetworkProfileResult();
 }
 
+/// Returns the status result for a device offering.
 class GetOfferingStatusResult {
   /// When specified, gets the offering status for the current period.
   final Map<String, OfferingStatus> current;
@@ -2310,6 +2360,7 @@ class GetOfferingStatusResult {
       GetOfferingStatusResult();
 }
 
+/// Represents the result of a get project request.
 class GetProjectResult {
   /// The project you wish to get information about.
   final Project project;
@@ -2321,6 +2372,8 @@ class GetProjectResult {
       GetProjectResult();
 }
 
+/// Represents the response from the server that lists detailed information
+/// about the remote access session.
 class GetRemoteAccessSessionResult {
   /// A container that lists detailed information about the remote access
   /// session.
@@ -2333,6 +2386,7 @@ class GetRemoteAccessSessionResult {
       GetRemoteAccessSessionResult();
 }
 
+/// Represents the result of a get run request.
 class GetRunResult {
   /// The run you wish to get results from.
   final Run run;
@@ -2343,6 +2397,7 @@ class GetRunResult {
   static GetRunResult fromJson(Map<String, dynamic> json) => GetRunResult();
 }
 
+/// Represents the result of a get suite request.
 class GetSuiteResult {
   /// A collection of one or more tests.
   final Suite suite;
@@ -2353,6 +2408,7 @@ class GetSuiteResult {
   static GetSuiteResult fromJson(Map<String, dynamic> json) => GetSuiteResult();
 }
 
+/// Represents the result of a get test request.
 class GetTestResult {
   /// A test condition that is evaluated.
   final Test test;
@@ -2363,6 +2419,7 @@ class GetTestResult {
   static GetTestResult fromJson(Map<String, dynamic> json) => GetTestResult();
 }
 
+/// Represents the result of a get upload request.
 class GetUploadResult {
   /// An app or a set of one or more tests to upload or that have been uploaded.
   final Upload upload;
@@ -2385,6 +2442,7 @@ class GetVpceConfigurationResult {
       GetVpceConfigurationResult();
 }
 
+/// Represents information about incompatibility.
 class IncompatibilityMessage {
   /// A message about the incompatibility.
   final String message;
@@ -2401,7 +2459,7 @@ class IncompatibilityMessage {
   ///
   /// *   PLATFORM: The platform (for example, Android or iOS).
   ///
-  /// *   REMOTE\_ACCESS\_ENABLED: Whether the device is enabled for remote
+  /// *   REMOTE_ACCESS_ENABLED: Whether the device is enabled for remote
   /// access.
   ///
   /// *   APPIUM_VERSION: The Appium version for the test.
@@ -2415,6 +2473,8 @@ class IncompatibilityMessage {
       IncompatibilityMessage();
 }
 
+/// Represents the response from the server after AWS Device Farm makes a
+/// request to install to a remote access session.
 class InstallToRemoteAccessSessionResult {
   /// An app to upload or that has been uploaded.
   final Upload appUpload;
@@ -2427,6 +2487,7 @@ class InstallToRemoteAccessSessionResult {
       InstallToRemoteAccessSessionResult();
 }
 
+/// Represents the instance profile.
 class InstanceProfile {
   /// The Amazon Resource Name (ARN) of the instance profile.
   final String arn;
@@ -2464,6 +2525,7 @@ class InstanceProfile {
       InstanceProfile();
 }
 
+/// Represents a device.
 class Job {
   /// The job's ARN.
   final String arn;
@@ -2481,9 +2543,9 @@ class Job {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -2491,15 +2553,15 @@ class Job {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby test type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby test type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -2607,6 +2669,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// Represents the result of a list artifacts operation.
 class ListArtifactsResult {
   /// Information about the artifacts.
   final List<Artifact> artifacts;
@@ -2640,6 +2703,7 @@ class ListDeviceInstancesResult {
       ListDeviceInstancesResult();
 }
 
+/// Represents the result of a list device pools request.
 class ListDevicePoolsResult {
   /// Information about the device pools.
   final List<DevicePool> devicePools;
@@ -2657,6 +2721,7 @@ class ListDevicePoolsResult {
       ListDevicePoolsResult();
 }
 
+/// Represents the result of a list devices operation.
 class ListDevicesResult {
   /// Information about the devices.
   final List<Device> devices;
@@ -2690,6 +2755,7 @@ class ListInstanceProfilesResult {
       ListInstanceProfilesResult();
 }
 
+/// Represents the result of a list jobs request.
 class ListJobsResult {
   /// Information about the jobs.
   final List<Job> jobs;
@@ -2738,6 +2804,7 @@ class ListOfferingPromotionsResult {
       ListOfferingPromotionsResult();
 }
 
+/// Returns the transaction log of the specified offerings.
 class ListOfferingTransactionsResult {
   /// The audit log of subscriptions you have purchased and modified through AWS
   /// Device Farm.
@@ -2755,6 +2822,7 @@ class ListOfferingTransactionsResult {
       ListOfferingTransactionsResult();
 }
 
+/// Represents the return values of the list of offerings.
 class ListOfferingsResult {
   /// A value representing the list offering results.
   final List<Offering> offerings;
@@ -2771,6 +2839,7 @@ class ListOfferingsResult {
       ListOfferingsResult();
 }
 
+/// Represents the result of a list projects request.
 class ListProjectsResult {
   /// Information about the projects.
   final List<Project> projects;
@@ -2788,6 +2857,8 @@ class ListProjectsResult {
       ListProjectsResult();
 }
 
+/// Represents the response from the server after AWS Device Farm makes a
+/// request to return information about the remote access session.
 class ListRemoteAccessSessionsResult {
   /// A container representing the metadata from the service about each remote
   /// access session you are requesting.
@@ -2805,6 +2876,7 @@ class ListRemoteAccessSessionsResult {
       ListRemoteAccessSessionsResult();
 }
 
+/// Represents the result of a list runs request.
 class ListRunsResult {
   /// Information about the runs.
   final List<Run> runs;
@@ -2821,6 +2893,7 @@ class ListRunsResult {
   static ListRunsResult fromJson(Map<String, dynamic> json) => ListRunsResult();
 }
 
+/// Represents the result of a list samples request.
 class ListSamplesResult {
   /// Information about the samples.
   final List<Sample> samples;
@@ -2838,6 +2911,7 @@ class ListSamplesResult {
       ListSamplesResult();
 }
 
+/// Represents the result of a list suites request.
 class ListSuitesResult {
   /// Information about the suites.
   final List<Suite> suites;
@@ -2868,6 +2942,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Represents the result of a list tests request.
 class ListTestsResult {
   /// Information about the tests.
   final List<Test> tests;
@@ -2885,6 +2960,7 @@ class ListTestsResult {
       ListTestsResult();
 }
 
+/// Represents the result of a list unique problems request.
 class ListUniqueProblemsResult {
   /// Information about the unique problems.
   ///
@@ -2918,6 +2994,7 @@ class ListUniqueProblemsResult {
       ListUniqueProblemsResult();
 }
 
+/// Represents the result of a list uploads request.
 class ListUploadsResult {
   /// Information about the uploads.
   final List<Upload> uploads;
@@ -2952,6 +3029,10 @@ class ListVpceConfigurationsResult {
       ListVpceConfigurationsResult();
 }
 
+/// Represents a latitude and longitude pair, expressed in geographic coordinate
+/// system degrees (for example 47.6204, -122.3491).
+///
+/// Elevation is currently not supported.
 class Location {
   /// The latitude.
   final double latitude;
@@ -2966,6 +3047,7 @@ class Location {
   static Location fromJson(Map<String, dynamic> json) => Location();
 }
 
+/// A number representing the monetary amount for an offering or transaction.
 class MonetaryAmount {
   /// The numerical amount of an offering or transaction.
   final double amount;
@@ -2981,6 +3063,7 @@ class MonetaryAmount {
   static MonetaryAmount fromJson(Map<String, dynamic> json) => MonetaryAmount();
 }
 
+/// An array of settings that describes characteristics of a network profile.
 class NetworkProfile {
   /// The Amazon Resource Name (ARN) of the network profile.
   final String arn;
@@ -3042,6 +3125,7 @@ class NetworkProfile {
   static NetworkProfile fromJson(Map<String, dynamic> json) => NetworkProfile();
 }
 
+/// Represents the metadata of a device offering.
 class Offering {
   /// The ID that corresponds to a device offering.
   final String id;
@@ -3068,6 +3152,7 @@ class Offering {
   static Offering fromJson(Map<String, dynamic> json) => Offering();
 }
 
+/// Represents information about an offering promotion.
 class OfferingPromotion {
   /// The ID of the offering promotion.
   final String id;
@@ -3083,6 +3168,7 @@ class OfferingPromotion {
       OfferingPromotion();
 }
 
+/// The status of the offering.
 class OfferingStatus {
   /// The type specified for the offering status.
   final String type;
@@ -3105,6 +3191,7 @@ class OfferingStatus {
   static OfferingStatus fromJson(Map<String, dynamic> json) => OfferingStatus();
 }
 
+/// Represents the metadata of an offering transaction.
 class OfferingTransaction {
   /// The status of an offering transaction.
   final OfferingStatus offeringStatus;
@@ -3132,6 +3219,7 @@ class OfferingTransaction {
       OfferingTransaction();
 }
 
+/// Represents a specific warning or failure.
 class Problem {
   /// Information about the associated run.
   final ProblemDetail run;
@@ -3182,6 +3270,7 @@ class Problem {
   static Problem fromJson(Map<String, dynamic> json) => Problem();
 }
 
+/// Information about a problem detail.
 class ProblemDetail {
   /// The problem detail's ARN.
   final String arn;
@@ -3196,6 +3285,8 @@ class ProblemDetail {
   static ProblemDetail fromJson(Map<String, dynamic> json) => ProblemDetail();
 }
 
+/// Represents an operating-system neutral workspace for running and managing
+/// tests.
 class Project {
   /// The project's ARN.
   final String arn;
@@ -3219,6 +3310,7 @@ class Project {
   static Project fromJson(Map<String, dynamic> json) => Project();
 }
 
+/// The result of the purchase offering (e.g., success or failure).
 class PurchaseOfferingResult {
   /// Represents the offering transaction for the purchase result.
   final OfferingTransaction offeringTransaction;
@@ -3230,6 +3322,8 @@ class PurchaseOfferingResult {
       PurchaseOfferingResult();
 }
 
+/// Represents the set of radios and their states on a device. Examples of
+/// radios include Wi-Fi, GPS, Bluetooth, and NFC.
 class Radios {
   /// True if Wi-Fi is enabled at the beginning of the test; otherwise, false.
   final bool wifi;
@@ -3253,6 +3347,7 @@ class Radios {
   static Radios fromJson(Map<String, dynamic> json) => Radios();
 }
 
+/// Specifies whether charges for devices will be recurring.
 class RecurringCharge {
   /// The cost of the recurring charge.
   final MonetaryAmount cost;
@@ -3268,6 +3363,7 @@ class RecurringCharge {
       RecurringCharge();
 }
 
+/// Represents information about the remote access session.
 class RemoteAccessSession {
   /// The Amazon Resource Name (ARN) of the remote access session.
   final String arn;
@@ -3354,8 +3450,7 @@ class RemoteAccessSession {
 
   /// The billing method of the remote access session. Possible values include
   /// `METERED` or `UNMETERED`. For more information about metered devices, see
-  /// [AWS Device Farm
-  /// terminology](https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology)."
+  /// [AWS Device Farm terminology](https://docs.aws.amazon.com/devicefarm/latest/developerguide/welcome.html#welcome-terminology)."
   final String billingMethod;
 
   /// The number of minutes a device is used in a remote access session
@@ -3388,9 +3483,9 @@ class RemoteAccessSession {
   /// app again. For public devices, Device Farm always signs your apps again
   /// and this parameter has no effect.
   ///
-  /// For more information about how Device Farm re-signs your app(s), see [Do
-  /// you modify my app?](https://aws.amazon.com/device-farm/faq/) in the _AWS
-  /// Device Farm FAQs_.
+  /// For more information about how Device Farm re-signs your app(s), see
+  /// [Do you modify my app?](https://aws.amazon.com/device-farm/faq/) in the
+  /// _AWS Device Farm FAQs_.
   final bool skipAppResign;
 
   RemoteAccessSession({
@@ -3420,6 +3515,7 @@ class RemoteAccessSession {
       RemoteAccessSession();
 }
 
+/// The result of a renewal offering.
 class RenewOfferingResult {
   /// Represents the status of the offering transaction for the renewal.
   final OfferingTransaction offeringTransaction;
@@ -3431,6 +3527,8 @@ class RenewOfferingResult {
       RenewOfferingResult();
 }
 
+/// Represents the screen resolution of a device in height and width, expressed
+/// in pixels.
 class Resolution {
   /// The screen resolution's width, expressed in pixels.
   final int width;
@@ -3445,9 +3543,10 @@ class Resolution {
   static Resolution fromJson(Map<String, dynamic> json) => Resolution();
 }
 
+/// Represents a condition for a device pool.
 class Rule {
   /// The rule's stringified attribute. For example, specify the value as
-  /// `"\\"abc\\""`.
+  /// `""abc""`.
   ///
   /// The supported operators for each attribute are provided in the following
   /// list.
@@ -3468,7 +3567,7 @@ class Rule {
   /// AVAILABILITY
   ///
   /// The current availability of the device. Valid values are "AVAILABLE",
-  /// "HIGHLY\_AVAILABLE", "BUSY", or "TEMPORARY\_NOT_AVAILABLE".
+  /// "HIGHLY_AVAILABLE", "BUSY", or "TEMPORARY_NOT_AVAILABLE".
   ///
   ///  _Supported operators_: `EQUALS`
   ///
@@ -3513,7 +3612,7 @@ class Rule {
   /// The operating system version. For example, "10.3.2".
   ///
   ///  _Supported operators_: `EQUALS`, `GREATER_THAN`,
-  /// `GREATER\_THAN\_OR_EQUALS`, `IN`, `LESS_THAN`, `LESS\_THAN\_OR_EQUALS`,
+  /// `GREATER_THAN_OR_EQUALS`, `IN`, `LESS_THAN`, `LESS_THAN_OR_EQUALS`,
   /// `NOT_IN`
   ///
   /// PLATFORM
@@ -3522,14 +3621,14 @@ class Rule {
   ///
   ///  _Supported operators_: `EQUALS`, `IN`, `NOT_IN`
   ///
-  /// REMOTE\_ACCESS\_ENABLED
+  /// REMOTE_ACCESS_ENABLED
   ///
   /// Whether the device is enabled for remote access. Valid values are "TRUE"
   /// or "FALSE".
   ///
   ///  _Supported operators_: `EQUALS`
   ///
-  /// REMOTE\_DEBUG\_ENABLED
+  /// REMOTE_DEBUG_ENABLED
   ///
   /// Whether the device is enabled for remote debugging. Valid values are
   /// "TRUE" or "FALSE".
@@ -3553,6 +3652,8 @@ class Rule {
   static Rule fromJson(Map<String, dynamic> json) => Rule();
 }
 
+/// Represents a test run on a set of devices with a given app package, test
+/// parameters, etc.
 class Run {
   /// The run's ARN.
   final String arn;
@@ -3570,9 +3671,9 @@ class Run {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -3580,15 +3681,15 @@ class Run {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -3731,9 +3832,9 @@ class Run {
   /// app again. For public devices, Device Farm always signs your apps again
   /// and this parameter has no effect.
   ///
-  /// For more information about how Device Farm re-signs your app(s), see [Do
-  /// you modify my app?](https://aws.amazon.com/device-farm/faq/) in the _AWS
-  /// Device Farm FAQs_.
+  /// For more information about how Device Farm re-signs your app(s), see
+  /// [Do you modify my app?](https://aws.amazon.com/device-farm/faq/) in the
+  /// _AWS Device Farm FAQs_.
   final bool skipAppResign;
 
   /// The ARN of the YAML-formatted test specification for the run.
@@ -3778,6 +3879,7 @@ class Run {
   static Run fromJson(Map<String, dynamic> json) => Run();
 }
 
+/// Represents a sample of performance data.
 class Sample {
   /// The sample's ARN.
   final String arn;
@@ -3792,25 +3894,25 @@ class Sample {
   /// *   MEMORY: A memory usage sample type. This is expressed as the total
   /// proportional set size of an app process, in kilobytes.
   ///
-  /// *   NATIVE\_AVG\_DRAWTIME
+  /// *   NATIVE_AVG_DRAWTIME
   ///
   /// *   NATIVE_FPS
   ///
   /// *   NATIVE_FRAMES
   ///
-  /// *   NATIVE\_MAX\_DRAWTIME
+  /// *   NATIVE_MAX_DRAWTIME
   ///
-  /// *   NATIVE\_MIN\_DRAWTIME
+  /// *   NATIVE_MIN_DRAWTIME
   ///
-  /// *   OPENGL\_AVG\_DRAWTIME
+  /// *   OPENGL_AVG_DRAWTIME
   ///
   /// *   OPENGL_FPS
   ///
   /// *   OPENGL_FRAMES
   ///
-  /// *   OPENGL\_MAX\_DRAWTIME
+  /// *   OPENGL_MAX_DRAWTIME
   ///
-  /// *   OPENGL\_MIN\_DRAWTIME
+  /// *   OPENGL_MIN_DRAWTIME
   ///
   /// *   RX
   ///
@@ -3838,6 +3940,8 @@ class Sample {
   static Sample fromJson(Map<String, dynamic> json) => Sample();
 }
 
+/// Represents the settings for a run. Includes things like location, radio
+/// states, auxiliary apps, and network profiles.
 class ScheduleRunConfiguration {
   /// The ARN of the extra data for the run. The extra data is a .zip file that
   /// AWS Device Farm will extract to external data for Android or the app's
@@ -3883,6 +3987,7 @@ class ScheduleRunConfiguration {
   });
 }
 
+/// Represents the result of a schedule run request.
 class ScheduleRunResult {
   /// Information about the scheduled run.
   final Run run;
@@ -3894,6 +3999,9 @@ class ScheduleRunResult {
       ScheduleRunResult();
 }
 
+/// Represents test settings. This data structure is passed in as the "test"
+/// parameter to ScheduleRun. For an example of the JSON request syntax, see
+/// ScheduleRun.
 class ScheduleRunTest {
   /// The test's type.
   ///
@@ -3905,9 +4013,9 @@ class ScheduleRunTest {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -3915,15 +4023,15 @@ class ScheduleRunTest {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -3952,13 +4060,13 @@ class ScheduleRunTest {
   ///
   /// For all tests:
   ///
-  /// *   app\_performance\_monitoring: Performance monitoring is enabled by
+  /// *   app_performance_monitoring: Performance monitoring is enabled by
   /// default. Set this parameter to "false" to disable it.
   ///
   ///
   /// For Calabash tests:
   ///
-  /// *   profile: A cucumber profile, for example, "my\_profile\_name".
+  /// *   profile: A cucumber profile, for example, "my_profile_name".
   ///
   /// *   tags: You can limit execution to features or scenarios that have (or
   /// don't have) certain tags, for example, "@smoke" or "@smoke,~@wip".
@@ -4060,6 +4168,8 @@ class StopJobResult {
   static StopJobResult fromJson(Map<String, dynamic> json) => StopJobResult();
 }
 
+/// Represents the response from the server that describes the remote access
+/// session when AWS Device Farm stops the session.
 class StopRemoteAccessSessionResult {
   /// A container representing the metadata from the service about the remote
   /// access session you are stopping.
@@ -4072,6 +4182,7 @@ class StopRemoteAccessSessionResult {
       StopRemoteAccessSessionResult();
 }
 
+/// Represents the results of your stop run attempt.
 class StopRunResult {
   /// The run that was stopped.
   final Run run;
@@ -4082,6 +4193,7 @@ class StopRunResult {
   static StopRunResult fromJson(Map<String, dynamic> json) => StopRunResult();
 }
 
+/// Represents a collection of one or more tests.
 class Suite {
   /// The suite's ARN.
   final String arn;
@@ -4099,9 +4211,9 @@ class Suite {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -4109,15 +4221,15 @@ class Suite {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -4209,6 +4321,10 @@ class Suite {
   static Suite fromJson(Map<String, dynamic> json) => Suite();
 }
 
+/// The metadata that you apply to a resource to help you categorize and
+/// organize it. Each tag consists of a key and an optional value, both of which
+/// you define. Tag keys can have a maximum character length of 128 characters,
+/// and tag values can have a maximum length of 256 characters.
 class Tag {
   /// One part of a key-value pair that make up a tag. A `key` is a general
   /// label that acts like a category for more specific tag values.
@@ -4231,6 +4347,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Represents a condition that is evaluated.
 class Test {
   /// The test's ARN.
   final String arn;
@@ -4248,9 +4365,9 @@ class Test {
   /// Android app, interacting with it and capturing screenshots at the same
   /// time.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT: The Appium Java JUnit type.
+  /// *   APPIUM_JAVA_JUNIT: The Appium Java JUnit type.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG: The Appium Java TestNG type.
+  /// *   APPIUM_JAVA_TESTNG: The Appium Java TestNG type.
   ///
   /// *   APPIUM_PYTHON: The Appium Python type.
   ///
@@ -4258,15 +4375,15 @@ class Test {
   ///
   /// *   APPIUM_RUBY: The Appium Ruby type.
   ///
-  /// *   APPIUM\_WEB\_JAVA_JUNIT: The Appium Java JUnit type for web apps.
+  /// *   APPIUM_WEB_JAVA_JUNIT: The Appium Java JUnit type for web apps.
   ///
-  /// *   APPIUM\_WEB\_JAVA_TESTNG: The Appium Java TestNG type for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG: The Appium Java TestNG type for web apps.
   ///
-  /// *   APPIUM\_WEB\_PYTHON: The Appium Python type for web apps.
+  /// *   APPIUM_WEB_PYTHON: The Appium Python type for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE: The Appium Node.js type for web apps.
+  /// *   APPIUM_WEB_NODE: The Appium Node.js type for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY: The Appium Ruby type for web apps.
+  /// *   APPIUM_WEB_RUBY: The Appium Ruby type for web apps.
   ///
   /// *   CALABASH: The Calabash type.
   ///
@@ -4357,6 +4474,7 @@ class Test {
   static Test fromJson(Map<String, dynamic> json) => Test();
 }
 
+/// Represents information about free trial device minutes for an AWS account.
 class TrialMinutes {
   /// The total number of free trial minutes that the account started with.
   final double total;
@@ -4371,6 +4489,7 @@ class TrialMinutes {
   static TrialMinutes fromJson(Map<String, dynamic> json) => TrialMinutes();
 }
 
+/// A collection of one or more problems, grouped by their result.
 class UniqueProblem {
   /// A message about the unique problems' result.
   final String message;
@@ -4402,6 +4521,7 @@ class UpdateDeviceInstanceResult {
       UpdateDeviceInstanceResult();
 }
 
+/// Represents the result of an update device pool request.
 class UpdateDevicePoolResult {
   /// The device pool you just updated.
   final DevicePool devicePool;
@@ -4435,6 +4555,7 @@ class UpdateNetworkProfileResult {
       UpdateNetworkProfileResult();
 }
 
+/// Represents the result of an update project request.
 class UpdateProjectResult {
   /// The project you wish to update.
   final Project project;
@@ -4468,6 +4589,7 @@ class UpdateVpceConfigurationResult {
       UpdateVpceConfigurationResult();
 }
 
+/// An app or a set of one or more tests to upload or that have been uploaded.
 class Upload {
   /// The upload's ARN.
   final String arn;
@@ -4490,75 +4612,73 @@ class Upload {
   ///
   /// *   EXTERNAL_DATA: An external data upload.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_PACKAGE: An Appium Java JUnit test package
+  /// *   APPIUM_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_PACKAGE: An Appium Java TestNG test
-  /// package upload.
+  /// *   APPIUM_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test package
+  /// upload.
   ///
-  /// *   APPIUM\_PYTHON\_TEST_PACKAGE: An Appium Python test package upload.
+  /// *   APPIUM_PYTHON_TEST_PACKAGE: An Appium Python test package upload.
   ///
-  /// *   APPIUM\_NODE\_TEST_PACKAGE: An Appium Node.js test package upload.
+  /// *   APPIUM_NODE_TEST_PACKAGE: An Appium Node.js test package upload.
   ///
-  /// *   APPIUM\_RUBY\_TEST_PACKAGE: An Appium Ruby test package upload.
+  /// *   APPIUM_RUBY_TEST_PACKAGE: An Appium Ruby test package upload.
   ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_PACKAGE: An Appium Java JUnit test
-  /// package upload for web apps.
-  ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_PACKAGE: An Appium Java TestNG test
-  /// package upload for web apps.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_PACKAGE: An Appium Python test package
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE: An Appium Java JUnit test package
   /// upload for web apps.
   ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_PACKAGE: An Appium Node.js test package
-  /// upload for web apps.
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE: An Appium Java TestNG test
+  /// package upload for web apps.
   ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_PACKAGE: An Appium Ruby test package upload
+  /// *   APPIUM_WEB_PYTHON_TEST_PACKAGE: An Appium Python test package upload
   /// for web apps.
   ///
-  /// *   CALABASH\_TEST\_PACKAGE: A Calabash test package upload.
+  /// *   APPIUM_WEB_NODE_TEST_PACKAGE: An Appium Node.js test package upload
+  /// for web apps.
   ///
-  /// *   INSTRUMENTATION\_TEST\_PACKAGE: An instrumentation upload.
+  /// *   APPIUM_WEB_RUBY_TEST_PACKAGE: An Appium Ruby test package upload for
+  /// web apps.
   ///
-  /// *   UIAUTOMATION\_TEST\_PACKAGE: A uiautomation test package upload.
+  /// *   CALABASH_TEST_PACKAGE: A Calabash test package upload.
   ///
-  /// *   UIAUTOMATOR\_TEST\_PACKAGE: A uiautomator test package upload.
+  /// *   INSTRUMENTATION_TEST_PACKAGE: An instrumentation upload.
   ///
-  /// *   XCTEST\_TEST\_PACKAGE: An Xcode test package upload.
+  /// *   UIAUTOMATION_TEST_PACKAGE: A uiautomation test package upload.
   ///
-  /// *   XCTEST\_UI\_TEST_PACKAGE: An Xcode UI test package upload.
+  /// *   UIAUTOMATOR_TEST_PACKAGE: A uiautomator test package upload.
   ///
-  /// *   APPIUM\_JAVA\_JUNIT\_TEST\_SPEC: An Appium Java JUnit test spec
-  /// upload.
+  /// *   XCTEST_TEST_PACKAGE: An Xcode test package upload.
   ///
-  /// *   APPIUM\_JAVA\_TESTNG\_TEST\_SPEC: An Appium Java TestNG test spec
-  /// upload.
+  /// *   XCTEST_UI_TEST_PACKAGE: An Xcode UI test package upload.
   ///
-  /// *   APPIUM\_PYTHON\_TEST_SPEC: An Appium Python test spec upload.
+  /// *   APPIUM_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload.
   ///
-  /// *   APPIUM\_NODE\_TEST_SPEC: An Appium Node.js test spec upload.
+  /// *   APPIUM_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec upload.
   ///
-  /// *   APPIUM\_RUBY\_TEST_SPEC: An Appium Ruby test spec upload.
+  /// *   APPIUM_PYTHON_TEST_SPEC: An Appium Python test spec upload.
   ///
-  /// *   APPIUM\_WEB\_JAVA\_JUNIT\_TEST_SPEC: An Appium Java JUnit test spec
+  /// *   APPIUM_NODE_TEST_SPEC: An Appium Node.js test spec upload.
+  ///
+  /// *   APPIUM_RUBY_TEST_SPEC: An Appium Ruby test spec upload.
+  ///
+  /// *   APPIUM_WEB_JAVA_JUNIT_TEST_SPEC: An Appium Java JUnit test spec upload
+  /// for a web app.
+  ///
+  /// *   APPIUM_WEB_JAVA_TESTNG_TEST_SPEC: An Appium Java TestNG test spec
   /// upload for a web app.
   ///
-  /// *   APPIUM\_WEB\_JAVA\_TESTNG\_TEST_SPEC: An Appium Java TestNG test spec
-  /// upload for a web app.
-  ///
-  /// *   APPIUM\_WEB\_PYTHON\_TEST\_SPEC: An Appium Python test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_NODE\_TEST\_SPEC: An Appium Node.js test spec upload for
-  /// a web app.
-  ///
-  /// *   APPIUM\_WEB\_RUBY\_TEST\_SPEC: An Appium Ruby test spec upload for a
+  /// *   APPIUM_WEB_PYTHON_TEST_SPEC: An Appium Python test spec upload for a
   /// web app.
   ///
-  /// *   INSTRUMENTATION\_TEST\_SPEC: An instrumentation test spec upload.
+  /// *   APPIUM_WEB_NODE_TEST_SPEC: An Appium Node.js test spec upload for a
+  /// web app.
   ///
-  /// *   XCTEST\_UI\_TEST_SPEC: An Xcode UI test spec upload.
+  /// *   APPIUM_WEB_RUBY_TEST_SPEC: An Appium Ruby test spec upload for a web
+  /// app.
+  ///
+  /// *   INSTRUMENTATION_TEST_SPEC: An instrumentation test spec upload.
+  ///
+  /// *   XCTEST_UI_TEST_SPEC: An Xcode UI test spec upload.
   final String type;
 
   /// The upload's status.
@@ -4611,6 +4731,7 @@ class Upload {
   static Upload fromJson(Map<String, dynamic> json) => Upload();
 }
 
+/// Represents an Amazon Virtual Private Cloud (VPC) endpoint configuration.
 class VpceConfiguration {
   /// The Amazon Resource Name (ARN) of the VPC endpoint configuration.
   final String arn;

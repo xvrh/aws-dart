@@ -100,8 +100,8 @@ class LexRuntimeServiceApi {
   ///
   ///
   ///  In addition, Amazon Lex also returns your application-specific
-  /// `sessionAttributes`. For more information, see [Managing Conversation
-  /// Context](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html).
+  /// `sessionAttributes`. For more information, see
+  /// [Managing Conversation Context](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html).
   ///
   /// [botName]: Name of the Amazon Lex bot.
   ///
@@ -140,8 +140,8 @@ class LexRuntimeServiceApi {
   /// with string keys and values. The total size of the `sessionAttributes` and
   /// `requestAttributes` headers is limited to 12 KB.
   ///
-  /// For more information, see [Setting Session
-  /// Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs).
+  /// For more information, see
+  /// [Setting Session Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs).
   ///
   /// [requestAttributes]: You pass this value as the
   /// `x-amz-lex-request-attributes` HTTP header.
@@ -154,8 +154,8 @@ class LexRuntimeServiceApi {
   /// The namespace `x-amz-lex:` is reserved for special attributes. Don't
   /// create any request attributes with the prefix `x-amz-lex:`.
   ///
-  /// For more information, see [Setting Request
-  /// Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs).
+  /// For more information, see
+  /// [Setting Request Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs).
   ///
   /// [contentType]:  You pass this value as the `Content-Type` HTTP header.
   ///
@@ -284,8 +284,8 @@ class LexRuntimeServiceApi {
   ///
   ///
   ///  In addition, Amazon Lex also returns your application-specific
-  /// `sessionAttributes`. For more information, see [Managing Conversation
-  /// Context](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html).
+  /// `sessionAttributes`. For more information, see
+  /// [Managing Conversation Context](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html).
   ///
   /// [botName]: The name of the Amazon Lex bot.
   ///
@@ -319,8 +319,8 @@ class LexRuntimeServiceApi {
   /// [sessionAttributes]: Application-specific information passed between
   /// Amazon Lex and a client application.
   ///
-  /// For more information, see [Setting Session
-  /// Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs).
+  /// For more information, see
+  /// [Setting Session Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-session-attribs).
   ///
   /// [requestAttributes]: Request-specific information passed between Amazon
   /// Lex and a client application.
@@ -328,8 +328,8 @@ class LexRuntimeServiceApi {
   /// The namespace `x-amz-lex:` is reserved for special attributes. Don't
   /// create any request attributes with the prefix `x-amz-lex:`.
   ///
-  /// For more information, see [Setting Request
-  /// Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs).
+  /// For more information, see
+  /// [Setting Request Attributes](https://docs.aws.amazon.com/lex/latest/dg/context-mgmt.html#context-mgmt-request-attribs).
   ///
   /// [inputText]: The text that the user entered (Amazon Lex interprets this
   /// text).
@@ -347,8 +347,8 @@ class LexRuntimeServiceApi {
   /// bot. Use this operation to enable your application to set the state of the
   /// bot.
   ///
-  /// For more information, see [Managing
-  /// Sessions](https://docs.aws.amazon.com/lex/latest/dg/how-session-api.html).
+  /// For more information, see
+  /// [Managing Sessions](https://docs.aws.amazon.com/lex/latest/dg/how-session-api.html).
   ///
   /// [botName]: The name of the bot that contains the session data.
   ///
@@ -400,6 +400,8 @@ class LexRuntimeServiceApi {
   }
 }
 
+/// Represents an option to be shown on the client platform (Facebook, Slack,
+/// etc.)
 class Button {
   /// Text that is visible to the user on the button.
   final String text;
@@ -439,24 +441,28 @@ class DeleteSessionResponse {
       DeleteSessionResponse();
 }
 
+/// Describes the next action that the bot should take in its interaction with
+/// the user and provides information about the context in which the action
+/// takes place. Use the `DialogAction` data type to set the interaction to a
+/// specific state, or to return the interaction to a previous state.
 class DialogAction {
   /// The next action that the bot should take in its interaction with the user.
   /// The possible values are:
   ///
-  /// *    `ConfirmIntent` \- The next action is asking the user if the intent
-  /// is complete and ready to be fulfilled. This is a yes/no question such as
+  /// *    `ConfirmIntent` - The next action is asking the user if the intent is
+  /// complete and ready to be fulfilled. This is a yes/no question such as
   /// "Place the order?"
   ///
-  /// *    `Close` \- Indicates that the there will not be a response from the
+  /// *    `Close` - Indicates that the there will not be a response from the
   /// user. For example, the statement "Your order has been placed" does not
   /// require a response.
   ///
-  /// *    `Delegate` \- The next action is determined by Amazon Lex.
+  /// *    `Delegate` - The next action is determined by Amazon Lex.
   ///
-  /// *    `ElicitIntent` \- The next action is to determine the intent that the
+  /// *    `ElicitIntent` - The next action is to determine the intent that the
   /// user wants to fulfill.
   ///
-  /// *    `ElicitSlot` \- The next action is to elicit a slot value from the
+  /// *    `ElicitSlot` - The next action is to elicit a slot value from the
   /// user.
   final String type;
 
@@ -471,13 +477,13 @@ class DialogAction {
 
   /// The fulfillment state of the intent. The possible values are:
   ///
-  /// *    `Failed` \- The Lambda function associated with the intent failed to
+  /// *    `Failed` - The Lambda function associated with the intent failed to
   /// fulfill the intent.
   ///
-  /// *    `Fulfilled` \- The intent has fulfilled by the Lambda function
+  /// *    `Fulfilled` - The intent has fulfilled by the Lambda function
   /// associated with the intent.
   ///
-  /// *    `ReadyForFulfillment` \- All of the information necessary for the
+  /// *    `ReadyForFulfillment` - All of the information necessary for the
   /// intent is present and the intent ready to be fulfilled by the client
   /// application.
   final String fulfillmentState;
@@ -486,15 +492,15 @@ class DialogAction {
   /// message, Amazon Lex will use the message configured for the intent.
   final String message;
 
-  /// *    `PlainText` \- The message contains plain UTF-8 text.
+  /// *    `PlainText` - The message contains plain UTF-8 text.
   ///
-  /// *    `CustomPayload` \- The message is a custom format for the client.
+  /// *    `CustomPayload` - The message is a custom format for the client.
   ///
-  /// *    `SSML` \- The message contains text formatted for voice output.
+  /// *    `SSML` - The message contains text formatted for voice output.
   ///
-  /// *    `Composite` \- The message contains an escaped JSON object containing
-  /// one or more messages. For more information, see [Message
-  /// Groups](https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html).
+  /// *    `Composite` - The message contains an escaped JSON object containing
+  /// one or more messages. For more information, see
+  /// [Message Groups](https://docs.aws.amazon.com/lex/latest/dg/howitworks-manage-prompts.html).
   final String messageFormat;
 
   DialogAction({
@@ -509,6 +515,8 @@ class DialogAction {
   static DialogAction fromJson(Map<String, dynamic> json) => DialogAction();
 }
 
+/// Represents an option rendered to the user when a prompt is shown. It could
+/// be an image, a button, a link, or text.
 class GenericAttachment {
   /// The title of the option.
   final String title;
@@ -564,6 +572,9 @@ class GetSessionResponse {
       GetSessionResponse();
 }
 
+/// Provides information about the state of an intent. You can use this
+/// information to get the current state of an intent so that you can process
+/// the intent, or so that you can return the intent to its previous state.
 class IntentSummary {
   /// The name of the intent.
   final String intentName;
@@ -576,43 +587,43 @@ class IntentSummary {
   /// `Confirmed`. If the user denies the intent, Amazon Lex sets this value to
   /// `Denied`. The possible values are:
   ///
-  /// *    `Confirmed` \- The user has responded "Yes" to the confirmation
+  /// *    `Confirmed` - The user has responded "Yes" to the confirmation
   /// prompt, confirming that the intent is complete and that it is ready to be
   /// fulfilled.
   ///
-  /// *    `Denied` \- The user has responded "No" to the confirmation prompt.
+  /// *    `Denied` - The user has responded "No" to the confirmation prompt.
   ///
-  /// *    `None` \- The user has never been prompted for confirmation; or, the
+  /// *    `None` - The user has never been prompted for confirmation; or, the
   /// user was prompted but did not confirm or deny the prompt.
   final String confirmationStatus;
 
   /// The next action that the bot should take in its interaction with the user.
   /// The possible values are:
   ///
-  /// *    `ConfirmIntent` \- The next action is asking the user if the intent
-  /// is complete and ready to be fulfilled. This is a yes/no question such as
+  /// *    `ConfirmIntent` - The next action is asking the user if the intent is
+  /// complete and ready to be fulfilled. This is a yes/no question such as
   /// "Place the order?"
   ///
-  /// *    `Close` \- Indicates that the there will not be a response from the
+  /// *    `Close` - Indicates that the there will not be a response from the
   /// user. For example, the statement "Your order has been placed" does not
   /// require a response.
   ///
-  /// *    `ElicitIntent` \- The next action is to determine the intent that the
+  /// *    `ElicitIntent` - The next action is to determine the intent that the
   /// user wants to fulfill.
   ///
-  /// *    `ElicitSlot` \- The next action is to elicit a slot value from the
+  /// *    `ElicitSlot` - The next action is to elicit a slot value from the
   /// user.
   final String dialogActionType;
 
   /// The fulfillment state of the intent. The possible values are:
   ///
-  /// *    `Failed` \- The Lambda function associated with the intent failed to
+  /// *    `Failed` - The Lambda function associated with the intent failed to
   /// fulfill the intent.
   ///
-  /// *    `Fulfilled` \- The intent has fulfilled by the Lambda function
+  /// *    `Fulfilled` - The intent has fulfilled by the Lambda function
   /// associated with the intent.
   ///
-  /// *    `ReadyForFulfillment` \- All of the information necessary for the
+  /// *    `ReadyForFulfillment` - All of the information necessary for the
   /// intent is present and the intent ready to be fulfilled by the client
   /// application.
   final String fulfillmentState;
@@ -679,13 +690,13 @@ class PostContentResponse {
 
   /// The format of the response message. One of the following values:
   ///
-  /// *    `PlainText` \- The message contains plain UTF-8 text.
+  /// *    `PlainText` - The message contains plain UTF-8 text.
   ///
-  /// *    `CustomPayload` \- The message is a custom format for the client.
+  /// *    `CustomPayload` - The message is a custom format for the client.
   ///
-  /// *    `SSML` \- The message contains text formatted for voice output.
+  /// *    `SSML` - The message contains text formatted for voice output.
   ///
-  /// *    `Composite` \- The message contains an escaped JSON object containing
+  /// *    `Composite` - The message contains an escaped JSON object containing
   /// one or more messages from the groups that messages were assigned to when
   /// the intent was created.
   final String messageFormat;
@@ -694,14 +705,14 @@ class PostContentResponse {
   /// one of the following values as `dialogState`. The client can optionally
   /// use this information to customize the user interface.
   ///
-  /// *    `ElicitIntent` \- Amazon Lex wants to elicit the user's intent.
+  /// *    `ElicitIntent` - Amazon Lex wants to elicit the user's intent.
   /// Consider the following examples:
   ///
   ///      For example, a user might utter an intent ("I want to order a
   /// pizza"). If Amazon Lex cannot infer the user intent from this utterance,
   /// it will return this dialog state.
   ///
-  /// *    `ConfirmIntent` \- Amazon Lex is expecting a "yes" or "no" response.
+  /// *    `ConfirmIntent` - Amazon Lex is expecting a "yes" or "no" response.
   ///
   ///     For example, Amazon Lex wants user confirmation before fulfilling an
   /// intent. Instead of a simple "yes" or "no" response, a user might respond
@@ -710,7 +721,7 @@ class PostContentResponse {
   /// additional information (in these examples, update the crust type slot or
   /// change the intent from OrderPizza to OrderDrink).
   ///
-  /// *    `ElicitSlot` \- Amazon Lex is expecting the value of a slot for the
+  /// *    `ElicitSlot` - Amazon Lex is expecting the value of a slot for the
   /// current intent.
   ///
   ///      For example, suppose that in the response Amazon Lex sends this
@@ -719,13 +730,13 @@ class PostContentResponse {
   /// information in the response (e.g., "medium thick crust pizza"). Amazon Lex
   /// can process such additional information appropriately.
   ///
-  /// *    `Fulfilled` \- Conveys that the Lambda function has successfully
+  /// *    `Fulfilled` - Conveys that the Lambda function has successfully
   /// fulfilled the intent.
   ///
-  /// *    `ReadyForFulfillment` \- Conveys that the client has to fulfill the
+  /// *    `ReadyForFulfillment` - Conveys that the client has to fulfill the
   /// request.
   ///
-  /// *    `Failed` \- Conveys that the conversation with the user failed.
+  /// *    `Failed` - Conveys that the conversation with the user failed.
   ///
   ///      This can happen for various reasons, including that the user does not
   /// provide an appropriate response to prompts from the service (you can
@@ -815,14 +826,14 @@ class PostTextResponse {
 
   /// The format of the response message. One of the following values:
   ///
-  /// *    `PlainText` \- The message contains plain UTF-8 text.
+  /// *    `PlainText` - The message contains plain UTF-8 text.
   ///
-  /// *    `CustomPayload` \- The message is a custom format defined by the
+  /// *    `CustomPayload` - The message is a custom format defined by the
   /// Lambda function.
   ///
-  /// *    `SSML` \- The message contains text formatted for voice output.
+  /// *    `SSML` - The message contains text formatted for voice output.
   ///
-  /// *    `Composite` \- The message contains an escaped JSON object containing
+  /// *    `Composite` - The message contains an escaped JSON object containing
   /// one or more messages from the groups that messages were assigned to when
   /// the intent was created.
   final String messageFormat;
@@ -831,13 +842,13 @@ class PostTextResponse {
   /// one of the following values as `dialogState`. The client can optionally
   /// use this information to customize the user interface.
   ///
-  /// *    `ElicitIntent` \- Amazon Lex wants to elicit user intent.
+  /// *    `ElicitIntent` - Amazon Lex wants to elicit user intent.
   ///
   ///     For example, a user might utter an intent ("I want to order a pizza").
   /// If Amazon Lex cannot infer the user intent from this utterance, it will
   /// return this dialogState.
   ///
-  /// *    `ConfirmIntent` \- Amazon Lex is expecting a "yes" or "no" response.
+  /// *    `ConfirmIntent` - Amazon Lex is expecting a "yes" or "no" response.
   ///
   ///      For example, Amazon Lex wants user confirmation before fulfilling an
   /// intent.
@@ -848,7 +859,7 @@ class PostTextResponse {
   /// information (in these examples, update the crust type slot value, or
   /// change intent from OrderPizza to OrderDrink).
   ///
-  /// *    `ElicitSlot` \- Amazon Lex is expecting a slot value for the current
+  /// *    `ElicitSlot` - Amazon Lex is expecting a slot value for the current
   /// intent.
   ///
   ///     For example, suppose that in the response Amazon Lex sends this
@@ -857,13 +868,13 @@ class PostTextResponse {
   /// information in the response (e.g., "medium thick crust pizza"). Amazon Lex
   /// can process such additional information appropriately.
   ///
-  /// *    `Fulfilled` \- Conveys that the Lambda function configured for the
+  /// *    `Fulfilled` - Conveys that the Lambda function configured for the
   /// intent has successfully fulfilled the intent.
   ///
-  /// *    `ReadyForFulfillment` \- Conveys that the client has to fulfill the
+  /// *    `ReadyForFulfillment` - Conveys that the client has to fulfill the
   /// intent.
   ///
-  /// *    `Failed` \- Conveys that the conversation with the user failed.
+  /// *    `Failed` - Conveys that the conversation with the user failed.
   ///
   ///      This can happen for various reasons including that the user did not
   /// provide an appropriate response to prompts from the service (you can
@@ -924,34 +935,34 @@ class PutSessionResponse {
 
   /// The format of the response message. One of the following values:
   ///
-  /// *    `PlainText` \- The message contains plain UTF-8 text.
+  /// *    `PlainText` - The message contains plain UTF-8 text.
   ///
-  /// *    `CustomPayload` \- The message is a custom format for the client.
+  /// *    `CustomPayload` - The message is a custom format for the client.
   ///
-  /// *    `SSML` \- The message contains text formatted for voice output.
+  /// *    `SSML` - The message contains text formatted for voice output.
   ///
-  /// *    `Composite` \- The message contains an escaped JSON object containing
+  /// *    `Composite` - The message contains an escaped JSON object containing
   /// one or more messages from the groups that messages were assigned to when
   /// the intent was created.
   final String messageFormat;
 
-  /// *    `ConfirmIntent` \- Amazon Lex is expecting a "yes" or "no" response
-  /// to confirm the intent before fulfilling an intent.
+  /// *    `ConfirmIntent` - Amazon Lex is expecting a "yes" or "no" response to
+  /// confirm the intent before fulfilling an intent.
   ///
-  /// *    `ElicitIntent` \- Amazon Lex wants to elicit the user's intent.
+  /// *    `ElicitIntent` - Amazon Lex wants to elicit the user's intent.
   ///
-  /// *    `ElicitSlot` \- Amazon Lex is expecting the value of a slot for the
+  /// *    `ElicitSlot` - Amazon Lex is expecting the value of a slot for the
   /// current intent.
   ///
-  /// *    `Failed` \- Conveys that the conversation with the user has failed.
+  /// *    `Failed` - Conveys that the conversation with the user has failed.
   /// This can happen for various reasons, including the user does not provide
   /// an appropriate response to prompts from the service, or if the Lambda
   /// function fails to fulfill the intent.
   ///
-  /// *    `Fulfilled` \- Conveys that the Lambda function has sucessfully
+  /// *    `Fulfilled` - Conveys that the Lambda function has sucessfully
   /// fulfilled the intent.
   ///
-  /// *    `ReadyForFulfillment` \- Conveys that the client has to fulfill the
+  /// *    `ReadyForFulfillment` - Conveys that the client has to fulfill the
   /// intent.
   final String dialogState;
 
@@ -981,6 +992,10 @@ class PutSessionResponse {
       PutSessionResponse();
 }
 
+/// If you configure a response card when creating your bots, Amazon Lex
+/// substitutes the session attributes and slot values that are available, and
+/// then returns it. The response card can also come from a Lambda function (
+/// `dialogCodeHook` and `fulfillmentActivity` on an intent).
 class ResponseCard {
   /// The version of the response card format.
   final String version;

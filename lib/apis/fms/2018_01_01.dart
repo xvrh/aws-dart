@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 /// This is the _AWS Firewall Manager API Reference_. This guide is for
 /// developers who need detailed information about the AWS Firewall Manager API
 /// actions, data types, and errors. For detailed information about AWS Firewall
-/// Manager features, see the [AWS Firewall Manager Developer
-/// Guide](https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html).
+/// Manager features, see the
+/// [AWS Firewall Manager Developer Guide](https://docs.aws.amazon.com/waf/latest/developerguide/fms-chapter.html).
 class FmsApi {
   /// Sets the AWS Firewall Manager administrator account. AWS Firewall Manager
   /// must be associated with the master account your AWS organization or
@@ -21,9 +21,8 @@ class FmsApi {
   /// [adminAccount]: The AWS account ID to associate with AWS Firewall Manager
   /// as the AWS Firewall Manager administrator account. This can be an AWS
   /// Organizations master account or a member account. For more information
-  /// about AWS Organizations and master accounts, see [Managing the AWS
-  /// Accounts in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html).
+  /// about AWS Organizations and master accounts, see
+  /// [Managing the AWS Accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts.html).
   Future<void> associateAdminAccount(String adminAccount) async {}
 
   /// Deletes an AWS Firewall Manager association with the IAM role and the
@@ -236,6 +235,7 @@ class FmsApi {
   }
 }
 
+/// Details of the resource that is not protected by the policy.
 class ComplianceViolator {
   /// The resource ID.
   final String resourceId;
@@ -243,8 +243,8 @@ class ComplianceViolator {
   /// The reason that the resource is not protected by the policy.
   final String violationReason;
 
-  /// The resource type. This is in the format shown in [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
+  /// The resource type. This is in the format shown in
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
   /// For example: `AWS::ElasticLoadBalancingV2::LoadBalancer` or
   /// `AWS::CloudFront::Distribution`.
   final String resourceType;
@@ -258,6 +258,9 @@ class ComplianceViolator {
       ComplianceViolator();
 }
 
+/// Describes the compliance status for the account. An account is considered
+/// non-compliant if it includes resources that are not protected by the
+/// specified policy.
 class EvaluationResult {
   /// Describes an AWS account's compliance with the AWS Firewall Manager
   /// policy.
@@ -444,6 +447,7 @@ class ListPoliciesResponse {
       ListPoliciesResponse();
 }
 
+/// An AWS Firewall Manager policy.
 class Policy {
   /// The ID of the AWS Firewall Manager policy.
   final String policyId;
@@ -463,8 +467,8 @@ class Policy {
   final SecurityServicePolicyData securityServicePolicyData;
 
   /// The type of resource to protect with the policy. This is in the format
-  /// shown in [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
+  /// shown in
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
   /// For example: `AWS::ElasticLoadBalancingV2::LoadBalancer` or
   /// `AWS::CloudFront::Distribution`.
   final String resourceType;
@@ -490,7 +494,7 @@ class Policy {
   /// `IncludeMap` are included in the policy.
   ///
   /// The key to the map is `ACCOUNT`. For example, a valid `IncludeMap` would
-  /// be `{“ACCOUNT” : \[“accountID1”, “accountID2”\]}`.
+  /// be `{“ACCOUNT” : [“accountID1”, “accountID2”]}`.
   final Map<String, List<String>> includeMap;
 
   /// Specifies the AWS account IDs to exclude from the policy. The `IncludeMap`
@@ -499,7 +503,7 @@ class Policy {
   /// resulting in the final list of accounts to add to the policy.
   ///
   /// The key to the map is `ACCOUNT`. For example, a valid `ExcludeMap` would
-  /// be `{“ACCOUNT” : \[“accountID1”, “accountID2”\]}`.
+  /// be `{“ACCOUNT” : [“accountID1”, “accountID2”]}`.
   final Map<String, List<String>> excludeMap;
 
   Policy({
@@ -518,6 +522,10 @@ class Policy {
   static Policy fromJson(Map<String, dynamic> json) => Policy();
 }
 
+/// Describes the non-compliant resources in a member account for a specific AWS
+/// Firewall Manager policy. A maximum of 100 entries are displayed. If more
+/// than 100 resources are non-compliant, `EvaluationLimitExceeded` is set to
+/// `True`.
 class PolicyComplianceDetail {
   /// The AWS account that created the AWS Firewall Manager policy.
   final String policyOwner;
@@ -558,6 +566,9 @@ class PolicyComplianceDetail {
       PolicyComplianceDetail();
 }
 
+/// Indicates whether the account is compliant with the specified policy. An
+/// account is considered non-compliant if it includes resources that are not
+/// protected by the policy.
 class PolicyComplianceStatus {
   /// The AWS account that created the AWS Firewall Manager policy.
   final String policyOwner;
@@ -596,6 +607,7 @@ class PolicyComplianceStatus {
       PolicyComplianceStatus();
 }
 
+/// Details of the AWS Firewall Manager policy.
 class PolicySummary {
   /// The Amazon Resource Name (ARN) of the specified policy.
   final String policyArn;
@@ -607,8 +619,8 @@ class PolicySummary {
   final String policyName;
 
   /// The type of resource to protect with the policy. This is in the format
-  /// shown in [AWS Resource Types
-  /// Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
+  /// shown in
+  /// [AWS Resource Types Reference](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
   /// For example: `AWS::ElasticLoadBalancingV2::LoadBalancer` or
   /// `AWS::CloudFront::Distribution`.
   final String resourceType;
@@ -647,6 +659,15 @@ class PutPolicyResponse {
       PutPolicyResponse();
 }
 
+/// The resource tags that AWS Firewall Manager uses to determine if a
+/// particular resource should be included or excluded from protection by the
+/// AWS Firewall Manager policy. Tags enable you to categorize your AWS
+/// resources in different ways, for example, by purpose, owner, or environment.
+/// Each tag consists of a key and an optional value, both of which you define.
+/// Tags are combined with an "OR." That is, if you add more than one tag, if
+/// any of the tags matches, the resource is considered a match for the include
+/// or exclude.
+/// [Working with Tag Editor](https://docs.aws.amazon.com/awsconsolehelpdocs/latest/gsg/tag-editor.html).
 class ResourceTag {
   /// The resource tag key.
   final String key;
@@ -661,6 +682,8 @@ class ResourceTag {
   static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
 }
 
+/// Details about the security service that is being used to protect the
+/// resources.
 class SecurityServicePolicyData {
   /// The service that the policy is using to protect the resources. This
   /// specifies the type of policy that is created, either a WAF policy or
@@ -670,10 +693,9 @@ class SecurityServicePolicyData {
   /// Details about the service. This contains `WAF` data in JSON format, as
   /// shown in the following example:
   ///
-  ///  `ManagedServiceData": "{\\"type\\": \\"WAF\\", \\"ruleGroups\\":
-  /// \[{\\"id\\": \\"12345678-1bcd-9012-efga-0987654321ab\\",
-  /// \\"overrideAction\\" : {\\"type\\": \\"COUNT\\"}}\], \\"defaultAction\\":
-  /// {\\"type\\": \\"BLOCK\\"}}`
+  ///  `ManagedServiceData": "{"type": "WAF", "ruleGroups":
+  /// [{"id": "12345678-1bcd-9012-efga-0987654321ab", "overrideAction" : {"type": "COUNT"}}],
+  /// "defaultAction": {"type": "BLOCK"}}`
   ///
   /// If this is a Shield Advanced policy, this string will be empty.
   final String managedServiceData;

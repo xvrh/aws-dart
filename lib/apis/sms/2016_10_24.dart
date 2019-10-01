@@ -15,11 +15,11 @@ import 'package:meta/meta.dart';
 /// To learn more about the Server Migration Service, see the following
 /// resources:
 ///
-/// *    [AWS Sever Migration Service product
-/// page](https://aws.amazon.com/server-migration-service/)
+/// *
+/// [AWS Sever Migration Service product page](https://aws.amazon.com/server-migration-service/)
 ///
-/// *    [AWS Sever Migration Service User
-/// Guide](https://docs.aws.amazon.com/server-migration-service/latest/userguide/server-migration.html)
+/// *
+/// [AWS Sever Migration Service User Guide](https://docs.aws.amazon.com/server-migration-service/latest/userguide/server-migration.html)
 class SmsApi {
   /// Creates an application. An application consists of one or more server
   /// groups. Each server group contain one or more servers.
@@ -447,6 +447,7 @@ class SmsApi {
   }
 }
 
+/// Information about the application.
 class AppSummary {
   /// Unique ID of the application.
   final String appId;
@@ -517,6 +518,7 @@ class AppSummary {
   static AppSummary fromJson(Map<String, dynamic> json) => AppSummary();
 }
 
+/// Represents a connector.
 class Connector {
   /// The identifier of the connector.
   final String connectorId;
@@ -794,6 +796,7 @@ class LaunchAppResponse {
       LaunchAppResponse();
 }
 
+/// Details about the latest launch of an application.
 class LaunchDetails {
   /// Latest time this application was launched successfully.
   final DateTime latestLaunchTime;
@@ -842,6 +845,7 @@ class PutAppReplicationConfigurationResponse {
       PutAppReplicationConfigurationResponse();
 }
 
+/// Represents a replication job.
 class ReplicationJob {
   /// The identifier of the replication job.
   final String replicationJobId;
@@ -935,6 +939,7 @@ class ReplicationJob {
   static ReplicationJob fromJson(Map<String, dynamic> json) => ReplicationJob();
 }
 
+/// Represents a replication run.
 class ReplicationRun {
   /// The identifier of the replication run.
   final String replicationRunId;
@@ -999,6 +1004,7 @@ class ReplicationRun {
   static ReplicationRun fromJson(Map<String, dynamic> json) => ReplicationRun();
 }
 
+/// Details of the current stage of a replication run.
 class ReplicationRunStageDetails {
   /// String describing the current stage of a replication run.
   final String stage;
@@ -1014,6 +1020,7 @@ class ReplicationRunStageDetails {
       ReplicationRunStageDetails();
 }
 
+/// Location of the Amazon S3 object in the customer's account.
 class S3Location {
   /// Amazon S3 bucket name.
   final String bucket;
@@ -1028,6 +1035,7 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+/// Represents a server.
 class Server {
   /// The identifier of the server.
   final String serverId;
@@ -1054,6 +1062,7 @@ class Server {
   static Server fromJson(Map<String, dynamic> json) => Server();
 }
 
+/// A logical grouping of servers.
 class ServerGroup {
   /// Identifier of a server group.
   final String serverGroupId;
@@ -1072,6 +1081,7 @@ class ServerGroup {
   static ServerGroup fromJson(Map<String, dynamic> json) => ServerGroup();
 }
 
+/// Launch configuration for a server group.
 class ServerGroupLaunchConfiguration {
   /// Identifier of the server group the launch configuration is associated
   /// with.
@@ -1092,6 +1102,7 @@ class ServerGroupLaunchConfiguration {
       ServerGroupLaunchConfiguration();
 }
 
+/// Replication configuration for a server group.
 class ServerGroupReplicationConfiguration {
   /// Identifier of the server group this replication configuration is
   /// associated with.
@@ -1109,6 +1120,7 @@ class ServerGroupReplicationConfiguration {
       ServerGroupReplicationConfiguration();
 }
 
+/// Launch configuration for a server.
 class ServerLaunchConfiguration {
   /// Identifier of the server the launch configuration is associated with.
   final Server server;
@@ -1153,6 +1165,7 @@ class ServerLaunchConfiguration {
       ServerLaunchConfiguration();
 }
 
+/// Replication configuration of a server.
 class ServerReplicationConfiguration {
   /// Identifier of the server this replication configuration is associated
   /// with.
@@ -1169,6 +1182,7 @@ class ServerReplicationConfiguration {
       ServerReplicationConfiguration();
 }
 
+/// Replication parameters for replicating a server.
 class ServerReplicationParameters {
   /// Seed time for creating a replication job for the server.
   final DateTime seedTime;
@@ -1242,6 +1256,7 @@ class StopAppReplicationResponse {
       StopAppReplicationResponse();
 }
 
+/// A label that can be assigned to an application.
 class Tag {
   /// Tag key.
   final String key;
@@ -1287,6 +1302,8 @@ class UpdateReplicationJobResponse {
       UpdateReplicationJobResponse();
 }
 
+/// A script that runs on first launch of an Amazon EC2 instance. Used for
+/// configuring the server during launch.
 class UserData {
   /// Amazon S3 location of the user-data script.
   final S3Location s3Location;
@@ -1297,6 +1314,7 @@ class UserData {
   static UserData fromJson(Map<String, dynamic> json) => UserData();
 }
 
+/// Represents a VM server.
 class VmServer {
   /// Information about the VM server location.
   final VmServerAddress vmServerAddress;
@@ -1323,6 +1341,7 @@ class VmServer {
   static VmServer fromJson(Map<String, dynamic> json) => VmServer();
 }
 
+/// Represents a VM server location.
 class VmServerAddress {
   /// The identifier of the VM manager.
   final String vmManagerId;

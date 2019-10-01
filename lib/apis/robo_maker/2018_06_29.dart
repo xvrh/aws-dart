@@ -29,8 +29,8 @@ class RoboMakerApi {
   ///
   /// The robot application must have a numbered `applicationVersion` for
   /// consistency reasons. To create a new version, use
-  /// `CreateRobotApplicationVersion` or see [Creating a Robot Application
-  /// Version](https://docs.aws.amazon.com/robomaker/latest/dg/create-robot-application-version.html).
+  /// `CreateRobotApplicationVersion` or see
+  /// [Creating a Robot Application Version](https://docs.aws.amazon.com/robomaker/latest/dg/create-robot-application-version.html).
   ///
   ///
   ///
@@ -577,8 +577,7 @@ class RoboMakerApi {
   /// are both required, but tag values can be empty strings.
   ///
   /// For information about the rules that apply to tag keys and tag values, see
-  /// [User-Defined Tag
-  /// Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html)
+  /// [User-Defined Tag Restrictions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/allocation-tag-restrictions.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the AWS RoboMaker
@@ -702,8 +701,7 @@ class CreateDeploymentJobResponse {
   ///
   /// AWS Greengrass requires a service-level role permission to access other
   /// services. The role must include the
-  /// [`AWSGreengrassResourceAccessRolePolicy` managed
-  /// policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy$jsonEditor).
+  /// [`AWSGreengrassResourceAccessRolePolicy` managed policy](https://console.aws.amazon.com/iam/home?#/policies/arn:aws:iam::aws:policy/service-role/AWSGreengrassResourceAccessRolePolicy$jsonEditor).
   ///
   /// ExtractingBundleFailure
   ///
@@ -1145,6 +1143,7 @@ class CreateSimulationJobResponse {
       CreateSimulationJobResponse();
 }
 
+/// Information about a data source.
 class DataSource {
   /// The name of the data source.
   final String name;
@@ -1163,6 +1162,7 @@ class DataSource {
   static DataSource fromJson(Map<String, dynamic> json) => DataSource();
 }
 
+/// Information about a data source.
 class DataSourceConfig {
   /// The name of the data source.
   final String name;
@@ -1205,6 +1205,7 @@ class DeleteSimulationApplicationResponse {
       DeleteSimulationApplicationResponse();
 }
 
+/// Information about a deployment application configuration.
 class DeploymentApplicationConfig {
   /// The Amazon Resource Name (ARN) of the robot application.
   final String application;
@@ -1224,6 +1225,7 @@ class DeploymentApplicationConfig {
       DeploymentApplicationConfig();
 }
 
+/// Information about a deployment configuration.
 class DeploymentConfig {
   /// The percentage of robots receiving the deployment at the same time.
   final int concurrentDeploymentPercentage;
@@ -1246,6 +1248,7 @@ class DeploymentConfig {
       DeploymentConfig();
 }
 
+/// Information about a deployment job.
 class DeploymentJob {
   /// The Amazon Resource Name (ARN) of the deployment job.
   final String arn;
@@ -1285,6 +1288,7 @@ class DeploymentJob {
   static DeploymentJob fromJson(Map<String, dynamic> json) => DeploymentJob();
 }
 
+/// Configuration information for a deployment launch.
 class DeploymentLaunchConfig {
   /// The package name.
   final String packageName;
@@ -1706,6 +1710,7 @@ class DescribeSimulationJobResponse {
       DescribeSimulationJobResponse();
 }
 
+/// Information about a filter.
 class Filter {
   /// The name of the filter.
   final String name;
@@ -1719,6 +1724,7 @@ class Filter {
   });
 }
 
+/// Information about a fleet.
 class Fleet {
   /// The name of the fleet.
   final String name;
@@ -1749,6 +1755,7 @@ class Fleet {
   static Fleet fromJson(Map<String, dynamic> json) => Fleet();
 }
 
+/// Information about a launch configuration.
 class LaunchConfig {
   /// The package name.
   final String packageName;
@@ -1893,6 +1900,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// The logging configuration.
 class LoggingConfig {
   /// A boolean indicating whether to record all ROS topics.
   final bool recordAllRosTopics;
@@ -1903,6 +1911,7 @@ class LoggingConfig {
   static LoggingConfig fromJson(Map<String, dynamic> json) => LoggingConfig();
 }
 
+/// Describes a network interface.
 class NetworkInterface {
   /// The ID of the network interface.
   final String networkInterfaceId;
@@ -1922,6 +1931,7 @@ class NetworkInterface {
       NetworkInterface();
 }
 
+/// The output location.
 class OutputLocation {
   /// The S3 bucket for output.
   final String s3Bucket;
@@ -1936,6 +1946,7 @@ class OutputLocation {
   static OutputLocation fromJson(Map<String, dynamic> json) => OutputLocation();
 }
 
+/// Configuration information for port forwarding.
 class PortForwardingConfig {
   /// The port mappings for the configuration.
   final List<PortMapping> portMappings;
@@ -1947,6 +1958,7 @@ class PortForwardingConfig {
       PortForwardingConfig();
 }
 
+/// An object representing a port mapping.
 class PortMapping {
   /// The port number on the simulation job instance to use as a remote
   /// connection point.
@@ -1966,6 +1978,7 @@ class PortMapping {
   static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
 }
 
+/// Information about the progress of a deployment job.
 class ProgressDetail {
   /// The current progress status.
   ///
@@ -2031,6 +2044,7 @@ class RegisterRobotResponse {
       RegisterRobotResponse();
 }
 
+/// Information about a rendering engine.
 class RenderingEngine {
   /// The name of the rendering engine.
   final String name;
@@ -2052,6 +2066,7 @@ class RestartSimulationJobResponse {
       RestartSimulationJobResponse();
 }
 
+/// Information about a robot.
 class Robot {
   /// The Amazon Resource Name (ARN) of the robot.
   final String arn;
@@ -2094,6 +2109,7 @@ class Robot {
   static Robot fromJson(Map<String, dynamic> json) => Robot();
 }
 
+/// Application configuration information for a robot.
 class RobotApplicationConfig {
   /// The application information for the robot application.
   final String application;
@@ -2113,6 +2129,7 @@ class RobotApplicationConfig {
       RobotApplicationConfig();
 }
 
+/// Summary information for a robot application.
 class RobotApplicationSummary {
   /// The name of the robot application.
   final String name;
@@ -2141,6 +2158,7 @@ class RobotApplicationSummary {
       RobotApplicationSummary();
 }
 
+/// Information about a robot deployment.
 class RobotDeployment {
   /// The robot deployment Amazon Resource Name (ARN).
   final String arn;
@@ -2177,6 +2195,7 @@ class RobotDeployment {
       RobotDeployment();
 }
 
+/// Information about a robot software suite.
 class RobotSoftwareSuite {
   /// The name of the robot software suite.
   final String name;
@@ -2192,6 +2211,7 @@ class RobotSoftwareSuite {
       RobotSoftwareSuite();
 }
 
+/// Information about S3 keys.
 class S3KeyOutput {
   /// The S3 key.
   final String s3Key;
@@ -2206,6 +2226,7 @@ class S3KeyOutput {
   static S3KeyOutput fromJson(Map<String, dynamic> json) => S3KeyOutput();
 }
 
+/// Information about a simulation application configuration.
 class SimulationApplicationConfig {
   /// The application information for the simulation application.
   final String application;
@@ -2225,6 +2246,7 @@ class SimulationApplicationConfig {
       SimulationApplicationConfig();
 }
 
+/// Summary information for a simulation application.
 class SimulationApplicationSummary {
   /// The name of the simulation application.
   final String name;
@@ -2257,6 +2279,7 @@ class SimulationApplicationSummary {
       SimulationApplicationSummary();
 }
 
+/// Information about a simulation job.
 class SimulationJob {
   /// The Amazon Resource Name (ARN) of the simulation job.
   final String arn;
@@ -2356,6 +2379,7 @@ class SimulationJob {
   static SimulationJob fromJson(Map<String, dynamic> json) => SimulationJob();
 }
 
+/// Summary information for a simulation job.
 class SimulationJobSummary {
   /// The Amazon Resource Name (ARN) of the simulation job.
   final String arn;
@@ -2392,6 +2416,7 @@ class SimulationJobSummary {
       SimulationJobSummary();
 }
 
+/// Information about a simulation software suite.
 class SimulationSoftwareSuite {
   /// The name of the simulation software suite.
   final String name;
@@ -2407,6 +2432,7 @@ class SimulationSoftwareSuite {
       SimulationSoftwareSuite();
 }
 
+/// Information about a source.
 class Source {
   /// The s3 bucket name.
   final String s3Bucket;
@@ -2429,6 +2455,7 @@ class Source {
   static Source fromJson(Map<String, dynamic> json) => Source();
 }
 
+/// Information about a source configuration.
 class SourceConfig {
   /// The Amazon S3 bucket name.
   final String s3Bucket;
@@ -2637,6 +2664,10 @@ class UpdateSimulationApplicationResponse {
       UpdateSimulationApplicationResponse();
 }
 
+/// If your simulation job accesses resources in a VPC, you provide this
+/// parameter identifying the list of security group IDs and subnet IDs. These
+/// must belong to the same VPC. You must provide at least one security group
+/// and two subnet IDs.
 class VpcConfig {
   /// A list of one or more subnet IDs in your VPC.
   final List<String> subnets;
@@ -2654,6 +2685,7 @@ class VpcConfig {
   });
 }
 
+/// VPC configuration associated with your simulation job.
 class VpcConfigResponse {
   /// A list of subnet IDs associated with the simulation job.
   final List<String> subnets;

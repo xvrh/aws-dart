@@ -13,8 +13,8 @@ import 'package:meta/meta.dart';
 ///
 /// For more information about AWS Auto Scaling, including information about
 /// granting IAM users required permissions for AWS Auto Scaling actions, see
-/// the [AWS Auto Scaling User
-/// Guide](https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html).
+/// the
+/// [AWS Auto Scaling User Guide](https://docs.aws.amazon.com/autoscaling/plans/userguide/what-is-aws-auto-scaling.html).
 class AutoScalingPlansApi {
   /// Creates a scaling plan.
   ///
@@ -189,6 +189,7 @@ class AutoScalingPlansApi {
   }
 }
 
+/// Represents an application source.
 class ApplicationSource {
   /// The Amazon Resource Name (ARN) of a AWS CloudFormation stack.
   final String cloudFormationStackArn;
@@ -217,6 +218,29 @@ class CreateScalingPlanResponse {
       CreateScalingPlanResponse();
 }
 
+/// Represents a CloudWatch metric of your choosing that can be used for
+/// predictive scaling.
+///
+/// For predictive scaling to work with a customized load metric specification,
+/// AWS Auto Scaling needs access to the `Sum` and `Average` statistics that
+/// CloudWatch computes from metric data. Statistics are calculations used to
+/// aggregate data over specified time periods.
+///
+/// When you choose a load metric, make sure that the required `Sum` and
+/// `Average` statistics for your metric are available in CloudWatch and that
+/// they provide relevant data for predictive scaling. The `Sum` statistic must
+/// represent the total load on the resource, and the `Average` statistic must
+/// represent the average load per capacity unit of the resource. For example,
+/// there is a metric that counts the number of requests processed by your Auto
+/// Scaling group. If the `Sum` statistic represents the total request count
+/// processed by the group, then the `Average` statistic for the specified
+/// metric must represent the average request count processed by each instance
+/// of the group.
+///
+/// For information about terminology, available metrics, or how to publish new
+/// metrics, see
+/// [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
+/// in the _Amazon CloudWatch User Guide_.
 class CustomizedLoadMetricSpecification {
   /// The name of the metric.
   final String metricName;
@@ -248,6 +272,25 @@ class CustomizedLoadMetricSpecification {
       CustomizedLoadMetricSpecification();
 }
 
+/// Represents a CloudWatch metric of your choosing that can be used for dynamic
+/// scaling as part of a target tracking scaling policy.
+///
+/// To create your customized scaling metric specification:
+///
+/// *   Add values for each required parameter from CloudWatch. You can use an
+/// existing metric, or a new metric that you create. To use your own metric,
+/// you must first publish the metric to CloudWatch. For more information, see
+/// [Publish Custom Metrics](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html)
+/// in the _Amazon CloudWatch User Guide_.
+///
+/// *   Choose a metric that changes proportionally with capacity. The value of
+/// the metric should increase or decrease in inverse proportion to the number
+/// of capacity units. That is, the value of the metric should decrease when
+/// capacity increases.
+///
+///
+/// For more information about CloudWatch, see
+/// [Amazon CloudWatch Concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html).
 class CustomizedScalingMetricSpecification {
   /// The name of the metric.
   final String metricName;
@@ -280,6 +323,7 @@ class CustomizedScalingMetricSpecification {
       CustomizedScalingMetricSpecification();
 }
 
+/// Represents a single value in the forecast data used for predictive scaling.
 class Datapoint {
   /// The time stamp for the data point in UTC format.
   final DateTime timestamp;
@@ -345,6 +389,7 @@ class GetScalingPlanResourceForecastDataResponse {
       GetScalingPlanResourceForecastDataResponse();
 }
 
+/// Represents a dimension for a customized metric.
 class MetricDimension {
   /// The name of the dimension.
   final String name;
@@ -360,6 +405,7 @@ class MetricDimension {
       MetricDimension();
 }
 
+/// Represents a predefined metric that can be used for predictive scaling.
 class PredefinedLoadMetricSpecification {
   /// The metric type.
   final String predefinedLoadMetricType;
@@ -389,6 +435,8 @@ class PredefinedLoadMetricSpecification {
       PredefinedLoadMetricSpecification();
 }
 
+/// Represents a predefined metric that can be used for dynamic scaling as part
+/// of a target tracking scaling policy.
 class PredefinedScalingMetricSpecification {
   /// The metric type. The `ALBRequestCountPerTarget` metric type applies only
   /// to Auto Scaling groups, Spot Fleet requests, and ECS services.
@@ -419,6 +467,33 @@ class PredefinedScalingMetricSpecification {
       PredefinedScalingMetricSpecification();
 }
 
+/// Describes a scaling instruction for a scalable resource.
+///
+/// The scaling instruction is used in combination with a scaling plan, which is
+/// a set of instructions for configuring dynamic scaling and predictive scaling
+/// for the scalable resources in your application. Each scaling instruction
+/// applies to one resource.
+///
+/// AWS Auto Scaling creates target tracking scaling policies based on the
+/// scaling instructions. Target tracking scaling policies adjust the capacity
+/// of your scalable resource as required to maintain resource utilization at
+/// the target value that you specified.
+///
+/// AWS Auto Scaling also configures predictive scaling for your Amazon EC2 Auto
+/// Scaling groups using a subset of parameters, including the load metric, the
+/// scaling metric, the target value for the scaling metric, the predictive
+/// scaling mode (forecast and scale or forecast only), and the desired behavior
+/// when the forecast capacity exceeds the maximum capacity of the resource.
+/// With predictive scaling, AWS Auto Scaling generates forecasts with traffic
+/// predictions for the two days ahead and schedules scaling actions that
+/// proactively add and remove resource capacity to match the forecast.
+///
+/// We recommend waiting a minimum of 24 hours after creating an Auto Scaling
+/// group to configure predictive scaling. At minimum, there must be 24 hours of
+/// historical data to generate a forecast.
+///
+/// For more information, see
+/// [Getting Started with AWS Auto Scaling](https://docs.aws.amazon.com/autoscaling/plans/userguide/auto-scaling-getting-started.html).
 class ScalingInstruction {
   /// The namespace of the AWS service.
   final String serviceNamespace;
@@ -451,28 +526,28 @@ class ScalingInstruction {
 
   /// The scalable dimension associated with the resource.
   ///
-  /// *    `autoscaling:autoScalingGroup:DesiredCapacity` \- The desired
-  /// capacity of an Auto Scaling group.
+  /// *    `autoscaling:autoScalingGroup:DesiredCapacity` - The desired capacity
+  /// of an Auto Scaling group.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   final String scalableDimension;
@@ -529,15 +604,15 @@ class ScalingInstruction {
   ///
   /// The following are possible values:
   ///
-  /// *    `SetForecastCapacityToMaxCapacity` \- AWS Auto Scaling cannot scale
+  /// *    `SetForecastCapacityToMaxCapacity` - AWS Auto Scaling cannot scale
   /// resource capacity higher than the maximum capacity. The maximum capacity
   /// is enforced as a hard limit.
   ///
-  /// *    `SetMaxCapacityToForecastCapacity` \- AWS Auto Scaling may scale
+  /// *    `SetMaxCapacityToForecastCapacity` - AWS Auto Scaling may scale
   /// resource capacity higher than the maximum capacity to equal but not exceed
   /// forecast capacity.
   ///
-  /// *    `SetMaxCapacityAboveForecastCapacity` \- AWS Auto Scaling may scale
+  /// *    `SetMaxCapacityAboveForecastCapacity` - AWS Auto Scaling may scale
   /// resource capacity higher than the maximum capacity by a specified buffer
   /// value. The intention is to give the target tracking scaling policy extra
   /// capacity if unexpected traffic occurs.
@@ -605,6 +680,7 @@ class ScalingInstruction {
       ScalingInstruction();
 }
 
+/// Represents a scaling plan.
 class ScalingPlan {
   /// The name of the scaling plan.
   final String scalingPlanName;
@@ -620,22 +696,22 @@ class ScalingPlan {
 
   /// The status of the scaling plan.
   ///
-  /// *    `Active` \- The scaling plan is active.
+  /// *    `Active` - The scaling plan is active.
   ///
-  /// *    `ActiveWithProblems` \- The scaling plan is active, but the scaling
+  /// *    `ActiveWithProblems` - The scaling plan is active, but the scaling
   /// configuration for one or more resources could not be applied.
   ///
-  /// *    `CreationInProgress` \- The scaling plan is being created.
+  /// *    `CreationInProgress` - The scaling plan is being created.
   ///
-  /// *    `CreationFailed` \- The scaling plan could not be created.
+  /// *    `CreationFailed` - The scaling plan could not be created.
   ///
-  /// *    `DeletionInProgress` \- The scaling plan is being deleted.
+  /// *    `DeletionInProgress` - The scaling plan is being deleted.
   ///
-  /// *    `DeletionFailed` \- The scaling plan could not be deleted.
+  /// *    `DeletionFailed` - The scaling plan could not be deleted.
   ///
-  /// *    `UpdateInProgress` \- The scaling plan is being updated.
+  /// *    `UpdateInProgress` - The scaling plan is being updated.
   ///
-  /// *    `UpdateFailed` \- The scaling plan could not be updated.
+  /// *    `UpdateFailed` - The scaling plan could not be updated.
   final String statusCode;
 
   /// A simple message about the current status of the scaling plan.
@@ -660,6 +736,7 @@ class ScalingPlan {
   static ScalingPlan fromJson(Map<String, dynamic> json) => ScalingPlan();
 }
 
+/// Represents a scalable resource.
 class ScalingPlanResource {
   /// The name of the scaling plan.
   final String scalingPlanName;
@@ -698,28 +775,28 @@ class ScalingPlanResource {
 
   /// The scalable dimension for the resource.
   ///
-  /// *    `autoscaling:autoScalingGroup:DesiredCapacity` \- The desired
-  /// capacity of an Auto Scaling group.
+  /// *    `autoscaling:autoScalingGroup:DesiredCapacity` - The desired capacity
+  /// of an Auto Scaling group.
   ///
-  /// *    `ecs:service:DesiredCount` \- The desired task count of an ECS
+  /// *    `ecs:service:DesiredCount` - The desired task count of an ECS
   /// service.
   ///
-  /// *    `ec2:spot-fleet-request:TargetCapacity` \- The target capacity of a
+  /// *    `ec2:spot-fleet-request:TargetCapacity` - The target capacity of a
   /// Spot Fleet request.
   ///
-  /// *    `dynamodb:table:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:table:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:table:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:table:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB table.
   ///
-  /// *    `dynamodb:index:ReadCapacityUnits` \- The provisioned read capacity
+  /// *    `dynamodb:index:ReadCapacityUnits` - The provisioned read capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `dynamodb:index:WriteCapacityUnits` \- The provisioned write capacity
+  /// *    `dynamodb:index:WriteCapacityUnits` - The provisioned write capacity
   /// for a DynamoDB global secondary index.
   ///
-  /// *    `rds:cluster:ReadReplicaCount` \- The count of Aurora Replicas in an
+  /// *    `rds:cluster:ReadReplicaCount` - The count of Aurora Replicas in an
   /// Aurora DB cluster. Available for Aurora MySQL-compatible edition and
   /// Aurora PostgreSQL-compatible edition.
   final String scalableDimension;
@@ -729,13 +806,13 @@ class ScalingPlanResource {
 
   /// The scaling status of the resource.
   ///
-  /// *    `Active` \- The scaling configuration is active.
+  /// *    `Active` - The scaling configuration is active.
   ///
-  /// *    `Inactive` \- The scaling configuration is not active because the
+  /// *    `Inactive` - The scaling configuration is not active because the
   /// scaling plan is being created or the scaling configuration could not be
   /// applied. Check the status message for more information.
   ///
-  /// *    `PartiallyActive` \- The scaling configuration is partially active
+  /// *    `PartiallyActive` - The scaling configuration is partially active
   /// because the scaling plan is being created or deleted or the scaling
   /// configuration could not be fully applied. Check the status message for
   /// more information.
@@ -758,6 +835,7 @@ class ScalingPlanResource {
       ScalingPlanResource();
 }
 
+/// Represents a scaling policy.
 class ScalingPolicy {
   /// The name of the scaling policy.
   final String policyName;
@@ -777,6 +855,7 @@ class ScalingPolicy {
   static ScalingPolicy fromJson(Map<String, dynamic> json) => ScalingPolicy();
 }
 
+/// Represents a tag.
 class TagFilter {
   /// The tag key.
   final String key;
@@ -791,6 +870,8 @@ class TagFilter {
   static TagFilter fromJson(Map<String, dynamic> json) => TagFilter();
 }
 
+/// Describes a target tracking configuration to use with AWS Auto Scaling. Used
+/// with ScalingInstruction and ScalingPolicy.
 class TargetTrackingConfiguration {
   /// A predefined metric. You can specify either a predefined metric or a
   /// customized metric.

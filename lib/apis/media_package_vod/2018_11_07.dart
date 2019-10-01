@@ -131,6 +131,7 @@ class MediaPackageVodApi {
   }
 }
 
+/// A MediaPackage VOD Asset resource.
 class AssetShallow {
   /// The ARN of the Asset.
   final String arn;
@@ -161,6 +162,7 @@ class AssetShallow {
   static AssetShallow fromJson(Map<String, dynamic> json) => AssetShallow();
 }
 
+/// A CMAF encryption configuration.
 class CmafEncryption {
   final SpekeKeyProvider spekeKeyProvider;
 
@@ -170,6 +172,7 @@ class CmafEncryption {
   static CmafEncryption fromJson(Map<String, dynamic> json) => CmafEncryption();
 }
 
+/// A CMAF packaging configuration.
 class CmafPackage {
   final CmafEncryption encryption;
 
@@ -270,6 +273,7 @@ class CreatePackagingGroupResponse {
       CreatePackagingGroupResponse();
 }
 
+/// A Dynamic Adaptive Streaming over HTTP (DASH) encryption configuration.
 class DashEncryption {
   final SpekeKeyProvider spekeKeyProvider;
 
@@ -279,6 +283,7 @@ class DashEncryption {
   static DashEncryption fromJson(Map<String, dynamic> json) => DashEncryption();
 }
 
+/// A DASH manifest configuration.
 class DashManifest {
   /// An optional string to include in the name of the manifest.
   final String manifestName;
@@ -288,7 +293,7 @@ class DashManifest {
   final int minBufferTimeSeconds;
 
   /// The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to
-  /// "HBBTV\_1\_5", HbbTV 1.5 compliant output is enabled.
+  /// "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
   final String profile;
 
   final StreamSelection streamSelection;
@@ -302,6 +307,7 @@ class DashManifest {
   static DashManifest fromJson(Map<String, dynamic> json) => DashManifest();
 }
 
+/// A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
 class DashPackage {
   /// A list of DASH manifest configurations.
   final List<DashManifest> dashManifests;
@@ -421,6 +427,7 @@ class DescribePackagingGroupResponse {
       DescribePackagingGroupResponse();
 }
 
+/// The endpoint URL used to access an Asset using one PackagingConfiguration.
 class EgressEndpoint {
   /// The ID of the PackagingConfiguration being applied to the Asset.
   final String packagingConfigurationId;
@@ -435,6 +442,7 @@ class EgressEndpoint {
   static EgressEndpoint fromJson(Map<String, dynamic> json) => EgressEndpoint();
 }
 
+/// An HTTP Live Streaming (HLS) encryption configuration.
 class HlsEncryption {
   /// A constant initialization vector for encryption (optional). When not
   /// specified the initialization vector will be periodically rotated.
@@ -453,6 +461,7 @@ class HlsEncryption {
   static HlsEncryption fromJson(Map<String, dynamic> json) => HlsEncryption();
 }
 
+/// An HTTP Live Streaming (HLS) manifest configuration.
 class HlsManifest {
   /// This setting controls how ad markers are included in the packaged
   /// OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the output.
@@ -494,6 +503,7 @@ class HlsManifest {
   static HlsManifest fromJson(Map<String, dynamic> json) => HlsManifest();
 }
 
+/// An HTTP Live Streaming (HLS) packaging configuration.
 class HlsPackage {
   final HlsEncryption encryption;
 
@@ -566,6 +576,7 @@ class ListPackagingGroupsResponse {
       ListPackagingGroupsResponse();
 }
 
+/// A Microsoft Smooth Streaming (MSS) encryption configuration.
 class MssEncryption {
   final SpekeKeyProvider spekeKeyProvider;
 
@@ -575,6 +586,7 @@ class MssEncryption {
   static MssEncryption fromJson(Map<String, dynamic> json) => MssEncryption();
 }
 
+/// A Microsoft Smooth Streaming (MSS) manifest configuration.
 class MssManifest {
   /// An optional string to include in the name of the manifest.
   final String manifestName;
@@ -588,6 +600,7 @@ class MssManifest {
   static MssManifest fromJson(Map<String, dynamic> json) => MssManifest();
 }
 
+/// A Microsoft Smooth Streaming (MSS) PackagingConfiguration.
 class MssPackage {
   final MssEncryption encryption;
 
@@ -605,6 +618,7 @@ class MssPackage {
   static MssPackage fromJson(Map<String, dynamic> json) => MssPackage();
 }
 
+/// A MediaPackage VOD PackagingConfiguration resource.
 class PackagingConfiguration {
   /// The ARN of the PackagingConfiguration.
   final String arn;
@@ -636,6 +650,7 @@ class PackagingConfiguration {
       PackagingConfiguration();
 }
 
+/// A MediaPackage VOD PackagingGroup resource.
 class PackagingGroup {
   /// The ARN of the PackagingGroup.
   final String arn;
@@ -650,6 +665,8 @@ class PackagingGroup {
   static PackagingGroup fromJson(Map<String, dynamic> json) => PackagingGroup();
 }
 
+/// A configuration for accessing an external Secure Packager and Encoder Key
+/// Exchange (SPEKE) service that will provide encryption keys.
 class SpekeKeyProvider {
   /// An Amazon Resource Name (ARN) of an IAM role that AWS Elemental
   /// MediaPackage will assume when accessing the key provider service.
@@ -670,6 +687,7 @@ class SpekeKeyProvider {
       SpekeKeyProvider();
 }
 
+/// A StreamSelection configuration.
 class StreamSelection {
   /// The maximum video bitrate (bps) to include in output.
   final int maxVideoBitsPerSecond;

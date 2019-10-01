@@ -6,19 +6,18 @@ import 'package:meta/meta.dart';
 /// serverless, so there is no infrastructure to set up or manage. You pay only
 /// for the queries you run. Athena scales automatically—executing queries in
 /// parallel—so results are fast, even with large datasets and complex queries.
-/// For more information, see [What is Amazon
-/// Athena](http://docs.aws.amazon.com/athena/latest/ug/what-is.html) in the
-/// _Amazon Athena User Guide_.
+/// For more information, see
+/// [What is Amazon Athena](http://docs.aws.amazon.com/athena/latest/ug/what-is.html)
+/// in the _Amazon Athena User Guide_.
 ///
 /// If you connect to Athena using the JDBC driver, use version 1.1.0 of the
 /// driver or later with the Amazon Athena API. Earlier version drivers do not
 /// support the API. For more information and to download the driver, see
-/// [Accessing Amazon Athena with
-/// JDBC](https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html).
+/// [Accessing Amazon Athena with JDBC](https://docs.aws.amazon.com/athena/latest/ug/connect-with-jdbc.html).
 ///
-/// For code samples using the AWS SDK for Java, see [Examples and Code
-/// Samples](https://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-/// the _Amazon Athena User Guide_.
+/// For code samples using the AWS SDK for Java, see
+/// [Examples and Code Samples](https://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+/// in the _Amazon Athena User Guide_.
 class AthenaApi {
   /// Returns the details of a single named query or a list of up to 50 queries,
   /// which you provide as an array of query ID strings. Requires you to have
@@ -54,9 +53,9 @@ class AthenaApi {
   /// Creates a named query in the specified workgroup. Requires that you have
   /// access to the workgroup.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [name]: The query name.
   ///
@@ -119,9 +118,9 @@ class AthenaApi {
   /// Deletes the named query if you have access to the workgroup in which the
   /// query was saved.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [namedQueryId]: The unique ID of the query to delete.
   Future<DeleteNamedQueryOutput> deleteNamedQuery(String namedQueryId) async {
@@ -186,9 +185,9 @@ class AthenaApi {
   /// Provides a list of available query IDs only for queries saved in the
   /// specified workgroup. Requires that you have access to the workgroup.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [nextToken]: The token that specifies where to start pagination if a
   /// previous request was truncated.
@@ -206,9 +205,9 @@ class AthenaApi {
   /// specified workgroup. Requires you to have access to the workgroup in which
   /// the queries ran.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [nextToken]: The token that specifies where to start pagination if a
   /// previous request was truncated.
@@ -253,9 +252,9 @@ class AthenaApi {
   /// Runs the SQL query statements contained in the `Query`. Requires you to
   /// have access to the workgroup in which the query ran.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [queryString]: The SQL query statements to be executed.
   ///
@@ -294,9 +293,9 @@ class AthenaApi {
   /// Stops a query execution. Requires you to have access to the workgroup in
   /// which the query ran.
   ///
-  /// For code samples using the AWS SDK for Java, see [Examples and Code
-  /// Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html) in
-  /// the _Amazon Athena User Guide_.
+  /// For code samples using the AWS SDK for Java, see
+  /// [Examples and Code Samples](http://docs.aws.amazon.com/athena/latest/ug/code-samples.html)
+  /// in the _Amazon Athena User Guide_.
   ///
   /// [queryExecutionId]: The unique ID of the query execution to stop.
   Future<StopQueryExecutionOutput> stopQueryExecution(
@@ -310,8 +309,8 @@ class AthenaApi {
   /// enable you to categorize resources (workgroups) in Athena, for example, by
   /// purpose, owner, or environment. Use a consistent set of tag keys to make
   /// it easier to search and filter workgroups in your account. For best
-  /// practices, see [AWS Tagging
-  /// Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
+  /// practices, see
+  /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   /// The key length is from 1 (minimum) to 128 (maximum) Unicode characters in
   /// UTF-8. The tag value length is from 0 (minimum) to 256 (maximum) Unicode
   /// characters in UTF-8. You can use letters and numbers representable in
@@ -392,6 +391,7 @@ class BatchGetQueryExecutionOutput {
       BatchGetQueryExecutionOutput();
 }
 
+/// Information about the columns in a query execution result.
 class ColumnInfo {
   /// The catalog to which the query results belong.
   final String catalogName;
@@ -457,6 +457,7 @@ class CreateWorkGroupOutput {
       CreateWorkGroupOutput();
 }
 
+/// A piece of data (a field in the table).
 class Datum {
   /// The value of the datum.
   final String varCharValue;
@@ -479,6 +480,8 @@ class DeleteWorkGroupOutput {
       DeleteWorkGroupOutput();
 }
 
+/// If query results are encrypted in Amazon S3, indicates the encryption option
+/// used (for example, `SSE-KMS` or `CSE-KMS`) and key information.
 class EncryptionConfiguration {
   /// Indicates whether Amazon S3 server-side encryption with Amazon S3-managed
   /// keys (`SSE-S3`), server-side encryption with KMS-managed keys (`SSE-KMS`),
@@ -614,6 +617,8 @@ class ListWorkGroupsOutput {
       ListWorkGroupsOutput();
 }
 
+/// A query, where `QueryString` is the list of SQL query statements that
+/// comprise the query.
 class NamedQuery {
   /// The query name.
   final String name;
@@ -644,6 +649,7 @@ class NamedQuery {
   static NamedQuery fromJson(Map<String, dynamic> json) => NamedQuery();
 }
 
+/// Information about a single instance of a query execution.
 class QueryExecution {
   /// The unique identifier for each query execution.
   final String queryExecutionId;
@@ -692,6 +698,7 @@ class QueryExecution {
   static QueryExecution fromJson(Map<String, dynamic> json) => QueryExecution();
 }
 
+/// The database in which the query execution occurs.
 class QueryExecutionContext {
   /// The name of the database.
   final String database;
@@ -703,6 +710,8 @@ class QueryExecutionContext {
       QueryExecutionContext();
 }
 
+/// The amount of data scanned during the query execution and the amount of time
+/// that it took to execute, and the type of statement that was run.
 class QueryExecutionStatistics {
   /// The number of milliseconds that the query took to execute.
   final BigInt engineExecutionTimeInMillis;
@@ -718,6 +727,8 @@ class QueryExecutionStatistics {
       QueryExecutionStatistics();
 }
 
+/// The completion date, current state, submission time, and state change reason
+/// (if applicable) for the query execution.
 class QueryExecutionStatus {
   /// The state of query execution. `QUEUED` state is listed but is not used by
   /// Athena and is reserved for future use. `RUNNING` indicates that the query
@@ -747,16 +758,20 @@ class QueryExecutionStatus {
       QueryExecutionStatus();
 }
 
+/// The location in Amazon S3 where query results are stored and the encryption
+/// option, if any, used for query results. These are known as "client-side
+/// settings". If workgroup settings override client-side settings, then the
+/// query uses the workgroup settings.
 class ResultConfiguration {
   /// The location in Amazon S3 where your query results are stored, such as
   /// `s3://path/to/query/bucket/`. To run the query, you must specify the query
   /// results location using one of the ways: either for individual queries
   /// using either this setting (client-side), or in the workgroup, using
   /// WorkGroupConfiguration. If none of them is set, Athena issues an error
-  /// that no output location is provided. For more information, see [Query
-  /// Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html). If
-  /// workgroup settings override client-side settings, then the query uses the
-  /// settings specified for the workgroup. See
+  /// that no output location is provided. For more information, see
+  /// [Query Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html).
+  /// If workgroup settings override client-side settings, then the query uses
+  /// the settings specified for the workgroup. See
   /// WorkGroupConfiguration$EnforceWorkGroupConfiguration.
   final String outputLocation;
 
@@ -766,9 +781,8 @@ class ResultConfiguration {
   /// settings, then the query uses the encryption configuration that is
   /// specified for the workgroup, and also uses the location for storing query
   /// results specified in the workgroup. See
-  /// WorkGroupConfiguration$EnforceWorkGroupConfiguration and [Workgroup
-  /// Settings Override Client-Side
-  /// Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
+  /// WorkGroupConfiguration$EnforceWorkGroupConfiguration and
+  /// [Workgroup Settings Override Client-Side Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
   final EncryptionConfiguration encryptionConfiguration;
 
   ResultConfiguration({
@@ -779,13 +793,15 @@ class ResultConfiguration {
       ResultConfiguration();
 }
 
+/// The information about the updates in the query results, such as output
+/// location and encryption configuration for the query results.
 class ResultConfigurationUpdates {
   /// The location in Amazon S3 where your query results are stored, such as
-  /// `s3://path/to/query/bucket/`. For more information, see [Query
-  /// Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html) If
-  /// workgroup settings override client-side settings, then the query uses the
-  /// location for the query results and the encryption configuration that are
-  /// specified for the workgroup. The "workgroup settings override" is
+  /// `s3://path/to/query/bucket/`. For more information, see
+  /// [Query Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html)
+  /// If workgroup settings override client-side settings, then the query uses
+  /// the location for the query results and the encryption configuration that
+  /// are specified for the workgroup. The "workgroup settings override" is
   /// specified in EnforceWorkGroupConfiguration (true/false) in the
   /// WorkGroupConfiguration. See
   /// WorkGroupConfiguration$EnforceWorkGroupConfiguration.
@@ -797,8 +813,8 @@ class ResultConfigurationUpdates {
   /// and a value is present in the OutputLocation in ResultConfigurationUpdates
   /// (the client-side setting), the OutputLocation in the workgroup's
   /// ResultConfiguration will be updated with the new value. For more
-  /// information, see [Workgroup Settings Override Client-Side
-  /// Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
+  /// information, see
+  /// [Workgroup Settings Override Client-Side Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
   final bool removeOutputLocation;
 
   /// The encryption configuration for the query results.
@@ -810,9 +826,8 @@ class ResultConfigurationUpdates {
   /// and a value is present in the EncryptionConfiguration in
   /// ResultConfigurationUpdates (the client-side setting), the
   /// EncryptionConfiguration in the workgroup's ResultConfiguration will be
-  /// updated with the new value. For more information, see [Workgroup Settings
-  /// Override Client-Side
-  /// Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
+  /// updated with the new value. For more information, see
+  /// [Workgroup Settings Override Client-Side Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
   final bool removeEncryptionConfiguration;
 
   ResultConfigurationUpdates({
@@ -823,6 +838,8 @@ class ResultConfigurationUpdates {
   });
 }
 
+/// The metadata and rows that comprise a query result set. The metadata
+/// describes the column structure and data types.
 class ResultSet {
   /// The rows in the table.
   final List<Row> rows;
@@ -838,6 +855,8 @@ class ResultSet {
   static ResultSet fromJson(Map<String, dynamic> json) => ResultSet();
 }
 
+/// The metadata that describes the column structure and data types of a table
+/// of query results.
 class ResultSetMetadata {
   /// Information about the columns returned in a query result metadata.
   final List<ColumnInfo> columnInfo;
@@ -849,6 +868,7 @@ class ResultSetMetadata {
       ResultSetMetadata();
 }
 
+/// The rows that comprise a query result table.
 class Row {
   /// The data that populates a row in a query result table.
   final List<Datum> data;
@@ -876,6 +896,16 @@ class StopQueryExecutionOutput {
       StopQueryExecutionOutput();
 }
 
+/// A tag that you can add to a resource. A tag is a label that you assign to an
+/// AWS Athena resource (a workgroup). Each tag consists of a key and an
+/// optional value, both of which you define. Tags enable you to categorize
+/// workgroups in Athena, for example, by purpose, owner, or environment. Use a
+/// consistent set of tag keys to make it easier to search and filter workgroups
+/// in your account. The maximum tag key length is 128 Unicode characters in
+/// UTF-8. The maximum tag value length is 256 Unicode characters in UTF-8. You
+/// can use letters and numbers representable in UTF-8, and the following
+/// characters: + - = . _ : / @. Tag keys and values are case-sensitive. Tag
+/// keys must be unique per resource.
 class Tag {
   /// A tag key. The tag key length is from 1 to 128 Unicode characters in
   /// UTF-8. You can use letters and numbers representable in UTF-8, and the
@@ -901,6 +931,7 @@ class TagResourceOutput {
       TagResourceOutput();
 }
 
+/// Information about a named query ID that could not be processed.
 class UnprocessedNamedQueryId {
   /// The unique identifier of the named query.
   final String namedQueryId;
@@ -922,6 +953,7 @@ class UnprocessedNamedQueryId {
       UnprocessedNamedQueryId();
 }
 
+/// Describes a query execution that failed to process.
 class UnprocessedQueryExecutionId {
   /// The unique identifier of the query execution.
   final String queryExecutionId;
@@ -955,6 +987,16 @@ class UpdateWorkGroupOutput {
       UpdateWorkGroupOutput();
 }
 
+/// A workgroup, which contains a name, description, creation time, state, and
+/// other configuration, listed under WorkGroup$Configuration. Each workgroup
+/// enables you to isolate queries for you or your group of users from other
+/// queries in the same account, to configure the query results location and the
+/// encryption configuration (known as workgroup settings), to enable sending
+/// query metrics to Amazon CloudWatch, and to establish per-query data usage
+/// control limits for all queries in a workgroup. The workgroup settings
+/// override is specified in EnforceWorkGroupConfiguration (true/false) in the
+/// WorkGroupConfiguration. See
+/// WorkGroupConfiguration$EnforceWorkGroupConfiguration.
 class WorkGroup {
   /// The workgroup name.
   final String name;
@@ -988,6 +1030,14 @@ class WorkGroup {
   static WorkGroup fromJson(Map<String, dynamic> json) => WorkGroup();
 }
 
+/// The configuration of the workgroup, which includes the location in Amazon S3
+/// where query results are stored, the encryption option, if any, used for
+/// query results, whether the Amazon CloudWatch Metrics are enabled for the
+/// workgroup and whether workgroup settings override query settings, and the
+/// data usage limits for the amount of data scanned per query or per workgroup.
+/// The workgroup settings override is specified in
+/// EnforceWorkGroupConfiguration (true/false) in the WorkGroupConfiguration.
+/// See WorkGroupConfiguration$EnforceWorkGroupConfiguration.
 class WorkGroupConfiguration {
   /// The configuration for the workgroup, which includes the location in Amazon
   /// S3 where query results are stored and the encryption option, if any, used
@@ -996,14 +1046,13 @@ class WorkGroupConfiguration {
   /// setting, or for individual queries (client-side), using
   /// ResultConfiguration$OutputLocation. If none of them is set, Athena issues
   /// an error that no output location is provided. For more information, see
-  /// [Query
-  /// Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html).
+  /// [Query Results](https://docs.aws.amazon.com/athena/latest/ug/querying.html).
   final ResultConfiguration resultConfiguration;
 
   /// If set to "true", the settings for the workgroup override client-side
   /// settings. If set to "false", client-side settings are used. For more
-  /// information, see [Workgroup Settings Override Client-Side
-  /// Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
+  /// information, see
+  /// [Workgroup Settings Override Client-Side Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
   final bool enforceWorkGroupConfiguration;
 
   /// Indicates that the Amazon CloudWatch metrics are enabled for the
@@ -1018,9 +1067,8 @@ class WorkGroupConfiguration {
   /// Amazon S3 Requester Pays buckets in queries. If set to `false`, workgroup
   /// members cannot query data from Requester Pays buckets, and queries that
   /// retrieve data from Requester Pays buckets cause an error. The default is
-  /// `false`. For more information about Requester Pays buckets, see [Requester
-  /// Pays
-  /// Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html)
+  /// `false`. For more information about Requester Pays buckets, see
+  /// [Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final bool requesterPaysEnabled;
 
@@ -1035,11 +1083,17 @@ class WorkGroupConfiguration {
       WorkGroupConfiguration();
 }
 
+/// The configuration information that will be updated for this workgroup, which
+/// includes the location in Amazon S3 where query results are stored, the
+/// encryption option, if any, used for query results, whether the Amazon
+/// CloudWatch Metrics are enabled for the workgroup, whether the workgroup
+/// settings override the client-side settings, and the data usage limit for the
+/// amount of bytes scanned per query, if it is specified.
 class WorkGroupConfigurationUpdates {
   /// If set to "true", the settings for the workgroup override client-side
   /// settings. If set to "false" client-side settings are used. For more
-  /// information, see [Workgroup Settings Override Client-Side
-  /// Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
+  /// information, see
+  /// [Workgroup Settings Override Client-Side Settings](https://docs.aws.amazon.com/athena/latest/ug/workgroups-settings-override.html).
   final bool enforceWorkGroupConfiguration;
 
   /// The result configuration information about the queries in this workgroup
@@ -1063,8 +1117,8 @@ class WorkGroupConfigurationUpdates {
   /// S3 Requester Pays buckets in queries. If set to `false`, workgroup members
   /// cannot query data from Requester Pays buckets, and queries that retrieve
   /// data from Requester Pays buckets cause an error. The default is `false`.
-  /// For more information about Requester Pays buckets, see [Requester Pays
-  /// Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html)
+  /// For more information about Requester Pays buckets, see
+  /// [Requester Pays Buckets](https://docs.aws.amazon.com/AmazonS3/latest/dev/RequesterPaysBuckets.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   final bool requesterPaysEnabled;
 
@@ -1078,6 +1132,8 @@ class WorkGroupConfigurationUpdates {
   });
 }
 
+/// The summary information for the workgroup, which includes its name, state,
+/// description, and the date and time it was created.
 class WorkGroupSummary {
   /// The name of the workgroup.
   final String name;

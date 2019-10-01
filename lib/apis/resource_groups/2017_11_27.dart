@@ -19,8 +19,8 @@ import 'package:meta/meta.dart';
 /// identify the criteria that members of the group have in common. Tags are
 /// key-value pairs.
 ///
-/// For more information about Resource Groups, see the [AWS Resource Groups
-/// User Guide](https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html).
+/// For more information about Resource Groups, see the
+/// [AWS Resource Groups User Guide](https://docs.aws.amazon.com/ARG/latest/userguide/welcome.html).
 ///
 /// AWS Resource Groups uses a REST-compliant API that you can use to perform
 /// the following types of operations.
@@ -104,7 +104,7 @@ class ResourceGroupsApi {
   /// [filters]: Filters, formatted as ResourceFilter objects, that you want to
   /// apply to a ListGroupResources operation.
   ///
-  /// *    `resource-type` \- Filter resources by their type. Specify up to five
+  /// *    `resource-type` - Filter resources by their type. Specify up to five
   /// resource types in the format AWS::ServiceCode::ResourceType. For example,
   /// AWS::EC2::Instance, or AWS::S3::Bucket.
   ///
@@ -125,7 +125,7 @@ class ResourceGroupsApi {
   /// [filters]: Filters, formatted as GroupFilter objects, that you want to
   /// apply to a ListGroups operation.
   ///
-  /// *    `resource-type` \- Filter groups by resource type. Specify up to five
+  /// *    `resource-type` - Filter groups by resource type. Specify up to five
   /// resource types in the format AWS::ServiceCode::ResourceType. For example,
   /// AWS::EC2::Instance, or AWS::S3::Bucket.
   ///
@@ -276,6 +276,7 @@ class GetTagsOutput {
   static GetTagsOutput fromJson(Map<String, dynamic> json) => GetTagsOutput();
 }
 
+/// A resource group.
 class Group {
   /// The ARN of a resource group.
   final String groupArn;
@@ -294,6 +295,8 @@ class Group {
   static Group fromJson(Map<String, dynamic> json) => Group();
 }
 
+/// A filter name and value pair that is used to obtain more specific results
+/// from a list of groups.
 class GroupFilter {
   /// The name of the filter. Filter names are case-sensitive.
   final String name;
@@ -308,6 +311,7 @@ class GroupFilter {
   });
 }
 
+/// The ARN and group name of a group.
 class GroupIdentifier {
   /// The name of a resource group.
   final String groupName;
@@ -323,6 +327,8 @@ class GroupIdentifier {
       GroupIdentifier();
 }
 
+/// The underlying resource query of a resource group. Resources that match
+/// query results are part of the group.
 class GroupQuery {
   /// The name of a resource group that is associated with a specific resource
   /// query.
@@ -350,8 +356,7 @@ class ListGroupResourcesOutput {
 
   /// A list of `QueryError` objects. Each error is an object that contains
   /// `ErrorCode` and `Message` structures. Possible values for `ErrorCode` are
-  /// `CLOUDFORMATION\_STACK\_INACTIVE` and
-  /// `CLOUDFORMATION\_STACK\_NOT_EXISTING`.
+  /// `CLOUDFORMATION_STACK_INACTIVE` and `CLOUDFORMATION_STACK_NOT_EXISTING`.
   final List<QueryError> queryErrors;
 
   ListGroupResourcesOutput({
@@ -384,16 +389,23 @@ class ListGroupsOutput {
       ListGroupsOutput();
 }
 
+/// A two-part error structure that can occur in `ListGroupResources` or
+/// `SearchResources` operations on CloudFormation stack-based queries. The
+/// error occurs if the CloudFormation stack on which the query is based either
+/// does not exist, or has a status that renders the stack inactive. A
+/// `QueryError` occurrence does not necessarily mean that AWS Resource Groups
+/// could not complete the operation, but the resulting group might have no
+/// member resources.
 class QueryError {
-  /// Possible values are `CLOUDFORMATION\_STACK\_INACTIVE` and
-  /// `CLOUDFORMATION\_STACK\_NOT_EXISTING`.
+  /// Possible values are `CLOUDFORMATION_STACK_INACTIVE` and
+  /// `CLOUDFORMATION_STACK_NOT_EXISTING`.
   final String errorCode;
 
   /// A message that explains the `ErrorCode` value. Messages might state that
   /// the specified CloudFormation stack does not exist (or no longer exists).
-  /// For `CLOUDFORMATION\_STACK\_INACTIVE`, the message typically states that
-  /// the CloudFormation stack has a status that is not (or no longer) active,
-  /// such as `CREATE_FAILED`.
+  /// For `CLOUDFORMATION_STACK_INACTIVE`, the message typically states that the
+  /// CloudFormation stack has a status that is not (or no longer) active, such
+  /// as `CREATE_FAILED`.
   final String message;
 
   QueryError({
@@ -403,6 +415,8 @@ class QueryError {
   static QueryError fromJson(Map<String, dynamic> json) => QueryError();
 }
 
+/// A filter name and value pair that is used to obtain more specific results
+/// from a list of resources.
 class ResourceFilter {
   /// The name of the filter. Filter names are case-sensitive.
   final String name;
@@ -417,6 +431,7 @@ class ResourceFilter {
   });
 }
 
+/// The ARN of a resource, and its resource type.
 class ResourceIdentifier {
   /// The ARN of a resource.
   final String resourceArn;
@@ -432,11 +447,12 @@ class ResourceIdentifier {
       ResourceIdentifier();
 }
 
+/// The query that is used to define a resource group or a search for resources.
 class ResourceQuery {
   /// The type of the query. The valid values in this release are
-  /// `TAG\_FILTERS\_1_0` and `CLOUDFORMATION\_STACK\_1_0`.
+  /// `TAG_FILTERS_1_0` and `CLOUDFORMATION_STACK_1_0`.
   ///
-  ///   _`TAG\_FILTERS\_1_0:`_  A JSON syntax that lets you specify a collection
+  ///   _`TAG_FILTERS_1_0:`_  A JSON syntax that lets you specify a collection
   /// of simple tag filters for resource types and tags, as supported by the AWS
   /// Tagging API
   /// [GetResources](https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetResources.html)
@@ -448,7 +464,7 @@ class ResourceQuery {
   ///
   /// For example, consider the following sample query for resources that have
   /// two tags, `Stage` and `Version`, with two values each.
-  /// (`\[{"Key":"Stage","Values":\["Test","Deploy"\]},{"Key":"Version","Values":\["1","2"\]}\]`)
+  /// (`[{"Key":"Stage","Values":["Test","Deploy"]},{"Key":"Version","Values":["1","2"]}]`)
   /// The results of this query might include the following.
   ///
   /// *   An EC2 instance that has the following two tags:
@@ -470,7 +486,7 @@ class ResourceQuery {
   /// `{"Key":"Stage","Value":"Archived"}`, and `{"Key":"Version","Value":"4"}`
   ///
   ///
-  ///   _`CLOUDFORMATION\_STACK\_1_0:`_  A JSON syntax that lets you specify a
+  ///   _`CLOUDFORMATION_STACK_1_0:`_  A JSON syntax that lets you specify a
   /// CloudFormation stack ARN.
   final String type;
 
@@ -495,8 +511,7 @@ class SearchResourcesOutput {
 
   /// A list of `QueryError` objects. Each error is an object that contains
   /// `ErrorCode` and `Message` structures. Possible values for `ErrorCode` are
-  /// `CLOUDFORMATION\_STACK\_INACTIVE` and
-  /// `CLOUDFORMATION\_STACK\_NOT_EXISTING`.
+  /// `CLOUDFORMATION_STACK_INACTIVE` and `CLOUDFORMATION_STACK_NOT_EXISTING`.
   final List<QueryError> queryErrors;
 
   SearchResourcesOutput({

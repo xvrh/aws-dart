@@ -12,8 +12,8 @@ class S3ControlApi {
   ///
   /// [operation]: The operation that you want this job to perform on each
   /// object listed in the manifest. For more information about the available
-  /// operations, see [Available
-  /// Operations](https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html)
+  /// operations, see
+  /// [Available Operations](https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html)
   /// in the _Amazon Simple Storage Service Developer Guide_.
   ///
   /// [report]: Configuration parameters for the optional job-completion report.
@@ -170,6 +170,8 @@ class GetPublicAccessBlockOutput {
       GetPublicAccessBlockOutput();
 }
 
+/// A container element for the job configuration and status information
+/// returned by a `Describe Job` request.
 class JobDescriptor {
   /// The ID for the specified job.
   final String jobId;
@@ -255,6 +257,7 @@ class JobDescriptor {
   static JobDescriptor fromJson(Map<String, dynamic> json) => JobDescriptor();
 }
 
+/// If this job failed, this element indicates why the job failed.
 class JobFailure {
   /// The failure code, if any, for the specified job.
   final String failureCode;
@@ -269,6 +272,8 @@ class JobFailure {
   static JobFailure fromJson(Map<String, dynamic> json) => JobFailure();
 }
 
+/// Contains the configuration and status information for a single job retrieved
+/// as part of a job list.
 class JobListDescriptor {
   /// The ID for the specified job.
   final String jobId;
@@ -313,6 +318,7 @@ class JobListDescriptor {
       JobListDescriptor();
 }
 
+/// Contains the configuration information for a job's manifest.
 class JobManifest {
   /// Describes the format of the specified job's manifest. If the manifest is
   /// in CSV format, also describes the columns contained within the manifest.
@@ -328,6 +334,7 @@ class JobManifest {
   static JobManifest fromJson(Map<String, dynamic> json) => JobManifest();
 }
 
+/// Contains the information required to locate a manifest object.
 class JobManifestLocation {
   /// The Amazon Resource Name (ARN) for a manifest object.
   final String objectArn;
@@ -348,12 +355,14 @@ class JobManifestLocation {
       JobManifestLocation();
 }
 
+/// Describes the format of a manifest. If the manifest is in CSV format, also
+/// describes the columns contained within the manifest.
 class JobManifestSpec {
   /// Indicates which of the available formats the specified manifest uses.
   final String format;
 
   /// If the specified manifest object is in the
-  /// `S3BatchOperations\_CSV\_20180820` format, this element describes which
+  /// `S3BatchOperations_CSV_20180820` format, this element describes which
   /// columns contain the required data.
   final List<String> fields;
 
@@ -365,6 +374,10 @@ class JobManifestSpec {
       JobManifestSpec();
 }
 
+/// The operation that you want this job to perform on each object listed in the
+/// manifest. For more information about the available operations, see
+/// [Available Operations](https://docs.aws.amazon.com/AmazonS3/latest/dev/batch-ops-operations.html)
+/// in the _Amazon Simple Storage Service Developer Guide_.
 class JobOperation {
   /// Directs the specified job to invoke an AWS Lambda function on each object
   /// in the manifest.
@@ -396,6 +409,8 @@ class JobOperation {
   static JobOperation fromJson(Map<String, dynamic> json) => JobOperation();
 }
 
+/// Describes the total number of tasks that the specified job has executed, the
+/// number of tasks that succeeded, and the number of tasks that failed.
 class JobProgressSummary {
   final BigInt totalNumberOfTasks;
 
@@ -412,6 +427,7 @@ class JobProgressSummary {
       JobProgressSummary();
 }
 
+/// Contains the configuration parameters for a job-completion report.
 class JobReport {
   /// The bucket where specified job-completion report will be stored.
   final String bucket;
@@ -441,6 +457,7 @@ class JobReport {
   static JobReport fromJson(Map<String, dynamic> json) => JobReport();
 }
 
+/// Contains the configuration parameters for a `Lambda Invoke` operation.
 class LambdaInvokeOperation {
   /// The Amazon Resource Name (ARN) for the AWS Lambda function that the
   /// specified job will invoke for each object in the manifest.
@@ -514,6 +531,11 @@ class S3AccessControlPolicy {
       S3AccessControlPolicy();
 }
 
+/// Contains the configuration parameters for a PUT Copy object operation.
+/// Amazon S3 batch operations passes each value through to the underlying PUT
+/// Copy object API. For more information about the parameters for this
+/// operation, see
+/// [PUT Object - Copy](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectCOPY.html).
 class S3CopyObjectOperation {
   final String targetResource;
 
@@ -596,6 +618,11 @@ class S3Grantee {
   static S3Grantee fromJson(Map<String, dynamic> json) => S3Grantee();
 }
 
+/// Contains the configuration parameters for an Initiate Glacier Restore job.
+/// Amazon S3 batch operations passes each value through to the underlying POST
+/// Object restore API. For more information about the parameters for this
+/// operation, see
+/// [Restoring Archives](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPOSTrestore.html#RESTObjectPOSTrestore-restore-request).
 class S3InitiateRestoreObjectOperation {
   final int expirationInDays;
 
@@ -661,6 +688,10 @@ class S3ObjectOwner {
   static S3ObjectOwner fromJson(Map<String, dynamic> json) => S3ObjectOwner();
 }
 
+/// Contains the configuration parameters for a Set Object ACL operation. Amazon
+/// S3 batch operations passes each value through to the underlying PUT Object
+/// acl API. For more information about the parameters for this operation, see
+/// [PUT Object acl](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTacl.html).
 class S3SetObjectAclOperation {
   final S3AccessControlPolicy accessControlPolicy;
 
@@ -671,6 +702,11 @@ class S3SetObjectAclOperation {
       S3SetObjectAclOperation();
 }
 
+/// Contains the configuration parameters for a Set Object Tagging operation.
+/// Amazon S3 batch operations passes each value through to the underlying PUT
+/// Object tagging API. For more information about the parameters for this
+/// operation, see
+/// [PUT Object tagging](https://docs.aws.amazon.com/AmazonS3/latest/API/RESTObjectPUTtagging.html).
 class S3SetObjectTaggingOperation {
   final List<S3Tag> tagSet;
 

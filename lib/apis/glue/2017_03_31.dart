@@ -274,8 +274,8 @@ class GlueApi {
   /// [targets]: A list of collection of targets to crawl.
   ///
   /// [schedule]: A `cron` expression used to specify the schedule. For more
-  /// information, see [Time-Based Schedules for Jobs and
-  /// Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// information, see
+  /// [Time-Based Schedules for Jobs and Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, specify `cron(15 12
   /// * * ? *)`.
   ///
@@ -291,15 +291,15 @@ class GlueApi {
   ///
   /// [configuration]: The crawler configuration information. This versioned
   /// JSON string allows users to specify aspects of a crawler's behavior. For
-  /// more information, see [Configuring a
-  /// Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
+  /// more information, see
+  /// [Configuring a Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
   ///
   /// [crawlerSecurityConfiguration]: The name of the `SecurityConfiguration`
   /// structure to be used by this crawler.
   ///
   /// [tags]: The tags to use with this crawler request. You can use tags to
-  /// limit access to the crawler. For more information, see [AWS Tags in AWS
-  /// Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
+  /// limit access to the crawler. For more information, see
+  /// [AWS Tags in AWS Glue](http://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
   Future<CreateCrawlerResponse> createCrawler(
       {@required String name,
       @required String role,
@@ -401,9 +401,9 @@ class GlueApi {
   ///
   /// [tags]: The tags to use with this DevEndpoint. You may use tags to limit
   /// access to the DevEndpoint. For more information about tags in AWS Glue,
-  /// see [AWS Tags in AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in the
-  /// developer guide.
+  /// see
+  /// [AWS Tags in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html)
+  /// in the developer guide.
   ///
   /// [arguments]: A map of arguments used to configure the `DevEndpoint`.
   Future<CreateDevEndpointResponse> createDevEndpoint(
@@ -447,13 +447,13 @@ class GlueApi {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own Job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   ///
   /// [connections]: The connections used for this job.
@@ -466,8 +466,8 @@ class GlueApi {
   /// The number of AWS Glue data processing units (DPUs) to allocate to this
   /// Job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a
   /// relative measure of processing power that consists of 4 vCPUs of compute
-  /// capacity and 16 GB of memory. For more information, see the [AWS Glue
-  /// pricing page](https://aws.amazon.com/glue/pricing/).
+  /// capacity and 16 GB of memory. For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// [timeout]: The job timeout in minutes. This is the maximum time that a job
   /// run can consume resources before it is terminated and enters `TIMEOUT`
@@ -476,8 +476,8 @@ class GlueApi {
   /// [maxCapacity]: The number of AWS Glue data processing units (DPUs) that
   /// can be allocated when this job runs. A DPU is a relative measure of
   /// processing power that consists of 4 vCPUs of compute capacity and 16 GB of
-  /// memory. For more information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// memory. For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
   ///
@@ -495,9 +495,9 @@ class GlueApi {
   /// to be used with this job.
   ///
   /// [tags]: The tags to use with this job. You may use tags to limit access to
-  /// the job. For more information about tags in AWS Glue, see [AWS Tags in AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in the
-  /// developer guide.
+  /// the job. For more information about tags in AWS Glue, see
+  /// [AWS Tags in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html)
+  /// in the developer guide.
   ///
   /// [notificationProperty]: Specifies configuration properties of a job
   /// notification.
@@ -507,9 +507,9 @@ class GlueApi {
   /// supported for jobs of type Spark.
   ///
   /// For more information about the available AWS Glue versions and
-  /// corresponding Spark and Python versions, see [Glue
-  /// version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in the
-  /// developer guide.
+  /// corresponding Spark and Python versions, see
+  /// [Glue version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in
+  /// the developer guide.
   ///
   /// Jobs that are created without specifying a Glue version default to Glue
   /// 0.9.
@@ -591,8 +591,8 @@ class GlueApi {
   /// are allocated to task runs for this transform. You can allocate from 2 to
   /// 100 DPUs; the default is 10. A DPU is a relative measure of processing
   /// power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
-  /// For more information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// When the `WorkerType` field is set to a value other than `Standard`, the
   /// `MaxCapacity` field is set automatically and becomes read-only.
@@ -671,9 +671,8 @@ class GlueApi {
   /// Creates a new security configuration. A security configuration is a set of
   /// security properties that can be used by AWS Glue. You can use a security
   /// configuration to encrypt data at rest. For information about using
-  /// security configurations in AWS Glue, see [Encrypting Data Written by
-  /// Crawlers, Jobs, and Development
-  /// Endpoints](https://docs.aws.amazon.com/glue/latest/dg/encryption-security-configuration.html).
+  /// security configurations in AWS Glue, see
+  /// [Encrypting Data Written by Crawlers, Jobs, and Development Endpoints](https://docs.aws.amazon.com/glue/latest/dg/encryption-security-configuration.html).
   ///
   /// [name]: The name for the new security configuration.
   ///
@@ -711,8 +710,7 @@ class GlueApi {
   /// [type]: The type of the new trigger.
   ///
   /// [schedule]: A `cron` expression used to specify the schedule (see
-  /// [Time-Based Schedules for Jobs and
-  /// Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// [Time-Based Schedules for Jobs and Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, you would specify:
   /// `cron(15 12 * * ? *)`.
   ///
@@ -731,9 +729,8 @@ class GlueApi {
   ///
   /// [tags]: The tags to use with this trigger. You may use tags to limit
   /// access to the trigger. For more information about tags in AWS Glue, see
-  /// [AWS Tags in AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html) in the
-  /// developer guide.
+  /// [AWS Tags in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html)
+  /// in the developer guide.
   Future<CreateTriggerResponse> createTrigger(
       {@required String name,
       String workflowName,
@@ -1979,13 +1976,13 @@ class GlueApi {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own Job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   ///
   /// [allocatedCapacity]: This field is deprecated. Use `MaxCapacity` instead.
@@ -1993,9 +1990,8 @@ class GlueApi {
   /// The number of AWS Glue data processing units (DPUs) to allocate to this
   /// JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is a
   /// relative measure of processing power that consists of 4 vCPUs of compute
-  /// capacity and 16 GB of memory. For more information, see the [AWS Glue
-  /// pricing
-  /// page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
+  /// capacity and 16 GB of memory. For more information, see the
+  /// [AWS Glue pricing page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
   ///
   /// [timeout]: The `JobRun` timeout in minutes. This is the maximum time that
   /// a job run can consume resources before it is terminated and enters
@@ -2005,8 +2001,8 @@ class GlueApi {
   /// [maxCapacity]: The number of AWS Glue data processing units (DPUs) that
   /// can be allocated when this job runs. A DPU is a relative measure of
   /// processing power that consists of 4 vCPUs of compute capacity and 16 GB of
-  /// memory. For more information, see the [AWS Glue pricing
-  /// page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
+  /// memory. For more information, see the
+  /// [AWS Glue pricing page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
   ///
   /// Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
   ///
@@ -2098,9 +2094,9 @@ class GlueApi {
     return StartMLLabelingSetGenerationTaskRunResponse.fromJson({});
   }
 
-  /// Starts an existing trigger. See [Triggering
-  /// Jobs](https://docs.aws.amazon.com/glue/latest/dg/trigger-job.html) for
-  /// information about how different types of trigger are started.
+  /// Starts an existing trigger. See
+  /// [Triggering Jobs](https://docs.aws.amazon.com/glue/latest/dg/trigger-job.html)
+  /// for information about how different types of trigger are started.
   ///
   /// [name]: The name of the trigger to start.
   Future<StartTriggerResponse> startTrigger(String name) async {
@@ -2139,13 +2135,12 @@ class GlueApi {
 
   /// Adds tags to a resource. A tag is a label you can assign to an AWS
   /// resource. In AWS Glue, you can tag only certain resources. For information
-  /// about what resources you can tag, see [AWS Tags in AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
+  /// about what resources you can tag, see
+  /// [AWS Tags in AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/monitor-tags.html).
   ///
   /// [resourceArn]: The ARN of the AWS Glue resource to which to add the tags.
-  /// For more information about AWS Glue resource ARNs, see the [AWS Glue ARN
-  /// string
-  /// pattern](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id).
+  /// For more information about AWS Glue resource ARNs, see the
+  /// [AWS Glue ARN string pattern](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-common.html#aws-glue-api-regex-aws-glue-arn-id).
   ///
   /// [tagsToAdd]: Tags to add to this resource.
   Future<TagResourceResponse> tagResource(
@@ -2217,8 +2212,8 @@ class GlueApi {
   /// [targets]: A list of targets to crawl.
   ///
   /// [schedule]: A `cron` expression used to specify the schedule. For more
-  /// information, see [Time-Based Schedules for Jobs and
-  /// Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// information, see
+  /// [Time-Based Schedules for Jobs and Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, specify `cron(15 12
   /// * * ? *)`.
   ///
@@ -2234,8 +2229,8 @@ class GlueApi {
   ///
   /// [configuration]: The crawler configuration information. This versioned
   /// JSON string allows users to specify aspects of a crawler's behavior. For
-  /// more information, see [Configuring a
-  /// Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
+  /// more information, see
+  /// [Configuring a Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
   ///
   /// [crawlerSecurityConfiguration]: The name of the `SecurityConfiguration`
   /// structure to be used by this crawler.
@@ -2258,8 +2253,8 @@ class GlueApi {
   /// [crawlerName]: The name of the crawler whose schedule to update.
   ///
   /// [schedule]: The updated `cron` expression used to specify the schedule.
-  /// For more information, see [Time-Based Schedules for Jobs and
-  /// Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// For more information, see
+  /// [Time-Based Schedules for Jobs and Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, specify `cron(15 12
   /// * * ? *)`.
   Future<UpdateCrawlerScheduleResponse> updateCrawlerSchedule(
@@ -2355,8 +2350,8 @@ class GlueApi {
   /// are allocated to task runs for this transform. You can allocate from 2 to
   /// 100 DPUs; the default is 10. A DPU is a relative measure of processing
   /// power that consists of 4 vCPUs of compute capacity and 16 GB of memory.
-  /// For more information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// When the `WorkerType` field is set to a value other than `Standard`, the
   /// `MaxCapacity` field is set automatically and becomes read-only.
@@ -2485,6 +2480,7 @@ class GlueApi {
   }
 }
 
+/// Defines an action to be initiated by a trigger.
 class Action {
   /// The name of a job to be executed.
   final String jobName;
@@ -2496,13 +2492,13 @@ class Action {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own Job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   final Map<String, String> arguments;
 
@@ -2686,6 +2682,7 @@ class BatchGetWorkflowsResponse {
       BatchGetWorkflowsResponse();
 }
 
+/// Records an error that occurred when attempting to stop a specified job run.
 class BatchStopJobRunError {
   /// The name of the job definition that is used in the job run in question.
   final String jobName;
@@ -2722,6 +2719,7 @@ class BatchStopJobRunResponse {
       BatchStopJobRunResponse();
 }
 
+/// Records a successful request to stop a specified `JobRun`.
 class BatchStopJobRunSuccessfulSubmission {
   /// The name of the job definition used in the job run that was stopped.
   final String jobName;
@@ -2757,6 +2755,7 @@ class CancelMLTaskRunResponse {
       CancelMLTaskRunResponse();
 }
 
+/// Specifies a table definition in the AWS Glue Data Catalog.
 class CatalogEntry {
   /// The database in which the table metadata resides.
   final String databaseName;
@@ -2770,6 +2769,7 @@ class CatalogEntry {
   });
 }
 
+/// A structure containing migration status information.
 class CatalogImportStatus {
   ///  `True` if the migration has completed, or `False` otherwise.
   final bool importCompleted;
@@ -2789,6 +2789,7 @@ class CatalogImportStatus {
       CatalogImportStatus();
 }
 
+/// Specifies an AWS Glue Data Catalog target.
 class CatalogTarget {
   /// The name of the database to be synchronized.
   final String databaseName;
@@ -2803,6 +2804,15 @@ class CatalogTarget {
   static CatalogTarget fromJson(Map<String, dynamic> json) => CatalogTarget();
 }
 
+/// Classifiers are triggered during a crawl task. A classifier checks whether a
+/// given file is in a format it can handle. If it is, the classifier creates a
+/// schema in the form of a `StructType` object that matches that data format.
+///
+/// You can use the standard classifiers that AWS Glue provides, or you can
+/// write your own classifiers to best categorize your data sources and specify
+/// the appropriate schemas to use for them. A classifier can be a `grok`
+/// classifier, an `XML` classifier, a `JSON` classifier, or a custom `CSV`
+/// classifier, as specified in one of the fields in the `Classifier` object.
 class Classifier {
   /// A classifier that uses `grok`.
   final GrokClassifier grokClassifier;
@@ -2825,6 +2835,7 @@ class Classifier {
   static Classifier fromJson(Map<String, dynamic> json) => Classifier();
 }
 
+/// Specifies how Amazon CloudWatch data should be encrypted.
 class CloudWatchEncryption {
   /// The encryption mode to use for CloudWatch data.
   final String cloudWatchEncryptionMode;
@@ -2841,6 +2852,7 @@ class CloudWatchEncryption {
       CloudWatchEncryption();
 }
 
+/// Represents a directional edge in a directed acyclic graph (DAG).
 class CodeGenEdge {
   /// The ID of the node at which the edge starts.
   final String source;
@@ -2859,6 +2871,7 @@ class CodeGenEdge {
   static CodeGenEdge fromJson(Map<String, dynamic> json) => CodeGenEdge();
 }
 
+/// Represents a node in a directed acyclic graph (DAG)
 class CodeGenNode {
   /// A node identifier that is unique within the node's graph.
   final String id;
@@ -2881,6 +2894,7 @@ class CodeGenNode {
   static CodeGenNode fromJson(Map<String, dynamic> json) => CodeGenNode();
 }
 
+/// An argument or property of a node.
 class CodeGenNodeArg {
   /// The name of the argument or property.
   final String name;
@@ -2899,6 +2913,7 @@ class CodeGenNodeArg {
   static CodeGenNodeArg fromJson(Map<String, dynamic> json) => CodeGenNodeArg();
 }
 
+/// A column in a `Table`.
 class Column {
   /// The name of the `Column`.
   final String name;
@@ -2921,6 +2936,7 @@ class Column {
   static Column fromJson(Map<String, dynamic> json) => Column();
 }
 
+/// Defines a condition under which a trigger fires.
 class Condition {
   /// A logical operator.
   final String logicalOperator;
@@ -2949,6 +2965,12 @@ class Condition {
   static Condition fromJson(Map<String, dynamic> json) => Condition();
 }
 
+/// The confusion matrix shows you what your transform is predicting accurately
+/// and what types of errors it is making.
+///
+/// For more information, see
+/// [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) in
+/// Wikipedia.
 class ConfusionMatrix {
   /// The number of matches in the data that the transform correctly found, in
   /// the confusion matrix for your transform.
@@ -2976,6 +2998,7 @@ class ConfusionMatrix {
       ConfusionMatrix();
 }
 
+/// Defines a connection to a data source.
 class Connection {
   /// The name of the connection definition.
   final String name;
@@ -2992,38 +3015,37 @@ class Connection {
 
   /// These key-value pairs define parameters for the connection:
   ///
-  /// *    `HOST` \- The host URI: either the fully qualified domain name (FQDN)
+  /// *    `HOST` - The host URI: either the fully qualified domain name (FQDN)
   /// or the IPv4 address of the database host.
   ///
-  /// *    `PORT` \- The port number, between 1024 and 65535, of the port on
+  /// *    `PORT` - The port number, between 1024 and 65535, of the port on
   /// which the database host is listening for database connections.
   ///
-  /// *    `USER_NAME` \- The name under which to log in to the database. The
+  /// *    `USER_NAME` - The name under which to log in to the database. The
   /// value string for `USER_NAME` is "`USERNAME`".
   ///
-  /// *    `PASSWORD` \- A password, if one is used, for the user name.
+  /// *    `PASSWORD` - A password, if one is used, for the user name.
   ///
-  /// *    `ENCRYPTED_PASSWORD` \- When you enable connection password
-  /// protection by setting `ConnectionPasswordEncryption` in the Data Catalog
-  /// encryption settings, this field stores the encrypted password.
+  /// *    `ENCRYPTED_PASSWORD` - When you enable connection password protection
+  /// by setting `ConnectionPasswordEncryption` in the Data Catalog encryption
+  /// settings, this field stores the encrypted password.
   ///
-  /// *    `JDBC\_DRIVER\_JAR_URI` \- The Amazon Simple Storage Service (Amazon
-  /// S3) path of the JAR file that contains the JDBC driver to use.
+  /// *    `JDBC_DRIVER_JAR_URI` - The Amazon Simple Storage Service (Amazon S3)
+  /// path of the JAR file that contains the JDBC driver to use.
   ///
-  /// *    `JDBC\_DRIVER\_CLASS_NAME` \- The class name of the JDBC driver to
-  /// use.
+  /// *    `JDBC_DRIVER_CLASS_NAME` - The class name of the JDBC driver to use.
   ///
-  /// *    `JDBC_ENGINE` \- The name of the JDBC engine to use.
+  /// *    `JDBC_ENGINE` - The name of the JDBC engine to use.
   ///
-  /// *    `JDBC\_ENGINE\_VERSION` \- The version of the JDBC engine to use.
+  /// *    `JDBC_ENGINE_VERSION` - The version of the JDBC engine to use.
   ///
-  /// *    `CONFIG_FILES` \- (Reserved for future use.)
+  /// *    `CONFIG_FILES` - (Reserved for future use.)
   ///
-  /// *    `INSTANCE_ID` \- The instance ID to use.
+  /// *    `INSTANCE_ID` - The instance ID to use.
   ///
-  /// *    `JDBC\_CONNECTION\_URL` \- The URL for the JDBC connection.
+  /// *    `JDBC_CONNECTION_URL` - The URL for the JDBC connection.
   ///
-  /// *    `JDBC\_ENFORCE\_SSL` \- A Boolean string (true, false) specifying
+  /// *    `JDBC_ENFORCE_SSL` - A Boolean string (true, false) specifying
   /// whether Secure Sockets Layer (SSL) with hostname matching is enforced for
   /// the JDBC connection on the client. The default is false.
   final Map<String, String> connectionProperties;
@@ -3056,6 +3078,7 @@ class Connection {
   static Connection fromJson(Map<String, dynamic> json) => Connection();
 }
 
+/// A structure that is used to specify a connection to create or update.
 class ConnectionInput {
   /// The name of the connection.
   final String name;
@@ -3088,6 +3111,19 @@ class ConnectionInput {
   });
 }
 
+/// The data structure used by the Data Catalog to encrypt the password as part
+/// of `CreateConnection` or `UpdateConnection` and store it in the
+/// `ENCRYPTED_PASSWORD` field in the connection properties. You can enable
+/// catalog encryption or only password encryption.
+///
+/// When a `CreationConnection` request arrives containing a password, the Data
+/// Catalog first encrypts the password using your AWS KMS key. It then encrypts
+/// the whole connection object again if catalog encryption is also enabled.
+///
+/// This encryption requires that you set AWS KMS key permissions to enable or
+/// restrict access on the password key according to your security requirements.
+/// For example, you might want only administrators to have decrypt permission
+/// on the password key.
 class ConnectionPasswordEncryption {
   /// When the `ReturnConnectionPasswordEncrypted` flag is set to "true",
   /// passwords remain encrypted in the responses of `GetConnection` and
@@ -3114,6 +3150,7 @@ class ConnectionPasswordEncryption {
       ConnectionPasswordEncryption();
 }
 
+/// Specifies the connections used by a job.
 class ConnectionsList {
   /// A list of connections used by the job.
   final List<String> connections;
@@ -3125,6 +3162,7 @@ class ConnectionsList {
       ConnectionsList();
 }
 
+/// The details of a crawl in the workflow.
 class Crawl {
   /// The state of the crawler.
   final String state;
@@ -3155,6 +3193,9 @@ class Crawl {
   static Crawl fromJson(Map<String, dynamic> json) => Crawl();
 }
 
+/// Specifies a crawler program that examines a data source and uses classifiers
+/// to try to determine its schema. If successful, the crawler records metadata
+/// concerning the data source in the AWS Glue Data Catalog.
 class Crawler {
   /// The name of the crawler.
   final String name;
@@ -3208,8 +3249,7 @@ class Crawler {
 
   /// Crawler configuration information. This versioned JSON string allows users
   /// to specify aspects of a crawler's behavior. For more information, see
-  /// [Configuring a
-  /// Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
+  /// [Configuring a Crawler](http://docs.aws.amazon.com/glue/latest/dg/crawler-configuration.html).
   final String configuration;
 
   /// The name of the `SecurityConfiguration` structure to be used by this
@@ -3238,6 +3278,7 @@ class Crawler {
   static Crawler fromJson(Map<String, dynamic> json) => Crawler();
 }
 
+/// Metrics for a specified crawler.
 class CrawlerMetrics {
   /// The name of the crawler.
   final String crawlerName;
@@ -3277,6 +3318,7 @@ class CrawlerMetrics {
   static CrawlerMetrics fromJson(Map<String, dynamic> json) => CrawlerMetrics();
 }
 
+/// The details of a Crawler node present in the workflow.
 class CrawlerNodeDetails {
   /// A list of crawls represented by the crawl node.
   final List<Crawl> crawls;
@@ -3288,6 +3330,7 @@ class CrawlerNodeDetails {
       CrawlerNodeDetails();
 }
 
+/// Specifies data stores to crawl.
 class CrawlerTargets {
   /// Specifies Amazon Simple Storage Service (Amazon S3) targets.
   final List<S3Target> s3Targets;
@@ -3328,6 +3371,7 @@ class CreateCrawlerResponse {
       CreateCrawlerResponse();
 }
 
+/// Specifies a custom CSV classifier for `CreateClassifier` to create.
 class CreateCsvClassifierRequest {
   /// The name of the classifier.
   final String name;
@@ -3455,6 +3499,7 @@ class CreateDevEndpointResponse {
       CreateDevEndpointResponse();
 }
 
+/// Specifies a `grok` classifier for `CreateClassifier` to create.
 class CreateGrokClassifierRequest {
   /// An identifier of the data format that the classifier matches, such as
   /// Twitter, JSON, Omniture logs, Amazon CloudWatch Logs, and so on.
@@ -3488,14 +3533,14 @@ class CreateJobResponse {
       CreateJobResponse();
 }
 
+/// Specifies a JSON classifier for `CreateClassifier` to create.
 class CreateJsonClassifierRequest {
   /// The name of the classifier.
   final String name;
 
   /// A `JsonPath` string defining the JSON data for the classifier to classify.
-  /// AWS Glue supports a subset of `JsonPath`, as described in [Writing
-  /// JsonPath Custom
-  /// Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
+  /// AWS Glue supports a subset of `JsonPath`, as described in
+  /// [Writing JsonPath Custom Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
   final String jsonPath;
 
   CreateJsonClassifierRequest({
@@ -3587,6 +3632,7 @@ class CreateWorkflowResponse {
       CreateWorkflowResponse();
 }
 
+/// Specifies an XML classifier for `CreateClassifier` to create.
 class CreateXmlClassifierRequest {
   /// An identifier of the data format that the classifier matches.
   final String classification;
@@ -3597,9 +3643,8 @@ class CreateXmlClassifierRequest {
   /// The XML tag designating the element that contains each record in an XML
   /// document being parsed. This can't identify a self-closing element (closed
   /// by `/>`). An empty row element that contains only attributes can be parsed
-  /// as long as it ends with a closing tag (for example, `<row item\_a="A"
-  /// item\_b="B"></row>` is okay, but `<row item\_a="A" item\_b="B" />` is
-  /// not).
+  /// as long as it ends with a closing tag (for example, `<row item_a="A"
+  /// item_b="B"></row>` is okay, but `<row item_a="A" item_b="B" />` is not).
   final String rowTag;
 
   CreateXmlClassifierRequest({
@@ -3609,6 +3654,7 @@ class CreateXmlClassifierRequest {
   });
 }
 
+/// A classifier for custom `CSV` content.
 class CsvClassifier {
   /// The name of the classifier.
   final String name;
@@ -3657,6 +3703,7 @@ class CsvClassifier {
   static CsvClassifier fromJson(Map<String, dynamic> json) => CsvClassifier();
 }
 
+/// Contains configuration information for maintaining Data Catalog security.
 class DataCatalogEncryptionSettings {
   /// Specifies the encryption-at-rest configuration for the Data Catalog.
   final EncryptionAtRest encryptionAtRest;
@@ -3676,6 +3723,7 @@ class DataCatalogEncryptionSettings {
       DataCatalogEncryptionSettings();
 }
 
+/// The AWS Lake Formation principal.
 class DataLakePrincipal {
   /// An identifier for the AWS Lake Formation principal.
   final String dataLakePrincipalIdentifier;
@@ -3687,6 +3735,8 @@ class DataLakePrincipal {
       DataLakePrincipal();
 }
 
+/// The `Database` object represents a logical grouping of tables that might
+/// reside in a Hive metastore or an RDBMS.
 class Database {
   /// The name of the database. For Hive compatibility, this is folded to
   /// lowercase when it is stored.
@@ -3718,6 +3768,7 @@ class Database {
   static Database fromJson(Map<String, dynamic> json) => Database();
 }
 
+/// The structure used to create or update a database.
 class DatabaseInput {
   /// The name of the database. For Hive compatibility, this is folded to
   /// lowercase when it is stored.
@@ -3858,6 +3909,8 @@ class DeleteWorkflowResponse {
       DeleteWorkflowResponse();
 }
 
+/// A development endpoint where a developer can remotely debug extract,
+/// transform, and load (ETL) scripts.
 class DevEndpoint {
   /// The name of the `DevEndpoint`.
   final String endpointName;
@@ -4015,6 +4068,7 @@ class DevEndpoint {
   static DevEndpoint fromJson(Map<String, dynamic> json) => DevEndpoint();
 }
 
+/// Custom libraries to be loaded into a development endpoint.
 class DevEndpointCustomLibraries {
   /// The paths to one or more Python libraries in an Amazon Simple Storage
   /// Service (Amazon S3) bucket that should be loaded in your `DevEndpoint`.
@@ -4041,6 +4095,7 @@ class DevEndpointCustomLibraries {
   });
 }
 
+/// Specifies an Amazon DynamoDB table to crawl.
 class DynamoDBTarget {
   /// The name of the DynamoDB table to crawl.
   final String path;
@@ -4051,6 +4106,8 @@ class DynamoDBTarget {
   static DynamoDBTarget fromJson(Map<String, dynamic> json) => DynamoDBTarget();
 }
 
+/// An edge represents a directed connection between two AWS Glue components
+/// which are part of the workflow the edge belongs to.
 class Edge {
   /// The unique of the node within the workflow where the edge starts.
   final String sourceId;
@@ -4065,6 +4122,7 @@ class Edge {
   static Edge fromJson(Map<String, dynamic> json) => Edge();
 }
 
+/// Specifies the encryption-at-rest configuration for the Data Catalog.
 class EncryptionAtRest {
   /// The encryption-at-rest mode for encrypting Data Catalog data.
   final String catalogEncryptionMode;
@@ -4080,6 +4138,7 @@ class EncryptionAtRest {
       EncryptionAtRest();
 }
 
+/// Specifies an encryption configuration.
 class EncryptionConfiguration {
   /// The encryption configuration for Amazon Simple Storage Service (Amazon S3)
   /// data.
@@ -4100,6 +4159,7 @@ class EncryptionConfiguration {
       EncryptionConfiguration();
 }
 
+/// Contains details about an error.
 class ErrorDetail {
   /// The code associated with this error.
   final String errorCode;
@@ -4114,6 +4174,8 @@ class ErrorDetail {
   static ErrorDetail fromJson(Map<String, dynamic> json) => ErrorDetail();
 }
 
+/// Evaluation metrics provide an estimate of the quality of your machine
+/// learning transform.
 class EvaluationMetrics {
   /// The type of machine learning transform.
   final String transformType;
@@ -4129,6 +4191,7 @@ class EvaluationMetrics {
       EvaluationMetrics();
 }
 
+/// An execution property of a job.
 class ExecutionProperty {
   /// The maximum number of concurrent runs allowed for the job. The default is
   /// 1. An error is returned when this threshold is reached. The maximum value
@@ -4142,6 +4205,7 @@ class ExecutionProperty {
       ExecutionProperty();
 }
 
+/// Specifies configuration properties for an exporting labels task run.
 class ExportLabelsTaskRunProperties {
   /// The Amazon Simple Storage Service (Amazon S3) path where you will export
   /// the labels.
@@ -4154,44 +4218,53 @@ class ExportLabelsTaskRunProperties {
       ExportLabelsTaskRunProperties();
 }
 
+/// The evaluation metrics for the find matches algorithm. The quality of your
+/// machine learning transform is measured by getting your transform to predict
+/// some matches and comparing the results to known matches from the same
+/// dataset. The quality metrics are based on a subset of your data, so they are
+/// not precise.
 class FindMatchesMetrics {
   /// The area under the precision/recall curve (AUPRC) is a single number
   /// measuring the overall quality of the transform, that is independent of the
   /// choice made for precision vs. recall. Higher values indicate that you have
   /// a more attractive precision vs. recall tradeoff.
   ///
-  /// For more information, see [Precision and
-  /// recall](https://en.wikipedia.org/wiki/Precision_and_recall) in Wikipedia.
+  /// For more information, see
+  /// [Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
+  /// in Wikipedia.
   final double areaUnderPRCurve;
 
   /// The precision metric indicates when often your transform is correct when
   /// it predicts a match. Specifically, it measures how well the transform
   /// finds true positives from the total true positives possible.
   ///
-  /// For more information, see [Precision and
-  /// recall](https://en.wikipedia.org/wiki/Precision_and_recall) in Wikipedia.
+  /// For more information, see
+  /// [Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
+  /// in Wikipedia.
   final double precision;
 
   /// The recall metric indicates that for an actual match, how often your
   /// transform predicts the match. Specifically, it measures how well the
   /// transform finds true positives from the total records in the source data.
   ///
-  /// For more information, see [Precision and
-  /// recall](https://en.wikipedia.org/wiki/Precision_and_recall) in Wikipedia.
+  /// For more information, see
+  /// [Precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall)
+  /// in Wikipedia.
   final double recall;
 
   /// The maximum F1 metric indicates the transform's accuracy between 0 and 1,
   /// where 1 is the best accuracy.
   ///
-  /// For more information, see [F1
-  /// score](https://en.wikipedia.org/wiki/F1_score) in Wikipedia.
+  /// For more information, see
+  /// [F1 score](https://en.wikipedia.org/wiki/F1_score) in Wikipedia.
   final double f1;
 
   /// The confusion matrix shows you what your transform is predicting
   /// accurately and what types of errors it is making.
   ///
-  /// For more information, see [Confusion
-  /// matrix](https://en.wikipedia.org/wiki/Confusion_matrix) in Wikipedia.
+  /// For more information, see
+  /// [Confusion matrix](https://en.wikipedia.org/wiki/Confusion_matrix) in
+  /// Wikipedia.
   final ConfusionMatrix confusionMatrix;
 
   FindMatchesMetrics({
@@ -4205,6 +4278,7 @@ class FindMatchesMetrics {
       FindMatchesMetrics();
 }
 
+/// The parameters to configure the find matches transform.
 class FindMatchesParameters {
   /// The name of a column that uniquely identifies rows in the source table.
   /// Used to help identify matching records.
@@ -4261,6 +4335,7 @@ class FindMatchesParameters {
       FindMatchesParameters();
 }
 
+/// Specifies configuration properties for a Find Matches task run.
 class FindMatchesTaskRunProperties {
   /// The job ID for the Find Matches task run.
   final String jobId;
@@ -4328,6 +4403,8 @@ class GetConnectionResponse {
       GetConnectionResponse();
 }
 
+/// Filters the connection definitions that are returned by the `GetConnections`
+/// API operation.
 class GetConnectionsFilter {
   /// A criteria string that must match the criteria recorded in the connection
   /// definition for that connection definition to be returned.
@@ -4652,8 +4729,8 @@ class GetMLTransformResponse {
   /// task runs for this transform. You can allocate from 2 to 100 DPUs; the
   /// default is 10. A DPU is a relative measure of processing power that
   /// consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-  /// information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// When the `WorkerType` field is set to a value other than `Standard`, the
   /// `MaxCapacity` field is set automatically and becomes read-only.
@@ -4994,6 +5071,8 @@ class GetWorkflowRunsResponse {
       GetWorkflowRunsResponse();
 }
 
+/// The database and table in the AWS Glue Data Catalog that is used for input
+/// or output data.
 class GlueTable {
   /// A database name in the AWS Glue Data Catalog.
   final String databaseName;
@@ -5016,6 +5095,7 @@ class GlueTable {
   static GlueTable fromJson(Map<String, dynamic> json) => GlueTable();
 }
 
+/// A classifier that uses `grok` patterns.
 class GrokClassifier {
   /// The name of the classifier.
   final String name;
@@ -5034,13 +5114,13 @@ class GrokClassifier {
   final BigInt version;
 
   /// The grok pattern applied to a data store by this classifier. For more
-  /// information, see built-in patterns in [Writing Custom
-  /// Classifiers](http://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html).
+  /// information, see built-in patterns in
+  /// [Writing Custom Classifiers](http://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html).
   final String grokPattern;
 
   /// Optional custom grok patterns defined by this classifier. For more
-  /// information, see custom patterns in [Writing Custom
-  /// Classifiers](http://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html).
+  /// information, see custom patterns in
+  /// [Writing Custom Classifiers](http://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html).
   final String customPatterns;
 
   GrokClassifier({
@@ -5061,6 +5141,7 @@ class ImportCatalogToGlueResponse {
       ImportCatalogToGlueResponse();
 }
 
+/// Specifies configuration properties for an importing labels task run.
 class ImportLabelsTaskRunProperties {
   /// The Amazon Simple Storage Service (Amazon S3) path from where you will
   /// import the labels.
@@ -5077,6 +5158,7 @@ class ImportLabelsTaskRunProperties {
       ImportLabelsTaskRunProperties();
 }
 
+/// Specifies a JDBC data store to crawl.
 class JdbcTarget {
   /// The name of the connection to use to connect to the JDBC target.
   final String connectionName;
@@ -5085,8 +5167,8 @@ class JdbcTarget {
   final String path;
 
   /// A list of glob patterns used to exclude from the crawl. For more
-  /// information, see [Catalog Tables with a
-  /// Crawler](http://docs.aws.amazon.com/glue/latest/dg/add-crawler.html).
+  /// information, see
+  /// [Catalog Tables with a Crawler](http://docs.aws.amazon.com/glue/latest/dg/add-crawler.html).
   final List<String> exclusions;
 
   JdbcTarget({
@@ -5097,6 +5179,7 @@ class JdbcTarget {
   static JdbcTarget fromJson(Map<String, dynamic> json) => JdbcTarget();
 }
 
+/// Specifies a job definition.
 class Job {
   /// The name you assign to this job definition.
   final String name;
@@ -5130,13 +5213,13 @@ class Job {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own Job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   final Map<String, String> defaultArguments;
 
@@ -5151,8 +5234,8 @@ class Job {
   /// The number of AWS Glue data processing units (DPUs) allocated to runs of
   /// this job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is
   /// a relative measure of processing power that consists of 4 vCPUs of compute
-  /// capacity and 16 GB of memory. For more information, see the [AWS Glue
-  /// pricing page](https://aws.amazon.com/glue/pricing/).
+  /// capacity and 16 GB of memory. For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   final int allocatedCapacity;
 
   /// The job timeout in minutes. This is the maximum time that a job run can
@@ -5163,8 +5246,8 @@ class Job {
   /// The number of AWS Glue data processing units (DPUs) that can be allocated
   /// when this job runs. A DPU is a relative measure of processing power that
   /// consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-  /// information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
   ///
@@ -5213,9 +5296,9 @@ class Job {
   /// of type Spark.
   ///
   /// For more information about the available AWS Glue versions and
-  /// corresponding Spark and Python versions, see [Glue
-  /// version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in the
-  /// developer guide.
+  /// corresponding Spark and Python versions, see
+  /// [Glue version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in
+  /// the developer guide.
   ///
   /// Jobs that are created without specifying a Glue version default to Glue
   /// 0.9.
@@ -5245,6 +5328,7 @@ class Job {
   static Job fromJson(Map<String, dynamic> json) => Job();
 }
 
+/// Defines a point that a job can resume processing.
 class JobBookmarkEntry {
   /// The name of the job in question.
   final String jobName;
@@ -5280,6 +5364,7 @@ class JobBookmarkEntry {
       JobBookmarkEntry();
 }
 
+/// Specifies how job bookmark data should be encrypted.
 class JobBookmarksEncryption {
   /// The encryption mode to use for job bookmarks data.
   final String jobBookmarksEncryptionMode;
@@ -5296,6 +5381,7 @@ class JobBookmarksEncryption {
       JobBookmarksEncryption();
 }
 
+/// Specifies code executed when a job is run.
 class JobCommand {
   /// The name of the job command. For an Apache Spark ETL job, this must be
   /// `glueetl`. For a Python shell job, it must be `pythonshell`.
@@ -5317,6 +5403,7 @@ class JobCommand {
   static JobCommand fromJson(Map<String, dynamic> json) => JobCommand();
 }
 
+/// The details of a Job node present in the workflow.
 class JobNodeDetails {
   /// The information for the job runs represented by the job node.
   final List<JobRun> jobRuns;
@@ -5327,6 +5414,7 @@ class JobNodeDetails {
   static JobNodeDetails fromJson(Map<String, dynamic> json) => JobNodeDetails();
 }
 
+/// Contains information about a job run.
 class JobRun {
   /// The ID of this job run.
   final String id;
@@ -5363,13 +5451,13 @@ class JobRun {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   final Map<String, String> arguments;
 
@@ -5384,8 +5472,8 @@ class JobRun {
   /// The number of AWS Glue data processing units (DPUs) allocated to this
   /// JobRun. From 2 to 100 DPUs can be allocated; the default is 10. A DPU is a
   /// relative measure of processing power that consists of 4 vCPUs of compute
-  /// capacity and 16 GB of memory. For more information, see the [AWS Glue
-  /// pricing page](https://aws.amazon.com/glue/pricing/).
+  /// capacity and 16 GB of memory. For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   final int allocatedCapacity;
 
   /// The amount of time (in seconds) that the job run consumed resources.
@@ -5400,8 +5488,8 @@ class JobRun {
   /// The number of AWS Glue data processing units (DPUs) that can be allocated
   /// when this job runs. A DPU is a relative measure of processing power that
   /// consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-  /// information, see the [AWS Glue pricing
-  /// page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
+  /// information, see the
+  /// [AWS Glue pricing page](https://docs.aws.amazon.com/https:/aws.amazon.com/glue/pricing/).
   ///
   /// Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
   ///
@@ -5456,9 +5544,9 @@ class JobRun {
   /// of type Spark.
   ///
   /// For more information about the available AWS Glue versions and
-  /// corresponding Spark and Python versions, see [Glue
-  /// version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in the
-  /// developer guide.
+  /// corresponding Spark and Python versions, see
+  /// [Glue version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in
+  /// the developer guide.
   ///
   /// Jobs that are created without specifying a Glue version default to Glue
   /// 0.9.
@@ -5491,6 +5579,8 @@ class JobRun {
   static JobRun fromJson(Map<String, dynamic> json) => JobRun();
 }
 
+/// Specifies information used to update an existing job definition. The
+/// previous job definition is completely overwritten by this information.
 class JobUpdate {
   /// Description of the job being defined.
   final String description;
@@ -5515,13 +5605,13 @@ class JobUpdate {
   /// consumes, as well as arguments that AWS Glue itself consumes.
   ///
   /// For information about how to specify and consume your own Job arguments,
-  /// see the [Calling AWS Glue APIs in
-  /// Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
+  /// see the
+  /// [Calling AWS Glue APIs in Python](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-calling.html)
   /// topic in the developer guide.
   ///
   /// For information about the key-value pairs that AWS Glue consumes to set up
-  /// your job, see the [Special Parameters Used by AWS
-  /// Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
+  /// your job, see the
+  /// [Special Parameters Used by AWS Glue](https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html)
   /// topic in the developer guide.
   final Map<String, String> defaultArguments;
 
@@ -5536,8 +5626,8 @@ class JobUpdate {
   /// The number of AWS Glue data processing units (DPUs) to allocate to this
   /// job. You can allocate from 2 to 100 DPUs; the default is 10. A DPU is a
   /// relative measure of processing power that consists of 4 vCPUs of compute
-  /// capacity and 16 GB of memory. For more information, see the [AWS Glue
-  /// pricing page](https://aws.amazon.com/glue/pricing/).
+  /// capacity and 16 GB of memory. For more information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   final int allocatedCapacity;
 
   /// The job timeout in minutes. This is the maximum time that a job run can
@@ -5548,8 +5638,8 @@ class JobUpdate {
   /// The number of AWS Glue data processing units (DPUs) that can be allocated
   /// when this job runs. A DPU is a relative measure of processing power that
   /// consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-  /// information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// Do not set `Max Capacity` if using `WorkerType` and `NumberOfWorkers`.
   ///
@@ -5598,9 +5688,9 @@ class JobUpdate {
   /// of type Spark.
   ///
   /// For more information about the available AWS Glue versions and
-  /// corresponding Spark and Python versions, see [Glue
-  /// version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in the
-  /// developer guide.
+  /// corresponding Spark and Python versions, see
+  /// [Glue version](https://docs.aws.amazon.com/glue/latest/dg/add-job.html) in
+  /// the developer guide.
   final String glueVersion;
 
   JobUpdate({
@@ -5623,6 +5713,7 @@ class JobUpdate {
   });
 }
 
+/// A classifier for `JSON` content.
 class JsonClassifier {
   /// The name of the classifier.
   final String name;
@@ -5637,9 +5728,8 @@ class JsonClassifier {
   final BigInt version;
 
   /// A `JsonPath` string defining the JSON data for the classifier to classify.
-  /// AWS Glue supports a subset of `JsonPath`, as described in [Writing
-  /// JsonPath Custom
-  /// Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
+  /// AWS Glue supports a subset of `JsonPath`, as described in
+  /// [Writing JsonPath Custom Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
   final String jsonPath;
 
   JsonClassifier({
@@ -5652,6 +5742,7 @@ class JsonClassifier {
   static JsonClassifier fromJson(Map<String, dynamic> json) => JsonClassifier();
 }
 
+/// Specifies configuration properties for a labeling set generation task run.
 class LabelingSetGenerationTaskRunProperties {
   /// The Amazon Simple Storage Service (Amazon S3) path where you will generate
   /// the labeling set.
@@ -5665,6 +5756,7 @@ class LabelingSetGenerationTaskRunProperties {
       LabelingSetGenerationTaskRunProperties();
 }
 
+/// Status and error information about the most recent crawl.
 class LastCrawlInfo {
   /// Status of the last crawl.
   final String status;
@@ -5777,6 +5869,7 @@ class ListWorkflowsResponse {
       ListWorkflowsResponse();
 }
 
+/// The location of resources.
 class Location {
   /// A JDBC location.
   final List<CodeGenNodeArg> jdbc;
@@ -5794,6 +5887,7 @@ class Location {
   });
 }
 
+/// A structure for a machine learning transform.
 class MLTransform {
   /// The unique transform ID that is generated for the machine learning
   /// transform. The ID is guaranteed to be unique and does not change.
@@ -5851,8 +5945,8 @@ class MLTransform {
   /// task runs for this transform. You can allocate from 2 to 100 DPUs; the
   /// default is 10. A DPU is a relative measure of processing power that
   /// consists of 4 vCPUs of compute capacity and 16 GB of memory. For more
-  /// information, see the [AWS Glue pricing
-  /// page](https://aws.amazon.com/glue/pricing/).
+  /// information, see the
+  /// [AWS Glue pricing page](https://aws.amazon.com/glue/pricing/).
   ///
   /// When the `WorkerType` field is set to a value other than `Standard`, the
   /// `MaxCapacity` field is set automatically and becomes read-only.
@@ -5904,6 +5998,7 @@ class MLTransform {
   static MLTransform fromJson(Map<String, dynamic> json) => MLTransform();
 }
 
+/// Defines a mapping.
 class MappingEntry {
   /// The name of the source table.
   final String sourceTable;
@@ -5934,6 +6029,8 @@ class MappingEntry {
   static MappingEntry fromJson(Map<String, dynamic> json) => MappingEntry();
 }
 
+/// A node represents an AWS Glue component like Trigger, Job etc. which is part
+/// of a workflow.
 class Node {
   /// The type of AWS Glue component represented by the node.
   final String type;
@@ -5964,6 +6061,7 @@ class Node {
   static Node fromJson(Map<String, dynamic> json) => Node();
 }
 
+/// Specifies configuration properties of a notification.
 class NotificationProperty {
   /// After a job run starts, the number of minutes to wait before sending a job
   /// run delay notification.
@@ -5976,6 +6074,7 @@ class NotificationProperty {
       NotificationProperty();
 }
 
+/// Specifies the sort order of a sorted column.
 class Order {
   /// The name of the column.
   final String column;
@@ -5991,6 +6090,7 @@ class Order {
   static Order fromJson(Map<String, dynamic> json) => Order();
 }
 
+/// Represents a slice of table data.
 class Partition {
   /// The values of the partition.
   final List<String> values;
@@ -6030,6 +6130,7 @@ class Partition {
   static Partition fromJson(Map<String, dynamic> json) => Partition();
 }
 
+/// Contains information about a partition error.
 class PartitionError {
   /// The values that define the partition.
   final List<String> partitionValues;
@@ -6044,6 +6145,7 @@ class PartitionError {
   static PartitionError fromJson(Map<String, dynamic> json) => PartitionError();
 }
 
+/// The structure used to create and update a partition.
 class PartitionInput {
   /// The values of the partition. Although this parameter is not required by
   /// the SDK, you must specify this parameter for a valid input.
@@ -6071,6 +6173,7 @@ class PartitionInput {
   });
 }
 
+/// Contains a list of values defining partitions.
 class PartitionValueList {
   /// The list of values.
   final List<String> values;
@@ -6082,6 +6185,7 @@ class PartitionValueList {
       PartitionValueList();
 }
 
+/// Specifies the physical requirements for a connection.
 class PhysicalConnectionRequirements {
   /// The subnet ID used by the connection.
   final String subnetId;
@@ -6103,6 +6207,8 @@ class PhysicalConnectionRequirements {
       PhysicalConnectionRequirements();
 }
 
+/// A job run that was used in the predicate of a conditional trigger that
+/// triggered this job run.
 class Predecessor {
   /// The name of the job definition used by the predecessor job run.
   final String jobName;
@@ -6117,6 +6223,7 @@ class Predecessor {
   static Predecessor fromJson(Map<String, dynamic> json) => Predecessor();
 }
 
+/// Defines the predicate of the trigger, which determines when it fires.
 class Predicate {
   /// An optional field if only one condition is listed. If multiple conditions
   /// are listed, then this field is required.
@@ -6132,6 +6239,7 @@ class Predicate {
   static Predicate fromJson(Map<String, dynamic> json) => Predicate();
 }
 
+/// Permissions granted to a principal.
 class PrincipalPermissions {
   /// The principal who is granted permissions.
   final DataLakePrincipal principal;
@@ -6147,6 +6255,7 @@ class PrincipalPermissions {
       PrincipalPermissions();
 }
 
+/// Defines a property predicate.
 class PropertyPredicate {
   /// The key of the property.
   final String key;
@@ -6200,6 +6309,7 @@ class ResetJobBookmarkResponse {
       ResetJobBookmarkResponse();
 }
 
+/// The URIs for function resources.
 class ResourceUri {
   /// The type of the resource.
   final String resourceType;
@@ -6214,6 +6324,8 @@ class ResourceUri {
   static ResourceUri fromJson(Map<String, dynamic> json) => ResourceUri();
 }
 
+/// Specifies how Amazon Simple Storage Service (Amazon S3) data should be
+/// encrypted.
 class S3Encryption {
   /// The encryption mode to use for Amazon S3 data.
   final String s3EncryptionMode;
@@ -6229,13 +6341,14 @@ class S3Encryption {
   static S3Encryption fromJson(Map<String, dynamic> json) => S3Encryption();
 }
 
+/// Specifies a data store in Amazon Simple Storage Service (Amazon S3).
 class S3Target {
   /// The path to the Amazon S3 target.
   final String path;
 
   /// A list of glob patterns used to exclude from the crawl. For more
-  /// information, see [Catalog Tables with a
-  /// Crawler](http://docs.aws.amazon.com/glue/latest/dg/add-crawler.html).
+  /// information, see
+  /// [Catalog Tables with a Crawler](http://docs.aws.amazon.com/glue/latest/dg/add-crawler.html).
   final List<String> exclusions;
 
   S3Target({
@@ -6245,10 +6358,11 @@ class S3Target {
   static S3Target fromJson(Map<String, dynamic> json) => S3Target();
 }
 
+/// A scheduling object using a `cron` statement to schedule an event.
 class Schedule {
   /// A `cron` expression used to specify the schedule. For more information,
-  /// see [Time-Based Schedules for Jobs and
-  /// Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// see
+  /// [Time-Based Schedules for Jobs and Crawlers](http://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, specify `cron(15 12
   /// * * ? *)`.
   final String scheduleExpression;
@@ -6263,6 +6377,7 @@ class Schedule {
   static Schedule fromJson(Map<String, dynamic> json) => Schedule();
 }
 
+/// A policy that specifies update and deletion behaviors for the crawler.
 class SchemaChangePolicy {
   /// The update behavior when the crawler finds a changed schema.
   final String updateBehavior;
@@ -6278,6 +6393,9 @@ class SchemaChangePolicy {
       SchemaChangePolicy();
 }
 
+/// A key-value pair representing a column and data type that this transform can
+/// run against. The `Schema` parameter of the `MLTransform` may contain up to
+/// 100 of these structures.
 class SchemaColumn {
   /// The name of the column.
   final String name;
@@ -6308,6 +6426,7 @@ class SearchTablesResponse {
       SearchTablesResponse();
 }
 
+/// Specifies a security configuration.
 class SecurityConfiguration {
   /// The name of the security configuration.
   final String name;
@@ -6327,6 +6446,8 @@ class SecurityConfiguration {
       SecurityConfiguration();
 }
 
+/// Defines a non-overlapping region of a table's partitions, allowing multiple
+/// requests to be executed in parallel.
 class Segment {
   /// The zero-based index number of the segment. For example, if the total
   /// number of segments is 4, `SegmentNumber` values range from 0 through 3.
@@ -6341,6 +6462,8 @@ class Segment {
   });
 }
 
+/// Information about a serialization/deserialization program (SerDe) that
+/// serves as an extractor and loader.
 class SerDeInfo {
   /// Name of the SerDe.
   final String name;
@@ -6360,6 +6483,8 @@ class SerDeInfo {
   static SerDeInfo fromJson(Map<String, dynamic> json) => SerDeInfo();
 }
 
+/// Specifies skewed values in a table. Skewed values are those that occur with
+/// very high frequency.
 class SkewedInfo {
   /// A list of names of columns that contain skewed values.
   final List<String> skewedColumnNames;
@@ -6502,6 +6627,7 @@ class StopTriggerResponse {
       StopTriggerResponse();
 }
 
+/// Describes the physical storage of table data.
 class StorageDescriptor {
   /// A list of the `Columns` in the table.
   final List<Column> columns;
@@ -6563,6 +6689,7 @@ class StorageDescriptor {
       StorageDescriptor();
 }
 
+/// Represents a collection of related data organized in columns and rows.
 class Table {
   /// The table name. For Hive compatibility, this must be entirely lowercase.
   final String name;
@@ -6604,7 +6731,7 @@ class Table {
   /// `partitionKeys`, you must at least set the value of `partitionKeys` to an
   /// empty list. For example:
   ///
-  ///  `"PartitionKeys": \[\]`
+  ///  `"PartitionKeys": []`
   final List<Column> partitionKeys;
 
   /// If the table is a view, the original text of the view; otherwise `null`.
@@ -6647,6 +6774,7 @@ class Table {
   static Table fromJson(Map<String, dynamic> json) => Table();
 }
 
+/// An error record for table operations.
 class TableError {
   /// The name of the table. For Hive compatibility, this must be entirely
   /// lowercase.
@@ -6662,6 +6790,7 @@ class TableError {
   static TableError fromJson(Map<String, dynamic> json) => TableError();
 }
 
+/// A structure used to define a table.
 class TableInput {
   /// The table name. For Hive compatibility, this is folded to lowercase when
   /// it is stored.
@@ -6693,7 +6822,7 @@ class TableInput {
   /// `partitionKeys`, you must at least set the value of `partitionKeys` to an
   /// empty list. For example:
   ///
-  ///  `"PartitionKeys": \[\]`
+  ///  `"PartitionKeys": []`
   final List<Column> partitionKeys;
 
   /// If the table is a view, the original text of the view; otherwise `null`.
@@ -6724,6 +6853,7 @@ class TableInput {
   });
 }
 
+/// Specifies a version of a table.
 class TableVersion {
   /// The table in question.
   final Table table;
@@ -6739,6 +6869,7 @@ class TableVersion {
   static TableVersion fromJson(Map<String, dynamic> json) => TableVersion();
 }
 
+/// An error record for table-version operations.
 class TableVersionError {
   /// The name of the table in question.
   final String tableName;
@@ -6765,6 +6896,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// The sampling parameters that are associated with the machine learning
+/// transform.
 class TaskRun {
   /// The unique identifier for the transform.
   final String transformId;
@@ -6812,6 +6945,8 @@ class TaskRun {
   static TaskRun fromJson(Map<String, dynamic> json) => TaskRun();
 }
 
+/// The criteria that are used to filter the task runs for the machine learning
+/// transform.
 class TaskRunFilterCriteria {
   /// The type of task run.
   final String taskRunType;
@@ -6833,6 +6968,7 @@ class TaskRunFilterCriteria {
   });
 }
 
+/// The configuration properties for the task run.
 class TaskRunProperties {
   /// The type of task run.
   final String taskType;
@@ -6861,6 +6997,8 @@ class TaskRunProperties {
       TaskRunProperties();
 }
 
+/// The sorting criteria that are used to sort the list of task runs for the
+/// machine learning transform.
 class TaskRunSortCriteria {
   /// The column to be used to sort the list of task runs for the machine
   /// learning transform.
@@ -6876,6 +7014,7 @@ class TaskRunSortCriteria {
   });
 }
 
+/// The criteria used to filter the machine learning transforms.
 class TransformFilterCriteria {
   /// A unique transform name that is used to filter the machine learning
   /// transforms.
@@ -6920,12 +7059,13 @@ class TransformFilterCriteria {
   });
 }
 
+/// The algorithm-specific parameters that are associated with the machine
+/// learning transform.
 class TransformParameters {
   /// The type of machine learning transform.
   ///
   /// For information about the types of machine learning transforms, see
-  /// [Creating Machine Learning
-  /// Transforms](http://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html).
+  /// [Creating Machine Learning Transforms](http://docs.aws.amazon.com/glue/latest/dg/add-job-machine-learning-transform.html).
   final String transformType;
 
   /// The parameters for the find matches algorithm.
@@ -6939,6 +7079,8 @@ class TransformParameters {
       TransformParameters();
 }
 
+/// The sorting criteria that are associated with the machine learning
+/// transform.
 class TransformSortCriteria {
   /// The column to be used in the sorting criteria that are associated with the
   /// machine learning transform.
@@ -6954,6 +7096,7 @@ class TransformSortCriteria {
   });
 }
 
+/// Information about a specific trigger.
 class Trigger {
   /// The name of the trigger.
   final String name;
@@ -6973,9 +7116,8 @@ class Trigger {
   /// A description of this trigger.
   final String description;
 
-  /// A `cron` expression used to specify the schedule (see [Time-Based
-  /// Schedules for Jobs and
-  /// Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// A `cron` expression used to specify the schedule (see
+  /// [Time-Based Schedules for Jobs and Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, you would specify:
   /// `cron(15 12 * * ? *)`.
   final String schedule;
@@ -7000,6 +7142,7 @@ class Trigger {
   static Trigger fromJson(Map<String, dynamic> json) => Trigger();
 }
 
+/// The details of a Trigger node present in the workflow.
 class TriggerNodeDetails {
   /// The information of the trigger represented by the trigger node.
   final Trigger trigger;
@@ -7011,6 +7154,8 @@ class TriggerNodeDetails {
       TriggerNodeDetails();
 }
 
+/// A structure used to provide information used to update a trigger. This
+/// object updates the previous trigger definition by overwriting it completely.
 class TriggerUpdate {
   /// Reserved for future use.
   final String name;
@@ -7018,9 +7163,8 @@ class TriggerUpdate {
   /// A description of this trigger.
   final String description;
 
-  /// A `cron` expression used to specify the schedule (see [Time-Based
-  /// Schedules for Jobs and
-  /// Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
+  /// A `cron` expression used to specify the schedule (see
+  /// [Time-Based Schedules for Jobs and Crawlers](https://docs.aws.amazon.com/glue/latest/dg/monitor-data-warehouse-schedule.html).
   /// For example, to run something every day at 12:15 UTC, you would specify:
   /// `cron(15 12 * * ? *)`.
   final String schedule;
@@ -7070,6 +7214,7 @@ class UpdateCrawlerScheduleResponse {
       UpdateCrawlerScheduleResponse();
 }
 
+/// Specifies a custom CSV classifier to be updated.
 class UpdateCsvClassifierRequest {
   /// The name of the classifier.
   final String name;
@@ -7117,6 +7262,7 @@ class UpdateDevEndpointResponse {
       UpdateDevEndpointResponse();
 }
 
+/// Specifies a grok classifier to update when passed to `UpdateClassifier`.
 class UpdateGrokClassifierRequest {
   /// The name of the `GrokClassifier`.
   final String name;
@@ -7150,14 +7296,14 @@ class UpdateJobResponse {
       UpdateJobResponse();
 }
 
+/// Specifies a JSON classifier to be updated.
 class UpdateJsonClassifierRequest {
   /// The name of the classifier.
   final String name;
 
   /// A `JsonPath` string defining the JSON data for the classifier to classify.
-  /// AWS Glue supports a subset of `JsonPath`, as described in [Writing
-  /// JsonPath Custom
-  /// Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
+  /// AWS Glue supports a subset of `JsonPath`, as described in
+  /// [Writing JsonPath Custom Classifiers](https://docs.aws.amazon.com/glue/latest/dg/custom-classifier.html#custom-classifier-json).
   final String jsonPath;
 
   UpdateJsonClassifierRequest({
@@ -7218,6 +7364,7 @@ class UpdateWorkflowResponse {
       UpdateWorkflowResponse();
 }
 
+/// Specifies an XML classifier to be updated.
 class UpdateXmlClassifierRequest {
   /// The name of the classifier.
   final String name;
@@ -7228,9 +7375,8 @@ class UpdateXmlClassifierRequest {
   /// The XML tag designating the element that contains each record in an XML
   /// document being parsed. This cannot identify a self-closing element (closed
   /// by `/>`). An empty row element that contains only attributes can be parsed
-  /// as long as it ends with a closing tag (for example, `<row item\_a="A"
-  /// item\_b="B"></row>` is okay, but `<row item\_a="A" item\_b="B" />` is
-  /// not).
+  /// as long as it ends with a closing tag (for example, `<row item_a="A"
+  /// item_b="B"></row>` is okay, but `<row item_a="A" item_b="B" />` is not).
   final String rowTag;
 
   UpdateXmlClassifierRequest({
@@ -7240,6 +7386,8 @@ class UpdateXmlClassifierRequest {
   });
 }
 
+/// Represents the equivalent of a Hive user-defined function (`UDF`)
+/// definition.
 class UserDefinedFunction {
   /// The name of the function.
   final String functionName;
@@ -7271,6 +7419,7 @@ class UserDefinedFunction {
       UserDefinedFunction();
 }
 
+/// A structure used to create or update a user-defined function.
 class UserDefinedFunctionInput {
   /// The name of the function.
   final String functionName;
@@ -7296,6 +7445,8 @@ class UserDefinedFunctionInput {
   });
 }
 
+/// A workflow represents a flow in which AWS Glue components should be executed
+/// to complete a logical task.
 class Workflow {
   /// The name of the workflow representing the flow.
   final String name;
@@ -7332,6 +7483,9 @@ class Workflow {
   static Workflow fromJson(Map<String, dynamic> json) => Workflow();
 }
 
+/// A workflow graph represents the complete workflow containing all the AWS
+/// Glue components present in the workflow and all the directed connections
+/// between them.
 class WorkflowGraph {
   /// A list of the the AWS Glue components belong to the workflow represented
   /// as nodes.
@@ -7348,6 +7502,8 @@ class WorkflowGraph {
   static WorkflowGraph fromJson(Map<String, dynamic> json) => WorkflowGraph();
 }
 
+/// A workflow run is an execution of a workflow providing all the runtime
+/// information.
 class WorkflowRun {
   /// Name of the workflow which was executed.
   final String name;
@@ -7387,6 +7543,7 @@ class WorkflowRun {
   static WorkflowRun fromJson(Map<String, dynamic> json) => WorkflowRun();
 }
 
+/// Workflow run statistics provides statistics about the workflow run.
 class WorkflowRunStatistics {
   /// Total number of Actions in the workflow run.
   final int totalActions;
@@ -7418,6 +7575,7 @@ class WorkflowRunStatistics {
       WorkflowRunStatistics();
 }
 
+/// A classifier for `XML` content.
 class XmlClassifier {
   /// The name of the classifier.
   final String name;
@@ -7437,9 +7595,8 @@ class XmlClassifier {
   /// The XML tag designating the element that contains each record in an XML
   /// document being parsed. This can't identify a self-closing element (closed
   /// by `/>`). An empty row element that contains only attributes can be parsed
-  /// as long as it ends with a closing tag (for example, `<row item\_a="A"
-  /// item\_b="B"></row>` is okay, but `<row item\_a="A" item\_b="B" />` is
-  /// not).
+  /// as long as it ends with a closing tag (for example, `<row item_a="A"
+  /// item_b="B"></row>` is okay, but `<row item_a="A" item_b="B" />` is not).
   final String rowTag;
 
   XmlClassifier({

@@ -40,8 +40,8 @@ class BatchApi {
   ///
   /// In a managed compute environment, AWS Batch manages the capacity and
   /// instance types of the compute resources within the environment. This is
-  /// based on the compute resource specification that you define or the [launch
-  /// template](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html)
+  /// based on the compute resource specification that you define or the
+  /// [launch template](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html)
   /// that you specify when you create the compute environment. You can choose
   /// to use Amazon EC2 On-Demand Instances or Spot Instances in your managed
   /// compute environment. You can optionally set a maximum price so that Spot
@@ -54,15 +54,13 @@ class BatchApi {
   /// resources. This provides more compute resource configuration options, such
   /// as using a custom AMI, but you must ensure that your AMI meets the Amazon
   /// ECS container instance AMI specification. For more information, see
-  /// [Container Instance
-  /// AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html)
+  /// [Container Instance AMIs](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container_instance_AMIs.html)
   /// in the _Amazon Elastic Container Service Developer Guide_. After you have
   /// created your unmanaged compute environment, you can use the
   /// DescribeComputeEnvironments operation to find the Amazon ECS cluster that
   /// is associated with it. Then, manually launch your container instances into
-  /// that Amazon ECS cluster. For more information, see [Launching an Amazon
-  /// ECS Container
-  /// Instance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html)
+  /// that Amazon ECS cluster. For more information, see
+  /// [Launching an Amazon ECS Container Instance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_container_instance.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///
@@ -87,8 +85,7 @@ class BatchApi {
   /// allowed.
   ///
   /// [type]: The type of the compute environment. For more information, see
-  /// [Compute
-  /// Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
+  /// [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
   /// in the _AWS Batch User Guide_.
   ///
   /// [state]: The state of the compute environment. If the state is `ENABLED`,
@@ -97,8 +94,8 @@ class BatchApi {
   ///
   /// [computeResources]: Details of the compute resources managed by the
   /// compute environment. This parameter is required for managed compute
-  /// environments. For more information, see [Compute
-  /// Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
+  /// environments. For more information, see
+  /// [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
   /// in the _AWS Batch User Guide_.
   ///
   /// [serviceRole]: The full Amazon Resource Name (ARN) of the IAM role that
@@ -382,8 +379,8 @@ class BatchApi {
   ///
   /// [nodeProperties]: An object with various properties specific to multi-node
   /// parallel jobs. If you specify node properties for a job, it becomes a
-  /// multi-node parallel job. For more information, see [Multi-node Parallel
-  /// Jobs](https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html)
+  /// multi-node parallel job. For more information, see
+  /// [Multi-node Parallel Jobs](https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html)
   /// in the _AWS Batch User Guide_. If the job definition's `type` parameter is
   /// `container`, then you must specify either `containerProperties` or
   /// `nodeProperties`.
@@ -398,8 +395,8 @@ class BatchApi {
   /// not finished. If a job is terminated due to a timeout, it is not retried.
   /// The minimum value for the timeout is 60 seconds. Any timeout configuration
   /// that is specified during a SubmitJob operation overrides the timeout
-  /// configuration defined here. For more information, see [Job
-  /// Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html)
+  /// configuration defined here. For more information, see
+  /// [Job Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   Future<RegisterJobDefinitionResponse> registerJobDefinition(
       {@required String jobDefinitionName,
@@ -425,14 +422,14 @@ class BatchApi {
   /// [arrayProperties]: The array properties for the submitted job, such as the
   /// size of the array. The array size can be between 2 and 10,000. If you
   /// specify array properties for a job, it becomes an array job. For more
-  /// information, see [Array
-  /// Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html)
+  /// information, see
+  /// [Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html)
   /// in the _AWS Batch User Guide_.
   ///
   /// [dependsOn]: A list of dependencies for the job. A job can depend upon a
   /// maximum of 20 jobs. You can specify a `SEQUENTIAL` type dependency without
   /// specifying a job ID for array jobs so that each child array job completes
-  /// sequentially, starting at index 0. You can also specify an `N\_TO\_N` type
+  /// sequentially, starting at index 0. You can also specify an `N_TO_N` type
   /// dependency with a job ID for array jobs. In that case, each index child of
   /// this job must wait for the corresponding index child of each dependency to
   /// complete before it can begin.
@@ -469,8 +466,8 @@ class BatchApi {
   /// retried. The minimum value for the timeout is 60 seconds. This
   /// configuration overrides any timeout configuration specified in the job
   /// definition. For array jobs, child jobs have the same timeout configuration
-  /// as the parent job. For more information, see [Job
-  /// Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html)
+  /// as the parent job. For more information, see
+  /// [Job Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/job_timeouts.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   Future<SubmitJobResponse> submitJob(
       {@required String jobName,
@@ -560,6 +557,7 @@ class BatchApi {
   }
 }
 
+/// An object representing an AWS Batch array job.
 class ArrayProperties {
   /// The size of the array job.
   final int size;
@@ -569,6 +567,7 @@ class ArrayProperties {
   });
 }
 
+/// An object representing the array properties of a job.
 class ArrayPropertiesDetail {
   /// A summary of the number of array job children in each available job
   /// status. This parameter is returned for parent array jobs.
@@ -591,6 +590,7 @@ class ArrayPropertiesDetail {
       ArrayPropertiesDetail();
 }
 
+/// An object representing the array properties of a job.
 class ArrayPropertiesSummary {
   /// The size of the array job. This parameter is returned for parent array
   /// jobs.
@@ -608,6 +608,8 @@ class ArrayPropertiesSummary {
       ArrayPropertiesSummary();
 }
 
+/// An object representing the details of a container that is part of a job
+/// attempt.
 class AttemptContainerDetail {
   /// The Amazon Resource Name (ARN) of the Amazon ECS container instance that
   /// hosts the job attempt.
@@ -646,6 +648,7 @@ class AttemptContainerDetail {
       AttemptContainerDetail();
 }
 
+/// An object representing a job attempt.
 class AttemptDetail {
   /// Details about the container in this job attempt.
   final AttemptContainerDetail container;
@@ -679,6 +682,7 @@ class CancelJobResponse {
       CancelJobResponse();
 }
 
+/// An object representing an AWS Batch compute environment.
 class ComputeEnvironmentDetail {
   /// The name of the compute environment.
   final String computeEnvironmentName;
@@ -738,6 +742,11 @@ class ComputeEnvironmentDetail {
       ComputeEnvironmentDetail();
 }
 
+/// The order in which compute environments are tried for job placement within a
+/// queue. Compute environments are tried in ascending order. For example, if
+/// two compute environments are associated with a job queue, the compute
+/// environment with a lower order integer value is tried for job placement
+/// first.
 class ComputeEnvironmentOrder {
   /// The order of the compute environment.
   final int order;
@@ -753,6 +762,7 @@ class ComputeEnvironmentOrder {
       ComputeEnvironmentOrder();
 }
 
+/// An object representing an AWS Batch compute resource.
 class ComputeResource {
   /// The type of compute environment: EC2 or SPOT.
   final String type;
@@ -780,8 +790,8 @@ class ComputeResource {
   final String imageId;
 
   /// The VPC subnets into which the compute resources are launched. For more
-  /// information, see [VPCs and
-  /// Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
+  /// information, see
+  /// [VPCs and Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
   /// in the _Amazon VPC User Guide_.
   final List<String> subnets;
 
@@ -797,9 +807,9 @@ class ComputeResource {
   /// compute environment. You can specify the short name or full Amazon
   /// Resource Name (ARN) of an instance profile. For example,
   /// `_ecsInstanceRole_`  or
-  /// `arn:aws:iam::_<aws\_account\_id>_:instance-profile/_ecsInstanceRole_` .
-  /// For more information, see [Amazon ECS Instance
-  /// Role](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html)
+  /// `arn:aws:iam::_<aws_account_id>_:instance-profile/_ecsInstanceRole_` . For
+  /// more information, see
+  /// [Amazon ECS Instance Role](https://docs.aws.amazon.com/batch/latest/userguide/instance_IAM_role.html)
   /// in the _AWS Batch User Guide_.
   final String instanceRole;
 
@@ -815,8 +825,8 @@ class ComputeResource {
   /// associate it with your compute resources. This keeps your multi-node
   /// parallel job on a logical grouping of instances within a single
   /// Availability Zone with high network flow potential. For more information,
-  /// see [Placement
-  /// Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
+  /// see
+  /// [Placement Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   final String placementGroup;
 
@@ -830,9 +840,8 @@ class ComputeResource {
   final int bidPercentage;
 
   /// The Amazon Resource Name (ARN) of the Amazon EC2 Spot Fleet IAM role
-  /// applied to a `SPOT` compute environment. For more information, see [Amazon
-  /// EC2 Spot Fleet
-  /// Role](https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html)
+  /// applied to a `SPOT` compute environment. For more information, see
+  /// [Amazon EC2 Spot Fleet Role](https://docs.aws.amazon.com/batch/latest/userguide/spot_fleet_IAM_role.html)
   /// in the _AWS Batch User Guide_.
   final String spotIamFleetRole;
 
@@ -840,8 +849,8 @@ class ComputeResource {
   /// resource parameters that you specify in a CreateComputeEnvironment API
   /// operation override the same parameters in the launch template. You must
   /// specify either the launch template ID or launch template name in the
-  /// request, but not both. For more information, see [Launch Template
-  /// Support](https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html)
+  /// request, but not both. For more information, see
+  /// [Launch Template Support](https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html)
   /// in the _AWS Batch User Guide_.
   final LaunchTemplateSpecification launchTemplate;
 
@@ -866,6 +875,8 @@ class ComputeResource {
       ComputeResource();
 }
 
+/// An object representing the attributes of a compute environment that can be
+/// updated.
 class ComputeResourceUpdate {
   /// The minimum number of EC2 vCPUs that an environment should maintain.
   final int minvCpus;
@@ -883,6 +894,7 @@ class ComputeResourceUpdate {
   });
 }
 
+/// An object representing the details of a container that is part of a job.
 class ContainerDetail {
   /// The image used to start the container.
   final String image;
@@ -991,6 +1003,7 @@ class ContainerDetail {
       ContainerDetail();
 }
 
+/// The overrides that should be sent to a container.
 class ContainerOverrides {
   /// The number of vCPUs to reserve for the container. This value overrides the
   /// value set in the job definition.
@@ -1035,17 +1048,20 @@ class ContainerOverrides {
   });
 }
 
+/// Container properties are used in job definitions to describe the container
+/// that is launched as part of a job.
 class ContainerProperties {
   /// The image used to start a container. This string is passed directly to the
   /// Docker daemon. Images in the Docker Hub registry are available by default.
   /// Other repositories are specified with  `_repository-url_/_image_:_tag_` .
   /// Up to 255 letters (uppercase and lowercase), numbers, hyphens,
   /// underscores, colons, periods, forward slashes, and number signs are
-  /// allowed. This parameter maps to `Image` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `IMAGE` parameter
-  /// of [docker run](https://docs.docker.com/engine/reference/run/).
+  /// allowed. This parameter maps to `Image` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `IMAGE` parameter of
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// *   Images in Amazon ECR repositories use the full registry and repository
   /// URI (for example,
@@ -1062,40 +1078,41 @@ class ContainerProperties {
   final String image;
 
   /// The number of vCPUs reserved for the container. This parameter maps to
-  /// `CpuShares` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--cpu-shares`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
-  /// Each vCPU is equivalent to 1,024 CPU shares. You must specify at least one
-  /// vCPU.
+  /// `CpuShares` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--cpu-shares` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). Each vCPU is
+  /// equivalent to 1,024 CPU shares. You must specify at least one vCPU.
   final int vcpus;
 
   /// The hard limit (in MiB) of memory to present to the container. If your
   /// container attempts to exceed the memory specified here, the container is
-  /// killed. This parameter maps to `Memory` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--memory` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/). You must
+  /// killed. This parameter maps to `Memory` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--memory` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). You must
   /// specify at least 4 MiB of memory for a job.
   ///
   ///
   ///
   /// If you are trying to maximize your resource utilization by providing your
   /// jobs as much memory as possible for a particular instance type, see
-  /// [Memory
-  /// Management](https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html)
+  /// [Memory Management](https://docs.aws.amazon.com/batch/latest/userguide/memory-management.html)
   /// in the _AWS Batch User Guide_.
   final int memory;
 
   /// The command that is passed to the container. This parameter maps to `Cmd`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `COMMAND`
-  /// parameter to [docker run](https://docs.docker.com/engine/reference/run/).
-  /// For more information, see
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `COMMAND` parameter to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). For more
+  /// information, see
   /// [https://docs.docker.com/engine/reference/builder/#cmd](https://docs.docker.com/engine/reference/builder/#cmd).
   final List<String> command;
 
@@ -1107,10 +1124,11 @@ class ContainerProperties {
   final List<Volume> volumes;
 
   /// The environment variables to pass to a container. This parameter maps to
-  /// `Env` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--env` option to
+  /// `Env` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--env` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///  We do not recommend using plaintext environment variables for sensitive
@@ -1122,44 +1140,47 @@ class ContainerProperties {
   final List<KeyValuePair> environment;
 
   /// The mount points for data volumes in your container. This parameter maps
-  /// to `Volumes` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--volume` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// to `Volumes` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--volume` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final List<MountPoint> mountPoints;
 
   /// When this parameter is true, the container is given read-only access to
   /// its root file system. This parameter maps to `ReadonlyRootfs` in the
-  /// [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--read-only`
-  /// option to `docker run`.
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--read-only` option to `docker run`.
   final bool readonlyRootFilesystem;
 
   /// When this parameter is true, the container is given elevated privileges on
   /// the host container instance (similar to the `root` user). This parameter
-  /// maps to `Privileged` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--privileged`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// maps to `Privileged` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--privileged` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final bool privileged;
 
   /// A list of `ulimits` to set in the container. This parameter maps to
-  /// `Ulimits` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--ulimit` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// `Ulimits` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--ulimit` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final List<Ulimit> ulimits;
 
   /// The user name to use inside the container. This parameter maps to `User`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--user` option to
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--user` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   final String user;
 
@@ -1197,6 +1218,7 @@ class ContainerProperties {
       ContainerProperties();
 }
 
+/// An object representing summary details of a container within a job.
 class ContainerSummary {
   /// The exit code to return upon completion.
   final int exitCode;
@@ -1327,6 +1349,7 @@ class DescribeJobsResponse {
       DescribeJobsResponse();
 }
 
+/// An object representing a container instance host device.
 class Device {
   /// The path for the device on the host container instance.
   final String hostPath;
@@ -1348,6 +1371,10 @@ class Device {
   static Device fromJson(Map<String, dynamic> json) => Device();
 }
 
+/// Determine whether your data volume persists on the host container instance
+/// and where it is stored. If this parameter is empty, then the Docker daemon
+/// assigns a host path for your data volume, but the data is not guaranteed to
+/// persist after the containers associated with it stop running.
 class Host {
   /// The path on the host container instance that is presented to the
   /// container. If this parameter is empty, then the Docker daemon has assigned
@@ -1365,6 +1392,7 @@ class Host {
   static Host fromJson(Map<String, dynamic> json) => Host();
 }
 
+/// An object representing an AWS Batch job definition.
 class JobDefinition {
   /// The name of the job definition.
   final String jobDefinitionName;
@@ -1385,8 +1413,8 @@ class JobDefinition {
   /// the job definition. Parameters are specified as a key-value pair mapping.
   /// Parameters in a `SubmitJob` request override any corresponding parameter
   /// defaults from the job definition. For more information about specifying
-  /// parameters, see [Job Definition
-  /// Parameters](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)
+  /// parameters, see
+  /// [Job Definition Parameters](https://docs.aws.amazon.com/batch/latest/userguide/job_definition_parameters.html)
   /// in the _AWS Batch User Guide_.
   final Map<String, String> parameters;
 
@@ -1420,6 +1448,7 @@ class JobDefinition {
   static JobDefinition fromJson(Map<String, dynamic> json) => JobDefinition();
 }
 
+/// An object representing an AWS Batch job dependency.
 class JobDependency {
   /// The job ID of the AWS Batch job associated with this dependency.
   final String jobId;
@@ -1434,6 +1463,7 @@ class JobDependency {
   static JobDependency fromJson(Map<String, dynamic> json) => JobDependency();
 }
 
+/// An object representing an AWS Batch job.
 class JobDetail {
   /// The name of the job.
   final String jobName;
@@ -1449,8 +1479,8 @@ class JobDetail {
   ///
   ///
   ///
-  /// If your jobs do not progress to `STARTING`, see [Jobs Stuck in RUNNABLE
-  /// Status](https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#job_stuck_in_runnable)
+  /// If your jobs do not progress to `STARTING`, see
+  /// [Jobs Stuck in RUNNABLE Status](https://docs.aws.amazon.com/batch/latest/userguide/troubleshooting.html#job_stuck_in_runnable)
   /// in the troubleshooting section of the _AWS Batch User Guide_.
   final String status;
 
@@ -1532,6 +1562,7 @@ class JobDetail {
   static JobDetail fromJson(Map<String, dynamic> json) => JobDetail();
 }
 
+/// An object representing the details of an AWS Batch job queue.
 class JobQueueDetail {
   /// The name of the job queue.
   final String jobQueueName;
@@ -1569,6 +1600,7 @@ class JobQueueDetail {
   static JobQueueDetail fromJson(Map<String, dynamic> json) => JobQueueDetail();
 }
 
+/// An object representing summary details of a job.
 class JobSummary {
   /// The ID of the job.
   final String jobId;
@@ -1623,6 +1655,7 @@ class JobSummary {
   static JobSummary fromJson(Map<String, dynamic> json) => JobSummary();
 }
 
+/// An object representing a job timeout configuration.
 class JobTimeout {
   /// The time duration in seconds (measured from the job attempt's `startedAt`
   /// timestamp) after which AWS Batch terminates your jobs if they have not
@@ -1635,6 +1668,7 @@ class JobTimeout {
   static JobTimeout fromJson(Map<String, dynamic> json) => JobTimeout();
 }
 
+/// A key-value pair object.
 class KeyValuePair {
   /// The name of the key-value pair. For environment variables, this is the
   /// name of the environment variable.
@@ -1651,6 +1685,9 @@ class KeyValuePair {
   static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair();
 }
 
+/// An object representing a launch template associated with a compute resource.
+/// You must specify either the launch template ID or launch template name in
+/// the request, but not both.
 class LaunchTemplateSpecification {
   /// The ID of the launch template.
   final String launchTemplateId;
@@ -1672,13 +1709,16 @@ class LaunchTemplateSpecification {
       LaunchTemplateSpecification();
 }
 
+/// Linux-specific modifications that are applied to the container, such as
+/// details for device mappings.
 class LinuxParameters {
   /// Any host devices to expose to the container. This parameter maps to
-  /// `Devices` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.23/) and the `--device` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// `Devices` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.23/#create-a-container)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.23/) and the
+  /// `--device` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final List<Device> devices;
 
   LinuxParameters({
@@ -1706,6 +1746,10 @@ class ListJobsResponse {
       ListJobsResponse();
 }
 
+/// Details on a Docker volume mount point that is used in a job's container
+/// properties. This parameter maps to `Volumes` in the
+/// [Create a container](https://docs.docker.com/engine/reference/api/docker_remote_api_v1.19/#create-a-container)
+/// section of the Docker Remote API and the `--volume` option to docker run.
 class MountPoint {
   /// The path on the container at which to mount the host volume.
   final String containerPath;
@@ -1726,6 +1770,8 @@ class MountPoint {
   static MountPoint fromJson(Map<String, dynamic> json) => MountPoint();
 }
 
+/// An object representing the elastic network interface for a multi-node
+/// parallel job node.
 class NetworkInterface {
   /// The attachment ID for the network interface.
   final String attachmentId;
@@ -1745,10 +1791,11 @@ class NetworkInterface {
       NetworkInterface();
 }
 
+/// An object representing the details of a multi-node parallel job node.
 class NodeDetails {
   /// The node index for the node. Node index numbering begins at zero. This
-  /// index is also available on the node with the
-  /// `AWS\_BATCH\_JOB\_NODE\_INDEX` environment variable.
+  /// index is also available on the node with the `AWS_BATCH_JOB_NODE_INDEX`
+  /// environment variable.
   final int nodeIndex;
 
   /// Specifies whether the current node is the main node for a multi-node
@@ -1762,6 +1809,8 @@ class NodeDetails {
   static NodeDetails fromJson(Map<String, dynamic> json) => NodeDetails();
 }
 
+/// Object representing any node overrides to a job definition that is used in a
+/// SubmitJob API operation.
 class NodeOverrides {
   /// The number of nodes to use with a multi-node parallel job. This value
   /// overrides the number of nodes that are specified in the job definition. To
@@ -1786,6 +1835,7 @@ class NodeOverrides {
   });
 }
 
+/// An object representing the node properties of a multi-node parallel job.
 class NodeProperties {
   /// The number of nodes associated with a multi-node parallel job.
   final int numNodes;
@@ -1806,6 +1856,8 @@ class NodeProperties {
   static NodeProperties fromJson(Map<String, dynamic> json) => NodeProperties();
 }
 
+/// An object representing the properties of a node that is associated with a
+/// multi-node parallel job.
 class NodePropertiesSummary {
   /// Specifies whether the current node is the main node for a multi-node
   /// parallel job.
@@ -1815,8 +1867,8 @@ class NodePropertiesSummary {
   final int numNodes;
 
   /// The node index for the node. Node index numbering begins at zero. This
-  /// index is also available on the node with the
-  /// `AWS\_BATCH\_JOB\_NODE\_INDEX` environment variable.
+  /// index is also available on the node with the `AWS_BATCH_JOB_NODE_INDEX`
+  /// environment variable.
   final int nodeIndex;
 
   NodePropertiesSummary({
@@ -1828,6 +1880,8 @@ class NodePropertiesSummary {
       NodePropertiesSummary();
 }
 
+/// Object representing any node overrides to a job definition that is used in a
+/// SubmitJob API operation.
 class NodePropertyOverride {
   /// The range of nodes, using node index values, with which to override. A
   /// range of `0:3` indicates nodes with index values of `0` through `3`. If
@@ -1845,6 +1899,8 @@ class NodePropertyOverride {
   });
 }
 
+/// An object representing the properties of the node range for a multi-node
+/// parallel job.
 class NodeRangeProperty {
   /// The range of nodes, using node index values. A range of `0:3` indicates
   /// nodes with index values of `0` through `3`. If the starting range value is
@@ -1885,6 +1941,8 @@ class RegisterJobDefinitionResponse {
       RegisterJobDefinitionResponse();
 }
 
+/// The type and amount of a resource to assign to a container. Currently, the
+/// only supported resource type is `GPU`.
 class ResourceRequirement {
   /// The number of physical GPUs to reserve for the container. The number of
   /// GPUs reserved for all containers in a job should not exceed the number of
@@ -1903,6 +1961,7 @@ class ResourceRequirement {
       ResourceRequirement();
 }
 
+/// The retry strategy associated with a job.
 class RetryStrategy {
   /// The number of times to move a job to the `RUNNABLE` status. You may
   /// specify between 1 and 10 attempts. If the value of `attempts` is greater
@@ -1937,6 +1996,7 @@ class TerminateJobResponse {
       TerminateJobResponse();
 }
 
+/// The `ulimit` settings to pass to the container.
 class Ulimit {
   /// The hard limit for the `ulimit` type.
   final int hardLimit;
@@ -1985,6 +2045,7 @@ class UpdateJobQueueResponse {
       UpdateJobQueueResponse();
 }
 
+/// A data volume used in a job's container properties.
 class Volume {
   /// The contents of the `host` parameter determine whether your data volume
   /// persists on the host container instance and where it is stored. If the

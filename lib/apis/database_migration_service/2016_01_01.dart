@@ -11,9 +11,9 @@ import 'dart:typed_data';
 /// migrations between different database platforms, such as Oracle to MySQL or
 /// SQL Server to PostgreSQL.
 ///
-/// For more information about AWS DMS, see [What Is AWS Database Migration
-/// Service?](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html) in
-/// the _AWS Database Migration User Guide._
+/// For more information about AWS DMS, see
+/// [What Is AWS Database Migration Service?](https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html)
+/// in the _AWS Database Migration User Guide._
 class DatabaseMigrationServiceApi {
   /// Adds metadata tags to an AWS DMS resource, including replication instance,
   /// endpoint, security group, and migration task. These tags can also be used
@@ -45,12 +45,12 @@ class DatabaseMigrationServiceApi {
   ///
   /// Valid values:
   ///
-  /// *    `immediate` \- Apply the maintenance action immediately.
+  /// *    `immediate` - Apply the maintenance action immediately.
   ///
-  /// *    `next-maintenance` \- Apply the maintenance action during the next
+  /// *    `next-maintenance` - Apply the maintenance action during the next
   /// maintenance window for the resource.
   ///
-  /// *    `undo-opt-in` \- Cancel any existing `next-maintenance` opt-in
+  /// *    `undo-opt-in` - Cancel any existing `next-maintenance` opt-in
   /// requests.
   Future<ApplyPendingMaintenanceActionResponse> applyPendingMaintenanceAction(
       {@required String replicationInstanceArn,
@@ -87,9 +87,8 @@ class DatabaseMigrationServiceApi {
   /// connection. Each attribute is specified as a name-value pair associated by
   /// an equal sign (=). Multiple attributes are separated by a semicolon (;)
   /// with no additional white space. For information on the attributes
-  /// available for connecting your source or target endpoint, see [Working with
-  /// AWS DMS
-  /// Endpoints](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Endpoints.html)
+  /// available for connecting your source or target endpoint, see
+  /// [Working with AWS DMS Endpoints](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Endpoints.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [kmsKeyId]: An AWS KMS key identifier that is used to encrypt the
@@ -114,15 +113,13 @@ class DatabaseMigrationServiceApi {
   /// [externalTableDefinition]: The external table definition.
   ///
   /// [dynamoDbSettings]: Settings in JSON format for the target Amazon DynamoDB
-  /// endpoint. For more information about the available settings, see [Using
-  /// Object Mapping to Migrate Data to
-  /// DynamoDB](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)
+  /// endpoint. For more information about the available settings, see
+  /// [Using Object Mapping to Migrate Data to DynamoDB](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [s3Settings]: Settings in JSON format for the target Amazon S3 endpoint.
-  /// For more information about the available settings, see [Extra Connection
-  /// Attributes When Using Amazon S3 as a Target for AWS
-  /// DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring)
+  /// For more information about the available settings, see
+  /// [Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [dmsTransferSettings]: The settings in JSON format for the DMS transfer
@@ -130,14 +127,14 @@ class DatabaseMigrationServiceApi {
   ///
   /// Possible attributes include the following:
   ///
-  /// *    `serviceAccessRoleArn` \- The IAM role that has permission to access
+  /// *    `serviceAccessRoleArn` - The IAM role that has permission to access
   /// the Amazon S3 bucket.
   ///
-  /// *    `bucketName` \- The name of the S3 bucket to use.
+  /// *    `bucketName` - The name of the S3 bucket to use.
   ///
-  /// *    `compressionType` \- An optional parameter to use GZIP to compress
-  /// the target files. To use GZIP, set this value to `NONE` (the default). To
-  /// keep the files uncompressed, don't use this value.
+  /// *    `compressionType` - An optional parameter to use GZIP to compress the
+  /// target files. To use GZIP, set this value to `NONE` (the default). To keep
+  /// the files uncompressed, don't use this value.
   ///
   ///
   /// Shorthand syntax for these attributes is as follows:
@@ -148,22 +145,20 @@ class DatabaseMigrationServiceApi {
   ///
   /// [mongoDbSettings]: Settings in JSON format for the source MongoDB
   /// endpoint. For more information about the available settings, see the
-  /// configuration properties section in  [Using MongoDB as a Target for AWS
-  /// Database Migration
-  /// Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)
+  /// configuration properties section in
+  /// [Using MongoDB as a Target for AWS Database Migration Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [kinesisSettings]: Settings in JSON format for the target Amazon Kinesis
   /// Data Streams endpoint. For more information about the available settings,
-  /// see [Using Object Mapping to Migrate Data to a Kinesis Data
-  /// Stream](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping)
+  /// see
+  /// [Using Object Mapping to Migrate Data to a Kinesis Data Stream](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping)
   /// in the _AWS Database Migration User Guide._
   ///
   /// [elasticsearchSettings]: Settings in JSON format for the target
   /// Elasticsearch endpoint. For more information about the available settings,
-  /// see [Extra Connection Attributes When Using Elasticsearch as a Target for
-  /// AWS
-  /// DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration)
+  /// see
+  /// [Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration)
   /// in the _AWS Database Migration User Guide._
   Future<CreateEndpointResponse> createEndpoint(
       {@required String endpointIdentifier,
@@ -206,8 +201,8 @@ class DatabaseMigrationServiceApi {
   /// of events generated from all AWS DMS sources belonging to your customer
   /// account.
   ///
-  /// For more information about AWS DMS events, see [Working with Events and
-  /// Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
+  /// For more information about AWS DMS events, see
+  /// [Working with Events and Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [subscriptionName]: The name of the AWS DMS event notification
@@ -225,8 +220,8 @@ class DatabaseMigrationServiceApi {
   /// Valid values: `replication-instance` | `replication-task`
   ///
   /// [eventCategories]: A list of event categories for a source type that you
-  /// want to subscribe to. For more information, see [Working with Events and
-  /// Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
+  /// want to subscribe to. For more information, see
+  /// [Working with Events and Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [sourceIds]: A list of identifiers for which AWS DMS provides notification
@@ -398,13 +393,13 @@ class DatabaseMigrationServiceApi {
   /// `full-load-and-cdc`
   ///
   /// [tableMappings]: The table mappings for the task, in JSON format. For more
-  /// information, see [Table
-  /// Mapping](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.html)
+  /// information, see
+  /// [Table Mapping](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TableMapping.html)
   /// in the _AWS Database Migration User Guide._
   ///
   /// [replicationTaskSettings]: Overall settings for the task, in JSON format.
-  /// For more information, see [Task
-  /// Settings](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TaskSettings.html)
+  /// For more information, see
+  /// [Task Settings](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.CustomizingTasks.TaskSettings.html)
   /// in the _AWS Database Migration User Guide._
   ///
   /// [cdcStartTime]: Indicates the start time for a change data capture (CDC)
@@ -619,8 +614,8 @@ class DatabaseMigrationServiceApi {
 
   /// Lists categories for all event source types, or, if specified, for a
   /// specified source type. You can see a list of the event categories and
-  /// source types in [Working with Events and
-  /// Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
+  /// source types in
+  /// [Working with Events and Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [sourceType]:  The type of AWS DMS resource that generates events.
@@ -667,8 +662,7 @@ class DatabaseMigrationServiceApi {
 
   ///  Lists events for a given source identifier and source type. You can also
   /// specify a start and end time. For more information on AWS DMS events, see
-  /// [Working with Events and
-  /// Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
+  /// [Working with Events and Notifications](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Events.html)
   /// in the _AWS Database Migration User Guide._
   ///
   /// [sourceIdentifier]:  The identifier of an event source.
@@ -844,7 +838,7 @@ class DatabaseMigrationServiceApi {
   /// Returns the task assessment results from Amazon S3. This action always
   /// returns the latest results.
   ///
-  /// [replicationTaskArn]: \- The Amazon Resource Name (ARN) string that
+  /// [replicationTaskArn]: - The Amazon Resource Name (ARN) string that
   /// uniquely identifies the task. When this input parameter is specified the
   /// API will return only one result and ignore the values of the max-records
   /// and marker parameters.
@@ -1033,15 +1027,13 @@ class DatabaseMigrationServiceApi {
   /// [externalTableDefinition]: The external table definition.
   ///
   /// [dynamoDbSettings]: Settings in JSON format for the target Amazon DynamoDB
-  /// endpoint. For more information about the available settings, see [Using
-  /// Object Mapping to Migrate Data to
-  /// DynamoDB](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)
+  /// endpoint. For more information about the available settings, see
+  /// [Using Object Mapping to Migrate Data to DynamoDB](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.DynamoDB.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [s3Settings]: Settings in JSON format for the target Amazon S3 endpoint.
-  /// For more information about the available settings, see [Extra Connection
-  /// Attributes When Using Amazon S3 as a Target for AWS
-  /// DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring)
+  /// For more information about the available settings, see
+  /// [Extra Connection Attributes When Using Amazon S3 as a Target for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [dmsTransferSettings]: The settings in JSON format for the DMS transfer
@@ -1069,22 +1061,20 @@ class DatabaseMigrationServiceApi {
   ///
   /// [mongoDbSettings]: Settings in JSON format for the source MongoDB
   /// endpoint. For more information about the available settings, see the
-  /// configuration properties section in  [Using MongoDB as a Target for AWS
-  /// Database Migration
-  /// Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)
+  /// configuration properties section in
+  /// [Using MongoDB as a Target for AWS Database Migration Service](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Source.MongoDB.html)
   /// in the _AWS Database Migration Service User Guide._
   ///
   /// [kinesisSettings]: Settings in JSON format for the target Amazon Kinesis
   /// Data Streams endpoint. For more information about the available settings,
-  /// see [Using Object Mapping to Migrate Data to a Kinesis Data
-  /// Stream](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping)
+  /// see
+  /// [Using Object Mapping to Migrate Data to a Kinesis Data Stream](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Kinesis.html#CHAP_Target.Kinesis.ObjectMapping)
   /// in the _AWS Database Migration User Guide._
   ///
   /// [elasticsearchSettings]: Settings in JSON format for the target
   /// Elasticsearch endpoint. For more information about the available settings,
-  /// see [Extra Connection Attributes When Using Elasticsearch as a Target for
-  /// AWS
-  /// DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration)
+  /// see
+  /// [Extra Connection Attributes When Using Elasticsearch as a Target for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.Elasticsearch.html#CHAP_Target.Elasticsearch.Configuration)
   /// in the _AWS Database Migration User Guide._
   Future<ModifyEndpointResponse> modifyEndpoint(String endpointArn,
       {String endpointIdentifier,
@@ -1239,8 +1229,8 @@ class DatabaseMigrationServiceApi {
   /// You can't modify the task endpoints. The task must be stopped before you
   /// can modify it.
   ///
-  /// For more information about AWS DMS tasks, see [Working with Migration
-  /// Tasks](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html)
+  /// For more information about AWS DMS tasks, see
+  /// [Working with Migration Tasks](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html)
   /// in the _AWS Database Migration Service User Guide_.
   ///
   /// [replicationTaskArn]: The Amazon Resource Name (ARN) of the replication
@@ -1371,9 +1361,9 @@ class DatabaseMigrationServiceApi {
 
   /// Starts the replication task.
   ///
-  /// For more information about AWS DMS tasks, see [Working with Migration
-  /// Tasks](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html)
-  /// in the _AWS Database Migration Service User Guide._
+  /// For more information about AWS DMS tasks, see
+  /// [Working with Migration Tasks](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Tasks.html)
+  ///  in the _AWS Database Migration Service User Guide._
   ///
   /// [replicationTaskArn]: The Amazon Resource Name (ARN) of the replication
   /// task to be started.
@@ -1449,6 +1439,8 @@ class DatabaseMigrationServiceApi {
   }
 }
 
+/// Describes a quota for an AWS account, for example, the number of replication
+/// instances allowed.
 class AccountQuota {
   /// The name of the AWS DMS quota for this AWS account.
   final String accountQuotaName;
@@ -1497,6 +1489,8 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// The SSL certificate that can be used to encrypt connections between the
+/// endpoints and the replication instance.
 class Certificate {
   /// A customer-assigned name for the certificate. Identifiers must begin with
   /// a letter; must contain only ASCII letters, digits, and hyphens; and must
@@ -1952,7 +1946,7 @@ class DescribeReplicationTaskAssessmentResultsResponse {
   /// marker, up to the value specified by `MaxRecords`.
   final String marker;
 
-  /// \- The Amazon S3 bucket where the task assessment report is located.
+  /// - The Amazon S3 bucket where the task assessment report is located.
   final String bucketName;
 
   ///  The task assessment report.
@@ -2023,6 +2017,7 @@ class DescribeTableStatisticsResponse {
       DescribeTableStatisticsResponse();
 }
 
+///  The settings in JSON format for the DMS Transfer type source endpoint.
 class DmsTransferSettings {
   ///  The IAM role that has permission to access the Amazon S3 bucket.
   final String serviceAccessRoleArn;
@@ -2153,14 +2148,14 @@ class Endpoint {
   ///
   /// Possible attributes include the following:
   ///
-  /// *    `serviceAccessRoleArn` \- The IAM role that has permission to access
+  /// *    `serviceAccessRoleArn` - The IAM role that has permission to access
   /// the Amazon S3 bucket.
   ///
-  /// *    `bucketName` \- The name of the S3 bucket to use.
+  /// *    `bucketName` - The name of the S3 bucket to use.
   ///
-  /// *    `compressionType` \- An optional parameter to use GZIP to compress
-  /// the target files. To use GZIP, set this value to `NONE` (the default). To
-  /// keep the files uncompressed, don't use this value.
+  /// *    `compressionType` - An optional parameter to use GZIP to compress the
+  /// target files. To use GZIP, set this value to `NONE` (the default). To keep
+  /// the files uncompressed, don't use this value.
   ///
   ///
   /// Shorthand syntax for these attributes is as follows:
@@ -2458,10 +2453,10 @@ class MongoDbSettings {
   ///  The authentication mechanism you use to access the MongoDB source
   /// endpoint.
   ///
-  /// Valid values: DEFAULT, MONGODB\_CR, SCRAM\_SHA_1
+  /// Valid values: DEFAULT, MONGODB_CR, SCRAM_SHA_1
   ///
-  /// DEFAULT – For MongoDB version 2.x, use MONGODB\_CR. For MongoDB version
-  /// 3.x, use SCRAM\_SHA_1. This attribute is not used when authType=No.
+  /// DEFAULT – For MongoDB version 2.x, use MONGODB_CR. For MongoDB version
+  /// 3.x, use SCRAM_SHA_1. This attribute is not used when authType=No.
   final String authMechanism;
 
   ///  Specifies either document or table mode.
@@ -2970,6 +2965,7 @@ class ReplicationInstance {
       ReplicationInstance();
 }
 
+/// Contains metadata for a replication instance task log.
 class ReplicationInstanceTaskLog {
   /// The name of the replication task.
   final String replicationTaskName;
@@ -3150,6 +3146,7 @@ class ReplicationTask {
       ReplicationTask();
 }
 
+///  The task assessment report in JSON format.
 class ReplicationTaskAssessmentResult {
   ///  The replication task identifier of the task on which the task assessment
   /// was run.
@@ -3220,8 +3217,7 @@ class ReplicationTaskStats {
 class ResourcePendingMaintenanceActions {
   /// The Amazon Resource Name (ARN) of the DMS resource that the pending
   /// maintenance action applies to. For information about creating an ARN, see
-  /// [Constructing an Amazon Resource Name (ARN) for AWS
-  /// DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html)
+  /// [Constructing an Amazon Resource Name (ARN) for AWS DMS](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Introduction.AWS.ARN.html)
   /// in the DMS documentation.
   final String resourceIdentifier;
 
@@ -3237,6 +3233,7 @@ class ResourcePendingMaintenanceActions {
       ResourcePendingMaintenanceActions();
 }
 
+/// Settings for exporting data to Amazon S3.
 class S3Settings {
   ///  The Amazon Resource Name (ARN) used by the service access IAM role.
   final String serviceAccessRoleArn;
@@ -3245,7 +3242,7 @@ class S3Settings {
   final String externalTableDefinition;
 
   ///  The delimiter used to separate rows in the source files. The default is a
-  /// carriage return (`\\n`).
+  /// carriage return (`n`).
   final String csvRowDelimiter;
 
   ///  The delimiter used to separate columns in the source files. The default
@@ -3351,7 +3348,7 @@ class S3Settings {
   final int dataPageSize;
 
   /// The version of the Apache Parquet format that you want to use:
-  /// `parquet\_1\_0` (the default) or `parquet\_2\_0`.
+  /// `parquet_1_0` (the default) or `parquet_2_0`.
   final String parquetVersion;
 
   /// A value that enables statistics for Parquet pages and row groups. Choose
@@ -3378,8 +3375,7 @@ class S3Settings {
   ///
   /// This setting works together with `CdcInsertsOnly` for output to .csv files
   /// only. For more information about how these settings work together, see
-  /// [Indicating Source DB Operations in Migrated S3
-  /// Data](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps)
+  /// [Indicating Source DB Operations in Migrated S3 Data](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps)
   /// in the _AWS Database Migration Service User Guide._.
   final bool includeOpForFullLoad;
 
@@ -3398,8 +3394,8 @@ class S3Settings {
   /// operation at the source. If `IncludeOpForFullLoad` is set to `false`,
   /// every CDC record is written without a first field to indicate the INSERT
   /// operation at the source. For more information about how these settings
-  /// work together, see [Indicating Source DB Operations in Migrated S3
-  /// Data](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps)
+  /// work together, see
+  /// [Indicating Source DB Operations in Migrated S3 Data](https://docs.aws.amazon.com/dms/latest/userguide/CHAP_Target.S3.html#CHAP_Target.S3.Configuring.InsertOps)
   /// in the _AWS Database Migration Service User Guide._.
   ///
   ///
@@ -3646,14 +3642,14 @@ class Tag {
   /// 128 Unicode characters in length and cannot be prefixed with "aws:" or
   /// "dms:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String key;
 
   /// A value is the optional value of the tag. The string value can be from 1
   /// to 256 Unicode characters in length and cannot be prefixed with "aws:" or
   /// "dms:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String value;
 
   Tag({

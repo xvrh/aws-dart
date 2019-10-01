@@ -10,8 +10,8 @@ import 'package:meta/meta.dart';
 /// The endpoint for configuration service requests is region-specific:
 /// cloudsearch._region_.amazonaws.com. For example,
 /// cloudsearch.us-east-1.amazonaws.com. For a current list of supported regions
-/// and endpoints, see [Regions and
-/// Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
+/// and endpoints, see
+/// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#cloudsearch_region).
 class CloudSearchApi {
   /// Creates a new search domain.
   Future<CreateDomainResponse> createDomain(String domainName) async {
@@ -59,8 +59,8 @@ class CloudSearchApi {
   /// Gets the availability options configured for a domain. By default, shows
   /// the configuration with any pending changes. Set the `Deployed` option to
   /// `true` to show the active configuration and exclude pending changes. For
-  /// more information, see [Configuring Availability
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
+  /// more information, see
+  /// [Configuring Availability Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [domainName]: The name of the domain you want to describe.
@@ -144,8 +144,8 @@ class CloudSearchApi {
   /// option expands an Amazon CloudSearch domain to an additional Availability
   /// Zone in the same Region to increase fault tolerance in the event of a
   /// service disruption. Changes to the Multi-AZ option can take about half an
-  /// hour to become active. For more information, see [Configuring Availability
-  /// Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
+  /// hour to become active. For more information, see
+  /// [Configuring Availability Options](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-availability-options.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [multiAZ]: You expand an existing search domain to a second Availability
@@ -207,6 +207,8 @@ class CloudSearchApi {
   }
 }
 
+/// A `PolicyDocument` that specifies access policies for the search domain's
+/// services, and the current status of those policies.
 class AccessPoliciesStatus {
   final String options;
 
@@ -220,6 +222,7 @@ class AccessPoliciesStatus {
       AccessPoliciesStatus();
 }
 
+/// The status and configuration of the domain's availability options.
 class AvailabilityOptionsStatus {
   /// The availability options configured for the domain.
   final bool options;
@@ -234,6 +237,7 @@ class AvailabilityOptionsStatus {
       AvailabilityOptionsStatus();
 }
 
+/// A response message that contains the status of a newly created domain.
 class CreateDomainResponse {
   final DomainStatus domainStatus;
 
@@ -244,6 +248,8 @@ class CreateDomainResponse {
       CreateDomainResponse();
 }
 
+/// The value of the `DefaultSearchField` configured for this search domain and
+/// its current status.
 class DefaultSearchFieldStatus {
   /// The name of the `IndexField` to use as the default search field. The
   /// default is an empty string, which automatically searches all text fields.
@@ -259,6 +265,7 @@ class DefaultSearchFieldStatus {
       DefaultSearchFieldStatus();
 }
 
+/// A response message that contains the status of an updated index field.
 class DefineIndexFieldResponse {
   final IndexFieldStatus indexField;
 
@@ -269,6 +276,7 @@ class DefineIndexFieldResponse {
       DefineIndexFieldResponse();
 }
 
+/// A response message that contains the status of an updated `RankExpression`.
 class DefineRankExpressionResponse {
   final RankExpressionStatus rankExpression;
 
@@ -279,6 +287,8 @@ class DefineRankExpressionResponse {
       DefineRankExpressionResponse();
 }
 
+/// A response message that contains the status of a newly deleted domain, or no
+/// status if the domain has already been completely deleted.
 class DeleteDomainResponse {
   final DomainStatus domainStatus;
 
@@ -289,6 +299,7 @@ class DeleteDomainResponse {
       DeleteDomainResponse();
 }
 
+/// A response message that contains the status of a deleted index field.
 class DeleteIndexFieldResponse {
   final IndexFieldStatus indexField;
 
@@ -299,6 +310,7 @@ class DeleteIndexFieldResponse {
       DeleteIndexFieldResponse();
 }
 
+/// A response message that contains the status of a deleted `RankExpression`.
 class DeleteRankExpressionResponse {
   final RankExpressionStatus rankExpression;
 
@@ -309,6 +321,8 @@ class DeleteRankExpressionResponse {
       DeleteRankExpressionResponse();
 }
 
+/// The result of a `DescribeAvailabilityOptions` request. Indicates whether or
+/// not the Multi-AZ option is enabled for the domain specified in the request.
 class DescribeAvailabilityOptionsResponse {
   /// The availability options configured for the domain. Indicates whether
   /// Multi-AZ is enabled for the domain.
@@ -322,6 +336,8 @@ class DescribeAvailabilityOptionsResponse {
       DescribeAvailabilityOptionsResponse();
 }
 
+/// A response message that contains the default search field for a search
+/// domain.
 class DescribeDefaultSearchFieldResponse {
   /// The name of the `IndexField` to use for search requests issued with the
   /// `q` parameter. The default is the empty string, which automatically
@@ -336,6 +352,7 @@ class DescribeDefaultSearchFieldResponse {
       DescribeDefaultSearchFieldResponse();
 }
 
+/// A response message that contains the status of one or more domains.
 class DescribeDomainsResponse {
   final List<DomainStatus> domainStatusList;
 
@@ -346,6 +363,7 @@ class DescribeDomainsResponse {
       DescribeDomainsResponse();
 }
 
+/// A response message that contains the index fields for a search domain.
 class DescribeIndexFieldsResponse {
   /// The index fields configured for the domain.
   final List<IndexFieldStatus> indexFields;
@@ -357,6 +375,7 @@ class DescribeIndexFieldsResponse {
       DescribeIndexFieldsResponse();
 }
 
+/// A response message that contains the rank expressions for a search domain.
 class DescribeRankExpressionsResponse {
   /// The rank expressions configured for the domain.
   final List<RankExpressionStatus> rankExpressions;
@@ -368,6 +387,7 @@ class DescribeRankExpressionsResponse {
       DescribeRankExpressionsResponse();
 }
 
+/// A response message that contains the access policies for a domain.
 class DescribeServiceAccessPoliciesResponse {
   final AccessPoliciesStatus accessPolicies;
 
@@ -379,6 +399,7 @@ class DescribeServiceAccessPoliciesResponse {
       DescribeServiceAccessPoliciesResponse();
 }
 
+/// A response message that contains the stemming options for a search domain.
 class DescribeStemmingOptionsResponse {
   final StemmingOptionsStatus stems;
 
@@ -389,6 +410,7 @@ class DescribeStemmingOptionsResponse {
       DescribeStemmingOptionsResponse();
 }
 
+/// A response message that contains the stopword options for a search domain.
 class DescribeStopwordOptionsResponse {
   final StopwordOptionsStatus stopwords;
 
@@ -399,6 +421,7 @@ class DescribeStopwordOptionsResponse {
       DescribeStopwordOptionsResponse();
 }
 
+/// A response message that contains the synonym options for a search domain.
 class DescribeSynonymOptionsResponse {
   final SynonymOptionsStatus synonyms;
 
@@ -409,6 +432,7 @@ class DescribeSynonymOptionsResponse {
       DescribeSynonymOptionsResponse();
 }
 
+/// The current status of the search domain.
 class DomainStatus {
   final String domainId;
 
@@ -473,6 +497,7 @@ class DomainStatus {
   static DomainStatus fromJson(Map<String, dynamic> json) => DomainStatus();
 }
 
+/// The result of an `IndexDocuments` action.
 class IndexDocumentsResponse {
   /// The names of the fields that are currently being processed due to an
   /// `IndexDocuments` action.
@@ -485,6 +510,10 @@ class IndexDocumentsResponse {
       IndexDocumentsResponse();
 }
 
+/// Defines a field in the index, including its name, type, and the source of
+/// its data. The `IndexFieldType` indicates which of the options will be
+/// present. It is invalid to specify options for a type other than the
+/// `IndexFieldType`.
 class IndexField {
   /// The name of a field in the search index. Field names must begin with a
   /// letter and can contain the following characters: a-z (lowercase), 0-9, and
@@ -528,6 +557,7 @@ class IndexField {
   static IndexField fromJson(Map<String, dynamic> json) => IndexField();
 }
 
+/// The value of an `IndexField` and its current status.
 class IndexFieldStatus {
   final IndexField options;
 
@@ -541,6 +571,7 @@ class IndexFieldStatus {
       IndexFieldStatus();
 }
 
+/// Options that define a literal field in the search index.
 class LiteralOptions {
   /// The default value for a literal field. Optional.
   final String defaultValue;
@@ -564,6 +595,8 @@ class LiteralOptions {
   static LiteralOptions fromJson(Map<String, dynamic> json) => LiteralOptions();
 }
 
+/// A named expression that can be evaluated at search time and used for ranking
+/// or thresholding in a search query.
 class NamedRankExpression {
   /// The name of a rank expression. Rank expression names must begin with a
   /// letter and can contain the following characters: a-z (lowercase), 0-9, and
@@ -581,7 +614,7 @@ class NamedRankExpression {
   /// b` evaluates to the value `a`, if `a` is true, without evaluating `b` at
   /// all
   /// *   JavaScript order of precedence for operators
-  /// *   Arithmetic operators: `\+ \- \* / %`
+  /// *   Arithmetic operators: `+ - * / %`
   /// *   Boolean operators (including the ternary operator)
   /// *   Bitwise operators
   /// *   Comparison operators
@@ -620,6 +653,8 @@ class NamedRankExpression {
       NamedRankExpression();
 }
 
+/// The status of an option, including when it was last updated and whether it
+/// is actively in use for searches.
 class OptionStatus {
   /// A timestamp for when this option was created.
   final DateTime creationDate;
@@ -655,6 +690,7 @@ class OptionStatus {
   static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
 }
 
+/// The value of a `RankExpression` and its current status.
 class RankExpressionStatus {
   /// The expression that is evaluated for ranking or thresholding while
   /// processing a search request.
@@ -670,6 +706,10 @@ class RankExpressionStatus {
       RankExpressionStatus();
 }
 
+/// The endpoint to which service requests can be submitted, including the
+/// actual URL prefix for sending requests and the Amazon Resource Name (ARN) so
+/// the endpoint can be referenced in other API calls such as
+/// UpdateServiceAccessPolicies.
 class ServiceEndpoint {
   final String arn;
 
@@ -683,6 +723,10 @@ class ServiceEndpoint {
       ServiceEndpoint();
 }
 
+/// Identifies the source data for an index field. An optional data
+/// transformation can be applied to the source data when populating the index
+/// field. By default, the value of the source attribute is copied to the index
+/// field.
 class SourceAttribute {
   /// Identifies the transformation to apply when copying data from a source
   /// attribute.
@@ -710,6 +754,8 @@ class SourceAttribute {
       SourceAttribute();
 }
 
+/// The source attribute name and an optional default value to use if a document
+/// doesn't have an attribute of that name.
 class SourceData {
   /// The name of the document source field to add to this `IndexField`.
   final String sourceName;
@@ -725,6 +771,8 @@ class SourceData {
   static SourceData fromJson(Map<String, dynamic> json) => SourceData();
 }
 
+/// Specifies how to map source attribute values to custom values when
+/// populating an `IndexField`.
 class SourceDataMap {
   /// The name of the document source field to add to this `IndexField`.
   final String sourceName;
@@ -744,6 +792,8 @@ class SourceDataMap {
   static SourceDataMap fromJson(Map<String, dynamic> json) => SourceDataMap();
 }
 
+/// Specifies how to trim common words from the beginning of a field to enable
+/// title sorting by that field.
 class SourceDataTrimTitle {
   /// The name of the document source field to add to this `IndexField`.
   final String sourceName;
@@ -767,6 +817,8 @@ class SourceDataTrimTitle {
       SourceDataTrimTitle();
 }
 
+/// The stemming options configured for this search domain and the current
+/// status of those options.
 class StemmingOptionsStatus {
   final String options;
 
@@ -780,6 +832,8 @@ class StemmingOptionsStatus {
       StemmingOptionsStatus();
 }
 
+/// The stopword options configured for this search domain and the current
+/// status of those options.
 class StopwordOptionsStatus {
   final String options;
 
@@ -793,6 +847,8 @@ class StopwordOptionsStatus {
       StopwordOptionsStatus();
 }
 
+/// The synonym options configured for this search domain and the current status
+/// of those options.
 class SynonymOptionsStatus {
   final String options;
 
@@ -806,6 +862,7 @@ class SynonymOptionsStatus {
       SynonymOptionsStatus();
 }
 
+/// Options that define a text field in the search index.
 class TextOptions {
   /// The default value for a text field. Optional.
   final String defaultValue;
@@ -819,7 +876,7 @@ class TextOptions {
 
   /// The text processor to apply to this field. Optional. Possible values:
   ///
-  /// *    `cs\_text\_no_stemming`: turns off stemming for the field.
+  /// *    `cs_text_no_stemming`: turns off stemming for the field.
   ///
   /// Default: none
   final String textProcessor;
@@ -833,6 +890,7 @@ class TextOptions {
   static TextOptions fromJson(Map<String, dynamic> json) => TextOptions();
 }
 
+/// Options that define a `uint` field in the search index.
 class UIntOptions {
   /// The default value for an unsigned integer field. Optional.
   final int defaultValue;
@@ -843,6 +901,8 @@ class UIntOptions {
   static UIntOptions fromJson(Map<String, dynamic> json) => UIntOptions();
 }
 
+/// The result of a `UpdateAvailabilityOptions` request. Contains the status of
+/// the domain's availability options.
 class UpdateAvailabilityOptionsResponse {
   /// The newly-configured availability options. Indicates whether Multi-AZ is
   /// enabled for the domain.
@@ -856,6 +916,8 @@ class UpdateAvailabilityOptionsResponse {
       UpdateAvailabilityOptionsResponse();
 }
 
+/// A response message that contains the status of an updated default search
+/// field.
 class UpdateDefaultSearchFieldResponse {
   final DefaultSearchFieldStatus defaultSearchField;
 
@@ -866,6 +928,7 @@ class UpdateDefaultSearchFieldResponse {
       UpdateDefaultSearchFieldResponse();
 }
 
+/// A response message that contains the status of updated access policies.
 class UpdateServiceAccessPoliciesResponse {
   final AccessPoliciesStatus accessPolicies;
 
@@ -877,6 +940,7 @@ class UpdateServiceAccessPoliciesResponse {
       UpdateServiceAccessPoliciesResponse();
 }
 
+/// A response message that contains the status of updated stemming options.
 class UpdateStemmingOptionsResponse {
   final StemmingOptionsStatus stems;
 
@@ -887,6 +951,7 @@ class UpdateStemmingOptionsResponse {
       UpdateStemmingOptionsResponse();
 }
 
+/// A response message that contains the status of updated stopword options.
 class UpdateStopwordOptionsResponse {
   final StopwordOptionsStatus stopwords;
 
@@ -897,6 +962,7 @@ class UpdateStopwordOptionsResponse {
       UpdateStopwordOptionsResponse();
 }
 
+/// A response message that contains the status of updated synonym options.
 class UpdateSynonymOptionsResponse {
   final SynonymOptionsStatus synonyms;
 

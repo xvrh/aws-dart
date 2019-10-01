@@ -10,20 +10,20 @@ import 'package:meta/meta.dart';
 ///
 ///  **Submitting Metering Records**
 ///
-/// *    _MeterUsage_\- Submits the metering record for a Marketplace product.
+/// *    _MeterUsage_- Submits the metering record for a Marketplace product.
 /// MeterUsage is called from an EC2 instance.
 ///
-/// *    _BatchMeterUsage_\- Submits the metering record for a set of customers.
+/// *    _BatchMeterUsage_- Submits the metering record for a set of customers.
 /// BatchMeterUsage is called from a software-as-a-service (SaaS) application.
 ///
 ///
 ///  **Accepting New Customers**
 ///
-/// *    _ResolveCustomer_\- Called by a SaaS application during the
-/// registration process. When a buyer visits your website during the
-/// registration process, the buyer submits a Registration Token through the
-/// browser. The Registration Token is resolved through this API to obtain a
-/// CustomerIdentifier and Product Code.
+/// *    _ResolveCustomer_- Called by a SaaS application during the registration
+/// process. When a buyer visits your website during the registration process,
+/// the buyer submits a Registration Token through the browser. The Registration
+/// Token is resolved through this API to obtain a CustomerIdentifier and
+/// Product Code.
 ///
 ///
 ///  **Entitlement and Metering for Paid Container Products**
@@ -35,16 +35,16 @@ import 'package:meta/meta.dart';
 /// Service (Amazon ECR) isn't supported. Free and BYOL products for ECS aren't
 /// required to call RegisterUsage, but you can do so if you want to receive
 /// usage data in your seller reports. For more information on using the
-/// RegisterUsage operation, see [Container-Based
-/// Products](https://docs.aws.amazon.com/marketplace/latest/userguide/container-based-products.html).
+/// RegisterUsage operation, see
+/// [Container-Based Products](https://docs.aws.amazon.com/marketplace/latest/userguide/container-based-products.html).
 ///
 ///
 /// BatchMeterUsage API calls are captured by AWS CloudTrail. You can use
 /// Cloudtrail to verify that the SaaS metering records that you sent are
 /// accurate by searching for records with the eventName of BatchMeterUsage. You
 /// can also use CloudTrail to audit records over time. For more information,
-/// see the  _[AWS CloudTrail User
-/// Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)_
+/// see the
+/// _[AWS CloudTrail User Guide](http://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-concepts.html)_
 /// .
 class MarketplaceMeteringApi {
   /// BatchMeterUsage is called from a SaaS application listed on the AWS
@@ -170,6 +170,8 @@ class MarketplaceMeteringApi {
   }
 }
 
+/// Contains the UsageRecords processed by BatchMeterUsage and any records that
+/// have failed due to transient error.
 class BatchMeterUsageResult {
   /// Contains all UsageRecords processed by BatchMeterUsage. These records were
   /// either honored by AWS Marketplace Metering Service or were invalid.
@@ -215,6 +217,8 @@ class RegisterUsageResult {
       RegisterUsageResult();
 }
 
+/// The result of the ResolveCustomer operation. Contains the CustomerIdentifier
+/// and product code.
 class ResolveCustomerResult {
   /// The CustomerIdentifier is used to identify an individual customer in your
   /// application. Calls to BatchMeterUsage require CustomerIdentifiers for each
@@ -234,6 +238,11 @@ class ResolveCustomerResult {
       ResolveCustomerResult();
 }
 
+/// A UsageRecord indicates a quantity of usage for a given product, customer,
+/// dimension and time.
+///
+/// Multiple requests with the same UsageRecords as input will be deduplicated
+/// to prevent double charges.
 class UsageRecord {
   /// Timestamp, in UTC, for which the usage is being reported.
   ///
@@ -263,6 +272,8 @@ class UsageRecord {
   static UsageRecord fromJson(Map<String, dynamic> json) => UsageRecord();
 }
 
+/// A UsageRecordResult indicates the status of a given UsageRecord processed by
+/// BatchMeterUsage.
 class UsageRecordResult {
   /// The UsageRecord that was part of the BatchMeterUsage request.
   final UsageRecord usageRecord;
@@ -273,16 +284,16 @@ class UsageRecordResult {
   /// The UsageRecordResult Status indicates the status of an individual
   /// UsageRecord processed by BatchMeterUsage.
   ///
-  /// *    _Success_\- The UsageRecord was accepted and honored by
+  /// *    _Success_- The UsageRecord was accepted and honored by
   /// BatchMeterUsage.
   ///
-  /// *    _CustomerNotSubscribed_\- The CustomerIdentifier specified is not
+  /// *    _CustomerNotSubscribed_- The CustomerIdentifier specified is not
   /// subscribed to your product. The UsageRecord was not honored. Future
   /// UsageRecords for this customer will fail until the customer subscribes to
   /// your product.
   ///
-  /// *    _DuplicateRecord_\- Indicates that the UsageRecord was invalid and
-  /// not honored. A previously metered UsageRecord had the same customer,
+  /// *    _DuplicateRecord_- Indicates that the UsageRecord was invalid and not
+  /// honored. A previously metered UsageRecord had the same customer,
   /// dimension, and time, but a different quantity.
   final String status;
 

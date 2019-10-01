@@ -78,8 +78,7 @@ class DataPipelineApi {
   ///
   /// [tags]: A list of tags to associate with the pipeline at creation. Tags
   /// let you control access to pipelines. For more information, see
-  /// [Controlling User Access to
-  /// Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+  /// [Controlling User Access to Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
   /// in the _AWS Data Pipeline Developer Guide_.
   Future<CreatePipelineOutput> createPipeline(
       {@required String name,
@@ -232,8 +231,8 @@ class DataPipelineApi {
   /// [instanceIdentity]: Identity information for the EC2 instance that is
   /// hosting the task runner. You can get this value from the instance using
   /// `http://169.254.169.254/latest/meta-data/instance-id`. For more
-  /// information, see [Instance
-  /// Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html)
+  /// information, see
+  /// [Instance Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html)
   /// in the _Amazon Elastic Compute Cloud User Guide._ Passing in this value
   /// proves that your task runner is running on an EC2 instance, and ensures
   /// the proper AWS Data Pipeline service charges are applied to your pipeline.
@@ -438,17 +437,20 @@ class DataPipelineApi {
   }
 }
 
+/// Contains the output of ActivatePipeline.
 class ActivatePipelineOutput {
   ActivatePipelineOutput();
   static ActivatePipelineOutput fromJson(Map<String, dynamic> json) =>
       ActivatePipelineOutput();
 }
 
+/// Contains the output of AddTags.
 class AddTagsOutput {
   AddTagsOutput();
   static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
 }
 
+/// Contains the output of CreatePipeline.
 class CreatePipelineOutput {
   /// The ID that AWS Data Pipeline assigns the newly created pipeline. For
   /// example, `df-06372391ZG65EXAMPLE`.
@@ -461,12 +463,14 @@ class CreatePipelineOutput {
       CreatePipelineOutput();
 }
 
+/// Contains the output of DeactivatePipeline.
 class DeactivatePipelineOutput {
   DeactivatePipelineOutput();
   static DeactivatePipelineOutput fromJson(Map<String, dynamic> json) =>
       DeactivatePipelineOutput();
 }
 
+/// Contains the output of DescribeObjects.
 class DescribeObjectsOutput {
   /// An array of object definitions.
   final List<PipelineObject> pipelineObjects;
@@ -488,6 +492,7 @@ class DescribeObjectsOutput {
       DescribeObjectsOutput();
 }
 
+/// Contains the output of DescribePipelines.
 class DescribePipelinesOutput {
   /// An array of descriptions for the specified pipelines.
   final List<PipelineDescription> pipelineDescriptionList;
@@ -499,6 +504,7 @@ class DescribePipelinesOutput {
       DescribePipelinesOutput();
 }
 
+/// Contains the output of EvaluateExpression.
 class EvaluateExpressionOutput {
   /// The evaluated expression.
   final String evaluatedExpression;
@@ -510,6 +516,9 @@ class EvaluateExpressionOutput {
       EvaluateExpressionOutput();
 }
 
+/// A key-value pair that describes a property of a pipeline object. The value
+/// is specified as either a string value (`StringValue`) or a reference to
+/// another object (`RefValue`) but not as both.
 class Field {
   /// The field identifier.
   final String key;
@@ -528,6 +537,7 @@ class Field {
   static Field fromJson(Map<String, dynamic> json) => Field();
 }
 
+/// Contains the output of GetPipelineDefinition.
 class GetPipelineDefinitionOutput {
   /// The objects defined in the pipeline.
   final List<PipelineObject> pipelineObjects;
@@ -547,6 +557,13 @@ class GetPipelineDefinitionOutput {
       GetPipelineDefinitionOutput();
 }
 
+/// Identity information for the EC2 instance that is hosting the task runner.
+/// You can get this value by calling a metadata URI from the EC2 instance. For
+/// more information, see
+/// [Instance Metadata](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AESDG-chapter-instancedata.html)
+/// in the _Amazon Elastic Compute Cloud User Guide._ Passing in this value
+/// proves that your task runner is running on an EC2 instance, and ensures the
+/// proper AWS Data Pipeline service charges are applied to your pipeline.
 class InstanceIdentity {
   /// A description of an EC2 instance that is generated when the instance is
   /// launched and exposed to the instance via the instance metadata service in
@@ -563,6 +580,7 @@ class InstanceIdentity {
   });
 }
 
+/// Contains the output of ListPipelines.
 class ListPipelinesOutput {
   /// The pipeline identifiers. If you require additional information about the
   /// pipelines, you can use these identifiers to call DescribePipelines and
@@ -587,6 +605,8 @@ class ListPipelinesOutput {
       ListPipelinesOutput();
 }
 
+/// Contains a logical operation for comparing the value of a field with a
+/// specified value.
 class Operator {
   ///  The logical operation to be performed: equal (`EQ`), equal reference
   /// (`REF_EQ`), less than or equal (`LE`), greater than or equal (`GE`), or
@@ -632,6 +652,7 @@ class Operator {
   });
 }
 
+/// The attributes allowed or specified with a parameter object.
 class ParameterAttribute {
   /// The field identifier.
   final String key;
@@ -647,6 +668,7 @@ class ParameterAttribute {
       ParameterAttribute();
 }
 
+/// Contains information about a parameter object.
 class ParameterObject {
   /// The ID of the parameter object.
   final String id;
@@ -662,6 +684,7 @@ class ParameterObject {
       ParameterObject();
 }
 
+/// A value or list of parameter values.
 class ParameterValue {
   /// The ID of the parameter value.
   final String id;
@@ -676,6 +699,7 @@ class ParameterValue {
   static ParameterValue fromJson(Map<String, dynamic> json) => ParameterValue();
 }
 
+/// Contains pipeline metadata.
 class PipelineDescription {
   /// The pipeline identifier that was assigned by AWS Data Pipeline. This is a
   /// string of the form `df-297EG78HU43EEXAMPLE`.
@@ -692,8 +716,8 @@ class PipelineDescription {
   final String description;
 
   /// A list of tags to associated with a pipeline. Tags let you control access
-  /// to pipelines. For more information, see [Controlling User Access to
-  /// Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+  /// to pipelines. For more information, see
+  /// [Controlling User Access to Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
   /// in the _AWS Data Pipeline Developer Guide_.
   final List<Tag> tags;
 
@@ -708,6 +732,7 @@ class PipelineDescription {
       PipelineDescription();
 }
 
+/// Contains the name and identifier of a pipeline.
 class PipelineIdName {
   /// The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
   /// string of the form `df-297EG78HU43EEXAMPLE`.
@@ -723,6 +748,9 @@ class PipelineIdName {
   static PipelineIdName fromJson(Map<String, dynamic> json) => PipelineIdName();
 }
 
+/// Contains information about a pipeline object. This can be a logical,
+/// physical, or physical attempt pipeline object. The complete set of
+/// components of a pipeline defines the pipeline.
 class PipelineObject {
   /// The ID of the object.
   final String id;
@@ -741,6 +769,7 @@ class PipelineObject {
   static PipelineObject fromJson(Map<String, dynamic> json) => PipelineObject();
 }
 
+/// Contains the output of PollForTask.
 class PollForTaskOutput {
   /// The information needed to complete the task that is being assigned to the
   /// task runner. One of the fields returned in this object is `taskId`, which
@@ -756,6 +785,7 @@ class PollForTaskOutput {
       PollForTaskOutput();
 }
 
+/// Contains the output of PutPipelineDefinition.
 class PutPipelineDefinitionOutput {
   /// The validation errors that are associated with the objects defined in
   /// `pipelineObjects`.
@@ -780,6 +810,7 @@ class PutPipelineDefinitionOutput {
       PutPipelineDefinitionOutput();
 }
 
+/// Defines the query to run against an object.
 class Query {
   /// List of selectors that define the query. An object must satisfy all of the
   /// selectors to match the query.
@@ -790,6 +821,7 @@ class Query {
   });
 }
 
+/// Contains the output of QueryObjects.
 class QueryObjectsOutput {
   /// The identifiers that match the query selectors.
   final List<String> ids;
@@ -812,12 +844,14 @@ class QueryObjectsOutput {
       QueryObjectsOutput();
 }
 
+/// Contains the output of RemoveTags.
 class RemoveTagsOutput {
   RemoveTagsOutput();
   static RemoveTagsOutput fromJson(Map<String, dynamic> json) =>
       RemoveTagsOutput();
 }
 
+/// Contains the output of ReportTaskProgress.
 class ReportTaskProgressOutput {
   /// If true, the calling task runner should cancel processing of the task. The
   /// task runner does not need to call SetTaskStatus for canceled tasks.
@@ -830,6 +864,7 @@ class ReportTaskProgressOutput {
       ReportTaskProgressOutput();
 }
 
+/// Contains the output of ReportTaskRunnerHeartbeat.
 class ReportTaskRunnerHeartbeatOutput {
   /// Indicates whether the calling task runner should terminate.
   final bool terminate;
@@ -841,6 +876,8 @@ class ReportTaskRunnerHeartbeatOutput {
       ReportTaskRunnerHeartbeatOutput();
 }
 
+/// A comparision that is used to determine whether a query should return this
+/// object.
 class Selector {
   /// The name of the field that the operator will be applied to. The field name
   /// is the "key" portion of the field definition in the pipeline definition
@@ -856,22 +893,27 @@ class Selector {
   });
 }
 
+/// Contains the output of SetTaskStatus.
 class SetTaskStatusOutput {
   SetTaskStatusOutput();
   static SetTaskStatusOutput fromJson(Map<String, dynamic> json) =>
       SetTaskStatusOutput();
 }
 
+/// Tags are key/value pairs defined by a user and associated with a pipeline to
+/// control access. AWS Data Pipeline allows you to associate ten tags per
+/// pipeline. For more information, see
+/// [Controlling User Access to Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+/// in the _AWS Data Pipeline Developer Guide_.
 class Tag {
   /// The key name of a tag defined by a user. For more information, see
-  /// [Controlling User Access to
-  /// Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+  /// [Controlling User Access to Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
   /// in the _AWS Data Pipeline Developer Guide_.
   final String key;
 
   /// The optional value portion of a tag defined by a user. For more
-  /// information, see [Controlling User Access to
-  /// Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
+  /// information, see
+  /// [Controlling User Access to Pipelines](http://docs.aws.amazon.com/datapipeline/latest/DeveloperGuide/dp-control-access.html)
   /// in the _AWS Data Pipeline Developer Guide_.
   final String value;
 
@@ -882,6 +924,8 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Contains information about a pipeline task that is assigned to a task
+/// runner.
 class TaskObject {
   /// An internal identifier for the task. This ID is passed to the
   /// SetTaskStatus and ReportTaskProgress actions.
@@ -907,6 +951,7 @@ class TaskObject {
   static TaskObject fromJson(Map<String, dynamic> json) => TaskObject();
 }
 
+/// Contains the output of ValidatePipelineDefinition.
 class ValidatePipelineDefinitionOutput {
   /// Any validation errors that were found.
   final List<ValidationError> validationErrors;
@@ -926,6 +971,9 @@ class ValidatePipelineDefinitionOutput {
       ValidatePipelineDefinitionOutput();
 }
 
+/// Defines a validation error. Validation errors prevent pipeline activation.
+/// The set of validation errors that can be returned are defined by AWS Data
+/// Pipeline.
 class ValidationError {
   /// The identifier of the object that contains the validation error.
   final String id;
@@ -941,6 +989,9 @@ class ValidationError {
       ValidationError();
 }
 
+/// Defines a validation warning. Validation warnings do not prevent pipeline
+/// activation. The set of validation warnings that can be returned are defined
+/// by AWS Data Pipeline.
 class ValidationWarning {
   /// The identifier of the object that contains the validation warning.
   final String id;

@@ -6,9 +6,8 @@ import 'package:meta/meta.dart';
 /// AWS CloudTrail. Amazon FreeRTOS customers can use AWS Signer to sign code
 /// images before making them available for microcontrollers. You can use ACM to
 /// import third-party certificates to be used by AWS Signer. For general
-/// information about using AWS Signer, see the [Code Signing for Amazon
-/// FreeRTOS Developer
-/// Guide](http://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html).
+/// information about using AWS Signer, see the
+/// [Code Signing for Amazon FreeRTOS Developer Guide](http://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html).
 class SignerApi {
   /// Changes the state of an `ACTIVE` signing profile to `CANCELED`. A canceled
   /// profile is still viewable with the `ListSigningProfiles` operation, but it
@@ -163,8 +162,7 @@ class SignerApi {
   /// are performed. Note the following requirements:
   ///
   /// *    You must create an Amazon S3 source bucket. For more information, see
-  /// [Create a
-  /// Bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html)
+  /// [Create a Bucket](http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html)
   /// in the _Amazon S3 Getting Started Guide_.
   ///
   /// *   Your S3 source bucket must be version enabled.
@@ -266,6 +264,8 @@ class DescribeSigningJobResponse {
       DescribeSigningJobResponse();
 }
 
+/// Points to an `S3Destination` object that contains information about your S3
+/// bucket.
 class Destination {
   /// The `S3Destination` object.
   final S3Destination s3;
@@ -275,6 +275,7 @@ class Destination {
   });
 }
 
+/// The encryption algorithm options that are available to an AWS Signer job.
 class EncryptionAlgorithmOptions {
   /// The set of accepted encryption algorithms that are allowed in an AWS
   /// Signer job.
@@ -365,6 +366,7 @@ class GetSigningProfileResponse {
       GetSigningProfileResponse();
 }
 
+/// The hash algorithms that are available to an AWS Signer job.
 class HashAlgorithmOptions {
   /// The set of accepted hash algorithms allowed in an AWS Signer job.
   final List<String> allowedValues;
@@ -438,6 +440,8 @@ class PutSigningProfileResponse {
       PutSigningProfileResponse();
 }
 
+/// The name and prefix of the S3 bucket where AWS Signer saves your signed
+/// objects.
 class S3Destination {
   /// Name of the S3 bucket.
   final String bucketName;
@@ -452,6 +456,7 @@ class S3Destination {
   });
 }
 
+/// The S3 bucket name and key where AWS Signer saved your signed code image.
 class S3SignedObject {
   /// Name of the S3 bucket.
   final String bucketName;
@@ -466,6 +471,7 @@ class S3SignedObject {
   static S3SignedObject fromJson(Map<String, dynamic> json) => S3SignedObject();
 }
 
+/// Information about the S3 bucket where you saved your unsigned code.
 class S3Source {
   /// Name of the S3 bucket.
   final String bucketName;
@@ -484,6 +490,8 @@ class S3Source {
   static S3Source fromJson(Map<String, dynamic> json) => S3Source();
 }
 
+/// Points to an `S3SignedObject` object that contains information about your
+/// signed code image.
 class SignedObject {
   /// The `S3SignedObject`.
   final S3SignedObject s3;
@@ -494,6 +502,7 @@ class SignedObject {
   static SignedObject fromJson(Map<String, dynamic> json) => SignedObject();
 }
 
+/// The configuration of an AWS Signer operation.
 class SigningConfiguration {
   /// The encryption algorithm options that are available for an AWS Signer job.
   final EncryptionAlgorithmOptions encryptionAlgorithmOptions;
@@ -509,6 +518,8 @@ class SigningConfiguration {
       SigningConfiguration();
 }
 
+/// A signing configuration that overrides the default encryption or hash
+/// algorithm of a signing job.
 class SigningConfigurationOverrides {
   /// A specified override of the default encryption algorithm that is used in
   /// an AWS Signer job.
@@ -526,6 +537,7 @@ class SigningConfigurationOverrides {
       SigningConfigurationOverrides();
 }
 
+/// The image format of an AWS Signer platform or profile.
 class SigningImageFormat {
   /// The supported formats of an AWS Signer signing image.
   final List<String> supportedFormats;
@@ -541,6 +553,7 @@ class SigningImageFormat {
       SigningImageFormat();
 }
 
+/// Contains information about a signing job.
 class SigningJob {
   /// The ID of the signing job.
   final String jobId;
@@ -574,6 +587,7 @@ class SigningJob {
   static SigningJob fromJson(Map<String, dynamic> json) => SigningJob();
 }
 
+/// The ACM certificate that is used to sign your code.
 class SigningMaterial {
   /// The Amazon Resource Name (ARN) of the certificates that is used to sign
   /// your code.
@@ -586,6 +600,8 @@ class SigningMaterial {
       SigningMaterial();
 }
 
+/// Contains information about the signing configurations and parameters that is
+/// used to perform an AWS Signer job.
 class SigningPlatform {
   /// The ID of an AWS Signer platform.
   final String platformId;
@@ -627,6 +643,8 @@ class SigningPlatform {
       SigningPlatform();
 }
 
+/// Any overrides that are applied to the signing configuration of an AWS Signer
+/// platform.
 class SigningPlatformOverrides {
   final SigningConfigurationOverrides signingConfiguration;
 
@@ -637,6 +655,8 @@ class SigningPlatformOverrides {
       SigningPlatformOverrides();
 }
 
+/// Contains information about the ACM certificates and AWS Signer configuration
+/// parameters that can be used by a given AWS Signer user.
 class SigningProfile {
   /// The name of the AWS Signer profile.
   final String profileName;
@@ -663,6 +683,8 @@ class SigningProfile {
   static SigningProfile fromJson(Map<String, dynamic> json) => SigningProfile();
 }
 
+/// An `S3Source` object that contains information about the S3 bucket where you
+/// saved your unsigned code.
 class Source {
   /// The `S3Source` object.
   final S3Source s3;

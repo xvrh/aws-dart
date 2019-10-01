@@ -13,7 +13,7 @@ import 'package:meta/meta.dart';
 ///
 ///  **Getting Entitlement Records**
 ///
-/// *    _GetEntitlements_\- Gets the entitlements for a Marketplace product.
+/// *    _GetEntitlements_- Gets the entitlements for a Marketplace product.
 class MarketplaceEntitlementServiceApi {
   /// GetEntitlements retrieves entitlement values for a given product. The
   /// results can be filtered based on customer identifier or product
@@ -42,6 +42,9 @@ class MarketplaceEntitlementServiceApi {
   }
 }
 
+/// An entitlement represents capacity in a product owned by the customer. For
+/// example, a customer might own some number of users or seats in an SaaS
+/// application or some amount of data capacity in a multi-tenant database.
 class Entitlement {
   /// The product code for which the given entitlement applies. Product codes
   /// are provided by AWS Marketplace when the product listing is created.
@@ -78,6 +81,8 @@ class Entitlement {
   static Entitlement fromJson(Map<String, dynamic> json) => Entitlement();
 }
 
+/// The EntitlementValue represents the amount of capacity that the customer is
+/// entitled to for the product.
 class EntitlementValue {
   /// The IntegerValue field will be populated with an integer value when the
   /// entitlement is an integer type. Otherwise, the field will not be set.
@@ -105,6 +110,8 @@ class EntitlementValue {
       EntitlementValue();
 }
 
+/// The GetEntitlementsRequest contains results from the GetEntitlements
+/// operation.
 class GetEntitlementsResult {
   /// The set of entitlements found through the GetEntitlements operation. If
   /// the result contains an empty set of entitlements, NextToken might still be

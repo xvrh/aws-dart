@@ -20,6 +20,8 @@ class PersonalizeEventsApi {
       @required List<Event> eventList}) async {}
 }
 
+/// Represents user interaction event information sent using the `PutEvents`
+/// API.
 class Event {
   /// An ID associated with the event. If an event ID is not provided, Amazon
   /// Personalize generates a unique ID for the event. An event ID is not used
@@ -48,7 +50,7 @@ class Event {
   /// schema. The `itemId` and `eventValue` keys correspond to the `ITEM_ID` and
   /// `EVENT_VALUE` fields. In the above example, the `eventType` might be
   /// 'MovieRating' with `eventValue` being the rating. The `numberOfRatings`
-  /// would match the 'NUMBER\_OF\_RATINGS' field defined in the Interactions
+  /// would match the 'NUMBER_OF_RATINGS' field defined in the Interactions
   /// schema.
   final String properties;
 

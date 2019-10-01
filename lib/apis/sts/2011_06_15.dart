@@ -6,18 +6,18 @@ import 'package:meta/meta.dart';
 /// request temporary, limited-privilege credentials for AWS Identity and Access
 /// Management (IAM) users or for users that you authenticate (federated users).
 /// This guide provides descriptions of the STS API. For more detailed
-/// information about using this service, go to [Temporary Security
-/// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
+/// information about using this service, go to
+/// [Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html).
 ///
 /// For information about setting up signatures and authorization through the
-/// API, go to [Signing AWS API
-/// Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
+/// API, go to
+/// [Signing AWS API Requests](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html)
 /// in the _AWS General Reference_. For general information about the Query API,
-/// go to [Making Query
-/// Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
+/// go to
+/// [Making Query Requests](https://docs.aws.amazon.com/IAM/latest/UserGuide/IAM_UsingQueryAPI.html)
 /// in _Using IAM_. For information about using security tokens with other AWS
-/// products, go to [AWS Services That Work with
-/// IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)
+/// products, go to
+/// [AWS Services That Work with IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_aws-services-that-work-with-iam.html)
 /// in the _IAM User Guide_.
 ///
 /// If you're new to AWS and need additional technical information about a
@@ -31,24 +31,22 @@ import 'package:meta/meta.dart';
 /// `https://sts.amazonaws.com`. Global requests map to the US East (N.
 /// Virginia) region. AWS recommends using Regional AWS STS endpoints instead of
 /// the global endpoint to reduce latency, build in redundancy, and increase
-/// session token validity. For more information, see [Managing AWS STS in an
-/// AWS
-/// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+/// session token validity. For more information, see
+/// [Managing AWS STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
 /// in the _IAM User Guide_.
 ///
 /// Most AWS Regions are enabled for operations in all AWS services by default.
 /// Those Regions are automatically activated for use with AWS STS. Some
 /// Regions, such as Asia Pacific (Hong Kong), must be manually enabled. To
-/// learn more about enabling and disabling AWS Regions, see [Managing AWS
-/// Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html) in
-/// the _AWS General Reference_. When you enable these AWS Regions, they are
+/// learn more about enabling and disabling AWS Regions, see
+/// [Managing AWS Regions](https://docs.aws.amazon.com/general/latest/gr/rande-manage.html)
+/// in the _AWS General Reference_. When you enable these AWS Regions, they are
 /// automatically activated for use with AWS STS. You cannot activate the STS
 /// endpoint for a Region that is disabled. Tokens that are valid in all AWS
 /// Regions are longer than tokens that are valid in Regions that are enabled by
 /// default. Changing this setting might affect existing systems where you
-/// temporarily store tokens. For more information, see [Managing Global
-/// Endpoint Session
-/// Tokens](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#sts-regions-manage-tokens)
+/// temporarily store tokens. For more information, see
+/// [Managing Global Endpoint Session Tokens](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#sts-regions-manage-tokens)
 /// in the _IAM User Guide_.
 ///
 /// After you activate a Region for use with AWS STS, you can direct AWS STS API
@@ -60,8 +58,8 @@ import 'package:meta/meta.dart';
 /// are directed to the global endpoint of `https://sts.amazonaws.com`.
 ///
 /// To view the list of AWS STS endpoints and whether they are active by
-/// default, see [Writing Code to Use AWS STS
-/// Regions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#id_credentials_temp_enable-regions_writing_code)
+/// default, see
+/// [Writing Code to Use AWS STS Regions](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html#id_credentials_temp_enable-regions_writing_code)
 /// in the _IAM User Guide_.
 ///
 ///  **Recording API requests**
@@ -74,8 +72,8 @@ import 'package:meta/meta.dart';
 /// If you activate AWS STS endpoints in Regions other than the default global
 /// endpoint, then you must also turn on CloudTrail logging in those Regions.
 /// This is necessary to record any AWS STS API calls that are made in those
-/// Regions. For more information, see [Turning On CloudTrail in Additional
-/// Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/aggregating_logs_regions_turn_on_ct.html)
+/// Regions. For more information, see
+/// [Turning On CloudTrail in Additional Regions](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/aggregating_logs_regions_turn_on_ct.html)
 /// in the _AWS CloudTrail User Guide_.
 ///
 /// AWS Security Token Service (STS) is a global service with a single endpoint
@@ -90,19 +88,18 @@ import 'package:meta/meta.dart';
 /// the EU (Frankfurt) Region.
 ///
 /// To learn more about CloudTrail, including how to turn it on and find your
-/// log files, see the [AWS CloudTrail User
-/// Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
+/// log files, see the
+/// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class StsApi {
   /// Returns a set of temporary security credentials that you can use to access
   /// AWS resources that you might not normally have access to. These temporary
   /// credentials consist of an access key ID, a secret access key, and a
   /// security token. Typically, you use `AssumeRole` within your account or for
   /// cross-account access. For a comparison of `AssumeRole` with other API
-  /// operations that produce temporary credentials, see [Requesting Temporary
-  /// Security
-  /// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-  /// and [Comparing the AWS STS API
-  /// operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
+  /// operations that produce temporary credentials, see
+  /// [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+  /// and
+  /// [Comparing the AWS STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
   /// in the _IAM User Guide_.
   ///
   ///  You cannot use AWS account root user credentials to call `AssumeRole`.
@@ -116,31 +113,30 @@ class StsApi {
   /// can be time consuming. Instead, you can create one set of long-term
   /// credentials in one account. Then use temporary security credentials to
   /// access all the other accounts by assuming roles in those accounts. For
-  /// more information about roles, see [IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) in
-  /// the _IAM User Guide_.
+  /// more information about roles, see
+  /// [IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html)
+  /// in the _IAM User Guide_.
   ///
   /// By default, the temporary security credentials created by `AssumeRole`
   /// last for one hour. However, you can use the optional `DurationSeconds`
   /// parameter to specify the duration of your session. You can provide a value
   /// from 900 seconds (15 minutes) up to the maximum session duration setting
   /// for the role. This setting can have a value from 1 hour to 12 hours. To
-  /// learn how to view the maximum value for your role, see [View the Maximum
-  /// Session Duration Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// learn how to view the maximum value for your role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_. The maximum session duration limit applies when
   /// you use the `AssumeRole*` API operations or the `assume-role*` CLI
   /// commands. However the limit does not apply when you use those operations
-  /// to create a console URL. For more information, see [Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
+  /// to create a console URL. For more information, see
+  /// [Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
   /// in the _IAM User Guide_.
   ///
   /// The temporary security credentials created by `AssumeRole` can be used to
   /// make API calls to any AWS service with the following exception: You cannot
   /// call the AWS STS `GetFederationToken` or `GetSessionToken` API operations.
   ///
-  /// (Optional) You can pass inline or managed [session
-  /// policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// (Optional) You can pass inline or managed
+  /// [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies. The plain text that you use for both
@@ -151,8 +147,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// To assume a role from a different account, your AWS account must be
@@ -175,8 +171,8 @@ class StsApi {
   /// In this case, the trust policy acts as an IAM resource-based policy. Users
   /// in the same account as the role do not need explicit permission to assume
   /// the role. For more information about trust policies and resource-based
-  /// policies, see [IAM
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
+  /// policies, see
+  /// [IAM Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html)
   /// in the _IAM User Guide_.
   ///
   ///  **Using MFA with AssumeRole**
@@ -192,8 +188,8 @@ class StsApi {
   ///
   ///  `"Condition": {"Bool": {"aws:MultiFactorAuthPresent": true}}`
   ///
-  /// For more information, see [Configuring MFA-Protected API
-  /// Access](https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html)
+  /// For more information, see
+  /// [Configuring MFA-Protected API Access](https://docs.aws.amazon.com/IAM/latest/UserGuide/MFAProtectedAPI.html)
   /// in the _IAM User Guide_ guide.
   ///
   /// To use MFA with `AssumeRole`, you pass values for the `SerialNumber` and
@@ -226,8 +222,8 @@ class StsApi {
   /// This parameter is optional. You can provide up to 10 managed policy ARNs.
   /// However, the plain text that you use for both inline and managed session
   /// policies shouldn't exceed 2048 characters. For more information about
-  /// ARNs, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the AWS General Reference.
   ///
   ///  The characters in this parameter count towards the 2048 character session
@@ -242,8 +238,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// [policy]: An IAM policy in JSON format that you want to use as an inline
@@ -256,15 +252,15 @@ class StsApi {
   /// to access resources in the account that owns the role. You cannot use
   /// session policies to grant more permissions than those allowed by the
   /// identity-based policy of the role that is being assumed. For more
-  /// information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// The plain text that you use for both inline and managed session policies
   /// shouldn't exceed 2048 characters. The JSON policy characters can be any
   /// ASCII character from the space character to the end of the valid character
-  /// list (\\u0020 through \\u00FF). It can also include the tab (\\u0009),
-  /// linefeed (\\u000A), and carriage return (\\u000D) characters.
+  /// list (u0020 through u00FF). It can also include the tab (u0009), linefeed
+  /// (u000A), and carriage return (u000D) characters.
   ///
   ///
   ///
@@ -281,8 +277,8 @@ class StsApi {
   /// operation fails. For example, if you specify a session duration of 12
   /// hours, but your administrator set the maximum session duration to 6 hours,
   /// your operation fails. To learn how to view the maximum value for your
-  /// role, see [View the Maximum Session Duration Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_.
   ///
   /// By default, the value is set to `3600` seconds.
@@ -293,9 +289,8 @@ class StsApi {
   /// session that you might request using the returned credentials. The request
   /// to the federation endpoint for a console sign-in token takes a
   /// `SessionDuration` parameter that specifies the maximum length of the
-  /// console session. For more information, see [Creating a URL that Enables
-  /// Federated Users to Access the AWS Management
-  /// Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
+  /// console session. For more information, see
+  /// [Creating a URL that Enables Federated Users to Access the AWS Management Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
   /// in the _IAM User Guide_.
   ///
   /// [externalId]: A unique identifier that might be required when you assume a
@@ -307,9 +302,8 @@ class StsApi {
   /// account might send an external ID to the administrator of the trusted
   /// account. That way, only someone with the ID can assume the role, rather
   /// than everyone in the account. For more information about the external ID,
-  /// see [How to Use an External ID When Granting Access to Your AWS Resources
-  /// to a Third
-  /// Party](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html)
+  /// see
+  /// [How to Use an External ID When Granting Access to Your AWS Resources to a Third Party](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html)
   /// in the _IAM User Guide_.
   ///
   /// The regex used to validate this parameter is a string of characters
@@ -354,10 +348,10 @@ class StsApi {
   /// a mechanism for tying an enterprise identity store or directory to
   /// role-based AWS access without user-specific credentials or configuration.
   /// For a comparison of `AssumeRoleWithSAML` with the other API operations
-  /// that produce temporary credentials, see [Requesting Temporary Security
-  /// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-  /// and [Comparing the AWS STS API
-  /// operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
+  /// that produce temporary credentials, see
+  /// [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+  /// and
+  /// [Comparing the AWS STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
   /// in the _IAM User Guide_.
   ///
   /// The temporary security credentials returned by this operation consist of
@@ -373,14 +367,13 @@ class StsApi {
   /// value, whichever is shorter. You can provide a `DurationSeconds` value
   /// from 900 seconds (15 minutes) up to the maximum session duration setting
   /// for the role. This setting can have a value from 1 hour to 12 hours. To
-  /// learn how to view the maximum value for your role, see [View the Maximum
-  /// Session Duration Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// learn how to view the maximum value for your role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_. The maximum session duration limit applies when
   /// you use the `AssumeRole*` API operations or the `assume-role*` CLI
   /// commands. However the limit does not apply when you use those operations
-  /// to create a console URL. For more information, see [Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
+  /// to create a console URL. For more information, see
+  /// [Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
   /// in the _IAM User Guide_.
   ///
   /// The temporary security credentials created by `AssumeRoleWithSAML` can be
@@ -388,8 +381,8 @@ class StsApi {
   /// you cannot call the STS `GetFederationToken` or `GetSessionToken` API
   /// operations.
   ///
-  /// (Optional) You can pass inline or managed [session
-  /// policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// (Optional) You can pass inline or managed
+  /// [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies. The plain text that you use for both
@@ -400,8 +393,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// Before your application can call `AssumeRoleWithSAML`, you must configure
@@ -425,20 +418,20 @@ class StsApi {
   ///
   /// For more information, see the following resources:
   ///
-  /// *    [About SAML 2.0-based
-  /// Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
+  /// *
+  /// [About SAML 2.0-based Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_saml.html)
   /// in the _IAM User Guide_.
   ///
-  /// *    [Creating SAML Identity
-  /// Providers](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml.html)
+  /// *
+  /// [Creating SAML Identity Providers](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml.html)
   /// in the _IAM User Guide_.
   ///
-  /// *    [Configuring a Relying Party and
-  /// Claims](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_relying-party.html)
+  /// *
+  /// [Configuring a Relying Party and Claims](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_create_saml_relying-party.html)
   /// in the _IAM User Guide_.
   ///
-  /// *    [Creating a Role for SAML 2.0
-  /// Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_saml.html)
+  /// *
+  /// [Creating a Role for SAML 2.0 Federation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-idp_saml.html)
   /// in the _IAM User Guide_.
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the role that the caller is
@@ -450,8 +443,8 @@ class StsApi {
   /// [samlAssertion]: The base-64 encoded SAML authentication response provided
   /// by the IdP.
   ///
-  /// For more information, see [Configuring a Relying Party and Adding
-  /// Claims](https://docs.aws.amazon.com/IAM/latest/UserGuide/create-role-saml-IdP-tasks.html)
+  /// For more information, see
+  /// [Configuring a Relying Party and Adding Claims](https://docs.aws.amazon.com/IAM/latest/UserGuide/create-role-saml-IdP-tasks.html)
   /// in the _IAM User Guide_.
   ///
   /// [policyArns]: The Amazon Resource Names (ARNs) of the IAM managed policies
@@ -461,8 +454,8 @@ class StsApi {
   /// This parameter is optional. You can provide up to 10 managed policy ARNs.
   /// However, the plain text that you use for both inline and managed session
   /// policies shouldn't exceed 2048 characters. For more information about
-  /// ARNs, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the AWS General Reference.
   ///
   ///  The characters in this parameter count towards the 2048 character session
@@ -477,8 +470,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// [policy]: An IAM policy in JSON format that you want to use as an inline
@@ -491,15 +484,15 @@ class StsApi {
   /// to access resources in the account that owns the role. You cannot use
   /// session policies to grant more permissions than those allowed by the
   /// identity-based policy of the role that is being assumed. For more
-  /// information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// The plain text that you use for both inline and managed session policies
   /// shouldn't exceed 2048 characters. The JSON policy characters can be any
   /// ASCII character from the space character to the end of the valid character
-  /// list (\\u0020 through \\u00FF). It can also include the tab (\\u0009),
-  /// linefeed (\\u000A), and carriage return (\\u000D) characters.
+  /// list (u0020 through u00FF). It can also include the tab (u0009), linefeed
+  /// (u000A), and carriage return (u000D) characters.
   ///
   ///
   ///
@@ -519,9 +512,8 @@ class StsApi {
   /// higher than this setting, the operation fails. For example, if you specify
   /// a session duration of 12 hours, but your administrator set the maximum
   /// session duration to 6 hours, your operation fails. To learn how to view
-  /// the maximum value for your role, see [View the Maximum Session Duration
-  /// Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// the maximum value for your role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_.
   ///
   /// By default, the value is set to `3600` seconds.
@@ -532,9 +524,8 @@ class StsApi {
   /// session that you might request using the returned credentials. The request
   /// to the federation endpoint for a console sign-in token takes a
   /// `SessionDuration` parameter that specifies the maximum length of the
-  /// console session. For more information, see [Creating a URL that Enables
-  /// Federated Users to Access the AWS Management
-  /// Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
+  /// console session. For more information, see
+  /// [Creating a URL that Enables Federated Users to Access the AWS Management Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
   /// in the _IAM User Guide_.
   Future<AssumeRoleWithSamlResponse> assumeRoleWithSaml(
       {@required String roleArn,
@@ -552,16 +543,17 @@ class StsApi {
   /// Google, or any OpenID Connect-compatible identity provider.
   ///
   ///  For mobile applications, we recommend that you use Amazon Cognito. You
-  /// can use Amazon Cognito with the [AWS SDK for iOS Developer
-  /// Guide](http://aws.amazon.com/sdkforios/) and the [AWS SDK for Android
-  /// Developer Guide](http://aws.amazon.com/sdkforandroid/) to uniquely
-  /// identify a user. You can also supply the user with a consistent identity
-  /// throughout the lifetime of an application.
+  /// can use Amazon Cognito with the
+  /// [AWS SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/) and
+  /// the
+  /// [AWS SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/)
+  /// to uniquely identify a user. You can also supply the user with a
+  /// consistent identity throughout the lifetime of an application.
   ///
-  /// To learn more about Amazon Cognito, see [Amazon Cognito
-  /// Overview](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html#d0e840)
-  /// in _AWS SDK for Android Developer Guide_ and [Amazon Cognito
-  /// Overview](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html#d0e664)
+  /// To learn more about Amazon Cognito, see
+  /// [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforandroid/developerguide/cognito-auth.html#d0e840)
+  /// in _AWS SDK for Android Developer Guide_ and
+  /// [Amazon Cognito Overview](https://docs.aws.amazon.com/mobile/sdkforios/developerguide/cognito-auth.html#d0e664)
   /// in the _AWS SDK for iOS Developer Guide_.
   ///
   /// Calling `AssumeRoleWithWebIdentity` does not require the use of AWS
@@ -572,10 +564,10 @@ class StsApi {
   /// credentials. Instead, the identity of the caller is validated by using a
   /// token from the web identity provider. For a comparison of
   /// `AssumeRoleWithWebIdentity` with the other API operations that produce
-  /// temporary credentials, see [Requesting Temporary Security
-  /// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-  /// and [Comparing the AWS STS API
-  /// operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
+  /// temporary credentials, see
+  /// [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+  /// and
+  /// [Comparing the AWS STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
   /// in the _IAM User Guide_.
   ///
   /// The temporary security credentials returned by this API consist of an
@@ -589,13 +581,13 @@ class StsApi {
   /// session. You can provide a value from 900 seconds (15 minutes) up to the
   /// maximum session duration setting for the role. This setting can have a
   /// value from 1 hour to 12 hours. To learn how to view the maximum value for
-  /// your role, see [View the Maximum Session Duration Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// your role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_. The maximum session duration limit applies when
   /// you use the `AssumeRole*` API operations or the `assume-role*` CLI
   /// commands. However the limit does not apply when you use those operations
-  /// to create a console URL. For more information, see [Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
+  /// to create a console URL. For more information, see
+  /// [Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html)
   /// in the _IAM User Guide_.
   ///
   /// The temporary security credentials created by `AssumeRoleWithWebIdentity`
@@ -603,8 +595,8 @@ class StsApi {
   /// exception: you cannot call the STS `GetFederationToken` or
   /// `GetSessionToken` API operations.
   ///
-  /// (Optional) You can pass inline or managed [session
-  /// policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// (Optional) You can pass inline or managed
+  /// [session policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies. The plain text that you use for both
@@ -615,8 +607,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// Before your application can call `AssumeRoleWithWebIdentity`, you must
@@ -631,34 +623,33 @@ class StsApi {
   /// [Subject](http://openid.net/specs/openid-connect-core-1_0.html#Claims) of
   /// the provided Web Identity Token. We recommend that you avoid using any
   /// personally identifiable information (PII) in this field. For example, you
-  /// could instead use a GUID or a pairwise identifier, as [suggested in the
-  /// OIDC
-  /// specification](http://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
+  /// could instead use a GUID or a pairwise identifier, as
+  /// [suggested in the OIDC specification](http://openid.net/specs/openid-connect-core-1_0.html#SubjectIDTypes).
   ///
   ///
   /// For more information about how to use web identity federation and the
   /// `AssumeRoleWithWebIdentity` API, see the following resources:
   ///
-  /// *    [Using Web Identity Federation API Operations for Mobile
-  /// Apps](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_manual.html)
-  /// and [Federation Through a Web-based Identity
-  /// Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity).
+  /// *
+  /// [Using Web Identity Federation API Operations for Mobile Apps](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_oidc_manual.html)
+  /// and
+  /// [Federation Through a Web-based Identity Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity).
   ///
-  /// *     [Web Identity Federation
-  /// Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html).
+  /// *
+  /// [Web Identity Federation Playground](https://web-identity-federation-playground.s3.amazonaws.com/index.html).
   /// Walk through the process of authenticating through Login with Amazon,
   /// Facebook, or Google, getting temporary security credentials, and then
   /// using those credentials to make a request to AWS.
   ///
   /// *    [AWS SDK for iOS Developer Guide](http://aws.amazon.com/sdkforios/)
-  /// and [AWS SDK for Android Developer
-  /// Guide](http://aws.amazon.com/sdkforandroid/). These toolkits contain
-  /// sample apps that show how to invoke the identity providers, and then how
-  /// to use the information from these providers to get and use temporary
-  /// security credentials.
+  /// and
+  /// [AWS SDK for Android Developer Guide](http://aws.amazon.com/sdkforandroid/).
+  /// These toolkits contain sample apps that show how to invoke the identity
+  /// providers, and then how to use the information from these providers to get
+  /// and use temporary security credentials.
   ///
-  /// *    [Web Identity Federation with Mobile
-  /// Applications](http://aws.amazon.com/articles/web-identity-federation-with-mobile-applications).
+  /// *
+  /// [Web Identity Federation with Mobile Applications](http://aws.amazon.com/articles/web-identity-federation-with-mobile-applications).
   /// This article discusses web identity federation and shows an example of how
   /// to use web identity federation to get access to content in Amazon S3.
   ///
@@ -700,8 +691,8 @@ class StsApi {
   /// This parameter is optional. You can provide up to 10 managed policy ARNs.
   /// However, the plain text that you use for both inline and managed session
   /// policies shouldn't exceed 2048 characters. For more information about
-  /// ARNs, see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the AWS General Reference.
   ///
   ///  The characters in this parameter count towards the 2048 character session
@@ -716,8 +707,8 @@ class StsApi {
   /// temporary credentials in subsequent AWS API calls to access resources in
   /// the account that owns the role. You cannot use session policies to grant
   /// more permissions than those allowed by the identity-based policy of the
-  /// role that is being assumed. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// role that is being assumed. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// [policy]: An IAM policy in JSON format that you want to use as an inline
@@ -730,15 +721,15 @@ class StsApi {
   /// to access resources in the account that owns the role. You cannot use
   /// session policies to grant more permissions than those allowed by the
   /// identity-based policy of the role that is being assumed. For more
-  /// information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// The plain text that you use for both inline and managed session policies
   /// shouldn't exceed 2048 characters. The JSON policy characters can be any
   /// ASCII character from the space character to the end of the valid character
-  /// list (\\u0020 through \\u00FF). It can also include the tab (\\u0009),
-  /// linefeed (\\u000A), and carriage return (\\u000D) characters.
+  /// list (u0020 through u00FF). It can also include the tab (u0009), linefeed
+  /// (u000A), and carriage return (u000D) characters.
   ///
   ///
   ///
@@ -755,8 +746,8 @@ class StsApi {
   /// operation fails. For example, if you specify a session duration of 12
   /// hours, but your administrator set the maximum session duration to 6 hours,
   /// your operation fails. To learn how to view the maximum value for your
-  /// role, see [View the Maximum Session Duration Setting for a
-  /// Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
+  /// role, see
+  /// [View the Maximum Session Duration Setting for a Role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use.html#id_roles_use_view-role-max-session)
   /// in the _IAM User Guide_.
   ///
   /// By default, the value is set to `3600` seconds.
@@ -767,9 +758,8 @@ class StsApi {
   /// session that you might request using the returned credentials. The request
   /// to the federation endpoint for a console sign-in token takes a
   /// `SessionDuration` parameter that specifies the maximum length of the
-  /// console session. For more information, see [Creating a URL that Enables
-  /// Federated Users to Access the AWS Management
-  /// Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
+  /// console session. For more information, see
+  /// [Creating a URL that Enables Federated Users to Access the AWS Management Console](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html)
   /// in the _IAM User Guide_.
   Future<AssumeRoleWithWebIdentityResponse> assumeRoleWithWebIdentity(
       {@required String roleArn,
@@ -804,9 +794,8 @@ class StsApi {
   /// The decoded message includes the following type of information:
   ///
   /// *   Whether the request was denied due to an explicit deny or due to the
-  /// absence of an explicit allow. For more information, see [Determining
-  /// Whether a Request is Allowed or
-  /// Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow)
+  /// absence of an explicit allow. For more information, see
+  /// [Determining Whether a Request is Allowed or Denied](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_evaluation-logic.html#policy-eval-denyallow)
   /// in the _IAM User Guide_.
   ///
   /// *   The principal who made the request.
@@ -828,8 +817,8 @@ class StsApi {
   /// Access keys consist of two parts: an access key ID (for example,
   /// `AKIAIOSFODNN7EXAMPLE`) and a secret access key (for example,
   /// `wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY`). For more information about
-  /// access keys, see [Managing Access Keys for IAM
-  /// Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+  /// access keys, see
+  /// [Managing Access Keys for IAM Users](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
   /// in the _IAM User Guide_.
   ///
   /// When you pass an access key ID to this operation, it returns the ID of the
@@ -838,12 +827,12 @@ class StsApi {
   /// Access key IDs beginning with `ASIA` are temporary credentials that are
   /// created using STS operations. If the account in the response belongs to
   /// you, you can sign in as the root user and review your root user access
-  /// keys. Then, you can pull a [credentials
-  /// report](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html)
+  /// keys. Then, you can pull a
+  /// [credentials report](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_getting-report.html)
   /// to learn which IAM user owns the keys. To learn who requested the
   /// temporary credentials for an `ASIA` access key, view the STS events in
-  /// your [CloudTrail
-  /// logs](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html).
+  /// your
+  /// [CloudTrail logs](https://docs.aws.amazon.com/IAM/latest/UserGuide/cloudtrail-integration.html).
   ///
   /// This operation does not indicate the state of the access key. The key
   /// might be active, inactive, or deleted. Active keys might not have
@@ -867,9 +856,8 @@ class StsApi {
   /// adds a policy to your IAM user or role that explicitly denies access to
   /// the `sts:GetCallerIdentity` action, you can still perform this operation.
   /// Permissions are not required because the same information is returned when
-  /// an IAM user or role is denied access. To view an example response, see [I
-  /// Am Not Authorized to Perform:
-  /// iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa).
+  /// an IAM user or role is denied access. To view an example response, see
+  /// [I Am Not Authorized to Perform: iam:DeleteVirtualMFADevice](https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_general.html#troubleshoot_general_access-denied-delete-mfa).
   Future<GetCallerIdentityResponse> getCallerIdentity() async {
     return GetCallerIdentityResponse.fromJson({});
   }
@@ -883,19 +871,18 @@ class StsApi {
   /// appropriate in contexts where those credentials can be safely stored,
   /// usually in a server-based application. For a comparison of
   /// `GetFederationToken` with the other API operations that produce temporary
-  /// credentials, see [Requesting Temporary Security
-  /// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-  /// and [Comparing the AWS STS API
-  /// operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
+  /// credentials, see
+  /// [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+  /// and
+  /// [Comparing the AWS STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
   /// in the _IAM User Guide_.
   ///
   ///  You can create a mobile-based or browser-based app that can authenticate
   /// users using a web identity provider like Login with Amazon, Facebook,
   /// Google, or an OpenID Connect-compatible identity provider. In this case,
   /// we recommend that you use [Amazon Cognito](http://aws.amazon.com/cognito/)
-  /// or `AssumeRoleWithWebIdentity`. For more information, see [Federation
-  /// Through a Web-based Identity
-  /// Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity).
+  /// or `AssumeRoleWithWebIdentity`. For more information, see
+  /// [Federation Through a Web-based Identity Provider](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_assumerolewithwebidentity).
   ///
   ///
   /// You can also call `GetFederationToken` using the security credentials of
@@ -903,8 +890,8 @@ class StsApi {
   /// recommend that you create an IAM user for the purpose of the proxy
   /// application. Then attach a policy to the IAM user that limits federated
   /// users to only the actions and resources that they need to access. For more
-  /// information, see [IAM Best
-  /// Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
+  /// information, see
+  /// [IAM Best Practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html)
   /// in the _IAM User Guide_.
   ///
   /// The temporary credentials are valid for the specified duration, from 900
@@ -923,8 +910,8 @@ class StsApi {
   ///
   ///  **Permissions**
   ///
-  /// You must pass an inline or managed [session
-  /// policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// You must pass an inline or managed
+  /// [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies. The plain text that you use for both
@@ -939,12 +926,11 @@ class StsApi {
   /// user policies and the session policies that you pass. This gives you a way
   /// to further restrict the permissions for a federated user. You cannot use
   /// session policies to grant more permissions than those that are defined in
-  /// the permissions policy of the IAM user. For more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// the permissions policy of the IAM user. For more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_. For information about using `GetFederationToken`
   /// to create temporary security credentials, see
-  /// [GetFederationToken—Federation Through a Custom Identity
-  /// Broker](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getfederationtoken).
+  /// [GetFederationToken—Federation Through a Custom Identity Broker](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getfederationtoken).
   ///
   /// [name]: The name of the federated user. The name is used as an identifier
   /// for the temporary security credentials (such as `Bob`). For example, you
@@ -959,8 +945,8 @@ class StsApi {
   /// [policy]: An IAM policy in JSON format that you want to use as an inline
   /// session policy.
   ///
-  /// You must pass an inline or managed [session
-  /// policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// You must pass an inline or managed
+  /// [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies.
@@ -976,15 +962,15 @@ class StsApi {
   /// pass. This gives you a way to further restrict the permissions for a
   /// federated user. You cannot use session policies to grant more permissions
   /// than those that are defined in the permissions policy of the IAM user. For
-  /// more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   /// The plain text that you use for both inline and managed session policies
   /// shouldn't exceed 2048 characters. The JSON policy characters can be any
   /// ASCII character from the space character to the end of the valid character
-  /// list (\\u0020 through \\u00FF). It can also include the tab (\\u0009),
-  /// linefeed (\\u000A), and carriage return (\\u000D) characters.
+  /// list (u0020 through u00FF). It can also include the tab (u0009), linefeed
+  /// (u000A), and carriage return (u000D) characters.
   ///
   ///
   ///
@@ -998,15 +984,15 @@ class StsApi {
   /// that you want to use as a managed session policy. The policies must exist
   /// in the same account as the IAM user that is requesting federated access.
   ///
-  /// You must pass an inline or managed [session
-  /// policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// You must pass an inline or managed
+  /// [session policy](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// to this operation. You can pass a single JSON policy document to use as an
   /// inline session policy. You can also specify up to 10 managed policies to
   /// use as managed session policies. The plain text that you use for both
   /// inline and managed session policies shouldn't exceed 2048 characters. You
   /// can provide up to 10 managed policy ARNs. For more information about ARNs,
-  /// see [Amazon Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the AWS General Reference.
   ///
   /// This parameter is optional. However, if you do not pass any session
@@ -1020,8 +1006,8 @@ class StsApi {
   /// pass. This gives you a way to further restrict the permissions for a
   /// federated user. You cannot use session policies to grant more permissions
   /// than those that are defined in the permissions policy of the IAM user. For
-  /// more information, see [Session
-  /// Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
+  /// more information, see
+  /// [Session Policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session)
   /// in the _IAM User Guide_.
   ///
   ///
@@ -1057,10 +1043,10 @@ class StsApi {
   /// that require MFA authentication. If you do not supply a correct MFA code,
   /// then the API returns an access denied error. For a comparison of
   /// `GetSessionToken` with the other API operations that produce temporary
-  /// credentials, see [Requesting Temporary Security
-  /// Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
-  /// and [Comparing the AWS STS API
-  /// operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
+  /// credentials, see
+  /// [Requesting Temporary Security Credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html)
+  /// and
+  /// [Comparing the AWS STS API operations](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison)
   /// in the _IAM User Guide_.
   ///
   /// The `GetSessionToken` operation must be called by using the long-term AWS
@@ -1083,8 +1069,8 @@ class StsApi {
   ///
   ///
   ///  We recommend that you do not call `GetSessionToken` with AWS account root
-  /// user credentials. Instead, follow our [best
-  /// practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#create-iam-users)
+  /// user credentials. Instead, follow our
+  /// [best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#create-iam-users)
   /// by creating one or more IAM users, giving them the necessary permissions,
   /// and using IAM users for everyday interaction with AWS.
   ///
@@ -1096,8 +1082,8 @@ class StsApi {
   /// user, the temporary credentials have the same permissions as the IAM user.
   ///
   /// For more information about using `GetSessionToken` to create temporary
-  /// credentials, go to [Temporary Credentials for Users in Untrusted
-  /// Environments](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getsessiontoken)
+  /// credentials, go to
+  /// [Temporary Credentials for Users in Untrusted Environments](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#api_getsessiontoken)
   /// in the _IAM User Guide_.
   ///
   /// [durationSeconds]: The duration, in seconds, that the credentials should
@@ -1136,6 +1122,8 @@ class StsApi {
   }
 }
 
+/// Contains the response to a successful AssumeRole request, including
+/// temporary AWS credentials that can be used to make AWS requests.
 class AssumeRoleResponse {
   /// The temporary security credentials, which include an access key ID, a
   /// secret access key, and a security (or session) token.
@@ -1169,6 +1157,8 @@ class AssumeRoleResponse {
       AssumeRoleResponse();
 }
 
+/// Contains the response to a successful AssumeRoleWithSAML request, including
+/// temporary AWS credentials that can be used to make AWS requests.
 class AssumeRoleWithSamlResponse {
   /// The temporary security credentials, which include an access key ID, a
   /// secret access key, and a security (or session) token.
@@ -1236,6 +1226,8 @@ class AssumeRoleWithSamlResponse {
       AssumeRoleWithSamlResponse();
 }
 
+/// Contains the response to a successful AssumeRoleWithWebIdentity request,
+/// including temporary AWS credentials that can be used to make AWS requests.
 class AssumeRoleWithWebIdentityResponse {
   /// The temporary security credentials, which include an access key ID, a
   /// secret access key, and a security token.
@@ -1293,6 +1285,8 @@ class AssumeRoleWithWebIdentityResponse {
       AssumeRoleWithWebIdentityResponse();
 }
 
+/// The identifiers for the temporary security credentials that the operation
+/// returns.
 class AssumedRoleUser {
   /// A unique identifier that contains the role ID and the role session name of
   /// the role that is being assumed. The role ID is generated by AWS when the
@@ -1301,8 +1295,8 @@ class AssumedRoleUser {
 
   /// The ARN of the temporary security credentials that are returned from the
   /// AssumeRole action. For more information about ARNs and how to use them in
-  /// policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
+  /// policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
   /// in _Using IAM_.
   final String arn;
 
@@ -1314,6 +1308,7 @@ class AssumedRoleUser {
       AssumedRoleUser();
 }
 
+/// AWS credentials for API authentication.
 class Credentials {
   /// The access key ID that identifies the temporary security credentials.
   final String accessKeyId;
@@ -1337,6 +1332,9 @@ class Credentials {
   static Credentials fromJson(Map<String, dynamic> json) => Credentials();
 }
 
+/// A document that contains additional information about the authorization
+/// status of a request from an encoded message that is returned in response to
+/// an AWS request.
 class DecodeAuthorizationMessageResponse {
   /// An XML document that contains the decoded message.
   final String decodedMessage;
@@ -1349,6 +1347,7 @@ class DecodeAuthorizationMessageResponse {
       DecodeAuthorizationMessageResponse();
 }
 
+/// Identifiers for the federated user that is associated with the credentials.
 class FederatedUser {
   /// The string that identifies the federated user associated with the
   /// credentials, similar to the unique ID of an IAM user.
@@ -1356,8 +1355,8 @@ class FederatedUser {
 
   /// The ARN that specifies the federated user that is associated with the
   /// credentials. For more information about ARNs and how to use them in
-  /// policies, see [IAM
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
+  /// policies, see
+  /// [IAM Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html)
   /// in _Using IAM_.
   final String arn;
 
@@ -1379,11 +1378,13 @@ class GetAccessKeyInfoResponse {
       GetAccessKeyInfoResponse();
 }
 
+/// Contains the response to a successful GetCallerIdentity request, including
+/// information about the entity making the request.
 class GetCallerIdentityResponse {
   /// The unique identifier of the calling entity. The exact value depends on
   /// the type of entity that is making the call. The values returned are those
-  /// listed in the **aws:userid** column in the [Principal
-  /// table](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable)
+  /// listed in the **aws:userid** column in the
+  /// [Principal table](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_variables.html#principaltable)
   /// found on the **Policy Variables** reference page in the _IAM User Guide_.
   final String userId;
 
@@ -1403,6 +1404,8 @@ class GetCallerIdentityResponse {
       GetCallerIdentityResponse();
 }
 
+/// Contains the response to a successful GetFederationToken request, including
+/// temporary AWS credentials that can be used to make AWS requests.
 class GetFederationTokenResponse {
   /// The temporary security credentials, which include an access key ID, a
   /// secret access key, and a security (or session) token.
@@ -1434,6 +1437,8 @@ class GetFederationTokenResponse {
       GetFederationTokenResponse();
 }
 
+/// Contains the response to a successful GetSessionToken request, including
+/// temporary AWS credentials that can be used to make AWS requests.
 class GetSessionTokenResponse {
   /// The temporary security credentials, which include an access key ID, a
   /// secret access key, and a security (or session) token.
@@ -1452,11 +1457,12 @@ class GetSessionTokenResponse {
       GetSessionTokenResponse();
 }
 
+/// A reference to the IAM managed policy that is passed as a session policy for
+/// a role session or a federated user session.
 class PolicyDescriptorType {
   /// The Amazon Resource Name (ARN) of the IAM managed policy to use as a
-  /// session policy for the role. For more information about ARNs, see [Amazon
-  /// Resource Names (ARNs) and AWS Service
-  /// Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// session policy for the role. For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   final String arn;
 

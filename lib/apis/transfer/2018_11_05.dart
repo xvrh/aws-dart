@@ -510,6 +510,10 @@ class DescribeUserResponse {
       DescribeUserResponse();
 }
 
+/// Describes the properties of the server that was specified. Information
+/// returned includes the following: the server Amazon Resource Name (ARN), the
+/// authentication configuration and type, the logging role, the server ID and
+/// state, and assigned tags or metadata.
 class DescribedServer {
   /// Specifies the unique Amazon Resource Name (ARN) for the server to be
   /// described.
@@ -586,6 +590,7 @@ class DescribedServer {
       DescribedServer();
 }
 
+/// Returns properties of the user that you want to describe.
 class DescribedUser {
   /// This property contains the unique Amazon Resource Name (ARN) for the user
   /// that was requested to be described.
@@ -632,6 +637,8 @@ class DescribedUser {
   static DescribedUser fromJson(Map<String, dynamic> json) => DescribedUser();
 }
 
+/// The configuration settings for the virtual private cloud (VPC) endpoint for
+/// your SFTP server.
 class EndpointDetails {
   /// The ID of the VPC endpoint.
   final String vpcEndpointId;
@@ -643,6 +650,9 @@ class EndpointDetails {
       EndpointDetails();
 }
 
+/// Returns information related to the type of user authentication that is in
+/// use for a server's users. A server can have only one method of
+/// authentication.
 class IdentityProviderDetails {
   /// The `Url` parameter provides contains the location of the service endpoint
   /// used to authenticate users.
@@ -660,6 +670,9 @@ class IdentityProviderDetails {
       IdentityProviderDetails();
 }
 
+/// This response identifies the user, the server they belong to, and the
+/// identifier of the SSH public key associated with that user. A user can have
+/// more than one key on each server that they are associated with.
 class ImportSshPublicKeyResponse {
   /// A system-assigned unique identifier for an SFTP server.
   final String serverId;
@@ -745,6 +758,7 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// Returns properties of the server that was specified.
 class ListedServer {
   /// The unique Amazon Resource Name (ARN) for the server to be listed.
   final String arn;
@@ -769,7 +783,7 @@ class ListedServer {
   final String serverId;
 
   /// This property describes the condition of the SFTP server for the server
-  /// that was described. A value of `ONLINE`\> indicates that the server can
+  /// that was described. A value of `ONLINE`> indicates that the server can
   /// accept jobs and transfer files. A `State` value of `OFFLINE` means that
   /// the server cannot perform file transfer operations.
   ///
@@ -795,6 +809,7 @@ class ListedServer {
   static ListedServer fromJson(Map<String, dynamic> json) => ListedServer();
 }
 
+/// Returns properties of the user that you specify.
 class ListedUser {
   /// This property is the unique Amazon Resource Name (ARN) for the user that
   /// you want to learn about.
@@ -829,6 +844,12 @@ class ListedUser {
   static ListedUser fromJson(Map<String, dynamic> json) => ListedUser();
 }
 
+/// Provides information about the public Secure Shell (SSH) key that is
+/// associated with a user account for a specific server (as identified by
+/// `ServerId`). The information returned includes the date the key was
+/// imported, the public key contents, and the public key ID. A user can store
+/// more than one SSH public key associated with their user name on a specific
+/// SFTP server.
 class SshPublicKey {
   /// The date that the public key was added to the user account.
   final DateTime dateImported;
@@ -847,6 +868,12 @@ class SshPublicKey {
   static SshPublicKey fromJson(Map<String, dynamic> json) => SshPublicKey();
 }
 
+/// Creates a key-value pair for a specific resource. Tags are metadata that you
+/// can use to search for and group a resource for various purposes. You can
+/// apply tags to servers, users, and roles. A tag key can take more than one
+/// value. For example, to group servers for accounting purposes, you might
+/// create a tag called `Group` and assign the values `Research` and
+/// `Accounting` to that group.
 class Tag {
   /// The name assigned to the tag that you create.
   final String key;
@@ -897,6 +924,8 @@ class UpdateServerResponse {
       UpdateServerResponse();
 }
 
+///  `UpdateUserResponse` returns the user name and server identifier for the
+/// request to update a user's properties.
 class UpdateUserResponse {
   /// A system-assigned unique identifier for an SFTP server instance that the
   /// user account is assigned to.

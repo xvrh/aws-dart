@@ -114,6 +114,7 @@ class MobileApi {
   }
 }
 
+///  The details of the bundle.
 class BundleDetails {
   final String bundleId;
 
@@ -138,6 +139,7 @@ class BundleDetails {
   static BundleDetails fromJson(Map<String, dynamic> json) => BundleDetails();
 }
 
+///  Result structure used in response to a request to create a project.
 class CreateProjectResult {
   ///  Detailed information about the created AWS Mobile Hub project.
   final ProjectDetails details;
@@ -149,6 +151,7 @@ class CreateProjectResult {
       CreateProjectResult();
 }
 
+///  Result structure used in response to request to delete a project.
 class DeleteProjectResult {
   ///  Resources which were deleted.
   final List<Resource> deletedResources;
@@ -165,6 +168,7 @@ class DeleteProjectResult {
       DeleteProjectResult();
 }
 
+///  Result structure contains the details of the bundle.
 class DescribeBundleResult {
   ///  The details of the bundle.
   final BundleDetails details;
@@ -176,6 +180,7 @@ class DescribeBundleResult {
       DescribeBundleResult();
 }
 
+///  Result structure used for requests of project details.
 class DescribeProjectResult {
   final ProjectDetails details;
 
@@ -186,6 +191,9 @@ class DescribeProjectResult {
       DescribeProjectResult();
 }
 
+///  Result structure which contains link to download custom-generated SDK and
+/// tool packages used to integrate mobile web or app clients with backed AWS
+/// resources.
 class ExportBundleResult {
   ///  URL which contains the custom-generated SDK and tool packages used to
   /// integrate the client mobile app or web app with the AWS resources created
@@ -199,6 +207,7 @@ class ExportBundleResult {
       ExportBundleResult();
 }
 
+///  Result structure used for requests to export project configuration details.
 class ExportProjectResult {
   ///  URL which can be used to download the exported project configuation
   /// file(s).
@@ -225,6 +234,7 @@ class ExportProjectResult {
       ExportProjectResult();
 }
 
+///  Result structure contains a list of all available bundles with details.
 class ListBundlesResult {
   ///  A list of bundles.
   final List<BundleDetails> bundleList;
@@ -241,6 +251,7 @@ class ListBundlesResult {
       ListBundlesResult();
 }
 
+///  Result structure used for requests to list projects in AWS Mobile Hub.
 class ListProjectsResult {
   final List<ProjectSummary> projects;
 
@@ -254,6 +265,7 @@ class ListProjectsResult {
       ListProjectsResult();
 }
 
+///  Detailed information about an AWS Mobile Hub project.
 class ProjectDetails {
   final String name;
 
@@ -287,6 +299,7 @@ class ProjectDetails {
   static ProjectDetails fromJson(Map<String, dynamic> json) => ProjectDetails();
 }
 
+///  Summary information about an AWS Mobile Hub project.
 class ProjectSummary {
   ///  Name of the project.
   final String name;
@@ -301,6 +314,7 @@ class ProjectSummary {
   static ProjectSummary fromJson(Map<String, dynamic> json) => ProjectSummary();
 }
 
+///  Information about an instance of an AWS resource associated with a project.
 class Resource {
   final String type;
 
@@ -322,6 +336,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+///  Result structure used for requests to updated project configuration.
 class UpdateProjectResult {
   ///  Detailed information about the updated AWS Mobile Hub project.
   final ProjectDetails details;

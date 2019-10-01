@@ -40,8 +40,8 @@ class EmrApi {
   /// bypass the 256-step limitation in various ways, including using SSH to
   /// connect to the master node and submitting queries directly to the software
   /// running on the master node, such as Hive and Hadoop. For more information
-  /// on how to do this, see [Add More than 256 Steps to a
-  /// Cluster](https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html)
+  /// on how to do this, see
+  /// [Add More than 256 Steps to a Cluster](https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html)
   /// in the _Amazon EMR Management Guide_.
   ///
   /// A step specifies the location of a JAR file stored either on the master
@@ -70,8 +70,8 @@ class EmrApi {
 
   /// Adds tags to an Amazon EMR resource. Tags make it easier to associate
   /// clusters in various ways, such as grouping clusters to track your Amazon
-  /// EMR resource allocation costs. For more information, see [Tag
-  /// Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
+  /// EMR resource allocation costs. For more information, see
+  /// [Tag Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
   ///
   /// [resourceId]: The Amazon EMR resource identifier to which tags will be
   /// added. This value must be a cluster identifier.
@@ -108,9 +108,8 @@ class EmrApi {
   /// [name]: The name of the security configuration.
   ///
   /// [securityConfiguration]: The security configuration details in JSON
-  /// format. For JSON parameters and examples, see [Use Security Configurations
-  /// to Set Up Cluster
-  /// Security](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-security-configurations.html)
+  /// format. For JSON parameters and examples, see
+  /// [Use Security Configurations to Set Up Cluster Security](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-security-configurations.html)
   /// in the _Amazon EMR Management Guide_.
   Future<CreateSecurityConfigurationOutput> createSecurityConfiguration(
       {@required String name, @required String securityConfiguration}) async {
@@ -192,9 +191,8 @@ class EmrApi {
   }
 
   /// Returns the Amazon EMR block public access configuration for your AWS
-  /// account in the current Region. For more information see [Configure Block
-  /// Public Access for Amazon
-  /// EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html)
+  /// account in the current Region. For more information see
+  /// [Configure Block Public Access for Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html)
   /// in the _Amazon EMR Management Guide_.
   Future<GetBlockPublicAccessConfigurationOutput>
       getBlockPublicAccessConfiguration() async {
@@ -378,8 +376,7 @@ class EmrApi {
 
   /// Creates or updates an Amazon EMR block public access configuration for
   /// your AWS account in the current Region. For more information see
-  /// [Configure Block Public Access for Amazon
-  /// EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html)
+  /// [Configure Block Public Access for Amazon EMR](https://docs.aws.amazon.com/emr/latest/ManagementGuide/configure-block-public-access.html)
   /// in the _Amazon EMR Management Guide_.
   ///
   /// [blockPublicAccessConfiguration]: A configuration for Amazon EMR block
@@ -413,8 +410,8 @@ class EmrApi {
 
   /// Removes tags from an Amazon EMR resource. Tags make it easier to associate
   /// clusters in various ways, such as grouping clusters to track your Amazon
-  /// EMR resource allocation costs. For more information, see [Tag
-  /// Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
+  /// EMR resource allocation costs. For more information, see
+  /// [Tag Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
   ///
   /// The following example removes the stack tag with value Prod from a
   /// cluster:
@@ -448,8 +445,8 @@ class EmrApi {
   /// bypass the 256-step limitation in various ways, including using the SSH
   /// shell to connect to the master node and submitting queries directly to the
   /// software running on the master node, such as Hive and Hadoop. For more
-  /// information on how to do this, see [Add More than 256 Steps to a
-  /// Cluster](https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html)
+  /// information on how to do this, see
+  /// [Add More than 256 Steps to a Cluster](https://docs.aws.amazon.com/emr/latest/ManagementGuide/AddMoreThan256Steps.html)
   /// in the _Amazon EMR Management Guide_.
   ///
   /// For long running clusters, we recommend that you periodically store your
@@ -494,8 +491,8 @@ class EmrApi {
   /// releases 4.x and later, use Applications.
   ///
   /// A list of strings that indicates third-party software to use. For more
-  /// information, see the [Amazon EMR Developer
-  /// Guide](https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf).
+  /// information, see the
+  /// [Amazon EMR Developer Guide](https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf).
   /// Currently supported values are:
   ///
   /// *   "mapr-m3" - launch the job flow using MapR M3 Edition.
@@ -509,8 +506,8 @@ class EmrApi {
   /// flow that accepts a user argument list. EMR accepts and forwards the
   /// argument list to the corresponding installation script as bootstrap action
   /// arguments. For more information, see "Launch a Job Flow on the MapR
-  /// Distribution for Hadoop" in the [Amazon EMR Developer
-  /// Guide](https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf).
+  /// Distribution for Hadoop" in the
+  /// [Amazon EMR Developer Guide](https://docs.aws.amazon.com/emr/latest/DeveloperGuide/emr-dg.pdf).
   /// Supported values are:
   ///
   /// *   "mapr-m3" - launch the cluster using MapR M3 Edition.
@@ -535,8 +532,8 @@ class EmrApi {
   /// [applications]: Applies to Amazon EMR releases 4.0 and later. A
   /// case-insensitive list of applications for Amazon EMR to install and
   /// configure when launching the cluster. For a list of applications available
-  /// for each Amazon EMR release version, see the [Amazon EMR Release
-  /// Guide](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/).
+  /// for each Amazon EMR release version, see the
+  /// [Amazon EMR Release Guide](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/).
   ///
   /// [configurations]: For Amazon EMR releases 4.0 and later. The list of
   /// configurations supplied for the EMR cluster you are creating.
@@ -551,7 +548,7 @@ class EmrApi {
   ///
   /// [jobFlowRole]: Also called instance profile and EC2 role. An IAM role for
   /// an EMR cluster. The EC2 instances of the cluster assume this role. The
-  /// default role is `EMR\_EC2\_DefaultRole`. In order to use the default role,
+  /// default role is `EMR_EC2_DefaultRole`. In order to use the default role,
   /// you must have already created it using the CLI or console.
   ///
   /// [serviceRole]: The IAM role that will be assumed by the Amazon EMR service
@@ -564,40 +561,39 @@ class EmrApi {
   /// the cluster.
   ///
   /// [autoScalingRole]: An IAM role for automatic scaling policies. The default
-  /// role is `EMR\_AutoScaling\_DefaultRole`. The IAM role provides permissions
+  /// role is `EMR_AutoScaling_DefaultRole`. The IAM role provides permissions
   /// that the automatic scaling feature requires to launch and terminate EC2
   /// instances in an instance group.
   ///
   /// [scaleDownBehavior]: Specifies the way that individual Amazon EC2
   /// instances terminate when an automatic scale-in activity occurs or an
-  /// instance group is resized. `TERMINATE\_AT\_INSTANCE_HOUR` indicates that
+  /// instance group is resized. `TERMINATE_AT_INSTANCE_HOUR` indicates that
   /// Amazon EMR terminates nodes at the instance-hour boundary, regardless of
   /// when the request to terminate the instance was submitted. This option is
   /// only available with Amazon EMR 5.1.0 and later and is the default for
-  /// clusters created using that version. `TERMINATE\_AT\_TASK_COMPLETION`
+  /// clusters created using that version. `TERMINATE_AT_TASK_COMPLETION`
   /// indicates that Amazon EMR blacklists and drains tasks from nodes before
   /// terminating the Amazon EC2 instances, regardless of the instance-hour
   /// boundary. With either behavior, Amazon EMR removes the least active nodes
   /// first and blocks instance termination if it could lead to HDFS corruption.
-  /// `TERMINATE\_AT\_TASK_COMPLETION` available only in Amazon EMR version
-  /// 4.1.0 and later, and is the default for versions of Amazon EMR earlier
-  /// than 5.1.0.
+  /// `TERMINATE_AT_TASK_COMPLETION` available only in Amazon EMR version 4.1.0
+  /// and later, and is the default for versions of Amazon EMR earlier than
+  /// 5.1.0.
   ///
   /// [customAmiId]: Available only in Amazon EMR version 5.7.0 and later. The
   /// ID of a custom Amazon EBS-backed Linux AMI. If specified, Amazon EMR uses
   /// this AMI when it launches cluster EC2 instances. For more information
-  /// about custom AMIs in Amazon EMR, see [Using a Custom
-  /// AMI](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html)
+  /// about custom AMIs in Amazon EMR, see
+  /// [Using a Custom AMI](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-custom-ami.html)
   /// in the _Amazon EMR Management Guide_. If omitted, the cluster uses the
   /// base Linux AMI for the `ReleaseLabel` specified. For Amazon EMR versions
   /// 2.x and 3.x, use `AmiVersion` instead.
   ///
-  /// For information about creating a custom AMI, see [Creating an Amazon
-  /// EBS-Backed Linux
-  /// AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html)
+  /// For information about creating a custom AMI, see
+  /// [Creating an Amazon EBS-Backed Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html)
   /// in the _Amazon Elastic Compute Cloud User Guide for Linux Instances_. For
-  /// information about finding an AMI ID, see [Finding a Linux
-  /// AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html).
+  /// information about finding an AMI ID, see
+  /// [Finding a Linux AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html).
   ///
   /// [ebsRootVolumeSize]: The size, in GiB, of the EBS root device volume of
   /// the Linux AMI that is used for each EC2 instance. Available in Amazon EMR
@@ -612,8 +608,8 @@ class EmrApi {
   ///
   /// [kerberosAttributes]: Attributes for Kerberos configuration when Kerberos
   /// authentication is enabled using a security configuration. For more
-  /// information see [Use Kerberos
-  /// Authentication](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
+  /// information see
+  /// [Use Kerberos Authentication](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
   /// in the _EMR Management Guide_.
   Future<RunJobFlowOutput> runJobFlow(
       {@required String name,
@@ -659,8 +655,8 @@ class EmrApi {
   /// by a subsequent call to `SetTerminationProtection` in which you set the
   /// value to `false`.
   ///
-  ///  For more information, see[Managing Cluster
-  /// Termination](https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html)
+  ///  For more information,
+  /// see[Managing Cluster Termination](https://docs.aws.amazon.com/emr/latest/ManagementGuide/UsingEMR_TerminationProtection.html)
   /// in the _Amazon EMR Management Guide_.
   ///
   /// [jobFlowIds]:  A list of strings that uniquely identify the clusters to
@@ -727,6 +723,7 @@ class AddInstanceFleetOutput {
       AddInstanceFleetOutput();
 }
 
+/// Output from an AddInstanceGroups call.
 class AddInstanceGroupsOutput {
   /// The job flow ID in which the instance groups are added.
   final String jobFlowId;
@@ -742,6 +739,7 @@ class AddInstanceGroupsOutput {
       AddInstanceGroupsOutput();
 }
 
+///  The output for the AddJobFlowSteps operation.
 class AddJobFlowStepsOutput {
   /// The identifiers of the list of steps added to the job flow.
   final List<String> stepIds;
@@ -753,11 +751,24 @@ class AddJobFlowStepsOutput {
       AddJobFlowStepsOutput();
 }
 
+/// This output indicates the result of adding tags to a resource.
 class AddTagsOutput {
   AddTagsOutput();
   static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
 }
 
+/// With Amazon EMR release version 4.0 and later, the only accepted parameter
+/// is the application name. To pass arguments to applications, you use
+/// configuration classifications specified using configuration JSON objects.
+/// For more information, see
+/// [Configuring Applications](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html).
+///
+/// With earlier Amazon EMR releases, the application is any Amazon or
+/// third-party software that you can add to the cluster. This structure
+/// contains a list of strings that indicates the software to use with the
+/// cluster and accepts a user argument list. Amazon EMR accepts and forwards
+/// the argument list to the corresponding installation script as bootstrap
+/// action argument.
 class Application {
   /// The name of the application.
   final String name;
@@ -782,6 +793,10 @@ class Application {
   static Application fromJson(Map<String, dynamic> json) => Application();
 }
 
+/// An automatic scaling policy for a core instance group or task instance group
+/// in an Amazon EMR cluster. An automatic scaling policy defines how an
+/// instance group dynamically adds and terminates EC2 instances in response to
+/// the value of a CloudWatch metric. See PutAutoScalingPolicy.
 class AutoScalingPolicy {
   /// The upper and lower EC2 instance limits for an automatic scaling policy.
   /// Automatic scaling activity will not cause an instance group to grow above
@@ -798,6 +813,10 @@ class AutoScalingPolicy {
   });
 }
 
+/// An automatic scaling policy for a core instance group or task instance group
+/// in an Amazon EMR cluster. The automatic scaling policy defines how an
+/// instance group dynamically adds and terminates EC2 instances in response to
+/// the value of a CloudWatch metric. See PutAutoScalingPolicy.
 class AutoScalingPolicyDescription {
   /// The status of an automatic scaling policy.
   final AutoScalingPolicyStatus status;
@@ -820,6 +839,7 @@ class AutoScalingPolicyDescription {
       AutoScalingPolicyDescription();
 }
 
+/// The reason for an AutoScalingPolicyStatus change.
 class AutoScalingPolicyStateChangeReason {
   /// The code indicating the reason for the change in status.`USER_REQUEST`
   /// indicates that the scaling policy status was changed by a user.
@@ -840,6 +860,7 @@ class AutoScalingPolicyStateChangeReason {
       AutoScalingPolicyStateChangeReason();
 }
 
+/// The status of an automatic scaling policy.
 class AutoScalingPolicyStatus {
   /// Indicates the status of the automatic scaling policy.
   final String state;
@@ -855,6 +876,11 @@ class AutoScalingPolicyStatus {
       AutoScalingPolicyStatus();
 }
 
+/// A configuration for Amazon EMR block public access. When
+/// `BlockPublicSecurityGroupRules` is set to `true`, Amazon EMR prevents
+/// cluster creation if one of the cluster's security groups has a rule that
+/// allows inbound traffic from 0.0.0.0/0 or ::/0 on a port, unless the port is
+/// specified as an exception using `PermittedPublicSecurityGroupRuleRanges`.
 class BlockPublicAccessConfiguration {
   /// Indicates whether EMR block public access is enabled (`true`) or disabled
   /// (`false`). By default, the value is `false` for accounts that have created
@@ -882,6 +908,11 @@ class BlockPublicAccessConfiguration {
       BlockPublicAccessConfiguration();
 }
 
+/// Properties that describe the AWS principal that created the
+/// `BlockPublicAccessConfiguration` using the
+/// `PutBlockPublicAccessConfiguration` action as well as the date and time that
+/// the configuration was created. Each time a configuration for block public
+/// access is updated, Amazon EMR updates this metadata.
 class BlockPublicAccessConfigurationMetadata {
   /// The date and time that the configuration was created.
   final DateTime creationDateTime;
@@ -898,6 +929,7 @@ class BlockPublicAccessConfigurationMetadata {
       BlockPublicAccessConfigurationMetadata();
 }
 
+/// Configuration of a bootstrap action.
 class BootstrapActionConfig {
   /// The name of the bootstrap action.
   final String name;
@@ -913,6 +945,7 @@ class BootstrapActionConfig {
       BootstrapActionConfig();
 }
 
+/// Reports the configuration of a bootstrap action in a cluster (job flow).
 class BootstrapActionDetail {
   /// A description of the bootstrap action.
   final BootstrapActionConfig bootstrapActionConfig;
@@ -924,6 +957,8 @@ class BootstrapActionDetail {
       BootstrapActionDetail();
 }
 
+/// Specification of the status of a CancelSteps request. Available only in
+/// Amazon EMR version 4.8.0 and later, excluding version 5.0.0.
 class CancelStepsInfo {
   /// The encrypted StepId of a step.
   final String stepId;
@@ -943,6 +978,7 @@ class CancelStepsInfo {
       CancelStepsInfo();
 }
 
+///  The output for the CancelSteps operation.
 class CancelStepsOutput {
   /// A list of CancelStepsInfo, which shows the status of specified cancel
   /// requests for each `StepID` specified.
@@ -955,6 +991,9 @@ class CancelStepsOutput {
       CancelStepsOutput();
 }
 
+/// The definition of a CloudWatch metric alarm, which determines when an
+/// automatic scaling activity is triggered. When the defined alarm conditions
+/// are satisfied, scaling activity begins.
 class CloudWatchAlarmDefinition {
   /// Determines how the metric specified by `MetricName` is compared to the
   /// value specified by `Threshold`.
@@ -1008,6 +1047,7 @@ class CloudWatchAlarmDefinition {
       CloudWatchAlarmDefinition();
 }
 
+/// The detailed description of the cluster.
 class Cluster {
   /// The unique identifier for the cluster.
   final String id;
@@ -1099,23 +1139,23 @@ class Cluster {
   final String securityConfiguration;
 
   /// An IAM role for automatic scaling policies. The default role is
-  /// `EMR\_AutoScaling\_DefaultRole`. The IAM role provides permissions that
-  /// the automatic scaling feature requires to launch and terminate EC2
-  /// instances in an instance group.
+  /// `EMR_AutoScaling_DefaultRole`. The IAM role provides permissions that the
+  /// automatic scaling feature requires to launch and terminate EC2 instances
+  /// in an instance group.
   final String autoScalingRole;
 
   /// The way that individual Amazon EC2 instances terminate when an automatic
   /// scale-in activity occurs or an instance group is resized.
-  /// `TERMINATE\_AT\_INSTANCE_HOUR` indicates that Amazon EMR terminates nodes
-  /// at the instance-hour boundary, regardless of when the request to terminate
+  /// `TERMINATE_AT_INSTANCE_HOUR` indicates that Amazon EMR terminates nodes at
+  /// the instance-hour boundary, regardless of when the request to terminate
   /// the instance was submitted. This option is only available with Amazon EMR
   /// 5.1.0 and later and is the default for clusters created using that
-  /// version. `TERMINATE\_AT\_TASK_COMPLETION` indicates that Amazon EMR
+  /// version. `TERMINATE_AT_TASK_COMPLETION` indicates that Amazon EMR
   /// blacklists and drains tasks from nodes before terminating the Amazon EC2
   /// instances, regardless of the instance-hour boundary. With either behavior,
   /// Amazon EMR removes the least active nodes first and blocks instance
   /// termination if it could lead to HDFS corruption.
-  /// `TERMINATE\_AT\_TASK_COMPLETION` is available only in Amazon EMR version
+  /// `TERMINATE_AT_TASK_COMPLETION` is available only in Amazon EMR version
   /// 4.1.0 and later, and is the default for versions of Amazon EMR earlier
   /// than 5.1.0.
   final String scaleDownBehavior;
@@ -1134,9 +1174,8 @@ class Cluster {
   final String repoUpgradeOnBoot;
 
   /// Attributes for Kerberos configuration when Kerberos authentication is
-  /// enabled using a security configuration. For more information see [Use
-  /// Kerberos
-  /// Authentication](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
+  /// enabled using a security configuration. For more information see
+  /// [Use Kerberos Authentication](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
   /// in the _EMR Management Guide_.
   final KerberosAttributes kerberosAttributes;
 
@@ -1170,6 +1209,7 @@ class Cluster {
   static Cluster fromJson(Map<String, dynamic> json) => Cluster();
 }
 
+/// The reason that the cluster changed to its current state.
 class ClusterStateChangeReason {
   /// The programmatic code for the state change reason.
   final String code;
@@ -1185,6 +1225,7 @@ class ClusterStateChangeReason {
       ClusterStateChangeReason();
 }
 
+/// The detailed status of the cluster.
 class ClusterStatus {
   /// The current state of the cluster.
   final String state;
@@ -1204,6 +1245,7 @@ class ClusterStatus {
   static ClusterStatus fromJson(Map<String, dynamic> json) => ClusterStatus();
 }
 
+/// The summary description of the cluster.
 class ClusterSummary {
   /// The unique identifier for the cluster.
   final String id;
@@ -1231,6 +1273,7 @@ class ClusterSummary {
   static ClusterSummary fromJson(Map<String, dynamic> json) => ClusterSummary();
 }
 
+/// Represents the timeline of the cluster's lifecycle.
 class ClusterTimeline {
   /// The creation date and time of the cluster.
   final DateTime creationDateTime;
@@ -1250,6 +1293,7 @@ class ClusterTimeline {
       ClusterTimeline();
 }
 
+/// An entity describing an executable that runs on a cluster.
 class Command {
   /// The name of the command.
   final String name;
@@ -1268,6 +1312,15 @@ class Command {
   static Command fromJson(Map<String, dynamic> json) => Command();
 }
 
+/// Amazon EMR releases 4.x or later.
+///
+/// An optional configuration specification to be used when provisioning cluster
+/// instances, which can include configurations for applications and software
+/// bundled with Amazon EMR. A configuration consists of a classification,
+/// properties, and optional nested configurations. A classification refers to
+/// an application-specific configuration file. Properties are the settings you
+/// want to change in that file. For more information, see
+/// [Configuring Applications](https://docs.aws.amazon.com/emr/latest/ReleaseGuide/emr-configure-apps.html).
 class Configuration {
   /// The classification within a configuration.
   final String classification;
@@ -1310,6 +1363,7 @@ class DeleteSecurityConfigurationOutput {
       DeleteSecurityConfigurationOutput();
 }
 
+/// This output contains the description of the cluster.
 class DescribeClusterOutput {
   /// This output contains the details for the requested cluster.
   final Cluster cluster;
@@ -1321,6 +1375,7 @@ class DescribeClusterOutput {
       DescribeClusterOutput();
 }
 
+///  The output for the DescribeJobFlows operation.
 class DescribeJobFlowsOutput {
   /// A list of job flows matching the parameters supplied.
   final List<JobFlowDetail> jobFlows;
@@ -1352,6 +1407,7 @@ class DescribeSecurityConfigurationOutput {
       DescribeSecurityConfigurationOutput();
 }
 
+/// This output contains the description of the cluster step.
 class DescribeStepOutput {
   /// The step details for the requested step identifier.
   final Step step;
@@ -1363,6 +1419,8 @@ class DescribeStepOutput {
       DescribeStepOutput();
 }
 
+/// Configuration of requested EBS block device associated with the instance
+/// group.
 class EbsBlockDevice {
   /// EBS volume specifications such as volume type, IOPS, and size (GiB) that
   /// will be requested for the EBS volume attached to an EC2 instance in the
@@ -1379,6 +1437,8 @@ class EbsBlockDevice {
   static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice();
 }
 
+/// Configuration of requested EBS block device associated with the instance
+/// group with count of volumes that will be associated to every instance.
 class EbsBlockDeviceConfig {
   /// EBS volume specifications such as volume type, IOPS, and size (GiB) that
   /// will be requested for the EBS volume attached to an EC2 instance in the
@@ -1395,6 +1455,7 @@ class EbsBlockDeviceConfig {
   });
 }
 
+/// The Amazon EBS configuration of a cluster instance.
 class EbsConfiguration {
   /// An array of Amazon EBS volume specifications attached to a cluster
   /// instance.
@@ -1409,6 +1470,7 @@ class EbsConfiguration {
   });
 }
 
+/// EBS block device that's attached to an EC2 instance.
 class EbsVolume {
   /// The device name that is exposed to the instance, such as /dev/sdh.
   final String device;
@@ -1423,6 +1485,8 @@ class EbsVolume {
   static EbsVolume fromJson(Map<String, dynamic> json) => EbsVolume();
 }
 
+/// Provides information about the EC2 instances in a cluster grouped by
+/// category. For example, key name, subnet ID, IAM instance profile, and so on.
 class Ec2InstanceAttributes {
   /// The name of the Amazon EC2 key pair to use when connecting with SSH into
   /// the master node as a user named "hadoop".
@@ -1498,6 +1562,8 @@ class Ec2InstanceAttributes {
       Ec2InstanceAttributes();
 }
 
+/// The details of the step failure. The service attempts to detect the root
+/// cause for many common failures.
 class FailureDetails {
   /// The reason for the step failure. In the case where the service cannot
   /// successfully determine the root cause of the failure, it returns "Unknown
@@ -1551,6 +1617,9 @@ class GetBlockPublicAccessConfigurationOutput {
       GetBlockPublicAccessConfigurationOutput();
 }
 
+/// A job flow step consisting of a JAR file whose main function will be
+/// executed. The main function submits a job for Hadoop to execute and waits
+/// for the job to finish or fail.
 class HadoopJarStepConfig {
   /// A list of Java properties that are set when the step runs. You can use
   /// these properties to pass key value pairs to your main function.
@@ -1577,6 +1646,9 @@ class HadoopJarStepConfig {
       HadoopJarStepConfig();
 }
 
+/// A cluster step consisting of a JAR file whose main function will be
+/// executed. The main function submits a job for Hadoop to execute and waits
+/// for the job to finish or fail.
 class HadoopStepConfig {
   /// The path to the JAR file that runs during the step.
   final String jar;
@@ -1603,6 +1675,7 @@ class HadoopStepConfig {
       HadoopStepConfig();
 }
 
+/// Represents an EC2 instance provisioned as part of cluster.
 class Instance {
   /// The unique identifier for the instance in Amazon EMR.
   final String id;
@@ -1658,6 +1731,15 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// Describes an instance fleet, which is a group of EC2 instances that host a
+/// particular node type (master, core, or task) in an Amazon EMR cluster.
+/// Instance fleets can consist of a mix of instance types and On-Demand and
+/// Spot instances, which are provisioned to meet a defined target capacity.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleet {
   /// The unique identifier of the instance fleet.
   final String id;
@@ -1751,6 +1833,12 @@ class InstanceFleet {
   static InstanceFleet fromJson(Map<String, dynamic> json) => InstanceFleet();
 }
 
+/// The configuration that defines an instance fleet.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetConfig {
   /// The friendly name of the instance fleet.
   final String name;
@@ -1818,6 +1906,12 @@ class InstanceFleetConfig {
   });
 }
 
+/// Configuration parameters for an instance fleet modification request.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetModifyConfig {
   /// A unique identifier for the instance fleet.
   final String instanceFleetId;
@@ -1837,6 +1931,13 @@ class InstanceFleetModifyConfig {
   });
 }
 
+/// The launch specification for Spot instances in the fleet, which determines
+/// the defined duration and provisioning timeout behavior.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetProvisioningSpecifications {
   /// The launch specification for Spot instances in the fleet, which determines
   /// the defined duration and provisioning timeout behavior.
@@ -1850,6 +1951,12 @@ class InstanceFleetProvisioningSpecifications {
       InstanceFleetProvisioningSpecifications();
 }
 
+/// Provides status change reason details for the instance fleet.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetStateChangeReason {
   /// A code corresponding to the reason the state change occurred.
   final String code;
@@ -1865,6 +1972,12 @@ class InstanceFleetStateChangeReason {
       InstanceFleetStateChangeReason();
 }
 
+/// The status of the instance fleet.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetStatus {
   /// A code representing the instance fleet status.
   ///
@@ -1907,6 +2020,13 @@ class InstanceFleetStatus {
       InstanceFleetStatus();
 }
 
+/// Provides historical timestamps for the instance fleet, including the time of
+/// creation, the time it became ready to run jobs, and the time of termination.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceFleetTimeline {
   /// The time and date the instance fleet was created.
   final DateTime creationDateTime;
@@ -1926,6 +2046,8 @@ class InstanceFleetTimeline {
       InstanceFleetTimeline();
 }
 
+/// This entity represents an instance group, which is a group of instances that
+/// have common purpose. For example, CORE instance group is used for HDFS.
 class InstanceGroup {
   /// The identifier of the instance group.
   final String id;
@@ -2018,6 +2140,7 @@ class InstanceGroup {
   static InstanceGroup fromJson(Map<String, dynamic> json) => InstanceGroup();
 }
 
+/// Configuration defining a new instance group.
 class InstanceGroupConfig {
   /// Friendly name given to the instance group.
   final String name;
@@ -2072,6 +2195,7 @@ class InstanceGroupConfig {
   });
 }
 
+/// Detailed information about an instance group.
 class InstanceGroupDetail {
   /// Unique identifier for the instance group.
   final String instanceGroupId;
@@ -2141,6 +2265,7 @@ class InstanceGroupDetail {
       InstanceGroupDetail();
 }
 
+/// Modify the size or configurations of an instance group.
 class InstanceGroupModifyConfig {
   /// Unique ID of the instance group to expand or shrink.
   final String instanceGroupId;
@@ -2167,6 +2292,7 @@ class InstanceGroupModifyConfig {
   });
 }
 
+/// The status change reason details for the instance group.
 class InstanceGroupStateChangeReason {
   /// The programmable code for the state change reason.
   final String code;
@@ -2182,6 +2308,7 @@ class InstanceGroupStateChangeReason {
       InstanceGroupStateChangeReason();
 }
 
+/// The details of the instance group status.
 class InstanceGroupStatus {
   /// The current state of the instance group.
   final String state;
@@ -2201,6 +2328,7 @@ class InstanceGroupStatus {
       InstanceGroupStatus();
 }
 
+/// The timeline of the instance group lifecycle.
 class InstanceGroupTimeline {
   /// The creation date and time of the instance group.
   final DateTime creationDateTime;
@@ -2220,6 +2348,8 @@ class InstanceGroupTimeline {
       InstanceGroupTimeline();
 }
 
+/// Custom policy for requesting termination protection or termination of
+/// specific instances when shrinking an instance group.
 class InstanceResizePolicy {
   /// Specific list of instances to be terminated when shrinking an instance
   /// group.
@@ -2242,6 +2372,7 @@ class InstanceResizePolicy {
       InstanceResizePolicy();
 }
 
+/// The details of the status change reason for the instance.
 class InstanceStateChangeReason {
   /// The programmable code for the state change reason.
   final String code;
@@ -2257,6 +2388,7 @@ class InstanceStateChangeReason {
       InstanceStateChangeReason();
 }
 
+/// The instance status details.
 class InstanceStatus {
   /// The current state of the instance.
   final String state;
@@ -2275,6 +2407,7 @@ class InstanceStatus {
   static InstanceStatus fromJson(Map<String, dynamic> json) => InstanceStatus();
 }
 
+/// The timeline of the instance lifecycle.
 class InstanceTimeline {
   /// The creation date and time of the instance.
   final DateTime creationDateTime;
@@ -2294,6 +2427,15 @@ class InstanceTimeline {
       InstanceTimeline();
 }
 
+/// An instance type configuration for each instance type in an instance fleet,
+/// which determines the EC2 instances Amazon EMR attempts to provision to
+/// fulfill On-Demand and Spot target capacities. There can be a maximum of 5
+/// instance type configurations in a fleet.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceTypeConfig {
   /// An EC2 instance type, such as `m3.xlarge`.
   final String instanceType;
@@ -2336,6 +2478,12 @@ class InstanceTypeConfig {
   });
 }
 
+/// The configuration specification for each instance type in an instance fleet.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class InstanceTypeSpecification {
   /// The EC2 instance type, for example `m3.xlarge`.
   final String instanceType;
@@ -2380,6 +2528,7 @@ class InstanceTypeSpecification {
       InstanceTypeSpecification();
 }
 
+/// A description of a cluster (job flow).
 class JobFlowDetail {
   /// The job flow identifier.
   final String jobFlowId;
@@ -2431,25 +2580,25 @@ class JobFlowDetail {
   final String serviceRole;
 
   /// An IAM role for automatic scaling policies. The default role is
-  /// `EMR\_AutoScaling\_DefaultRole`. The IAM role provides a way for the
+  /// `EMR_AutoScaling_DefaultRole`. The IAM role provides a way for the
   /// automatic scaling feature to get the required permissions it needs to
   /// launch and terminate EC2 instances in an instance group.
   final String autoScalingRole;
 
   /// The way that individual Amazon EC2 instances terminate when an automatic
   /// scale-in activity occurs or an instance group is resized.
-  /// `TERMINATE\_AT\_INSTANCE_HOUR` indicates that Amazon EMR terminates nodes
-  /// at the instance-hour boundary, regardless of when the request to terminate
+  /// `TERMINATE_AT_INSTANCE_HOUR` indicates that Amazon EMR terminates nodes at
+  /// the instance-hour boundary, regardless of when the request to terminate
   /// the instance was submitted. This option is only available with Amazon EMR
   /// 5.1.0 and later and is the default for clusters created using that
-  /// version. `TERMINATE\_AT\_TASK_COMPLETION` indicates that Amazon EMR
+  /// version. `TERMINATE_AT_TASK_COMPLETION` indicates that Amazon EMR
   /// blacklists and drains tasks from nodes before terminating the Amazon EC2
   /// instances, regardless of the instance-hour boundary. With either behavior,
   /// Amazon EMR removes the least active nodes first and blocks instance
   /// termination if it could lead to HDFS corruption.
-  /// `TERMINATE\_AT\_TASK_COMPLETION` available only in Amazon EMR version
-  /// 4.1.0 and later, and is the default for versions of Amazon EMR earlier
-  /// than 5.1.0.
+  /// `TERMINATE_AT_TASK_COMPLETION` available only in Amazon EMR version 4.1.0
+  /// and later, and is the default for versions of Amazon EMR earlier than
+  /// 5.1.0.
   final String scaleDownBehavior;
 
   JobFlowDetail({
@@ -2471,6 +2620,7 @@ class JobFlowDetail {
   static JobFlowDetail fromJson(Map<String, dynamic> json) => JobFlowDetail();
 }
 
+/// Describes the status of the cluster (job flow).
 class JobFlowExecutionStatusDetail {
   /// The state of the job flow.
   final String state;
@@ -2503,6 +2653,12 @@ class JobFlowExecutionStatusDetail {
       JobFlowExecutionStatusDetail();
 }
 
+/// A description of the Amazon EC2 instance on which the cluster (job flow)
+/// runs. A valid JobFlowInstancesConfig must contain either InstanceGroups or
+/// InstanceFleets, which is the recommended configuration. They cannot be used
+/// together. You may also have MasterInstanceType, SlaveInstanceType, and
+/// InstanceCount (all three must be present), but we don't recommend this
+/// configuration.
 class JobFlowInstancesConfig {
   /// The EC2 instance type of the master node.
   final String masterInstanceType;
@@ -2603,6 +2759,8 @@ class JobFlowInstancesConfig {
   });
 }
 
+/// Specify the type of Amazon EC2 instances that the cluster (job flow) runs
+/// on.
 class JobFlowInstancesDetail {
   /// The Amazon EC2 master node instance type.
   final String masterInstanceType;
@@ -2677,6 +2835,10 @@ class JobFlowInstancesDetail {
       JobFlowInstancesDetail();
 }
 
+/// Attributes for Kerberos configuration when Kerberos authentication is
+/// enabled using a security configuration. For more information see
+/// [Use Kerberos Authentication](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-kerberos.html)
+/// in the _EMR Management Guide_.
 class KerberosAttributes {
   /// The name of the Kerberos realm to which all nodes in a cluster belong. For
   /// example, `EC2.INTERNAL`.
@@ -2711,6 +2873,7 @@ class KerberosAttributes {
       KerberosAttributes();
 }
 
+/// A key value pair.
 class KeyValue {
   /// The unique identifier of a key value pair.
   final String key;
@@ -2725,6 +2888,7 @@ class KeyValue {
   static KeyValue fromJson(Map<String, dynamic> json) => KeyValue();
 }
 
+/// This output contains the bootstrap actions detail.
 class ListBootstrapActionsOutput {
   /// The bootstrap actions associated with the cluster.
   final List<Command> bootstrapActions;
@@ -2740,6 +2904,8 @@ class ListBootstrapActionsOutput {
       ListBootstrapActionsOutput();
 }
 
+/// This contains a ClusterSummaryList with the cluster details; for example,
+/// the cluster IDs, names, and status.
 class ListClustersOutput {
   /// The list of clusters for the account based on the given filters.
   final List<ClusterSummary> clusters;
@@ -2770,6 +2936,7 @@ class ListInstanceFleetsOutput {
       ListInstanceFleetsOutput();
 }
 
+/// This input determines which instance groups to retrieve.
 class ListInstanceGroupsOutput {
   /// The list of instance groups for the cluster and given filters.
   final List<InstanceGroup> instanceGroups;
@@ -2785,6 +2952,7 @@ class ListInstanceGroupsOutput {
       ListInstanceGroupsOutput();
 }
 
+/// This output contains the list of instances.
 class ListInstancesOutput {
   /// The list of instances for the cluster and given filters.
   final List<Instance> instances;
@@ -2817,6 +2985,8 @@ class ListSecurityConfigurationsOutput {
       ListSecurityConfigurationsOutput();
 }
 
+/// This output contains the list of steps returned in reverse order. This means
+/// that the last step is the first element in the list.
 class ListStepsOutput {
   /// The filtered list of steps for the cluster.
   final List<StepSummary> steps;
@@ -2832,6 +3002,11 @@ class ListStepsOutput {
       ListStepsOutput();
 }
 
+/// A CloudWatch dimension, which is specified using a `Key` (known as a `Name`
+/// in CloudWatch), `Value` pair. By default, Amazon EMR uses one dimension
+/// whose `Key` is `JobFlowID` and `Value` is a variable representing the
+/// cluster ID, which is `${emr.clusterId}`. This enables the rule to bootstrap
+/// when the cluster ID becomes available.
 class MetricDimension {
   /// The dimension name.
   final String key;
@@ -2847,6 +3022,7 @@ class MetricDimension {
       MetricDimension();
 }
 
+/// The Amazon EC2 Availability Zone configuration of the cluster (job flow).
 class PlacementType {
   /// The Amazon EC2 Availability Zone for the cluster. `AvailabilityZone` is
   /// used for uniform instance groups, while `AvailabilityZones` (plural) is
@@ -2871,6 +3047,9 @@ class PlacementType {
   static PlacementType fromJson(Map<String, dynamic> json) => PlacementType();
 }
 
+/// A list of port ranges that are permitted to allow inbound traffic from all
+/// public IP addresses. To specify a single port, use the same value for
+/// `MinRange` and `MaxRange`.
 class PortRange {
   /// The smallest port number in a specified range of port numbers.
   final int minRange;
@@ -2919,12 +3098,14 @@ class RemoveAutoScalingPolicyOutput {
       RemoveAutoScalingPolicyOutput();
 }
 
+/// This output indicates the result of removing tags from a resource.
 class RemoveTagsOutput {
   RemoveTagsOutput();
   static RemoveTagsOutput fromJson(Map<String, dynamic> json) =>
       RemoveTagsOutput();
 }
 
+///  The result of the RunJobFlow operation.
 class RunJobFlowOutput {
   /// An unique identifier for the job flow.
   final String jobFlowId;
@@ -2936,6 +3117,8 @@ class RunJobFlowOutput {
       RunJobFlowOutput();
 }
 
+/// The type of adjustment the automatic scaling activity makes when triggered,
+/// and the periodicity of the adjustment.
 class ScalingAction {
   /// Not available for instance groups. Instance groups use the market type
   /// specified for the group.
@@ -2952,6 +3135,9 @@ class ScalingAction {
   static ScalingAction fromJson(Map<String, dynamic> json) => ScalingAction();
 }
 
+/// The upper and lower EC2 instance limits for an automatic scaling policy.
+/// Automatic scaling activities triggered by automatic scaling rules will not
+/// cause an instance group to grow above or below these limits.
 class ScalingConstraints {
   /// The lower boundary of EC2 instances in an instance group below which
   /// scaling activities are not allowed to shrink. Scale-in activities will not
@@ -2971,6 +3157,10 @@ class ScalingConstraints {
       ScalingConstraints();
 }
 
+/// A scale-in or scale-out rule that defines scaling activity, including the
+/// CloudWatch metric alarm that triggers activity, how EC2 instances are added
+/// or removed, and the periodicity of adjustments. The automatic scaling policy
+/// for an instance group can comprise one or more automatic scaling rules.
 class ScalingRule {
   /// The name used to identify an automatic scaling rule. Rule names must be
   /// unique within a scaling policy.
@@ -2995,6 +3185,7 @@ class ScalingRule {
   static ScalingRule fromJson(Map<String, dynamic> json) => ScalingRule();
 }
 
+/// The conditions that trigger an automatic scaling activity.
 class ScalingTrigger {
   /// The definition of a CloudWatch metric alarm. When the defined alarm
   /// conditions are met along with other trigger parameters, scaling activity
@@ -3007,6 +3198,7 @@ class ScalingTrigger {
   static ScalingTrigger fromJson(Map<String, dynamic> json) => ScalingTrigger();
 }
 
+/// Configuration of the script to run during a bootstrap action.
 class ScriptBootstrapActionConfig {
   /// Location of the script to run during a bootstrap action. Can be either a
   /// location in Amazon S3 or on a local file system.
@@ -3023,6 +3215,7 @@ class ScriptBootstrapActionConfig {
       ScriptBootstrapActionConfig();
 }
 
+/// The creation date and time, and name, of a security configuration.
 class SecurityConfigurationSummary {
   /// The name of the security configuration.
   final String name;
@@ -3038,6 +3231,8 @@ class SecurityConfigurationSummary {
       SecurityConfigurationSummary();
 }
 
+/// Policy for customizing shrink operations. Allows configuration of
+/// decommissioning timeout and targeted instance shrinking.
 class ShrinkPolicy {
   /// The desired timeout for decommissioning an instance. Overrides the default
   /// YARN decommissioning timeout.
@@ -3054,20 +3249,22 @@ class ShrinkPolicy {
   static ShrinkPolicy fromJson(Map<String, dynamic> json) => ShrinkPolicy();
 }
 
+/// An automatic scaling configuration, which describes how the policy adds or
+/// removes instances, the cooldown period, and the number of EC2 instances that
+/// will be added each time the CloudWatch metric alarm condition is satisfied.
 class SimpleScalingPolicyConfiguration {
   /// The way in which EC2 instances are added (if `ScalingAdjustment` is a
   /// positive number) or terminated (if `ScalingAdjustment` is a negative
-  /// number) each time the scaling activity is triggered.
-  /// `CHANGE\_IN\_CAPACITY` is the default. `CHANGE\_IN\_CAPACITY` indicates
-  /// that the EC2 instance count increments or decrements by
-  /// `ScalingAdjustment`, which should be expressed as an integer.
-  /// `PERCENT\_CHANGE\_IN_CAPACITY` indicates the instance count increments or
-  /// decrements by the percentage specified by `ScalingAdjustment`, which
-  /// should be expressed as an integer. For example, 20 indicates an increase
-  /// in 20% increments of cluster capacity. `EXACT_CAPACITY` indicates the
-  /// scaling activity results in an instance group with the number of EC2
-  /// instances specified by `ScalingAdjustment`, which should be expressed as a
-  /// positive integer.
+  /// number) each time the scaling activity is triggered. `CHANGE_IN_CAPACITY`
+  /// is the default. `CHANGE_IN_CAPACITY` indicates that the EC2 instance count
+  /// increments or decrements by `ScalingAdjustment`, which should be expressed
+  /// as an integer. `PERCENT_CHANGE_IN_CAPACITY` indicates the instance count
+  /// increments or decrements by the percentage specified by
+  /// `ScalingAdjustment`, which should be expressed as an integer. For example,
+  /// 20 indicates an increase in 20% increments of cluster capacity.
+  /// `EXACT_CAPACITY` indicates the scaling activity results in an instance
+  /// group with the number of EC2 instances specified by `ScalingAdjustment`,
+  /// which should be expressed as a positive integer.
   final String adjustmentType;
 
   /// The amount by which to scale in or scale out, based on the specified
@@ -3075,7 +3272,7 @@ class SimpleScalingPolicyConfiguration {
   /// instance count while a negative number removes instances. If
   /// `AdjustmentType` is set to `EXACT_CAPACITY`, the number should only be a
   /// positive integer. If `AdjustmentType` is set to
-  /// `PERCENT\_CHANGE\_IN_CAPACITY`, the value should express the percentage as
+  /// `PERCENT_CHANGE_IN_CAPACITY`, the value should express the percentage as
   /// an integer. For example, -20 indicates a decrease in 20% increments of
   /// cluster capacity.
   final int scalingAdjustment;
@@ -3094,6 +3291,13 @@ class SimpleScalingPolicyConfiguration {
       SimpleScalingPolicyConfiguration();
 }
 
+/// The launch specification for Spot instances in the instance fleet, which
+/// determines the defined duration and provisioning timeout behavior.
+///
+///
+///
+/// The instance fleet configuration is available only in Amazon EMR versions
+/// 4.8.0 and later, excluding 5.0.x versions.
 class SpotProvisioningSpecification {
   /// The spot provisioning timeout period in minutes. If Spot instances are not
   /// provisioned within this time period, the `TimeOutAction` is taken. Minimum
@@ -3104,8 +3308,8 @@ class SpotProvisioningSpecification {
   /// The action to take when `TargetSpotCapacity` has not been fulfilled when
   /// the `TimeoutDurationMinutes` has expired; that is, when all Spot instances
   /// could not be provisioned within the Spot provisioning timeout. Valid
-  /// values are `TERMINATE_CLUSTER` and `SWITCH\_TO\_ON_DEMAND`.
-  /// SWITCH\_TO\_ON_DEMAND specifies that if no Spot instances are available,
+  /// values are `TERMINATE_CLUSTER` and `SWITCH_TO_ON_DEMAND`.
+  /// SWITCH_TO_ON_DEMAND specifies that if no Spot instances are available,
   /// On-Demand Instances should be provisioned to fulfill any remaining Spot
   /// capacity.
   final String timeoutAction;
@@ -3129,6 +3333,7 @@ class SpotProvisioningSpecification {
       SpotProvisioningSpecification();
 }
 
+/// This represents a step in a cluster.
 class Step {
   /// The identifier of the cluster step.
   final String id;
@@ -3140,9 +3345,9 @@ class Step {
   final HadoopStepConfig config;
 
   /// The action to take when the cluster step fails. Possible values are
-  /// TERMINATE\_CLUSTER, CANCEL\_AND\_WAIT, and CONTINUE. TERMINATE\_JOB\_FLOW
-  /// is provided for backward compatibility. We recommend using
-  /// TERMINATE\_CLUSTER instead.
+  /// TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is
+  /// provided for backward compatibility. We recommend using TERMINATE_CLUSTER
+  /// instead.
   final String actionOnFailure;
 
   /// The current execution status details of the cluster step.
@@ -3158,14 +3363,15 @@ class Step {
   static Step fromJson(Map<String, dynamic> json) => Step();
 }
 
+/// Specification of a cluster (job flow) step.
 class StepConfig {
   /// The name of the step.
   final String name;
 
   /// The action to take when the cluster step fails. Possible values are
-  /// TERMINATE\_CLUSTER, CANCEL\_AND\_WAIT, and CONTINUE. TERMINATE\_JOB\_FLOW
-  /// is provided for backward compatibility. We recommend using
-  /// TERMINATE\_CLUSTER instead.
+  /// TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is
+  /// provided for backward compatibility. We recommend using TERMINATE_CLUSTER
+  /// instead.
   final String actionOnFailure;
 
   /// The JAR file used for the step.
@@ -3179,6 +3385,7 @@ class StepConfig {
   static StepConfig fromJson(Map<String, dynamic> json) => StepConfig();
 }
 
+/// Combines the execution state and configuration of a step.
 class StepDetail {
   /// The step configuration.
   final StepConfig stepConfig;
@@ -3193,6 +3400,7 @@ class StepDetail {
   static StepDetail fromJson(Map<String, dynamic> json) => StepDetail();
 }
 
+/// The execution state of a step.
 class StepExecutionStatusDetail {
   /// The state of the step.
   final String state;
@@ -3220,6 +3428,7 @@ class StepExecutionStatusDetail {
       StepExecutionStatusDetail();
 }
 
+/// The details of the step state change reason.
 class StepStateChangeReason {
   /// The programmable code for the state change reason. Note: Currently, the
   /// service provides no code for the state change.
@@ -3236,6 +3445,7 @@ class StepStateChangeReason {
       StepStateChangeReason();
 }
 
+/// The execution status details of the cluster step.
 class StepStatus {
   /// The execution state of the cluster step.
   final String state;
@@ -3259,6 +3469,7 @@ class StepStatus {
   static StepStatus fromJson(Map<String, dynamic> json) => StepStatus();
 }
 
+/// The summary of the cluster step.
 class StepSummary {
   /// The identifier of the cluster step.
   final String id;
@@ -3270,9 +3481,9 @@ class StepSummary {
   final HadoopStepConfig config;
 
   /// The action to take when the cluster step fails. Possible values are
-  /// TERMINATE\_CLUSTER, CANCEL\_AND\_WAIT, and CONTINUE. TERMINATE\_JOB\_FLOW
-  /// is available for backward compatibility. We recommend using
-  /// TERMINATE\_CLUSTER instead.
+  /// TERMINATE_CLUSTER, CANCEL_AND_WAIT, and CONTINUE. TERMINATE_JOB_FLOW is
+  /// available for backward compatibility. We recommend using TERMINATE_CLUSTER
+  /// instead.
   final String actionOnFailure;
 
   /// The current execution status details of the cluster step.
@@ -3288,6 +3499,7 @@ class StepSummary {
   static StepSummary fromJson(Map<String, dynamic> json) => StepSummary();
 }
 
+/// The timeline of the cluster step lifecycle.
 class StepTimeline {
   /// The date and time when the cluster step was created.
   final DateTime creationDateTime;
@@ -3306,6 +3518,9 @@ class StepTimeline {
   static StepTimeline fromJson(Map<String, dynamic> json) => StepTimeline();
 }
 
+/// The list of supported product configurations which allow user-supplied
+/// arguments. EMR accepts these arguments and forwards them to the
+/// corresponding installation script as bootstrap action arguments.
 class SupportedProductConfig {
   /// The name of the product configuration.
   final String name;
@@ -3319,6 +3534,11 @@ class SupportedProductConfig {
   });
 }
 
+/// A key/value pair containing user-defined metadata that you can associate
+/// with an Amazon EMR resource. Tags make it easier to associate clusters in
+/// various ways, such as grouping clusters to track your Amazon EMR resource
+/// allocation costs. For more information, see
+/// [Tag Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
 class Tag {
   /// A user-defined key, which is the minimum required information for a valid
   /// tag. For more information, see
@@ -3327,8 +3547,8 @@ class Tag {
   final String key;
 
   /// A user-defined value, which is optional in a tag. For more information,
-  /// see [Tag
-  /// Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
+  /// see
+  /// [Tag Clusters](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html).
   final String value;
 
   Tag({
@@ -3338,6 +3558,9 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// EBS volume specifications such as volume type, IOPS, and size (GiB) that
+/// will be requested for the EBS volume attached to an EC2 instance in the
+/// cluster.
 class VolumeSpecification {
   /// The volume type. Volume types supported are gp2, io1, standard.
   final String volumeType;

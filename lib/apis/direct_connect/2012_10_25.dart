@@ -24,8 +24,8 @@ class DirectConnectApi {
   /// [overrideAllowedPrefixesToDirectConnectGateway]: Overrides the Amazon VPC
   /// prefixes advertised to the Direct Connect gateway.
   ///
-  /// For information about how to set the prefixes, see [Allowed
-  /// Prefixes](https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes)
+  /// For information about how to set the prefixes, see
+  /// [Allowed Prefixes](https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes)
   /// in the _AWS Direct Connect User Guide_.
   Future<AcceptDirectConnectGatewayAssociationProposalResult>
       acceptDirectConnectGatewayAssociationProposal(
@@ -423,8 +423,8 @@ class DirectConnectApi {
   /// [addAllowedPrefixesToDirectConnectGateway]: The Amazon VPC prefixes to
   /// advertise to the Direct Connect gateway
   ///
-  /// For information about how to set the prefixes, see [Allowed
-  /// Prefixes](https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes)
+  /// For information about how to set the prefixes, see
+  /// [Allowed Prefixes](https://docs.aws.amazon.com/directconnect/latest/UserGuide/multi-account-associate-vgw.html#allowed-prefixes)
   /// in the _AWS Direct Connect User Guide_.
   ///
   /// [virtualGatewayId]: The ID of the virtual private gateway.
@@ -734,8 +734,8 @@ class DirectConnectApi {
   /// The Letter of Authorization - Connecting Facility Assignment (LOA-CFA) is
   /// a document that your APN partner or service provider uses when
   /// establishing your cross connect to AWS at the colocation facility. For
-  /// more information, see [Requesting Cross Connects at AWS Direct Connect
-  /// Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
+  /// more information, see
+  /// [Requesting Cross Connects at AWS Direct Connect Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
   /// in the _AWS Direct Connect User Guide_.
   ///
   /// [connectionId]: The ID of the connection.
@@ -908,9 +908,8 @@ class DirectConnectApi {
   ///
   /// The Letter of Authorization - Connecting Facility Assignment (LOA-CFA) is
   /// a document that is used when establishing your cross connect to AWS at the
-  /// colocation facility. For more information, see [Requesting Cross Connects
-  /// at AWS Direct Connect
-  /// Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
+  /// colocation facility. For more information, see
+  /// [Requesting Cross Connects at AWS Direct Connect Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
   /// in the _AWS Direct Connect User Guide_.
   ///
   /// [interconnectId]: The ID of the interconnect.
@@ -949,9 +948,8 @@ class DirectConnectApi {
   ///
   /// The Letter of Authorization - Connecting Facility Assignment (LOA-CFA) is
   /// a document that is used when establishing your cross connect to AWS at the
-  /// colocation facility. For more information, see [Requesting Cross Connects
-  /// at AWS Direct Connect
-  /// Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
+  /// colocation facility. For more information, see
+  /// [Requesting Cross Connects at AWS Direct Connect Locations](https://docs.aws.amazon.com/directconnect/latest/UserGuide/Colocation.html)
   /// in the _AWS Direct Connect User Guide_.
   ///
   /// [connectionId]: The ID of a connection, LAG, or interconnect.
@@ -1148,6 +1146,7 @@ class AllocateTransitVirtualInterfaceResult {
       AllocateTransitVirtualInterfaceResult();
 }
 
+/// Information about the associated gateway.
 class AssociatedGateway {
   /// The ID of the associated gateway.
   final String id;
@@ -1172,6 +1171,7 @@ class AssociatedGateway {
       AssociatedGateway();
 }
 
+/// Information about a BGP peer.
 class BgpPeer {
   /// The ID of the BGP peer.
   final String bgpPeerId;
@@ -1395,6 +1395,7 @@ class ConfirmTransitVirtualInterfaceResponse {
       ConfirmTransitVirtualInterfaceResponse();
 }
 
+/// Information about an AWS Direct Connect connection.
 class Connection {
   /// The ID of the AWS account that owns the connection.
   final String ownerAccount;
@@ -1773,6 +1774,8 @@ class DescribeTagsResponse {
       DescribeTagsResponse();
 }
 
+/// Information about a Direct Connect gateway, which enables you to connect
+/// virtual interfaces and virtual private gateway or transit gateways.
 class DirectConnectGateway {
   /// The ID of the Direct Connect gateway.
   final String directConnectGatewayId;
@@ -1816,6 +1819,8 @@ class DirectConnectGateway {
       DirectConnectGateway();
 }
 
+/// Information about an association between a Direct Connect gateway and a
+/// virtual private gateway or transit gateway.
 class DirectConnectGatewayAssociation {
   /// The ID of the Direct Connect gateway.
   final String directConnectGatewayId;
@@ -1878,6 +1883,8 @@ class DirectConnectGatewayAssociation {
       DirectConnectGatewayAssociation();
 }
 
+/// Information about the proposal request to attach a virtual private gateway
+/// to a Direct Connect gateway.
 class DirectConnectGatewayAssociationProposal {
   /// The ID of the association proposal.
   final String proposalId;
@@ -1924,6 +1931,8 @@ class DirectConnectGatewayAssociationProposal {
       DirectConnectGatewayAssociationProposal();
 }
 
+/// Information about an attachment between a Direct Connect gateway and a
+/// virtual interface.
 class DirectConnectGatewayAttachment {
   /// The ID of the Direct Connect gateway.
   final String directConnectGatewayId;
@@ -1971,6 +1980,7 @@ class DirectConnectGatewayAttachment {
       DirectConnectGatewayAttachment();
 }
 
+/// Information about an interconnect.
 class Interconnect {
   /// The ID of the interconnect.
   final String interconnectId;
@@ -2057,6 +2067,7 @@ class Interconnects {
   static Interconnects fromJson(Map<String, dynamic> json) => Interconnects();
 }
 
+/// Information about a link aggregation group (LAG).
 class Lag {
   /// The individual bandwidth of the physical connections bundled by the LAG.
   /// The possible values are 1Gbps and 10Gbps.
@@ -2157,6 +2168,8 @@ class Lags {
   static Lags fromJson(Map<String, dynamic> json) => Lags();
 }
 
+/// Information about a Letter of Authorization - Connecting Facility Assignment
+/// (LOA-CFA) for a connection.
 class Loa {
   /// The binary contents of the LOA-CFA document.
   final Uint8List loaContent;
@@ -2172,6 +2185,7 @@ class Loa {
   static Loa fromJson(Map<String, dynamic> json) => Loa();
 }
 
+/// Information about an AWS Direct Connect location.
 class Location {
   /// The code for the location.
   final String locationCode;
@@ -2205,6 +2219,7 @@ class Locations {
   static Locations fromJson(Map<String, dynamic> json) => Locations();
 }
 
+/// Information about a new BGP peer.
 class NewBgpPeer {
   /// The autonomous system (AS) number for Border Gateway Protocol (BGP)
   /// configuration.
@@ -2232,6 +2247,7 @@ class NewBgpPeer {
   });
 }
 
+/// Information about a private virtual interface.
 class NewPrivateVirtualInterface {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2284,6 +2300,8 @@ class NewPrivateVirtualInterface {
   });
 }
 
+/// Information about a private virtual interface to be provisioned on a
+/// connection.
 class NewPrivateVirtualInterfaceAllocation {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2329,6 +2347,7 @@ class NewPrivateVirtualInterfaceAllocation {
   });
 }
 
+/// Information about a public virtual interface.
 class NewPublicVirtualInterface {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2373,6 +2392,8 @@ class NewPublicVirtualInterface {
   });
 }
 
+/// Information about a public virtual interface to be provisioned on a
+/// connection.
 class NewPublicVirtualInterfaceAllocation {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2418,6 +2439,7 @@ class NewPublicVirtualInterfaceAllocation {
   });
 }
 
+/// Information about the transit virtual interface.
 class NewTransitVirtualInterface {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2465,6 +2487,7 @@ class NewTransitVirtualInterface {
   });
 }
 
+/// Information about a transit virtual interface.
 class NewTransitVirtualInterfaceAllocation {
   /// The name of the virtual interface assigned by the customer network.
   final String virtualInterfaceName;
@@ -2508,6 +2531,7 @@ class NewTransitVirtualInterfaceAllocation {
   });
 }
 
+/// Information about a tag associated with an AWS Direct Connect resource.
 class ResourceTag {
   /// The Amazon Resource Name (ARN) of the resource.
   final String resourceArn;
@@ -2522,6 +2546,8 @@ class ResourceTag {
   static ResourceTag fromJson(Map<String, dynamic> json) => ResourceTag();
 }
 
+/// Information about a route filter prefix that a customer can advertise
+/// through Border Gateway Protocol (BGP) over a public virtual interface.
 class RouteFilterPrefix {
   /// The CIDR block for the advertised route. Separate multiple routes using
   /// commas. An IPv6 CIDR must use /64 or shorter.
@@ -2534,6 +2560,7 @@ class RouteFilterPrefix {
       RouteFilterPrefix();
 }
 
+/// Information about a tag.
 class Tag {
   /// The key.
   final String key;
@@ -2571,6 +2598,7 @@ class UpdateDirectConnectGatewayAssociationResult {
       UpdateDirectConnectGatewayAssociationResult();
 }
 
+/// Information about a virtual private gateway for a private virtual interface.
 class VirtualGateway {
   /// The ID of the virtual private gateway.
   final String virtualGatewayId;
@@ -2606,6 +2634,7 @@ class VirtualGateways {
       VirtualGateways();
 }
 
+/// Information about a virtual interface.
 class VirtualInterface {
   /// The ID of the AWS account that owns the virtual interface.
   final String ownerAccount;

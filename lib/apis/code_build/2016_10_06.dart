@@ -131,8 +131,8 @@ class CodeBuildApi {
   ///  If `sourceVersion` is specified at the build level, then that version
   /// takes precedence over this `sourceVersion` (at the project level).
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   ///
   /// [secondarySourceVersions]:  An array of `ProjectSourceVersion` objects. If
@@ -220,8 +220,7 @@ class CodeBuildApi {
   /// billed for both builds. Therefore, if you are using AWS CodePipeline, we
   /// recommend that you disable webhooks in AWS CodeBuild. In the AWS CodeBuild
   /// console, clear the Webhook box. For more information, see step 5 in
-  /// [Change a Build Project's
-  /// Settings](https://docs.aws.amazon.com/codebuild/latest/userguide/change-project.html#change-project-console).
+  /// [Change a Build Project's Settings](https://docs.aws.amazon.com/codebuild/latest/userguide/change-project.html#change-project-console).
   ///
   /// [projectName]: The name of the AWS CodeBuild project.
   ///
@@ -363,8 +362,8 @@ class CodeBuildApi {
   ///
   /// *    `CREATED_TIME`: List based on when each build project was created.
   ///
-  /// *    `LAST\_MODIFIED\_TIME`: List based on when information about each
-  /// build project was last changed.
+  /// *    `LAST_MODIFIED_TIME`: List based on when information about each build
+  /// project was last changed.
   ///
   /// *    `NAME`: List based on each build project's name.
   ///
@@ -435,8 +434,8 @@ class CodeBuildApi {
   ///  If `sourceVersion` is specified at the project level, then this
   /// `sourceVersion` (at the build level) takes precedence.
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   ///
   /// [artifactsOverride]: Build output artifact settings that override, for
@@ -611,8 +610,8 @@ class CodeBuildApi {
   ///  If `sourceVersion` is specified at the build level, then that version
   /// takes precedence over this `sourceVersion` (at the project level).
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   ///
   /// [secondarySourceVersions]:  An array of `ProjectSourceVersion` objects. If
@@ -757,6 +756,7 @@ class BatchGetProjectsOutput {
       BatchGetProjectsOutput();
 }
 
+/// Information about a build.
 class Build {
   /// The unique ID for the build.
   final String id;
@@ -792,8 +792,8 @@ class Build {
   /// `sourceVersion` is specified at the project level, then this
   /// `sourceVersion` (at the build level) takes precedence.
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   final String sourceVersion;
 
@@ -934,6 +934,7 @@ class Build {
   static Build fromJson(Map<String, dynamic> json) => Build();
 }
 
+/// Information about build output artifacts.
 class BuildArtifacts {
   /// Information about the location of the build artifacts.
   final String location;
@@ -983,6 +984,7 @@ class BuildArtifacts {
   static BuildArtifacts fromJson(Map<String, dynamic> json) => BuildArtifacts();
 }
 
+/// Information about a build that could not be successfully deleted.
 class BuildNotDeleted {
   /// The ID of the build that could not be successfully deleted.
   final String id;
@@ -999,6 +1001,7 @@ class BuildNotDeleted {
       BuildNotDeleted();
 }
 
+/// Information about a stage for a build.
 class BuildPhase {
   /// The name of the build phase. Valid values include:
   ///
@@ -1074,6 +1077,7 @@ class BuildPhase {
   static BuildPhase fromJson(Map<String, dynamic> json) => BuildPhase();
 }
 
+///  Information about Amazon CloudWatch Logs for a build project.
 class CloudWatchLogsConfig {
   /// The current status of the logs in Amazon CloudWatch Logs for a build
   /// project. Valid values are:
@@ -1085,13 +1089,13 @@ class CloudWatchLogsConfig {
   final String status;
 
   ///  The group name of the logs in Amazon CloudWatch Logs. For more
-  /// information, see [Working with Log Groups and Log
-  /// Streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html).
+  /// information, see
+  /// [Working with Log Groups and Log Streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html).
   final String groupName;
 
   ///  The prefix of the stream name of the Amazon CloudWatch Logs. For more
-  /// information, see [Working with Log Groups and Log
-  /// Streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html).
+  /// information, see
+  /// [Working with Log Groups and Log Streams](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/Working-with-log-groups-and-streams.html).
   final String streamName;
 
   CloudWatchLogsConfig({
@@ -1149,6 +1153,7 @@ class DeleteWebhookOutput {
       DeleteWebhookOutput();
 }
 
+/// Information about a Docker image that is managed by AWS CodeBuild.
 class EnvironmentImage {
   /// The name of the Docker image.
   final String name;
@@ -1168,6 +1173,8 @@ class EnvironmentImage {
       EnvironmentImage();
 }
 
+/// A set of Docker images that are related by programming language and are
+/// managed by AWS CodeBuild.
 class EnvironmentLanguage {
   /// The programming language for the Docker images.
   final String language;
@@ -1184,6 +1191,8 @@ class EnvironmentLanguage {
       EnvironmentLanguage();
 }
 
+/// A set of Docker images that are related by platform and are managed by AWS
+/// CodeBuild.
 class EnvironmentPlatform {
   /// The platform's name.
   final String platform;
@@ -1200,6 +1209,7 @@ class EnvironmentPlatform {
       EnvironmentPlatform();
 }
 
+/// Information about an environment variable for a build project or a build.
 class EnvironmentVariable {
   /// The name or key of the environment variable.
   final String name;
@@ -1231,6 +1241,8 @@ class EnvironmentVariable {
       EnvironmentVariable();
 }
 
+///  Information about the Git submodules configuration for an AWS CodeBuild
+/// build project.
 class GitSubmodulesConfig {
   ///  Set to true to fetch Git submodules for your AWS CodeBuild build project.
   final bool fetchSubmodules;
@@ -1341,6 +1353,8 @@ class ListSourceCredentialsOutput {
       ListSourceCredentialsOutput();
 }
 
+///  Information about logs for a build project. These can be logs in Amazon
+/// CloudWatch Logs, built in a specified S3 bucket, or both.
 class LogsConfig {
   ///  Information about Amazon CloudWatch Logs for a build project. Amazon
   /// CloudWatch Logs are enabled by default.
@@ -1357,6 +1371,7 @@ class LogsConfig {
   static LogsConfig fromJson(Map<String, dynamic> json) => LogsConfig();
 }
 
+/// Information about build logs in Amazon CloudWatch Logs.
 class LogsLocation {
   /// The name of the Amazon CloudWatch Logs group for the build logs.
   final String groupName;
@@ -1387,6 +1402,7 @@ class LogsLocation {
   static LogsLocation fromJson(Map<String, dynamic> json) => LogsLocation();
 }
 
+/// Describes a network interface.
 class NetworkInterface {
   /// The ID of the subnet.
   final String subnetId;
@@ -1402,6 +1418,8 @@ class NetworkInterface {
       NetworkInterface();
 }
 
+/// Additional information about a build phase that has an error. You can use
+/// this information for troubleshooting.
 class PhaseContext {
   /// The status code for the context of the build phase.
   final String statusCode;
@@ -1417,6 +1435,7 @@ class PhaseContext {
   static PhaseContext fromJson(Map<String, dynamic> json) => PhaseContext();
 }
 
+/// Information about a build project.
 class Project {
   /// The name of the build project.
   final String name;
@@ -1457,8 +1476,8 @@ class Project {
   ///  If `sourceVersion` is specified at the build level, then that version
   /// takes precedence over this `sourceVersion` (at the project level).
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   final String sourceVersion;
 
@@ -1557,6 +1576,7 @@ class Project {
   static Project fromJson(Map<String, dynamic> json) => Project();
 }
 
+/// Information about the build output artifacts for the build project.
 class ProjectArtifacts {
   /// The type of build output artifact. Valid values include:
   ///
@@ -1704,6 +1724,7 @@ class ProjectArtifacts {
       ProjectArtifacts();
 }
 
+/// Information about the build badge for the build project.
 class ProjectBadge {
   /// Set this to true to generate a publicly accessible URL for your project's
   /// build badge.
@@ -1723,6 +1744,7 @@ class ProjectBadge {
   static ProjectBadge fromJson(Map<String, dynamic> json) => ProjectBadge();
 }
 
+/// Information about the cache for the build project.
 class ProjectCache {
   /// The type of cache used by the build project. Valid values include:
   ///
@@ -1744,14 +1766,14 @@ class ProjectCache {
   ///  If you use a `LOCAL` cache, the local cache mode. You can use one or more
   /// local cache modes at the same time.
   ///
-  /// *    `LOCAL\_SOURCE\_CACHE` mode caches Git metadata for primary and
+  /// *    `LOCAL_SOURCE_CACHE` mode caches Git metadata for primary and
   /// secondary sources. After the cache is created, subsequent builds pull only
   /// the change between commits. This mode is a good choice for projects with a
   /// clean working directory and a source that is a large Git repository. If
   /// you choose this option and your project does not use a Git repository
   /// (GitHub, GitHub Enterprise, or Bitbucket), the option is ignored.
   ///
-  /// *    `LOCAL\_DOCKER\_LAYER_CACHE` mode caches existing Docker layers. This
+  /// *    `LOCAL_DOCKER_LAYER_CACHE` mode caches existing Docker layers. This
   /// mode is a good choice for projects that build or pull large Docker images.
   /// It can prevent the performance issues caused by pulling large Docker
   /// images down from the network.
@@ -1764,7 +1786,7 @@ class ProjectCache {
   ///     *    You should consider the security implications before you use a
   /// Docker layer cache.
   ///
-  /// *    `LOCAL\_CUSTOM\_CACHE` mode caches directories you specify in the
+  /// *    `LOCAL_CUSTOM_CACHE` mode caches directories you specify in the
   /// buildspec file. This mode is a good choice if your build scenario is not
   /// suited to one of the other three local cache modes. If you use a custom
   /// cache:
@@ -1788,6 +1810,7 @@ class ProjectCache {
   static ProjectCache fromJson(Map<String, dynamic> json) => ProjectCache();
 }
 
+/// Information about the build environment of the build project.
 class ProjectEnvironment {
   /// The type of build environment to use for related builds.
   final String type;
@@ -1808,13 +1831,12 @@ class ProjectEnvironment {
   /// Information about the compute resources the build project uses. Available
   /// values include:
   ///
-  /// *    `BUILD\_GENERAL1\_SMALL`: Use up to 3 GB memory and 2 vCPUs for
+  /// *    `BUILD_GENERAL1_SMALL`: Use up to 3 GB memory and 2 vCPUs for builds.
+  ///
+  /// *    `BUILD_GENERAL1_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for
   /// builds.
   ///
-  /// *    `BUILD\_GENERAL1\_MEDIUM`: Use up to 7 GB memory and 4 vCPUs for
-  /// builds.
-  ///
-  /// *    `BUILD\_GENERAL1\_LARGE`: Use up to 15 GB memory and 8 vCPUs for
+  /// *    `BUILD_GENERAL1_LARGE`: Use up to 15 GB memory and 8 vCPUs for
   /// builds.
   final String computeType;
 
@@ -1832,18 +1854,18 @@ class ProjectEnvironment {
   ///
   /// If the operating system's base image is Ubuntu Linux:
   ///
-  ///  `\- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock
+  ///  `- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock
   /// --host=tcp://0.0.0.0:2375 --storage-driver=overlay&`
   ///
-  ///  `\- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"`
+  ///  `- timeout 15 sh -c "until docker info; do echo .; sleep 1; done"`
   ///
   /// If the operating system's base image is Alpine Linux and the previous
   /// command does not work, add the `-t` argument to `timeout`:
   ///
-  ///  `\- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock
+  ///  `- nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock
   /// --host=tcp://0.0.0.0:2375 --storage-driver=overlay&`
   ///
-  ///  `\- timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"`
+  ///  `- timeout -t 15 sh -c "until docker info; do echo .; sleep 1; done"`
   final bool privilegedMode;
 
   /// The certificate to use with this build project.
@@ -1882,6 +1904,7 @@ class ProjectEnvironment {
       ProjectEnvironment();
 }
 
+/// Information about the build input source code for the build project.
 class ProjectSource {
   /// The type of repository that contains the source code to be built. Valid
   /// values include:
@@ -1995,6 +2018,7 @@ class ProjectSource {
   static ProjectSource fromJson(Map<String, dynamic> json) => ProjectSource();
 }
 
+///  A source identifier and its corresponding version.
 class ProjectSourceVersion {
   /// An identifier for a source in the build project.
   final String sourceIdentifier;
@@ -2020,8 +2044,8 @@ class ProjectSourceVersion {
   /// object that represents the build input ZIP file to use.
   ///
   ///
-  ///  For more information, see [Source Version Sample with
-  /// CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
+  ///  For more information, see
+  /// [Source Version Sample with CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-source-version.html)
   /// in the _AWS CodeBuild User Guide_.
   final String sourceVersion;
 
@@ -2033,6 +2057,16 @@ class ProjectSourceVersion {
       ProjectSourceVersion();
 }
 
+///  Information about credentials that provide access to a private Docker
+/// registry. When this is set:
+///
+/// *    `imagePullCredentialsType` must be set to `SERVICE_ROLE`.
+///
+/// *    images cannot be curated or an Amazon ECR image.
+///
+///
+///  For more information, see
+/// [Private Registry with AWS Secrets Manager Sample for AWS CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/sample-private-registry.html).
 class RegistryCredential {
   ///  The Amazon Resource Name (ARN) or name of credentials created using AWS
   /// Secrets Manager.
@@ -2053,6 +2087,7 @@ class RegistryCredential {
       RegistryCredential();
 }
 
+///  Information about S3 logs for a build project.
 class S3LogsConfig {
   /// The current status of the S3 build logs. Valid values are:
   ///
@@ -2079,6 +2114,11 @@ class S3LogsConfig {
   static S3LogsConfig fromJson(Map<String, dynamic> json) => S3LogsConfig();
 }
 
+/// Information about the authorization settings for AWS CodeBuild to access the
+/// source code to be built.
+///
+/// This information is for the AWS CodeBuild console's use only. Your code
+/// should not get or set this information directly.
 class SourceAuth {
   ///  This data type is deprecated and is no longer accurate or used.
   ///
@@ -2096,6 +2136,8 @@ class SourceAuth {
   static SourceAuth fromJson(Map<String, dynamic> json) => SourceAuth();
 }
 
+///  Information about the credentials for a GitHub, GitHub Enterprise, or
+/// Bitbucket repository.
 class SourceCredentialsInfo {
   ///  The Amazon Resource Name (ARN) of the token.
   final String arn;
@@ -2105,7 +2147,7 @@ class SourceCredentialsInfo {
   final String serverType;
 
   ///  The type of authentication used by the credentials. Valid options are
-  /// OAUTH, BASIC\_AUTH, or PERSONAL\_ACCESS_TOKEN.
+  /// OAUTH, BASIC_AUTH, or PERSONAL_ACCESS_TOKEN.
   final String authType;
 
   SourceCredentialsInfo({
@@ -2139,6 +2181,10 @@ class StopBuildOutput {
       StopBuildOutput();
 }
 
+/// A tag, consisting of a key and a value.
+///
+/// This tag is available for use by AWS services that support tags in AWS
+/// CodeBuild.
 class Tag {
   /// The tag's key.
   final String key;
@@ -2176,6 +2222,7 @@ class UpdateWebhookOutput {
       UpdateWebhookOutput();
 }
 
+/// Information about the VPC configuration that AWS CodeBuild accesses.
 class VpcConfig {
   /// The ID of the Amazon VPC.
   final String vpcId;
@@ -2194,6 +2241,8 @@ class VpcConfig {
   static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
 }
 
+/// Information about a webhook that connects repository events to a build
+/// project in AWS CodeBuild.
 class Webhook {
   /// The URL to the webhook.
   final String url;
@@ -2238,23 +2287,24 @@ class Webhook {
   static Webhook fromJson(Map<String, dynamic> json) => Webhook();
 }
 
+///  A filter used to determine which webhooks trigger a build.
 class WebhookFilter {
   ///  The type of webhook filter. There are five webhook filter types: `EVENT`,
-  /// `ACTOR\_ACCOUNT\_ID`, `HEAD_REF`, `BASE_REF`, and `FILE_PATH`.
+  /// `ACTOR_ACCOUNT_ID`, `HEAD_REF`, `BASE_REF`, and `FILE_PATH`.
   ///
   ///  EVENT
   ///
   ///  A webhook event triggers a build when the provided `pattern` matches one
-  /// of four event types: `PUSH`, `PULL\_REQUEST\_CREATED`,
-  /// `PULL\_REQUEST\_UPDATED`, and `PULL\_REQUEST\_REOPENED`. The `EVENT`
-  /// patterns are specified as a comma-separated string. For example, `PUSH,
-  /// PULL\_REQUEST\_CREATED, PULL\_REQUEST\_UPDATED` filters all push, pull
-  /// request created, and pull request updated events.
+  /// of four event types: `PUSH`, `PULL_REQUEST_CREATED`,
+  /// `PULL_REQUEST_UPDATED`, and `PULL_REQUEST_REOPENED`. The `EVENT` patterns
+  /// are specified as a comma-separated string. For example, `PUSH,
+  /// PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED` filters all push, pull request
+  /// created, and pull request updated events.
   ///
-  ///   The `PULL\_REQUEST\_REOPENED` works with GitHub and GitHub Enterprise
+  ///   The `PULL_REQUEST_REOPENED` works with GitHub and GitHub Enterprise
   /// only.
   ///
-  ///  ACTOR\_ACCOUNT\_ID
+  ///  ACTOR_ACCOUNT_ID
   ///
   ///  A webhook event triggers a build when a GitHub, GitHub Enterprise, or
   /// Bitbucket account ID matches the regular expression `pattern`.
@@ -2286,8 +2336,8 @@ class WebhookFilter {
 
   ///  For a `WebHookFilter` that uses `EVENT` type, a comma-separated string
   /// that specifies one or more events. For example, the webhook filter `PUSH,
-  /// PULL\_REQUEST\_CREATED, PULL\_REQUEST\_UPDATED` allows all push, pull
-  /// request created, and pull request updated events to trigger a build.
+  /// PULL_REQUEST_CREATED, PULL_REQUEST_UPDATED` allows all push, pull request
+  /// created, and pull request updated events to trigger a build.
   ///
   ///  For a `WebHookFilter` that uses any of the other filter types, a regular
   /// expression pattern. For example, a `WebHookFilter` that uses `HEAD_REF`

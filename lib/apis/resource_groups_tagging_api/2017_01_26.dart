@@ -44,8 +44,8 @@ import 'package:meta/meta.dart';
 /// You'll also need permissions to access the resources of individual services
 /// so that you can tag and untag those resources.
 ///
-/// For more information on IAM policies, see [Managing IAM
-/// Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html)
+/// For more information on IAM policies, see
+/// [Managing IAM Policies](http://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage.html)
 /// in the _IAM User Guide_.
 ///
 /// You can use the Resource Groups Tagging API to tag resources for the
@@ -249,7 +249,7 @@ class ResourceGroupsTaggingApiApi {
   /// *   If you _don't_ specify a TagFilter, the response includes all
   /// resources that were ever associated with tags. Resources that currently
   /// don't have associated tags are shown with an empty tag set, like this:
-  /// `"Tags": \[\]`.
+  /// `"Tags": []`.
   ///
   /// *   If you specify more than one filter in a single request, the response
   /// returns only those resources that satisfy all specified filters.
@@ -300,7 +300,7 @@ class ResourceGroupsTaggingApiApi {
   /// items.
   ///
   /// [resourceTypeFilters]: The constraints on the resources that you want
-  /// returned. The format of each resource type is `service\[:resourceType\]`.
+  /// returned. The format of each resource type is `service[:resourceType]`.
   /// For example, specifying a resource type of `ec2` returns all Amazon EC2
   /// resources (which includes EC2 instances). Specifying a resource type of
   /// `ec2:instance` returns only EC2 instances.
@@ -309,15 +309,14 @@ class ResourceGroupsTaggingApiApi {
   /// embedded in a resource's Amazon Resource Name (ARN). Consult the _AWS
   /// General Reference_ for the following:
   ///
-  /// *   For a list of service name strings, see [AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces).
+  /// *   For a list of service name strings, see
+  /// [AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#genref-aws-service-namespaces).
   ///
-  /// *   For resource type strings, see [Example
-  /// ARNs](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax).
+  /// *   For resource type strings, see
+  /// [Example ARNs](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arns-syntax).
   ///
-  /// *   For more information about ARNs, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
+  /// *   For more information about ARNs, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html).
   ///
   ///
   /// You can specify multiple resource types by using an array. The array can
@@ -360,12 +359,12 @@ class ResourceGroupsTaggingApiApi {
   /// Applies one or more tags to the specified resources. Note the following:
   ///
   /// *   Not all resources can have tags. For a list of resources that support
-  /// tagging, see [Supported
-  /// Resources](http://docs.aws.amazon.com/ARG/latest/userguide/supported-resources.html)
+  /// tagging, see
+  /// [Supported Resources](http://docs.aws.amazon.com/ARG/latest/userguide/supported-resources.html)
   /// in the _AWS Resource Groups User Guide_.
   ///
-  /// *   Each resource can have up to 50 tags. For other limits, see [Tag
-  /// Restrictions](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions)
+  /// *   Each resource can have up to 50 tags. For other limits, see
+  /// [Tag Restrictions](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-restrictions)
   /// in the _Amazon EC2 User Guide for Linux Instances_.
   ///
   /// *   You can only tag resources that are located in the specified region
@@ -373,16 +372,15 @@ class ResourceGroupsTaggingApiApi {
   ///
   /// *   To add tags to a resource, you need the necessary permissions for the
   /// service that the resource belongs to as well as permissions for adding
-  /// tags. For more information, see [Obtaining Permissions for
-  /// Tagging](http://docs.aws.amazon.com/ARG/latest/userguide/obtaining-permissions-for-tagging.html)
+  /// tags. For more information, see
+  /// [Obtaining Permissions for Tagging](http://docs.aws.amazon.com/ARG/latest/userguide/obtaining-permissions-for-tagging.html)
   /// in the _AWS Resource Groups User Guide_.
   ///
   /// [resourceArnList]: A list of ARNs. An ARN (Amazon Resource Name) uniquely
   /// identifies a resource. You can specify a minimum of 1 and a maximum of 20
   /// ARNs (resources) to tag. An ARN can be set to a maximum of 1600
-  /// characters. For more information, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// characters. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [tags]: The tags that you want to add to the specified resources. A tag
@@ -400,8 +398,8 @@ class ResourceGroupsTaggingApiApi {
   ///
   /// *   To remove tags from a resource, you need the necessary permissions for
   /// the service that the resource belongs to as well as permissions for
-  /// removing tags. For more information, see [Obtaining Permissions for
-  /// Tagging](http://docs.aws.amazon.com/ARG/latest/userguide/obtaining-permissions-for-tagging.html)
+  /// removing tags. For more information, see
+  /// [Obtaining Permissions for Tagging](http://docs.aws.amazon.com/ARG/latest/userguide/obtaining-permissions-for-tagging.html)
   /// in the _AWS Resource Groups User Guide_.
   ///
   /// *   You can only tag resources that are located in the specified region
@@ -410,9 +408,8 @@ class ResourceGroupsTaggingApiApi {
   /// [resourceArnList]: A list of ARNs. An ARN (Amazon Resource Name) uniquely
   /// identifies a resource. You can specify a minimum of 1 and a maximum of 20
   /// ARNs (resources) to untag. An ARN can be set to a maximum of 1600
-  /// characters. For more information, see [Amazon Resource Names (ARNs) and
-  /// AWS Service
-  /// Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
+  /// characters. For more information, see
+  /// [Amazon Resource Names (ARNs) and AWS Service Namespaces](http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html)
   /// in the _AWS General Reference_.
   ///
   /// [tagKeys]: A list of the tag keys that you want to remove from the
@@ -424,6 +421,7 @@ class ResourceGroupsTaggingApiApi {
   }
 }
 
+/// Details of the common errors that all actions return.
 class FailureInfo {
   /// The HTTP status code of the common error.
   final int statusCode;
@@ -497,6 +495,8 @@ class GetTagValuesOutput {
       GetTagValuesOutput();
 }
 
+/// A list of resource ARNs and the tags (keys and values) that are associated
+/// with each.
 class ResourceTagMapping {
   /// The ARN of the resource.
   final String resourceArn;
@@ -512,6 +512,11 @@ class ResourceTagMapping {
       ResourceTagMapping();
 }
 
+/// The metadata that you apply to AWS resources to help you categorize and
+/// organize them. Each tag consists of a key and an optional value, both of
+/// which you define. For more information, see
+/// [Tag Basics](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-basics)
+/// in the _Amazon EC2 User Guide for Linux Instances_.
 class Tag {
   /// One part of a key-value pair that make up a tag. A key is a general label
   /// that acts like a category for more specific tag values.
@@ -528,6 +533,8 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// A list of tags (keys and values) that are used to specify the associated
+/// resources.
 class TagFilter {
   /// One part of a key-value pair that make up a tag. A key is a general label
   /// that acts like a category for more specific tag values.

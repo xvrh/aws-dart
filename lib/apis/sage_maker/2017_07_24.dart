@@ -9,8 +9,8 @@ class SageMakerApi {
   ///
   /// Each tag consists of a key and an optional value. Tag keys must be unique
   /// per resource. For more information about tags, see For more information,
-  /// see [AWS Tagging
-  /// Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
+  /// see
+  /// [AWS Tagging Strategies](https://aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   ///
   ///
   ///
@@ -98,8 +98,8 @@ class SageMakerApi {
   /// more than one notebook instance, and it persists independently from the
   /// lifecycle of any notebook instances it is associated with.
   ///
-  /// The repository can be hosted either in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// The repository can be hosted either in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository.
   ///
   /// [codeRepositoryName]: The name of the Git repository. The name must have 1
@@ -164,8 +164,8 @@ class SageMakerApi {
   ///
   /// You grant permissions for all of these tasks to an IAM role. To pass this
   /// role to Amazon SageMaker, the caller of this API must have the
-  /// `iam:PassRole` permission. For more information, see [Amazon SageMaker
-  /// Roles.](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html)
+  /// `iam:PassRole` permission. For more information, see
+  /// [Amazon SageMaker Roles.](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html)
   ///
   /// [inputConfig]: Provides information about the location of input model
   /// artifacts, the name and shape of the expected data inputs, and the
@@ -213,18 +213,17 @@ class SageMakerApi {
   /// [DescribeEndpoint](https://docs.aws.amazon.com/sagemaker/latest/dg/API_DescribeEndpoint.html)
   /// API.
   ///
-  /// For an example, see [Exercise 1: Using the K-Means Algorithm Provided by
-  /// Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ex1.html).
+  /// For an example, see
+  /// [Exercise 1: Using the K-Means Algorithm Provided by Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ex1.html).
   ///
   /// If any of the models hosted at this endpoint get model data from an Amazon
   /// S3 location, Amazon SageMaker uses AWS Security Token Service to download
   /// model artifacts from the S3 path you provided. AWS STS is activated in
   /// your IAM user account by default. If you previously deactivated AWS STS
   /// for a region, you need to reactivate AWS STS for that region. For more
-  /// information, see [Activating and Deactivating AWS STS i an AWS
-  /// Region](IAM/latest/UserGuide/id_credentials_temp_enable-regions.html) in
-  /// the _AWS Identity and Access Management User Guide_.
+  /// information, see
+  /// [Activating and Deactivating AWS STS i an AWS Region](IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// in the _AWS Identity and Access Management User Guide_.
   ///
   /// [endpointName]: The name of the endpoint. The name must be unique within
   /// an AWS Region in your AWS account.
@@ -233,9 +232,8 @@ class SageMakerApi {
   /// information, see
   /// [CreateEndpointConfig](https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateEndpointConfig.html).
   ///
-  /// [tags]: An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)in
+  /// [tags]: An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)in
   /// the _AWS Billing and Cost Management User Guide_.
   Future<CreateEndpointOutput> createEndpoint(
       {@required String endpointName,
@@ -273,9 +271,8 @@ class SageMakerApi {
   /// [productionVariants]: An list of `ProductionVariant` objects, one for each
   /// model that you want to host at this endpoint.
   ///
-  /// [tags]: A list of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// [tags]: A list of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the  _AWS Billing and Cost Management User Guide_.
   ///
   /// [kmsKeyId]: The Amazon Resource Name (ARN) of a AWS Key Management Service
@@ -321,7 +318,7 @@ class SageMakerApi {
   ///
   /// All training jobs launched by the new hyperparameter tuning job are
   /// evaluated by using the objective metric. If you specify
-  /// `IDENTICAL\_DATA\_AND_ALGORITHM` as the `WarmStartType` value for the warm
+  /// `IDENTICAL_DATA_AND_ALGORITHM` as the `WarmStartType` value for the warm
   /// start configuration, the training job that performs the best in the new
   /// tuning job is compared to the best training jobs from the parent tuning
   /// jobs. From these, the training job that performs the best as measured by
@@ -335,8 +332,8 @@ class SageMakerApi {
   ///
   /// [tags]: An array of key-value pairs. You can use tags to categorize your
   /// AWS resources in different ways, for example, by purpose, owner, or
-  /// environment. For more information, see [AWS Tagging
-  /// Strategies](https://docs.aws.amazon.com/https:/aws.amazon.com/answers/account-management/aws-tagging-strategies/).
+  /// environment. For more information, see
+  /// [AWS Tagging Strategies](https://docs.aws.amazon.com/https:/aws.amazon.com/answers/account-management/aws-tagging-strategies/).
   ///
   /// Tags that you specify for the tuning job are also added to all training
   /// jobs that the tuning job launches.
@@ -371,13 +368,12 @@ class SageMakerApi {
   /// objects that need to be labeled by a human. Automated data labeling uses
   /// _active learning_ to determine if a data object can be labeled by machine
   /// or if it needs to be sent to a human worker. For more information, see
-  /// [Using Automated Data
-  /// Labeling](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html).
+  /// [Using Automated Data Labeling](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-automated-labeling.html).
   ///
   /// The data objects to be labeled are contained in an Amazon S3 bucket. You
   /// create a _manifest file_ that describes the location of each object. For
-  /// more information, see [Using Input and Output
-  /// Data](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-data.html).
+  /// more information, see
+  /// [Using Input and Output Data](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-data.html).
   ///
   /// The output can be used as the manifest file for another labeling job or as
   /// training data for your machine learning models.
@@ -413,7 +409,7 @@ class SageMakerApi {
   ///
   ///   `"document-version": "2018-11-28"`
   ///
-  ///   `"labels": \[`
+  ///   `"labels": [`
   ///
   ///   `{`
   ///
@@ -435,7 +431,7 @@ class SageMakerApi {
   ///
   ///   `}`
   ///
-  ///   `\]`
+  ///   `]`
   ///
   ///  `}`
   ///
@@ -449,9 +445,8 @@ class SageMakerApi {
   /// [humanTaskConfig]: Configures the information required for human workers
   /// to complete a labeling task.
   ///
-  /// [tags]: An array of key/value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// [tags]: An array of key/value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   Future<CreateLabelingJobResponse> createLabelingJob(
       {@required String labelingJobName,
@@ -507,17 +502,16 @@ class SageMakerApi {
   /// Amazon SageMaker can assume to access model artifacts and docker image for
   /// deployment on ML compute instances or for batch transform jobs. Deploying
   /// on ML compute instances is part of model hosting. For more information,
-  /// see [Amazon SageMaker
-  /// Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
+  /// see
+  /// [Amazon SageMaker Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
   ///
   ///
   ///
   /// To be able to pass this role to Amazon SageMaker, the caller of this API
   /// must have the `iam:PassRole` permission.
   ///
-  /// [tags]: An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// [tags]: An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [vpcConfig]: A
@@ -525,10 +519,10 @@ class SageMakerApi {
   /// object that specifies the VPC that you want your model to connect to.
   /// Control access to and from your model container by configuring the VPC.
   /// `VpcConfig` is used in hosting services and in batch transform. For more
-  /// information, see [Protect Endpoints by Using an Amazon Virtual Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html) and
-  /// [Protect Data in Batch Transform Jobs by Using an Amazon Virtual Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html).
+  /// information, see
+  /// [Protect Endpoints by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html)
+  /// and
+  /// [Protect Data in Batch Transform Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-vpc.html).
   ///
   /// [enableNetworkIsolation]: Isolates the model container. No inbound or
   /// outbound network calls can be made to or from the model container.
@@ -631,8 +625,8 @@ class SageMakerApi {
   /// a model, host models by creating Amazon SageMaker endpoints, and validate
   /// hosted models.
   ///
-  /// For more information, see [How It
-  /// Works](https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
+  /// For more information, see
+  /// [How It Works](https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
   ///
   /// [notebookInstanceName]: The name of the new notebook instance.
   ///
@@ -650,8 +644,8 @@ class SageMakerApi {
   /// behalf. You must grant this role necessary permissions so Amazon SageMaker
   /// can perform these tasks. The policy must allow the Amazon SageMaker
   /// service principal (sagemaker.amazonaws.com) permissionsto to assume this
-  /// role. For more information, see [Amazon SageMaker
-  /// Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
+  /// role. For more information, see
+  /// [Amazon SageMaker Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
   ///
   ///
   ///
@@ -661,8 +655,8 @@ class SageMakerApi {
   /// [kmsKeyId]: The Amazon Resource Name (ARN) of a AWS Key Management Service
   /// key that Amazon SageMaker uses to encrypt data on the storage volume
   /// attached to your notebook instance. The KMS key you provide must be
-  /// enabled. For information, see [Enabling and Disabling
-  /// Keys](https://docs.aws.amazon.com/kms/latest/developerguide/enabling-keys.html)
+  /// enabled. For information, see
+  /// [Enabling and Disabling Keys](https://docs.aws.amazon.com/kms/latest/developerguide/enabling-keys.html)
   /// in the _AWS Key Management Service Developer Guide_.
   ///
   /// [tags]: A list of tags to associate with the notebook instance. You can
@@ -670,8 +664,8 @@ class SageMakerApi {
   ///
   /// [lifecycleConfigName]: The name of a lifecycle configuration to associate
   /// with the notebook instance. For information about lifestyle
-  /// configurations, see [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
+  /// configurations, see
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
   ///
   /// [directInternetAccess]: Sets whether Amazon SageMaker provides internet
   /// access to the notebook instance. If you set this to `Disabled` this
@@ -679,8 +673,8 @@ class SageMakerApi {
   /// will not be able to connect to Amazon SageMaker training and endpoint
   /// services unless your configure a NAT Gateway in your VPC.
   ///
-  /// For more information, see [Notebook Instances Are Internet-Enabled by
-  /// Default](https://docs.aws.amazon.com/sagemaker/latest/dg/appendix-additional-considerations.html#appendix-notebook-and-internet-access).
+  /// For more information, see
+  /// [Notebook Instances Are Internet-Enabled by Default](https://docs.aws.amazon.com/sagemaker/latest/dg/appendix-additional-considerations.html#appendix-notebook-and-internet-access).
   /// You can set the value of this parameter to `Disabled` only if you set a
   /// value for the `SubnetId` parameter.
   ///
@@ -690,19 +684,17 @@ class SageMakerApi {
   /// [acceleratorTypes]: A list of Elastic Inference (EI) instance types to
   /// associate with this notebook instance. Currently, only one instance type
   /// can be associated with a notebook instance. For more information, see
-  /// [Using Elastic Inference in Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html).
+  /// [Using Elastic Inference in Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html).
   ///
   /// [defaultCodeRepository]: A Git repository to associate with the notebook
   /// instance as its default code repository. This can be either the name of a
   /// Git repository stored as a resource in your account, or the URL of a Git
-  /// repository in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// repository in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. When you open a notebook instance, it
   /// opens in the directory that contains this repository. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   ///
   /// [additionalCodeRepositories]: An array of up to three Git repositories to
   /// associate with the notebook instance. These can be either the names of Git
@@ -710,9 +702,8 @@ class SageMakerApi {
   /// repositories in [AWS CodeCommit](codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. These repositories are cloned at the same
   /// level as the default repository of your notebook instance. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   ///
   /// [rootAccess]: Whether root access is enabled or disabled for users of the
   /// notebook instance. The default value is `Enabled`.
@@ -752,15 +743,14 @@ class SageMakerApi {
   ///
   /// View CloudWatch Logs for notebook instance lifecycle configurations in log
   /// group `/aws/sagemaker/NotebookInstances` in log stream
-  /// `\[notebook-instance-name\]/\[LifecycleConfigHook\]`.
+  /// `[notebook-instance-name]/[LifecycleConfigHook]`.
   ///
   /// Lifecycle configuration scripts cannot run for longer than 5 minutes. If a
   /// script runs for longer than 5 minutes, it fails and the notebook instance
   /// is not created or started.
   ///
   /// For information about notebook instance lifestyle configurations, see
-  /// [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
   ///
   /// [notebookInstanceLifecycleConfigName]: The name of the lifecycle
   /// configuration.
@@ -791,9 +781,8 @@ class SageMakerApi {
   /// that it returns to a list of IP addresses that you specify. Use the
   /// `NotIpAddress` condition operator and the `aws:SourceIP` condition context
   /// key to specify the list of IP addresses that you want to have access to
-  /// the notebook instance. For more information, see [Limit Access to a
-  /// Notebook Instance by IP
-  /// Address](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-ip-filter.html).
+  /// the notebook instance. For more information, see
+  /// [Limit Access to a Notebook Instance by IP Address](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-ip-filter.html).
   ///
   ///
   ///
@@ -822,43 +811,43 @@ class SageMakerApi {
   ///
   /// In the request body, you provide the following:
   ///
-  /// *    `AlgorithmSpecification` \- Identifies the training algorithm to use.
+  /// *    `AlgorithmSpecification` - Identifies the training algorithm to use.
   ///
-  /// *    `HyperParameters` \- Specify these algorithm-specific parameters to
+  /// *    `HyperParameters` - Specify these algorithm-specific parameters to
   /// enable the estimation of model parameters during training. Hyperparameters
   /// can be tuned to optimize this learning process. For a list of
   /// hyperparameters for each training algorithm provided by Amazon SageMaker,
   /// see
   /// [Algorithms](https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html).
   ///
-  /// *    `InputDataConfig` \- Describes the training dataset and the Amazon
-  /// S3, EFS, or FSx location where it is stored.
+  /// *    `InputDataConfig` - Describes the training dataset and the Amazon S3,
+  /// EFS, or FSx location where it is stored.
   ///
-  /// *    `OutputDataConfig` \- Identifies the Amazon S3 bucket where you want
+  /// *    `OutputDataConfig` - Identifies the Amazon S3 bucket where you want
   /// Amazon SageMaker to save the results of model training.
   ///
-  /// *    `ResourceConfig` \- Identifies the resources, ML compute instances,
+  /// *    `ResourceConfig` - Identifies the resources, ML compute instances,
   /// and ML storage volumes to deploy for model training. In distributed
   /// training, you specify more than one instance.
   ///
-  /// *    `EnableManagedSpotTraining` \- Optimize the cost of training machine
+  /// *    `EnableManagedSpotTraining` - Optimize the cost of training machine
   /// learning models by up to 80% by using Amazon EC2 Spot instances. For more
-  /// information, see [Managed Spot
-  /// Training](https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html).
+  /// information, see
+  /// [Managed Spot Training](https://docs.aws.amazon.com/sagemaker/latest/dg/model-managed-spot-training.html).
   ///
-  /// *    `RoleARN` \- The Amazon Resource Number (ARN) that Amazon SageMaker
+  /// *    `RoleARN` - The Amazon Resource Number (ARN) that Amazon SageMaker
   /// assumes to perform tasks on your behalf during model training. You must
   /// grant this role the necessary permissions so that Amazon SageMaker can
   /// successfully complete model training.
   ///
-  /// *    `StoppingCondition` \- To help cap training costs, use
+  /// *    `StoppingCondition` - To help cap training costs, use
   /// `MaxRuntimeInSeconds` to set a time limit for training. Use
   /// `MaxWaitTimeInSeconds` to specify how long you are willing to to wait for
   /// a managed spot training job to complete.
   ///
   ///
-  ///  For more information about Amazon SageMaker, see [How It
-  /// Works](https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
+  ///  For more information about Amazon SageMaker, see
+  /// [How It Works](https://docs.aws.amazon.com/sagemaker/latest/dg/how-it-works.html).
   ///
   /// [trainingJobName]: The name of the training job. The name must be unique
   /// within an AWS Region in an AWS account.
@@ -878,9 +867,8 @@ class SageMakerApi {
   /// the input mode. For more information about algorithms provided by Amazon
   /// SageMaker, see
   /// [Algorithms](https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html).
-  /// For information about providing your own algorithms, see [Using Your Own
-  /// Algorithms with Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
+  /// For information about providing your own algorithms, see
+  /// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of an IAM role that Amazon
   /// SageMaker can assume to perform tasks on your behalf.
@@ -890,8 +878,8 @@ class SageMakerApi {
   /// training code, write model artifacts to an S3 bucket, write logs to Amazon
   /// CloudWatch Logs, and publish metrics to Amazon CloudWatch. You grant
   /// permissions for all of these tasks to an IAM role. For more information,
-  /// see [Amazon SageMaker
-  /// Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
+  /// see
+  /// [Amazon SageMaker Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
   ///
   ///
   ///
@@ -930,9 +918,8 @@ class SageMakerApi {
   ///
   /// [vpcConfig]: A VpcConfig object that specifies the VPC that you want your
   /// training job to connect to. Control access to and from your training
-  /// container by configuring the VPC. For more information, see [Protect
-  /// Training Jobs by Using an Amazon Virtual Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
+  /// container by configuring the VPC. For more information, see
+  /// [Protect Training Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
   ///
   /// [stoppingCondition]: Specifies a limit to how long a model training job
   /// can run. When the job reaches the time limit, Amazon SageMaker ends the
@@ -943,9 +930,8 @@ class SageMakerApi {
   /// 120-second window to save the model artifacts, so the results of training
   /// are not lost.
   ///
-  /// [tags]: An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// [tags]: An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [enableNetworkIsolation]: Isolates the training container. No inbound or
@@ -967,9 +953,7 @@ class SageMakerApi {
   /// training might take longer. How long it takes depends on the amount of
   /// communication between compute instances, especially if you use a deep
   /// learning algorithm in distributed training. For more information, see
-  /// [Protect Communications Between ML Compute Instances in a Distributed
-  /// Training
-  /// Job](https://docs.aws.amazon.com/sagemaker/latest/dg/train-encrypt.html).
+  /// [Protect Communications Between ML Compute Instances in a Distributed Training Job](https://docs.aws.amazon.com/sagemaker/latest/dg/train-encrypt.html).
   ///
   /// [enableManagedSpotTraining]: To train models using managed spot training,
   /// choose `True`. Managed spot training provides a fully managed and scalable
@@ -1012,26 +996,26 @@ class SageMakerApi {
   ///
   /// In the request body, you provide the following:
   ///
-  /// *    `TransformJobName` \- Identifies the transform job. The name must be
+  /// *    `TransformJobName` - Identifies the transform job. The name must be
   /// unique within an AWS Region in an AWS account.
   ///
-  /// *    `ModelName` \- Identifies the model to use. `ModelName` must be the
+  /// *    `ModelName` - Identifies the model to use. `ModelName` must be the
   /// name of an existing Amazon SageMaker model in the same AWS Region and AWS
   /// account. For information on creating a model, see CreateModel.
   ///
-  /// *    `TransformInput` \- Describes the dataset to be transformed and the
+  /// *    `TransformInput` - Describes the dataset to be transformed and the
   /// Amazon S3 location where it is stored.
   ///
-  /// *    `TransformOutput` \- Identifies the Amazon S3 location where you want
+  /// *    `TransformOutput` - Identifies the Amazon S3 location where you want
   /// Amazon SageMaker to save the results from the transform job.
   ///
-  /// *    `TransformResources` \- Identifies the ML compute instances for the
+  /// *    `TransformResources` - Identifies the ML compute instances for the
   /// transform job.
   ///
   ///
   ///  For more information about how batch transformation works Amazon
-  /// SageMaker, see [How It
-  /// Works](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html).
+  /// SageMaker, see
+  /// [How It Works](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform.html).
   ///
   /// [transformJobName]: The name of the transform job. The name must be unique
   /// within an AWS Region in an AWS account.
@@ -1046,8 +1030,8 @@ class SageMakerApi {
   /// checks the optional execution-parameters to determine the optimal settings
   /// for your chosen algorithm. If the execution-parameters endpoint is not
   /// enabled, the default value is `1`. For more information on
-  /// execution-parameters, see [How Containers Serve
-  /// Requests](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests).
+  /// execution-parameters, see
+  /// [How Containers Serve Requests](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms-batch-code.html#your-algorithms-batch-code-how-containe-serves-requests).
   /// For built-in algorithms, you don't need to set a value for
   /// `MaxConcurrentTransforms`.
   ///
@@ -1101,13 +1085,11 @@ class SageMakerApi {
   /// provided allows you to exclude input data that is not needed for inference
   /// in a batch transform job. The output filter provided allows you to include
   /// input data relevant to interpreting the predictions in the output from the
-  /// job. For more information, see [Associate Prediction Results with their
-  /// Corresponding Input
-  /// Records](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html).
+  /// job. For more information, see
+  /// [Associate Prediction Results with their Corresponding Input Records](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html).
   ///
   /// [tags]: (Optional) An array of key-value pairs. For more information, see
-  /// [Using Cost Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   Future<CreateTransformJobResponse> createTransformJob(
       {@required String transformJobName,
@@ -1135,8 +1117,8 @@ class SageMakerApi {
   ///
   /// [memberDefinitions]: A list of `MemberDefinition` objects that contains
   /// objects that identify the Amazon Cognito user pool that makes up the work
-  /// team. For more information, see [Amazon Cognito User
-  /// Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html).
+  /// team. For more information, see
+  /// [Amazon Cognito User Pools](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html).
   ///
   /// All of the `CognitoMemberDefinition` objects that make up the member
   /// definition must have the same `ClientId` and `UserPool` values.
@@ -1148,10 +1130,10 @@ class SageMakerApi {
   ///
   /// [tags]: An array of key-value pairs.
   ///
-  /// For more information, see [Resource
-  /// Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html)
-  /// and [Using Cost Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// For more information, see
+  /// [Resource Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html)
+  /// and
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the  _AWS Billing and Cost Management User Guide_.
   Future<CreateWorkteamResponse> createWorkteam(
       {@required String workteamName,
@@ -1349,8 +1331,7 @@ class SageMakerApi {
   /// Returns a description of a notebook instance lifecycle configuration.
   ///
   /// For information about notebook instance lifestyle configurations, see
-  /// [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
   ///
   /// [notebookInstanceLifecycleConfigName]: The name of the lifecycle
   /// configuration to describe.
@@ -2303,8 +2284,8 @@ class SageMakerApi {
   ///
   /// [roleArn]: The Amazon Resource Name (ARN) of the IAM role that Amazon
   /// SageMaker can assume to access the notebook instance. For more
-  /// information, see [Amazon SageMaker
-  /// Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
+  /// information, see
+  /// [Amazon SageMaker Roles](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-roles.html).
   ///
   ///
   ///
@@ -2313,8 +2294,8 @@ class SageMakerApi {
   ///
   /// [lifecycleConfigName]: The name of a lifecycle configuration to associate
   /// with the notebook instance. For information about lifestyle
-  /// configurations, see [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
+  /// configurations, see
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
   ///
   /// [disassociateLifecycleConfig]: Set to `true` to remove the notebook
   /// instance lifecycle configuration currently associated with the notebook
@@ -2333,30 +2314,27 @@ class SageMakerApi {
   /// [defaultCodeRepository]: The Git repository to associate with the notebook
   /// instance as its default code repository. This can be either the name of a
   /// Git repository stored as a resource in your account, or the URL of a Git
-  /// repository in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// repository in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. When you open a notebook instance, it
   /// opens in the directory that contains this repository. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   ///
   /// [additionalCodeRepositories]: An array of up to three Git repositories to
   /// associate with the notebook instance. These can be either the names of Git
   /// repositories stored as resources in your account, or the URL of Git
-  /// repositories in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// repositories in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. These repositories are cloned at the same
   /// level as the default repository of your notebook instance. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   ///
   /// [acceleratorTypes]: A list of the Elastic Inference (EI) instance types to
   /// associate with this notebook instance. Currently only one EI instance type
   /// can be associated with a notebook instance. For more information, see
-  /// [Using Elastic Inference in Amazon
-  /// SageMaker](sagemaker/latest/dg/ei.html).
+  /// [Using Elastic Inference in Amazon SageMaker](sagemaker/latest/dg/ei.html).
   ///
   /// [disassociateAcceleratorTypes]: A list of the Elastic Inference (EI)
   /// instance types to remove from this notebook instance. This operation is
@@ -2450,15 +2428,23 @@ class AddTagsOutput {
   static AddTagsOutput fromJson(Map<String, dynamic> json) => AddTagsOutput();
 }
 
+/// Specifies the training algorithm to use in a
+/// [CreateTrainingJob](https://docs.aws.amazon.com/sagemaker/latest/dg/API_CreateTrainingJob.html)
+/// request.
+///
+/// For more information about algorithms provided by Amazon SageMaker, see
+/// [Algorithms](https://docs.aws.amazon.com/sagemaker/latest/dg/algos.html).
+/// For information about using your own algorithms, see
+/// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
 class AlgorithmSpecification {
   /// The registry path of the Docker image that contains the training
   /// algorithm. For information about docker registry paths for built-in
-  /// algorithms, see [Algorithms Provided by Amazon SageMaker: Common
-  /// Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
-  /// Amazon SageMaker supports both `registry/repository\[:tag\]` and
-  /// `registry/repository\[@digest\]` image path formats. For more information,
-  /// see [Using Your Own Algorithms with Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
+  /// algorithms, see
+  /// [Algorithms Provided by Amazon SageMaker: Common Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
+  /// Amazon SageMaker supports both `registry/repository[:tag]` and
+  /// `registry/repository[@digest]` image path formats. For more information,
+  /// see
+  /// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
   final String trainingImage;
 
   /// The name of the algorithm resource to use for the training job. This must
@@ -2506,6 +2492,7 @@ class AlgorithmSpecification {
       AlgorithmSpecification();
 }
 
+/// Specifies the validation and image scan statuses of the algorithm.
 class AlgorithmStatusDetails {
   /// The status of algorithm validation.
   final List<AlgorithmStatusItem> validationStatuses;
@@ -2521,6 +2508,7 @@ class AlgorithmStatusDetails {
       AlgorithmStatusDetails();
 }
 
+/// Represents the overall status of an algorithm.
 class AlgorithmStatusItem {
   /// The name of the algorithm for which the overall status is being reported.
   final String name;
@@ -2540,6 +2528,7 @@ class AlgorithmStatusItem {
       AlgorithmStatusItem();
 }
 
+/// Provides summary information about an algorithm.
 class AlgorithmSummary {
   /// The name of the algorithm that is described by the summary.
   final String algorithmName;
@@ -2567,6 +2556,11 @@ class AlgorithmSummary {
       AlgorithmSummary();
 }
 
+/// Defines a training job and a batch transform job that Amazon SageMaker runs
+/// to validate your algorithm.
+///
+/// The data provided in the validation profile is made available to your buyers
+/// on AWS Marketplace.
 class AlgorithmValidationProfile {
   /// The name of the profile for the algorithm. The name must have 1 to 63
   /// characters. Valid characters are a-z, A-Z, 0-9, and - (hyphen).
@@ -2589,6 +2583,8 @@ class AlgorithmValidationProfile {
       AlgorithmValidationProfile();
 }
 
+/// Specifies configurations for one or more training jobs that Amazon SageMaker
+/// runs to test the algorithm.
 class AlgorithmValidationSpecification {
   /// The IAM roles that Amazon SageMaker uses to run the training jobs.
   final String validationRole;
@@ -2606,6 +2602,7 @@ class AlgorithmValidationSpecification {
       AlgorithmValidationSpecification();
 }
 
+/// Configures how labels are consolidated across human workers.
 class AnnotationConsolidationConfig {
   /// The Amazon Resource Name (ARN) of a Lambda function implements the logic
   /// for annotation consolidation.
@@ -2614,7 +2611,7 @@ class AnnotationConsolidationConfig {
   /// segmentation, and text classification task types, Amazon SageMaker Ground
   /// Truth provides the following Lambda functions:
   ///
-  /// *    _Bounding box_ \- Finds the most similar boxes from different workers
+  /// *    _Bounding box_ - Finds the most similar boxes from different workers
   /// based on the Jaccard index of the boxes.
   ///
   ///      `arn:aws:lambda:us-east-1:432418664414:function:ACS-BoundingBox`
@@ -2641,7 +2638,7 @@ class AnnotationConsolidationConfig {
   ///
   ///      `arn:aws:lambda:ca-central-1:918755190332:function:ACS-BoundingBox`
   ///
-  /// *    _Image classification_ \- Uses a variant of the Expectation
+  /// *    _Image classification_ - Uses a variant of the Expectation
   /// Maximization approach to estimate the true class of an image based on
   /// annotations from individual workers.
   ///
@@ -2675,7 +2672,7 @@ class AnnotationConsolidationConfig {
   ///
   /// `arn:aws:lambda:ca-central-1:918755190332:function:ACS-ImageMultiClass`
   ///
-  /// *    _Semantic segmentation_ \- Treats each pixel in an image as a
+  /// *    _Semantic segmentation_ - Treats each pixel in an image as a
   /// multi-class classification and treats pixel annotations from workers as
   /// "votes" for the correct label.
   ///
@@ -2715,7 +2712,7 @@ class AnnotationConsolidationConfig {
   ///
   /// `arn:aws:lambda:ca-central-1:918755190332:function:ACS-SemanticSegmentation`
   ///
-  /// *    _Text classification_ \- Uses a variant of the Expectation
+  /// *    _Text classification_ - Uses a variant of the Expectation
   /// Maximization approach to estimate the true class of text based on
   /// annotations from individual workers.
   ///
@@ -2749,8 +2746,8 @@ class AnnotationConsolidationConfig {
   ///
   /// `arn:aws:lambda:ca-central-1:918755190332:function:ACS-TextMultiClass`
   ///
-  /// *    _Named entity eecognition_ \- Groups similar selections and
-  /// calculates aggregate boundaries, resolving to most-assigned label.
+  /// *    _Named entity eecognition_ - Groups similar selections and calculates
+  /// aggregate boundaries, resolving to most-assigned label.
   ///
   ///
   /// `arn:aws:lambda:us-east-1:432418664414:function:ACS-NamedEntityRecognition`
@@ -2788,8 +2785,8 @@ class AnnotationConsolidationConfig {
   ///
   /// `arn:aws:lambda:ca-central-1:918755190332:function:ACS-NamedEntityRecognition`
   ///
-  /// *    _Named entity eecognition_ \- Groups similar selections and
-  /// calculates aggregate boundaries, resolving to most-assigned label.
+  /// *    _Named entity eecognition_ - Groups similar selections and calculates
+  /// aggregate boundaries, resolving to most-assigned label.
   ///
   ///
   /// `arn:aws:lambda:us-east-1:432418664414:function:ACS-NamedEntityRecognition`
@@ -2810,8 +2807,8 @@ class AnnotationConsolidationConfig {
   /// `arn:aws:lambda:ap-southeast-2:454466003867:function:ACS-NamedEntityRecognition`
   ///
   ///
-  /// For more information, see [Annotation
-  /// Consolidation](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html).
+  /// For more information, see
+  /// [Annotation Consolidation](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html).
   final String annotationConsolidationLambdaArn;
 
   AnnotationConsolidationConfig({
@@ -2821,6 +2818,7 @@ class AnnotationConsolidationConfig {
       AnnotationConsolidationConfig();
 }
 
+/// A list of categorical hyperparameters to tune.
 class CategoricalParameterRange {
   /// The name of the categorical hyperparameter to tune.
   final String name;
@@ -2836,6 +2834,7 @@ class CategoricalParameterRange {
       CategoricalParameterRange();
 }
 
+/// Defines the possible values for a categorical hyperparameter.
 class CategoricalParameterRangeSpecification {
   /// The allowed categories for the hyperparameter.
   final List<String> values;
@@ -2848,6 +2847,7 @@ class CategoricalParameterRangeSpecification {
       CategoricalParameterRangeSpecification();
 }
 
+/// A channel is a named input source that training algorithms can consume.
 class Channel {
   /// The name of the channel.
   final String channelName;
@@ -2867,8 +2867,8 @@ class Channel {
   /// training algorithm requires the RecordIO format. In this case, Amazon
   /// SageMaker wraps each individual S3 object in a RecordIO record. If the
   /// input data is already in RecordIO format, you don't need to set this
-  /// attribute. For more information, see [Create a Dataset Using
-  /// RecordIO](https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format).
+  /// attribute. For more information, see
+  /// [Create a Dataset Using RecordIO](https://mxnet.incubator.apache.org/architecture/note_data_loading.html#data-format).
   ///
   /// In File mode, leave this field unset or set it to None.
   final String recordWrapperType;
@@ -2915,6 +2915,7 @@ class Channel {
   static Channel fromJson(Map<String, dynamic> json) => Channel();
 }
 
+/// Defines a named input source, called a channel, to be used by an algorithm.
 class ChannelSpecification {
   /// The name of the channel.
   final String name;
@@ -2953,6 +2954,8 @@ class ChannelSpecification {
       ChannelSpecification();
 }
 
+/// Contains information about the output location for managed spot training
+/// checkpoint data.
 class CheckpointConfig {
   /// Identifies the S3 path where you want Amazon SageMaker to store
   /// checkpoints. For example, `s3://bucket-name/key-name-prefix`.
@@ -2970,6 +2973,7 @@ class CheckpointConfig {
       CheckpointConfig();
 }
 
+/// Specifies summary information about a Git repository.
 class CodeRepositorySummary {
   /// The name of the Git repository.
   final String codeRepositoryName;
@@ -2999,6 +3003,8 @@ class CodeRepositorySummary {
       CodeRepositorySummary();
 }
 
+/// Identifies a Amazon Cognito user group. A user group can be used in on or
+/// more work teams.
 class CognitoMemberDefinition {
   /// An identifier for a user pool. The user pool must be in the same region as
   /// the service that you are calling.
@@ -3020,6 +3026,7 @@ class CognitoMemberDefinition {
       CognitoMemberDefinition();
 }
 
+/// A summary of a model compilation job.
 class CompilationJobSummary {
   /// The name of the model compilation job that you want a summary for.
   final String compilationJobName;
@@ -3060,15 +3067,15 @@ class CompilationJobSummary {
       CompilationJobSummary();
 }
 
+/// Describes the container, as part of model definition.
 class ContainerDefinition {
   /// This parameter is ignored for models that contain only a
   /// `PrimaryContainer`.
   ///
   /// When a `ContainerDefinition` is part of an inference pipeline, the value
   /// of ths parameter uniquely identifies the container for the purposes of
-  /// logging and metrics. For information, see [Use Logs and Metrics to Monitor
-  /// an Inference
-  /// Pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html).
+  /// logging and metrics. For information, see
+  /// [Use Logs and Metrics to Monitor an Inference Pipeline](https://docs.aws.amazon.com/sagemaker/latest/dg/inference-pipeline-logs-metrics.html).
   /// If you don't specify a value for this parameter for a
   /// `ContainerDefinition` that is part of an inference pipeline, a unique name
   /// is automatically assigned based on the position of the
@@ -3082,26 +3089,24 @@ class ContainerDefinition {
   /// is stored. If you are using your own custom algorithm instead of an
   /// algorithm provided by Amazon SageMaker, the inference code must meet
   /// Amazon SageMaker requirements. Amazon SageMaker supports both
-  /// `registry/repository\[:tag\]` and `registry/repository\[@digest\]` image
-  /// path formats. For more information, see [Using Your Own Algorithms with
-  /// Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html)
+  /// `registry/repository[:tag]` and `registry/repository[@digest]` image path
+  /// formats. For more information, see
+  /// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html)
   final String image;
 
   /// The S3 path where the model artifacts, which result from model training,
   /// are stored. This path must point to a single gzip compressed tar archive
   /// (.tar.gz suffix). The S3 path is required for Amazon SageMaker built-in
   /// algorithms, but not if you use your own algorithms. For more information
-  /// on built-in algorithms, see [Common
-  /// Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
+  /// on built-in algorithms, see
+  /// [Common Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
   ///
   /// If you provide a value for this parameter, Amazon SageMaker uses AWS
   /// Security Token Service to download model artifacts from the S3 path you
   /// provide. AWS STS is activated in your IAM user account by default. If you
   /// previously deactivated AWS STS for a region, you need to reactivate AWS
-  /// STS for that region. For more information, see [Activating and
-  /// Deactivating AWS STS in an AWS
-  /// Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
+  /// STS for that region. For more information, see
+  /// [Activating and Deactivating AWS STS in an AWS Region](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_enable-regions.html)
   /// in the _AWS Identity and Access Management User Guide_.
   ///
   ///
@@ -3131,6 +3136,7 @@ class ContainerDefinition {
       ContainerDefinition();
 }
 
+/// A list of continuous hyperparameters to tune.
 class ContinuousParameterRange {
   /// The name of the continuous hyperparameter to tune.
   final String name;
@@ -3145,8 +3151,7 @@ class ContinuousParameterRange {
 
   /// The scale that hyperparameter tuning uses to search the hyperparameter
   /// range. For information about choosing a hyperparameter scale, see
-  /// [Hyperparameter
-  /// Scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
+  /// [Hyperparameter Scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
   /// One of the following values:
   ///
   /// Auto
@@ -3186,6 +3191,7 @@ class ContinuousParameterRange {
       ContinuousParameterRange();
 }
 
+/// Defines the possible values for a continuous hyperparameter.
 class ContinuousParameterRangeSpecification {
   /// The minimum floating-point value allowed.
   final String minValue;
@@ -3377,6 +3383,14 @@ class CreateWorkteamResponse {
       CreateWorkteamResponse();
 }
 
+/// The data structure used to specify the data to be used for inference in a
+/// batch transform job and to associate the data that is relevant to the
+/// prediction results in the output. The input filter provided allows you to
+/// exclude input data that is not needed for inference in a batch transform
+/// job. The output filter provided allows you to include input data relevant to
+/// interpreting the predictions in the output from the job. For more
+/// information, see
+/// [Associate Prediction Results with their Corresponding Input Records](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html).
 class DataProcessing {
   /// A
   /// [JSONPath](https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators)
@@ -3385,7 +3399,7 @@ class DataProcessing {
   /// ID column, from the input. If you want Amazon SageMaker to pass the entire
   /// input dataset to the algorithm, accept the default value `$`.
   ///
-  /// Examples: `"$"`, `"$\[1:\]"`, `"$.features"`
+  /// Examples: `"$"`, `"$[1:]"`, `"$.features"`
   final String inputFilter;
 
   /// A
@@ -3396,7 +3410,7 @@ class DataProcessing {
   /// value, `$`. If you specify indexes that aren't within the dimension size
   /// of the joined dataset, you get an error.
   ///
-  /// Examples: `"$"`, `"$\[0,5:\]"`, `"$\['id','SageMakerOutput'\]"`
+  /// Examples: `"$"`, `"$[0,5:]"`, `"$['id','SageMakerOutput']"`
   final String outputFilter;
 
   /// Specifies the source of the data to join with the transformed data. The
@@ -3427,6 +3441,7 @@ class DataProcessing {
   static DataProcessing fromJson(Map<String, dynamic> json) => DataProcessing();
 }
 
+/// Describes the location of the channel data.
 class DataSource {
   /// The S3 location of the data source that is associated with a channel.
   final S3DataSource s3DataSource;
@@ -3459,6 +3474,16 @@ class DeleteWorkteamResponse {
       DeleteWorkteamResponse();
 }
 
+/// Gets the Amazon EC2 Container Registry path of the docker image of the model
+/// that is hosted in this ProductionVariant.
+///
+/// If you used the `registry/repository[:tag]` form to specify the image path
+/// of the primary container when you created the model hosted in this
+/// `ProductionVariant`, the path resolves to a path of the form
+/// `registry/repository[@digest]`. A digest is a hash value that identifies a
+/// specific version of an image. For information about Amazon ECR paths, see
+/// [Pulling an Image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html)
+/// in the _Amazon ECR User Guide_.
 class DeployedImage {
   /// The image path you specified when you created the model.
   final String specifiedImage;
@@ -3776,7 +3801,7 @@ class DescribeHyperParameterTuningJobResponse {
   final HyperParameterTrainingJobSummary bestTrainingJob;
 
   /// If the hyperparameter tuning job is an warm start tuning job with a
-  /// `WarmStartType` of `IDENTICAL\_DATA\_AND_ALGORITHM`, this is the
+  /// `WarmStartType` of `IDENTICAL_DATA_AND_ALGORITHM`, this is the
   /// TrainingJobSummary for the training job with the best objective metric
   /// value of all training jobs launched by this tuning job and all parent jobs
   /// specified for the warm start tuning job.
@@ -3864,7 +3889,7 @@ class DescribeLabelingJobResponse {
   ///
   ///   `"document-version": "2018-11-28"`
   ///
-  ///   `"labels": \[`
+  ///   `"labels": [`
   ///
   ///   `{`
   ///
@@ -3886,7 +3911,7 @@ class DescribeLabelingJobResponse {
   ///
   ///   `}`
   ///
-  ///   `\]`
+  ///   `]`
   ///
   ///  `}`
   final String labelCategoryConfigS3Uri;
@@ -3902,9 +3927,8 @@ class DescribeLabelingJobResponse {
   /// labeling task.
   final HumanTaskConfig humanTaskConfig;
 
-  /// An array of key/value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// An array of key/value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   final List<Tag> tags;
 
@@ -3952,9 +3976,8 @@ class DescribeModelOutput {
   final String executionRoleArn;
 
   /// A VpcConfig object that specifies the VPC that this model has access to.
-  /// For more information, see [Protect Endpoints by Using an Amazon Virtual
-  /// Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html)
+  /// For more information, see
+  /// [Protect Endpoints by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html)
   final VpcConfig vpcConfig;
 
   /// A timestamp that shows when the model was created.
@@ -4117,8 +4140,7 @@ class DescribeNotebookInstanceOutput {
   /// Returns the name of a notebook instance lifecycle configuration.
   ///
   /// For information about notebook instance lifestyle configurations, see
-  /// [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html)
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html)
   final String notebookInstanceLifecycleConfigName;
 
   /// Describes whether Amazon SageMaker provides internet access to the
@@ -4126,8 +4148,8 @@ class DescribeNotebookInstanceOutput {
   /// instance does not have internet access, and cannot connect to Amazon
   /// SageMaker training and endpoint services.
   ///
-  /// For more information, see [Notebook Instances Are Internet-Enabled by
-  /// Default](https://docs.aws.amazon.com/sagemaker/latest/dg/appendix-additional-considerations.html#appendix-notebook-and-internet-access).
+  /// For more information, see
+  /// [Notebook Instances Are Internet-Enabled by Default](https://docs.aws.amazon.com/sagemaker/latest/dg/appendix-additional-considerations.html#appendix-notebook-and-internet-access).
   final String directInternetAccess;
 
   /// The size, in GB, of the ML storage volume attached to the notebook
@@ -4136,30 +4158,28 @@ class DescribeNotebookInstanceOutput {
 
   /// A list of the Elastic Inference (EI) instance types associated with this
   /// notebook instance. Currently only one EI instance type can be associated
-  /// with a notebook instance. For more information, see [Using Elastic
-  /// Inference in Amazon SageMaker](sagemaker/latest/dg/ei.html).
+  /// with a notebook instance. For more information, see
+  /// [Using Elastic Inference in Amazon SageMaker](sagemaker/latest/dg/ei.html).
   final List<String> acceleratorTypes;
 
   /// The Git repository associated with the notebook instance as its default
   /// code repository. This can be either the name of a Git repository stored as
-  /// a resource in your account, or the URL of a Git repository in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// a resource in your account, or the URL of a Git repository in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. When you open a notebook instance, it
   /// opens in the directory that contains this repository. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   final String defaultCodeRepository;
 
   /// An array of up to three Git repositories associated with the notebook
   /// instance. These can be either the names of Git repositories stored as
-  /// resources in your account, or the URL of Git repositories in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// resources in your account, or the URL of Git repositories in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. These repositories are cloned at the same
   /// level as the default repository of your notebook instance. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   final List<String> additionalCodeRepositories;
 
   /// Whether root access is enabled or disabled for users of the notebook
@@ -4234,17 +4254,17 @@ class DescribeTrainingJobResponse {
   ///
   /// Amazon SageMaker provides the following training job statuses:
   ///
-  /// *    `InProgress` \- The training is in progress.
+  /// *    `InProgress` - The training is in progress.
   ///
-  /// *    `Completed` \- The training job has completed.
+  /// *    `Completed` - The training job has completed.
   ///
-  /// *    `Failed` \- The training job has failed. To see the reason for the
+  /// *    `Failed` - The training job has failed. To see the reason for the
   /// failure, see the `FailureReason` field in the response to a
   /// `DescribeTrainingJobResponse` call.
   ///
-  /// *    `Stopping` \- The training job is stopping.
+  /// *    `Stopping` - The training job is stopping.
   ///
-  /// *    `Stopped` \- The training job has stopped.
+  /// *    `Stopped` - The training job has stopped.
   ///
   ///
   /// For more detailed information, see `SecondaryStatus`.
@@ -4259,46 +4279,46 @@ class DescribeTrainingJobResponse {
   ///
   /// InProgress
   ///
-  /// *    `Starting` \- Starting the training job.
+  /// *    `Starting` - Starting the training job.
   ///
-  /// *    `Downloading` \- An optional stage for algorithms that support `File`
+  /// *    `Downloading` - An optional stage for algorithms that support `File`
   /// training input mode. It indicates that data is being downloaded to the ML
   /// storage volumes.
   ///
-  /// *    `Training` \- Training is in progress.
+  /// *    `Training` - Training is in progress.
   ///
-  /// *    `Uploading` \- Training is complete and the model artifacts are being
+  /// *    `Uploading` - Training is complete and the model artifacts are being
   /// uploaded to the S3 location.
   ///
   ///
   /// Completed
   ///
-  /// *    `Completed` \- The training job has completed.
+  /// *    `Completed` - The training job has completed.
   ///
   ///
   /// Failed
   ///
-  /// *    `Failed` \- The training job has failed. The reason for the failure
-  /// is returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
+  /// *    `Failed` - The training job has failed. The reason for the failure is
+  /// returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
   ///
   ///
   /// Stopped
   ///
-  /// *    `MaxRuntimeExceeded` \- The job stopped because it exceeded the
+  /// *    `MaxRuntimeExceeded` - The job stopped because it exceeded the
   /// maximum allowed runtime.
   ///
-  /// *    `MaxWaitTmeExceeded` \- The job stopped because it exceeded the
+  /// *    `MaxWaitTmeExceeded` - The job stopped because it exceeded the
   /// maximum allowed wait time.
   ///
-  /// *    `Interrupted` \- The job stopped because the managed spot training
+  /// *    `Interrupted` - The job stopped because the managed spot training
   /// instances were interrupted.
   ///
-  /// *    `Stopped` \- The training job has stopped.
+  /// *    `Stopped` - The training job has stopped.
   ///
   ///
   /// Stopping
   ///
-  /// *    `Stopping` \- Stopping the training job.
+  /// *    `Stopping` - Stopping the training job.
   ///
   ///
   ///  Valid values for `SecondaryStatus` are subject to change.
@@ -4337,9 +4357,8 @@ class DescribeTrainingJobResponse {
   final ResourceConfig resourceConfig;
 
   /// A VpcConfig object that specifies the VPC that this training job has
-  /// access to. For more information, see [Protect Training Jobs by Using an
-  /// Amazon Virtual Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
+  /// access to. For more information, see
+  /// [Protect Training Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
   final VpcConfig vpcConfig;
 
   /// Specifies a limit to how long a model training job can run. It also
@@ -4466,9 +4485,8 @@ class DescribeTransformJobResponse {
 
   /// If the transform job failed, `FailureReason` describes why it failed. A
   /// transform job creates a log file, which includes error messages, and
-  /// stores it as an Amazon S3 object. For more information, see [Log Amazon
-  /// SageMaker Events with Amazon
-  /// CloudWatch](https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html).
+  /// stores it as an Amazon S3 object. For more information, see
+  /// [Log Amazon SageMaker Events with Amazon CloudWatch](https://docs.aws.amazon.com/sagemaker/latest/dg/logging-cloudwatch.html).
   final String failureReason;
 
   /// The name of the model used in the transform job.
@@ -4563,6 +4581,7 @@ class DescribeWorkteamResponse {
       DescribeWorkteamResponse();
 }
 
+/// Specifies weight and capacity values for a production variant.
 class DesiredWeightAndCapacity {
   /// The name of the variant to update.
   final String variantName;
@@ -4580,6 +4599,7 @@ class DesiredWeightAndCapacity {
   });
 }
 
+/// Provides summary information for an endpoint configuration.
 class EndpointConfigSummary {
   /// The name of the endpoint configuration.
   final String endpointConfigName;
@@ -4599,6 +4619,7 @@ class EndpointConfigSummary {
       EndpointConfigSummary();
 }
 
+/// Provides summary information for an endpoint.
 class EndpointSummary {
   /// The name of the endpoint.
   final String endpointName;
@@ -4659,6 +4680,7 @@ class EndpointSummary {
       EndpointSummary();
 }
 
+/// Specifies a file system data source for a channel.
 class FileSystemDataSource {
   /// The file system id.
   final String fileSystemId;
@@ -4684,6 +4706,58 @@ class FileSystemDataSource {
       FileSystemDataSource();
 }
 
+/// A conditional statement for a search expression that includes a Boolean
+/// operator, a resource property, and a value.
+///
+/// If you don't specify an `Operator` and a `Value`, the filter searches for
+/// only the specified property. For example, defining a `Filter` for the
+/// `FailureReason` for the `TrainingJob` `Resource` searches for training job
+/// objects that have a value in the `FailureReason` field.
+///
+/// If you specify a `Value`, but not an `Operator`, Amazon SageMaker uses the
+/// equals operator as the default.
+///
+/// In search, there are several property types:
+///
+/// Metrics
+///
+/// To define a metric filter, enter a value using the form `"Metrics.<name>"`,
+/// where `<name>` is a metric name. For example, the following filter searches
+/// for training jobs with an `"accuracy"` metric greater than `"0.9"`:
+///
+///  `{`
+///
+///  `"Name": "Metrics.accuracy",`
+///
+///  `"Operator": "GREATER_THAN",`
+///
+///  `"Value": "0.9"`
+///
+///  `}`
+///
+/// HyperParameters
+///
+/// To define a hyperparameter filter, enter a value with the form
+/// `"HyperParameters.<name>"`. Decimal hyperparameter values are treated as a
+/// decimal in a comparison if the specified `Value` is also a decimal value. If
+/// the specified `Value` is an integer, the decimal hyperparameter values are
+/// treated as integers. For example, the following filter is satisfied by
+/// training jobs with a `"learning_rate"` hyperparameter that is less than
+/// `"0.5"`:
+///
+///   `{`
+///
+///   `"Name": "HyperParameters.learning_rate",`
+///
+///   `"Operator": "LESS_THAN",`
+///
+///   `"Value": "0.5"`
+///
+///   `}`
+///
+/// Tags
+///
+/// To define a tag filter, enter a value with the form `"Tags.<key>"`.
 class Filter {
   /// A property name. For example, `TrainingJobName`. For the list of valid
   /// property names returned in a search result for each supported resource,
@@ -4744,6 +4818,10 @@ class Filter {
   });
 }
 
+/// Shows the final value for the objective metric for a training job that was
+/// launched by a hyperparameter tuning job. You define the objective metric in
+/// the `HyperParameterTuningJobObjective` parameter of
+/// HyperParameterTuningJobConfig.
 class FinalHyperParameterTuningJobObjectiveMetric {
   /// Whether to minimize or maximize the objective metric. Valid values are
   /// Minimize and Maximize.
@@ -4776,6 +4854,7 @@ class GetSearchSuggestionsResponse {
       GetSearchSuggestionsResponse();
 }
 
+/// Specifies configuration details for a Git repository in your AWS account.
 class GitConfig {
   /// The URL where the Git repository is located.
   final String repositoryUrl;
@@ -4799,6 +4878,8 @@ class GitConfig {
   static GitConfig fromJson(Map<String, dynamic> json) => GitConfig();
 }
 
+/// Specifies configuration details for a Git repository when the repository is
+/// updated.
 class GitConfigForUpdate {
   /// The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that
   /// contains the credentials used to access the git repository. The secret
@@ -4813,6 +4894,7 @@ class GitConfigForUpdate {
   });
 }
 
+/// Information required for human workers to complete a labeling task.
 class HumanTaskConfig {
   /// The Amazon Resource Name (ARN) of the work team assigned to complete the
   /// tasks.
@@ -5072,15 +5154,17 @@ class HumanTaskConfig {
       HumanTaskConfig();
 }
 
+/// Specifies which training algorithm to use for training jobs that a
+/// hyperparameter tuning job launches and the metrics to monitor.
 class HyperParameterAlgorithmSpecification {
   ///  The registry path of the Docker image that contains the training
   /// algorithm. For information about Docker registry paths for built-in
-  /// algorithms, see [Algorithms Provided by Amazon SageMaker: Common
-  /// Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
-  /// Amazon SageMaker supports both `registry/repository\[:tag\]` and
-  /// `registry/repository\[@digest\]` image path formats. For more information,
-  /// see [Using Your Own Algorithms with Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
+  /// algorithms, see
+  /// [Algorithms Provided by Amazon SageMaker: Common Parameters](https://docs.aws.amazon.com/sagemaker/latest/dg/sagemaker-algo-docker-registry-paths.html).
+  /// Amazon SageMaker supports both `registry/repository[:tag]` and
+  /// `registry/repository[@digest]` image path formats. For more information,
+  /// see
+  /// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
   final String trainingImage;
 
   /// The input mode that the algorithm supports: File or Pipe. In File input
@@ -5119,6 +5203,7 @@ class HyperParameterAlgorithmSpecification {
       HyperParameterAlgorithmSpecification();
 }
 
+/// Defines a hyperparameter to be used by an algorithm.
 class HyperParameterSpecification {
   /// The name of this hyperparameter. The name must be unique.
   final String name;
@@ -5157,6 +5242,7 @@ class HyperParameterSpecification {
       HyperParameterSpecification();
 }
 
+/// Defines the training jobs launched by a hyperparameter tuning job.
 class HyperParameterTrainingJobDefinition {
   /// Specifies the values of hyperparameters that do not change for the tuning
   /// job.
@@ -5178,9 +5264,8 @@ class HyperParameterTrainingJobDefinition {
   /// The VpcConfig object that specifies the VPC that you want the training
   /// jobs that this hyperparameter tuning job launches to connect to. Control
   /// access to and from your training container by configuring the VPC. For
-  /// more information, see [Protect Training Jobs by Using an Amazon Virtual
-  /// Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
+  /// more information, see
+  /// [Protect Training Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
   final VpcConfig vpcConfig;
 
   /// Specifies the path to the Amazon S3 bucket where you store model artifacts
@@ -5249,6 +5334,7 @@ class HyperParameterTrainingJobDefinition {
       HyperParameterTrainingJobDefinition();
 }
 
+/// Specifies summary information about a training job.
 class HyperParameterTrainingJobSummary {
   /// The name of the training job.
   final String trainingJobName;
@@ -5321,13 +5407,13 @@ class HyperParameterTrainingJobSummary {
       HyperParameterTrainingJobSummary();
 }
 
+/// Configures a hyperparameter tuning job.
 class HyperParameterTuningJobConfig {
   /// Specifies how hyperparameter tuning chooses the combinations of
   /// hyperparameter values to use for the training job it launches. To use the
   /// Bayesian search stategy, set this to `Bayesian`. To randomly search, set
-  /// it to `Random`. For information about search strategies, see [How
-  /// Hyperparameter Tuning
-  /// Works](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html).
+  /// it to `Random`. For information about search strategies, see
+  /// [How Hyperparameter Tuning Works](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-how-it-works.html).
   final String strategy;
 
   /// The HyperParameterTuningJobObjective object that specifies the objective
@@ -5355,8 +5441,8 @@ class HyperParameterTuningJobConfig {
   ///
   /// Amazon SageMaker stops training jobs launched by the hyperparameter tuning
   /// job when they are unlikely to perform better than previously completed
-  /// training jobs. For more information, see [Stop Training Jobs
-  /// Early](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html).
+  /// training jobs. For more information, see
+  /// [Stop Training Jobs Early](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-early-stopping.html).
   final String trainingJobEarlyStoppingType;
 
   HyperParameterTuningJobConfig({
@@ -5370,6 +5456,11 @@ class HyperParameterTuningJobConfig {
       HyperParameterTuningJobConfig();
 }
 
+/// Defines the objective metric for a hyperparameter tuning job. Hyperparameter
+/// tuning uses the value of this metric to evaluate the training jobs it
+/// launches, and returns the training job that results in either the highest or
+/// lowest value for this metric, depending on the value you specify for the
+/// `Type` parameter.
 class HyperParameterTuningJobObjective {
   /// Whether to minimize or maximize the objective metric.
   final String type;
@@ -5385,6 +5476,7 @@ class HyperParameterTuningJobObjective {
       HyperParameterTuningJobObjective();
 }
 
+/// Provides summary information about a hyperparameter tuning job.
 class HyperParameterTuningJobSummary {
   /// The name of the tuning job.
   final String hyperParameterTuningJobName;
@@ -5438,12 +5530,27 @@ class HyperParameterTuningJobSummary {
       HyperParameterTuningJobSummary();
 }
 
+/// Specifies the configuration for a hyperparameter tuning job that uses one or
+/// more previous hyperparameter tuning jobs as a starting point. The results of
+/// previous tuning jobs are used to inform which combinations of
+/// hyperparameters to search over in the new tuning job.
+///
+/// All training jobs launched by the new hyperparameter tuning job are
+/// evaluated by using the objective metric, and the training job that performs
+/// the best is compared to the best training jobs from the parent tuning jobs.
+/// From these, the training job that performs the best as measured by the
+/// objective metric is returned as the overall best training job.
+///
+///
+///
+/// All training jobs launched by parent hyperparameter tuning jobs and the new
+/// hyperparameter tuning jobs count against the limit of training jobs for the
+/// tuning job.
 class HyperParameterTuningJobWarmStartConfig {
   /// An array of hyperparameter tuning jobs that are used as the starting point
   /// for the new hyperparameter tuning job. For more information about warm
-  /// starting a hyperparameter tuning job, see [Using a Previous Hyperparameter
-  /// Tuning Job as a Starting
-  /// Point](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-warm-start.html).
+  /// starting a hyperparameter tuning job, see
+  /// [Using a Previous Hyperparameter Tuning Job as a Starting Point](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-warm-start.html).
   ///
   /// Hyperparameter tuning jobs created before October 1, 2018 cannot be used
   /// as parent jobs for warm start tuning jobs.
@@ -5451,7 +5558,7 @@ class HyperParameterTuningJobWarmStartConfig {
 
   /// Specifies one of the following:
   ///
-  /// IDENTICAL\_DATA\_AND_ALGORITHM
+  /// IDENTICAL_DATA_AND_ALGORITHM
   ///
   /// The new hyperparameter tuning job uses the same input data and training
   /// image as the parent tuning jobs. You can change the hyperparameter ranges
@@ -5487,6 +5594,7 @@ class HyperParameterTuningJobWarmStartConfig {
       HyperParameterTuningJobWarmStartConfig();
 }
 
+/// Defines how to perform inference generation after a training job is run.
 class InferenceSpecification {
   /// The Amazon ECR registry path of the Docker image that contains the
   /// inference code.
@@ -5517,6 +5625,9 @@ class InferenceSpecification {
       InferenceSpecification();
 }
 
+/// Contains information about the location of input model artifacts, the name
+/// and shape of the expected data inputs, and the framework in which the model
+/// was trained.
 class InputConfig {
   /// The S3 path where the model artifacts, which result from model training,
   /// are stored. This path must point to a single gzip compressed tar archive
@@ -5533,18 +5644,18 @@ class InputConfig {
   ///
   ///     *   Examples for one input:
   ///
-  ///         *   If using the console, `{"input":\[1,1024,1024,3\]}`
+  ///         *   If using the console, `{"input":[1,1024,1024,3]}`
   ///
-  ///         *   If using the CLI, `{\\"input\\":\[1,1024,1024,3\]}`
+  ///         *   If using the CLI, `{"input":[1,1024,1024,3]}`
   ///
   ///
   ///     *   Examples for two inputs:
   ///
-  ///         *   If using the console, `{"data1": \[1,28,28,1\],
-  /// "data2":\[1,28,28,1\]}`
+  ///         *   If using the console, `{"data1": [1,28,28,1],
+  /// "data2":[1,28,28,1]}`
   ///
-  ///         *   If using the CLI, `{\\"data1\\": \[1,28,28,1\],
-  /// \\"data2\\":\[1,28,28,1\]}`
+  ///         *   If using the CLI, `{"data1": [1,28,28,1],
+  /// "data2":[1,28,28,1]}`
   ///
   ///
   ///
@@ -5555,18 +5666,17 @@ class InputConfig {
   ///
   ///     *   Examples for one input:
   ///
-  ///         *   If using the console, `{"data":\[1,3,1024,1024\]}`
+  ///         *   If using the console, `{"data":[1,3,1024,1024]}`
   ///
-  ///         *   If using the CLI, `{\\"data\\":\[1,3,1024,1024\]}`
+  ///         *   If using the CLI, `{"data":[1,3,1024,1024]}`
   ///
   ///
   ///     *   Examples for two inputs:
   ///
-  ///         *   If using the console, `{"var1": \[1,1,28,28\],
-  /// "var2":\[1,1,28,28\]}`
+  ///         *   If using the console, `{"var1": [1,1,28,28],
+  /// "var2":[1,1,28,28]}`
   ///
-  ///         *   If using the CLI, `{\\"var1\\": \[1,1,28,28\],
-  /// \\"var2\\":\[1,1,28,28\]}`
+  ///         *   If using the CLI, `{"var1": [1,1,28,28], "var2":[1,1,28,28]}`
   ///
   ///
   ///
@@ -5578,24 +5688,24 @@ class InputConfig {
   ///
   ///     *   Examples for one input in dictionary format:
   ///
-  ///         *   If using the console, `{"input0":\[1,3,224,224\]}`
+  ///         *   If using the console, `{"input0":[1,3,224,224]}`
   ///
-  ///         *   If using the CLI, `{\\"input0\\":\[1,3,224,224\]}`
+  ///         *   If using the CLI, `{"input0":[1,3,224,224]}`
   ///
   ///
-  ///     *   Example for one input in list format: `\[\[1,3,224,224\]\]`
+  ///     *   Example for one input in list format: `[[1,3,224,224]]`
   ///
   ///     *   Examples for two inputs in dictionary format:
   ///
-  ///         *   If using the console, `{"input0":\[1,3,224,224\],
-  /// "input1":\[1,3,224,224\]}`
+  ///         *   If using the console, `{"input0":[1,3,224,224],
+  /// "input1":[1,3,224,224]}`
   ///
-  ///         *   If using the CLI, `{\\"input0\\":\[1,3,224,224\],
-  /// \\"input1\\":\[1,3,224,224\]}`
+  ///         *   If using the CLI, `{"input0":[1,3,224,224],
+  /// "input1":[1,3,224,224]}`
   ///
   ///
-  ///     *   Example for two inputs in list format: `\[\[1,3,224,224\],
-  /// \[1,3,224,224\]\]`
+  ///     *   Example for two inputs in list format: `[[1,3,224,224],
+  /// [1,3,224,224]]`
   ///
   ///
   /// *    `XGBOOST`: input data name and shape are not needed.
@@ -5613,6 +5723,8 @@ class InputConfig {
   static InputConfig fromJson(Map<String, dynamic> json) => InputConfig();
 }
 
+/// For a hyperparameter of the integer type, specifies the range that a
+/// hyperparameter tuning job searches.
 class IntegerParameterRange {
   /// The name of the hyperparameter to search.
   final String name;
@@ -5625,8 +5737,7 @@ class IntegerParameterRange {
 
   /// The scale that hyperparameter tuning uses to search the hyperparameter
   /// range. For information about choosing a hyperparameter scale, see
-  /// [Hyperparameter
-  /// Scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
+  /// [Hyperparameter Scaling](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-ranges.html#scaling-type).
   /// One of the following values:
   ///
   /// Auto
@@ -5658,6 +5769,7 @@ class IntegerParameterRange {
       IntegerParameterRange();
 }
 
+/// Defines the possible values for an integer hyperparameter.
 class IntegerParameterRangeSpecification {
   /// The minimum integer value allowed.
   final String minValue;
@@ -5674,6 +5786,7 @@ class IntegerParameterRangeSpecification {
       IntegerParameterRangeSpecification();
 }
 
+/// Provides a breakdown of the number of objects labeled.
 class LabelCounters {
   /// The total number of objects labeled.
   final int totalLabeled;
@@ -5700,6 +5813,7 @@ class LabelCounters {
   static LabelCounters fromJson(Map<String, dynamic> json) => LabelCounters();
 }
 
+/// Provides counts for human-labeled tasks in the labeling job.
 class LabelCountersForWorkteam {
   /// The total number of data objects labeled by a human worker.
   final int humanLabeled;
@@ -5720,6 +5834,9 @@ class LabelCountersForWorkteam {
       LabelCountersForWorkteam();
 }
 
+/// Provides configuration information for auto-labeling of your data objects. A
+/// `LabelingJobAlgorithmsConfig` object must be supplied in order to use
+/// auto-labeling.
 class LabelingJobAlgorithmsConfig {
   /// Specifies the Amazon Resource Name (ARN) of the algorithm used for
   /// auto-labeling. You must select one of the following ARNs:
@@ -5763,6 +5880,8 @@ class LabelingJobAlgorithmsConfig {
       LabelingJobAlgorithmsConfig();
 }
 
+/// Attributes of the data specified by the customer. Use these to describe the
+/// data to be labeled.
 class LabelingJobDataAttributes {
   /// Declares that your content is free of personally identifiable information
   /// or adult content. Amazon SageMaker may restrict the Amazon Mechanical Turk
@@ -5776,6 +5895,7 @@ class LabelingJobDataAttributes {
       LabelingJobDataAttributes();
 }
 
+/// Provides information about the location of input data.
 class LabelingJobDataSource {
   /// The Amazon S3 location of the input data objects.
   final LabelingJobS3DataSource s3DataSource;
@@ -5787,6 +5907,7 @@ class LabelingJobDataSource {
       LabelingJobDataSource();
 }
 
+/// Provides summary information for a work team.
 class LabelingJobForWorkteamSummary {
   /// The name of the labeling job that the work team is assigned to.
   final String labelingJobName;
@@ -5818,6 +5939,7 @@ class LabelingJobForWorkteamSummary {
       LabelingJobForWorkteamSummary();
 }
 
+/// Input configuration information for a labeling job.
 class LabelingJobInputConfig {
   /// The location of the input data.
   final LabelingJobDataSource dataSource;
@@ -5833,6 +5955,7 @@ class LabelingJobInputConfig {
       LabelingJobInputConfig();
 }
 
+/// Specifies the location of the output produced by the labeling job.
 class LabelingJobOutput {
   /// The Amazon S3 bucket location of the manifest file for labeled data.
   final String outputDatasetS3Uri;
@@ -5849,6 +5972,7 @@ class LabelingJobOutput {
       LabelingJobOutput();
 }
 
+/// Output configuration information for a labeling job.
 class LabelingJobOutputConfig {
   /// The Amazon S3 location to write output data.
   final String s3OutputPath;
@@ -5864,14 +5988,13 @@ class LabelingJobOutputConfig {
   /// `LabelingJobOutputConfig`. If you use a bucket policy with an
   /// `s3:PutObject` permission that only allows objects with server-side
   /// encryption, set the condition key of `s3:x-amz-server-side-encryption` to
-  /// `"aws:kms"`. For more information, see [KMS-Managed Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
+  /// `"aws:kms"`. For more information, see
+  /// [KMS-Managed Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
   /// in the _Amazon Simple Storage Service Developer Guide._
   ///
   /// The KMS key policy must grant permission to the IAM role that you specify
-  /// in your `CreateLabelingJob` request. For more information, see [Using Key
-  /// Policies in AWS
-  /// KMS](http://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
+  /// in your `CreateLabelingJob` request. For more information, see
+  /// [Using Key Policies in AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
   /// in the _AWS Key Management Service Developer Guide_.
   final String kmsKeyId;
 
@@ -5883,6 +6006,7 @@ class LabelingJobOutputConfig {
       LabelingJobOutputConfig();
 }
 
+/// Provides configuration information for labeling jobs.
 class LabelingJobResourceConfig {
   /// The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to
   /// encrypt data on the storage volume attached to the ML compute instance(s)
@@ -5906,6 +6030,7 @@ class LabelingJobResourceConfig {
       LabelingJobResourceConfig();
 }
 
+/// The Amazon S3 location of the input data objects.
 class LabelingJobS3DataSource {
   /// The Amazon S3 location of the manifest file that describes the input data
   /// objects.
@@ -5918,6 +6043,9 @@ class LabelingJobS3DataSource {
       LabelingJobS3DataSource();
 }
 
+/// A set of conditions for stopping a labeling job. If any of the conditions
+/// are met, the job is automatically stopped. You can use these conditions to
+/// control the cost of data labeling.
 class LabelingJobStoppingConditions {
   /// The maximum number of objects that can be labeled by human workers.
   final int maxHumanLabeledObjectCount;
@@ -5933,6 +6061,7 @@ class LabelingJobStoppingConditions {
       LabelingJobStoppingConditions();
 }
 
+/// Provides summary information about a labeling job.
 class LabelingJobSummary {
   /// The name of the labeling job.
   final String labelingJobName;
@@ -5962,8 +6091,8 @@ class LabelingJobSummary {
 
   /// The Amazon Resource Name (ARN) of the Lambda function used to consolidate
   /// the annotations from individual workers into a label for a data object.
-  /// For more information, see [Annotation
-  /// Consolidation](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html).
+  /// For more information, see
+  /// [Annotation Consolidation](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-annotation-consolidation.html).
   final String annotationConsolidationLambdaArn;
 
   /// If the `LabelingJobStatus` field is `Failed`, this field contains a
@@ -6312,6 +6441,7 @@ class ListWorkteamsResponse {
       ListWorkteamsResponse();
 }
 
+/// Defines the Amazon Cognito user group that is part of a work team.
 class MemberDefinition {
   /// The Amazon Cognito user group that is part of the work team.
   final CognitoMemberDefinition cognitoMemberDefinition;
@@ -6323,6 +6453,8 @@ class MemberDefinition {
       MemberDefinition();
 }
 
+/// The name, value, and date and time of a metric that was emitted to Amazon
+/// CloudWatch.
 class MetricData {
   /// The name of the metric.
   final String metricName;
@@ -6341,14 +6473,18 @@ class MetricData {
   static MetricData fromJson(Map<String, dynamic> json) => MetricData();
 }
 
+/// Specifies a metric that the training algorithm writes to `stderr` or
+/// `stdout` . Amazon SageMakerhyperparameter tuning captures all defined
+/// metrics. You specify one metric that a hyperparameter tuning job uses as its
+/// objective metric to choose the best training job.
 class MetricDefinition {
   /// The name of the metric.
   final String name;
 
   /// A regular expression that searches the output of a training job and gets
   /// the value of the metric. For more information about using regular
-  /// expressions to define metrics, see [Defining Objective
-  /// Metrics](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics.html).
+  /// expressions to define metrics, see
+  /// [Defining Objective Metrics](https://docs.aws.amazon.com/sagemaker/latest/dg/automatic-model-tuning-define-metrics.html).
   final String regex;
 
   MetricDefinition({
@@ -6359,6 +6495,8 @@ class MetricDefinition {
       MetricDefinition();
 }
 
+/// Provides information about the location that is configured for storing model
+/// artifacts.
 class ModelArtifacts {
   /// The path of the S3 object that contains the model artifacts. For example,
   /// `s3://bucket-name/keynameprefix/model.tar.gz`.
@@ -6370,6 +6508,7 @@ class ModelArtifacts {
   static ModelArtifacts fromJson(Map<String, dynamic> json) => ModelArtifacts();
 }
 
+/// Describes the Docker container for the model package.
 class ModelPackageContainerDefinition {
   /// The DNS host name for the Docker container.
   final String containerHostname;
@@ -6380,10 +6519,9 @@ class ModelPackageContainerDefinition {
   /// If you are using your own custom algorithm instead of an algorithm
   /// provided by Amazon SageMaker, the inference code must meet Amazon
   /// SageMaker requirements. Amazon SageMaker supports both
-  /// `registry/repository\[:tag\]` and `registry/repository\[@digest\]` image
-  /// path formats. For more information, see [Using Your Own Algorithms with
-  /// Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
+  /// `registry/repository[:tag]` and `registry/repository[@digest]` image path
+  /// formats. For more information, see
+  /// [Using Your Own Algorithms with Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/your-algorithms.html).
   final String image;
 
   /// An MD5 hash of the training algorithm that identifies the Docker image
@@ -6409,6 +6547,7 @@ class ModelPackageContainerDefinition {
       ModelPackageContainerDefinition();
 }
 
+/// Specifies the validation and image scan statuses of the model package.
 class ModelPackageStatusDetails {
   /// The validation status of the model package.
   final List<ModelPackageStatusItem> validationStatuses;
@@ -6425,6 +6564,7 @@ class ModelPackageStatusDetails {
       ModelPackageStatusDetails();
 }
 
+/// Represents the overall status of a model package.
 class ModelPackageStatusItem {
   /// The name of the model package for which the overall status is being
   /// reported.
@@ -6445,6 +6585,7 @@ class ModelPackageStatusItem {
       ModelPackageStatusItem();
 }
 
+/// Provides summary information about a model package.
 class ModelPackageSummary {
   /// The name of the model package.
   final String modelPackageName;
@@ -6472,6 +6613,11 @@ class ModelPackageSummary {
       ModelPackageSummary();
 }
 
+/// Contains data, such as the inputs and targeted instance types that are used
+/// in the process of validating the model package.
+///
+/// The data provided in the validation profile is made available to your buyers
+/// on AWS Marketplace.
 class ModelPackageValidationProfile {
   /// The name of the profile for the model package.
   final String profileName;
@@ -6488,6 +6634,8 @@ class ModelPackageValidationProfile {
       ModelPackageValidationProfile();
 }
 
+/// Specifies batch transform jobs that Amazon SageMaker runs to validate your
+/// model package.
 class ModelPackageValidationSpecification {
   /// The IAM roles to be used for the validation of the model package.
   final String validationRole;
@@ -6506,6 +6654,7 @@ class ModelPackageValidationSpecification {
       ModelPackageValidationSpecification();
 }
 
+/// Provides summary information about a model.
 class ModelSummary {
   /// The name of the model that you want a summary for.
   final String modelName;
@@ -6524,6 +6673,24 @@ class ModelSummary {
   static ModelSummary fromJson(Map<String, dynamic> json) => ModelSummary();
 }
 
+/// Defines a list of `NestedFilters` objects. To satisfy the conditions
+/// specified in the `NestedFilters` call, a resource must satisfy the
+/// conditions of all of the filters.
+///
+/// For example, you could define a `NestedFilters` using the training job's
+/// `InputDataConfig` property to filter on `Channel` objects.
+///
+/// A `NestedFilters` object contains multiple filters. For example, to find all
+/// training jobs whose name contains `train` and that have `cat/data` in their
+/// `S3Uri` (specified in `InputDataConfig`), you need to create a
+/// `NestedFilters` object that specifies the `InputDataConfig` property with
+/// the following `Filter` objects:
+///
+/// *    `'{Name:"InputDataConfig.ChannelName", "Operator":"EQUALS",
+/// "Value":"train"}',`
+///
+/// *    `'{Name:"InputDataConfig.DataSource.S3DataSource.S3Uri",
+/// "Operator":"CONTAINS", "Value":"cat/data"}'`
 class NestedFilters {
   /// The name of the property to use in the nested filters. The value must
   /// match a listed property name, such as `InputDataConfig` .
@@ -6541,6 +6708,7 @@ class NestedFilters {
   });
 }
 
+/// Provides a summary of a notebook instance lifecycle configuration.
 class NotebookInstanceLifecycleConfigSummary {
   /// The name of the lifecycle configuration.
   final String notebookInstanceLifecycleConfigName;
@@ -6565,6 +6733,23 @@ class NotebookInstanceLifecycleConfigSummary {
       NotebookInstanceLifecycleConfigSummary();
 }
 
+/// Contains the notebook instance lifecycle configuration script.
+///
+/// Each lifecycle configuration script has a limit of 16384 characters.
+///
+/// The value of the `$PATH` environment variable that is available to both
+/// scripts is `/sbin:bin:/usr/sbin:/usr/bin`.
+///
+/// View CloudWatch Logs for notebook instance lifecycle configurations in log
+/// group `/aws/sagemaker/NotebookInstances` in log stream
+/// `[notebook-instance-name]/[LifecycleConfigHook]`.
+///
+/// Lifecycle configuration scripts cannot run for longer than 5 minutes. If a
+/// script runs for longer than 5 minutes, it fails and the notebook instance is
+/// not created or started.
+///
+/// For information about notebook instance lifestyle configurations, see
+/// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
 class NotebookInstanceLifecycleHook {
   /// A base64-encoded string that contains a shell script for a notebook
   /// instance lifecycle configuration.
@@ -6577,6 +6762,7 @@ class NotebookInstanceLifecycleHook {
       NotebookInstanceLifecycleHook();
 }
 
+/// Provides summary information for an Amazon SageMaker notebook instance.
 class NotebookInstanceSummary {
   /// The name of the notebook instance that you want a summary for.
   final String notebookInstanceName;
@@ -6604,30 +6790,27 @@ class NotebookInstanceSummary {
   /// this notebook instance.
   ///
   /// For information about notebook instance lifestyle configurations, see
-  /// [Step 2.1: (Optional) Customize a Notebook
-  /// Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
+  /// [Step 2.1: (Optional) Customize a Notebook Instance](https://docs.aws.amazon.com/sagemaker/latest/dg/notebook-lifecycle-config.html).
   final String notebookInstanceLifecycleConfigName;
 
   /// The Git repository associated with the notebook instance as its default
   /// code repository. This can be either the name of a Git repository stored as
-  /// a resource in your account, or the URL of a Git repository in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// a resource in your account, or the URL of a Git repository in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. When you open a notebook instance, it
   /// opens in the directory that contains this repository. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   final String defaultCodeRepository;
 
   /// An array of up to three Git repositories associated with the notebook
   /// instance. These can be either the names of Git repositories stored as
-  /// resources in your account, or the URL of Git repositories in [AWS
-  /// CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
+  /// resources in your account, or the URL of Git repositories in
+  /// [AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html)
   /// or in any other Git repository. These repositories are cloned at the same
   /// level as the default repository of your notebook instance. For more
-  /// information, see [Associating Git Repositories with Amazon SageMaker
-  /// Notebook
-  /// Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
+  /// information, see
+  /// [Associating Git Repositories with Amazon SageMaker Notebook Instances](https://docs.aws.amazon.com/sagemaker/latest/dg/nbi-git-repo.html).
   final List<String> additionalCodeRepositories;
 
   NotebookInstanceSummary({
@@ -6646,6 +6829,8 @@ class NotebookInstanceSummary {
       NotebookInstanceSummary();
 }
 
+/// Configures SNS notifications of available or expiring work items for work
+/// teams.
 class NotificationConfiguration {
   /// The ARN for the SNS topic to which notifications should be published.
   final String notificationTopicArn;
@@ -6657,6 +6842,11 @@ class NotificationConfiguration {
       NotificationConfiguration();
 }
 
+/// Specifies the number of training jobs that this hyperparameter tuning job
+/// launched, categorized by the status of their objective metric. The objective
+/// metric status shows whether the final objective metric for the training job
+/// has been evaluated by the tuning job and used in the hyperparameter tuning
+/// process.
 class ObjectiveStatusCounters {
   /// The number of training jobs whose final objective metric was evaluated by
   /// the hyperparameter tuning job and used in the hyperparameter tuning
@@ -6681,6 +6871,8 @@ class ObjectiveStatusCounters {
       ObjectiveStatusCounters();
 }
 
+/// Contains information about the output location for the compiled model and
+/// the device (target) that the model runs on.
 class OutputConfig {
   /// Identifies the S3 path where you want Amazon SageMaker to store the model
   /// artifacts. For example, s3://bucket-name/key-name-prefix.
@@ -6697,6 +6889,8 @@ class OutputConfig {
   static OutputConfig fromJson(Map<String, dynamic> json) => OutputConfig();
 }
 
+/// Provides information about how to store model training results (model
+/// artifacts).
 class OutputDataConfig {
   /// The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to
   /// encrypt the model artifacts at rest using Amazon S3 server-side
@@ -6728,15 +6922,14 @@ class OutputDataConfig {
   /// you use a bucket policy with an `s3:PutObject` permission that only allows
   /// objects with server-side encryption, set the condition key of
   /// `s3:x-amz-server-side-encryption` to `"aws:kms"`. For more information,
-  /// see [KMS-Managed Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
+  /// see
+  /// [KMS-Managed Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
   /// in the _Amazon Simple Storage Service Developer Guide._
   ///
   /// The KMS key policy must grant permission to the IAM role that you specify
   /// in your `CreateTrainingJob`, `CreateTransformJob`, or
-  /// `CreateHyperParameterTuningJob` requests. For more information, see [Using
-  /// Key Policies in AWS
-  /// KMS](https://docs.aws.amazon.com/http:/docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
+  /// `CreateHyperParameterTuningJob` requests. For more information, see
+  /// [Using Key Policies in AWS KMS](https://docs.aws.amazon.com/http:/docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
   /// in the _AWS Key Management Service Developer Guide_.
   final String kmsKeyId;
 
@@ -6752,6 +6945,8 @@ class OutputDataConfig {
       OutputDataConfig();
 }
 
+/// Defines the possible values for categorical, continuous, and integer
+/// hyperparameters to be used by an algorithm.
 class ParameterRange {
   /// A `IntegerParameterRangeSpecification` object that defines the possible
   /// values for an integer hyperparameter.
@@ -6775,6 +6970,18 @@ class ParameterRange {
   static ParameterRange fromJson(Map<String, dynamic> json) => ParameterRange();
 }
 
+/// Specifies ranges of integer, continuous, and categorical hyperparameters
+/// that a hyperparameter tuning job searches. The hyperparameter tuning job
+/// launches training jobs with hyperparameter values within these ranges to
+/// find the combination of values that result in the training job with the best
+/// performance as measured by the objective metric of the hyperparameter tuning
+/// job.
+///
+///
+///
+/// You can specify a maximum of 20 hyperparameters that a hyperparameter tuning
+/// job can search over. Every possible value of a categorical parameter range
+/// counts against this limit.
 class ParameterRanges {
   /// The array of IntegerParameterRange objects that specify ranges of integer
   /// hyperparameters that a hyperparameter tuning job searches.
@@ -6797,6 +7004,8 @@ class ParameterRanges {
       ParameterRanges();
 }
 
+/// A previously completed or stopped hyperparameter tuning job to be used as a
+/// starting point for a new hyperparameter tuning job.
 class ParentHyperParameterTuningJob {
   /// The name of the hyperparameter tuning job to be used as a starting point
   /// for a new hyperparameter tuning job.
@@ -6809,6 +7018,9 @@ class ParentHyperParameterTuningJob {
       ParentHyperParameterTuningJob();
 }
 
+/// Identifies a model that you want to host and the resources to deploy for
+/// hosting it. If you are deploying multiple models, tell Amazon SageMaker how
+/// to distribute traffic among the models by specifying variant weights.
 class ProductionVariant {
   /// The name of the production variant.
   final String variantName;
@@ -6832,8 +7044,8 @@ class ProductionVariant {
 
   /// The size of the Elastic Inference (EI) instance to use for the production
   /// variant. EI instances provide on-demand GPU computing for inference. For
-  /// more information, see [Using Elastic Inference in Amazon
-  /// SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html).
+  /// more information, see
+  /// [Using Elastic Inference in Amazon SageMaker](https://docs.aws.amazon.com/sagemaker/latest/dg/ei.html).
   final String acceleratorType;
 
   ProductionVariant({
@@ -6848,6 +7060,10 @@ class ProductionVariant {
       ProductionVariant();
 }
 
+/// Describes weight and capacities for a production variant associated with an
+/// endpoint. If you sent a request to the `UpdateEndpointWeightsAndCapacities`
+/// API and the endpoint status is `Updating`, you get different desired and
+/// current values.
 class ProductionVariantSummary {
   /// The name of the variant.
   final String variantName;
@@ -6883,6 +7099,8 @@ class ProductionVariantSummary {
       ProductionVariantSummary();
 }
 
+/// A type of `SuggestionQuery`. A suggestion query for retrieving property
+/// names that match the specified hint.
 class PropertyNameQuery {
   /// Text that is part of a property's name. The property names of
   /// hyperparameter, metric, and tag key names that begin with the specified
@@ -6894,6 +7112,8 @@ class PropertyNameQuery {
   });
 }
 
+/// A property name returned from a `GetSearchSuggestions` call that specifies a
+/// value in the `PropertyNameQuery` field.
 class PropertyNameSuggestion {
   /// A suggested property name based on what you entered in the search textbox
   /// in the Amazon SageMaker console.
@@ -6906,6 +7126,88 @@ class PropertyNameSuggestion {
       PropertyNameSuggestion();
 }
 
+/// Defines the amount of money paid to an Amazon Mechanical Turk worker for
+/// each task performed.
+///
+/// Use one of the following prices for bounding box tasks. Prices are in US
+/// dollars and should be based on the complexity of the task; the longer it
+/// takes in your initial testing, the more you should offer.
+///
+/// *   0.036
+///
+/// *   0.048
+///
+/// *   0.060
+///
+/// *   0.072
+///
+/// *   0.120
+///
+/// *   0.240
+///
+/// *   0.360
+///
+/// *   0.480
+///
+/// *   0.600
+///
+/// *   0.720
+///
+/// *   0.840
+///
+/// *   0.960
+///
+/// *   1.080
+///
+/// *   1.200
+///
+///
+/// Use one of the following prices for image classification, text
+/// classification, and custom tasks. Prices are in US dollars.
+///
+/// *   0.012
+///
+/// *   0.024
+///
+/// *   0.036
+///
+/// *   0.048
+///
+/// *   0.060
+///
+/// *   0.072
+///
+/// *   0.120
+///
+/// *   0.240
+///
+/// *   0.360
+///
+/// *   0.480
+///
+/// *   0.600
+///
+/// *   0.720
+///
+/// *   0.840
+///
+/// *   0.960
+///
+/// *   1.080
+///
+/// *   1.200
+///
+///
+/// Use one of the following prices for semantic segmentation tasks. Prices are
+/// in US dollars.
+///
+/// *   0.840
+///
+/// *   0.960
+///
+/// *   1.080
+///
+/// *   1.200
 class PublicWorkforceTaskPrice {
   /// Defines the amount of money paid to an Amazon Mechanical Turk worker in
   /// United States dollars.
@@ -6934,6 +7236,7 @@ class RenderUiTemplateResponse {
       RenderUiTemplateResponse();
 }
 
+/// Contains input values for a task.
 class RenderableTask {
   /// A JSON object that contains values for the variables defined in the
   /// template. It is made available to the template under the substitution
@@ -6947,6 +7250,7 @@ class RenderableTask {
   });
 }
 
+/// A description of an error that occurred while rendering the template.
 class RenderingError {
   /// A unique identifier for a specific class of errors.
   final String code;
@@ -6961,6 +7265,8 @@ class RenderingError {
   static RenderingError fromJson(Map<String, dynamic> json) => RenderingError();
 }
 
+/// Describes the resources, including ML compute instances and ML storage
+/// volumes, to use for model training.
 class ResourceConfig {
   /// The ML compute instance type.
   final String instanceType;
@@ -7006,6 +7312,8 @@ class ResourceConfig {
   static ResourceConfig fromJson(Map<String, dynamic> json) => ResourceConfig();
 }
 
+/// Specifies the maximum number of training jobs and parallel training jobs
+/// that a hyperparameter tuning job can launch.
 class ResourceLimits {
   /// The maximum number of training jobs that a hyperparameter tuning job can
   /// launch.
@@ -7022,6 +7330,7 @@ class ResourceLimits {
   static ResourceLimits fromJson(Map<String, dynamic> json) => ResourceLimits();
 }
 
+/// Describes the S3 data source.
 class S3DataSource {
   /// If you choose `S3Prefix`, `S3Uri` identifies a key name prefix. Amazon
   /// SageMaker uses all objects that match the specified key name prefix for
@@ -7048,7 +7357,7 @@ class S3DataSource {
   ///      The manifest is an S3 object which is a JSON file with the following
   /// format:
   ///
-  ///      `\[`
+  ///      `[`
   ///
   ///       `{"prefix": "s3://customer_bucket/some/prefix/"},`
   ///
@@ -7058,7 +7367,7 @@ class S3DataSource {
   ///
   ///       `...`
   ///
-  ///       `\]`
+  ///       `]`
   ///
   ///      The preceding JSON matches the following `s3Uris`:
   ///
@@ -7109,6 +7418,26 @@ class S3DataSource {
   static S3DataSource fromJson(Map<String, dynamic> json) => S3DataSource();
 }
 
+/// A multi-expression that searches for the specified resource or resources in
+/// a search. All resource objects that satisfy the expression's condition are
+/// included in the search results. You must specify at least one subexpression,
+/// filter, or nested filter. A `SearchExpression` can contain up to twenty
+/// elements.
+///
+/// A `SearchExpression` contains the following components:
+///
+/// *   A list of `Filter` objects. Each filter defines a simple Boolean
+/// expression comprised of a resource property name, Boolean operator, and
+/// value.
+///
+/// *   A list of `NestedFilter` objects. Each nested filter defines a list of
+/// Boolean expressions using a list of resource properties. A nested filter is
+/// satisfied if a single object in the list satisfies all Boolean expressions.
+///
+/// *   A list of `SearchExpression` objects. A search expression object can be
+/// nested in a list of search expression objects.
+///
+/// *   A Boolean operator: `And` or `Or`.
 class SearchExpression {
   /// A list of filter objects.
   final List<Filter> filters;
@@ -7134,6 +7463,7 @@ class SearchExpression {
   });
 }
 
+/// An individual search result record that contains a single resource object.
 class SearchRecord {
   /// A `TrainingJob` object that is returned as part of a `Search` request.
   final TrainingJob trainingJob;
@@ -7160,6 +7490,14 @@ class SearchResponse {
   static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse();
 }
 
+/// An array element of DescribeTrainingJobResponse$SecondaryStatusTransitions.
+/// It provides additional details about a status that the training job has
+/// transitioned through. A training job can be in one of several states, for
+/// example, starting, downloading, training, or uploading. Within each state,
+/// there are a number of intermediate states. For example, within the starting
+/// state, Amazon SageMaker could be starting the training job or launching the
+/// ML instances. These transitional states are referred to as the job's
+/// secondary status.
 class SecondaryStatusTransition {
   /// Contains a secondary status information from a training job.
   ///
@@ -7167,40 +7505,40 @@ class SecondaryStatusTransition {
   ///
   /// InProgress
   ///
-  /// *    `Starting` \- Starting the training job.
+  /// *    `Starting` - Starting the training job.
   ///
-  /// *    `Downloading` \- An optional stage for algorithms that support `File`
+  /// *    `Downloading` - An optional stage for algorithms that support `File`
   /// training input mode. It indicates that data is being downloaded to the ML
   /// storage volumes.
   ///
-  /// *    `Training` \- Training is in progress.
+  /// *    `Training` - Training is in progress.
   ///
-  /// *    `Uploading` \- Training is complete and the model artifacts are being
+  /// *    `Uploading` - Training is complete and the model artifacts are being
   /// uploaded to the S3 location.
   ///
   ///
   /// Completed
   ///
-  /// *    `Completed` \- The training job has completed.
+  /// *    `Completed` - The training job has completed.
   ///
   ///
   /// Failed
   ///
-  /// *    `Failed` \- The training job has failed. The reason for the failure
-  /// is returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
+  /// *    `Failed` - The training job has failed. The reason for the failure is
+  /// returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
   ///
   ///
   /// Stopped
   ///
-  /// *    `MaxRuntimeExceeded` \- The job stopped because it exceeded the
+  /// *    `MaxRuntimeExceeded` - The job stopped because it exceeded the
   /// maximum allowed runtime.
   ///
-  /// *    `Stopped` \- The training job has stopped.
+  /// *    `Stopped` - The training job has stopped.
   ///
   ///
   /// Stopping
   ///
-  /// *    `Stopping` \- Stopping the training job.
+  /// *    `Stopping` - Stopping the training job.
   ///
   ///
   /// We no longer support the following secondary statuses:
@@ -7256,11 +7594,11 @@ class SecondaryStatusTransition {
   /// `StatusMessage` together. For example, at the start of a training job, you
   /// might see the following:
   ///
-  /// *    `TrainingJobStatus` \- InProgress
+  /// *    `TrainingJobStatus` - InProgress
   ///
-  /// *    `SecondaryStatus` \- Training
+  /// *    `SecondaryStatus` - Training
   ///
-  /// *    `StatusMessage` \- Downloading the training image
+  /// *    `StatusMessage` - Downloading the training image
   final String statusMessage;
 
   SecondaryStatusTransition({
@@ -7273,6 +7611,20 @@ class SecondaryStatusTransition {
       SecondaryStatusTransition();
 }
 
+/// A configuration for a shuffle option for input data in a channel. If you use
+/// `S3Prefix` for `S3DataType`, the results of the S3 key prefix matches are
+/// shuffled. If you use `ManifestFile`, the order of the S3 object references
+/// in the `ManifestFile` is shuffled. If you use `AugmentedManifestFile`, the
+/// order of the JSON lines in the `AugmentedManifestFile` is shuffled. The
+/// shuffling order is determined using the `Seed` value.
+///
+/// For Pipe input mode, shuffling is done at the start of every epoch. With
+/// large datasets, this ensures that the order of the training data is
+/// different for each epoch, and it helps reduce bias and possible overfitting.
+/// In a multi-node training job when `ShuffleConfig` is combined with
+/// `S3DataDistributionType` of `ShardedByS3Key`, the data is shuffled across
+/// nodes so that the content sent to a particular node on the first epoch might
+/// be sent to a different node on the second epoch.
 class ShuffleConfig {
   /// Determines the shuffling order in `ShuffleConfig` value.
   final BigInt seed;
@@ -7283,6 +7635,9 @@ class ShuffleConfig {
   static ShuffleConfig fromJson(Map<String, dynamic> json) => ShuffleConfig();
 }
 
+/// Specifies an algorithm that was used to create the model package. The
+/// algorithm must be either an algorithm resource in your Amazon SageMaker
+/// account or an algorithm in AWS Marketplace that you are subscribed to.
 class SourceAlgorithm {
   /// The Amazon S3 path where the model artifacts, which result from model
   /// training, are stored. This path must point to a single `gzip` compressed
@@ -7302,6 +7657,7 @@ class SourceAlgorithm {
       SourceAlgorithm();
 }
 
+/// A list of algorithms that were used to create a model package.
 class SourceAlgorithmSpecification {
   /// A list of the algorithms that were used to create a model package.
   final List<SourceAlgorithm> sourceAlgorithms;
@@ -7313,6 +7669,29 @@ class SourceAlgorithmSpecification {
       SourceAlgorithmSpecification();
 }
 
+/// Specifies a limit to how long a model training or compilation job can run.
+/// It also specifies how long you are willing to wait for a managed spot
+/// training job to complete. When the job reaches the time limit, Amazon
+/// SageMaker ends the training or compilation job. Use this API to cap model
+/// training costs.
+///
+/// To stop a job, Amazon SageMaker sends the algorithm the `SIGTERM` signal,
+/// which delays job termination for 120 seconds. Algorithms can use this
+/// 120-second window to save the model artifacts, so the results of training
+/// are not lost.
+///
+/// The training algorithms provided by Amazon SageMaker automatically save the
+/// intermediate results of a model training job when possible. This attempt to
+/// save artifacts is only a best effort case as model might not be in a state
+/// from which it can be saved. For example, if training has just started, the
+/// model might not be ready to save. When saved, this intermediate data is a
+/// valid model artifact. You can use it to create a model with `CreateModel`.
+///
+///
+///
+/// The Neural Topic Model (NTM) currently does not support saving intermediate
+/// model artifacts. When training NTMs, make sure that the maximum runtime is
+/// sufficient for the training job to complete.
 class StoppingCondition {
   /// The maximum length of time, in seconds, that the training or compilation
   /// job can run. If job does not complete during this time, Amazon SageMaker
@@ -7334,6 +7713,7 @@ class StoppingCondition {
       StoppingCondition();
 }
 
+/// Describes a work team of a vendor that does the a labelling job.
 class SubscribedWorkteam {
   /// The Amazon Resource Name (ARN) of the vendor that you have subscribed.
   final String workteamArn;
@@ -7360,6 +7740,7 @@ class SubscribedWorkteam {
       SubscribedWorkteam();
 }
 
+/// Limits the property names that are included in the response.
 class SuggestionQuery {
   /// A type of `SuggestionQuery`. Defines a property name hint. Only property
   /// names that match the specified hint are included in the response.
@@ -7370,6 +7751,7 @@ class SuggestionQuery {
   });
 }
 
+/// Describes a tag.
 class Tag {
   /// The tag key.
   final String key;
@@ -7384,6 +7766,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Contains information about a training job.
 class TrainingJob {
   /// The name of the training job.
   final String trainingJobName;
@@ -7406,17 +7789,17 @@ class TrainingJob {
   ///
   /// Training job statuses are:
   ///
-  /// *    `InProgress` \- The training is in progress.
+  /// *    `InProgress` - The training is in progress.
   ///
-  /// *    `Completed` \- The training job has completed.
+  /// *    `Completed` - The training job has completed.
   ///
-  /// *    `Failed` \- The training job has failed. To see the reason for the
+  /// *    `Failed` - The training job has failed. To see the reason for the
   /// failure, see the `FailureReason` field in the response to a
   /// `DescribeTrainingJobResponse` call.
   ///
-  /// *    `Stopping` \- The training job is stopping.
+  /// *    `Stopping` - The training job is stopping.
   ///
-  /// *    `Stopped` \- The training job has stopped.
+  /// *    `Stopped` - The training job has stopped.
   ///
   ///
   /// For more detailed information, see `SecondaryStatus`.
@@ -7431,40 +7814,40 @@ class TrainingJob {
   ///
   /// InProgress
   ///
-  /// *    `Starting` \- Starting the training job.
+  /// *    `Starting` - Starting the training job.
   ///
-  /// *    `Downloading` \- An optional stage for algorithms that support `File`
+  /// *    `Downloading` - An optional stage for algorithms that support `File`
   /// training input mode. It indicates that data is being downloaded to the ML
   /// storage volumes.
   ///
-  /// *    `Training` \- Training is in progress.
+  /// *    `Training` - Training is in progress.
   ///
-  /// *    `Uploading` \- Training is complete and the model artifacts are being
+  /// *    `Uploading` - Training is complete and the model artifacts are being
   /// uploaded to the S3 location.
   ///
   ///
   /// Completed
   ///
-  /// *    `Completed` \- The training job has completed.
+  /// *    `Completed` - The training job has completed.
   ///
   ///
   /// Failed
   ///
-  /// *    `Failed` \- The training job has failed. The reason for the failure
-  /// is returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
+  /// *    `Failed` - The training job has failed. The reason for the failure is
+  /// returned in the `FailureReason` field of `DescribeTrainingJobResponse`.
   ///
   ///
   /// Stopped
   ///
-  /// *    `MaxRuntimeExceeded` \- The job stopped because it exceeded the
+  /// *    `MaxRuntimeExceeded` - The job stopped because it exceeded the
   /// maximum allowed runtime.
   ///
-  /// *    `Stopped` \- The training job has stopped.
+  /// *    `Stopped` - The training job has stopped.
   ///
   ///
   /// Stopping
   ///
-  /// *    `Stopping` \- Stopping the training job.
+  /// *    `Stopping` - Stopping the training job.
   ///
   ///
   ///  Valid values for `SecondaryStatus` are subject to change.
@@ -7503,9 +7886,8 @@ class TrainingJob {
   final ResourceConfig resourceConfig;
 
   /// A VpcConfig object that specifies the VPC that this training job has
-  /// access to. For more information, see [Protect Training Jobs by Using an
-  /// Amazon Virtual Private
-  /// Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
+  /// access to. For more information, see
+  /// [Protect Training Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
   final VpcConfig vpcConfig;
 
   /// Specifies a limit to how long a model training job can run. When the job
@@ -7559,9 +7941,8 @@ class TrainingJob {
   /// especially if you use a deep learning algorithm in distributed training.
   final bool enableInterContainerTrafficEncryption;
 
-  /// An array of key-value pairs. For more information, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
+  /// An array of key-value pairs. For more information, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what)
   /// in the _AWS Billing and Cost Management User Guide_.
   final List<Tag> tags;
 
@@ -7595,6 +7976,7 @@ class TrainingJob {
   static TrainingJob fromJson(Map<String, dynamic> json) => TrainingJob();
 }
 
+/// Defines the input needed to run a training job using the algorithm.
 class TrainingJobDefinition {
   /// The input mode used by the algorithm for the training job. For the input
   /// modes that Amazon SageMaker algorithms support, see
@@ -7642,6 +8024,8 @@ class TrainingJobDefinition {
       TrainingJobDefinition();
 }
 
+/// The numbers of training jobs launched by a hyperparameter tuning job,
+/// categorized by status.
 class TrainingJobStatusCounters {
   /// The number of completed training jobs launched by the hyperparameter
   /// tuning job.
@@ -7676,6 +8060,7 @@ class TrainingJobStatusCounters {
       TrainingJobStatusCounters();
 }
 
+/// Provides summary information about a training job.
 class TrainingJobSummary {
   /// The name of the training job that you want a summary for.
   final String trainingJobName;
@@ -7709,6 +8094,7 @@ class TrainingJobSummary {
       TrainingJobSummary();
 }
 
+/// Defines how the algorithm is used for a training job.
 class TrainingSpecification {
   /// The Amazon ECR registry path of the Docker image that contains the
   /// training algorithm.
@@ -7757,6 +8143,7 @@ class TrainingSpecification {
       TrainingSpecification();
 }
 
+/// Describes the location of the channel data.
 class TransformDataSource {
   /// The S3 location of the data source that is associated with a channel.
   final TransformS3DataSource s3DataSource;
@@ -7768,6 +8155,8 @@ class TransformDataSource {
       TransformDataSource();
 }
 
+/// Describes the input source of a transform job and the way the transform job
+/// consumes it.
 class TransformInput {
   /// Describes the location of the channel data, which is, the S3 location of
   /// the input data that the model can consume.
@@ -7808,11 +8197,10 @@ class TransformInput {
   /// `SingleRecord`. Padding is not removed if the value of `BatchStrategy` is
   /// set to `MultiRecord`.
   ///
-  /// For more information about the RecordIO, see [Data
-  /// Format](http://mxnet.io/architecture/note_data_loading.html#data-format)
+  /// For more information about the RecordIO, see
+  /// [Data Format](http://mxnet.io/architecture/note_data_loading.html#data-format)
   /// in the MXNet documentation. For more information about the TFRecord, see
-  /// [Consuming TFRecord
-  /// data](https://www.tensorflow.org/guide/datasets#consuming_tfrecord_data)
+  /// [Consuming TFRecord data](https://www.tensorflow.org/guide/datasets#consuming_tfrecord_data)
   /// in the TensorFlow documentation.
   final String splitType;
 
@@ -7825,6 +8213,8 @@ class TransformInput {
   static TransformInput fromJson(Map<String, dynamic> json) => TransformInput();
 }
 
+/// Defines the input needed to run a transform job using the inference
+/// specification specified in the algorithm.
 class TransformJobDefinition {
   /// The maximum number of parallel requests that can be sent to each instance
   /// in a transform job. The default value is 1.
@@ -7870,6 +8260,9 @@ class TransformJobDefinition {
       TransformJobDefinition();
 }
 
+/// Provides a summary of a transform job. Multiple `TransformJobSummary`
+/// objects are returned as a list after in response to a ListTransformJobs
+/// call.
 class TransformJobSummary {
   /// The name of the transform job.
   final String transformJobName;
@@ -7908,6 +8301,7 @@ class TransformJobSummary {
       TransformJobSummary();
 }
 
+/// Describes the results of a transform job.
 class TransformOutput {
   /// The Amazon S3 path where you want Amazon SageMaker to store the results of
   /// the transform job. For example, `s3://bucket-name/key-name-prefix`.
@@ -7961,14 +8355,12 @@ class TransformOutput {
   ///
   /// If you don't provide a KMS key ID, Amazon SageMaker uses the default KMS
   /// key for Amazon S3 for your role's account. For more information, see
-  /// [KMS-Managed Encryption
-  /// Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
+  /// [KMS-Managed Encryption Keys](https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html)
   /// in the _Amazon Simple Storage Service Developer Guide._
   ///
   /// The KMS key policy must grant permission to the IAM role that you specify
-  /// in your `CreateTramsformJob` request. For more information, see [Using Key
-  /// Policies in AWS
-  /// KMS](http://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
+  /// in your `CreateTramsformJob` request. For more information, see
+  /// [Using Key Policies in AWS KMS](http://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html)
   /// in the _AWS Key Management Service Developer Guide_.
   final String kmsKeyId;
 
@@ -7982,6 +8374,8 @@ class TransformOutput {
       TransformOutput();
 }
 
+/// Describes the resources, including ML instance types and ML instance count,
+/// to use for transform job.
 class TransformResources {
   /// The ML compute instance type for the transform job. If you are using
   /// built-in algorithms to transform moderately sized datasets, we recommend
@@ -8017,6 +8411,7 @@ class TransformResources {
       TransformResources();
 }
 
+/// Describes the S3 data source.
 class TransformS3DataSource {
   /// If you choose `S3Prefix`, `S3Uri` identifies a key name prefix. Amazon
   /// SageMaker uses all objects with the specified key name prefix for batch
@@ -8042,7 +8437,7 @@ class TransformS3DataSource {
   ///      The manifest is an S3 object which is a JSON file with the following
   /// format:
   ///
-  ///      `\[`
+  ///      `[`
   ///
   ///       `{"prefix": "s3://customer_bucket/some/prefix/"},`
   ///
@@ -8052,7 +8447,7 @@ class TransformS3DataSource {
   ///
   ///       `...`
   ///
-  ///       `\]`
+  ///       `]`
   ///
   ///      The preceding JSON matches the following `S3Uris`:
   ///
@@ -8076,6 +8471,7 @@ class TransformS3DataSource {
       TransformS3DataSource();
 }
 
+/// Represents an amount of money in United States dollars/
 class Usd {
   /// The whole number of dollars in the amount.
   final int dollars;
@@ -8094,11 +8490,11 @@ class Usd {
   static Usd fromJson(Map<String, dynamic> json) => Usd();
 }
 
+/// Provided configuration information for the worker UI for a labeling job.
 class UiConfig {
   /// The Amazon S3 bucket location of the UI template. For more information
-  /// about the contents of a UI template, see  [Creating Your Custom Labeling
-  /// Task
-  /// Template](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html).
+  /// about the contents of a UI template, see
+  /// [Creating Your Custom Labeling Task Template](https://docs.aws.amazon.com/sagemaker/latest/dg/sms-custom-templates-step2.html).
   final String uiTemplateS3Uri;
 
   UiConfig({
@@ -8107,6 +8503,7 @@ class UiConfig {
   static UiConfig fromJson(Map<String, dynamic> json) => UiConfig();
 }
 
+/// The Liquid template for the worker user interface.
 class UiTemplate {
   /// The content of the Liquid template for the worker user interface.
   final String content;
@@ -8174,6 +8571,12 @@ class UpdateWorkteamResponse {
       UpdateWorkteamResponse();
 }
 
+/// Specifies a VPC that your training jobs and hosted models have access to.
+/// Control access to and from your training and model containers by configuring
+/// the VPC. For more information, see
+/// [Protect Endpoints by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/host-vpc.html)
+/// and
+/// [Protect Training Jobs by Using an Amazon Virtual Private Cloud](https://docs.aws.amazon.com/sagemaker/latest/dg/train-vpc.html).
 class VpcConfig {
   /// The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security
   /// groups for the VPC that is specified in the `Subnets` field.
@@ -8197,6 +8600,7 @@ class VpcConfig {
   static VpcConfig fromJson(Map<String, dynamic> json) => VpcConfig();
 }
 
+/// Provides details about a labeling work team.
 class Workteam {
   /// The name of the work team.
   final String workteamName;

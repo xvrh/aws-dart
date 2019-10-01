@@ -58,10 +58,9 @@ class PricingApi {
 
   /// Returns a list of attribute values. Attibutes are similar to the details
   /// in a Price List API offer file. For a list of available attributes, see
-  /// [Offer File
-  /// Definitions](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/reading-an-offer.html#pps-defs)
-  /// in the [AWS Billing and Cost Management User
-  /// Guide](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html).
+  /// [Offer File Definitions](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/reading-an-offer.html#pps-defs)
+  /// in the
+  /// [AWS Billing and Cost Management User Guide](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-what-is.html).
   ///
   /// [serviceCode]: The service code for the service whose attributes you want
   /// to retrieve. For example, if you want the retrieve an EC2 attribute, use
@@ -108,6 +107,8 @@ class PricingApi {
   }
 }
 
+/// The values of a given attribute, such as `Throughput Optimized HDD` or
+/// `Provisioned IOPS` for the `Amazon EC2` `volumeType` attribute.
 class AttributeValue {
   /// The specific value of an `attributeName`.
   final String value;
@@ -137,6 +138,7 @@ class DescribeServicesResponse {
       DescribeServicesResponse();
 }
 
+/// The constraints that you want all returned products to match.
 class Filter {
   /// The type of filter that you want to use.
   ///
@@ -207,6 +209,8 @@ class GetProductsResponse {
       GetProductsResponse();
 }
 
+/// The metadata for a service, such as the service code and available attribute
+/// names.
 class Service {
   /// The code for the AWS service.
   final String serviceCode;

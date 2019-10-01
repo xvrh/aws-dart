@@ -6,8 +6,8 @@ import 'package:meta/meta.dart';
 /// Security Hub collects security data from AWS accounts, services, and
 /// integrated third-party products and helps you analyze security trends in
 /// your environment to identify the highest priority security issues. For more
-/// information about Security Hub, see the  _[AWS Security Hub User
-/// Guide](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html)_
+/// information about Security Hub, see the
+/// _[AWS Security Hub User Guide](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html)_
 /// .
 ///
 /// When you use operations in the Security Hub API, the requests are executed
@@ -37,9 +37,8 @@ class SecurityHubApi {
   }
 
   /// Disables the standards specified by the provided
-  /// `StandardsSubscriptionArns`. For more information, see [Standards
-  /// Supported in AWS Security
-  /// Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html).
+  /// `StandardsSubscriptionArns`. For more information, see
+  /// [Standards Supported in AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html).
   ///
   /// [standardsSubscriptionArns]: The ARNs of the standards subscriptions to
   /// disable.
@@ -50,8 +49,8 @@ class SecurityHubApi {
 
   /// Enables the standards specified by the provided `standardsArn`. In this
   /// release, only CIS AWS Foundations standards are supported. For more
-  /// information, see [Standards Supported in AWS Security
-  /// Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html).
+  /// information, see
+  /// [Standards Supported in AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-standards.html).
   ///
   /// [standardsSubscriptionRequests]: The list of standards compliance checks
   /// to enable.
@@ -75,8 +74,8 @@ class SecurityHubApi {
   /// Kb.
   ///
   /// [findings]: A list of findings to import. To successfully import a
-  /// finding, it must follow the [AWS Security Finding
-  /// Format](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html).
+  /// finding, it must follow the
+  /// [AWS Security Finding Format](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-findings-format.html).
   Future<BatchImportFindingsResponse> batchImportFindings(
       List<AwsSecurityFinding> findings) async {
     return BatchImportFindingsResponse.fromJson({});
@@ -277,8 +276,7 @@ class SecurityHubApi {
   /// you specify in the request. When you enable Security Hub, you grant to
   /// Security Hub the permissions necessary to gather findings from AWS Config,
   /// Amazon GuardDuty, Amazon Inspector, and Amazon Macie. To learn more, see
-  /// [Setting Up AWS Security
-  /// Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-settingup.html).
+  /// [Setting Up AWS Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-settingup.html).
   ///
   /// [tags]: The tags to add to the Hub resource when you enable Security Hub.
   Future<EnableSecurityHubResponse> enableSecurityHub(
@@ -521,6 +519,7 @@ class AcceptInvitationResponse {
       AcceptInvitationResponse();
 }
 
+/// The details of an AWS account.
 class AccountDetails {
   /// The ID of an AWS account.
   final String accountId;
@@ -534,6 +533,7 @@ class AccountDetails {
   });
 }
 
+/// An `ActionTarget` object.
 class ActionTarget {
   /// The ARN for the target action.
   final String actionTargetArn;
@@ -552,6 +552,7 @@ class ActionTarget {
   static ActionTarget fromJson(Map<String, dynamic> json) => ActionTarget();
 }
 
+/// The details of an Amazon EC2 instance.
 class AwsEc2InstanceDetails {
   /// The instance type of the instance.
   final String type;
@@ -595,6 +596,7 @@ class AwsEc2InstanceDetails {
       AwsEc2InstanceDetails();
 }
 
+/// IAM access key details related to a finding.
 class AwsIamAccessKeyDetails {
   /// The user associated with the IAM access key related to a finding.
   final String userName;
@@ -614,6 +616,7 @@ class AwsIamAccessKeyDetails {
       AwsIamAccessKeyDetails();
 }
 
+/// The details of an Amazon S3 bucket.
 class AwsS3BucketDetails {
   /// The canonical user ID of the owner of the S3 bucket.
   final String ownerId;
@@ -629,6 +632,15 @@ class AwsS3BucketDetails {
       AwsS3BucketDetails();
 }
 
+/// Provides consistent format for the contents of the Security Hub-aggregated
+/// findings. `AwsSecurityFinding` format enables you to share findings between
+/// AWS security services and third-party solutions, and compliance checks.
+///
+///
+///
+/// A finding is a potential security issue generated either by AWS services
+/// (Amazon GuardDuty, Amazon Inspector, and Amazon Macie) or by the integrated
+/// third-party solutions and compliance checks.
 class AwsSecurityFinding {
   /// The schema version that a finding is formatted for.
   final String schemaVersion;
@@ -794,6 +806,9 @@ class AwsSecurityFinding {
       AwsSecurityFinding();
 }
 
+/// A collection of attributes that are applied to all active Security
+/// Hub-aggregated findings and that result in a subset of findings that are
+/// included in this insight.
 class AwsSecurityFindingFilters {
   /// The ARN generated by Security Hub that uniquely identifies a third-party
   /// company (security findings provider) after this provider's product
@@ -1206,6 +1221,9 @@ class BatchImportFindingsResponse {
       BatchImportFindingsResponse();
 }
 
+/// Exclusive to findings that are generated as the result of a check run
+/// against a specific rule in a supported standard (for example, CIS AWS
+/// Foundations). Contains compliance-related finding details.
 class Compliance {
   /// The result of a compliance check.
   final String status;
@@ -1216,6 +1234,7 @@ class Compliance {
   static Compliance fromJson(Map<String, dynamic> json) => Compliance();
 }
 
+/// Container details related to a finding.
 class ContainerDetails {
   /// The name of the container related to a finding.
   final String name;
@@ -1273,6 +1292,7 @@ class CreateMembersResponse {
       CreateMembersResponse();
 }
 
+/// A date filter for querying findings.
 class DateFilter {
   /// A start date for the date filter.
   final String start;
@@ -1291,6 +1311,7 @@ class DateFilter {
   static DateFilter fromJson(Map<String, dynamic> json) => DateFilter();
 }
 
+/// A date range for the date filter.
 class DateRange {
   /// A date range value for the date filter.
   final int value;
@@ -1551,6 +1572,7 @@ class GetMembersResponse {
       GetMembersResponse();
 }
 
+/// Includes details of the list of the findings that can't be imported.
 class ImportFindingsError {
   /// The ID of the error made during the `BatchImportFindings` operation.
   final String id;
@@ -1570,6 +1592,7 @@ class ImportFindingsError {
       ImportFindingsError();
 }
 
+/// Contains information about a Security Hub insight.
 class Insight {
   /// The ARN of a Security Hub insight.
   final String insightArn;
@@ -1596,6 +1619,7 @@ class Insight {
   static Insight fromJson(Map<String, dynamic> json) => Insight();
 }
 
+/// The insight result values returned by the `GetInsightResults` operation.
 class InsightResultValue {
   /// The value of the attribute that the findings are grouped by for the
   /// insight whose results are returned by the `GetInsightResults` operation.
@@ -1612,6 +1636,7 @@ class InsightResultValue {
       InsightResultValue();
 }
 
+/// The insight results returned by the `GetInsightResults` operation.
 class InsightResults {
   /// The ARN of the insight whose results are returned by the
   /// `GetInsightResults` operation.
@@ -1633,6 +1658,7 @@ class InsightResults {
   static InsightResults fromJson(Map<String, dynamic> json) => InsightResults();
 }
 
+/// Details about an invitation.
 class Invitation {
   /// The account ID of the Security Hub master account that the invitation was
   /// sent from.
@@ -1668,6 +1694,7 @@ class InviteMembersResponse {
       InviteMembersResponse();
 }
 
+/// The IP filter for querying findings.
 class IpFilter {
   /// A finding's CIDR value.
   final String cidr;
@@ -1678,6 +1705,7 @@ class IpFilter {
   static IpFilter fromJson(Map<String, dynamic> json) => IpFilter();
 }
 
+/// A keyword filter for querying findings.
 class KeywordFilter {
   /// A value for the keyword.
   final String value;
@@ -1746,6 +1774,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// A list of malware related to a finding.
 class Malware {
   /// The name of the malware that was observed.
   final String name;
@@ -1768,6 +1797,7 @@ class Malware {
   static Malware fromJson(Map<String, dynamic> json) => Malware();
 }
 
+/// The map filter for querying findings.
 class MapFilter {
   /// The key of the map filter.
   final String key;
@@ -1787,6 +1817,7 @@ class MapFilter {
   static MapFilter fromJson(Map<String, dynamic> json) => MapFilter();
 }
 
+/// The details about a member account.
 class Member {
   /// The AWS account ID of the member account.
   final String accountId;
@@ -1820,6 +1851,7 @@ class Member {
   static Member fromJson(Map<String, dynamic> json) => Member();
 }
 
+/// The details of network-related information about a finding.
 class Network {
   /// The direction of network traffic associated with a finding.
   final String direction;
@@ -1873,6 +1905,7 @@ class Network {
   static Network fromJson(Map<String, dynamic> json) => Network();
 }
 
+/// A user-defined note added to a finding.
 class Note {
   /// The text of a note.
   final String text;
@@ -1891,6 +1924,7 @@ class Note {
   static Note fromJson(Map<String, dynamic> json) => Note();
 }
 
+/// The updated note.
 class NoteUpdate {
   /// The updated note text.
   final String text;
@@ -1904,6 +1938,7 @@ class NoteUpdate {
   });
 }
 
+/// A number filter for querying findings.
 class NumberFilter {
   /// The greater-than-equal condition to be applied to a single field when
   /// querying for findings.
@@ -1925,6 +1960,7 @@ class NumberFilter {
   static NumberFilter fromJson(Map<String, dynamic> json) => NumberFilter();
 }
 
+/// The details of process-related information about a finding.
 class ProcessDetails {
   /// The name of the process.
   final String name;
@@ -1955,6 +1991,7 @@ class ProcessDetails {
   static ProcessDetails fromJson(Map<String, dynamic> json) => ProcessDetails();
 }
 
+/// Contains details about a product.
 class Product {
   /// The ARN assigned to the product.
   final String productArn;
@@ -1993,6 +2030,7 @@ class Product {
   static Product fromJson(Map<String, dynamic> json) => Product();
 }
 
+/// A recommendation on how to remediate the issue identified in a finding.
 class Recommendation {
   /// Describes the recommended steps to take to remediate an issue identified
   /// in a finding.
@@ -2009,6 +2047,7 @@ class Recommendation {
   static Recommendation fromJson(Map<String, dynamic> json) => Recommendation();
 }
 
+/// Details about a related finding.
 class RelatedFinding {
   /// The ARN of the product that generated a related finding.
   final String productArn;
@@ -2023,6 +2062,7 @@ class RelatedFinding {
   static RelatedFinding fromJson(Map<String, dynamic> json) => RelatedFinding();
 }
 
+/// Details about the remediation steps for a finding.
 class Remediation {
   /// A recommendation on the steps to take to remediate the issue identified by
   /// a finding.
@@ -2034,6 +2074,7 @@ class Remediation {
   static Remediation fromJson(Map<String, dynamic> json) => Remediation();
 }
 
+/// A resource related to a finding.
 class Resource {
   /// The type of the resource that details are provided for.
   final String type;
@@ -2065,6 +2106,7 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// Additional details about a resource related to a finding.
 class ResourceDetails {
   /// Details about an Amazon EC2 instance related to a finding.
   final AwsEc2InstanceDetails awsEc2Instance;
@@ -2092,6 +2134,7 @@ class ResourceDetails {
       ResourceDetails();
 }
 
+/// Details about the account that wasn't processed.
 class Result {
   /// An AWS account ID of the account that wasn't be processed.
   final String accountId;
@@ -2106,6 +2149,7 @@ class Result {
   static Result fromJson(Map<String, dynamic> json) => Result();
 }
 
+/// The severity of the finding.
 class Severity {
   /// The native severity as defined by the AWS service or integrated partner
   /// product that generated the finding.
@@ -2121,6 +2165,7 @@ class Severity {
   static Severity fromJson(Map<String, dynamic> json) => Severity();
 }
 
+/// A collection of finding attributes used to sort findings.
 class SortCriterion {
   /// The finding attribute used to sort findings.
   final String field;
@@ -2134,6 +2179,7 @@ class SortCriterion {
   });
 }
 
+/// A resource that represents your subscription to a supported standard.
 class StandardsSubscription {
   /// The ARN of a resource that represents your subscription to a supported
   /// standard.
@@ -2162,6 +2208,7 @@ class StandardsSubscription {
       StandardsSubscription();
 }
 
+/// The standard that you want to enable.
 class StandardsSubscriptionRequest {
   /// The ARN of the standard that you want to enable.
   ///
@@ -2183,6 +2230,7 @@ class StandardsSubscriptionRequest {
   });
 }
 
+/// A string filter for querying findings.
 class StringFilter {
   /// The string filter value.
   final String value;
@@ -2203,6 +2251,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Details about the threat intel related to a finding.
 class ThreatIntelIndicator {
   /// The type of a threat intel indicator.
   final String type;

@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 /// tasks using the Fargate launch type. For more control, you can host your
 /// tasks on a cluster of Amazon Elastic Compute Cloud (Amazon EC2) instances
 /// that you manage by using the EC2 launch type. For more information about
-/// launch types, see [Amazon ECS Launch
-/// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html).
+/// launch types, see
+/// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html).
 ///
 /// Amazon ECS lets you launch and stop container-based applications with simple
 /// API calls, allows you to get the state of your cluster from a centralized
@@ -33,9 +33,8 @@ class EcsApi {
   /// create the service-linked role for your account so that required resources
   /// in other AWS services can be managed on your behalf. However, if the IAM
   /// user that makes the call does not have permissions to create the
-  /// service-linked role, it is not created. For more information, see [Using
-  /// Service-Linked Roles for Amazon
-  /// ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
+  /// service-linked role, it is not created. For more information, see
+  /// [Using Service-Linked Roles for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [clusterName]: The name of your cluster. If you do not specify a name for
@@ -88,8 +87,8 @@ class EcsApi {
   /// In addition to maintaining the desired count of tasks in your service, you
   /// can optionally run your service behind one or more load balancers. The
   /// load balancers distribute traffic across the tasks that are associated
-  /// with the service. For more information, see [Service Load
-  /// Balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html)
+  /// with the service. For more information, see
+  /// [Service Load Balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// Tasks for services that _do not_ use a load balancer are considered
@@ -100,21 +99,20 @@ class EcsApi {
   ///
   /// There are two service scheduler strategies available:
   ///
-  /// *    `REPLICA` \- The replica scheduling strategy places and maintains the
+  /// *    `REPLICA` - The replica scheduling strategy places and maintains the
   /// desired number of tasks across your cluster. By default, the service
   /// scheduler spreads tasks across Availability Zones. You can use task
   /// placement strategies and constraints to customize task placement
-  /// decisions. For more information, see [Service Scheduler
-  /// Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
+  /// decisions. For more information, see
+  /// [Service Scheduler Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
-  /// *    `DAEMON` \- The daemon scheduling strategy deploys exactly one task
-  /// on each active container instance that meets all of the task placement
+  /// *    `DAEMON` - The daemon scheduling strategy deploys exactly one task on
+  /// each active container instance that meets all of the task placement
   /// constraints that you specify in your cluster. When using this strategy,
   /// you don't need to specify a desired number of tasks, a task placement
   /// strategy, or use Service Auto Scaling policies. For more information, see
-  /// [Service Scheduler
-  /// Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
+  /// [Service Scheduler Concepts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///
@@ -167,8 +165,7 @@ class EcsApi {
   /// you can specify only parameters that aren't controlled at the task set
   /// level. The only required parameter is the service name. You control your
   /// services using the CreateTaskSet operation. For more information, see
-  /// [Amazon ECS Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// When the service scheduler launches new tasks, it determines task
@@ -210,8 +207,8 @@ class EcsApi {
   /// deployment controller.
   ///
   /// [loadBalancers]: A load balancer object representing the load balancers to
-  /// use with your service. For more information, see [Service Load
-  /// Balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html)
+  /// use with your service. For more information, see
+  /// [Service Load Balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// If the service is using the rolling update (`ECS`) deployment controller
@@ -258,14 +255,14 @@ class EcsApi {
   /// Amazon EC2 instance.
   ///
   /// [serviceRegistries]: The details of the service discovery registries to
-  /// assign to this service. For more information, see [Service
-  /// Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+  /// assign to this service. For more information, see
+  /// [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
   ///
   ///
   ///
   /// Service discovery is supported for Fargate tasks if you are using platform
-  /// version v1.1.0 or later. For more information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html).
+  /// version v1.1.0 or later. For more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html).
   ///
   /// [desiredCount]: The number of instantiations of the specified task
   /// definition to place and keep running on your cluster.
@@ -278,15 +275,15 @@ class EcsApi {
   /// allowed.
   ///
   /// [launchType]: The launch type on which to run your service. For more
-  /// information, see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// information, see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [platformVersion]: The platform version that your tasks in the service are
   /// running on. A platform version is specified only for tasks using the
   /// Fargate launch type. If one isn't specified, the `LATEST` platform version
-  /// is used by default. For more information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// is used by default. For more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [role]: The name or full Amazon Resource Name (ARN) of the IAM role that
@@ -300,16 +297,16 @@ class EcsApi {
   /// that role is used by default for your service unless you specify a role
   /// here. The service-linked role is required if your task definition uses the
   /// `awsvpc` network mode, in which case you should not specify a role here.
-  /// For more information, see [Using Service-Linked Roles for Amazon
-  /// ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
+  /// For more information, see
+  /// [Using Service-Linked Roles for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// If your specified role has a path other than `/`, then you must either
   /// specify the full role ARN (this is recommended) or prefix the role name
   /// with the path. For example, if a role with the name `bar` has a path of
   /// `/foo/` then you would specify `/foo/bar` as the role name. For more
-  /// information, see [Friendly Names and
-  /// Paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names)
+  /// information, see
+  /// [Friendly Names and Paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names)
   /// in the _IAM User Guide_.
   ///
   /// [deploymentConfiguration]: Optional deployment parameters that control how
@@ -328,8 +325,8 @@ class EcsApi {
   /// [networkConfiguration]: The network configuration for the service. This
   /// parameter is required for task definitions that use the `awsvpc` network
   /// mode to receive their own elastic network interface, and it is not
-  /// supported for other network modes. For more information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// supported for other network modes. For more information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [healthCheckGracePeriodSeconds]: The period of time, in seconds, that the
@@ -397,9 +394,8 @@ class EcsApi {
   /// this prefix do not count against your tags per resource limit.
   ///
   /// [enableEcsManagedTags]: Specifies whether to enable Amazon ECS managed
-  /// tags for the tasks within the service. For more information, see [Tagging
-  /// Your Amazon ECS
-  /// Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
+  /// tags for the tasks within the service. For more information, see
+  /// [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [propagateTags]: Specifies whether to propagate the tags from the task
@@ -432,8 +428,8 @@ class EcsApi {
 
   /// Create a task set in the specified cluster and service. This is used when
   /// a service uses the `EXTERNAL` deployment controller type. For more
-  /// information, see [Amazon ECS Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// information, see
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [service]: The short name or full Amazon Resource Name (ARN) of the
@@ -445,7 +441,7 @@ class EcsApi {
   /// [externalId]: An optional non-unique tag that identifies this task set in
   /// external systems. If the task set is associated with a service discovery
   /// registry, the tasks in this task set will have the
-  /// `ECS\_TASK\_SET\_EXTERNAL\_ID` AWS Cloud Map attribute set to the provided
+  /// `ECS_TASK_SET_EXTERNAL_ID` AWS Cloud Map attribute set to the provided
   /// value.
   ///
   /// [taskDefinition]: The task definition for the tasks in the task set to
@@ -456,12 +452,12 @@ class EcsApi {
   /// Application Load Balancer or a Network Load Balancer.
   ///
   /// [serviceRegistries]: The details of the service discovery registries to
-  /// assign to this task set. For more information, see [Service
-  /// Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+  /// assign to this task set. For more information, see
+  /// [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
   ///
   /// [launchType]: The launch type that new tasks in the task set will use. For
-  /// more information, see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// more information, see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [platformVersion]: The platform version that the tasks in the task set
@@ -571,8 +567,7 @@ class EcsApi {
 
   /// Deletes a specified task set within a service. This is used when a service
   /// uses the `EXTERNAL` deployment controller type. For more information, see
-  /// [Amazon ECS Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -623,7 +618,7 @@ class EcsApi {
   /// namespace, followed by the Region of the container instance, the AWS
   /// account ID of the container instance owner, the `container-instance`
   /// namespace, and then the container instance ID. For example,
-  /// `arn:aws:ecs:region:aws\_account\_id:container-instance/container\_instance\_ID`.
+  /// `arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID`.
   ///
   /// [force]: Forces the deregistration of the container instance. If you have
   /// tasks running on the container instance when you deregister it with the
@@ -768,8 +763,8 @@ class EcsApi {
 
   /// Describes the task sets in the specified cluster and service. This is used
   /// when a service uses the `EXTERNAL` deployment controller type. For more
-  /// information, see [Amazon ECS Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// information, see
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -815,7 +810,7 @@ class EcsApi {
   /// by the Region of the container instance, the AWS account ID of the
   /// container instance owner, the `container-instance` namespace, and then the
   /// container instance ID. For example,
-  /// `arn:aws:ecs:region:aws\_account\_id:container-instance/container\_instance\_ID`.
+  /// `arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID`.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
   /// cluster to which the container instance belongs.
@@ -945,8 +940,8 @@ class EcsApi {
   /// Returns a list of container instances in a specified cluster. You can
   /// filter the results of a `ListContainerInstances` operation with cluster
   /// query language statements inside the `filter` parameter. For more
-  /// information, see [Cluster Query
-  /// Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
+  /// information, see
+  /// [Cluster Query Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -955,8 +950,8 @@ class EcsApi {
   ///
   /// [filter]: You can filter the results of a `ListContainerInstances`
   /// operation with cluster query language statements. For more information,
-  /// see [Cluster Query
-  /// Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
+  /// see
+  /// [Cluster Query Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [nextToken]: The `nextToken` value returned from a previous paginated
@@ -1222,8 +1217,8 @@ class EcsApi {
   ///
   /// If you change the account setting for the root user, the default settings
   /// for all of the IAM users and roles for which no individual account setting
-  /// has been specified are reset. For more information, see [Account
-  /// Settings](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html)
+  /// has been specified are reset. For more information, see
+  /// [Account Settings](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// When `serviceLongArnFormat`, `taskLongArnFormat`, or
@@ -1240,16 +1235,16 @@ class EcsApi {
   /// limit for any new container instances that support the feature is changed.
   /// If `awsvpcTrunking` is enabled, any new container instances that support
   /// the feature are launched have the increased ENI limits available to them.
-  /// For more information, see [Elastic Network Interface
-  /// Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html)
+  /// For more information, see
+  /// [Elastic Network Interface Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// When `containerInsights` is specified, the default setting indicating
   /// whether CloudWatch Container Insights is enabled for your clusters is
   /// changed. If `containerInsights` is enabled, any new clusters that are
   /// created will have Container Insights enabled unless you disable it during
-  /// cluster creation. For more information, see [CloudWatch Container
-  /// Insights](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html)
+  /// cluster creation. For more information, see
+  /// [CloudWatch Container Insights](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [name]: The Amazon ECS resource name for which to modify the account
@@ -1395,27 +1390,27 @@ class EcsApi {
   /// Registers a new task definition from the supplied `family` and
   /// `containerDefinitions`. Optionally, you can add data volumes to your
   /// containers with the `volumes` parameter. For more information about task
-  /// definition parameters and defaults, see [Amazon ECS Task
-  /// Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
+  /// definition parameters and defaults, see
+  /// [Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// You can specify an IAM role for your task with the `taskRoleArn`
   /// parameter. When you specify an IAM role for a task, its containers can
   /// then use the latest versions of the AWS CLI or SDKs to make API requests
   /// to the AWS services that are specified in the IAM policy associated with
-  /// the role. For more information, see [IAM Roles for
-  /// Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
+  /// the role. For more information, see
+  /// [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// You can specify a Docker networking mode for the containers in your task
   /// definition with the `networkMode` parameter. The available network modes
-  /// correspond to those described in [Network
-  /// settings](https://docs.docker.com/engine/reference/run/#/network-settings)
+  /// correspond to those described in
+  /// [Network settings](https://docs.docker.com/engine/reference/run/#/network-settings)
   /// in the Docker run reference. If you specify the `awsvpc` network mode, the
   /// task is allocated an elastic network interface, and you must specify a
   /// NetworkConfiguration when you create a service or run a task with the task
-  /// definition. For more information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// definition. For more information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [family]: You must specify a `family` for a task definition, which allows
@@ -1426,8 +1421,8 @@ class EcsApi {
   /// [taskRoleArn]: The short name or full Amazon Resource Name (ARN) of the
   /// IAM role that containers in this task can assume. All containers in this
   /// task are granted the permissions that are specified in this role. For more
-  /// information, see [IAM Roles for
-  /// Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
+  /// information, see
+  /// [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [executionRoleArn]: The Amazon Resource Name (ARN) of the task execution
@@ -1452,8 +1447,8 @@ class EcsApi {
   /// If the network mode is `awsvpc`, the task is allocated an elastic network
   /// interface, and you must specify a NetworkConfiguration value when you
   /// create a service or run a task with the task definition. For more
-  /// information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///  Currently, only Amazon ECS-optimized AMIs, other Amazon Linux variants
@@ -1469,8 +1464,8 @@ class EcsApi {
   /// definition with Windows containers, you must choose the `<default>`
   /// network mode object.
   ///
-  /// For more information, see [Network
-  /// settings](https://docs.docker.com/engine/reference/run/#network-settings)
+  /// For more information, see
+  /// [Network settings](https://docs.docker.com/engine/reference/run/#network-settings)
   /// in the _Docker run reference_.
   ///
   /// [containerDefinitions]: A list of container definitions in JSON format
@@ -1582,13 +1577,13 @@ class EcsApi {
   /// container instance share the same IPC resources with the host Amazon EC2
   /// instance. If `task` is specified, all containers within the specified task
   /// share the same process namespace. If no value is specified, the default is
-  /// a private namespace. For more information, see [PID
-  /// settings](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
+  /// a private namespace. For more information, see
+  /// [PID settings](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
   /// in the _Docker run reference_.
   ///
   /// If the `host` PID mode is used, be aware that there is a heightened risk
-  /// of undesired process namespace expose. For more information, see [Docker
-  /// security](https://docs.docker.com/engine/security/security/).
+  /// of undesired process namespace expose. For more information, see
+  /// [Docker security](https://docs.docker.com/engine/security/security/).
   ///
   ///
   ///
@@ -1605,18 +1600,18 @@ class EcsApi {
   /// and not shared with other containers in a task or on the container
   /// instance. If no value is specified, then the IPC resource namespace
   /// sharing depends on the Docker daemon setting on the container instance.
-  /// For more information, see [IPC
-  /// settings](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
+  /// For more information, see
+  /// [IPC settings](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
   /// in the _Docker run reference_.
   ///
   /// If the `host` IPC mode is used, be aware that there is a heightened risk
-  /// of undesired IPC namespace expose. For more information, see [Docker
-  /// security](https://docs.docker.com/engine/security/security/).
+  /// of undesired IPC namespace expose. For more information, see
+  /// [Docker security](https://docs.docker.com/engine/security/security/).
   ///
   /// If you are setting namespaced kernel parameters using `systemControls` for
   /// the containers in the task, the following will apply to your IPC resource
-  /// namespace. For more information, see [System
-  /// Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
+  /// namespace. For more information, see
+  /// [System Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// *   For tasks that use the `host` IPC mode, IPC namespace related
@@ -1656,8 +1651,8 @@ class EcsApi {
   ///
   /// You can allow Amazon ECS to place tasks for you, or you can customize how
   /// Amazon ECS places tasks using placement constraints and placement
-  /// strategies. For more information, see [Scheduling
-  /// Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduling_tasks.html)
+  /// strategies. For more information, see
+  /// [Scheduling Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduling_tasks.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// Alternatively, you can use StartTask to use your own scheduler or place
@@ -1731,22 +1726,22 @@ class EcsApi {
   /// You can specify a maximum of five strategy rules per task.
   ///
   /// [launchType]: The launch type on which to run your task. For more
-  /// information, see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// information, see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [platformVersion]: The platform version the task should run. A platform
   /// version is only specified for tasks using the Fargate launch type. If one
   /// is not specified, the `LATEST` platform version is used by default. For
-  /// more information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [networkConfiguration]: The network configuration for the task. This
   /// parameter is required for task definitions that use the `awsvpc` network
   /// mode to receive their own elastic network interface, and it is not
-  /// supported for other network modes. For more information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// supported for other network modes. For more information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [tags]: The metadata that you apply to the task to help you categorize and
@@ -1777,8 +1772,8 @@ class EcsApi {
   /// this prefix do not count against your tags per resource limit.
   ///
   /// [enableEcsManagedTags]: Specifies whether to enable Amazon ECS managed
-  /// tags for the task. For more information, see [Tagging Your Amazon ECS
-  /// Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
+  /// tags for the task. For more information, see
+  /// [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [propagateTags]: Specifies whether to propagate the tags from the task
@@ -1811,8 +1806,8 @@ class EcsApi {
   /// container instance or instances.
   ///
   /// Alternatively, you can use RunTask to place tasks for you. For more
-  /// information, see [Scheduling
-  /// Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduling_tasks.html)
+  /// information, see
+  /// [Scheduling Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduling_tasks.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -1887,8 +1882,8 @@ class EcsApi {
   /// this prefix do not count against your tags per resource limit.
   ///
   /// [enableEcsManagedTags]: Specifies whether to enable Amazon ECS managed
-  /// tags for the task. For more information, see [Tagging Your Amazon ECS
-  /// Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
+  /// tags for the task. For more information, see
+  /// [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [propagateTags]: Specifies whether to propagate the tags from the task
@@ -1920,9 +1915,9 @@ class EcsApi {
   ///
   ///
   /// The default 30-second timeout can be configured on the Amazon ECS
-  /// container agent with the `ECS\_CONTAINER\_STOP_TIMEOUT` variable. For more
-  /// information, see [Amazon ECS Container Agent
-  /// Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
+  /// container agent with the `ECS_CONTAINER_STOP_TIMEOUT` variable. For more
+  /// information, see
+  /// [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -2103,9 +2098,8 @@ class EcsApi {
   ///
   ///  `UpdateContainerAgent` requires the Amazon ECS-optimized AMI or Amazon
   /// Linux with the `ecs-init` service installed and running. For help updating
-  /// the Amazon ECS container agent on other operating systems, see [Manually
-  /// Updating the Amazon ECS Container
-  /// Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html#manually_update_agent)
+  /// the Amazon ECS container agent on other operating systems, see
+  /// [Manually Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html#manually_update_agent)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -2322,8 +2316,8 @@ class EcsApi {
   /// [networkConfiguration]: The network configuration for the service. This
   /// parameter is required for task definitions that use the `awsvpc` network
   /// mode to receive their own elastic network interface, and it is not
-  /// supported for other network modes. For more information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// supported for other network modes. For more information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///
@@ -2336,9 +2330,8 @@ class EcsApi {
   /// [platformVersion]: The platform version on which your tasks in the service
   /// are running. A platform version is only specified for tasks using the
   /// Fargate launch type. If one is not specified, the `LATEST` platform
-  /// version is used by default. For more information, see [AWS Fargate
-  /// Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// version is used by default. For more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [forceNewDeployment]: Whether to force a new deployment of the service.
@@ -2373,9 +2366,8 @@ class EcsApi {
   /// Modifies which task set in a service is the primary task set. Any
   /// parameters that are updated on the primary task set in a service will
   /// transition to the service. This is used when a service uses the `EXTERNAL`
-  /// deployment controller type. For more information, see [Amazon ECS
-  /// Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// deployment controller type. For more information, see
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -2394,9 +2386,8 @@ class EcsApi {
   }
 
   /// Modifies a task set. This is used when a service uses the `EXTERNAL`
-  /// deployment controller type. For more information, see [Amazon ECS
-  /// Deployment
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+  /// deployment controller type. For more information, see
+  /// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// [cluster]: The short name or full Amazon Resource Name (ARN) of the
@@ -2416,6 +2407,7 @@ class EcsApi {
   }
 }
 
+/// An object representing a container instance or task attachment.
 class Attachment {
   /// The unique identifier for the attachment.
   final String id;
@@ -2441,6 +2433,7 @@ class Attachment {
   static Attachment fromJson(Map<String, dynamic> json) => Attachment();
 }
 
+/// An object representing a change in state for a task attachment.
 class AttachmentStateChange {
   /// The Amazon Resource Name (ARN) of the attachment.
   final String attachmentArn;
@@ -2454,6 +2447,11 @@ class AttachmentStateChange {
   });
 }
 
+/// An attribute is a name-value pair associated with an Amazon ECS object.
+/// Attributes enable you to extend the Amazon ECS data model by adding custom
+/// metadata to your resources. For more information, see
+/// [Attributes](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class Attribute {
   /// The name of the attribute. Up to 128 letters (uppercase and lowercase),
   /// numbers, hyphens, underscores, and periods are allowed.
@@ -2482,6 +2480,7 @@ class Attribute {
   static Attribute fromJson(Map<String, dynamic> json) => Attribute();
 }
 
+/// An object representing the networking details for a task or service.
 class AwsVpcConfiguration {
   /// The subnets associated with the task or service. There is a limit of 16
   /// subnets that can be specified per `AwsVpcConfiguration`.
@@ -2514,6 +2513,10 @@ class AwsVpcConfiguration {
       AwsVpcConfiguration();
 }
 
+/// A regional grouping of one or more container instances on which you can run
+/// task requests. Each account receives a default cluster the first time you
+/// use the Amazon ECS service, but you may also create other clusters. Clusters
+/// may contain more than one instance type simultaneously.
 class Cluster {
   /// The Amazon Resource Name (ARN) that identifies the cluster. The ARN
   /// contains the `arn:aws:ecs` namespace, followed by the Region of the
@@ -2611,6 +2614,8 @@ class Cluster {
   static Cluster fromJson(Map<String, dynamic> json) => Cluster();
 }
 
+/// The settings to use when creating a cluster. This parameter is used to
+/// enable CloudWatch Container Insights for a cluster.
 class ClusterSetting {
   /// The name of the cluster setting. The only supported value is
   /// `containerInsights`.
@@ -2631,6 +2636,7 @@ class ClusterSetting {
   static ClusterSetting fromJson(Map<String, dynamic> json) => ClusterSetting();
 }
 
+/// A Docker container that is part of a task.
 class Container {
   /// The Amazon Resource Name (ARN) of the container.
   final String containerArn;
@@ -2702,15 +2708,18 @@ class Container {
   static Container fromJson(Map<String, dynamic> json) => Container();
 }
 
+/// Container definitions are used in task definitions to describe the different
+/// containers that are launched as part of a task.
 class ContainerDefinition {
   /// The name of a container. If you are linking multiple containers together
   /// in a task definition, the `name` of one container can be entered in the
   /// `links` of another container to connect the containers. Up to 255 letters
   /// (uppercase and lowercase), numbers, and hyphens are allowed. This
-  /// parameter maps to `name` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--name` option to
+  /// parameter maps to `name` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--name` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   final String name;
 
@@ -2720,11 +2729,12 @@ class ContainerDefinition {
   /// `_repository-url_/_image_:_tag_`  or  `_repository-url_/_image_@_digest_`
   /// . Up to 255 letters (uppercase and lowercase), numbers, hyphens,
   /// underscores, colons, periods, forward slashes, and number signs are
-  /// allowed. This parameter maps to `Image` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `IMAGE` parameter
-  /// of [docker run](https://docs.docker.com/engine/reference/run/).
+  /// allowed. This parameter maps to `Image` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `IMAGE` parameter of
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// *   When a new task starts, the Amazon ECS container agent pulls the
   /// latest version of the specified image and tag for the container to use.
@@ -2752,11 +2762,12 @@ class ContainerDefinition {
   final RepositoryCredentials repositoryCredentials;
 
   /// The number of `cpu` units reserved for the container. This parameter maps
-  /// to `CpuShares` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--cpu-shares`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// to `CpuShares` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--cpu-shares` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// This field is optional for tasks using the Fargate launch type, and the
   /// only requirement is that the total amount of CPU reserved for all
@@ -2791,8 +2802,8 @@ class ContainerDefinition {
   ///
   /// On Linux container instances, the Docker daemon on the container instance
   /// uses the CPU value to calculate the relative CPU share ratios for running
-  /// containers. For more information, see [CPU share
-  /// constraint](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
+  /// containers. For more information, see
+  /// [CPU share constraint](https://docs.docker.com/engine/reference/run/#cpu-share-constraint)
   /// in the Docker documentation. The minimum valid CPU share value that the
   /// Linux kernel allows is 2. However, the CPU parameter is not required, and
   /// you can use CPU values below 2 in your container definitions. For CPU
@@ -2817,11 +2828,12 @@ class ContainerDefinition {
   /// container attempts to exceed the memory specified here, the container is
   /// killed. The total amount of memory reserved for all containers within a
   /// task must be lower than the task `memory` value, if one is specified. This
-  /// parameter maps to `Memory` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--memory` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// parameter maps to `Memory` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--memory` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// If using the Fargate launch type, this parameter is optional.
   ///
@@ -2843,12 +2855,12 @@ class ContainerDefinition {
   /// more memory when it needs to, up to either the hard limit specified with
   /// the `memory` parameter (if applicable), or all of the available memory on
   /// the container instance, whichever comes first. This parameter maps to
-  /// `MemoryReservation` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the
-  /// `--memory-reservation` option to [docker
-  /// run](https://docs.docker.com/engine/reference/run/).
+  /// `MemoryReservation` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--memory-reservation` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// If a task-level memory value is not specified, you must specify a non-zero
   /// integer for one or both of `memory` or `memoryReservation` in a container
@@ -2874,12 +2886,13 @@ class ContainerDefinition {
   /// the network mode of a task definition is `bridge`. The `name:internalName`
   /// construct is analogous to `name:alias` in Docker links. Up to 255 letters
   /// (uppercase and lowercase), numbers, and hyphens are allowed. For more
-  /// information about linking Docker containers, go to [Legacy container
-  /// links](https://docs.docker.com/network/links/) in the Docker
-  /// documentation. This parameter maps to `Links` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--link` option to
+  /// information about linking Docker containers, go to
+  /// [Legacy container links](https://docs.docker.com/network/links/) in the
+  /// Docker documentation. This parameter maps to `Links` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--link` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///  This parameter is not supported for Windows containers.
@@ -2902,11 +2915,12 @@ class ContainerDefinition {
   /// `localhost`. There is no loopback for port mappings on Windows, so you
   /// cannot access a container's mapped port from the host itself.
   ///
-  /// This parameter maps to `PortBindings` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--publish` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/). If the
+  /// This parameter maps to `PortBindings` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--publish` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). If the
   /// network mode of a task definition is set to `none`, then you can't specify
   /// port mappings. If the network mode of a task definition is set to `host`,
   /// then host ports must either be undefined or they must match the container
@@ -2932,8 +2946,8 @@ class ContainerDefinition {
   /// application that is composed of multiple containers, you should group
   /// containers that are used for a common purpose into components, and
   /// separate the different components into multiple task definitions. For more
-  /// information, see [Application
-  /// Architecture](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html)
+  /// information, see
+  /// [Application Architecture](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/application_architecture.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final bool essential;
 
@@ -2943,32 +2957,35 @@ class ContainerDefinition {
   /// array items instead.
   ///
   /// The entry point that is passed to the container. This parameter maps to
-  /// `Entrypoint` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--entrypoint`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/). For
-  /// more information, see
+  /// `Entrypoint` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--entrypoint` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). For more
+  /// information, see
   /// [https://docs.docker.com/engine/reference/builder/#entrypoint](https://docs.docker.com/engine/reference/builder/#entrypoint).
   final List<String> entryPoint;
 
   /// The command that is passed to the container. This parameter maps to `Cmd`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `COMMAND`
-  /// parameter to [docker run](https://docs.docker.com/engine/reference/run/).
-  /// For more information, see
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `COMMAND` parameter to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). For more
+  /// information, see
   /// [https://docs.docker.com/engine/reference/builder/#cmd](https://docs.docker.com/engine/reference/builder/#cmd).
   /// If there are multiple arguments, each argument should be a separated
   /// string in the array.
   final List<String> command;
 
   /// The environment variables to pass to a container. This parameter maps to
-  /// `Env` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--env` option to
+  /// `Env` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--env` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
@@ -2979,11 +2996,12 @@ class ContainerDefinition {
 
   /// The mount points for data volumes in your container.
   ///
-  /// This parameter maps to `Volumes` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--volume` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// This parameter maps to `Volumes` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--volume` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// Windows containers can mount whole directories on the same drive as
   /// `$env:ProgramData`. Windows containers cannot mount directories on a
@@ -2991,11 +3009,12 @@ class ContainerDefinition {
   final List<MountPoint> mountPoints;
 
   /// Data volumes to mount from another container. This parameter maps to
-  /// `VolumesFrom` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--volumes-from`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// `VolumesFrom` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--volumes-from` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final List<VolumeFrom> volumesFrom;
 
   /// Linux-specific modifications that are applied to the container, such as
@@ -3007,8 +3026,7 @@ class ContainerDefinition {
   final LinuxParameters linuxParameters;
 
   /// The secrets to pass to the container. For more information, see
-  /// [Specifying Sensitive
-  /// Data](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html)
+  /// [Specifying Sensitive Data](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final List<Secret> secrets;
 
@@ -3020,15 +3038,15 @@ class ContainerDefinition {
   /// least version 1.26.0 of the container agent to enable container
   /// dependencies. However, we recommend using the latest container agent
   /// version. For information about checking your agent version and updating to
-  /// the latest version, see [Updating the Amazon ECS Container
-  /// Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
+  /// the latest version, see
+  /// [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
   /// in the _Amazon Elastic Container Service Developer Guide_. If you are
   /// using an Amazon ECS-optimized Linux AMI, your instance needs at least
   /// version 1.26.0-1 of the `ecs-init` package. If your container instances
   /// are launched from version `20190301` or later, then they contain the
   /// required versions of the container agent and `ecs-init`. For more
-  /// information, see [Amazon ECS-optimized Linux
-  /// AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+  /// information, see
+  /// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// This parameter is available for tasks using the Fargate launch type in the
@@ -3048,15 +3066,15 @@ class ContainerDefinition {
   /// least version 1.26.0 of the container agent to enable a container start
   /// timeout value. However, we recommend using the latest container agent
   /// version. For information about checking your agent version and updating to
-  /// the latest version, see [Updating the Amazon ECS Container
-  /// Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
+  /// the latest version, see
+  /// [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
   /// in the _Amazon Elastic Container Service Developer Guide_. If you are
   /// using an Amazon ECS-optimized Linux AMI, your instance needs at least
   /// version 1.26.0-1 of the `ecs-init` package. If your container instances
   /// are launched from version `20190301` or later, then they contain the
   /// required versions of the container agent and `ecs-init`. For more
-  /// information, see [Amazon ECS-optimized Linux
-  /// AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+  /// information, see
+  /// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// This parameter is available for tasks using the Fargate launch type in the
@@ -3072,29 +3090,30 @@ class ContainerDefinition {
   /// later.
   ///
   /// For tasks using the EC2 launch type, the stop timeout value for the
-  /// container takes precedence over the `ECS\_CONTAINER\_STOP_TIMEOUT`
-  /// container agent configuration parameter, if used. Container instances
-  /// require at least version 1.26.0 of the container agent to enable a
-  /// container stop timeout value. However, we recommend using the latest
-  /// container agent version. For information about checking your agent version
-  /// and updating to the latest version, see [Updating the Amazon ECS Container
-  /// Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
+  /// container takes precedence over the `ECS_CONTAINER_STOP_TIMEOUT` container
+  /// agent configuration parameter, if used. Container instances require at
+  /// least version 1.26.0 of the container agent to enable a container stop
+  /// timeout value. However, we recommend using the latest container agent
+  /// version. For information about checking your agent version and updating to
+  /// the latest version, see
+  /// [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
   /// in the _Amazon Elastic Container Service Developer Guide_. If you are
   /// using an Amazon ECS-optimized Linux AMI, your instance needs at least
   /// version 1.26.0-1 of the `ecs-init` package. If your container instances
   /// are launched from version `20190301` or later, then they contain the
   /// required versions of the container agent and `ecs-init`. For more
-  /// information, see [Amazon ECS-optimized Linux
-  /// AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+  /// information, see
+  /// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final int stopTimeout;
 
   /// The hostname to use for your container. This parameter maps to `Hostname`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--hostname`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--hostname` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3103,10 +3122,11 @@ class ContainerDefinition {
   final String hostname;
 
   /// The user name to use inside the container. This parameter maps to `User`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--user` option to
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--user` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   /// You can use the following formats. If specifying a UID or GID, you must
@@ -3131,18 +3151,19 @@ class ContainerDefinition {
   final String user;
 
   /// The working directory in which to run commands inside the container. This
-  /// parameter maps to `WorkingDir` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--workdir` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// parameter maps to `WorkingDir` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--workdir` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final String workingDirectory;
 
   /// When this parameter is true, networking is disabled within the container.
-  /// This parameter maps to `NetworkDisabled` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/).
+  /// This parameter maps to `NetworkDisabled` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/).
   ///
   ///
   ///
@@ -3151,11 +3172,12 @@ class ContainerDefinition {
 
   /// When this parameter is true, the container is given elevated privileges on
   /// the host container instance (similar to the `root` user). This parameter
-  /// maps to `Privileged` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--privileged`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// maps to `Privileged` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--privileged` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3165,11 +3187,11 @@ class ContainerDefinition {
 
   /// When this parameter is true, the container is given read-only access to
   /// its root file system. This parameter maps to `ReadonlyRootfs` in the
-  /// [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--read-only`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--read-only` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3177,10 +3199,11 @@ class ContainerDefinition {
   final bool readonlyRootFilesystem;
 
   /// A list of DNS servers that are presented to the container. This parameter
-  /// maps to `Dns` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--dns` option to
+  /// maps to `Dns` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--dns` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
@@ -3189,11 +3212,12 @@ class ContainerDefinition {
   final List<String> dnsServers;
 
   /// A list of DNS search domains that are presented to the container. This
-  /// parameter maps to `DnsSearch` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--dns-search`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// parameter maps to `DnsSearch` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--dns-search` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3201,12 +3225,12 @@ class ContainerDefinition {
   final List<String> dnsSearchDomains;
 
   /// A list of hostnames and IP address mappings to append to the `/etc/hosts`
-  /// file on the container. This parameter maps to `ExtraHosts` in the [Create
-  /// a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--add-host`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// file on the container. This parameter maps to `ExtraHosts` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--add-host` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3218,18 +3242,18 @@ class ContainerDefinition {
   /// multi-level security systems. This field is not valid for containers in
   /// tasks using the Fargate launch type.
   ///
-  /// This parameter maps to `SecurityOpt` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--security-opt`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// This parameter maps to `SecurityOpt` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--security-opt` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///  The Amazon ECS container agent running on a container instance must
-  /// register with the `ECS\_SELINUX\_CAPABLE=true` or
-  /// `ECS\_APPARMOR\_CAPABLE=true` environment variables before containers
-  /// placed on that instance can use these security options. For more
-  /// information, see [Amazon ECS Container Agent
-  /// Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
+  /// register with the `ECS_SELINUX_CAPABLE=true` or
+  /// `ECS_APPARMOR_CAPABLE=true` environment variables before containers placed
+  /// on that instance can use these security options. For more information, see
+  /// [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// This parameter is not supported for Windows containers.
@@ -3237,27 +3261,30 @@ class ContainerDefinition {
 
   /// When this parameter is `true`, this allows you to deploy containerized
   /// applications that require `stdin` or a `tty` to be allocated. This
-  /// parameter maps to `OpenStdin` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--interactive`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// parameter maps to `OpenStdin` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--interactive` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final bool interactive;
 
   /// When this parameter is `true`, a TTY is allocated. This parameter maps to
-  /// `Tty` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--tty` option to
+  /// `Tty` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--tty` option to
   /// [docker run](https://docs.docker.com/engine/reference/run/).
   final bool pseudoTerminal;
 
   /// A key/value map of labels to add to the container. This parameter maps to
-  /// `Labels` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--label` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/). This
+  /// `Labels` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--label` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). This
   /// parameter requires version 1.18 of the Docker Remote API or greater on
   /// your container instance. To check the Docker Remote API version on your
   /// container instance, log in to your container instance and run the
@@ -3265,16 +3292,17 @@ class ContainerDefinition {
   final Map<String, String> dockerLabels;
 
   /// A list of `ulimits` to set in the container. This parameter maps to
-  /// `Ulimits` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--ulimit` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/). Valid
-  /// naming values are displayed in the Ulimit data type. This parameter
-  /// requires version 1.18 of the Docker Remote API or greater on your
-  /// container instance. To check the Docker Remote API version on your
-  /// container instance, log in to your container instance and run the
-  /// following command: `sudo docker version --format '{{.Server.APIVersion}}'`
+  /// `Ulimits` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--ulimit` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). Valid naming
+  /// values are displayed in the Ulimit data type. This parameter requires
+  /// version 1.18 of the Docker Remote API or greater on your container
+  /// instance. To check the Docker Remote API version on your container
+  /// instance, log in to your container instance and run the following command:
+  /// `sudo docker version --format '{{.Server.APIVersion}}'`
   ///
   ///
   ///
@@ -3283,21 +3311,21 @@ class ContainerDefinition {
 
   /// The log configuration specification for the container.
   ///
-  /// This parameter maps to `LogConfig` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--log-driver`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/). By
-  /// default, containers use the same logging driver that the Docker daemon
-  /// uses. However the container may use a different logging driver than the
-  /// Docker daemon by specifying a log driver with this parameter in the
-  /// container definition. To use a different logging driver for a container,
-  /// the log system must be configured properly on the container instance (or
-  /// on a different log server for remote logging options). For more
-  /// information on the options for different supported log drivers, see
-  /// [Configure logging
-  /// drivers](https://docs.docker.com/engine/admin/logging/overview/) in the
-  /// Docker documentation.
+  /// This parameter maps to `LogConfig` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--log-driver` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). By default,
+  /// containers use the same logging driver that the Docker daemon uses.
+  /// However the container may use a different logging driver than the Docker
+  /// daemon by specifying a log driver with this parameter in the container
+  /// definition. To use a different logging driver for a container, the log
+  /// system must be configured properly on the container instance (or on a
+  /// different log server for remote logging options). For more information on
+  /// the options for different supported log drivers, see
+  /// [Configure logging drivers](https://docs.docker.com/engine/admin/logging/overview/)
+  /// in the Docker documentation.
   ///
   ///  Amazon ECS currently supports a subset of the logging drivers available
   /// to the Docker daemon (shown in the LogConfiguration data type). Additional
@@ -3313,27 +3341,29 @@ class ContainerDefinition {
   ///
   /// The Amazon ECS container agent running on a container instance must
   /// register the logging drivers available on that instance with the
-  /// `ECS\_AVAILABLE\_LOGGING_DRIVERS` environment variable before containers
+  /// `ECS_AVAILABLE_LOGGING_DRIVERS` environment variable before containers
   /// placed on that instance can use these log configuration options. For more
-  /// information, see [Amazon ECS Container Agent
-  /// Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
+  /// information, see
+  /// [Amazon ECS Container Agent Configuration](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-config.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final LogConfiguration logConfiguration;
 
   /// The health check command and associated configuration parameters for the
-  /// container. This parameter maps to `HealthCheck` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `HEALTHCHECK`
-  /// parameter of [docker run](https://docs.docker.com/engine/reference/run/).
+  /// container. This parameter maps to `HealthCheck` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `HEALTHCHECK` parameter of
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   final HealthCheck healthCheck;
 
   /// A list of namespaced kernel parameters to set in the container. This
-  /// parameter maps to `Sysctls` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--sysctl` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// parameter maps to `Sysctls` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--sysctl` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -3398,6 +3428,27 @@ class ContainerDefinition {
       ContainerDefinition();
 }
 
+/// The dependencies defined for container startup and shutdown. A container can
+/// contain multiple dependencies. When a dependency is defined for container
+/// startup, for container shutdown it is reversed.
+///
+/// Your Amazon ECS container instances require at least version 1.26.0 of the
+/// container agent to enable container dependencies. However, we recommend
+/// using the latest container agent version. For information about checking
+/// your agent version and updating to the latest version, see
+/// [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html)
+/// in the _Amazon Elastic Container Service Developer Guide_. If you are using
+/// an Amazon ECS-optimized Linux AMI, your instance needs at least version
+/// 1.26.0-1 of the `ecs-init` package. If your container instances are launched
+/// from version `20190301` or later, then they contain the required versions of
+/// the container agent and `ecs-init`. For more information, see
+/// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
+///
+///
+///
+/// If you are using tasks that use the Fargate launch type, container
+/// dependency parameters are not supported.
 class ContainerDependency {
   /// The name of a container.
   final String containerName;
@@ -3405,19 +3456,18 @@ class ContainerDependency {
   /// The dependency condition of the container. The following are the available
   /// conditions and their behavior:
   ///
-  /// *    `START` \- This condition emulates the behavior of links and volumes
+  /// *    `START` - This condition emulates the behavior of links and volumes
   /// today. It validates that a dependent container is started before
   /// permitting other containers to start.
   ///
-  /// *    `COMPLETE` \- This condition validates that a dependent container
-  /// runs to completion (exits) before permitting other containers to start.
-  /// This can be useful for nonessential containers that run a script and then
-  /// exit.
+  /// *    `COMPLETE` - This condition validates that a dependent container runs
+  /// to completion (exits) before permitting other containers to start. This
+  /// can be useful for nonessential containers that run a script and then exit.
   ///
-  /// *    `SUCCESS` \- This condition is the same as `COMPLETE`, but it also
+  /// *    `SUCCESS` - This condition is the same as `COMPLETE`, but it also
   /// requires that the container exits with a `zero` status.
   ///
-  /// *    `HEALTHY` \- This condition validates that the dependent container
+  /// *    `HEALTHY` - This condition validates that the dependent container
   /// passes its Docker health check before permitting other containers to
   /// start. This requires that the dependent container has health checks
   /// configured. This condition is confirmed only at task startup.
@@ -3431,13 +3481,15 @@ class ContainerDependency {
       ContainerDependency();
 }
 
+/// An EC2 instance that is running the Amazon ECS agent and has been registered
+/// with a cluster.
 class ContainerInstance {
   /// The Amazon Resource Name (ARN) of the container instance. The ARN contains
   /// the `arn:aws:ecs` namespace, followed by the Region of the container
   /// instance, the AWS account ID of the container instance owner, the
   /// `container-instance` namespace, and then the container instance ID. For
   /// example,
-  /// `arn:aws:ecs:region:aws\_account\_id:container-instance/container\_instance\_ID`.
+  /// `arn:aws:ecs:region:aws_account_id:container-instance/container_instance_ID`.
   final String containerInstanceArn;
 
   /// The EC2 instance ID of the container instance.
@@ -3492,8 +3544,8 @@ class ContainerInstance {
   /// The `ACTIVE` status indicates that the container instance can accept
   /// tasks. The `DRAINING` indicates that new tasks are not placed on the
   /// container instance and any service tasks running on the container instance
-  /// are removed if possible. For more information, see [Container Instance
-  /// Draining](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html)
+  /// are removed if possible. For more information, see
+  /// [Container Instance Draining](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-draining.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String status;
 
@@ -3580,6 +3632,10 @@ class ContainerInstance {
       ContainerInstance();
 }
 
+/// The overrides that should be sent to a container. An empty container
+/// override can be passed in. An example of an empty container override would
+/// be `{"containerOverrides": [ ] }`. If a non-empty container override is
+/// specified, the `name` parameter must be included.
 class ContainerOverride {
   /// The name of the container that receives the override. This parameter is
   /// required if any override is specified.
@@ -3630,6 +3686,7 @@ class ContainerOverride {
       ContainerOverride();
 }
 
+/// An object representing a change in state for a container.
 class ContainerStateChange {
   /// The name of the container.
   final String containerName;
@@ -3754,6 +3811,8 @@ class DeleteTaskSetResponse {
       DeleteTaskSetResponse();
 }
 
+/// The details of an Amazon ECS service deployment. This is used only when a
+/// service uses the `ECS` deployment controller type.
 class Deployment {
   /// The ID of the deployment.
   final String id;
@@ -3795,16 +3854,16 @@ class Deployment {
   final DateTime updatedAt;
 
   /// The launch type the tasks in the service are using. For more information,
-  /// see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String launchType;
 
   /// The platform version on which your tasks in the service are running. A
   /// platform version is only specified for tasks using the Fargate launch
   /// type. If one is not specified, the `LATEST` platform version is used by
-  /// default. For more information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// default. For more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String platformVersion;
 
@@ -3828,6 +3887,8 @@ class Deployment {
   static Deployment fromJson(Map<String, dynamic> json) => Deployment();
 }
 
+/// Optional deployment parameters that control how many tasks run during a
+/// deployment and the ordering of stopping and starting tasks.
 class DeploymentConfiguration {
   /// If a service is using the rolling update (`ECS`) deployment type, the
   /// **maximum percent** parameter represents an upper limit on the number of
@@ -3886,6 +3947,9 @@ class DeploymentConfiguration {
       DeploymentConfiguration();
 }
 
+/// The deployment controller to use for the service. For more information, see
+/// [Amazon ECS Deployment Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class DeploymentController {
   /// The deployment controller type to use.
   ///
@@ -4059,6 +4123,7 @@ class DescribeTasksResponse {
       DescribeTasksResponse();
 }
 
+/// An object representing a container instance host device.
 class Device {
   /// The path for the device on the host container instance.
   final String hostPath;
@@ -4094,6 +4159,10 @@ class DiscoverPollEndpointResponse {
       DiscoverPollEndpointResponse();
 }
 
+/// This parameter is specified when you are using Docker volumes. Docker
+/// volumes are only supported when you are using the EC2 launch type. Windows
+/// containers only support the use of the `local` driver. To use bind mounts,
+/// specify a `host` instead.
 class DockerVolumeConfiguration {
   /// The scope for the Docker volume that determines its lifecycle. Docker
   /// volumes that are scoped to a `task` are automatically provisioned when the
@@ -4114,32 +4183,32 @@ class DockerVolumeConfiguration {
   /// driver was installed using the Docker plugin CLI, use `docker plugin ls`
   /// to retrieve the driver name from your container instance. If the driver
   /// was installed using another method, use Docker plugin discovery to
-  /// retrieve the driver name. For more information, see [Docker plugin
-  /// discovery](https://docs.docker.com/engine/extend/plugin_api/#plugin-discovery).
-  /// This parameter maps to `Driver` in the [Create a
-  /// volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `xxdriver` option
-  /// to [docker volume
-  /// create](https://docs.docker.com/engine/reference/commandline/volume_create/).
+  /// retrieve the driver name. For more information, see
+  /// [Docker plugin discovery](https://docs.docker.com/engine/extend/plugin_api/#plugin-discovery).
+  /// This parameter maps to `Driver` in the
+  /// [Create a volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `xxdriver` option to
+  /// [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/).
   final String driver;
 
   /// A map of Docker driver-specific options passed through. This parameter
-  /// maps to `DriverOpts` in the [Create a
-  /// volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `xxopt` option to
-  /// [docker volume
-  /// create](https://docs.docker.com/engine/reference/commandline/volume_create/).
+  /// maps to `DriverOpts` in the
+  /// [Create a volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `xxopt` option to
+  /// [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/).
   final Map<String, String> driverOpts;
 
   /// Custom metadata to add to your Docker volume. This parameter maps to
-  /// `Labels` in the [Create a
-  /// volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `xxlabel` option
-  /// to [docker volume
-  /// create](https://docs.docker.com/engine/reference/commandline/volume_create/).
+  /// `Labels` in the
+  /// [Create a volume](https://docs.docker.com/engine/api/v1.35/#operation/VolumeCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `xxlabel` option to
+  /// [docker volume create](https://docs.docker.com/engine/reference/commandline/volume_create/).
   final Map<String, String> labels;
 
   DockerVolumeConfiguration({
@@ -4153,6 +4222,7 @@ class DockerVolumeConfiguration {
       DockerVolumeConfiguration();
 }
 
+/// A failed resource.
 class Failure {
   /// The Amazon Resource Name (ARN) of the failed resource.
   final String arn;
@@ -4167,6 +4237,8 @@ class Failure {
   static Failure fromJson(Map<String, dynamic> json) => Failure();
 }
 
+/// The FireLens configuration for the container. This is used to specify and
+/// configure a log router for container logs.
 class FirelensConfiguration {
   /// The log router to use. The valid values are `fluentd` or `fluentbit`.
   final String type;
@@ -4186,19 +4258,36 @@ class FirelensConfiguration {
       FirelensConfiguration();
 }
 
+/// An object representing a container health check. Health check parameters
+/// that are specified in a container definition override any Docker health
+/// checks that exist in the container image (such as those specified in a
+/// parent image or from the image's Dockerfile).
+///
+/// The following are notes about container health check support:
+///
+/// *   Container health checks require version 1.17.0 or greater of the Amazon
+/// ECS container agent. For more information, see
+/// [Updating the Amazon ECS Container Agent](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-agent-update.html).
+///
+/// *   Container health checks are supported for Fargate tasks if you are using
+/// platform version 1.1.0 or greater. For more information, see
+/// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html).
+///
+/// *   Container health checks are not supported for tasks that are part of a
+/// service that is configured to use a Classic Load Balancer.
 class HealthCheck {
   /// A string array representing the command that the container runs to
   /// determine if it is healthy. The string array must start with `CMD` to
   /// execute the command arguments directly, or `CMD-SHELL` to run the command
   /// with the container's default shell. For example:
   ///
-  ///  `\[ "CMD-SHELL", "curl -f http://localhost/ || exit 1" \]`
+  ///  `[ "CMD-SHELL", "curl -f http://localhost/ || exit 1" ]`
   ///
   /// An exit code of 0 indicates success, and non-zero exit code indicates
-  /// failure. For more information, see `HealthCheck` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/).
+  /// failure. For more information, see `HealthCheck` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/).
   final List<String> command;
 
   /// The time period in seconds between each health check execution. You may
@@ -4237,6 +4326,8 @@ class HealthCheck {
   static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
 }
 
+/// Hostnames and IP address entries that are added to the `/etc/hosts` file of
+/// a container via the `extraHosts` parameter of its ContainerDefinition.
 class HostEntry {
   /// The hostname to use in the `/etc/hosts` entry.
   final String hostname;
@@ -4251,6 +4342,7 @@ class HostEntry {
   static HostEntry fromJson(Map<String, dynamic> json) => HostEntry();
 }
 
+/// Details on a container instance bind mount host volume.
 class HostVolumeProperties {
   /// When the `host` parameter is used, specify a `sourcePath` to declare the
   /// path on the host container instance that is presented to the container. If
@@ -4273,6 +4365,9 @@ class HostVolumeProperties {
       HostVolumeProperties();
 }
 
+/// Details on a Elastic Inference accelerator. For more information, see
+/// [Working with Amazon Elastic Inference on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class InferenceAccelerator {
   /// The Elastic Inference accelerator device name. The `deviceName` must also
   /// be referenced in a container definition as a ResourceRequirement.
@@ -4289,6 +4384,11 @@ class InferenceAccelerator {
       InferenceAccelerator();
 }
 
+/// Details on an Elastic Inference accelerator task override. This parameter is
+/// used to override the Elastic Inference accelerator specified in the task
+/// definition. For more information, see
+/// [Working with Amazon Elastic Inference on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class InferenceAcceleratorOverride {
   /// The Elastic Inference accelerator device name to override for the task.
   /// This parameter must match a `deviceName` specified in the task definition.
@@ -4305,46 +4405,54 @@ class InferenceAcceleratorOverride {
       InferenceAcceleratorOverride();
 }
 
+/// The Linux capabilities for the container that are added to or dropped from
+/// the default configuration provided by Docker. For more information on the
+/// default capabilities and the non-default available capabilities, see
+/// [Runtime privilege and Linux capabilities](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities)
+/// in the _Docker run reference_. For more detailed information on these Linux
+/// capabilities, see the
+/// [capabilities(7)](http://man7.org/linux/man-pages/man7/capabilities.7.html)
+/// Linux manual page.
 class KernelCapabilities {
   /// The Linux capabilities for the container that have been added to the
   /// default configuration provided by Docker. This parameter maps to `CapAdd`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--cap-add` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--cap-add` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///  If you are using tasks that use the Fargate launch type, the `add`
   /// parameter is not supported.
   ///
-  /// Valid values: `"ALL" | "AUDIT\_CONTROL" | "AUDIT\_WRITE" |
-  /// "BLOCK\_SUSPEND" | "CHOWN" | "DAC\_OVERRIDE" | "DAC\_READ\_SEARCH" |
-  /// "FOWNER" | "FSETID" | "IPC\_LOCK" | "IPC\_OWNER" | "KILL" | "LEASE" |
-  /// "LINUX\_IMMUTABLE" | "MAC\_ADMIN" | "MAC\_OVERRIDE" | "MKNOD" |
-  /// "NET\_ADMIN" | "NET\_BIND\_SERVICE" | "NET\_BROADCAST" | "NET\_RAW" |
-  /// "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS\_ADMIN" | "SYS\_BOOT" |
-  /// "SYS\_CHROOT" | "SYS\_MODULE" | "SYS\_NICE" | "SYS\_PACCT" | "SYS\_PTRACE"
-  /// | "SYS\_RAWIO" | "SYS\_RESOURCE" | "SYS\_TIME" | "SYS\_TTY\_CONFIG" |
-  /// "SYSLOG" | "WAKE_ALARM"`
+  /// Valid values: `"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" |
+  /// "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" |
+  /// "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" |
+  /// "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE"
+  /// | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" |
+  /// "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" |
+  /// "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" |
+  /// "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"`
   final List<String> add;
 
   /// The Linux capabilities for the container that have been removed from the
   /// default configuration provided by Docker. This parameter maps to `CapDrop`
-  /// in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--cap-drop`
-  /// option to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--cap-drop` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
-  /// Valid values: `"ALL" | "AUDIT\_CONTROL" | "AUDIT\_WRITE" |
-  /// "BLOCK\_SUSPEND" | "CHOWN" | "DAC\_OVERRIDE" | "DAC\_READ\_SEARCH" |
-  /// "FOWNER" | "FSETID" | "IPC\_LOCK" | "IPC\_OWNER" | "KILL" | "LEASE" |
-  /// "LINUX\_IMMUTABLE" | "MAC\_ADMIN" | "MAC\_OVERRIDE" | "MKNOD" |
-  /// "NET\_ADMIN" | "NET\_BIND\_SERVICE" | "NET\_BROADCAST" | "NET\_RAW" |
-  /// "SETFCAP" | "SETGID" | "SETPCAP" | "SETUID" | "SYS\_ADMIN" | "SYS\_BOOT" |
-  /// "SYS\_CHROOT" | "SYS\_MODULE" | "SYS\_NICE" | "SYS\_PACCT" | "SYS\_PTRACE"
-  /// | "SYS\_RAWIO" | "SYS\_RESOURCE" | "SYS\_TIME" | "SYS\_TTY\_CONFIG" |
-  /// "SYSLOG" | "WAKE_ALARM"`
+  /// Valid values: `"ALL" | "AUDIT_CONTROL" | "AUDIT_WRITE" | "BLOCK_SUSPEND" |
+  /// "CHOWN" | "DAC_OVERRIDE" | "DAC_READ_SEARCH" | "FOWNER" | "FSETID" |
+  /// "IPC_LOCK" | "IPC_OWNER" | "KILL" | "LEASE" | "LINUX_IMMUTABLE" |
+  /// "MAC_ADMIN" | "MAC_OVERRIDE" | "MKNOD" | "NET_ADMIN" | "NET_BIND_SERVICE"
+  /// | "NET_BROADCAST" | "NET_RAW" | "SETFCAP" | "SETGID" | "SETPCAP" |
+  /// "SETUID" | "SYS_ADMIN" | "SYS_BOOT" | "SYS_CHROOT" | "SYS_MODULE" |
+  /// "SYS_NICE" | "SYS_PACCT" | "SYS_PTRACE" | "SYS_RAWIO" | "SYS_RESOURCE" |
+  /// "SYS_TIME" | "SYS_TTY_CONFIG" | "SYSLOG" | "WAKE_ALARM"`
   final List<String> drop;
 
   KernelCapabilities({
@@ -4355,6 +4463,7 @@ class KernelCapabilities {
       KernelCapabilities();
 }
 
+/// A key-value pair object.
 class KeyValuePair {
   /// The name of the key-value pair. For environment variables, this is the
   /// name of the environment variable.
@@ -4371,6 +4480,8 @@ class KeyValuePair {
   static KeyValuePair fromJson(Map<String, dynamic> json) => KeyValuePair();
 }
 
+/// Linux-specific options that are applied to the container, such as Linux
+/// KernelCapabilities.
 class LinuxParameters {
   /// The Linux capabilities for the container that are added to or dropped from
   /// the default configuration provided by Docker.
@@ -4382,11 +4493,12 @@ class LinuxParameters {
   final KernelCapabilities capabilities;
 
   /// Any host devices to expose to the container. This parameter maps to
-  /// `Devices` in the [Create a
-  /// container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
-  /// section of the [Docker Remote
-  /// API](https://docs.docker.com/engine/api/v1.35/) and the `--device` option
-  /// to [docker run](https://docs.docker.com/engine/reference/run/).
+  /// `Devices` in the
+  /// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+  /// section of the
+  /// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+  /// `--device` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -4395,17 +4507,17 @@ class LinuxParameters {
   final List<Device> devices;
 
   /// Run an `init` process inside the container that forwards signals and reaps
-  /// processes. This parameter maps to the `--init` option to [docker
-  /// run](https://docs.docker.com/engine/reference/run/). This parameter
-  /// requires version 1.25 of the Docker Remote API or greater on your
-  /// container instance. To check the Docker Remote API version on your
+  /// processes. This parameter maps to the `--init` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/). This
+  /// parameter requires version 1.25 of the Docker Remote API or greater on
+  /// your container instance. To check the Docker Remote API version on your
   /// container instance, log in to your container instance and run the
   /// following command: `sudo docker version --format '{{.Server.APIVersion}}'`
   final bool initProcessEnabled;
 
   /// The value for the size (in MiB) of the `/dev/shm` volume. This parameter
-  /// maps to the `--shm-size` option to [docker
-  /// run](https://docs.docker.com/engine/reference/run/).
+  /// maps to the `--shm-size` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -4414,8 +4526,8 @@ class LinuxParameters {
   final int sharedMemorySize;
 
   /// The container path, mount options, and size (in MiB) of the tmpfs mount.
-  /// This parameter maps to the `--tmpfs` option to [docker
-  /// run](https://docs.docker.com/engine/reference/run/).
+  /// This parameter maps to the `--tmpfs` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/).
   ///
   ///
   ///
@@ -4424,9 +4536,9 @@ class LinuxParameters {
   final List<Tmpfs> tmpfs;
 
   /// The total amount of swap memory (in MiB) a container can use. This
-  /// parameter will be translated to the `--memory-swap` option to [docker
-  /// run](https://docs.docker.com/engine/reference/run/) where the value would
-  /// be the sum of the container memory plus the `maxSwap` value.
+  /// parameter will be translated to the `--memory-swap` option to
+  /// [docker run](https://docs.docker.com/engine/reference/run/) where the
+  /// value would be the sum of the container memory plus the `maxSwap` value.
   ///
   /// If a `maxSwap` value of `0` is specified, the container will not use swap.
   /// Accepted values are `0` or any positive integer. If the `maxSwap`
@@ -4629,6 +4741,8 @@ class ListTasksResponse {
       ListTasksResponse();
 }
 
+/// Details on the load balancer or load balancers to use with a service or task
+/// set.
 class LoadBalancer {
   /// The full Amazon Resource Name (ARN) of the Elastic Load Balancing target
   /// group or groups associated with a service or task set.
@@ -4638,15 +4752,14 @@ class LoadBalancer {
   /// Balancer this should be omitted.
   ///
   /// For services using the `ECS` deployment controller, you can specify one or
-  /// multiple target groups. For more information, see [Registering Multiple
-  /// Target Groups with a
-  /// Service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html)
+  /// multiple target groups. For more information, see
+  /// [Registering Multiple Target Groups with a Service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// For services using the `CODE_DEPLOY` deployment controller, you are
   /// required to define two target groups for the load balancer. For more
-  /// information, see [Blue/Green Deployment with
-  /// CodeDeploy](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html)
+  /// information, see
+  /// [Blue/Green Deployment with CodeDeploy](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-type-bluegreen.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///
@@ -4686,6 +4799,7 @@ class LoadBalancer {
   static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
 }
 
+/// Log configuration options to send to a custom log driver for the container.
 class LogConfiguration {
   /// The log driver to use for the container. The valid values listed for this
   /// parameter are log drivers that the Amazon ECS container agent can
@@ -4698,18 +4812,18 @@ class LogConfiguration {
   /// `awslogs`, `fluentd`, `gelf`, `json-file`, `journald`, `logentries`,
   /// `syslog`, and `splunk`.
   ///
-  /// For more information about using the `awslogs` log driver, see [Using the
-  /// awslogs Log
-  /// Driver](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html)
+  /// For more information about using the `awslogs` log driver, see
+  /// [Using the awslogs Log Driver](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///  If you have a custom driver that is not listed above that you would like
   /// to work with the Amazon ECS container agent, you can fork the Amazon ECS
-  /// container agent project that is [available on
-  /// GitHub](https://github.com/aws/amazon-ecs-agent) and customize it to work
-  /// with that driver. We encourage you to submit pull requests for changes
-  /// that you would like to have included. However, Amazon Web Services does
-  /// not currently support running modified copies of this software.
+  /// container agent project that is
+  /// [available on GitHub](https://github.com/aws/amazon-ecs-agent) and
+  /// customize it to work with that driver. We encourage you to submit pull
+  /// requests for changes that you would like to have included. However, Amazon
+  /// Web Services does not currently support running modified copies of this
+  /// software.
   ///
   /// This parameter requires version 1.18 of the Docker Remote API or greater
   /// on your container instance. To check the Docker Remote API version on your
@@ -4736,6 +4850,7 @@ class LogConfiguration {
       LogConfiguration();
 }
 
+/// Details on a volume mount point that is used in a container definition.
 class MountPoint {
   /// The name of the volume to mount. Must be a volume name referenced in the
   /// `name` parameter of task definition `volume`.
@@ -4757,6 +4872,10 @@ class MountPoint {
   static MountPoint fromJson(Map<String, dynamic> json) => MountPoint();
 }
 
+/// Details on the network bindings between a container and its host container
+/// instance. After a task reaches the `RUNNING` status, manual and automatic
+/// host and container port assignments are visible in the `networkBindings`
+/// section of DescribeTasks API responses.
 class NetworkBinding {
   /// The IP address that the container is bound to on the container instance.
   final String bindIP;
@@ -4779,6 +4898,7 @@ class NetworkBinding {
   static NetworkBinding fromJson(Map<String, dynamic> json) => NetworkBinding();
 }
 
+/// An object representing the network configuration for a task or service.
 class NetworkConfiguration {
   /// The VPC subnets and security groups associated with a task.
   ///
@@ -4794,6 +4914,8 @@ class NetworkConfiguration {
       NetworkConfiguration();
 }
 
+/// An object representing the elastic network interface for tasks that use the
+/// `awsvpc` network mode.
 class NetworkInterface {
   /// The attachment ID for the network interface.
   final String attachmentId;
@@ -4813,6 +4935,15 @@ class NetworkInterface {
       NetworkInterface();
 }
 
+/// An object representing a constraint on task placement. For more information,
+/// see
+/// [Task Placement Constraints](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
+///
+///
+///
+/// If you are using the Fargate launch type, task placement constraints are not
+/// supported.
 class PlacementConstraint {
   /// The type of constraint. Use `distinctInstance` to ensure that each task in
   /// a particular group is running on a different container instance. Use
@@ -4821,8 +4952,8 @@ class PlacementConstraint {
 
   /// A cluster query language expression to apply to the constraint. You cannot
   /// specify an expression if the constraint type is `distinctInstance`. For
-  /// more information, see [Cluster Query
-  /// Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
+  /// more information, see
+  /// [Cluster Query Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String expression;
 
@@ -4834,6 +4965,9 @@ class PlacementConstraint {
       PlacementConstraint();
 }
 
+/// The task placement strategy for a task or service. For more information, see
+/// [Task Placement Strategies](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class PlacementStrategy {
   /// The type of placement strategy. The `random` placement strategy randomly
   /// places tasks on available candidates. The `spread` placement strategy
@@ -4861,10 +4995,12 @@ class PlacementStrategy {
       PlacementStrategy();
 }
 
+/// The devices that are available on the container instance. The only supported
+/// device type is a GPU.
 class PlatformDevice {
   /// The ID for the GPU(s) on the container instance. The available GPU IDs can
   /// also be obtained on the container instance in the
-  /// `/var/lib/ecs/gpu/nvidia\_gpu\_info.json` file.
+  /// `/var/lib/ecs/gpu/nvidia_gpu_info.json` file.
   final String id;
 
   /// The type of device that is available on the container instance. The only
@@ -4877,6 +5013,18 @@ class PlatformDevice {
   });
 }
 
+/// Port mappings allow containers to access ports on the host container
+/// instance to send or receive traffic. Port mappings are specified as part of
+/// the container definition.
+///
+/// If you are using containers in a task with the `awsvpc` or `host` network
+/// mode, exposed ports should be specified using `containerPort`. The
+/// `hostPort` can be left blank or it must be the same value as the
+/// `containerPort`.
+///
+/// After a task reaches the `RUNNING` status, manual and automatic host and
+/// container port assignments are visible in the `networkBindings` section of
+/// DescribeTasks API responses.
 class PortMapping {
   /// The port number on the container that is bound to the user-specified or
   /// automatically assigned host port.
@@ -4911,8 +5059,8 @@ class PortMapping {
   /// Docker version.
   ///
   /// The default ephemeral port range for Docker version 1.6.0 and later is
-  /// listed on the instance under `/proc/sys/net/ipv4/ip\_local\_port_range`.
-  /// If this kernel parameter is unavailable, the default ephemeral port range
+  /// listed on the instance under `/proc/sys/net/ipv4/ip_local_port_range`. If
+  /// this kernel parameter is unavailable, the default ephemeral port range
   /// from 49153 through 65535 is used. Do not attempt to specify a host port in
   /// the ephemeral port range as these are reserved for automatic assignment.
   /// In general, ports below 32768 are outside of the ephemeral port range.
@@ -4943,6 +5091,19 @@ class PortMapping {
   static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
 }
 
+/// The configuration details for the App Mesh proxy.
+///
+/// For tasks using the EC2 launch type, the container instances require at
+/// least version 1.26.0 of the container agent and at least version 1.26.0-1 of
+/// the `ecs-init` package to enable a proxy configuration. If your container
+/// instances are launched from the Amazon ECS-optimized AMI version `20190301`
+/// or later, then they contain the required versions of the container agent and
+/// `ecs-init`. For more information, see
+/// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
+///
+/// For tasks using the Fargate launch type, the task or service requires
+/// platform version 1.3.0 or later.
 class ProxyConfiguration {
   /// The proxy type. The only supported value is `APPMESH`.
   final String type;
@@ -4953,31 +5114,31 @@ class ProxyConfiguration {
   /// The set of network configuration parameters to provide the Container
   /// Network Interface (CNI) plugin, specified as key-value pairs.
   ///
-  /// *    `IgnoredUID` \- (Required) The user ID (UID) of the proxy container
-  /// as defined by the `user` parameter in a container definition. This is used
-  /// to ensure the proxy ignores its own traffic. If `IgnoredGID` is specified,
+  /// *    `IgnoredUID` - (Required) The user ID (UID) of the proxy container as
+  /// defined by the `user` parameter in a container definition. This is used to
+  /// ensure the proxy ignores its own traffic. If `IgnoredGID` is specified,
   /// this field can be empty.
   ///
-  /// *    `IgnoredGID` \- (Required) The group ID (GID) of the proxy container
+  /// *    `IgnoredGID` - (Required) The group ID (GID) of the proxy container
   /// as defined by the `user` parameter in a container definition. This is used
   /// to ensure the proxy ignores its own traffic. If `IgnoredUID` is specified,
   /// this field can be empty.
   ///
-  /// *    `AppPorts` \- (Required) The list of ports that the application uses.
+  /// *    `AppPorts` - (Required) The list of ports that the application uses.
   /// Network traffic to these ports is forwarded to the `ProxyIngressPort` and
   /// `ProxyEgressPort`.
   ///
-  /// *    `ProxyIngressPort` \- (Required) Specifies the port that incoming
+  /// *    `ProxyIngressPort` - (Required) Specifies the port that incoming
   /// traffic to the `AppPorts` is directed to.
   ///
-  /// *    `ProxyEgressPort` \- (Required) Specifies the port that outgoing
+  /// *    `ProxyEgressPort` - (Required) Specifies the port that outgoing
   /// traffic from the `AppPorts` is directed to.
   ///
-  /// *    `EgressIgnoredPorts` \- (Required) The egress traffic going to the
+  /// *    `EgressIgnoredPorts` - (Required) The egress traffic going to the
   /// specified ports is ignored and not redirected to the `ProxyEgressPort`. It
   /// can be an empty list.
   ///
-  /// *    `EgressIgnoredIPs` \- (Required) The egress traffic going to the
+  /// *    `EgressIgnoredIPs` - (Required) The egress traffic going to the
   /// specified IP addresses is ignored and not redirected to the
   /// `ProxyEgressPort`. It can be an empty list.
   final List<KeyValuePair> properties;
@@ -5050,6 +5211,7 @@ class RegisterTaskDefinitionResponse {
       RegisterTaskDefinitionResponse();
 }
 
+/// The repository credentials for private registry authentication.
 class RepositoryCredentials {
   /// The Amazon Resource Name (ARN) of the secret containing the private
   /// repository credentials.
@@ -5069,6 +5231,7 @@ class RepositoryCredentials {
       RepositoryCredentials();
 }
 
+/// Describes the resources available for a container instance.
 class Resource {
   /// The name of the resource, such as `CPU`, `MEMORY`, `PORTS`, `PORTS_UDP`,
   /// or a user-defined resource.
@@ -5105,6 +5268,13 @@ class Resource {
   static Resource fromJson(Map<String, dynamic> json) => Resource();
 }
 
+/// The type and amount of a resource to assign to a container. The supported
+/// resource types are GPUs and Elastic Inference accelerators. For more
+/// information, see
+/// [Working with GPUs on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-gpu.html)
+/// or
+/// [Working with Amazon Elastic Inference on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-eia.html)
+/// in the _Amazon Elastic Container Service Developer Guide_
 class ResourceRequirement {
   /// The value for the specified resource type.
   ///
@@ -5145,6 +5315,8 @@ class RunTaskResponse {
       RunTaskResponse();
 }
 
+/// A floating-point percentage of the desired number of tasks to place and keep
+/// running in the task set.
 class Scale {
   /// The value, specified as a percent total of a service's `desiredCount`, to
   /// scale the task set. Accepted values are numbers between 0 and 100.
@@ -5160,6 +5332,19 @@ class Scale {
   static Scale fromJson(Map<String, dynamic> json) => Scale();
 }
 
+/// An object representing the secret to expose to your container. Secrets can
+/// be exposed to a container in the following ways:
+///
+/// *   To inject sensitive data into your containers as environment variables,
+/// use the `secrets` container definition parameter.
+///
+/// *   To reference sensitive information in the log configuration of a
+/// container, use the `secretOptions` container definition parameter.
+///
+///
+/// For more information, see
+/// [Specifying Sensitive Data](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/specifying-sensitive-data.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
 class Secret {
   /// The name of the secret.
   final String name;
@@ -5183,6 +5368,7 @@ class Secret {
   static Secret fromJson(Map<String, dynamic> json) => Secret();
 }
 
+/// Details on a service within a cluster
 class Service {
   /// The ARN that identifies the service. The ARN contains the `arn:aws:ecs`
   /// namespace, followed by the Region of the service, the AWS account ID of
@@ -5205,8 +5391,8 @@ class Service {
   final List<LoadBalancer> loadBalancers;
 
   /// The details of the service discovery registries to assign to this service.
-  /// For more information, see [Service
-  /// Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+  /// For more information, see
+  /// [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
   final List<ServiceRegistry> serviceRegistries;
 
   /// The status of the service. The valid values are `ACTIVE`, `DRAINING`, or
@@ -5226,16 +5412,16 @@ class Service {
 
   /// The launch type on which your service is running. If no value is
   /// specified, it will default to `EC2`. Valid values include `EC2` and
-  /// `FARGATE`. For more information, see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// `FARGATE`. For more information, see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String launchType;
 
   /// The platform version on which to run your service. A platform version is
   /// only specified for tasks using the Fargate launch type. If one is not
   /// specified, the `LATEST` platform version is used by default. For more
-  /// information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String platformVersion;
 
@@ -5340,8 +5526,8 @@ class Service {
   final String createdBy;
 
   /// Specifies whether to enable Amazon ECS managed tags for the tasks in the
-  /// service. For more information, see [Tagging Your Amazon ECS
-  /// Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
+  /// service. For more information, see
+  /// [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final bool enableEcsManagedTags;
 
@@ -5383,6 +5569,7 @@ class Service {
   static Service fromJson(Map<String, dynamic> json) => Service();
 }
 
+/// Details on an event associated with a service.
 class ServiceEvent {
   /// The ID string of the event.
   final String id;
@@ -5401,6 +5588,7 @@ class ServiceEvent {
   static ServiceEvent fromJson(Map<String, dynamic> json) => ServiceEvent();
 }
 
+/// Details of the service registry.
 class ServiceRegistry {
   /// The Amazon Resource Name (ARN) of the service registry. The currently
   /// supported service registry is AWS Cloud Map. For more information, see
@@ -5442,6 +5630,7 @@ class ServiceRegistry {
       ServiceRegistry();
 }
 
+/// The current account setting for a resource.
 class Setting {
   /// The Amazon ECS resource name.
   final String name;
@@ -5524,6 +5713,27 @@ class SubmitTaskStateChangeResponse {
       SubmitTaskStateChangeResponse();
 }
 
+/// A list of namespaced kernel parameters to set in the container. This
+/// parameter maps to `Sysctls` in the
+/// [Create a container](https://docs.docker.com/engine/api/v1.35/#operation/ContainerCreate)
+/// section of the
+/// [Docker Remote API](https://docs.docker.com/engine/api/v1.35/) and the
+/// `--sysctl` option to
+/// [docker run](https://docs.docker.com/engine/reference/run/).
+///
+/// It is not recommended that you specify network-related `systemControls`
+/// parameters for multiple containers in a single task that also uses either
+/// the `awsvpc` or `host` network mode for the following reasons:
+///
+/// *   For tasks that use the `awsvpc` network mode, if you set
+/// `systemControls` for any container, it applies to all containers in the
+/// task. If you set different `systemControls` for multiple containers in a
+/// single task, the container that is started last determines which
+/// `systemControls` take effect.
+///
+/// *   For tasks that use the `host` network mode, the `systemControls`
+/// parameter applies to the container instance's kernel parameter as well as
+/// that of all containers of any tasks running on that container instance.
 class SystemControl {
   /// The namespaced kernel parameter for which to set a `value`.
   final String namespace;
@@ -5538,6 +5748,32 @@ class SystemControl {
   static SystemControl fromJson(Map<String, dynamic> json) => SystemControl();
 }
 
+/// The metadata that you apply to a resource to help you categorize and
+/// organize them. Each tag consists of a key and an optional value, both of
+/// which you define.
+///
+/// The following basic restrictions apply to tags:
+///
+/// *   Maximum number of tags per resource - 50
+///
+/// *   For each resource, each tag key must be unique, and each tag key can
+/// have only one value.
+///
+/// *   Maximum key length - 128 Unicode characters in UTF-8
+///
+/// *   Maximum value length - 256 Unicode characters in UTF-8
+///
+/// *   If your tagging schema is used across multiple services and resources,
+/// remember that other services may have restrictions on allowed characters.
+/// Generally allowed characters are: letters, numbers, and spaces representable
+/// in UTF-8, and the following characters: + - = . _ : / @.
+///
+/// *   Tag keys and values are case-sensitive.
+///
+/// *   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such
+/// as a prefix for either keys or values as it is reserved for AWS use. You
+/// cannot edit or delete tag keys or values with this prefix. Tags with this
+/// prefix do not count against your tags per resource limit.
 class Tag {
   /// One part of a key-value pair that make up a tag. A `key` is a general
   /// label that acts like a category for more specific tag values.
@@ -5560,6 +5796,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Details on a task in a cluster.
 class Task {
   /// The Amazon Resource Name (ARN) of the task.
   final String taskArn;
@@ -5576,12 +5813,12 @@ class Task {
   /// One or more container overrides.
   final TaskOverride overrides;
 
-  /// The last known status of the task. For more information, see [Task
-  /// Lifecycle](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html).
+  /// The last known status of the task. For more information, see
+  /// [Task Lifecycle](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html).
   final String lastStatus;
 
-  /// The desired status of the task. For more information, see [Task
-  /// Lifecycle](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html).
+  /// The desired status of the task. For more information, see
+  /// [Task Lifecycle](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-lifecycle.html).
   final String desiredStatus;
 
   /// The number of CPU units used by the task as expressed in a task
@@ -5701,16 +5938,15 @@ class Task {
   final String group;
 
   /// The launch type on which your task is running. For more information, see
-  /// [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String launchType;
 
   /// The platform version on which your task is running. A platform version is
   /// only specified for tasks using the Fargate launch type. If one is not
   /// specified, the `LATEST` platform version is used by default. For more
-  /// information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String platformVersion;
 
@@ -5801,14 +6037,19 @@ class Task {
   static Task fromJson(Map<String, dynamic> json) => Task();
 }
 
+/// The details of a task definition which describes the container and volume
+/// definitions of an Amazon Elastic Container Service task. You can specify
+/// which Docker images to use, the required resources, and other configurations
+/// related to launching the task definition through an Amazon ECS service or
+/// task.
 class TaskDefinition {
   /// The full Amazon Resource Name (ARN) of the task definition.
   final String taskDefinitionArn;
 
   /// A list of container definitions in JSON format that describe the different
   /// containers that make up your task. For more information about container
-  /// definition parameters and defaults, see [Amazon ECS Task
-  /// Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
+  /// definition parameters and defaults, see
+  /// [Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final List<ContainerDefinition> containerDefinitions;
 
@@ -5821,16 +6062,15 @@ class TaskDefinition {
 
   /// The short name or full Amazon Resource Name (ARN) of the AWS Identity and
   /// Access Management (IAM) role that grants containers in the task permission
-  /// to call AWS APIs on your behalf. For more information, see [Amazon ECS
-  /// Task
-  /// Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_IAM_role.html)
+  /// to call AWS APIs on your behalf. For more information, see
+  /// [Amazon ECS Task Role](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_IAM_role.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// IAM roles for tasks on Windows require that the `-EnableTaskIAMRole`
   /// option is set when you launch the Amazon ECS-optimized Windows AMI. Your
   /// containers must also run some configuration code in order to take
-  /// advantage of the feature. For more information, see [Windows IAM Roles for
-  /// Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/windows_task_IAM_roles.html)
+  /// advantage of the feature. For more information, see
+  /// [Windows IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/windows_task_IAM_roles.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String taskRoleArn;
 
@@ -5858,8 +6098,8 @@ class TaskDefinition {
   /// If the network mode is `awsvpc`, the task is allocated an elastic network
   /// interface, and you must specify a NetworkConfiguration value when you
   /// create a service or run a task with the task definition. For more
-  /// information, see [Task
-  /// Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
+  /// information, see
+  /// [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   ///  Currently, only Amazon ECS-optimized AMIs, other Amazon Linux variants
@@ -5875,8 +6115,8 @@ class TaskDefinition {
   /// definition with Windows containers, you must choose the `<default>`
   /// network mode object.
   ///
-  /// For more information, see [Network
-  /// settings](https://docs.docker.com/engine/reference/run/#network-settings)
+  /// For more information, see
+  /// [Network settings](https://docs.docker.com/engine/reference/run/#network-settings)
   /// in the _Docker run reference_.
   final String networkMode;
 
@@ -5894,8 +6134,7 @@ class TaskDefinition {
   /// `sourcePath` parameters are not supported.
   ///
   /// For more information about volume definition parameters and defaults, see
-  /// [Amazon ECS Task
-  /// Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
+  /// [Amazon ECS Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definitions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final List<Volume> volumes;
 
@@ -5910,9 +6149,8 @@ class TaskDefinition {
   /// not valid if you are using the Fargate launch type for your task.
   final List<TaskDefinitionPlacementConstraint> placementConstraints;
 
-  /// The launch type to use with your task. For more information, see [Amazon
-  /// ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// The launch type to use with your task. For more information, see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final List<String> compatibilities;
 
@@ -5974,13 +6212,13 @@ class TaskDefinition {
   /// instance share the same IPC resources with the host Amazon EC2 instance.
   /// If `task` is specified, all containers within the specified task share the
   /// same process namespace. If no value is specified, the default is a private
-  /// namespace. For more information, see [PID
-  /// settings](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
+  /// namespace. For more information, see
+  /// [PID settings](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
   /// in the _Docker run reference_.
   ///
   /// If the `host` PID mode is used, be aware that there is a heightened risk
-  /// of undesired process namespace expose. For more information, see [Docker
-  /// security](https://docs.docker.com/engine/security/security/).
+  /// of undesired process namespace expose. For more information, see
+  /// [Docker security](https://docs.docker.com/engine/security/security/).
   ///
   ///
   ///
@@ -5997,18 +6235,18 @@ class TaskDefinition {
   /// resources within the containers of a task are private and not shared with
   /// other containers in a task or on the container instance. If no value is
   /// specified, then the IPC resource namespace sharing depends on the Docker
-  /// daemon setting on the container instance. For more information, see [IPC
-  /// settings](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
+  /// daemon setting on the container instance. For more information, see
+  /// [IPC settings](https://docs.docker.com/engine/reference/run/#ipc-settings---ipc)
   /// in the _Docker run reference_.
   ///
   /// If the `host` IPC mode is used, be aware that there is a heightened risk
-  /// of undesired IPC namespace expose. For more information, see [Docker
-  /// security](https://docs.docker.com/engine/security/security/).
+  /// of undesired IPC namespace expose. For more information, see
+  /// [Docker security](https://docs.docker.com/engine/security/security/).
   ///
   /// If you are setting namespaced kernel parameters using `systemControls` for
   /// the containers in the task, the following will apply to your IPC resource
-  /// namespace. For more information, see [System
-  /// Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
+  /// namespace. For more information, see
+  /// [System Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   ///
   /// *   For tasks that use the `host` IPC mode, IPC namespace related
@@ -6031,8 +6269,8 @@ class TaskDefinition {
   /// enable a proxy configuration. If your container instances are launched
   /// from the Amazon ECS-optimized AMI version `20190301` or later, then they
   /// contain the required versions of the container agent and `ecs-init`. For
-  /// more information, see [Amazon ECS-optimized Linux
-  /// AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
+  /// more information, see
+  /// [Amazon ECS-optimized Linux AMI](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final ProxyConfiguration proxyConfiguration;
 
@@ -6059,14 +6297,23 @@ class TaskDefinition {
   static TaskDefinition fromJson(Map<String, dynamic> json) => TaskDefinition();
 }
 
+/// An object representing a constraint on task placement in the task
+/// definition. For more information, see
+/// [Task Placement Constraints](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html)
+/// in the _Amazon Elastic Container Service Developer Guide_.
+///
+///
+///
+/// If you are using the Fargate launch type, task placement constraints are not
+/// supported.
 class TaskDefinitionPlacementConstraint {
   /// The type of constraint. The `MemberOf` constraint restricts selection to
   /// be from a group of valid candidates.
   final String type;
 
   /// A cluster query language expression to apply to the constraint. For more
-  /// information, see [Cluster Query
-  /// Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
+  /// information, see
+  /// [Cluster Query Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String expression;
 
@@ -6079,6 +6326,7 @@ class TaskDefinitionPlacementConstraint {
       TaskDefinitionPlacementConstraint();
 }
 
+/// The overrides associated with a task.
 class TaskOverride {
   /// One or more container overrides sent to a task.
   final List<ContainerOverride> containerOverrides;
@@ -6104,6 +6352,10 @@ class TaskOverride {
   static TaskOverride fromJson(Map<String, dynamic> json) => TaskOverride();
 }
 
+/// Information about a set of Amazon ECS tasks in either an AWS CodeDeploy or
+/// an `EXTERNAL` deployment. An Amazon ECS task set includes details such as
+/// the desired number of tasks, how many tasks are running, and whether the
+/// task set serves production traffic.
 class TaskSet {
   /// The ID of the task set.
   final String id;
@@ -6131,7 +6383,7 @@ class TaskSet {
   ///
   /// If a task set is created for an external deployment and is associated with
   /// a service discovery registry, the `externalId` parameter contains the
-  /// `ECS\_TASK\_SET\_EXTERNAL\_ID` AWS Cloud Map attribute.
+  /// `ECS_TASK_SET_EXTERNAL_ID` AWS Cloud Map attribute.
   final String externalId;
 
   /// The status of the task set. The following describes each state:
@@ -6178,16 +6430,16 @@ class TaskSet {
   final DateTime updatedAt;
 
   /// The launch type the tasks in the task set are using. For more information,
-  /// see [Amazon ECS Launch
-  /// Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
+  /// see
+  /// [Amazon ECS Launch Types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String launchType;
 
   /// The platform version on which the tasks in the task set are running. A
   /// platform version is only specified for tasks using the Fargate launch
   /// type. If one is not specified, the `LATEST` platform version is used by
-  /// default. For more information, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// default. For more information, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String platformVersion;
 
@@ -6198,8 +6450,8 @@ class TaskSet {
   final List<LoadBalancer> loadBalancers;
 
   /// The details of the service discovery registries to assign to this task
-  /// set. For more information, see [Service
-  /// Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+  /// set. For more information, see
+  /// [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
   final List<ServiceRegistry> serviceRegistries;
 
   /// A floating-point percentage of the desired number of tasks to place and
@@ -6254,6 +6506,7 @@ class TaskSet {
   static TaskSet fromJson(Map<String, dynamic> json) => TaskSet();
 }
 
+/// The container path, mount options, and size of the tmpfs mount.
 class Tmpfs {
   /// The absolute file path where the tmpfs volume is to be mounted.
   final String containerPath;
@@ -6268,8 +6521,8 @@ class Tmpfs {
   /// "mand" | "nomand" | "atime" | "noatime" | "diratime" | "nodiratime" |
   /// "bind" | "rbind" | "unbindable" | "runbindable" | "private" | "rprivate" |
   /// "shared" | "rshared" | "slave" | "rslave" | "relatime" | "norelatime" |
-  /// "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" | "nr\_inodes" |
-  /// "nr\_blocks" | "mpol"`
+  /// "strictatime" | "nostrictatime" | "mode" | "uid" | "gid" | "nr_inodes" |
+  /// "nr_blocks" | "mpol"`
   final List<String> mountOptions;
 
   Tmpfs({
@@ -6280,6 +6533,7 @@ class Tmpfs {
   static Tmpfs fromJson(Map<String, dynamic> json) => Tmpfs();
 }
 
+/// The `ulimit` settings to pass to the container.
 class Ulimit {
   /// The `type` of the `ulimit`.
   final String name;
@@ -6373,6 +6627,8 @@ class UpdateTaskSetResponse {
       UpdateTaskSetResponse();
 }
 
+/// The Docker and Amazon ECS container agent version information about a
+/// container instance.
 class VersionInfo {
   /// The version number of the Amazon ECS container agent.
   final String agentVersion;
@@ -6393,6 +6649,11 @@ class VersionInfo {
   static VersionInfo fromJson(Map<String, dynamic> json) => VersionInfo();
 }
 
+/// A data volume used in a task definition. For tasks that use a Docker volume,
+/// specify a `DockerVolumeConfiguration`. For tasks that use a bind mount host
+/// volume, specify a `host` and optional `sourcePath`. For more information,
+/// see
+/// [Using Data Volumes in Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html).
 class Volume {
   /// The name of the volume. Up to 255 letters (uppercase and lowercase),
   /// numbers, and hyphens are allowed. This name is referenced in the
@@ -6411,8 +6672,8 @@ class Volume {
   /// Windows containers can mount whole directories on the same drive as
   /// `$env:ProgramData`. Windows containers cannot mount directories on a
   /// different drive, and mount point cannot be across drives. For example, you
-  /// can mount `C:\\my\\path:C:\\my\\path` and `D:\\:D:\`, but not
-  /// `D:\\my\\path:C:\\my\\path` or `D:\\:C:\\my\\path`.
+  /// can mount `C:mypath:C:mypath` and `D::D:`, but not `D:mypath:C:mypath` or
+  /// `D::C:mypath`.
   final HostVolumeProperties host;
 
   /// This parameter is specified when you are using Docker volumes. Docker
@@ -6429,6 +6690,7 @@ class Volume {
   static Volume fromJson(Map<String, dynamic> json) => Volume();
 }
 
+/// Details on a data volume from another container in the same task definition.
 class VolumeFrom {
   /// The name of another container within the same task definition from which
   /// to mount volumes.

@@ -418,6 +418,8 @@ class FSxApi {
   }
 }
 
+/// The Microsoft AD attributes of the Amazon FSx for Windows File Server file
+/// system.
 class ActiveDirectoryBackupAttributes {
   /// The fully qualified domain name of the self-managed AD directory.
   final String domainName;
@@ -434,6 +436,8 @@ class ActiveDirectoryBackupAttributes {
       ActiveDirectoryBackupAttributes();
 }
 
+/// A backup of an Amazon FSx for Windows File Server file system. You can
+/// create a new file system from a backup to protect against data loss.
 class Backup {
   /// The ID of the backup.
   final String backupId;
@@ -486,6 +490,8 @@ class Backup {
   static Backup fromJson(Map<String, dynamic> json) => Backup();
 }
 
+/// If backup creation fails, this structure contains the details of that
+/// failure.
 class BackupFailureDetails {
   /// A message describing the backup creation failure.
   final String message;
@@ -497,6 +503,7 @@ class BackupFailureDetails {
       BackupFailureDetails();
 }
 
+/// The response object for the `CreateBackup` operation.
 class CreateBackupResponse {
   /// A description of the backup.
   final Backup backup;
@@ -508,6 +515,7 @@ class CreateBackupResponse {
       CreateBackupResponse();
 }
 
+/// The response object for the `CreateFileSystemFromBackup` operation.
 class CreateFileSystemFromBackupResponse {
   /// A description of the file system.
   final FileSystem fileSystem;
@@ -520,6 +528,8 @@ class CreateFileSystemFromBackupResponse {
       CreateFileSystemFromBackupResponse();
 }
 
+/// The Lustre configuration for the file system being created. This value is
+/// required if `FileSystemType` is set to `LUSTRE`.
 class CreateFileSystemLustreConfiguration {
   /// The preferred time to perform weekly maintenance, in the UTC time zone.
   final String weeklyMaintenanceStartTime;
@@ -538,7 +548,7 @@ class CreateFileSystemLustreConfiguration {
   /// specified in ImportPath. You can provide an optional prefix to which new
   /// and changed data is to be exported from your Amazon FSx for Lustre file
   /// system. If an `ExportPath` value is not provided, Amazon FSx sets a
-  /// default export path, `s3://import-bucket/FSxLustre\[creation-timestamp\]`.
+  /// default export path, `s3://import-bucket/FSxLustre[creation-timestamp]`.
   /// The timestamp is in UTC format, for example
   /// `s3://import-bucket/FSxLustre20181105T222312Z`.
   ///
@@ -547,9 +557,9 @@ class CreateFileSystemLustreConfiguration {
   /// `s3://import-bucket`, you get a 1:1 mapping of file system objects to S3
   /// bucket objects. This mapping means that the input data in S3 is
   /// overwritten on export. If you provide a custom prefix in the export path,
-  /// such as `s3://import-bucket/\[custom-optional-prefix\]`, Amazon FSx
-  /// exports the contents of your file system to that export prefix in the
-  /// Amazon S3 bucket.
+  /// such as `s3://import-bucket/[custom-optional-prefix]`, Amazon FSx exports
+  /// the contents of your file system to that export prefix in the Amazon S3
+  /// bucket.
   final String exportPath;
 
   /// (Optional) For files imported from a data repository, this value
@@ -570,6 +580,7 @@ class CreateFileSystemLustreConfiguration {
   });
 }
 
+/// The response object returned after the file system is created.
 class CreateFileSystemResponse {
   /// The configuration of the file system that was created.
   final FileSystem fileSystem;
@@ -581,6 +592,8 @@ class CreateFileSystemResponse {
       CreateFileSystemResponse();
 }
 
+/// The configuration object for the Microsoft Windows file system used in
+/// `CreateFileSystem` and `CreateFileSystemFromBackup` operations.
 class CreateFileSystemWindowsConfiguration {
   /// The ID for an existing AWS Managed Microsoft Active Directory (AD)
   /// instance that the file system should join when it's created.
@@ -625,6 +638,8 @@ class CreateFileSystemWindowsConfiguration {
   });
 }
 
+/// The data repository configuration object for Lustre file systems returned in
+/// the response of the `CreateFileSystem` operation.
 class DataRepositoryConfiguration {
   /// The import path to the Amazon S3 bucket (and optional prefix) that you're
   /// using as the data repository for your FSx for Lustre file system, for
@@ -656,6 +671,7 @@ class DataRepositoryConfiguration {
       DataRepositoryConfiguration();
 }
 
+/// The response object for `DeleteBackup` operation.
 class DeleteBackupResponse {
   /// The ID of the backup deleted.
   final String backupId;
@@ -671,6 +687,7 @@ class DeleteBackupResponse {
       DeleteBackupResponse();
 }
 
+/// The response object for the `DeleteFileSystem` operation.
 class DeleteFileSystemResponse {
   /// The ID of the file system being deleted.
   final String fileSystemId;
@@ -689,6 +706,8 @@ class DeleteFileSystemResponse {
       DeleteFileSystemResponse();
 }
 
+/// The configuration object for the Microsoft Windows file system used in the
+/// `DeleteFileSystem` operation.
 class DeleteFileSystemWindowsConfiguration {
   /// By default, Amazon FSx for Windows takes a final backup on your behalf
   /// when the `DeleteFileSystem` operation is invoked. Doing this helps protect
@@ -705,6 +724,8 @@ class DeleteFileSystemWindowsConfiguration {
   });
 }
 
+/// The response object for the Microsoft Windows file system used in the
+/// `DeleteFileSystem` operation.
 class DeleteFileSystemWindowsResponse {
   /// The ID of the final backup for this file system.
   final String finalBackupId;
@@ -720,6 +741,7 @@ class DeleteFileSystemWindowsResponse {
       DeleteFileSystemWindowsResponse();
 }
 
+/// Response object for `DescribeBackups` operation.
 class DescribeBackupsResponse {
   /// Any array of backups.
   final List<Backup> backups;
@@ -737,6 +759,7 @@ class DescribeBackupsResponse {
       DescribeBackupsResponse();
 }
 
+/// The response object for `DescribeFileSystems` operation.
 class DescribeFileSystemsResponse {
   /// An array of file system descriptions.
   final List<FileSystem> fileSystems;
@@ -754,6 +777,7 @@ class DescribeFileSystemsResponse {
       DescribeFileSystemsResponse();
 }
 
+/// A description of a specific Amazon FSx file system.
 class FileSystem {
   /// The AWS account that created the file system. If the file system was
   /// created by an AWS Identity and Access Management (IAM) user, the AWS
@@ -807,8 +831,8 @@ class FileSystem {
   /// The IDs of the elastic network interface from which a specific file system
   /// is accessible. The elastic network interface is automatically created in
   /// the same VPC that the Amazon FSx file system was created in. For more
-  /// information, see [Elastic Network
-  /// Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html)
+  /// information, see
+  /// [Elastic Network Interfaces](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html)
   /// in the _Amazon EC2 User Guide._
   ///
   /// For an Amazon FSx for Windows File Server file system, you can have one
@@ -827,8 +851,7 @@ class FileSystem {
   final String resourceArn;
 
   /// The tags to associate with the file system. For more information, see
-  /// [Tagging Your Amazon EC2
-  /// Resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
+  /// [Tagging Your Amazon EC2 Resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
   /// in the _Amazon EC2 User Guide_.
   final List<Tag> tags;
 
@@ -858,6 +881,8 @@ class FileSystem {
   static FileSystem fromJson(Map<String, dynamic> json) => FileSystem();
 }
 
+/// A structure providing details of any failures that occur when creating the
+/// file system has failed.
 class FileSystemFailureDetails {
   /// A message describing any failures that occurred during file system
   /// creation.
@@ -870,6 +895,9 @@ class FileSystemFailureDetails {
       FileSystemFailureDetails();
 }
 
+/// A filter used to restrict the results of describe calls. You can use
+/// multiple filters to return results that meet all applied filter
+/// requirements.
 class Filter {
   /// The name for this filter.
   final String name;
@@ -884,6 +912,7 @@ class Filter {
   });
 }
 
+/// The response object for `ListTagsForResource` operation.
 class ListTagsForResourceResponse {
   /// A list of tags on the resource.
   final List<Tag> tags;
@@ -901,6 +930,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// The configuration for the Amazon FSx for Lustre file system.
 class LustreFileSystemConfiguration {
   /// The UTC time that you want to begin your weekly maintenance window.
   final String weeklyMaintenanceStartTime;
@@ -915,6 +945,8 @@ class LustreFileSystemConfiguration {
       LustreFileSystemConfiguration();
 }
 
+/// The configuration of the self-managed Microsoft Active Directory (AD)
+/// directory to which the Windows File Server instance is joined.
 class SelfManagedActiveDirectoryAttributes {
   /// The fully qualified domain name of the self-managed AD directory.
   final String domainName;
@@ -948,6 +980,9 @@ class SelfManagedActiveDirectoryAttributes {
       SelfManagedActiveDirectoryAttributes();
 }
 
+/// The configuration that Amazon FSx uses to join the Windows File Server
+/// instance to your self-managed (including on-premises) Microsoft Active
+/// Directory (AD) directory.
 class SelfManagedActiveDirectoryConfiguration {
   /// The fully qualified domain name of the self-managed AD directory, such as
   /// `corp.example.com`.
@@ -1009,6 +1044,8 @@ class SelfManagedActiveDirectoryConfiguration {
   });
 }
 
+/// The configuration that Amazon FSx uses to join the Windows File Server
+/// instance to the self-managed Microsoft Active Directory (AD) directory.
 class SelfManagedActiveDirectoryConfigurationUpdates {
   /// The user name for the service account on your self-managed AD domain that
   /// Amazon FSx will use to join to your AD domain. This account must have the
@@ -1031,6 +1068,7 @@ class SelfManagedActiveDirectoryConfigurationUpdates {
   });
 }
 
+/// Specifies a key-value pair for a resource tag.
 class Tag {
   /// A value that specifies the `TagKey`, the name of the tag. Tag keys must be
   /// unique for the resource to which they are attached.
@@ -1049,18 +1087,22 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The response object for the `TagResource` operation.
 class TagResourceResponse {
   TagResourceResponse();
   static TagResourceResponse fromJson(Map<String, dynamic> json) =>
       TagResourceResponse();
 }
 
+/// The response object for `UntagResource` action.
 class UntagResourceResponse {
   UntagResourceResponse();
   static UntagResourceResponse fromJson(Map<String, dynamic> json) =>
       UntagResourceResponse();
 }
 
+/// The configuration object for Amazon FSx for Lustre file systems used in the
+/// `UpdateFileSystem` operation.
 class UpdateFileSystemLustreConfiguration {
   /// The preferred time to perform weekly maintenance, in the UTC time zone.
   final String weeklyMaintenanceStartTime;
@@ -1070,6 +1112,7 @@ class UpdateFileSystemLustreConfiguration {
   });
 }
 
+/// The response object for the `UpdateFileSystem` operation.
 class UpdateFileSystemResponse {
   /// A description of the file system that was updated.
   final FileSystem fileSystem;
@@ -1081,6 +1124,10 @@ class UpdateFileSystemResponse {
       UpdateFileSystemResponse();
 }
 
+/// Updates the Microsoft Windows configuration for an existing Amazon FSx for
+/// Windows File Server file system. Amazon FSx overwrites existing properties
+/// with non-null values provided in the request. If you don't specify a
+/// non-null value for a property, that property is not updated.
 class UpdateFileSystemWindowsConfiguration {
   /// The preferred time to perform weekly maintenance, in the UTC time zone.
   final String weeklyMaintenanceStartTime;
@@ -1106,6 +1153,7 @@ class UpdateFileSystemWindowsConfiguration {
   });
 }
 
+/// The configuration for this Microsoft Windows file system.
 class WindowsFileSystemConfiguration {
   /// The ID for an existing Microsoft Active Directory instance that the file
   /// system should join when it's created.

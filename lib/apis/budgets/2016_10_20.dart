@@ -23,16 +23,15 @@ import 'package:meta/meta.dart';
 /// unblended costs, subscriptions, refunds, and RIs. You can create the
 /// following types of budgets:
 ///
-/// *    **Cost budgets** \- Plan how much you want to spend on a service.
+/// *    **Cost budgets** - Plan how much you want to spend on a service.
 ///
-/// *    **Usage budgets** \- Plan how much you want to use one or more
-/// services.
+/// *    **Usage budgets** - Plan how much you want to use one or more services.
 ///
-/// *    **RI utilization budgets** \- Define a utilization threshold, and
+/// *    **RI utilization budgets** - Define a utilization threshold, and
 /// receive alerts when your RI usage falls below that threshold. This lets you
 /// see if your RIs are unused or under-utilized.
 ///
-/// *    **RI coverage budgets** \- Define a coverage threshold, and receive
+/// *    **RI coverage budgets** - Define a coverage threshold, and receive
 /// alerts when the number of your instance hours that are covered by RIs fall
 /// below that threshold. This lets you see how much of your instance usage is
 /// covered by a reservation.
@@ -46,8 +45,8 @@ import 'package:meta/meta.dart';
 ///
 ///
 /// For information about costs that are associated with the AWS Budgets API,
-/// see [AWS Cost Management
-/// Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
+/// see
+/// [AWS Cost Management Pricing](https://aws.amazon.com/aws-cost-management/pricing/).
 class BudgetsApi {
   /// Creates a budget and, if included, notifications and subscribers.
   ///
@@ -348,9 +347,16 @@ class BudgetsApi {
   }
 }
 
+/// Represents the output of the `CreateBudget` operation. The content consists
+/// of the detailed metadata and data file information, and the current status
+/// of the `budget` object.
+///
+/// This is the ARN pattern for a budget:
+///
+///  `arn:aws:budgetservice::AccountId:budget/budgetName`
 class Budget {
   /// The name of a budget. The name must be unique within an account. The `:`
-  /// and `\` characters aren't allowed in `BudgetName`.
+  /// and `` characters aren't allowed in `BudgetName`.
   final String budgetName;
 
   /// The total amount of cost, usage, RI utilization, or RI coverage that you
@@ -465,6 +471,8 @@ class Budget {
   static Budget fromJson(Map<String, dynamic> json) => Budget();
 }
 
+/// A history of the state of a budget at the end of the budget's specified time
+/// period.
 class BudgetPerformanceHistory {
   final String budgetName;
 
@@ -496,6 +504,8 @@ class BudgetPerformanceHistory {
       BudgetPerformanceHistory();
 }
 
+/// The amount of cost or usage that you created the budget for, compared to
+/// your actual costs or usage.
 class BudgetedAndActualAmounts {
   /// The amount of cost or usage that you created the budget for.
   final Spend budgetedAmount;
@@ -515,6 +525,14 @@ class BudgetedAndActualAmounts {
       BudgetedAndActualAmounts();
 }
 
+/// The spend objects that are associated with this budget. The `actualSpend`
+/// tracks how much you've used, cost, usage, or RI units, and the
+/// `forecastedSpend` tracks how much you are predicted to spend if your current
+/// usage remains steady.
+///
+/// For example, if it is the 20th of the month and you have spent `50` dollars
+/// on Amazon EC2, your `actualSpend` is `50 USD`, and your `forecastedSpend` is
+/// `75 USD`.
 class CalculatedSpend {
   /// The amount of cost, usage, or RI units that you have used.
   final Spend actualSpend;
@@ -530,6 +548,11 @@ class CalculatedSpend {
       CalculatedSpend();
 }
 
+/// The types of cost that are included in a `COST` budget, such as tax and
+/// subscriptions.
+///
+///  `USAGE`, `RI_UTILIZATION`, and `RI_COVERAGE` budgets do not have
+/// `CostTypes`.
 class CostTypes {
   /// Specifies whether a budget includes taxes.
   ///
@@ -603,36 +626,42 @@ class CostTypes {
   static CostTypes fromJson(Map<String, dynamic> json) => CostTypes();
 }
 
+///  Response of CreateBudget
 class CreateBudgetResponse {
   CreateBudgetResponse();
   static CreateBudgetResponse fromJson(Map<String, dynamic> json) =>
       CreateBudgetResponse();
 }
 
+///  Response of CreateNotification
 class CreateNotificationResponse {
   CreateNotificationResponse();
   static CreateNotificationResponse fromJson(Map<String, dynamic> json) =>
       CreateNotificationResponse();
 }
 
+///  Response of CreateSubscriber
 class CreateSubscriberResponse {
   CreateSubscriberResponse();
   static CreateSubscriberResponse fromJson(Map<String, dynamic> json) =>
       CreateSubscriberResponse();
 }
 
+///  Response of DeleteBudget
 class DeleteBudgetResponse {
   DeleteBudgetResponse();
   static DeleteBudgetResponse fromJson(Map<String, dynamic> json) =>
       DeleteBudgetResponse();
 }
 
+///  Response of DeleteNotification
 class DeleteNotificationResponse {
   DeleteNotificationResponse();
   static DeleteNotificationResponse fromJson(Map<String, dynamic> json) =>
       DeleteNotificationResponse();
 }
 
+///  Response of DeleteSubscriber
 class DeleteSubscriberResponse {
   DeleteSubscriberResponse();
   static DeleteSubscriberResponse fromJson(Map<String, dynamic> json) =>
@@ -660,6 +689,7 @@ class DescribeBudgetPerformanceHistoryResponse {
       DescribeBudgetPerformanceHistoryResponse();
 }
 
+///  Response of DescribeBudget
 class DescribeBudgetResponse {
   /// The description of the budget.
   final Budget budget;
@@ -671,6 +701,7 @@ class DescribeBudgetResponse {
       DescribeBudgetResponse();
 }
 
+///  Response of DescribeBudgets
 class DescribeBudgetsResponse {
   /// A list of budgets.
   final List<Budget> budgets;
@@ -687,6 +718,7 @@ class DescribeBudgetsResponse {
       DescribeBudgetsResponse();
 }
 
+///  Response of GetNotificationsForBudget
 class DescribeNotificationsForBudgetResponse {
   /// A list of notifications that are associated with a budget.
   final List<Notification> notifications;
@@ -704,6 +736,7 @@ class DescribeNotificationsForBudgetResponse {
       DescribeNotificationsForBudgetResponse();
 }
 
+///  Response of DescribeSubscribersForNotification
 class DescribeSubscribersForNotificationResponse {
   /// A list of subscribers that are associated with a notification.
   final List<Subscriber> subscribers;
@@ -721,6 +754,24 @@ class DescribeSubscribersForNotificationResponse {
       DescribeSubscribersForNotificationResponse();
 }
 
+/// A notification that is associated with a budget. A budget can have up to
+/// five notifications.
+///
+/// Each notification must have at least one subscriber. A notification can have
+/// one SNS subscriber and up to 10 email subscribers, for a total of 11
+/// subscribers.
+///
+/// For example, if you have a budget for 200 dollars and you want to be
+/// notified when you go over 160 dollars, create a notification with the
+/// following parameters:
+///
+/// *   A notificationType of `ACTUAL`
+///
+/// *   A `thresholdType` of `PERCENTAGE`
+///
+/// *   A `comparisonOperator` of `GREATER_THAN`
+///
+/// *   A notification `threshold` of `80`
 class Notification {
   /// Whether the notification is for how much you have spent (`ACTUAL`) or for
   /// how much you're forecasted to spend (`FORECASTED`).
@@ -756,6 +807,8 @@ class Notification {
   static Notification fromJson(Map<String, dynamic> json) => Notification();
 }
 
+/// A notification with subscribers. A notification can have one SNS subscriber
+/// and up to 10 email subscribers, for a total of 11 subscribers.
 class NotificationWithSubscribers {
   /// The notification that is associated with a budget.
   final Notification notification;
@@ -769,6 +822,14 @@ class NotificationWithSubscribers {
   });
 }
 
+/// The amount of cost or usage that is measured for a budget.
+///
+/// For example, a `Spend` for `3 GB` of S3 usage would have the following
+/// parameters:
+///
+/// *   An `Amount` of `3`
+///
+/// *   A `unit` of `GB`
 class Spend {
   /// The cost or usage amount that is associated with a budget forecast, actual
   /// spend, or budget threshold.
@@ -785,6 +846,14 @@ class Spend {
   static Spend fromJson(Map<String, dynamic> json) => Spend();
 }
 
+/// The subscriber to a budget notification. The subscriber consists of a
+/// subscription type and either an Amazon SNS topic or an email address.
+///
+/// For example, an email subscriber would have the following parameters:
+///
+/// *   A `subscriptionType` of `EMAIL`
+///
+/// *   An `address` of `example@example.com`
 class Subscriber {
   /// The type of notification that AWS sends to a subscriber.
   final String subscriptionType;
@@ -803,6 +872,9 @@ class Subscriber {
   static Subscriber fromJson(Map<String, dynamic> json) => Subscriber();
 }
 
+/// The period of time that is covered by a budget. The period has a start date
+/// and an end date. The start date must come before the end date. There are no
+/// restrictions on the end date.
 class TimePeriod {
   /// The start date for a budget. If you created your budget and didn't specify
   /// a start date, AWS defaults to the start of your chosen time period (DAILY,
@@ -831,18 +903,21 @@ class TimePeriod {
   static TimePeriod fromJson(Map<String, dynamic> json) => TimePeriod();
 }
 
+///  Response of UpdateBudget
 class UpdateBudgetResponse {
   UpdateBudgetResponse();
   static UpdateBudgetResponse fromJson(Map<String, dynamic> json) =>
       UpdateBudgetResponse();
 }
 
+///  Response of UpdateNotification
 class UpdateNotificationResponse {
   UpdateNotificationResponse();
   static UpdateNotificationResponse fromJson(Map<String, dynamic> json) =>
       UpdateNotificationResponse();
 }
 
+///  Response of UpdateSubscriber
 class UpdateSubscriberResponse {
   UpdateSubscriberResponse();
   static UpdateSubscriberResponse fromJson(Map<String, dynamic> json) =>

@@ -79,6 +79,9 @@ class GetRecommendationsResponse {
       GetRecommendationsResponse();
 }
 
+/// An object that identifies an item.
+///
+/// The and APIs return a list of `PredictedItem`s.
 class PredictedItem {
   /// The recommended item ID.
   final String itemId;

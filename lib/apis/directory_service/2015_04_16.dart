@@ -7,10 +7,9 @@ import 'package:meta/meta.dart';
 /// existing on-premises Microsoft Active Directory. This guide provides
 /// detailed information about AWS Directory Service operations, data types,
 /// parameters, and errors. For information about AWS Directory Services
-/// features, see [AWS Directory
-/// Service](https://aws.amazon.com/directoryservice/) and the [AWS Directory
-/// Service Administration
-/// Guide](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html).
+/// features, see
+/// [AWS Directory Service](https://aws.amazon.com/directoryservice/) and the
+/// [AWS Directory Service Administration Guide](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/what_is.html).
 ///
 ///
 ///
@@ -18,8 +17,8 @@ import 'package:meta/meta.dart';
 /// programming languages and platforms (Java, Ruby, .Net, iOS, Android, etc.).
 /// The SDKs provide a convenient way to create programmatic access to AWS
 /// Directory Service and other AWS services. For more information about the AWS
-/// SDKs, including how to download and install them, see [Tools for Amazon Web
-/// Services](http://aws.amazon.com/tools/).
+/// SDKs, including how to download and install them, see
+/// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 class DirectoryServiceApi {
   /// Accepts a directory sharing request that was sent from the directory owner
   /// account.
@@ -41,9 +40,8 @@ class DirectoryServiceApi {
   ///
   /// Before you call _AddIpRoutes_, ensure that all of the required permissions
   /// have been explicitly granted through a policy. For details about what
-  /// permissions are required to run the _AddIpRoutes_ operation, see [AWS
-  /// Directory Service API Permissions: Actions, Resources, and Conditions
-  /// Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
+  /// permissions are required to run the _AddIpRoutes_ operation, see
+  /// [AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
   ///
   /// [directoryId]: Identifier (ID) of the directory to which to add the
   /// address block.
@@ -144,9 +142,8 @@ class DirectoryServiceApi {
   /// Before you call `ConnectDirectory`, ensure that all of the required
   /// permissions have been explicitly granted through a policy. For details
   /// about what permissions are required to run the `ConnectDirectory`
-  /// operation, see [AWS Directory Service API Permissions: Actions, Resources,
-  /// and Conditions
-  /// Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
+  /// operation, see
+  /// [AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
   ///
   /// [name]: The fully qualified name of the on-premises directory, such as
   /// `corp.example.com`.
@@ -247,9 +244,8 @@ class DirectoryServiceApi {
   /// Before you call `CreateDirectory`, ensure that all of the required
   /// permissions have been explicitly granted through a policy. For details
   /// about what permissions are required to run the `CreateDirectory`
-  /// operation, see [AWS Directory Service API Permissions: Actions, Resources,
-  /// and Conditions
-  /// Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
+  /// operation, see
+  /// [AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
   ///
   /// [name]: The fully qualified name for the directory, such as
   /// `corp.example.com`.
@@ -299,9 +295,8 @@ class DirectoryServiceApi {
   /// Before you call _CreateMicrosoftAD_, ensure that all of the required
   /// permissions have been explicitly granted through a policy. For details
   /// about what permissions are required to run the _CreateMicrosoftAD_
-  /// operation, see [AWS Directory Service API Permissions: Actions, Resources,
-  /// and Conditions
-  /// Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
+  /// operation, see
+  /// [AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
   ///
   /// [name]: The fully qualified domain name for the directory, such as
   /// `corp.example.com`. This name will resolve inside your VPC only. It does
@@ -411,9 +406,8 @@ class DirectoryServiceApi {
   /// Before you call `DeleteDirectory`, ensure that all of the required
   /// permissions have been explicitly granted through a policy. For details
   /// about what permissions are required to run the `DeleteDirectory`
-  /// operation, see [AWS Directory Service API Permissions: Actions, Resources,
-  /// and Conditions
-  /// Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
+  /// operation, see
+  /// [AWS Directory Service API Permissions: Actions, Resources, and Conditions Reference](http://docs.aws.amazon.com/directoryservice/latest/admin-guide/UsingWithDS_IAM_ResourcePermissions.html).
   ///
   /// [directoryId]: The identifier of the directory to delete.
   Future<DeleteDirectoryResult> deleteDirectory(String directoryId) async {
@@ -904,8 +898,8 @@ class DirectoryServiceApi {
   ///
   /// [ldifContent]: The LDIF file represented as a string. To construct the
   /// LdifContent string, precede each line as it would be formatted in an ldif
-  /// file with \\n. See the example request below for more details. The file
-  /// size can be no larger than 1MB.
+  /// file with n. See the example request below for more details. The file size
+  /// can be no larger than 1MB.
   ///
   /// [description]: A description of the schema extension.
   Future<StartSchemaExtensionResult> startSchemaExtension(
@@ -1025,6 +1019,7 @@ class AddTagsToResourceResult {
       AddTagsToResourceResult();
 }
 
+/// Represents a named directory attribute.
 class Attribute {
   /// The name of the attribute.
   final String name;
@@ -1045,6 +1040,7 @@ class CancelSchemaExtensionResult {
       CancelSchemaExtensionResult();
 }
 
+/// Contains information about a computer account in a directory.
 class Computer {
   /// The identifier of the computer.
   final String computerId;
@@ -1064,6 +1060,9 @@ class Computer {
   static Computer fromJson(Map<String, dynamic> json) => Computer();
 }
 
+/// Points to a remote domain with which you are setting up a trust
+/// relationship. Conditional forwarders are required in order to set up a trust
+/// relationship with another domain.
 class ConditionalForwarder {
   /// The fully qualified domain name (FQDN) of the remote domains pointed to by
   /// the conditional forwarder.
@@ -1088,6 +1087,7 @@ class ConditionalForwarder {
       ConditionalForwarder();
 }
 
+/// Contains the results of the ConnectDirectory operation.
 class ConnectDirectoryResult {
   /// The identifier of the new directory.
   final String directoryId;
@@ -1099,6 +1099,7 @@ class ConnectDirectoryResult {
       ConnectDirectoryResult();
 }
 
+/// Contains the results of the CreateAlias operation.
 class CreateAliasResult {
   /// The identifier of the directory.
   final String directoryId;
@@ -1114,6 +1115,7 @@ class CreateAliasResult {
       CreateAliasResult();
 }
 
+/// Contains the results for the CreateComputer operation.
 class CreateComputerResult {
   /// A Computer object that represents the computer account.
   final Computer computer;
@@ -1125,12 +1127,14 @@ class CreateComputerResult {
       CreateComputerResult();
 }
 
+/// The result of a CreateConditinalForwarder request.
 class CreateConditionalForwarderResult {
   CreateConditionalForwarderResult();
   static CreateConditionalForwarderResult fromJson(Map<String, dynamic> json) =>
       CreateConditionalForwarderResult();
 }
 
+/// Contains the results of the CreateDirectory operation.
 class CreateDirectoryResult {
   /// The identifier of the directory that was created.
   final String directoryId;
@@ -1148,6 +1152,7 @@ class CreateLogSubscriptionResult {
       CreateLogSubscriptionResult();
 }
 
+/// Result of a CreateMicrosoftAD request.
 class CreateMicrosoftADResult {
   /// The identifier of the directory that was created.
   final String directoryId;
@@ -1159,6 +1164,7 @@ class CreateMicrosoftADResult {
       CreateMicrosoftADResult();
 }
 
+/// Contains the results of the CreateSnapshot operation.
 class CreateSnapshotResult {
   /// The identifier of the snapshot that was created.
   final String snapshotId;
@@ -1170,6 +1176,7 @@ class CreateSnapshotResult {
       CreateSnapshotResult();
 }
 
+/// The result of a CreateTrust request.
 class CreateTrustResult {
   /// A unique identifier for the trust relationship that was created.
   final String trustId;
@@ -1181,12 +1188,14 @@ class CreateTrustResult {
       CreateTrustResult();
 }
 
+/// The result of a DeleteConditionalForwarder request.
 class DeleteConditionalForwarderResult {
   DeleteConditionalForwarderResult();
   static DeleteConditionalForwarderResult fromJson(Map<String, dynamic> json) =>
       DeleteConditionalForwarderResult();
 }
 
+/// Contains the results of the DeleteDirectory operation.
 class DeleteDirectoryResult {
   /// The directory identifier.
   final String directoryId;
@@ -1204,6 +1213,7 @@ class DeleteLogSubscriptionResult {
       DeleteLogSubscriptionResult();
 }
 
+/// Contains the results of the DeleteSnapshot operation.
 class DeleteSnapshotResult {
   /// The identifier of the directory snapshot that was deleted.
   final String snapshotId;
@@ -1215,6 +1225,7 @@ class DeleteSnapshotResult {
       DeleteSnapshotResult();
 }
 
+/// The result of a DeleteTrust request.
 class DeleteTrustResult {
   /// The Trust ID of the trust relationship that was deleted.
   final String trustId;
@@ -1226,12 +1237,14 @@ class DeleteTrustResult {
       DeleteTrustResult();
 }
 
+/// The result of a DeregisterEventTopic request.
 class DeregisterEventTopicResult {
   DeregisterEventTopicResult();
   static DeregisterEventTopicResult fromJson(Map<String, dynamic> json) =>
       DeregisterEventTopicResult();
 }
 
+/// The result of a DescribeConditionalForwarder request.
 class DescribeConditionalForwardersResult {
   /// The list of conditional forwarders that have been created.
   final List<ConditionalForwarder> conditionalForwarders;
@@ -1244,6 +1257,7 @@ class DescribeConditionalForwardersResult {
       DescribeConditionalForwardersResult();
 }
 
+/// Contains the results of the DescribeDirectories operation.
 class DescribeDirectoriesResult {
   /// The list of DirectoryDescription objects that were retrieved.
   ///
@@ -1283,6 +1297,7 @@ class DescribeDomainControllersResult {
       DescribeDomainControllersResult();
 }
 
+/// The result of a DescribeEventTopic request.
 class DescribeEventTopicsResult {
   /// A list of SNS topic names that receive status messages from the specified
   /// Directory ID.
@@ -1312,6 +1327,7 @@ class DescribeSharedDirectoriesResult {
       DescribeSharedDirectoriesResult();
 }
 
+/// Contains the results of the DescribeSnapshots operation.
 class DescribeSnapshotsResult {
   /// The list of Snapshot objects that were retrieved.
   ///
@@ -1333,6 +1349,7 @@ class DescribeSnapshotsResult {
       DescribeSnapshotsResult();
 }
 
+/// The result of a DescribeTrust request.
 class DescribeTrustsResult {
   /// The list of Trust objects that were retrieved.
   ///
@@ -1355,6 +1372,8 @@ class DescribeTrustsResult {
       DescribeTrustsResult();
 }
 
+/// Contains information for the ConnectDirectory operation when an AD Connector
+/// directory is being created.
 class DirectoryConnectSettings {
   /// The identifier of the VPC in which the AD Connector is created.
   final String vpcId;
@@ -1386,6 +1405,7 @@ class DirectoryConnectSettings {
   });
 }
 
+/// Contains information about an AD Connector directory.
 class DirectoryConnectSettingsDescription {
   /// The identifier of the VPC that the AD Connector is in.
   final String vpcId;
@@ -1418,6 +1438,7 @@ class DirectoryConnectSettingsDescription {
       DirectoryConnectSettingsDescription();
 }
 
+/// Contains information about an AWS Directory Service directory.
 class DirectoryDescription {
   /// The directory identifier.
   final String directoryId;
@@ -1542,6 +1563,7 @@ class DirectoryDescription {
       DirectoryDescription();
 }
 
+/// Contains directory limit information for a region.
 class DirectoryLimits {
   /// The maximum number of cloud directories allowed in the region.
   final int cloudOnlyDirectoriesLimit;
@@ -1587,6 +1609,8 @@ class DirectoryLimits {
       DirectoryLimits();
 }
 
+/// Contains VPC information for the CreateDirectory or CreateMicrosoftAD
+/// operation.
 class DirectoryVpcSettings {
   /// The identifier of the VPC in which to create the directory.
   final String vpcId;
@@ -1602,6 +1626,7 @@ class DirectoryVpcSettings {
   });
 }
 
+/// Contains information about the directory.
 class DirectoryVpcSettingsDescription {
   /// The identifier of the VPC that the directory is in.
   final String vpcId;
@@ -1625,18 +1650,21 @@ class DirectoryVpcSettingsDescription {
       DirectoryVpcSettingsDescription();
 }
 
+/// Contains the results of the DisableRadius operation.
 class DisableRadiusResult {
   DisableRadiusResult();
   static DisableRadiusResult fromJson(Map<String, dynamic> json) =>
       DisableRadiusResult();
 }
 
+/// Contains the results of the DisableSso operation.
 class DisableSsoResult {
   DisableSsoResult();
   static DisableSsoResult fromJson(Map<String, dynamic> json) =>
       DisableSsoResult();
 }
 
+/// Contains information about the domain controllers for a specified directory.
 class DomainController {
   /// Identifier of the directory where the domain controller resides.
   final String directoryId;
@@ -1684,18 +1712,22 @@ class DomainController {
       DomainController();
 }
 
+/// Contains the results of the EnableRadius operation.
 class EnableRadiusResult {
   EnableRadiusResult();
   static EnableRadiusResult fromJson(Map<String, dynamic> json) =>
       EnableRadiusResult();
 }
 
+/// Contains the results of the EnableSso operation.
 class EnableSsoResult {
   EnableSsoResult();
   static EnableSsoResult fromJson(Map<String, dynamic> json) =>
       EnableSsoResult();
 }
 
+/// Information about SNS topic and AWS Directory Service directory
+/// associations.
 class EventTopic {
   /// The Directory ID of an AWS Directory Service directory that will publish
   /// status messages to an SNS topic.
@@ -1725,6 +1757,7 @@ class EventTopic {
   static EventTopic fromJson(Map<String, dynamic> json) => EventTopic();
 }
 
+/// Contains the results of the GetDirectoryLimits operation.
 class GetDirectoryLimitsResult {
   /// A DirectoryLimits object that contains the directory limits for the
   /// current region.
@@ -1737,6 +1770,7 @@ class GetDirectoryLimitsResult {
       GetDirectoryLimitsResult();
 }
 
+/// Contains the results of the GetSnapshotLimits operation.
 class GetSnapshotLimitsResult {
   /// A SnapshotLimits object that contains the manual snapshot limits for the
   /// specified directory.
@@ -1749,6 +1783,8 @@ class GetSnapshotLimitsResult {
       GetSnapshotLimitsResult();
 }
 
+/// IP address block. This is often the address block of the DNS server used for
+/// your on-premises domain.
 class IpRoute {
   /// IP address block using CIDR format, for example 10.0.0.0/24. This is often
   /// the address block of the DNS server used for your on-premises domain. For
@@ -1765,6 +1801,7 @@ class IpRoute {
   });
 }
 
+/// Information about one or more IP address blocks.
 class IpRouteInfo {
   /// Identifier (ID) of the directory associated with the IP addresses.
   final String directoryId;
@@ -1859,6 +1896,8 @@ class ListTagsForResourceResult {
       ListTagsForResourceResult();
 }
 
+/// Represents a log subscription, which tracks real-time data from a chosen log
+/// group to a specified destination.
 class LogSubscription {
   /// Identifier (ID) of the directory that you want to associate with the log
   /// subscription.
@@ -1879,6 +1918,8 @@ class LogSubscription {
       LogSubscription();
 }
 
+/// Describes the directory owner account details that have been shared to the
+/// directory consumer account.
 class OwnerDirectoryDescription {
   /// Identifier of the AWS Managed Microsoft AD directory in the directory
   /// owner account.
@@ -1911,6 +1952,8 @@ class OwnerDirectoryDescription {
       OwnerDirectoryDescription();
 }
 
+/// Contains information about a Remote Authentication Dial In User Service
+/// (RADIUS) server.
 class RadiusSettings {
   /// An array of strings that contains the IP addresses of the RADIUS server
   /// endpoints, or the IP addresses of your RADIUS server load balancer.
@@ -1953,6 +1996,7 @@ class RadiusSettings {
   static RadiusSettings fromJson(Map<String, dynamic> json) => RadiusSettings();
 }
 
+/// The result of a RegisterEventTopic request.
 class RegisterEventTopicResult {
   RegisterEventTopicResult();
   static RegisterEventTopicResult fromJson(Map<String, dynamic> json) =>
@@ -1988,12 +2032,14 @@ class ResetUserPasswordResult {
       ResetUserPasswordResult();
 }
 
+/// Contains the results of the RestoreFromSnapshot operation.
 class RestoreFromSnapshotResult {
   RestoreFromSnapshotResult();
   static RestoreFromSnapshotResult fromJson(Map<String, dynamic> json) =>
       RestoreFromSnapshotResult();
 }
 
+/// Information about a schema extension.
 class SchemaExtensionInfo {
   /// The identifier of the directory to which the schema extension is applied.
   final String directoryId;
@@ -2042,6 +2088,7 @@ class ShareDirectoryResult {
       ShareDirectoryResult();
 }
 
+/// Identifier that contains details about the directory consumer account.
 class ShareTarget {
   /// Identifier of the directory consumer account.
   final String id;
@@ -2055,6 +2102,8 @@ class ShareTarget {
   });
 }
 
+/// Details about the shared directory in the directory owner account for which
+/// the share request in the directory consumer account has been accepted.
 class SharedDirectory {
   /// Identifier of the directory owner account, which contains the directory
   /// that has been shared to the consumer account.
@@ -2107,6 +2156,7 @@ class SharedDirectory {
       SharedDirectory();
 }
 
+/// Describes a directory snapshot.
 class Snapshot {
   /// The directory identifier.
   final String directoryId;
@@ -2137,6 +2187,7 @@ class Snapshot {
   static Snapshot fromJson(Map<String, dynamic> json) => Snapshot();
 }
 
+/// Contains manual snapshot limit information for a directory.
 class SnapshotLimits {
   /// The maximum number of manual snapshots allowed.
   final int manualSnapshotsLimit;
@@ -2166,17 +2217,18 @@ class StartSchemaExtensionResult {
       StartSchemaExtensionResult();
 }
 
+/// Metadata assigned to a directory consisting of a key-value pair.
 class Tag {
   /// Required name of the tag. The string value can be Unicode characters and
   /// cannot be prefixed with "aws:". The string can contain only the set of
   /// Unicode letters, digits, white-space, '_', '.', '/', '=', '+', '-' (Java
-  /// regex: "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// regex: "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String key;
 
   /// The optional value of the tag. The string value can be Unicode characters.
   /// The string can contain only the set of Unicode letters, digits,
   /// white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String value;
 
   Tag({
@@ -2186,6 +2238,8 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Describes a trust relationship between an AWS Managed Microsoft AD directory
+/// and an external domain.
 class Trust {
   /// The Directory ID of the AWS directory involved in the trust relationship.
   final String directoryId;
@@ -2249,6 +2303,8 @@ class UnshareDirectoryResult {
       UnshareDirectoryResult();
 }
 
+/// Identifier that contains details about the directory consumer account with
+/// whom the directory is being unshared.
 class UnshareTarget {
   /// Identifier of the directory consumer account.
   final String id;
@@ -2262,6 +2318,7 @@ class UnshareTarget {
   });
 }
 
+/// The result of an UpdateConditionalForwarder request.
 class UpdateConditionalForwarderResult {
   UpdateConditionalForwarderResult();
   static UpdateConditionalForwarderResult fromJson(Map<String, dynamic> json) =>
@@ -2275,6 +2332,7 @@ class UpdateNumberOfDomainControllersResult {
       UpdateNumberOfDomainControllersResult();
 }
 
+/// Contains the results of the UpdateRadius operation.
 class UpdateRadiusResult {
   UpdateRadiusResult();
   static UpdateRadiusResult fromJson(Map<String, dynamic> json) =>
@@ -2295,6 +2353,7 @@ class UpdateTrustResult {
       UpdateTrustResult();
 }
 
+/// Result of a VerifyTrust request.
 class VerifyTrustResult {
   /// The unique Trust ID of the trust relationship that was verified.
   final String trustId;

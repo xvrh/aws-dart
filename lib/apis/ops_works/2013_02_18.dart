@@ -8,8 +8,8 @@ import 'package:meta/meta.dart';
 ///
 /// AWS OpsWorks Stacks is an application management service that provides an
 /// integrated experience for overseeing the complete application lifecycle. For
-/// information about this product, go to the [AWS
-/// OpsWorks](http://aws.amazon.com/opsworks/) details page.
+/// information about this product, go to the
+/// [AWS OpsWorks](http://aws.amazon.com/opsworks/) details page.
 ///
 ///  **SDKs and CLI**
 ///
@@ -17,25 +17,25 @@ import 'package:meta/meta.dart';
 /// Command Line Interface (CLI) or by using one of the AWS SDKs to implement
 /// applications in your preferred language. For more information, see:
 ///
-/// *    [AWS
-/// CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
+/// *
+/// [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html)
 ///
-/// *    [AWS SDK for
-/// Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html)
+/// *
+/// [AWS SDK for Java](https://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/com/amazonaws/services/opsworks/AWSOpsWorksClient.html)
 ///
-/// *    [AWS SDK for
-/// .NET](https://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm)
+/// *
+/// [AWS SDK for .NET](https://docs.aws.amazon.com/sdkfornet/latest/apidocs/html/N_Amazon_OpsWorks.htm)
 ///
-/// *    [AWS SDK for PHP
-/// 2](https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html)
+/// *
+/// [AWS SDK for PHP 2](https://docs.aws.amazon.com/aws-sdk-php-2/latest/class-Aws.OpsWorks.OpsWorksClient.html)
 ///
 /// *    [AWS SDK for Ruby](http://docs.aws.amazon.com/sdkforruby/api/)
 ///
-/// *    [AWS SDK for
-/// Node.js](http://aws.amazon.com/documentation/sdkforjavascript/)
+/// *
+/// [AWS SDK for Node.js](http://aws.amazon.com/documentation/sdkforjavascript/)
 ///
-/// *    [AWS SDK for
-/// Python(Boto)](http://docs.pythonboto.org/en/latest/ref/opsworks.html)
+/// *
+/// [AWS SDK for Python(Boto)](http://docs.pythonboto.org/en/latest/ref/opsworks.html)
 ///
 ///
 ///  **Endpoints**
@@ -81,8 +81,8 @@ import 'package:meta/meta.dart';
 /// When you call CreateStack, CloneStack, or UpdateStack we recommend you use
 /// the `ConfigurationManager` parameter to specify the Chef version. The
 /// recommended and default value for Linux stacks is currently 12. Windows
-/// stacks use Chef 12.2. For more information, see [Chef
-/// Versions](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html).
+/// stacks use Chef 12.2. For more information, see
+/// [Chef Versions](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-chef11.html).
 ///
 ///
 ///
@@ -102,8 +102,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an AWS Identity and Access
   /// Management (IAM) user must have a Manage permissions level for the stack
   /// or an attached policy that explicitly grants permissions. For more
-  /// information on user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// information on user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   ///
@@ -116,14 +116,14 @@ class OpsWorksApi {
   /// instance. The volume must first be registered with the stack by calling
   /// RegisterVolume. After you register the volume, you must call UpdateVolume
   /// to specify a mount point before calling `AssignVolume`. For more
-  /// information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [volumeId]: The volume ID.
   ///
@@ -132,14 +132,14 @@ class OpsWorksApi {
 
   /// Associates one of the stack's registered Elastic IP addresses with a
   /// specified instance. The address must first be registered with the stack by
-  /// calling RegisterElasticIp. For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// calling RegisterElasticIp. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
   ///
@@ -150,20 +150,20 @@ class OpsWorksApi {
   /// Attaches an Elastic Load Balancing load balancer to a specified layer. AWS
   /// OpsWorks Stacks does not support Application Load Balancer. You can only
   /// use Classic Load Balancer with AWS OpsWorks Stacks. For more information,
-  /// see [Elastic Load
-  /// Balancing](https://docs.aws.amazon.com/opsworks/latest/userguide/layers-elb.html).
+  /// see
+  /// [Elastic Load Balancing](https://docs.aws.amazon.com/opsworks/latest/userguide/layers-elb.html).
   ///
   ///  You must create the Elastic Load Balancing instance separately, by using
   /// the Elastic Load Balancing console, API, or CLI. For more information, see
-  ///  [Elastic Load Balancing Developer
-  /// Guide](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Welcome.html).
+  ///
+  /// [Elastic Load Balancing Developer Guide](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/Welcome.html).
   ///
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticLoadBalancerName]: The Elastic Load Balancing instance's name.
   ///
@@ -173,22 +173,22 @@ class OpsWorksApi {
       {@required String elasticLoadBalancerName,
       @required String layerId}) async {}
 
-  /// Creates a clone of a specified stack. For more information, see [Clone a
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-cloning.html).
+  /// Creates a clone of a specified stack. For more information, see
+  /// [Clone a Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-cloning.html).
   /// By default, all parameters are set to the values used by the parent stack.
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [sourceStackId]: The source stack ID.
   ///
   /// [name]: The cloned stack name.
   ///
   /// [region]: The cloned stack AWS region, such as "ap-northeast-2". For more
-  /// information about AWS regions, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// information about AWS regions, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   ///
   /// [vpcId]: The ID of the VPC that the cloned stack is to be launched into.
   /// It must be in the specified region. All instances are launched into this
@@ -216,10 +216,9 @@ class OpsWorksApi {
   ///
   ///
   /// For more information about how to use AWS OpsWorks Stacks with a VPC, see
-  /// [Running a Stack in a
-  /// VPC](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-vpc.html).
-  /// For more information about default VPC and EC2 Classic, see [Supported
-  /// Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html).
+  /// [Running a Stack in a VPC](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-vpc.html).
+  /// For more information about default VPC and EC2 Classic, see
+  /// [Supported Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html).
   ///
   /// [attributes]: A list of stack attributes and values as key/value pairs to
   /// be added to the cloned stack.
@@ -230,8 +229,8 @@ class OpsWorksApi {
   /// an existing IAM role. If you create a stack by using the AWS OpsWorks
   /// Stacks console, it creates the role for you. You can obtain an existing
   /// stack's IAM ARN programmatically by calling DescribePermissions. For more
-  /// information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   ///
   ///
@@ -241,8 +240,8 @@ class OpsWorksApi {
   ///
   /// [defaultInstanceProfileArn]: The Amazon Resource Name (ARN) of an IAM
   /// profile that is the default profile for all of the stack's EC2 instances.
-  /// For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [defaultOs]: The stack's operating system, which must be set to one of the
   /// following.
@@ -266,14 +265,13 @@ class OpsWorksApi {
   ///
   /// *   A custom AMI: `Custom`. You specify the custom AMI you want to use
   /// when you create instances. For more information about how to use custom
-  /// AMIs with OpsWorks, see [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// AMIs with OpsWorks, see
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   ///
   /// The default option is the parent stack's operating system. For more
-  /// information about supported operating systems, see [AWS OpsWorks Stacks
-  /// Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// information about supported operating systems, see
+  /// [AWS OpsWorks Stacks Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   ///
   ///
   ///
@@ -294,11 +292,11 @@ class OpsWorksApi {
   ///
   /// *    `Fruits`
   ///
-  /// *    `Greek\_Deities\_and_Titans`
+  /// *    `Greek_Deities_and_Titans`
   ///
-  /// *    `Legendary\_creatures\_from_Japan`
+  /// *    `Legendary_creatures_from_Japan`
   ///
-  /// *    `Planets\_and\_Moons`
+  /// *    `Planets_and_Moons`
   ///
   /// *    `Roman_Deities`
   ///
@@ -313,8 +311,8 @@ class OpsWorksApi {
   /// returns a host name based on the current theme.
   ///
   /// [defaultAvailabilityZone]: The cloned stack's default Availability Zone,
-  /// which must be in the specified region. For more information, see [Regions
-  /// and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// which must be in the specified region. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   /// If you also specify a value for `DefaultSubnetId`, the subnet must be in
   /// the same zone. For more information, see the `VpcId` parameter
   /// description.
@@ -330,11 +328,10 @@ class OpsWorksApi {
   /// to override the corresponding default stack configuration JSON values. The
   /// string should be in the following format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information about custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html)
+  /// For more information about custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html)
   ///
   /// [configurationManager]: The configuration manager. When you clone a stack
   /// we recommend that you use the configuration manager to specify the Chef
@@ -343,8 +340,8 @@ class OpsWorksApi {
   ///
   /// [chefConfiguration]: A `ChefConfiguration` object that specifies whether
   /// to enable Berkshelf and the Berkshelf version on Chef 11.10 stacks. For
-  /// more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [useCustomCookbooks]: Whether to use custom cookbooks.
   ///
@@ -369,26 +366,25 @@ class OpsWorksApi {
   /// are required only for those layers that need custom settings.
   ///
   ///
-  /// For more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// For more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [customCookbooksSource]: Contains the information required to retrieve an
-  /// app or cookbook from a repository. For more information, see [Adding
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
-  /// or [Cookbooks and
-  /// Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
+  /// app or cookbook from a repository. For more information, see
+  /// [Adding Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
+  /// or
+  /// [Cookbooks and Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
   ///
   /// [defaultSshKeyName]: A default Amazon EC2 key pair name. The default value
   /// is none. If you specify a key pair name, AWS OpsWorks installs the public
   /// key on the instance and you can use the private key with an SSH client to
-  /// log in to the instance. For more information, see  [Using SSH to
-  /// Communicate with an
-  /// Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
-  /// and  [Managing SSH
-  /// Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
+  /// log in to the instance. For more information, see
+  /// [Using SSH to Communicate with an Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
+  /// and
+  /// [Managing SSH Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
   /// You can override this setting by specifying a different key pair, or no
-  /// key pair, when you  [create an
-  /// instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
+  /// key pair, when you
+  /// [create an instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
   ///
   /// [clonePermissions]: Whether to clone the source stack's permissions.
   ///
@@ -397,9 +393,8 @@ class OpsWorksApi {
   ///
   /// [defaultRootDeviceType]: The default root device type. This value is used
   /// by default for all instances in the cloned stack, but you can override it
-  /// when you create an instance. For more information, see [Storage for the
-  /// Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// when you create an instance. For more information, see
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   ///
   /// [agentVersion]: The default AWS OpsWorks Stacks agent version. You have
   /// the following options:
@@ -449,14 +444,14 @@ class OpsWorksApi {
     return CloneStackResult.fromJson({});
   }
 
-  /// Creates an app for a specified stack. For more information, see [Creating
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html).
+  /// Creates an app for a specified stack. For more information, see
+  /// [Creating Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -490,8 +485,8 @@ class OpsWorksApi {
   /// [environment]: An array of `EnvironmentVariable` objects that specify
   /// environment variables to be associated with the app. After you deploy the
   /// app, these variables are defined on the associated app server instance.
-  /// For more information, see  [Environment
-  /// Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
+  /// For more information, see
+  /// [Environment Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
   ///
   /// There is no specific limit on the number of environment variables.
   /// However, the size of the associated data structure - which includes the
@@ -520,16 +515,16 @@ class OpsWorksApi {
     return CreateAppResult.fromJson({});
   }
 
-  /// Runs deployment or stack commands. For more information, see [Deploying
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-deploying.html)
-  /// and [Run Stack
-  /// Commands](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-commands.html).
+  /// Runs deployment or stack commands. For more information, see
+  /// [Deploying Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-deploying.html)
+  /// and
+  /// [Run Stack Commands](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-commands.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Deploy or Manage permissions level for the stack, or an attached policy
   /// that explicitly grants permissions. For more information on user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -549,13 +544,12 @@ class OpsWorksApi {
   /// use this parameter to override some corresponding default stack
   /// configuration JSON values. The string should be in the following format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information about custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html)
-  /// and [Overriding Attributes With Custom
-  /// JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
+  /// For more information about custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html)
+  /// and
+  /// [Overriding Attributes With Custom JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
   Future<CreateDeploymentResult> createDeployment(
       {@required String stackId,
       String appId,
@@ -568,14 +562,13 @@ class OpsWorksApi {
   }
 
   /// Creates an instance in a specified stack. For more information, see
-  /// [Adding an Instance to a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
+  /// [Adding an Instance to a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -583,10 +576,9 @@ class OpsWorksApi {
   ///
   /// [instanceType]: The instance type, such as `t2.micro`. For a list of
   /// supported instance types, open the stack in the console, choose
-  /// **Instances**, and choose **\+ Instance**. The **Size** list contains the
-  /// currently supported types. For more information, see [Instance Families
-  /// and
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
+  /// **Instances**, and choose **+ Instance**. The **Size** list contains the
+  /// currently supported types. For more information, see
+  /// [Instance Families and Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
   /// The parameter values that you use to specify the various types are in the
   /// **API Name** column of the **Available Instance Types** table.
   ///
@@ -618,24 +610,23 @@ class OpsWorksApi {
   /// *   A custom AMI: `Custom`.
   ///
   ///
-  /// For more information about the supported operating systems, see [AWS
-  /// OpsWorks Stacks Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// For more information about the supported operating systems, see
+  /// [AWS OpsWorks Stacks Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   ///
   /// The default option is the current Amazon Linux version. If you set this
   /// parameter to `Custom`, you must use the CreateInstance action's AmiId
   /// parameter to specify the custom AMI that you want to use. Block device
   /// mappings are not supported if the value is `Custom`. For more information
-  /// about supported operating systems, see [Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html)For
+  /// about supported operating systems, see
+  /// [Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html)For
   /// more information about how to use custom AMIs with AWS OpsWorks Stacks,
-  /// see [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// see
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   /// [amiId]: A custom AMI ID to be used to create the instance. The AMI should
   /// be based on one of the supported operating systems. For more information,
-  /// see [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// see
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   ///
   ///
@@ -644,8 +635,8 @@ class OpsWorksApi {
   /// [sshKeyName]: The instance's Amazon EC2 key-pair name.
   ///
   /// [availabilityZone]: The instance Availability Zone. For more information,
-  /// see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   ///
   /// [virtualizationType]: The instance's virtualization type, `paravirtual` or
   /// `hvm`.
@@ -658,17 +649,15 @@ class OpsWorksApi {
   /// [architecture]: The instance architecture. The default option is `x86_64`.
   /// Instance types do not necessarily support both architectures. For a list
   /// of the architectures that are supported by the different instance types,
-  /// see [Instance Families and
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
+  /// see
+  /// [Instance Families and Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
   ///
   /// [rootDeviceType]: The instance root device type. For more information, see
-  /// [Storage for the Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   ///
   /// [blockDeviceMappings]: An array of `BlockDeviceMapping` objects that
-  /// specify the instance's block devices. For more information, see [Block
-  /// Device
-  /// Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html).
+  /// specify the instance's block devices. For more information, see
+  /// [Block Device Mapping](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html).
   /// Note that block device mappings are not supported for custom AMIs.
   ///
   /// [installUpdatesOnBoot]: Whether to install operating system and package
@@ -688,9 +677,9 @@ class OpsWorksApi {
   /// [agentVersion]: The default AWS OpsWorks Stacks agent version. You have
   /// the following options:
   ///
-  /// *    `INHERIT` \- Use the stack's default agent version setting.
+  /// *    `INHERIT` - Use the stack's default agent version setting.
   ///
-  /// *    _version_number_ \- Use the specified agent version. This value
+  /// *    _version_number_ - Use the specified agent version. This value
   /// overrides the stack's default setting. To update the agent version, edit
   /// the instance configuration and specify a new version. AWS OpsWorks Stacks
   /// then automatically installs that version on the instance.
@@ -707,13 +696,13 @@ class OpsWorksApi {
   /// `dedicated`, `default`, or `host`. Because there are costs associated with
   /// changes in tenancy options, we recommend that you research tenancy options
   /// before choosing them for your instances. For more information about
-  /// dedicated hosts, see [Dedicated Hosts
-  /// Overview](http://aws.amazon.com/ec2/dedicated-hosts/) and [Amazon EC2
-  /// Dedicated Hosts](http://aws.amazon.com/ec2/dedicated-hosts/). For more
-  /// information about dedicated instances, see [Dedicated
-  /// Instances](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/dedicated-instance.html)
-  /// and [Amazon EC2 Dedicated
-  /// Instances](http://aws.amazon.com/ec2/purchasing-options/dedicated-instances/).
+  /// dedicated hosts, see
+  /// [Dedicated Hosts Overview](http://aws.amazon.com/ec2/dedicated-hosts/) and
+  /// [Amazon EC2 Dedicated Hosts](http://aws.amazon.com/ec2/dedicated-hosts/).
+  /// For more information about dedicated instances, see
+  /// [Dedicated Instances](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/dedicated-instance.html)
+  /// and
+  /// [Amazon EC2 Dedicated Instances](http://aws.amazon.com/ec2/purchasing-options/dedicated-instances/).
   Future<CreateInstanceResult> createInstance(
       {@required String stackId,
       @required List<String> layerIds,
@@ -736,8 +725,8 @@ class OpsWorksApi {
     return CreateInstanceResult.fromJson({});
   }
 
-  /// Creates a layer. For more information, see [How to Create a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-create.html).
+  /// Creates a layer. For more information, see
+  /// [How to Create a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-create.html).
   ///
   ///  You should use **CreateLayer** for noncustom layer types such as PHP App
   /// Server only if the stack does not have an existing layer of that type. A
@@ -749,8 +738,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The layer stack ID.
   ///
@@ -768,8 +757,8 @@ class OpsWorksApi {
   /// and '.'.
   ///
   /// The built-in layers' short names are defined by AWS OpsWorks Stacks. For
-  /// more information, see the [Layer
-  /// Reference](https://docs.aws.amazon.com/opsworks/latest/userguide/layers.html).
+  /// more information, see the
+  /// [Layer Reference](https://docs.aws.amazon.com/opsworks/latest/userguide/layers.html).
   ///
   /// [attributes]: One or more user-defined key-value pairs to be added to the
   /// stack attributes.
@@ -781,13 +770,13 @@ class OpsWorksApi {
   /// options for the layer. For more information, see CloudWatchLogsLogStream.
   ///
   /// [customInstanceProfileArn]: The ARN of an IAM profile to be used for the
-  /// layer's EC2 instances. For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// layer's EC2 instances. For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [customJson]: A JSON-formatted string containing custom stack
   /// configuration and deployment attributes to be installed on the layer's
-  /// instances. For more information, see  [Using Custom
-  /// JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
+  /// instances. For more information, see
+  /// [Using Custom JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
   /// This feature is supported as of version 1.7.42 of the AWS CLI.
   ///
   /// [customSecurityGroupIds]: An array containing the layer custom security
@@ -801,15 +790,15 @@ class OpsWorksApi {
   ///
   /// [enableAutoHealing]: Whether to disable auto healing for the layer.
   ///
-  /// [autoAssignElasticIps]: Whether to automatically assign an [Elastic IP
-  /// address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
-  /// to the layer's instances. For more information, see [How to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// [autoAssignElasticIps]: Whether to automatically assign an
+  /// [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+  /// to the layer's instances. For more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   ///
   /// [autoAssignPublicIps]: For stacks that are running in a VPC, whether to
   /// automatically assign a public IP address to the layer's instances. For
-  /// more information, see [How to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   ///
   /// [customRecipes]: A `LayerCustomRecipes` object that specifies the layer
   /// custom recipes.
@@ -853,19 +842,19 @@ class OpsWorksApi {
     return CreateLayerResult.fromJson({});
   }
 
-  /// Creates a new stack. For more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-edit.html).
+  /// Creates a new stack. For more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-edit.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [name]: The stack name.
   ///
   /// [region]: The stack's AWS region, such as `ap-south-1`. For more
-  /// information about Amazon regions, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// information about Amazon regions, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   ///
   ///
   ///
@@ -912,10 +901,9 @@ class OpsWorksApi {
   ///
   ///
   /// For more information about how to use AWS OpsWorks Stacks with a VPC, see
-  /// [Running a Stack in a
-  /// VPC](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-vpc.html).
-  /// For more information about default VPC and EC2-Classic, see [Supported
-  /// Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html).
+  /// [Running a Stack in a VPC](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-vpc.html).
+  /// For more information about default VPC and EC2-Classic, see
+  /// [Supported Platforms](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-platforms.html).
   ///
   /// [attributes]: One or more user-defined key-value pairs to be added to the
   /// stack attributes.
@@ -923,13 +911,13 @@ class OpsWorksApi {
   /// [serviceRoleArn]: The stack's AWS Identity and Access Management (IAM)
   /// role, which allows AWS OpsWorks Stacks to work with AWS resources on your
   /// behalf. You must set this parameter to the Amazon Resource Name (ARN) for
-  /// an existing IAM role. For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// an existing IAM role. For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [defaultInstanceProfileArn]: The Amazon Resource Name (ARN) of an IAM
   /// profile that is the default profile for all of the stack's EC2 instances.
-  /// For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [defaultOs]: The stack's default operating system, which is installed on
   /// every instance unless you specify a different operating system when you
@@ -953,14 +941,13 @@ class OpsWorksApi {
   /// `Microsoft Windows Server 2012 R2 with SQL Server Web`.
   ///
   /// *   A custom AMI: `Custom`. You specify the custom AMI you want to use
-  /// when you create instances. For more information, see  [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// when you create instances. For more information, see
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   ///
   /// The default option is the current Amazon Linux version. For more
-  /// information about supported operating systems, see [AWS OpsWorks Stacks
-  /// Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// information about supported operating systems, see
+  /// [AWS OpsWorks Stacks Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   ///
   /// [hostnameTheme]: The stack's host name theme, with spaces replaced by
   /// underscores. The theme is used to generate host names for the stack's
@@ -976,11 +963,11 @@ class OpsWorksApi {
   ///
   /// *    `Fruits`
   ///
-  /// *    `Greek\_Deities\_and_Titans`
+  /// *    `Greek_Deities_and_Titans`
   ///
-  /// *    `Legendary\_creatures\_from_Japan`
+  /// *    `Legendary_creatures_from_Japan`
   ///
-  /// *    `Planets\_and\_Moons`
+  /// *    `Planets_and_Moons`
   ///
   /// *    `Roman_Deities`
   ///
@@ -995,10 +982,11 @@ class OpsWorksApi {
   /// returns a host name based on the current theme.
   ///
   /// [defaultAvailabilityZone]: The stack's default Availability Zone, which
-  /// must be in the specified region. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html). If
-  /// you also specify a value for `DefaultSubnetId`, the subnet must be in the
-  /// same zone. For more information, see the `VpcId` parameter description.
+  /// must be in the specified region. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// If you also specify a value for `DefaultSubnetId`, the subnet must be in
+  /// the same zone. For more information, see the `VpcId` parameter
+  /// description.
   ///
   /// [defaultSubnetId]: The stack's default VPC subnet ID. This parameter is
   /// required if you specify a value for the `VpcId` parameter. All instances
@@ -1012,11 +1000,10 @@ class OpsWorksApi {
   /// values or to pass data to recipes. The string should be in the following
   /// format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information about custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
+  /// For more information about custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
   ///
   /// [configurationManager]: The configuration manager. When you create a stack
   /// we recommend that you use the configuration manager to specify the Chef
@@ -1025,8 +1012,8 @@ class OpsWorksApi {
   ///
   /// [chefConfiguration]: A `ChefConfiguration` object that specifies whether
   /// to enable Berkshelf and the Berkshelf version on Chef 11.10 stacks. For
-  /// more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [useCustomCookbooks]: Whether the stack uses custom cookbooks.
   ///
@@ -1051,32 +1038,31 @@ class OpsWorksApi {
   /// need custom settings.
   ///
   ///
-  /// For more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// For more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [customCookbooksSource]: Contains the information required to retrieve an
-  /// app or cookbook from a repository. For more information, see [Adding
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
-  /// or [Cookbooks and
-  /// Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
+  /// app or cookbook from a repository. For more information, see
+  /// [Adding Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
+  /// or
+  /// [Cookbooks and Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
   ///
   /// [defaultSshKeyName]: A default Amazon EC2 key pair name. The default value
   /// is none. If you specify a key pair name, AWS OpsWorks installs the public
   /// key on the instance and you can use the private key with an SSH client to
-  /// log in to the instance. For more information, see  [Using SSH to
-  /// Communicate with an
-  /// Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
-  /// and  [Managing SSH
-  /// Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
+  /// log in to the instance. For more information, see
+  /// [Using SSH to Communicate with an Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
+  /// and
+  /// [Managing SSH Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
   /// You can override this setting by specifying a different key pair, or no
-  /// key pair, when you  [create an
-  /// instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
+  /// key pair, when you
+  /// [create an instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
   ///
   /// [defaultRootDeviceType]: The default root device type. This value is the
   /// default for all instances in the stack, but you can override it when you
   /// create an instance. The default option is `instance-store`. For more
-  /// information, see [Storage for the Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// information, see
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   ///
   /// [agentVersion]: The default AWS OpsWorks Stacks agent version. You have
   /// the following options:
@@ -1128,23 +1114,22 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArn]: The user's IAM ARN; this can also be a federated user's ARN.
   ///
   /// [sshUsername]: The user's SSH user name. The allowable characters are
-  /// \[a-z\], \[A-Z\], \[0-9\], '-', and '_'. If the specified name includes
-  /// other punctuation marks, AWS OpsWorks Stacks removes them. For example,
+  /// [a-z], [A-Z], [0-9], '-', and '_'. If the specified name includes other
+  /// punctuation marks, AWS OpsWorks Stacks removes them. For example,
   /// `my.name` will be changed to `myname`. If you do not specify an SSH user
   /// name, AWS OpsWorks Stacks generates one from the IAM user name.
   ///
   /// [sshPublicKey]: The user's public SSH key.
   ///
   /// [allowSelfManagement]: Whether users can specify their own SSH public key
-  /// through the My Settings page. For more information, see [Setting an IAM
-  /// User's Public SSH
-  /// Key](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
+  /// through the My Settings page. For more information, see
+  /// [Setting an IAM User's Public SSH Key](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
   Future<CreateUserProfileResult> createUserProfile(String iamUserArn,
       {String sshUsername,
       String sshPublicKey,
@@ -1157,8 +1142,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [appId]: The app ID.
   Future<void> deleteApp(String appId) async {}
@@ -1166,14 +1151,14 @@ class OpsWorksApi {
   /// Deletes a specified instance, which terminates the associated Amazon EC2
   /// instance. You must stop an instance before you can delete it.
   ///
-  /// For more information, see [Deleting
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html).
+  /// For more information, see
+  /// [Deleting Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-delete.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   ///
@@ -1185,28 +1170,27 @@ class OpsWorksApi {
 
   /// Deletes a specified layer. You must first stop and then delete all
   /// associated instances or unassign registered instances. For more
-  /// information, see [How to Delete a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-delete.html).
+  /// information, see
+  /// [How to Delete a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-delete.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerId]: The layer ID.
   Future<void> deleteLayer(String layerId) async {}
 
   /// Deletes a specified stack. You must first delete all instances, layers,
   /// and apps or deregister registered instances. For more information, see
-  /// [Shut Down a
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-shutting.html).
+  /// [Shut Down a Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-shutting.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   Future<void> deleteStack(String stackId) async {}
@@ -1215,15 +1199,15 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArn]: The user's IAM ARN. This can also be a federated user's ARN.
   Future<void> deleteUserProfile(String iamUserArn) async {}
 
   /// Deregisters a specified Amazon ECS cluster from a stack. For more
-  /// information, see  [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html#workinglayers-ecscluster-delete).
+  /// information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html#workinglayers-ecscluster-delete).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack or an attached policy that
@@ -1235,14 +1219,14 @@ class OpsWorksApi {
   Future<void> deregisterEcsCluster(String ecsClusterArn) async {}
 
   /// Deregisters a specified Elastic IP address. The address can then be
-  /// registered by another stack. For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// registered by another stack. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
   Future<void> deregisterElasticIp(String elasticIp) async {}
@@ -1255,8 +1239,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   Future<void> deregisterInstance(String instanceId) async {}
@@ -1266,21 +1250,21 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [rdsDbInstanceArn]: The Amazon RDS instance's ARN.
   Future<void> deregisterRdsDbInstance(String rdsDbInstanceArn) async {}
 
   /// Deregisters an Amazon EBS volume. The volume can then be registered by
-  /// another stack. For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// another stack. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [volumeId]: The AWS OpsWorks Stacks volume ID, which is the GUID that AWS
   /// OpsWorks Stacks assigned to the instance when you registered the volume
@@ -1307,8 +1291,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The app stack ID. If you use this parameter, `DescribeApps`
   /// returns a description of the apps in the specified stack.
@@ -1328,8 +1312,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [deploymentId]: The deployment ID. If you include this parameter,
   /// `DescribeCommands` returns a description of the commands associated with
@@ -1354,8 +1338,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID. If you include this parameter, the command
   /// returns a description of the commands associated with the specified stack.
@@ -1380,8 +1364,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack or an attached
   /// policy that explicitly grants permission. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// This call accepts only one resource-identifying parameter.
   ///
@@ -1410,16 +1394,16 @@ class OpsWorksApi {
     return DescribeEcsClustersResult.fromJson({});
   }
 
-  /// Describes [Elastic IP
-  /// addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html).
+  /// Describes
+  /// [Elastic IP addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html).
   ///
   ///  This call accepts only one resource-identifying parameter.
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID. If you include this parameter,
   /// `DescribeElasticIps` returns a description of the Elastic IP addresses
@@ -1445,8 +1429,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: A stack ID. The action describes the stack's Elastic Load
   /// Balancing instances.
@@ -1465,8 +1449,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: A stack ID. If you use this parameter, `DescribeInstances`
   /// returns descriptions of the instances associated with the specified stack.
@@ -1489,8 +1473,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -1509,8 +1493,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerIds]: An array of layer IDs.
   Future<DescribeLoadBasedAutoScalingResult> describeLoadBasedAutoScaling(
@@ -1522,9 +1506,8 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have
   /// self-management enabled or an attached policy that explicitly grants
-  /// permissions. For more information about user permissions, see [Managing
-  /// User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions. For more information about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   Future<DescribeMyUserProfileResult> describeMyUserProfile() async {
     return DescribeMyUserProfileResult.fromJson({});
   }
@@ -1539,12 +1522,12 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArn]: The user's IAM ARN. This can also be a federated user's ARN.
-  /// For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [stackId]: The stack ID.
   Future<DescribePermissionsResult> describePermissions(
@@ -1559,8 +1542,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID. If you use this parameter,
   /// `DescribeRaidArrays` returns descriptions of the RAID arrays associated
@@ -1581,8 +1564,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// This call accepts only one resource-identifying parameter.
   ///
@@ -1601,8 +1584,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// This call accepts only one resource-identifying parameter.
   ///
@@ -1627,8 +1610,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   Future<DescribeStackProvisioningParametersResult>
@@ -1642,8 +1625,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   Future<DescribeStackSummaryResult> describeStackSummary(
@@ -1656,8 +1639,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackIds]: An array of stack IDs that specify the stacks to be described.
   /// If you omit this parameter, `DescribeStacks` returns a description of
@@ -1673,8 +1656,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceIds]: An array of instance IDs.
   Future<DescribeTimeBasedAutoScalingResult> describeTimeBasedAutoScaling(
@@ -1686,8 +1669,8 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArns]: An array of IAM or federated user ARNs that identify the
   /// users to be described.
@@ -1703,8 +1686,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Show, Deploy, or Manage permissions level for the stack, or an attached
   /// policy that explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID. If you use this parameter,
   /// `DescribeVolumes` returns descriptions of the volumes associated with the
@@ -1733,8 +1716,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticLoadBalancerName]: The Elastic Load Balancing instance's name.
   ///
@@ -1745,14 +1728,14 @@ class OpsWorksApi {
       @required String layerId}) async {}
 
   /// Disassociates an Elastic IP address from its instance. The address remains
-  /// registered with the stack. For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// registered with the stack. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
   Future<void> disassociateElasticIp(String elasticIp) async {}
@@ -1763,8 +1746,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerId]: The layer ID.
   Future<GetHostnameSuggestionResult> getHostnameSuggestion(
@@ -1801,29 +1784,28 @@ class OpsWorksApi {
     return ListTagsResult.fromJson({});
   }
 
-  /// Reboots a specified instance. For more information, see [Starting,
-  /// Stopping, and Rebooting
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
+  /// Reboots a specified instance. For more information, see
+  /// [Starting, Stopping, and Rebooting Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   Future<void> rebootInstance(String instanceId) async {}
 
   /// Registers a specified Amazon ECS cluster with a stack. You can register
   /// only one cluster with a stack. A cluster can be registered with only one
-  /// stack. For more information, see  [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html).
+  /// stack. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-ecscluster.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see  [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [ecsClusterArn]: The cluster's ARN.
   ///
@@ -1836,14 +1818,14 @@ class OpsWorksApi {
   /// Registers an Elastic IP address with a specified stack. An address can be
   /// registered with only one stack at a time. If the address is already
   /// registered, you must first deregister it by calling DeregisterElasticIp.
-  /// For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The Elastic IP address.
   ///
@@ -1861,23 +1843,22 @@ class OpsWorksApi {
   /// Stacks agent on the instance, and registering the instance with the stack.
   /// `RegisterInstance` handles only the second step. You should instead use
   /// the AWS CLI `register` command, which performs the entire registration
-  /// operation. For more information, see  [Registering an Instance with an AWS
-  /// OpsWorks Stacks
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register.html).
+  /// operation. For more information, see
+  /// [Registering an Instance with an AWS OpsWorks Stacks Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register.html).
   ///
   ///
   /// Registered instances have the same requirements as instances that are
   /// created by using the CreateInstance API. For example, registered instances
   /// must be running a supported Linux-based operating system, and they must
   /// have a supported instance type. For more information about requirements
-  /// for instances that you want to register, see  [Preparing the
-  /// Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register-registering-preparer.html).
+  /// for instances that you want to register, see
+  /// [Preparing the Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/registered-instances-register-registering-preparer.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The ID of the stack that the instance is to be registered with.
   ///
@@ -1909,8 +1890,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -1928,14 +1909,14 @@ class OpsWorksApi {
   /// Registers an Amazon EBS volume with a specified stack. A volume can be
   /// registered with only one stack at a time. If the volume is already
   /// registered, you must first deregister it by calling DeregisterVolume. For
-  /// more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [ec2VolumeId]: The Amazon EBS volume ID.
   ///
@@ -1946,8 +1927,8 @@ class OpsWorksApi {
   }
 
   /// Specify the load-based auto scaling configuration for a specified layer.
-  /// For more information, see [Managing Load with Time-based and Load-based
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html).
+  /// For more information, see
+  /// [Managing Load with Time-based and Load-based Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html).
   ///
   ///  To use load-based auto scaling, you must create a set of load-based auto
   /// scaling instances. Load-based auto scaling operates only on the instances
@@ -1957,8 +1938,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerId]: The layer ID.
   ///
@@ -1978,14 +1959,14 @@ class OpsWorksApi {
       AutoScalingThresholds upScaling,
       AutoScalingThresholds downScaling}) async {}
 
-  /// Specifies a user's permissions. For more information, see [Security and
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/workingsecurity.html).
+  /// Specifies a user's permissions. For more information, see
+  /// [Security and Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/workingsecurity.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -2011,8 +1992,8 @@ class OpsWorksApi {
   ///
   ///
   /// For more information about the permissions associated with these levels,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   Future<void> setPermission(
       {@required String stackId,
       @required String iamUserArn,
@@ -2021,15 +2002,14 @@ class OpsWorksApi {
       String level}) async {}
 
   /// Specify the time-based auto scaling configuration for a specified
-  /// instance. For more information, see [Managing Load with Time-based and
-  /// Load-based
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html).
+  /// instance. For more information, see
+  /// [Managing Load with Time-based and Load-based Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-autoscaling.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   ///
@@ -2038,15 +2018,14 @@ class OpsWorksApi {
   Future<void> setTimeBasedAutoScaling(String instanceId,
       {WeeklyAutoScalingSchedule autoScalingSchedule}) async {}
 
-  /// Starts a specified instance. For more information, see [Starting,
-  /// Stopping, and Rebooting
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
+  /// Starts a specified instance. For more information, see
+  /// [Starting, Stopping, and Rebooting Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   Future<void> startInstance(String instanceId) async {}
@@ -2056,8 +2035,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   Future<void> startStack(String stackId) async {}
@@ -2065,14 +2044,14 @@ class OpsWorksApi {
   /// Stops a specified instance. When you stop a standard instance, the data
   /// disappears and must be reinstalled when you restart the instance. You can
   /// stop an Amazon EBS-backed instance without losing data. For more
-  /// information, see [Starting, Stopping, and Rebooting
-  /// Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
+  /// information, see
+  /// [Starting, Stopping, and Rebooting Instances](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-starting.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   ///
@@ -2090,8 +2069,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   Future<void> stopStack(String stackId) async {}
@@ -2110,11 +2089,11 @@ class OpsWorksApi {
   ///
   /// *   The key can be a maximum of 127 characters, and can contain only
   /// Unicode letters, numbers, or separators, or the following special
-  /// characters: `\+ \- = . _ : /`
+  /// characters: `+ - = . _ : /`
   ///
   /// *   The value can be a maximum 255 characters, and contain only Unicode
-  /// letters, numbers, or separators, or the following special characters: `\+
-  /// \- = . _ : /`
+  /// letters, numbers, or separators, or the following special characters: `+ -
+  /// = . _ : /`
   ///
   /// *   Leading and trailing white spaces are trimmed from both the key and
   /// value.
@@ -2132,21 +2111,21 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack or an attached policy that
   /// explicitly grants permissions. For more information about user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   Future<void> unassignInstance(String instanceId) async {}
 
   /// Unassigns an assigned Amazon EBS volume. The volume remains registered
-  /// with the stack. For more information, see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// with the stack. For more information, see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [volumeId]: The volume ID.
   Future<void> unassignVolume(String volumeId) async {}
@@ -2164,8 +2143,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Deploy or Manage permissions level for the stack, or an attached policy
   /// that explicitly grants permissions. For more information on user
-  /// permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [appId]: The app ID.
   ///
@@ -2193,8 +2172,8 @@ class OpsWorksApi {
   /// [environment]: An array of `EnvironmentVariable` objects that specify
   /// environment variables to be associated with the app. After you deploy the
   /// app, these variables are defined on the associated app server
-  /// instances.For more information, see  [Environment
-  /// Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
+  /// instances.For more information, see
+  /// [Environment Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
   ///
   /// There is no specific limit on the number of environment variables.
   /// However, the size of the associated data structure - which includes the
@@ -2220,14 +2199,13 @@ class OpsWorksApi {
       List<EnvironmentVariable> environment}) async {}
 
   /// Updates a registered Elastic IP address's name. For more information, see
-  /// [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [elasticIp]: The IP address for which you want to update the name.
   ///
@@ -2239,8 +2217,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [instanceId]: The instance ID.
   ///
@@ -2248,10 +2226,9 @@ class OpsWorksApi {
   ///
   /// [instanceType]: The instance type, such as `t2.micro`. For a list of
   /// supported instance types, open the stack in the console, choose
-  /// **Instances**, and choose **\+ Instance**. The **Size** list contains the
-  /// currently supported types. For more information, see [Instance Families
-  /// and
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
+  /// **Instances**, and choose **+ Instance**. The **Size** list contains the
+  /// currently supported types. For more information, see
+  /// [Instance Families and Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
   /// The parameter values that you use to specify the various types are in the
   /// **API Name** column of the **Available Instance Types** table.
   ///
@@ -2281,18 +2258,16 @@ class OpsWorksApi {
   /// `Microsoft Windows Server 2012 R2 with SQL Server Web`.
   ///
   ///
-  /// For more information about supported operating systems, see [AWS OpsWorks
-  /// Stacks Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// For more information about supported operating systems, see
+  /// [AWS OpsWorks Stacks Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   ///
   /// The default option is the current Amazon Linux version. If you set this
   /// parameter to `Custom`, you must use the AmiId parameter to specify the
   /// custom AMI that you want to use. For more information about supported
-  /// operating systems, see [Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// operating systems, see
+  /// [Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   /// For more information about how to use custom AMIs with OpsWorks, see
-  /// [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   ///
   ///
@@ -2309,9 +2284,8 @@ class OpsWorksApi {
   ///
   /// [architecture]: The instance architecture. Instance types do not
   /// necessarily support both architectures. For a list of the architectures
-  /// that are supported by the different instance types, see [Instance Families
-  /// and
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
+  /// that are supported by the different instance types, see
+  /// [Instance Families and Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html).
   ///
   /// [installUpdatesOnBoot]: Whether to install operating system and package
   /// updates when the instance boots. The default value is `true`. To control
@@ -2330,9 +2304,9 @@ class OpsWorksApi {
   /// [agentVersion]: The default AWS OpsWorks Stacks agent version. You have
   /// the following options:
   ///
-  /// *    `INHERIT` \- Use the stack's default agent version setting.
+  /// *    `INHERIT` - Use the stack's default agent version setting.
   ///
-  /// *    _version_number_ \- Use the specified agent version. This value
+  /// *    _version_number_ - Use the specified agent version. This value
   /// overrides the stack's default setting. To update the agent version, you
   /// must edit the instance configuration and specify a new version. AWS
   /// OpsWorks Stacks then automatically installs that version on the instance.
@@ -2362,8 +2336,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [layerId]: The layer ID.
   ///
@@ -2373,11 +2347,11 @@ class OpsWorksApi {
   /// layer's short name, which is used internally by AWS OpsWorks Stacks and by
   /// Chef. The short name is also used as the name for the directory where your
   /// app files are installed. It can have a maximum of 200 characters and must
-  /// be in the following format: /\\A\[a-z0-9\\-\\_\\.\]+\\Z/.
+  /// be in the following format: /A[a-z0-9-_.]+Z/.
   ///
   /// The built-in layers' short names are defined by AWS OpsWorks Stacks. For
-  /// more information, see the [Layer
-  /// Reference](https://docs.aws.amazon.com/opsworks/latest/userguide/layers.html)
+  /// more information, see the
+  /// [Layer Reference](https://docs.aws.amazon.com/opsworks/latest/userguide/layers.html)
   ///
   /// [attributes]: One or more user-defined key/value pairs to be added to the
   /// stack attributes.
@@ -2387,13 +2361,12 @@ class OpsWorksApi {
   ///
   /// [customInstanceProfileArn]: The ARN of an IAM profile to be used for all
   /// of the layer's EC2 instances. For more information about IAM ARNs, see
-  /// [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [customJson]: A JSON-formatted string containing custom stack
   /// configuration and deployment attributes to be installed on the layer's
-  /// instances. For more information, see  [Using Custom
-  /// JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
+  /// instances. For more information, see
+  /// [Using Custom JSON](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook-json-override.html).
   ///
   /// [customSecurityGroupIds]: An array containing the layer's custom security
   /// group IDs.
@@ -2406,15 +2379,15 @@ class OpsWorksApi {
   ///
   /// [enableAutoHealing]: Whether to disable auto healing for the layer.
   ///
-  /// [autoAssignElasticIps]: Whether to automatically assign an [Elastic IP
-  /// address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
-  /// to the layer's instances. For more information, see [How to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// [autoAssignElasticIps]: Whether to automatically assign an
+  /// [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+  /// to the layer's instances. For more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   ///
   /// [autoAssignPublicIps]: For stacks that are running in a VPC, whether to
   /// automatically assign a public IP address to the layer's instances. For
-  /// more information, see [How to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   ///
   /// [customRecipes]: A `LayerCustomRecipes` object that specifies the layer's
   /// custom recipes.
@@ -2456,9 +2429,8 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have
   /// self-management enabled or an attached policy that explicitly grants
-  /// permissions. For more information about user permissions, see [Managing
-  /// User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// permissions. For more information about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [sshPublicKey]: The user's SSH public key.
   Future<void> updateMyUserProfile({String sshPublicKey}) async {}
@@ -2468,8 +2440,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [rdsDbInstanceArn]: The Amazon RDS instance's ARN.
   ///
@@ -2484,8 +2456,8 @@ class OpsWorksApi {
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [stackId]: The stack ID.
   ///
@@ -2499,8 +2471,8 @@ class OpsWorksApi {
   ///
   /// [defaultInstanceProfileArn]: The ARN of an IAM profile that is the default
   /// profile for all of the stack's EC2 instances. For more information about
-  /// IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   ///
   /// [defaultOs]: The stack's operating system, which must be set to one of the
   /// following:
@@ -2524,14 +2496,13 @@ class OpsWorksApi {
   ///
   /// *   A custom AMI: `Custom`. You specify the custom AMI you want to use
   /// when you create instances. For more information about how to use custom
-  /// AMIs with OpsWorks, see [Using Custom
-  /// AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
+  /// AMIs with OpsWorks, see
+  /// [Using Custom AMIs](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-custom-ami.html).
   ///
   ///
   /// The default option is the stack's current operating system. For more
-  /// information about supported operating systems, see [AWS OpsWorks Stacks
-  /// Operating
-  /// Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
+  /// information about supported operating systems, see
+  /// [AWS OpsWorks Stacks Operating Systems](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-os.html).
   ///
   /// [hostnameTheme]: The stack's new host name theme, with spaces replaced by
   /// underscores. The theme is used to generate host names for the stack's
@@ -2547,11 +2518,11 @@ class OpsWorksApi {
   ///
   /// *    `Fruits`
   ///
-  /// *    `Greek\_Deities\_and_Titans`
+  /// *    `Greek_Deities_and_Titans`
   ///
-  /// *    `Legendary\_creatures\_from_Japan`
+  /// *    `Legendary_creatures_from_Japan`
   ///
-  /// *    `Planets\_and\_Moons`
+  /// *    `Planets_and_Moons`
   ///
   /// *    `Roman_Deities`
   ///
@@ -2566,10 +2537,10 @@ class OpsWorksApi {
   /// returns a host name based on the current theme.
   ///
   /// [defaultAvailabilityZone]: The stack's default Availability Zone, which
-  /// must be in the stack's region. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html). If
-  /// you also specify a value for `DefaultSubnetId`, the subnet must be in the
-  /// same zone. For more information, see CreateStack.
+  /// must be in the stack's region. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// If you also specify a value for `DefaultSubnetId`, the subnet must be in
+  /// the same zone. For more information, see CreateStack.
   ///
   /// [defaultSubnetId]: The stack's default VPC subnet ID. This parameter is
   /// required if you specify a value for the `VpcId` parameter. All instances
@@ -2582,11 +2553,10 @@ class OpsWorksApi {
   /// used to override the corresponding default stack configuration JSON values
   /// or to pass data to recipes. The string should be in the following format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information about custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
+  /// For more information about custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
   ///
   /// [configurationManager]: The configuration manager. When you update a
   /// stack, we recommend that you use the configuration manager to specify the
@@ -2595,33 +2565,32 @@ class OpsWorksApi {
   ///
   /// [chefConfiguration]: A `ChefConfiguration` object that specifies whether
   /// to enable Berkshelf and the Berkshelf version on Chef 11.10 stacks. For
-  /// more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [useCustomCookbooks]: Whether the stack uses custom cookbooks.
   ///
   /// [customCookbooksSource]: Contains the information required to retrieve an
-  /// app or cookbook from a repository. For more information, see [Adding
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
-  /// or [Cookbooks and
-  /// Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
+  /// app or cookbook from a repository. For more information, see
+  /// [Adding Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
+  /// or
+  /// [Cookbooks and Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
   ///
   /// [defaultSshKeyName]: A default Amazon EC2 key-pair name. The default value
   /// is `none`. If you specify a key-pair name, AWS OpsWorks Stacks installs
   /// the public key on the instance and you can use the private key with an SSH
-  /// client to log in to the instance. For more information, see  [Using SSH to
-  /// Communicate with an
-  /// Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
-  /// and  [Managing SSH
-  /// Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
+  /// client to log in to the instance. For more information, see
+  /// [Using SSH to Communicate with an Instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-ssh.html)
+  /// and
+  /// [Managing SSH Access](https://docs.aws.amazon.com/opsworks/latest/userguide/security-ssh-access.html).
   /// You can override this setting by specifying a different key pair, or no
-  /// key pair, when you  [create an
-  /// instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
+  /// key pair, when you
+  /// [create an instance](https://docs.aws.amazon.com/opsworks/latest/userguide/workinginstances-add.html).
   ///
   /// [defaultRootDeviceType]: The default root device type. This value is used
   /// by default for all instances in the stack, but you can override it when
-  /// you create an instance. For more information, see [Storage for the Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// you create an instance. For more information, see
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   ///
   /// [useOpsworksSecurityGroups]: Whether to associate the AWS OpsWorks Stacks
   /// built-in security groups with the stack's layers.
@@ -2645,8 +2614,8 @@ class OpsWorksApi {
   /// settings.
   ///
   ///
-  /// For more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// For more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   ///
   /// [agentVersion]: The default AWS OpsWorks Stacks agent version. You have
   /// the following options:
@@ -2693,36 +2662,36 @@ class OpsWorksApi {
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have an
   /// attached policy that explicitly grants permissions. For more information
-  /// about user permissions, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// about user permissions, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [iamUserArn]: The user IAM ARN. This can also be a federated user's ARN.
   ///
   /// [sshUsername]: The user's SSH user name. The allowable characters are
-  /// \[a-z\], \[A-Z\], \[0-9\], '-', and '_'. If the specified name includes
-  /// other punctuation marks, AWS OpsWorks Stacks removes them. For example,
+  /// [a-z], [A-Z], [0-9], '-', and '_'. If the specified name includes other
+  /// punctuation marks, AWS OpsWorks Stacks removes them. For example,
   /// `my.name` will be changed to `myname`. If you do not specify an SSH user
   /// name, AWS OpsWorks Stacks generates one from the IAM user name.
   ///
   /// [sshPublicKey]: The user's new SSH public key.
   ///
   /// [allowSelfManagement]: Whether users can specify their own SSH public key
-  /// through the My Settings page. For more information, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
+  /// through the My Settings page. For more information, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
   Future<void> updateUserProfile(String iamUserArn,
       {String sshUsername,
       String sshPublicKey,
       bool allowSelfManagement}) async {}
 
   /// Updates an Amazon EBS volume's name or mount point. For more information,
-  /// see [Resource
-  /// Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
+  /// see
+  /// [Resource Management](https://docs.aws.amazon.com/opsworks/latest/userguide/resources.html).
   ///
   ///  **Required Permissions**: To use this action, an IAM user must have a
   /// Manage permissions level for the stack, or an attached policy that
   /// explicitly grants permissions. For more information on user permissions,
-  /// see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
+  /// see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html).
   ///
   /// [volumeId]: The volume ID.
   ///
@@ -2733,6 +2702,7 @@ class OpsWorksApi {
       {String name, String mountPoint}) async {}
 }
 
+/// Describes an agent version.
 class AgentVersion {
   /// The agent version.
   final String version;
@@ -2747,6 +2717,7 @@ class AgentVersion {
   static AgentVersion fromJson(Map<String, dynamic> json) => AgentVersion();
 }
 
+/// A description of the app.
 class App {
   /// The app ID.
   final String appId;
@@ -2791,8 +2762,8 @@ class App {
   /// An array of `EnvironmentVariable` objects that specify environment
   /// variables to be associated with the app. After you deploy the app, these
   /// variables are defined on the associated app server instances. For more
-  /// information, see  [Environment
-  /// Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
+  /// information, see
+  /// [Environment Variables](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html#workingapps-creating-environment).
   ///
   ///
   ///
@@ -2823,6 +2794,9 @@ class App {
   static App fromJson(Map<String, dynamic> json) => App();
 }
 
+/// Describes a load-based auto scaling upscaling or downscaling threshold
+/// configuration, which specifies when AWS OpsWorks Stacks starts or stops
+/// load-based instances.
 class AutoScalingThresholds {
   /// The number of instances to add or remove when the load exceeds a
   /// threshold.
@@ -2851,8 +2825,8 @@ class AutoScalingThresholds {
   final double memoryThreshold;
 
   /// The load threshold. A value of -1 disables the threshold. For more
-  /// information about how load is computed, see [Load
-  /// (computing)](http://en.wikipedia.org/wiki/Load_%28computing%29).
+  /// information about how load is computed, see
+  /// [Load (computing)](http://en.wikipedia.org/wiki/Load_%28computing%29).
   final double loadThreshold;
 
   /// Custom Cloudwatch auto scaling alarms, to be used as thresholds. This
@@ -2864,9 +2838,8 @@ class AutoScalingThresholds {
   /// To use custom alarms, you must update your service role to allow
   /// `cloudwatch:DescribeAlarms`. You can either have AWS OpsWorks Stacks
   /// update the role for you when you first use this feature or you can edit
-  /// the role manually. For more information, see [Allowing AWS OpsWorks Stacks
-  /// to Act on Your
-  /// Behalf](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-servicerole.html).
+  /// the role manually. For more information, see
+  /// [Allowing AWS OpsWorks Stacks to Act on Your Behalf](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-servicerole.html).
   final List<String> alarms;
 
   AutoScalingThresholds({
@@ -2882,6 +2855,10 @@ class AutoScalingThresholds {
       AutoScalingThresholds();
 }
 
+/// Describes a block device mapping. This data type maps directly to the Amazon
+/// EC2
+/// [BlockDeviceMapping](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_BlockDeviceMapping.html)
+/// data type.
 class BlockDeviceMapping {
   /// The device name that is exposed to the instance, such as `/dev/sdh`. For
   /// the root device, you can use the explicit device name or you can set this
@@ -2911,6 +2888,7 @@ class BlockDeviceMapping {
       BlockDeviceMapping();
 }
 
+/// Describes the Chef configuration.
 class ChefConfiguration {
   /// Whether to enable Berkshelf.
   final bool manageBerkshelf;
@@ -2926,6 +2904,7 @@ class ChefConfiguration {
       ChefConfiguration();
 }
 
+/// Contains the response to a `CloneStack` request.
 class CloneStackResult {
   /// The cloned stack ID.
   final String stackId;
@@ -2937,6 +2916,7 @@ class CloneStackResult {
       CloneStackResult();
 }
 
+/// Describes the Amazon CloudWatch logs configuration for a layer.
 class CloudWatchLogsConfiguration {
   /// Whether CloudWatch Logs is enabled for a layer.
   final bool enabled;
@@ -2952,6 +2932,9 @@ class CloudWatchLogsConfiguration {
       CloudWatchLogsConfiguration();
 }
 
+/// Describes the Amazon CloudWatch logs configuration for a layer. For detailed
+/// information about members of this data type, see the
+/// [CloudWatch Logs Agent Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html).
 class CloudWatchLogsLogStream {
   /// Specifies the destination log group. A log group is created automatically
   /// if it doesn't already exist. Log group names can be between 1 and 512
@@ -2960,8 +2943,8 @@ class CloudWatchLogsLogStream {
   final String logGroupName;
 
   /// Specifies how the time stamp is extracted from logs. For more information,
-  /// see the [CloudWatch Logs Agent
-  /// Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html).
+  /// see the
+  /// [CloudWatch Logs Agent Reference](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html).
   final String datetimeFormat;
 
   /// Specifies the time zone of log event time stamps.
@@ -2975,7 +2958,7 @@ class CloudWatchLogsLogStream {
   /// use wild card characters to specify a series of files of the same type,
   /// such as `access_log.2014-06-01-01`, `access_log.2014-06-01-02`, and so on
   /// by using a pattern like `access_log.*`. Don't use a wildcard to match
-  /// multiple file types, such as `access\_log\_80` and `access\_log\_443`. To
+  /// multiple file types, such as `access_log_80` and `access_log_443`. To
   /// specify multiple, different file types, add another log stream entry to
   /// the configuration file, so that each log file type is stored in a
   /// different log group.
@@ -2993,9 +2976,9 @@ class CloudWatchLogsLogStream {
   /// Specifies the pattern for identifying the start of a log message.
   final String multiLineStartPattern;
 
-  /// Specifies where to start to read data (start\_of\_file or end\_of\_file).
-  /// The default is start\_of\_file. This setting is only used if there is no
-  /// state persisted for that log stream.
+  /// Specifies where to start to read data (start_of_file or end_of_file). The
+  /// default is start_of_file. This setting is only used if there is no state
+  /// persisted for that log stream.
   final String initialPosition;
 
   /// Specifies the encoding of the log file so that the file can be read
@@ -3034,6 +3017,7 @@ class CloudWatchLogsLogStream {
       CloudWatchLogsLogStream();
 }
 
+/// Describes a command.
 class Command {
   /// The command ID.
   final String commandId;
@@ -3092,7 +3076,7 @@ class Command {
   ///
   /// *    `undeploy`
   ///
-  /// *    `update\_custom\_cookbooks`
+  /// *    `update_custom_cookbooks`
   ///
   /// *    `update_dependencies`
   final String type;
@@ -3112,6 +3096,7 @@ class Command {
   static Command fromJson(Map<String, dynamic> json) => Command();
 }
 
+/// Contains the response to a `CreateApp` request.
 class CreateAppResult {
   /// The app ID.
   final String appId;
@@ -3123,6 +3108,7 @@ class CreateAppResult {
       CreateAppResult();
 }
 
+/// Contains the response to a `CreateDeployment` request.
 class CreateDeploymentResult {
   /// The deployment ID, which can be used with other requests to identify the
   /// deployment.
@@ -3135,6 +3121,7 @@ class CreateDeploymentResult {
       CreateDeploymentResult();
 }
 
+/// Contains the response to a `CreateInstance` request.
 class CreateInstanceResult {
   /// The instance ID.
   final String instanceId;
@@ -3146,6 +3133,7 @@ class CreateInstanceResult {
       CreateInstanceResult();
 }
 
+/// Contains the response to a `CreateLayer` request.
 class CreateLayerResult {
   /// The layer ID.
   final String layerId;
@@ -3157,6 +3145,7 @@ class CreateLayerResult {
       CreateLayerResult();
 }
 
+/// Contains the response to a `CreateStack` request.
 class CreateStackResult {
   /// The stack ID, which is an opaque string that you use to identify the stack
   /// when performing actions such as `DescribeStacks`.
@@ -3169,6 +3158,7 @@ class CreateStackResult {
       CreateStackResult();
 }
 
+/// Contains the response to a `CreateUserProfile` request.
 class CreateUserProfileResult {
   /// The user's IAM ARN.
   final String iamUserArn;
@@ -3180,6 +3170,7 @@ class CreateUserProfileResult {
       CreateUserProfileResult();
 }
 
+/// Describes an app's data source.
 class DataSource {
   /// The data source's type, `AutoSelectOpsworksMysqlInstance`,
   /// `OpsworksMysqlInstance`, `RdsDbInstance`, or `None`.
@@ -3199,6 +3190,7 @@ class DataSource {
   static DataSource fromJson(Map<String, dynamic> json) => DataSource();
 }
 
+/// Describes a deployment of a stack or app.
 class Deployment {
   /// The deployment ID.
   final String deploymentId;
@@ -3241,11 +3233,10 @@ class Deployment {
   /// for stack or to pass data to recipes. The string should be in the
   /// following format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information on custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
+  /// For more information on custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
   final String customJson;
 
   /// The IDs of the target instances.
@@ -3268,6 +3259,7 @@ class Deployment {
   static Deployment fromJson(Map<String, dynamic> json) => Deployment();
 }
 
+/// Used to specify a stack or deployment command.
 class DeploymentCommand {
   /// Specifies the operation. You can specify only one command.
   ///
@@ -3276,24 +3268,24 @@ class DeploymentCommand {
   /// *    `execute_recipes`: Execute one or more recipes. To specify the
   /// recipes, set an `Args` parameter named `recipes` to the list of recipes to
   /// be executed. For example, to execute `phpapp::appsetup`, set `Args` to
-  /// `{"recipes":\["phpapp::appsetup"\]}`.
+  /// `{"recipes":["phpapp::appsetup"]}`.
   ///
   /// *    `install_dependencies`: Install the stack's dependencies.
   ///
-  /// *    `update\_custom\_cookbooks`: Update the stack's custom cookbooks.
+  /// *    `update_custom_cookbooks`: Update the stack's custom cookbooks.
   ///
   /// *    `update_dependencies`: Update the stack's dependencies.
   ///
   ///
-  ///  The update\_dependencies and install\_dependencies commands are supported
+  ///  The update_dependencies and install_dependencies commands are supported
   /// only for Linux instances. You can run the commands successfully on Windows
   /// instances, but they do nothing.
   ///
   /// For apps, the following commands are available:
   ///
   /// *    `deploy`: Deploy an app. Ruby on Rails apps have an optional `Args`
-  /// parameter named `migrate`. Set `Args` to {"migrate":\["true"\]} to migrate
-  /// the database. The default setting is {"migrate":\["false"\]}.
+  /// parameter named `migrate`. Set `Args` to {"migrate":["true"]} to migrate
+  /// the database. The default setting is {"migrate":["false"]}.
   ///
   /// *    `rollback` Roll the app back to the previous version. When you update
   /// an app, AWS OpsWorks Stacks stores the previous version, up to a maximum
@@ -3312,16 +3304,16 @@ class DeploymentCommand {
   /// The arguments of those commands that take arguments. It should be set to a
   /// JSON object with the following format:
   ///
-  ///  `{"arg\_name1" : \["value1", "value2", ...\], "arg\_name2" : \["value1",
-  /// "value2", ...\], ...}`
+  ///  `{"arg_name1" : ["value1", "value2", ...], "arg_name2" :
+  /// ["value1", "value2", ...], ...}`
   ///
   /// The `update_dependencies` command takes two arguments:
   ///
-  /// *    `upgrade\_os\_to` \- Specifies the desired Amazon Linux version for
+  /// *    `upgrade_os_to` - Specifies the desired Amazon Linux version for
   /// instances whose OS you want to upgrade, such as `Amazon Linux 2016.09`.
   /// You must also set the `allow_reboot` argument to true.
   ///
-  /// *    `allow_reboot` \- Specifies whether to allow AWS OpsWorks Stacks to
+  /// *    `allow_reboot` - Specifies whether to allow AWS OpsWorks Stacks to
   /// reboot the instances if necessary, after installing the updates. This
   /// argument can be set to either `true` or `false`. The default value is
   /// `false`.
@@ -3330,8 +3322,7 @@ class DeploymentCommand {
   /// For example, to upgrade an instance to Amazon Linux 2016.09, set `Args` to
   /// the following.
   ///
-  ///   `{ "upgrade\_os\_to":\["Amazon Linux 2016.09"\],
-  /// "allow_reboot":\["true"\] }`
+  ///   `{ "upgrade_os_to":["Amazon Linux 2016.09"], "allow_reboot":["true"] }`
   final Map<String, List<String>> args;
 
   DeploymentCommand({
@@ -3342,6 +3333,7 @@ class DeploymentCommand {
       DeploymentCommand();
 }
 
+/// Contains the response to a `DescribeAgentVersions` request.
 class DescribeAgentVersionsResult {
   /// The agent versions for the specified stack or configuration manager. Note
   /// that this value is the complete version number, not the abbreviated number
@@ -3355,6 +3347,7 @@ class DescribeAgentVersionsResult {
       DescribeAgentVersionsResult();
 }
 
+/// Contains the response to a `DescribeApps` request.
 class DescribeAppsResult {
   /// An array of `App` objects that describe the specified apps.
   final List<App> apps;
@@ -3366,6 +3359,7 @@ class DescribeAppsResult {
       DescribeAppsResult();
 }
 
+/// Contains the response to a `DescribeCommands` request.
 class DescribeCommandsResult {
   /// An array of `Command` objects that describe each of the specified
   /// commands.
@@ -3378,6 +3372,7 @@ class DescribeCommandsResult {
       DescribeCommandsResult();
 }
 
+/// Contains the response to a `DescribeDeployments` request.
 class DescribeDeploymentsResult {
   /// An array of `Deployment` objects that describe the deployments.
   final List<Deployment> deployments;
@@ -3389,6 +3384,7 @@ class DescribeDeploymentsResult {
       DescribeDeploymentsResult();
 }
 
+/// Contains the response to a `DescribeEcsClusters` request.
 class DescribeEcsClustersResult {
   /// A list of `EcsCluster` objects containing the cluster descriptions.
   final List<EcsCluster> ecsClusters;
@@ -3408,6 +3404,7 @@ class DescribeEcsClustersResult {
       DescribeEcsClustersResult();
 }
 
+/// Contains the response to a `DescribeElasticIps` request.
 class DescribeElasticIpsResult {
   /// An `ElasticIps` object that describes the specified Elastic IP addresses.
   final List<ElasticIp> elasticIps;
@@ -3419,6 +3416,7 @@ class DescribeElasticIpsResult {
       DescribeElasticIpsResult();
 }
 
+/// Contains the response to a `DescribeElasticLoadBalancers` request.
 class DescribeElasticLoadBalancersResult {
   /// A list of `ElasticLoadBalancer` objects that describe the specified
   /// Elastic Load Balancing instances.
@@ -3432,6 +3430,7 @@ class DescribeElasticLoadBalancersResult {
       DescribeElasticLoadBalancersResult();
 }
 
+/// Contains the response to a `DescribeInstances` request.
 class DescribeInstancesResult {
   /// An array of `Instance` objects that describe the instances.
   final List<Instance> instances;
@@ -3443,6 +3442,7 @@ class DescribeInstancesResult {
       DescribeInstancesResult();
 }
 
+/// Contains the response to a `DescribeLayers` request.
 class DescribeLayersResult {
   /// An array of `Layer` objects that describe the layers.
   final List<Layer> layers;
@@ -3454,6 +3454,7 @@ class DescribeLayersResult {
       DescribeLayersResult();
 }
 
+/// Contains the response to a `DescribeLoadBasedAutoScaling` request.
 class DescribeLoadBasedAutoScalingResult {
   /// An array of `LoadBasedAutoScalingConfiguration` objects that describe each
   /// layer's configuration.
@@ -3468,6 +3469,7 @@ class DescribeLoadBasedAutoScalingResult {
       DescribeLoadBasedAutoScalingResult();
 }
 
+/// Contains the response to a `DescribeMyUserProfile` request.
 class DescribeMyUserProfileResult {
   /// A `UserProfile` object that describes the user's SSH information.
   final SelfUserProfile userProfile;
@@ -3479,6 +3481,7 @@ class DescribeMyUserProfileResult {
       DescribeMyUserProfileResult();
 }
 
+/// The response to a `DescribeOperatingSystems` request.
 class DescribeOperatingSystemsResponse {
   /// Contains information in response to a `DescribeOperatingSystems` request.
   final List<OperatingSystem> operatingSystems;
@@ -3490,6 +3493,7 @@ class DescribeOperatingSystemsResponse {
       DescribeOperatingSystemsResponse();
 }
 
+/// Contains the response to a `DescribePermissions` request.
 class DescribePermissionsResult {
   /// An array of `Permission` objects that describe the stack permissions.
   ///
@@ -3511,6 +3515,7 @@ class DescribePermissionsResult {
       DescribePermissionsResult();
 }
 
+/// Contains the response to a `DescribeRaidArrays` request.
 class DescribeRaidArraysResult {
   /// A `RaidArrays` object that describes the specified RAID arrays.
   final List<RaidArray> raidArrays;
@@ -3522,6 +3527,7 @@ class DescribeRaidArraysResult {
       DescribeRaidArraysResult();
 }
 
+/// Contains the response to a `DescribeRdsDbInstances` request.
 class DescribeRdsDbInstancesResult {
   /// An a array of `RdsDbInstance` objects that describe the instances.
   final List<RdsDbInstance> rdsDbInstances;
@@ -3533,6 +3539,7 @@ class DescribeRdsDbInstancesResult {
       DescribeRdsDbInstancesResult();
 }
 
+/// Contains the response to a `DescribeServiceErrors` request.
 class DescribeServiceErrorsResult {
   /// An array of `ServiceError` objects that describe the specified service
   /// errors.
@@ -3545,6 +3552,7 @@ class DescribeServiceErrorsResult {
       DescribeServiceErrorsResult();
 }
 
+/// Contains the response to a `DescribeStackProvisioningParameters` request.
 class DescribeStackProvisioningParametersResult {
   /// The AWS OpsWorks Stacks agent installer's URL.
   final String agentInstallerUrl;
@@ -3561,6 +3569,7 @@ class DescribeStackProvisioningParametersResult {
       DescribeStackProvisioningParametersResult();
 }
 
+/// Contains the response to a `DescribeStackSummary` request.
 class DescribeStackSummaryResult {
   /// A `StackSummary` object that contains the results.
   final StackSummary stackSummary;
@@ -3572,6 +3581,7 @@ class DescribeStackSummaryResult {
       DescribeStackSummaryResult();
 }
 
+/// Contains the response to a `DescribeStacks` request.
 class DescribeStacksResult {
   /// An array of `Stack` objects that describe the stacks.
   final List<Stack> stacks;
@@ -3583,6 +3593,7 @@ class DescribeStacksResult {
       DescribeStacksResult();
 }
 
+/// Contains the response to a `DescribeTimeBasedAutoScaling` request.
 class DescribeTimeBasedAutoScalingResult {
   /// An array of `TimeBasedAutoScalingConfiguration` objects that describe the
   /// configuration for the specified instances.
@@ -3597,6 +3608,7 @@ class DescribeTimeBasedAutoScalingResult {
       DescribeTimeBasedAutoScalingResult();
 }
 
+/// Contains the response to a `DescribeUserProfiles` request.
 class DescribeUserProfilesResult {
   /// A `Users` object that describes the specified users.
   final List<UserProfile> userProfiles;
@@ -3608,6 +3620,7 @@ class DescribeUserProfilesResult {
       DescribeUserProfilesResult();
 }
 
+/// Contains the response to a `DescribeVolumes` request.
 class DescribeVolumesResult {
   /// An array of volume IDs.
   final List<Volume> volumes;
@@ -3619,6 +3632,10 @@ class DescribeVolumesResult {
       DescribeVolumesResult();
 }
 
+/// Describes an Amazon EBS volume. This data type maps directly to the Amazon
+/// EC2
+/// [EbsBlockDevice](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_EbsBlockDevice.html)
+/// data type.
 class EbsBlockDevice {
   /// The snapshot ID.
   final String snapshotId;
@@ -3655,6 +3672,7 @@ class EbsBlockDevice {
   static EbsBlockDevice fromJson(Map<String, dynamic> json) => EbsBlockDevice();
 }
 
+/// Describes a registered Amazon ECS cluster.
 class EcsCluster {
   /// The cluster's ARN.
   final String ecsClusterArn;
@@ -3677,6 +3695,7 @@ class EcsCluster {
   static EcsCluster fromJson(Map<String, dynamic> json) => EcsCluster();
 }
 
+/// Describes an Elastic IP address.
 class ElasticIp {
   /// The IP address.
   final String ip;
@@ -3687,8 +3706,8 @@ class ElasticIp {
   /// The domain.
   final String domain;
 
-  /// The AWS region. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The AWS region. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String region;
 
   /// The ID of the instance that the address is attached to.
@@ -3704,6 +3723,7 @@ class ElasticIp {
   static ElasticIp fromJson(Map<String, dynamic> json) => ElasticIp();
 }
 
+/// Describes an Elastic Load Balancing instance.
 class ElasticLoadBalancer {
   /// The Elastic Load Balancing instance's name.
   final String elasticLoadBalancerName;
@@ -3748,6 +3768,7 @@ class ElasticLoadBalancer {
       ElasticLoadBalancer();
 }
 
+/// Represents an app's environment variable.
 class EnvironmentVariable {
   /// (Required) The environment variable's name, which can consist of up to 64
   /// characters and must be specified. The name can contain upper- and
@@ -3762,9 +3783,8 @@ class EnvironmentVariable {
 
   /// (Optional) Whether the variable's value will be returned by the
   /// DescribeApps action. To conceal an environment variable's value, set
-  /// `Secure` to `true`. `DescribeApps` then returns
-  /// `\*\*\*\*\*FILTERED\*\*\*\*\*` instead of the actual value. The default
-  /// value for `Secure` is `false`.
+  /// `Secure` to `true`. `DescribeApps` then returns `*****FILTERED*****`
+  /// instead of the actual value. The default value for `Secure` is `false`.
   final bool secure;
 
   EnvironmentVariable({
@@ -3776,6 +3796,7 @@ class EnvironmentVariable {
       EnvironmentVariable();
 }
 
+/// Contains the response to a `GetHostnameSuggestion` request.
 class GetHostnameSuggestionResult {
   /// The layer ID.
   final String layerId;
@@ -3791,6 +3812,7 @@ class GetHostnameSuggestionResult {
       GetHostnameSuggestionResult();
 }
 
+/// Contains the response to a `GrantAccess` request.
 class GrantAccessResult {
   /// A `TemporaryCredential` object that contains the data needed to log in to
   /// the instance by RDP clients, such as the Microsoft Remote Desktop
@@ -3804,6 +3826,7 @@ class GrantAccessResult {
       GrantAccessResult();
 }
 
+/// Describes an instance.
 class Instance {
   /// The agent version. This parameter is set to `INHERIT` if the instance
   /// inherits the default stack setting or to a a version number for a fixed
@@ -3824,8 +3847,8 @@ class Instance {
   /// For load-based or time-based instances, the type.
   final String autoScalingType;
 
-  /// The instance Availability Zone. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The instance Availability Zone. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String availabilityZone;
 
   /// An array of `BlockDeviceMapping` objects that specify the instance's block
@@ -3847,8 +3870,8 @@ class Instance {
   /// For container instances, the instance's ARN.
   final String ecsContainerInstanceArn;
 
-  /// The instance [Elastic IP
-  /// address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+  /// The instance
+  /// [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
   /// .
   final String elasticIp;
 
@@ -3875,8 +3898,8 @@ class Instance {
   final String instanceId;
 
   /// The ARN of the instance's IAM profile. For more information about IAM
-  /// ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   final String instanceProfileArn;
 
   /// The instance type, such as `t2.micro`.
@@ -3916,9 +3939,8 @@ class Instance {
   /// For registered instances, the reported operating system.
   final ReportedOs reportedOs;
 
-  /// The instance's root device type. For more information, see [Storage for
-  /// the Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// The instance's root device type. For more information, see
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   final String rootDeviceType;
 
   /// The root device volume ID.
@@ -4028,6 +4050,9 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// Contains a description of an Amazon EC2 instance from the Amazon EC2
+/// metadata service. For more information, see
+/// [Instance Metadata and User Data](https://docs.aws.amazon.com/sdkfornet/latest/apidocs/Index.html).
 class InstanceIdentity {
   /// A JSON document that contains the metadata.
   final String document;
@@ -4042,6 +4067,7 @@ class InstanceIdentity {
   });
 }
 
+/// Describes how many instances a stack has for each status.
 class InstancesCount {
   /// The number of instances in the Assigning state.
   final int assigning;
@@ -4128,6 +4154,7 @@ class InstancesCount {
   static InstancesCount fromJson(Map<String, dynamic> json) => InstancesCount();
 }
 
+/// Describes a layer.
 class Layer {
   /// The Amazon Resource Number (ARN) of a layer.
   final String arn;
@@ -4150,8 +4177,8 @@ class Layer {
   /// The layer attributes.
   ///
   /// For the `HaproxyStatsPassword`, `MysqlRootPassword`, and `GangliaPassword`
-  /// attributes, AWS OpsWorks Stacks returns `\*\*\*\*\*FILTERED\*\*\*\*\*`
-  /// instead of the actual value
+  /// attributes, AWS OpsWorks Stacks returns `*****FILTERED*****` instead of
+  /// the actual value
   ///
   /// For an ECS Cluster layer, AWS OpsWorks Stacks the `EcsClusterArn`
   /// attribute is set to the cluster's ARN.
@@ -4161,8 +4188,8 @@ class Layer {
   final CloudWatchLogsConfiguration cloudWatchLogsConfiguration;
 
   /// The ARN of the default IAM profile to be used for the layer's EC2
-  /// instances. For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// instances. For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   final String customInstanceProfileArn;
 
   /// A JSON formatted string containing the layer's custom stack configuration
@@ -4185,16 +4212,15 @@ class Layer {
   /// Whether auto healing is disabled for the layer.
   final bool enableAutoHealing;
 
-  /// Whether to automatically assign an [Elastic IP
-  /// address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
-  /// to the layer's instances. For more information, see [How to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// Whether to automatically assign an
+  /// [Elastic IP address](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+  /// to the layer's instances. For more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   final bool autoAssignElasticIps;
 
   /// For stacks that are running in a VPC, whether to automatically assign a
-  /// public IP address to the layer's instances. For more information, see [How
-  /// to Edit a
-  /// Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
+  /// public IP address to the layer's instances. For more information, see
+  /// [How to Edit a Layer](https://docs.aws.amazon.com/opsworks/latest/userguide/workinglayers-basics-edit.html).
   final bool autoAssignPublicIps;
 
   /// AWS OpsWorks Stacks supports five lifecycle events: **setup**,
@@ -4264,6 +4290,7 @@ class Layer {
   static Layer fromJson(Map<String, dynamic> json) => Layer();
 }
 
+/// Specifies the lifecycle event configuration
 class LifecycleEventConfiguration {
   /// A `ShutdownEventConfiguration` object that specifies the Shutdown event
   /// configuration.
@@ -4276,6 +4303,7 @@ class LifecycleEventConfiguration {
       LifecycleEventConfiguration();
 }
 
+/// Contains the response to a `ListTags` request.
 class ListTagsResult {
   /// A set of key-value pairs that contain tag keys and tag values that are
   /// attached to a stack or layer.
@@ -4295,6 +4323,7 @@ class ListTagsResult {
   static ListTagsResult fromJson(Map<String, dynamic> json) => ListTagsResult();
 }
 
+/// Describes a layer's load-based auto scaling configuration.
 class LoadBasedAutoScalingConfiguration {
   /// The layer ID.
   final String layerId;
@@ -4323,6 +4352,7 @@ class LoadBasedAutoScalingConfiguration {
       LoadBasedAutoScalingConfiguration();
 }
 
+/// Describes supported operating systems in AWS OpsWorks Stacks.
 class OperatingSystem {
   /// The name of the operating system, such as `Amazon Linux 2018.03`.
   final String name;
@@ -4360,6 +4390,9 @@ class OperatingSystem {
       OperatingSystem();
 }
 
+/// A block that contains information about the configuration manager (Chef) and
+/// the versions of the configuration manager that are supported for an
+/// operating system.
 class OperatingSystemConfigurationManager {
   /// The name of the configuration manager, which is Chef.
   final String name;
@@ -4377,13 +4410,14 @@ class OperatingSystemConfigurationManager {
       OperatingSystemConfigurationManager();
 }
 
+/// Describes stack or user permissions.
 class Permission {
   /// A stack ID.
   final String stackId;
 
   /// The Amazon Resource Name (ARN) for an AWS Identity and Access Management
-  /// (IAM) role. For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// (IAM) role. For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   final String iamUserArn;
 
   /// Whether the user can use SSH.
@@ -4406,8 +4440,7 @@ class Permission {
   ///
   ///
   /// For more information on the permissions associated with these levels, see
-  /// [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html)
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/opsworks-security-users.html)
   final String level;
 
   Permission({
@@ -4420,6 +4453,7 @@ class Permission {
   static Permission fromJson(Map<String, dynamic> json) => Permission();
 }
 
+/// Describes an instance's RAID array.
 class RaidArray {
   /// The array ID.
   final String raidArrayId;
@@ -4445,8 +4479,8 @@ class RaidArray {
   /// The array's mount point.
   final String mountPoint;
 
-  /// The array's Availability Zone. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The array's Availability Zone. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String availabilityZone;
 
   /// When the RAID array was created.
@@ -4479,6 +4513,7 @@ class RaidArray {
   static RaidArray fromJson(Map<String, dynamic> json) => RaidArray();
 }
 
+/// Describes an Amazon RDS instance.
 class RdsDbInstance {
   /// The instance's ARN.
   final String rdsDbInstanceArn;
@@ -4489,8 +4524,8 @@ class RdsDbInstance {
   /// The master user name.
   final String dbUser;
 
-  /// AWS OpsWorks Stacks returns `\*\*\*\*\*FILTERED\*\*\*\*\*` instead of the
-  /// actual value.
+  /// AWS OpsWorks Stacks returns `*****FILTERED*****` instead of the actual
+  /// value.
   final String dbPassword;
 
   /// The instance's AWS region.
@@ -4525,6 +4560,18 @@ class RdsDbInstance {
   static RdsDbInstance fromJson(Map<String, dynamic> json) => RdsDbInstance();
 }
 
+/// AWS OpsWorks Stacks supports five lifecycle events: **setup**,
+/// **configuration**, **deploy**, **undeploy**, and **shutdown**. For each
+/// layer, AWS OpsWorks Stacks runs a set of standard recipes for each event. In
+/// addition, you can provide custom recipes for any or all layers and events.
+/// AWS OpsWorks Stacks runs custom event recipes after the standard recipes.
+/// `LayerCustomRecipes` specifies the custom recipes for a particular layer to
+/// be run in response to each of the five events.
+///
+/// To specify a recipe, use the cookbook's directory name in the repository
+/// followed by two colons and the recipe name, which is the recipe's file name
+/// without the .rb extension. For example: phpapp2::dbsetup specifies the
+/// dbsetup.rb recipe in the repository's phpapp2 folder.
 class Recipes {
   /// An array of custom recipe names to be run following a `setup` event.
   final List<String> setup;
@@ -4551,6 +4598,7 @@ class Recipes {
   static Recipes fromJson(Map<String, dynamic> json) => Recipes();
 }
 
+/// Contains the response to a `RegisterEcsCluster` request.
 class RegisterEcsClusterResult {
   /// The cluster's ARN.
   final String ecsClusterArn;
@@ -4562,6 +4610,7 @@ class RegisterEcsClusterResult {
       RegisterEcsClusterResult();
 }
 
+/// Contains the response to a `RegisterElasticIp` request.
 class RegisterElasticIpResult {
   /// The Elastic IP address.
   final String elasticIp;
@@ -4573,6 +4622,7 @@ class RegisterElasticIpResult {
       RegisterElasticIpResult();
 }
 
+/// Contains the response to a `RegisterInstanceResult` request.
 class RegisterInstanceResult {
   /// The registered instance's AWS OpsWorks Stacks ID.
   final String instanceId;
@@ -4584,6 +4634,7 @@ class RegisterInstanceResult {
       RegisterInstanceResult();
 }
 
+/// Contains the response to a `RegisterVolume` request.
 class RegisterVolumeResult {
   /// The volume ID.
   final String volumeId;
@@ -4595,6 +4646,7 @@ class RegisterVolumeResult {
       RegisterVolumeResult();
 }
 
+/// A registered instance's reported operating system.
 class ReportedOs {
   /// The operating system family.
   final String family;
@@ -4613,6 +4665,7 @@ class ReportedOs {
   static ReportedOs fromJson(Map<String, dynamic> json) => ReportedOs();
 }
 
+/// Describes a user's SSH information.
 class SelfUserProfile {
   /// The user's IAM ARN.
   final String iamUserArn;
@@ -4636,6 +4689,7 @@ class SelfUserProfile {
       SelfUserProfile();
 }
 
+/// Describes an AWS OpsWorks Stacks service error.
 class ServiceError {
   /// The error ID.
   final String serviceErrorId;
@@ -4666,14 +4720,15 @@ class ServiceError {
   static ServiceError fromJson(Map<String, dynamic> json) => ServiceError();
 }
 
+/// The Shutdown event configuration.
 class ShutdownEventConfiguration {
   /// The time, in seconds, that AWS OpsWorks Stacks will wait after triggering
   /// a Shutdown event before shutting down an instance.
   final int executionTimeout;
 
   /// Whether to enable Elastic Load Balancing connection draining. For more
-  /// information, see [Connection
-  /// Draining](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain)
+  /// information, see
+  /// [Connection Draining](https://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#conn-drain)
   final bool delayUntilElbConnectionsDrained;
 
   ShutdownEventConfiguration({
@@ -4684,12 +4739,17 @@ class ShutdownEventConfiguration {
       ShutdownEventConfiguration();
 }
 
+/// Contains the information required to retrieve an app or cookbook from a
+/// repository. For more information, see
+/// [Creating Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
+/// or
+/// [Custom Recipes and Cookbooks](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
 class Source {
   /// The repository type.
   final String type;
 
   /// The source URL. The following is an example of an Amazon S3 source URL:
-  /// `https://s3.amazonaws.com/opsworks-demo-bucket/opsworks\_cookbook\_demo.tar.gz`.
+  /// `https://s3.amazonaws.com/opsworks-demo-bucket/opsworks_cookbook_demo.tar.gz`.
   final String url;
 
   /// This parameter depends on the repository type.
@@ -4713,14 +4773,14 @@ class Source {
   /// For more information on how to safely handle IAM credentials, see
   /// [https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html](https://docs.aws.amazon.com/general/latest/gr/aws-access-keys-best-practices.html).
   ///
-  /// In responses, AWS OpsWorks Stacks returns `\*\*\*\*\*FILTERED\*\*\*\*\*`
-  /// instead of the actual value.
+  /// In responses, AWS OpsWorks Stacks returns `*****FILTERED*****` instead of
+  /// the actual value.
   final String password;
 
   /// In requests, the repository's SSH key.
   ///
-  /// In responses, AWS OpsWorks Stacks returns `\*\*\*\*\*FILTERED\*\*\*\*\*`
-  /// instead of the actual value.
+  /// In responses, AWS OpsWorks Stacks returns `*****FILTERED*****` instead of
+  /// the actual value.
   final String sshKey;
 
   /// The application's version. AWS OpsWorks Stacks enables you to easily
@@ -4740,6 +4800,7 @@ class Source {
   static Source fromJson(Map<String, dynamic> json) => Source();
 }
 
+/// Describes an app's SSL configuration.
 class SslConfiguration {
   /// The contents of the certificate's domain.crt file.
   final String certificate;
@@ -4760,6 +4821,7 @@ class SslConfiguration {
       SslConfiguration();
 }
 
+/// Describes a stack.
 class Stack {
   /// The stack ID.
   final String stackId;
@@ -4771,8 +4833,8 @@ class Stack {
   final String arn;
 
   /// The stack AWS region, such as "ap-northeast-2". For more information about
-  /// AWS regions, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// AWS regions, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String region;
 
   /// The VPC ID; applicable only if the stack is running in a VPC.
@@ -4785,8 +4847,8 @@ class Stack {
   final String serviceRoleArn;
 
   /// The ARN of an IAM profile that is the default profile for all of the
-  /// stack's EC2 instances. For more information about IAM ARNs, see [Using
-  /// Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
+  /// stack's EC2 instances. For more information about IAM ARNs, see
+  /// [Using Identifiers](https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html).
   final String defaultInstanceProfileArn;
 
   /// The stack's default operating system.
@@ -4795,8 +4857,8 @@ class Stack {
   /// The stack host name theme, with spaces replaced by underscores.
   final String hostnameTheme;
 
-  /// The stack's default Availability Zone. For more information, see [Regions
-  /// and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The stack's default Availability Zone. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String defaultAvailabilityZone;
 
   /// The default subnet ID; applicable only if the stack is running in a VPC.
@@ -4807,19 +4869,18 @@ class Stack {
   /// override the corresponding default stack configuration attribute values or
   /// to pass data to recipes. The string should be in the following format:
   ///
-  ///  `"{\\"key1\\": \\"value1\\", \\"key2\\": \\"value2\\",...}"`
+  ///  `"{"key1": "value1", "key2": "value2",...}"`
   ///
-  /// For more information on custom JSON, see [Use Custom JSON to Modify the
-  /// Stack Configuration
-  /// Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
+  /// For more information on custom JSON, see
+  /// [Use Custom JSON to Modify the Stack Configuration Attributes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-json.html).
   final String customJson;
 
   /// The configuration manager.
   final StackConfigurationManager configurationManager;
 
   /// A `ChefConfiguration` object that specifies whether to enable Berkshelf
-  /// and the Berkshelf version. For more information, see [Create a New
-  /// Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
+  /// and the Berkshelf version. For more information, see
+  /// [Create a New Stack](https://docs.aws.amazon.com/opsworks/latest/userguide/workingstacks-creating.html).
   final ChefConfiguration chefConfiguration;
 
   /// Whether the stack uses custom cookbooks.
@@ -4830,10 +4891,10 @@ class Stack {
   final bool useOpsworksSecurityGroups;
 
   /// Contains the information required to retrieve an app or cookbook from a
-  /// repository. For more information, see [Adding
-  /// Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
-  /// or [Cookbooks and
-  /// Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
+  /// repository. For more information, see
+  /// [Adding Apps](https://docs.aws.amazon.com/opsworks/latest/userguide/workingapps-creating.html)
+  /// or
+  /// [Cookbooks and Recipes](https://docs.aws.amazon.com/opsworks/latest/userguide/workingcookbook.html).
   final Source customCookbooksSource;
 
   /// A default Amazon EC2 key pair for the stack's instances. You can override
@@ -4845,8 +4906,8 @@ class Stack {
 
   /// The default root device type. This value is used by default for all
   /// instances in the stack, but you can override it when you create an
-  /// instance. For more information, see [Storage for the Root
-  /// Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
+  /// instance. For more information, see
+  /// [Storage for the Root Device](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ComponentsAMIs.html#storage-for-the-root-device).
   final String defaultRootDeviceType;
 
   /// The agent version. This parameter is set to `LATEST` for auto-update. or a
@@ -4880,6 +4941,7 @@ class Stack {
   static Stack fromJson(Map<String, dynamic> json) => Stack();
 }
 
+/// Describes the configuration manager.
 class StackConfigurationManager {
   /// The name. This parameter must be set to "Chef".
   final String name;
@@ -4897,6 +4959,7 @@ class StackConfigurationManager {
       StackConfigurationManager();
 }
 
+/// Summarizes the number of layers, instances, and apps in a stack.
 class StackSummary {
   /// The stack ID.
   final String stackId;
@@ -4927,6 +4990,8 @@ class StackSummary {
   static StackSummary fromJson(Map<String, dynamic> json) => StackSummary();
 }
 
+/// Contains the data needed by RDP clients such as the Microsoft Remote Desktop
+/// Connection to log in to the instance.
 class TemporaryCredential {
   /// The user name.
   final String username;
@@ -4953,6 +5018,7 @@ class TemporaryCredential {
       TemporaryCredential();
 }
 
+/// Describes an instance's time-based auto scaling configuration.
 class TimeBasedAutoScalingConfiguration {
   /// The instance ID.
   final String instanceId;
@@ -4969,6 +5035,7 @@ class TimeBasedAutoScalingConfiguration {
       TimeBasedAutoScalingConfiguration();
 }
 
+/// Describes a user's SSH information.
 class UserProfile {
   /// The user's IAM ARN.
   final String iamUserArn;
@@ -4983,8 +5050,8 @@ class UserProfile {
   final String sshPublicKey;
 
   /// Whether users can specify their own SSH public key through the My Settings
-  /// page. For more information, see [Managing User
-  /// Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
+  /// page. For more information, see
+  /// [Managing User Permissions](https://docs.aws.amazon.com/opsworks/latest/userguide/security-settingsshkey.html).
   final bool allowSelfManagement;
 
   UserProfile({
@@ -4997,6 +5064,7 @@ class UserProfile {
   static UserProfile fromJson(Map<String, dynamic> json) => UserProfile();
 }
 
+/// Describes an instance's Amazon EBS volume.
 class Volume {
   /// The volume ID.
   final String volumeId;
@@ -5026,31 +5094,31 @@ class Volume {
   /// The volume mount point. For example, "/mnt/disk1".
   final String mountPoint;
 
-  /// The AWS region. For more information about AWS regions, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The AWS region. For more information about AWS regions, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String region;
 
-  /// The volume Availability Zone. For more information, see [Regions and
-  /// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
+  /// The volume Availability Zone. For more information, see
+  /// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html).
   final String availabilityZone;
 
-  /// The volume type. For more information, see  [Amazon EBS Volume
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  /// The volume type. For more information, see
+  /// [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
   ///
-  /// *    `standard` \- Magnetic. Magnetic volumes must have a minimum size of
-  /// 1 GiB and a maximum size of 1024 GiB.
+  /// *    `standard` - Magnetic. Magnetic volumes must have a minimum size of 1
+  /// GiB and a maximum size of 1024 GiB.
   ///
-  /// *    `io1` \- Provisioned IOPS (SSD). PIOPS volumes must have a minimum
+  /// *    `io1` - Provisioned IOPS (SSD). PIOPS volumes must have a minimum
   /// size of 4 GiB and a maximum size of 16384 GiB.
   ///
-  /// *    `gp2` \- General Purpose (SSD). General purpose volumes must have a
+  /// *    `gp2` - General Purpose (SSD). General purpose volumes must have a
   /// minimum size of 1 GiB and a maximum size of 16384 GiB.
   ///
-  /// *    `st1` \- Throughput Optimized hard disk drive (HDD). Throughput
+  /// *    `st1` - Throughput Optimized hard disk drive (HDD). Throughput
   /// optimized HDD volumes must have a minimum size of 500 GiB and a maximum
   /// size of 16384 GiB.
   ///
-  /// *    `sc1` \- Cold HDD. Cold HDD volumes must have a minimum size of 500
+  /// *    `sc1` - Cold HDD. Cold HDD volumes must have a minimum size of 500
   /// GiB and a maximum size of 16384 GiB.
   final String volumeType;
 
@@ -5058,8 +5126,8 @@ class Volume {
   final int iops;
 
   /// Specifies whether an Amazon EBS volume is encrypted. For more information,
-  /// see [Amazon EBS
-  /// Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
+  /// see
+  /// [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
   final bool encrypted;
 
   Volume({
@@ -5081,12 +5149,13 @@ class Volume {
   static Volume fromJson(Map<String, dynamic> json) => Volume();
 }
 
+/// Describes an Amazon EBS volume configuration.
 class VolumeConfiguration {
   /// The volume mount point. For example "/dev/sdh".
   final String mountPoint;
 
-  /// The volume [RAID
-  /// level](http://en.wikipedia.org/wiki/Standard_RAID_levels).
+  /// The volume
+  /// [RAID level](http://en.wikipedia.org/wiki/Standard_RAID_levels).
   final int raidLevel;
 
   /// The number of disks in the volume.
@@ -5095,23 +5164,23 @@ class VolumeConfiguration {
   /// The volume size.
   final int size;
 
-  /// The volume type. For more information, see  [Amazon EBS Volume
-  /// Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
+  /// The volume type. For more information, see
+  /// [Amazon EBS Volume Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html).
   ///
-  /// *    `standard` \- Magnetic. Magnetic volumes must have a minimum size of
-  /// 1 GiB and a maximum size of 1024 GiB.
+  /// *    `standard` - Magnetic. Magnetic volumes must have a minimum size of 1
+  /// GiB and a maximum size of 1024 GiB.
   ///
-  /// *    `io1` \- Provisioned IOPS (SSD). PIOPS volumes must have a minimum
+  /// *    `io1` - Provisioned IOPS (SSD). PIOPS volumes must have a minimum
   /// size of 4 GiB and a maximum size of 16384 GiB.
   ///
-  /// *    `gp2` \- General Purpose (SSD). General purpose volumes must have a
+  /// *    `gp2` - General Purpose (SSD). General purpose volumes must have a
   /// minimum size of 1 GiB and a maximum size of 16384 GiB.
   ///
-  /// *    `st1` \- Throughput Optimized hard disk drive (HDD). Throughput
+  /// *    `st1` - Throughput Optimized hard disk drive (HDD). Throughput
   /// optimized HDD volumes must have a minimum size of 500 GiB and a maximum
   /// size of 16384 GiB.
   ///
-  /// *    `sc1` \- Cold HDD. Cold HDD volumes must have a minimum size of 500
+  /// *    `sc1` - Cold HDD. Cold HDD volumes must have a minimum size of 500
   /// GiB and a maximum size of 16384 GiB.
   final String volumeType;
 
@@ -5119,8 +5188,8 @@ class VolumeConfiguration {
   final int iops;
 
   /// Specifies whether an Amazon EBS volume is encrypted. For more information,
-  /// see [Amazon EBS
-  /// Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
+  /// see
+  /// [Amazon EBS Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html).
   final bool encrypted;
 
   VolumeConfiguration({
@@ -5136,6 +5205,25 @@ class VolumeConfiguration {
       VolumeConfiguration();
 }
 
+/// Describes a time-based instance's auto scaling schedule. The schedule
+/// consists of a set of key-value pairs.
+///
+/// *   The key is the time period (a UTC hour) and must be an integer from 0 -
+/// 23.
+///
+/// *   The value indicates whether the instance should be online or offline for
+/// the specified period, and must be set to "on" or "off"
+///
+///
+/// The default setting for all time periods is off, so you use the following
+/// parameters primarily to specify the online periods. You don't have to
+/// explicitly specify offline periods unless you want to change an online
+/// period to an offline period.
+///
+/// The following example specifies that the instance should be online for four
+/// hours, from UTC 1200 - 1600. It will be off for the remainder of the day.
+///
+///   `{ "12":"on", "13":"on", "14":"on", "15":"on" }`
 class WeeklyAutoScalingSchedule {
   /// The schedule for Monday.
   final Map<String, String> monday;

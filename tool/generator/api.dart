@@ -347,6 +347,8 @@ class Structure extends Shape {
 
   Structure(String name, s.Shape shape) : super._(name, shape);
 
+  String get documentation => shape.documentation;
+
   get dartType => DartType('$className', const {});
 
   String get className => dartStyleClassName(splitWords(name));

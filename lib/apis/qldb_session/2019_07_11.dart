@@ -40,16 +40,19 @@ class QldbSessionApi {
   }
 }
 
+/// Contains the details of the transaction to abort.
 class AbortTransactionRequest {
   AbortTransactionRequest();
 }
 
+/// Contains the details of the aborted transaction.
 class AbortTransactionResult {
   AbortTransactionResult();
   static AbortTransactionResult fromJson(Map<String, dynamic> json) =>
       AbortTransactionResult();
 }
 
+/// Contains the details of the transaction to commit.
 class CommitTransactionRequest {
   /// Specifies the transaction id of the transaction to commit.
   final String transactionId;
@@ -66,6 +69,7 @@ class CommitTransactionRequest {
   });
 }
 
+/// Contains the details of the committed transaction.
 class CommitTransactionResult {
   /// The transaction id of the committed transaction.
   final String transactionId;
@@ -81,16 +85,19 @@ class CommitTransactionResult {
       CommitTransactionResult();
 }
 
+/// Specifies a request to end the session.
 class EndSessionRequest {
   EndSessionRequest();
 }
 
+/// Contains the details of the ended session.
 class EndSessionResult {
   EndSessionResult();
   static EndSessionResult fromJson(Map<String, dynamic> json) =>
       EndSessionResult();
 }
 
+/// Specifies a request to execute a statement.
 class ExecuteStatementRequest {
   /// Specifies the transaction id of the request.
   final String transactionId;
@@ -108,6 +115,7 @@ class ExecuteStatementRequest {
   });
 }
 
+/// Contains the details of the executed statement.
 class ExecuteStatementResult {
   /// Contains the details of the first fetched page.
   final Page firstPage;
@@ -119,6 +127,7 @@ class ExecuteStatementResult {
       ExecuteStatementResult();
 }
 
+/// Specifies the details of the page to be fetched.
 class FetchPageRequest {
   /// Specifies the transaction id of the page to be fetched.
   final String transactionId;
@@ -132,6 +141,7 @@ class FetchPageRequest {
   });
 }
 
+/// Contains the page that was fetched.
 class FetchPageResult {
   /// Contains details of the fetched page.
   final Page page;
@@ -143,6 +153,7 @@ class FetchPageResult {
       FetchPageResult();
 }
 
+/// Contains details of the fetched page.
 class Page {
   /// A structure that contains values in multiple encoding formats.
   final List<ValueHolder> values;
@@ -194,6 +205,7 @@ class SendCommandResult {
       SendCommandResult();
 }
 
+/// Specifies a request to start a a new session.
 class StartSessionRequest {
   /// The name of the ledger to start a new session against.
   final String ledgerName;
@@ -203,6 +215,7 @@ class StartSessionRequest {
   });
 }
 
+/// Contains the details of the started session.
 class StartSessionResult {
   /// Session token of the started session. This `SessionToken` is required for
   /// every subsequent command that is issued during the current session.
@@ -215,10 +228,12 @@ class StartSessionResult {
       StartSessionResult();
 }
 
+/// Specifies a request to start a transaction.
 class StartTransactionRequest {
   StartTransactionRequest();
 }
 
+/// Contains the details of the started transaction.
 class StartTransactionResult {
   /// The transaction id of the started transaction.
   final String transactionId;
@@ -230,6 +245,7 @@ class StartTransactionResult {
       StartTransactionResult();
 }
 
+/// A structure that can contains values in multiple encoding formats.
 class ValueHolder {
   /// An Amazon Ion binary value contained in a `ValueHolder` structure.
   final Uint8List ionBinary;

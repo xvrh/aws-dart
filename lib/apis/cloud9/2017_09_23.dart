@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 /// AWS Cloud9 is a collection of tools that you can use to code, build, run,
 /// test, debug, and release software in the cloud.
 ///
-/// For more information about AWS Cloud9, see the [AWS Cloud9 User
-/// Guide](https://docs.aws.amazon.com/cloud9/latest/user-guide).
+/// For more information about AWS Cloud9, see the
+/// [AWS Cloud9 User Guide](https://docs.aws.amazon.com/cloud9/latest/user-guide).
 ///
 /// AWS Cloud9 supports these operations:
 ///
@@ -51,8 +51,8 @@ class Cloud9Api {
   /// [clientRequestToken]: A unique, case-sensitive string that helps AWS
   /// Cloud9 to ensure this operation completes no more than one time.
   ///
-  /// For more information, see [Client
-  /// Tokens](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html)
+  /// For more information, see
+  /// [Client Tokens](http://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html)
   /// in the _Amazon EC2 API Reference_.
   ///
   /// [instanceType]: The type of instance to connect to the environment (for
@@ -324,6 +324,7 @@ class DescribeEnvironmentsResult {
       DescribeEnvironmentsResult();
 }
 
+/// Information about an AWS Cloud9 development environment.
 class Environment {
   /// The ID of the environment.
   final String id;
@@ -363,6 +364,8 @@ class Environment {
   static Environment fromJson(Map<String, dynamic> json) => Environment();
 }
 
+/// Information about the current creation or deletion lifecycle state of an AWS
+/// Cloud9 development environment.
 class EnvironmentLifecycle {
   /// The current creation or deletion lifecycle state of the environment.
   ///
@@ -389,6 +392,8 @@ class EnvironmentLifecycle {
       EnvironmentLifecycle();
 }
 
+/// Information about an environment member for an AWS Cloud9 development
+/// environment.
 class EnvironmentMember {
   /// The type of environment member permissions associated with this
   /// environment member. Available values include:

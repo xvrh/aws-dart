@@ -7,8 +7,8 @@ import 'package:meta/meta.dart';
 /// accounts and their resources.
 ///
 /// This guide provides descriptions of the Organizations API. For more
-/// information about using this service, see the [AWS Organizations User
-/// Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html).
+/// information about using this service, see the
+/// [AWS Organizations User Guide](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html).
 ///
 ///  **API Version**
 ///
@@ -21,14 +21,14 @@ import 'package:meta/meta.dart';
 /// provide a convenient way to create programmatic access to AWS Organizations.
 /// For example, the SDKs take care of cryptographically signing requests,
 /// managing errors, and retrying requests automatically. For more information
-/// about the AWS SDKs, including how to download and install them, see [Tools
-/// for Amazon Web Services](http://aws.amazon.com/tools/).
+/// about the AWS SDKs, including how to download and install them, see
+/// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 ///
 /// We recommend that you use the AWS SDKs to make programmatic API calls to
 /// Organizations. However, you also can use the Organizations Query API to make
 /// direct calls to the Organizations web service. To learn more about the
-/// Organizations Query API, see [Making Query
-/// Requests](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_query-requests.html)
+/// Organizations Query API, see
+/// [Making Query Requests](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_query-requests.html)
 /// in the _AWS Organizations User Guide_. Organizations supports GET and POST
 /// requests for all actions. That is, the API does not require you to use GET
 /// for some actions and POST for others. However, GET requests are subject to
@@ -47,8 +47,8 @@ import 'package:meta/meta.dart';
 /// Security Token Service to generate temporary security credentials, and use
 /// those credentials to sign requests.
 ///
-/// To sign requests, we recommend that you use [Signature Version
-/// 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+/// To sign requests, we recommend that you use
+/// [Signature Version 4](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
 /// If you have an existing application that uses Signature Version 2, you do
 /// not have to update it to use Signature Version 4. However, some operations
 /// now require Signature Version 4. The documentation for operations that
@@ -65,10 +65,10 @@ import 'package:meta/meta.dart';
 ///
 /// We welcome your feedback. Send your comments to
 /// [feedback-awsorganizations@amazon.com](mailto:feedback-awsorganizations@amazon.com)
-/// or post your feedback and questions in the [AWS Organizations support
-/// forum](http://forums.aws.amazon.com/forum.jspa?forumID=219). For more
-/// information about the AWS support forums, see [Forums
-/// Help](http://forums.aws.amazon.com/help.jspa).
+/// or post your feedback and questions in the
+/// [AWS Organizations support forum](http://forums.aws.amazon.com/forum.jspa?forumID=219).
+/// For more information about the AWS support forums, see
+/// [Forums Help](http://forums.aws.amazon.com/help.jspa).
 ///
 ///  **Endpoint to Call When Using the CLI or the AWS API**
 ///
@@ -93,8 +93,8 @@ import 'package:meta/meta.dart';
 ///
 /// For the various SDKs used to call the APIs, see the documentation for the
 /// SDK of interest to learn how to direct the requests to a specific endpoint.
-/// For more information, see [Regions and
-/// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region)
+/// For more information, see
+/// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#sts_region)
 /// in the _AWS General Reference_.
 ///
 ///  **How examples are presented**
@@ -114,12 +114,11 @@ import 'package:meta/meta.dart';
 /// using information collected by AWS CloudTrail, you can determine which
 /// requests were successfully made to Organizations, who made the request, when
 /// it was made, and so on. For more about AWS Organizations and its support for
-/// AWS CloudTrail, see [Logging AWS Organizations Events with AWS
-/// CloudTrail](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html#orgs_cloudtrail-integration)
+/// AWS CloudTrail, see
+/// [Logging AWS Organizations Events with AWS CloudTrail](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html#orgs_cloudtrail-integration)
 /// in the _AWS Organizations User Guide_. To learn more about CloudTrail,
-/// including how to turn it on and find your log files, see the [AWS CloudTrail
-/// User
-/// Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
+/// including how to turn it on and find your log files, see the
+/// [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/what_is_cloud_trail_top_level.html).
 class OrganizationsApi {
   /// Sends a response to the originator of a handshake agreeing to the action
   /// proposed by the handshake request.
@@ -135,21 +134,18 @@ class OrganizationsApi {
   /// the organization, the user must also have the
   /// `iam:CreateServiceLinkedRole` permission so that AWS Organizations can
   /// create the required service-linked role named
-  /// `AWSServiceRoleForOrganizations`. For more information, see [AWS
-  /// Organizations and Service-Linked
-  /// Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integration_services.html#orgs_integration_service-linked-roles)
+  /// `AWSServiceRoleForOrganizations`. For more information, see
+  /// [AWS Organizations and Service-Linked Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integration_services.html#orgs_integration_service-linked-roles)
   /// in the _AWS Organizations User Guide_.
   ///
   /// *    **Enable all features final confirmation** handshake: only a
   /// principal from the master account.
   ///
-  ///     For more information about invitations, see [Inviting an AWS Account
-  /// to Join Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html)
+  ///     For more information about invitations, see
+  /// [Inviting an AWS Account to Join Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html)
   /// in the _AWS Organizations User Guide._ For more information about requests
-  /// to enable all features in the organization, see [Enabling All Features in
-  /// Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
+  /// to enable all features in the organization, see
+  /// [Enabling All Features in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///
@@ -169,7 +165,7 @@ class OrganizationsApi {
   /// Attaches a policy to a root, an organizational unit (OU), or an individual
   /// account. How the policy affects accounts depends on the type of policy:
   ///
-  /// *    **Service control policy (SCP)** \- An SCP specifies what permissions
+  /// *    **Service control policy (SCP)** - An SCP specifies what permissions
   /// can be delegated to users in affected member accounts. The scope of
   /// influence for a policy depends on what you attach the policy to:
   ///
@@ -205,8 +201,8 @@ class OrganizationsApi {
   /// allow in that OU or account.
   ///
   ///     For more information about how AWS Organizations policies permissions
-  /// work, see [Using Service Control
-  /// Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html)
+  /// work, see
+  /// [Using Service Control Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///
@@ -227,12 +223,12 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Account** \- A string that consists of exactly 12 digits.
+  /// *    **Account** - A string that consists of exactly 12 digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -274,8 +270,7 @@ class OrganizationsApi {
   ///
   /// *   Check the AWS CloudTrail log for the `CreateAccountResult` event. For
   /// information on using AWS CloudTrail with AWS Organizations, see
-  /// [Monitoring the Activity in Your
-  /// Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
+  /// [Monitoring the Activity in Your Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///
@@ -283,8 +278,7 @@ class OrganizationsApi {
   /// `organizations:CreateAccount` permission. If you enabled all features in
   /// the organization, AWS Organizations creates the required service-linked
   /// role named `AWSServiceRoleForOrganizations`. For more information, see
-  /// [AWS Organizations and Service-Linked
-  /// Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_integrate_services-using_slrs)
+  /// [AWS Organizations and Service-Linked Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_integrate_services-using_slrs)
   /// in the _AWS Organizations User Guide_.
   ///
   /// AWS Organizations preconfigures the new member account with a role (named
@@ -296,9 +290,8 @@ class OrganizationsApi {
   ///
   /// This operation can be called only from the organization's master account.
   ///
-  /// For more information about creating accounts, see [Creating an AWS Account
-  /// in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html)
+  /// For more information about creating accounts, see
+  /// [Creating an AWS Account in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///  *   When you create an account in an organization using the AWS
@@ -307,25 +300,24 @@ class OrganizationsApi {
   /// and signing the end user license agreement (EULA) is _not_ automatically
   /// collected. If you must remove an account from your organization later, you
   /// can do so only after you provide the missing information. Follow the steps
-  /// at  [To leave an organization as a member
-  /// account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
+  /// at
+  /// [To leave an organization as a member account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
   /// in the _AWS Organizations User Guide_.
   ///
   /// *   If you get an exception that indicates that you exceeded your account
-  /// limits for the organization, contact [AWS
-  /// Support](https://console.aws.amazon.com/support/home#/).
+  /// limits for the organization, contact
+  /// [AWS Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// *   If you get an exception that indicates that the operation failed
   /// because your organization is still initializing, wait one hour and then
-  /// try again. If the error persists, contact [AWS
-  /// Support](https://console.aws.amazon.com/support/home#/).
+  /// try again. If the error persists, contact
+  /// [AWS Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// *   Using `CreateAccount` to create multiple temporary accounts isn't
   /// recommended. You can only close an account from the Billing and Cost
   /// Management Console, and you must be signed in as the root user. For
   /// information on the requirements and process for closing an account, see
-  /// [Closing an AWS
-  /// Account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_close.html)
+  /// [Closing an AWS Account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_close.html)
   /// in the _AWS Organizations User Guide_.
   ///
   /// When you create a member account with this operation, you can choose
@@ -334,8 +326,8 @@ class OrganizationsApi {
   /// roles that have appropriate permissions can view billing information for
   /// the account. If you disable it, only the account root user can access
   /// billing information. For information about how to disable this switch for
-  /// an account, see [Granting Access to Your Billing Information and
-  /// Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
+  /// an account, see
+  /// [Granting Access to Your Billing Information and Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
   ///
   /// [email]: The email address of the owner to assign to the new member
   /// account. This email address must not already be associated with another
@@ -357,11 +349,10 @@ class OrganizationsApi {
   /// `OrganizationAccountAccessRole`.
   ///
   /// For more information about how to use this role to access the member
-  /// account, see [Accessing and Administering the Member Accounts in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
-  /// in the _AWS Organizations User Guide_, and steps 2 and 3 in [Tutorial:
-  /// Delegate Access Across AWS Accounts Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+  /// account, see
+  /// [Accessing and Administering the Member Accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
+  /// in the _AWS Organizations User Guide_, and steps 2 and 3 in
+  /// [Tutorial: Delegate Access Across AWS Accounts Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
   /// in the _IAM User Guide._
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
@@ -372,9 +363,8 @@ class OrganizationsApi {
   /// [iamUserAccessToBilling]: If set to `ALLOW`, the new account enables IAM
   /// users to access account billing information _if_ they have the required
   /// permissions. If set to `DENY`, only the root user of the new account can
-  /// access account billing information. For more information, see [Activating
-  /// Access to the Billing and Cost Management
-  /// Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
+  /// access account billing information. For more information, see
+  /// [Activating Access to the Billing and Cost Management Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// If you don't specify this parameter, the value defaults to `ALLOW`, and
@@ -391,9 +381,8 @@ class OrganizationsApi {
   /// This action is available if all of the following are true:
   ///
   /// *   You're authorized to create accounts in the AWS GovCloud (US) Region.
-  /// For more information on the AWS GovCloud (US) Region, see the  [_AWS
-  /// GovCloud User
-  /// Guide_.](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html)
+  /// For more information on the AWS GovCloud (US) Region, see the
+  /// [_AWS GovCloud User Guide_.](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/welcome.html)
   ///
   /// *   You already have an account in the AWS GovCloud (US) Region that is
   /// associated with your master account in the commercial Region.
@@ -403,9 +392,8 @@ class OrganizationsApi {
   ///
   /// *   You have the `organizations:CreateGovCloudAccount` permission. AWS
   /// Organizations creates the required service-linked role named
-  /// `AWSServiceRoleForOrganizations`. For more information, see [AWS
-  /// Organizations and Service-Linked
-  /// Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_integrate_services-using_slrs)
+  /// `AWSServiceRoleForOrganizations`. For more information, see
+  /// [AWS Organizations and Service-Linked Roles](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html#orgs_integrate_services-using_slrs)
   /// in the _AWS Organizations User Guide._
   ///
   ///
@@ -416,8 +404,8 @@ class OrganizationsApi {
   ///
   /// *   Create an S3 bucket for AWS CloudTrail log storage.
   ///
-  ///     For more information, see [Verifying AWS CloudTrail Is
-  /// Enabled](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/verifying-cloudtrail.html)
+  ///     For more information, see
+  /// [Verifying AWS CloudTrail Is Enabled](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/verifying-cloudtrail.html)
   /// in the _AWS GovCloud User Guide_.
   ///
   ///
@@ -426,8 +414,8 @@ class OrganizationsApi {
   /// (US) Region. After the account is created, the master account of an
   /// organization in the AWS GovCloud (US) Region can invite it to that
   /// organization. For more information on inviting standalone accounts in the
-  /// AWS GovCloud (US) to join an organization, see [AWS
-  /// Organizations](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html)
+  /// AWS GovCloud (US) to join an organization, see
+  /// [AWS Organizations](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html)
   /// in the _AWS GovCloud User Guide._
   ///
   /// Calling `CreateGovCloudAccount` is an asynchronous request that AWS
@@ -441,9 +429,8 @@ class OrganizationsApi {
   /// as a parameter to the DescribeCreateAccountStatus operation.
   ///
   /// *   Check the AWS CloudTrail log for the `CreateAccountResult` event. For
-  /// information on using AWS CloudTrail with Organizations, see [Monitoring
-  /// the Activity in Your
-  /// Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
+  /// information on using AWS CloudTrail with Organizations, see
+  /// [Monitoring the Activity in Your Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///
@@ -461,13 +448,12 @@ class OrganizationsApi {
   /// GovCloud (US) account that can be assumed by the AWS GovCloud (US) account
   /// that is associated with the master account of the commercial organization.
   /// For more information and to view a diagram that explains how account
-  /// access works, see [AWS
-  /// Organizations](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html)
+  /// access works, see
+  /// [AWS Organizations](http://docs.aws.amazon.com/govcloud-us/latest/UserGuide/govcloud-organizations.html)
   /// in the _AWS GovCloud User Guide._
   ///
-  /// For more information about creating accounts, see [Creating an AWS Account
-  /// in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html)
+  /// For more information about creating accounts, see
+  /// [Creating an AWS Account in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_create.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///  *   When you create an account in an organization using the AWS
@@ -476,25 +462,24 @@ class OrganizationsApi {
   /// and signing the end user license agreement (EULA) is _not_ automatically
   /// collected. If you must remove an account from your organization later, you
   /// can do so only after you provide the missing information. Follow the steps
-  /// at  [To leave an organization as a member
-  /// account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
+  /// at
+  /// [To leave an organization as a member account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
   /// in the _AWS Organizations User Guide._
   ///
   /// *   If you get an exception that indicates that you exceeded your account
-  /// limits for the organization, contact [AWS
-  /// Support](https://console.aws.amazon.com/support/home#/).
+  /// limits for the organization, contact
+  /// [AWS Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// *   If you get an exception that indicates that the operation failed
   /// because your organization is still initializing, wait one hour and then
-  /// try again. If the error persists, contact [AWS
-  /// Support](https://console.aws.amazon.com/support/home#/).
+  /// try again. If the error persists, contact
+  /// [AWS Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// *   Using `CreateGovCloudAccount` to create multiple temporary accounts
   /// isn't recommended. You can only close an account from the AWS Billing and
   /// Cost Management console, and you must be signed in as the root user. For
   /// information on the requirements and process for closing an account, see
-  /// [Closing an AWS
-  /// Account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_close.html)
+  /// [Closing an AWS Account](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_close.html)
   /// in the _AWS Organizations User Guide_.
   ///
   /// When you create a member account with this operation, you can choose
@@ -503,8 +488,8 @@ class OrganizationsApi {
   /// roles that have appropriate permissions can view billing information for
   /// the account. If you disable it, only the account root user can access
   /// billing information. For information about how to disable this switch for
-  /// an account, see [Granting Access to Your Billing Information and
-  /// Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
+  /// an account, see
+  /// [Granting Access to Your Billing Information and Tools](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html).
   ///
   /// [email]: The email address of the owner to assign to the new member
   /// account in the commercial Region. This email address must not already be
@@ -530,11 +515,10 @@ class OrganizationsApi {
   /// `OrganizationAccountAccessRole`.
   ///
   /// For more information about how to use this role to access the member
-  /// account, see [Accessing and Administering the Member Accounts in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
-  /// in the _AWS Organizations User Guide_ and steps 2 and 3 in [Tutorial:
-  /// Delegate Access Across AWS Accounts Using IAM
-  /// Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
+  /// account, see
+  /// [Accessing and Administering the Member Accounts in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_access.html#orgs_manage_accounts_create-cross-account-role)
+  /// in the _AWS Organizations User Guide_ and steps 2 and 3 in
+  /// [Tutorial: Delegate Access Across AWS Accounts Using IAM Roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html)
   /// in the _IAM User Guide._
   ///
   /// The [regex pattern](http://wikipedia.org/wiki/regex) that is used to
@@ -546,8 +530,8 @@ class OrganizationsApi {
   /// commercial Region enables IAM users to access account billing information
   /// _if_ they have the required permissions. If set to `DENY`, only the root
   /// user of the new account can access account billing information. For more
-  /// information, see [Activating Access to the Billing and Cost Management
-  /// Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
+  /// information, see
+  /// [Activating Access to the Billing and Cost Management Console](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
   /// in the _AWS Billing and Cost Management User Guide._
   ///
   /// If you don't specify this parameter, the value defaults to `ALLOW`, and
@@ -562,8 +546,8 @@ class OrganizationsApi {
   }
 
   /// Creates an AWS organization. The account whose user is calling the
-  /// `CreateOrganization` operation automatically becomes the [master
-  /// account](https://docs.aws.amazon.com/IAM/latest/UserGuide/orgs_getting-started_concepts.html#account)
+  /// `CreateOrganization` operation automatically becomes the
+  /// [master account](https://docs.aws.amazon.com/IAM/latest/UserGuide/orgs_getting-started_concepts.html#account)
   /// of the new organization.
   ///
   /// This operation must be called using credentials from the account that is
@@ -583,8 +567,7 @@ class OrganizationsApi {
   ///
   /// *    `CONSOLIDATED_BILLING`: All member accounts have their bills
   /// consolidated to and paid by the master account. For more information, see
-  /// [Consolidated
-  /// billing](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only)
+  /// [Consolidated billing](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only)
   /// in the _AWS Organizations User Guide._
   ///
   ///      The consolidated billing feature subset isn't available for
@@ -592,8 +575,8 @@ class OrganizationsApi {
   ///
   /// *    `ALL`: In addition to all the features supported by the consolidated
   /// billing feature set, the master account can also apply any policy type to
-  /// any member account in the organization. For more information, see [All
-  /// features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all)
+  /// any member account in the organization. For more information, see
+  /// [All features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all)
   /// in the _AWS Organizations User Guide._
   Future<CreateOrganizationResponse> createOrganization(
       {String featureSet}) async {
@@ -606,8 +589,8 @@ class OrganizationsApi {
   /// deep that you can nest OUs is dependent upon the policy types enabled for
   /// that root. For service control policies, the limit is five.
   ///
-  /// For more information about OUs, see [Managing Organizational
-  /// Units](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html)
+  /// For more information about OUs, see
+  /// [Managing Organizational Units](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html)
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
@@ -618,10 +601,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -635,20 +618,18 @@ class OrganizationsApi {
   /// Creates a policy of a specified type that you can attach to a root, an
   /// organizational unit (OU), or an individual AWS account.
   ///
-  /// For more information about policies and their use, see [Managing
-  /// Organization
-  /// Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html).
+  /// For more information about policies and their use, see
+  /// [Managing Organization Policies](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html).
   ///
   /// This operation can be called only from the organization's master account.
   ///
   /// [content]: The policy content to add to the new policy. For example, if
-  /// you create a [service control
-  /// policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html)
+  /// you create a
+  /// [service control policy](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scp.html)
   /// (SCP), this string must be JSON text that specifies the permissions that
   /// admins in attached accounts can delegate to their users, groups, and
-  /// roles. For more information about the SCP syntax, see [Service Control
-  /// Policy
-  /// Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
+  /// roles. For more information about the SCP syntax, see
+  /// [Service Control Policy Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
   /// in the _AWS Organizations User Guide._
   ///
   /// [description]: An optional description to assign to the policy.
@@ -867,12 +848,12 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Account** \- A string that consists of exactly 12 digits.
+  /// *    **Account** - A string that consists of exactly 12 digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -881,8 +862,8 @@ class OrganizationsApi {
 
   /// Disables the integration of an AWS service (the service that is specified
   /// by `ServicePrincipal`) with AWS Organizations. When you disable
-  /// integration, the specified service no longer can create a [service-linked
-  /// role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
+  /// integration, the specified service no longer can create a
+  /// [service-linked role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
   /// in _new_ accounts in your organization. This means the service can't
   /// perform operations on your behalf on any new accounts in your
   /// organization. The service can still perform operations in older accounts
@@ -905,8 +886,8 @@ class OrganizationsApi {
   ///
   /// For more information about integrating other services with AWS
   /// Organizations, including the list of services that work with
-  /// Organizations, see [Integrating AWS Organizations with Other AWS
-  /// Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
+  /// Organizations, see
+  /// [Integrating AWS Organizations with Other AWS Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
@@ -926,8 +907,8 @@ class OrganizationsApi {
   ///
   /// This is an asynchronous request that AWS performs in the background. If
   /// you disable a policy for a root, it still appears enabled for the
-  /// organization if [all
-  /// features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
+  /// organization if
+  /// [all features](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
   /// are enabled for the organization. AWS recommends that you first use
   /// ListRoots to see the status of policy types for a specified root, and then
   /// use this operation.
@@ -951,8 +932,8 @@ class OrganizationsApi {
 
   /// Enables the integration of an AWS service (the service that is specified
   /// by `ServicePrincipal`) with AWS Organizations. When you enable
-  /// integration, you allow the specified service to create a [service-linked
-  /// role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
+  /// integration, you allow the specified service to create a
+  /// [service-linked role](http://docs.aws.amazon.com/IAM/latest/UserGuide/using-service-linked-roles.html)
   /// in all the accounts in your organization. This allows the service to
   /// perform operations on your behalf in your organization and its accounts.
   ///
@@ -965,13 +946,13 @@ class OrganizationsApi {
   /// documentation for the other AWS service.
   ///
   /// For more information about enabling services to integrate with AWS
-  /// Organizations, see [Integrating AWS Organizations with Other AWS
-  /// Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
+  /// Organizations, see
+  /// [Integrating AWS Organizations with Other AWS Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account
-  /// and only if the organization has [enabled all
-  /// features](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html).
+  /// and only if the organization has
+  /// [enabled all features](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html).
   ///
   /// [servicePrincipal]: The service principal name of the AWS service for
   /// which you want to enable integration with your organization. This is
@@ -984,8 +965,8 @@ class OrganizationsApi {
   /// be called in each account. Until you enable all features, you have access
   /// only to consolidated billing, and you can't use any of the advanced
   /// account administration features that AWS Organizations supports. For more
-  /// information, see [Enabling All Features in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
+  /// information, see
+  /// [Enabling All Features in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
   /// in the _AWS Organizations User Guide._
   ///
   ///  This operation is required only for organizations that were created
@@ -1002,7 +983,7 @@ class OrganizationsApi {
   ///
   /// After all invited member accounts accept the handshake, you finalize the
   /// feature set change by accepting the handshake that contains `"Action":
-  /// "ENABLE\_ALL\_FEATURES"`. This completes the change.
+  /// "ENABLE_ALL_FEATURES"`. This completes the change.
   ///
   /// After you enable all features in your organization, the master account in
   /// the organization can apply policies on all member accounts. These policies
@@ -1053,14 +1034,14 @@ class OrganizationsApi {
   /// Amazon Internet Services Pvt. Ltd (AISPL), an AWS seller in India, you can
   /// invite only other AISPL accounts to your organization. You can't combine
   /// accounts from AISPL and AWS or from any other AWS seller. For more
-  /// information, see [Consolidated Billing in
-  /// India](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html).
+  /// information, see
+  /// [Consolidated Billing in India](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html).
   ///
   /// *   If you receive an exception that indicates that you exceeded your
   /// account limits for the organization or that the operation failed because
   /// your organization is still initializing, wait one hour and then try again.
-  /// If the error persists after an hour, contact [AWS
-  /// Support](https://console.aws.amazon.com/support/home#/).
+  /// If the error persists after an hour, contact
+  /// [AWS Support](https://console.aws.amazon.com/support/home#/).
   ///
   /// This operation can be called only from the organization's master account.
   ///
@@ -1114,15 +1095,13 @@ class OrganizationsApi {
   /// contact information, and provide a current payment method. AWS uses the
   /// payment method to charge for any billable (not free tier) AWS activity
   /// that occurs while the account isn't attached to an organization. Follow
-  /// the steps at  [To leave an organization when all required account
-  /// information has not yet been
-  /// provided](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
+  /// the steps at
+  /// [To leave an organization when all required account information has not yet been provided](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
   /// in the _AWS Organizations User Guide._
   ///
   /// *   You can leave an organization only after you enable IAM user access to
-  /// billing in your account. For more information, see [Activating Access to
-  /// the Billing and Cost Management
-  /// Console](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
+  /// billing in your account. For more information, see
+  /// [Activating Access to the Billing and Cost Management Console](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate)
   /// in the _AWS Billing and Cost Management User Guide._
   Future<void> leaveOrganization() async {}
 
@@ -1133,8 +1112,8 @@ class OrganizationsApi {
   ///
   /// For more information about integrating other services with AWS
   /// Organizations, including the list of services that currently work with
-  /// Organizations, see [Integrating AWS Organizations with Other AWS
-  /// Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
+  /// Organizations, see
+  /// [Integrating AWS Organizations with Other AWS Services](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services.html)
   /// in the _AWS Organizations User Guide._
   ///
   /// This operation can be called only from the organization's master account.
@@ -1248,10 +1227,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1333,8 +1312,8 @@ class OrganizationsApi {
   ///
   /// [filter]: Filters the handshakes that you want included in the response.
   /// The default is all types. Use the `ActionType` element to limit the output
-  /// to only a specified type, such as `INVITE`, `ENABLE\_ALL\_FEATURES`, or
-  /// `APPROVE\_ALL\_FEATURES`. Alternatively, for the `ENABLE\_ALL\_FEATURES`
+  /// to only a specified type, such as `INVITE`, `ENABLE_ALL_FEATURES`, or
+  /// `APPROVE_ALL_FEATURES`. Alternatively, for the `ENABLE_ALL_FEATURES`
   /// handshake that generates a separate child handshake for each member
   /// account, you can specify `ParentHandshakeId` to see only the handshakes
   /// that were generated by that parent request.
@@ -1421,10 +1400,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1473,9 +1452,9 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a child ID string
   /// requires one of the following:
   ///
-  /// *    **Account** \- A string that consists of exactly 12 digits.
+  /// *    **Account** - A string that consists of exactly 12 digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that contains the OU) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1551,12 +1530,12 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a target ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Account** \- A string that consists of exactly 12 digits.
+  /// *    **Account** - A string that consists of exactly 12 digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1696,10 +1675,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1710,10 +1689,10 @@ class OrganizationsApi {
   /// The [regex pattern](http://wikipedia.org/wiki/regex) for a parent ID
   /// string requires one of the following:
   ///
-  /// *    **Root** \- A string that begins with "r-" followed by from 4 to 32
+  /// *    **Root** - A string that begins with "r-" followed by from 4 to 32
   /// lower-case letters or digits.
   ///
-  /// *    **Organizational unit (OU)** \- A string that begins with "ou-"
+  /// *    **Organizational unit (OU)** - A string that begins with "ou-"
   /// followed by from 4 to 32 lower-case letters or digits (the ID of the root
   /// that the OU is in) followed by a second "-" dash and from 8 to 32
   /// additional lower-case letters or digits.
@@ -1746,9 +1725,8 @@ class OrganizationsApi {
   /// payment method to charge for any billable (not free tier) AWS activity
   /// that occurs while the account isn't attached to an organization. To remove
   /// an account that doesn't yet have this information, you must sign in as the
-  /// member account and follow the steps at  [To leave an organization when all
-  /// required account information has not yet been
-  /// provided](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
+  /// member account and follow the steps at
+  /// [To leave an organization when all required account information has not yet been provided](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info)
   /// in the _AWS Organizations User Guide._
   ///
   /// [accountId]: The unique identifier (ID) of the member account that you
@@ -1829,8 +1807,8 @@ class OrganizationsApi {
   ///
   /// [content]: If provided, the new content for the policy. The text must be
   /// correctly formatted JSON that complies with the syntax for the policy's
-  /// type. For more information, see [Service Control Policy
-  /// Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
+  /// type. For more information, see
+  /// [Service Control Policy Syntax](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_reference_scp-syntax.html)
   /// in the _AWS Organizations User Guide._
   Future<UpdatePolicyResponse> updatePolicy(String policyId,
       {String name, String description, String content}) async {
@@ -1849,6 +1827,8 @@ class AcceptHandshakeResponse {
       AcceptHandshakeResponse();
 }
 
+/// Contains information about an AWS account that is a member of an
+/// organization.
 class Account {
   /// The unique identifier (ID) of the account.
   ///
@@ -1858,9 +1838,8 @@ class Account {
 
   /// The Amazon Resource Name (ARN) of the account.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -1909,6 +1888,7 @@ class CancelHandshakeResponse {
       CancelHandshakeResponse();
 }
 
+/// Contains a list of child entities, either OUs or accounts.
 class Child {
   /// The unique identifier (ID) of this child entity.
   ///
@@ -1940,9 +1920,8 @@ class CreateAccountResponse {
   /// pass the returned `CreateAccountStatus` ID as a parameter to
   /// DescribeCreateAccountStatus to get status about the progress of the
   /// request at later times. You can also check the AWS CloudTrail log for the
-  /// `CreateAccountResult` event. For more information, see [Monitoring the
-  /// Activity in Your
-  /// Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
+  /// `CreateAccountResult` event. For more information, see
+  /// [Monitoring the Activity in Your Organization](http://docs.aws.amazon.com/organizations/latest/userguide/orgs_monitoring.html)
   /// in the _AWS Organizations User Guide_.
   final CreateAccountStatus createAccountStatus;
 
@@ -1953,6 +1932,8 @@ class CreateAccountResponse {
       CreateAccountResponse();
 }
 
+/// Contains the status about a CreateAccount or CreateGovCloudAccount request
+/// to create an AWS account or an AWS GovCloud (US) account in an organization.
 class CreateAccountStatus {
   /// The unique identifier (ID) that references this request. You get this
   /// value from the response of the initial CreateAccount request to create the
@@ -1988,11 +1969,11 @@ class CreateAccountStatus {
 
   /// If the request failed, a description of the reason for the failure.
   ///
-  /// *   ACCOUNT\_LIMIT\_EXCEEDED: The account could not be created because you
+  /// *   ACCOUNT_LIMIT_EXCEEDED: The account could not be created because you
   /// have reached the limit on the number of accounts in your organization.
   ///
-  /// *   EMAIL\_ALREADY\_EXISTS: The account could not be created because
-  /// another AWS account with that email address already exists.
+  /// *   EMAIL_ALREADY_EXISTS: The account could not be created because another
+  /// AWS account with that email address already exists.
   ///
   /// *   INVALID_ADDRESS: The account could not be created because the address
   /// you provided is not valid.
@@ -2179,6 +2160,8 @@ class EnablePolicyTypeResponse {
       EnablePolicyTypeResponse();
 }
 
+/// A structure that contains details of a service principal that is enabled to
+/// integrate with AWS Organizations.
 class EnabledServicePrincipal {
   /// The name of the service principal. This is typically in the form of a URL,
   /// such as:  `_servicename_.amazonaws.com`.
@@ -2196,6 +2179,15 @@ class EnabledServicePrincipal {
       EnabledServicePrincipal();
 }
 
+/// Contains information that must be exchanged to securely establish a
+/// relationship between two accounts (an _originator_ and a _recipient_). For
+/// example, when a master account (the originator) invites another account (the
+/// recipient) to join its organization, the two accounts exchange information
+/// as a series of handshake requests and responses.
+///
+///  **Note:** Handshakes that are CANCELED, ACCEPTED, or DECLINED show up in
+/// lists for only 30 days after entering that state After that they are
+/// deleted.
 class Handshake {
   /// The unique identifier (ID) of a handshake. The originating account creates
   /// the ID when it initiates the handshake.
@@ -2207,9 +2199,8 @@ class Handshake {
 
   /// The Amazon Resource Name (ARN) of a handshake.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2259,15 +2250,15 @@ class Handshake {
   /// organization. It is always sent from the master account to only non-member
   /// accounts.
   ///
-  /// *    **ENABLE\_ALL\_FEATURES**: This type of handshake represents a
-  /// request to enable all features in an organization. It is always sent from
-  /// the master account to only _invited_ member accounts. Created accounts do
-  /// not receive this because those accounts were created by the organization's
+  /// *    **ENABLE_ALL_FEATURES**: This type of handshake represents a request
+  /// to enable all features in an organization. It is always sent from the
+  /// master account to only _invited_ member accounts. Created accounts do not
+  /// receive this because those accounts were created by the organization's
   /// master account and approval is inferred.
   ///
-  /// *    **APPROVE\_ALL\_FEATURES**: This type of handshake is sent from the
+  /// *    **APPROVE_ALL_FEATURES**: This type of handshake is sent from the
   /// Organizations service when all member accounts have approved the
-  /// `ENABLE\_ALL\_FEATURES` invitation. It is sent only to the master account
+  /// `ENABLE_ALL_FEATURES` invitation. It is sent only to the master account
   /// and signals the master that it can finalize the process to enable all
   /// features.
   final String action;
@@ -2288,6 +2279,8 @@ class Handshake {
   static Handshake fromJson(Map<String, dynamic> json) => Handshake();
 }
 
+/// Specifies the criteria that are used to select the handshakes for the
+/// operation.
 class HandshakeFilter {
   /// Specifies the type of handshake action.
   ///
@@ -2310,6 +2303,7 @@ class HandshakeFilter {
   });
 }
 
+/// Identifies a participant in a handshake.
 class HandshakeParty {
   /// The unique identifier (ID) for the party.
   ///
@@ -2328,6 +2322,7 @@ class HandshakeParty {
   static HandshakeParty fromJson(Map<String, dynamic> json) => HandshakeParty();
 }
 
+/// Contains additional data that is needed to process a handshake.
 class HandshakeResource {
   /// The information that is passed to the other party in the handshake. The
   /// format of the value string must match the requirements of the specified
@@ -2337,20 +2332,20 @@ class HandshakeResource {
   /// The type of information being passed, specifying how the value is to be
   /// interpreted by the other party:
   ///
-  /// *    `ACCOUNT` \- Specifies an AWS account ID number.
+  /// *    `ACCOUNT` - Specifies an AWS account ID number.
   ///
-  /// *    `ORGANIZATION` \- Specifies an organization ID number.
+  /// *    `ORGANIZATION` - Specifies an organization ID number.
   ///
-  /// *    `EMAIL` \- Specifies the email address that is associated with the
+  /// *    `EMAIL` - Specifies the email address that is associated with the
   /// account that receives the handshake.
   ///
-  /// *    `OWNER_EMAIL` \- Specifies the email address associated with the
+  /// *    `OWNER_EMAIL` - Specifies the email address associated with the
   /// master account. Included as information about an organization.
   ///
-  /// *    `OWNER_NAME` \- Specifies the name associated with the master
-  /// account. Included as information about an organization.
+  /// *    `OWNER_NAME` - Specifies the name associated with the master account.
+  /// Included as information about an organization.
   ///
-  /// *    `NOTES` \- Additional text provided by the handshake initiator and
+  /// *    `NOTES` - Additional text provided by the handshake initiator and
   /// intended for the recipient to read.
   final String type;
 
@@ -2658,6 +2653,10 @@ class ListTargetsForPolicyResponse {
       ListTargetsForPolicyResponse();
 }
 
+/// Contains details about an organization. An organization is a collection of
+/// accounts that are centrally managed together using consolidated billing,
+/// organized hierarchically with organizational units (OUs), and controlled
+/// with policies .
 class Organization {
   /// The unique identifier (ID) of an organization.
   ///
@@ -2668,9 +2667,8 @@ class Organization {
 
   /// The Amazon Resource Name (ARN) of an organization.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2678,17 +2676,16 @@ class Organization {
   /// organization. If set to "ALL", then all features are enabled and policies
   /// can be applied to accounts in the organization. If set to
   /// "CONSOLIDATED_BILLING", then only consolidated billing functionality is
-  /// available. For more information, see [Enabling All Features in Your
-  /// Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
+  /// available. For more information, see
+  /// [Enabling All Features in Your Organization](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html)
   /// in the _AWS Organizations User Guide_.
   final String featureSet;
 
   /// The Amazon Resource Name (ARN) of the account that is designated as the
   /// master account for the organization.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String masterAccountArn;
 
@@ -2726,6 +2723,9 @@ class Organization {
   static Organization fromJson(Map<String, dynamic> json) => Organization();
 }
 
+/// Contains details about an organizational unit (OU). An OU is a container of
+/// AWS accounts within a root of an organization. Policies that are attached to
+/// an OU apply to all accounts contained in that OU and in any child OUs.
 class OrganizationalUnit {
   /// The unique identifier (ID) associated with this OU.
   ///
@@ -2737,9 +2737,8 @@ class OrganizationalUnit {
 
   /// The Amazon Resource Name (ARN) of this OU.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2759,6 +2758,8 @@ class OrganizationalUnit {
       OrganizationalUnit();
 }
 
+/// Contains information about either a root or an organizational unit (OU) that
+/// can contain OUs or accounts in an organization.
 class Parent {
   /// The unique identifier (ID) of the parent entity.
   ///
@@ -2784,6 +2785,9 @@ class Parent {
   static Parent fromJson(Map<String, dynamic> json) => Parent();
 }
 
+/// Contains rules to be applied to the affected accounts. Policies can be
+/// attached directly to accounts, or to roots and OUs to affect all accounts in
+/// those hierarchies.
 class Policy {
   /// A structure that contains additional details about the policy.
   final PolicySummary policySummary;
@@ -2798,6 +2802,8 @@ class Policy {
   static Policy fromJson(Map<String, dynamic> json) => Policy();
 }
 
+/// Contains information about a policy, but does not include the content. To
+/// see the content of a policy, see DescribePolicy.
 class PolicySummary {
   /// The unique identifier (ID) of the policy.
   ///
@@ -2808,9 +2814,8 @@ class PolicySummary {
 
   /// The Amazon Resource Name (ARN) of the policy.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2843,6 +2848,8 @@ class PolicySummary {
   static PolicySummary fromJson(Map<String, dynamic> json) => PolicySummary();
 }
 
+/// Contains information about a root, OU, or account that a policy is attached
+/// to.
 class PolicyTargetSummary {
   /// The unique identifier (ID) of the policy target.
   ///
@@ -2862,9 +2869,8 @@ class PolicyTargetSummary {
 
   /// The Amazon Resource Name (ARN) of the policy target.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2888,6 +2894,8 @@ class PolicyTargetSummary {
       PolicyTargetSummary();
 }
 
+/// Contains information about a policy type and its status in the associated
+/// root.
 class PolicyTypeSummary {
   /// The name of the policy type.
   final String type;
@@ -2906,6 +2914,11 @@ class PolicyTypeSummary {
       PolicyTypeSummary();
 }
 
+/// Contains details about a root. A root is a top-level parent node in the
+/// hierarchy of an organization that can contain organizational units (OUs) and
+/// accounts. Every root contains every AWS account in the organization. Each
+/// root enables the accounts to be organized in a different way and to have
+/// different policy types enabled for use in that root.
 class Root {
   /// The unique identifier (ID) for the root.
   ///
@@ -2915,9 +2928,8 @@ class Root {
 
   /// The Amazon Resource Name (ARN) of the root.
   ///
-  /// For more information about ARNs in Organizations, see [ARN Formats
-  /// Supported by
-  /// Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
+  /// For more information about ARNs in Organizations, see
+  /// [ARN Formats Supported by Organizations](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_permissions.html#orgs-permissions-arns)
   /// in the _AWS Organizations User Guide_.
   final String arn;
 
@@ -2948,6 +2960,8 @@ class Root {
   static Root fromJson(Map<String, dynamic> json) => Root();
 }
 
+/// A custom key-value pair associated with a resource such as an account within
+/// your organization.
 class Tag {
   /// The key identifier, or name, of the tag.
   final String key;

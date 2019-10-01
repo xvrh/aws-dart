@@ -71,8 +71,8 @@ class Route53Api {
   /// one or more domain names (such as example.com) or subdomain names (such as
   /// www.example.com), in the same hosted zone or in multiple hosted zones. You
   /// can roll back the updates if the new configuration isn't performing as
-  /// expected. For more information, see [Using Traffic Flow to Route DNS
-  /// Traffic](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html)
+  /// expected. For more information, see
+  /// [Using Traffic Flow to Route DNS Traffic](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/traffic-flow.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   ///  **Create, Delete, and Upsert**
@@ -133,9 +133,8 @@ class Route53Api {
 
   /// Adds, edits, or deletes tags for a health check or a hosted zone.
   ///
-  /// For information about using tags for cost allocation, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// For information about using tags for cost allocation, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [resourceType]: The type of the resource.
@@ -197,8 +196,8 @@ class Route53Api {
   /// status of the Amazon EC2 `StatusCheckFailed` metric, add an alarm to the
   /// metric, and then create a health check that is based on the state of the
   /// alarm. For information about creating CloudWatch metrics and alarms by
-  /// using the CloudWatch console, see the [Amazon CloudWatch User
-  /// Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html).
+  /// using the CloudWatch console, see the
+  /// [Amazon CloudWatch User Guide](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/WhatIsCloudWatch.html).
   ///
   /// [callerReference]: A unique string that identifies the request and that
   /// allows you to retry a failed `CreateHealthCheck` request without the risk
@@ -241,8 +240,8 @@ class Route53Api {
   /// versa. Instead, you must create a new hosted zone with the same name and
   /// create new resource record sets.
   ///
-  /// For more information about charges for hosted zones, see [Amazon Route 53
-  /// Pricing](http://aws.amazon.com/route53/pricing/).
+  /// For more information about charges for hosted zones, see
+  /// [Amazon Route 53 Pricing](http://aws.amazon.com/route53/pricing/).
   ///
   /// Note the following:
   ///
@@ -251,9 +250,8 @@ class Route53Api {
   ///
   /// *   For public hosted zones, Amazon Route 53 automatically creates a
   /// default SOA record and four NS records for the zone. For more information
-  /// about SOA and NS records, see [NS and SOA Records that Route 53 Creates
-  /// for a Hosted
-  /// Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html)
+  /// about SOA and NS records, see
+  /// [NS and SOA Records that Route 53 Creates for a Hosted Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/SOA-NSrecords.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   ///     If you want to use the same name servers for multiple public hosted
@@ -262,9 +260,8 @@ class Route53Api {
   ///
   /// *   If your domain is registered with a registrar other than Route 53, you
   /// must update the name servers with your registrar to make Route 53 the DNS
-  /// service for the domain. For more information, see [Migrating DNS Service
-  /// for an Existing Domain to Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html)
+  /// service for the domain. For more information, see
+  /// [Migrating DNS Service for an Existing Domain to Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/MigratingDNS.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   ///
@@ -422,21 +419,21 @@ class Route53Api {
   /// record set, and depending on the TTL for that resource record set, query
   /// logs might contain information about only one query out of every several
   /// thousand queries that are submitted to DNS. For more information about how
-  /// DNS works, see [Routing Internet Traffic to Your Website or Web
-  /// Application](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-dns-service.html)
+  /// DNS works, see
+  /// [Routing Internet Traffic to Your Website or Web Application](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/welcome-dns-service.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Log File Format
   ///
   /// For a list of the values in each query log and the format of each value,
-  /// see [Logging DNS
-  /// Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html)
+  /// see
+  /// [Logging DNS Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Pricing
   ///
-  /// For information about charges for query logs, see [Amazon CloudWatch
-  /// Pricing](http://aws.amazon.com/cloudwatch/pricing/).
+  /// For information about charges for query logs, see
+  /// [Amazon CloudWatch Pricing](http://aws.amazon.com/cloudwatch/pricing/).
   ///
   /// How to Stop Logging
   ///
@@ -451,7 +448,7 @@ class Route53Api {
   /// group that you want to Amazon Route 53 to send query logs to. This is the
   /// format of the ARN:
   ///
-  /// arn:aws:logs:_region_:_account-id_:log-group:_log\_group\_name_
+  /// arn:aws:logs:_region_:_account-id_:log-group:_log_group_name_
   ///
   /// To get the ARN for a log group, you can use the CloudWatch console, the
   /// [DescribeLogGroups](https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeLogGroups.html)
@@ -473,8 +470,8 @@ class Route53Api {
   ///
   ///
   /// For information about using a reusable delegation set to configure white
-  /// label name servers, see [Configuring White Label Name
-  /// Servers](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html).
+  /// label name servers, see
+  /// [Configuring White Label Name Servers](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/white-label-name-servers.html).
   ///
   /// The process for migrating existing hosted zones to use a reusable
   /// delegation set is comparable to the process for configuring white label
@@ -535,8 +532,8 @@ class Route53Api {
   /// [name]: The name of the traffic policy.
   ///
   /// [document]: The definition of this traffic policy in JSON format. For more
-  /// information, see [Traffic Policy Document
-  /// Format](https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html).
+  /// information, see
+  /// [Traffic Policy Document Format](https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html).
   ///
   /// [comment]: (Optional) Any comments that you want to include about the
   /// traffic policy.
@@ -639,9 +636,8 @@ class Route53Api {
   /// you delete a health check and you don't update the associated resource
   /// record sets, the future status of the health check can't be predicted and
   /// may change. This will affect the routing of DNS queries for your DNS
-  /// failover configuration. For more information, see [Replacing and Deleting
-  /// Health
-  /// Checks](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html#health-checks-deleting.html)
+  /// failover configuration. For more information, see
+  /// [Replacing and Deleting Health Checks](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html#health-checks-deleting.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// [healthCheckId]: The ID of the health check that you want to delete.
@@ -653,8 +649,8 @@ class Route53Api {
   /// Deletes a hosted zone.
   ///
   /// If the hosted zone was created by another service, such as AWS Cloud Map,
-  /// see [Deleting Public Hosted Zones That Were Created by Another
-  /// Service](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html#delete-public-hosted-zone-created-by-another-service)
+  /// see
+  /// [Deleting Public Hosted Zones That Were Created by Another Service](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DeleteHostedZone.html#delete-public-hosted-zone-created-by-another-service)
   /// in the _Amazon Route 53 Developer Guide_ for information about how to
   /// delete it. (The process is the same for public and private hosted zones
   /// that were created by another service.)
@@ -824,9 +820,8 @@ class Route53Api {
   ///
   /// For the default limit, see
   /// [Limits](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html)
-  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit, [open
-  /// a
-  /// case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
+  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit,
+  /// [open a case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
   ///
   ///
   ///
@@ -838,19 +833,19 @@ class Route53Api {
   /// [type]: The limit that you want to get. Valid values include the
   /// following:
   ///
-  /// *    **MAX\_HEALTH\_CHECKS\_BY\_OWNER**: The maximum number of health
-  /// checks that you can create using the current account.
-  ///
-  /// *    **MAX\_HOSTED\_ZONES\_BY\_OWNER**: The maximum number of hosted zones
+  /// *    **MAX_HEALTH_CHECKS_BY_OWNER**: The maximum number of health checks
   /// that you can create using the current account.
   ///
-  /// *    **MAX\_REUSABLE\_DELEGATION\_SETS\_BY_OWNER**: The maximum number of
+  /// *    **MAX_HOSTED_ZONES_BY_OWNER**: The maximum number of hosted zones
+  /// that you can create using the current account.
+  ///
+  /// *    **MAX_REUSABLE_DELEGATION_SETS_BY_OWNER**: The maximum number of
   /// reusable delegation sets that you can create using the current account.
   ///
-  /// *    **MAX\_TRAFFIC\_POLICIES\_BY\_OWNER**: The maximum number of traffic
+  /// *    **MAX_TRAFFIC_POLICIES_BY_OWNER**: The maximum number of traffic
   /// policies that you can create using the current account.
   ///
-  /// *    **MAX\_TRAFFIC\_POLICY\_INSTANCES\_BY_OWNER**: The maximum number of
+  /// *    **MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER**: The maximum number of
   /// traffic policy instances that you can create using the current account.
   /// (Traffic policy instances are referred to as traffic flow policy records
   /// in the Amazon Route 53 console.)
@@ -877,8 +872,8 @@ class Route53Api {
 
   ///  `GetCheckerIpRanges` still works, but we recommend that you download
   /// ip-ranges.json, which includes IP address ranges for all AWS services. For
-  /// more information, see [IP Address Ranges of Amazon Route 53
-  /// Servers](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html)
+  /// more information, see
+  /// [IP Address Ranges of Amazon Route 53 Servers](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/route-53-ip-addresses.html)
   /// in the _Amazon Route 53 Developer Guide_.
   Future<GetCheckerIpRangesResponse> getCheckerIpRanges() async {
     return GetCheckerIpRangesResponse.fromJson({});
@@ -921,14 +916,14 @@ class Route53Api {
   /// *    **SA**: South America
   ///
   /// [countryCode]: Amazon Route 53 uses the two-letter country codes that are
-  /// specified in [ISO standard 3166-1
-  /// alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+  /// specified in
+  /// [ISO standard 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
   ///
   /// [subdivisionCode]: Amazon Route 53 uses the one- to three-letter
-  /// subdivision codes that are specified in [ISO standard 3166-1
-  /// alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). Route 53
-  /// doesn't support subdivision codes for all countries. If you specify
-  /// `subdivisioncode`, you must also specify `countrycode`.
+  /// subdivision codes that are specified in
+  /// [ISO standard 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+  /// Route 53 doesn't support subdivision codes for all countries. If you
+  /// specify `subdivisioncode`, you must also specify `countrycode`.
   Future<GetGeoLocationResponse> getGeoLocation(
       {String continentCode,
       String countryCode,
@@ -1003,18 +998,17 @@ class Route53Api {
   ///
   /// For the default limit, see
   /// [Limits](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html)
-  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit, [open
-  /// a
-  /// case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
+  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit,
+  /// [open a case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
   ///
   /// [type]: The limit that you want to get. Valid values include the
   /// following:
   ///
-  /// *    **MAX\_RRSETS\_BY_ZONE**: The maximum number of records that you can
+  /// *    **MAX_RRSETS_BY_ZONE**: The maximum number of records that you can
   /// create in the specified hosted zone.
   ///
-  /// *    **MAX\_VPCS\_ASSOCIATED\_BY\_ZONE**: The maximum number of Amazon
-  /// VPCs that you can associate with the specified private hosted zone.
+  /// *    **MAX_VPCS_ASSOCIATED_BY_ZONE**: The maximum number of Amazon VPCs
+  /// that you can associate with the specified private hosted zone.
   ///
   /// [hostedZoneId]: The ID of the hosted zone that you want to get a limit
   /// for.
@@ -1027,8 +1021,8 @@ class Route53Api {
   ///
   /// For more information about DNS query logs, see
   /// [CreateQueryLoggingConfig](https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateQueryLoggingConfig.html)
-  /// and [Logging DNS
-  /// Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html).
+  /// and
+  /// [Logging DNS Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html).
   ///
   /// [id]: The ID of the configuration for DNS query logging that you want to
   /// get information about.
@@ -1051,13 +1045,12 @@ class Route53Api {
   ///
   /// For the default limit, see
   /// [Limits](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DNSLimitations.html)
-  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit, [open
-  /// a
-  /// case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
+  /// in the _Amazon Route 53 Developer Guide_. To request a higher limit,
+  /// [open a case](https://console.aws.amazon.com/support/home#/case/create?issueType=service-limit-increase&limitType=service-code-route53).
   ///
-  /// [type]: Specify `MAX\_ZONES\_BY\_REUSABLE\_DELEGATION_SET` to get the
-  /// maximum number of hosted zones that you can associate with the specified
-  /// reusable delegation set.
+  /// [type]: Specify `MAX_ZONES_BY_REUSABLE_DELEGATION_SET` to get the maximum
+  /// number of hosted zones that you can associate with the specified reusable
+  /// delegation set.
   ///
   /// [delegationSetId]: The ID of the delegation set that you want to get the
   /// limit for.
@@ -1126,9 +1119,8 @@ class Route53Api {
   /// `true`, and if `NextCountryCode` from the previous response has a value,
   /// enter that value in `startcountrycode` to return the next page of results.
   ///
-  /// Route 53 uses the two-letter country codes that are specified in [ISO
-  /// standard 3166-1
-  /// alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+  /// Route 53 uses the two-letter country codes that are specified in
+  /// [ISO standard 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
   ///
   /// [startSubdivisionCode]: The code for the subdivision (for example, state
   /// or province) with which you want to start listing locations that Amazon
@@ -1224,15 +1216,15 @@ class Route53Api {
   /// `ListHostedZonesByName` alphabetizes the domain name using the escaped or
   /// Punycoded value, which is the format that Amazon Route 53 saves in its
   /// database. For example, to create a hosted zone for exämple.com, you
-  /// specify ex\\344mple.com for the domain name. `ListHostedZonesByName`
+  /// specify ex344mple.com for the domain name. `ListHostedZonesByName`
   /// alphabetizes it as:
   ///
-  ///  `com.ex\\344mple.`
+  ///  `com.ex344mple.`
   ///
   /// The labels are reversed and alphabetized using the escaped value. For more
   /// information about valid domain name formats, including internationalized
-  /// domain names, see [DNS Domain Name
-  /// Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
+  /// domain names, see
+  /// [DNS Domain Name Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Route 53 returns up to 100 items in each response. If you have a lot of
@@ -1297,8 +1289,7 @@ class Route53Api {
   /// For more information about DNS query logs, see
   /// [CreateQueryLoggingConfig](https://docs.aws.amazon.com/Route53/latest/APIReference/API_CreateQueryLoggingConfig.html).
   /// Additional information, including the format of DNS query logs, appears in
-  /// [Logging DNS
-  /// Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html)
+  /// [Logging DNS Queries](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/query-logs.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// [hostedZoneId]: (Optional) If you want to list the query logging
@@ -1348,8 +1339,7 @@ class Route53Api {
   ///
   /// Note the trailing dot, which can change the sort order when the record
   /// name contains characters that appear before `.` (decimal 46) in the ASCII
-  /// table. These characters include the following: `! " # $ % & ' ( ) \* \+ ,
-  /// -`
+  /// table. These characters include the following: `! " # $ % & ' ( ) * + , -`
   ///
   /// When multiple records have the same DNS name, `ListResourceRecordSets`
   /// sorts results by the record type.
@@ -1487,9 +1477,8 @@ class Route53Api {
 
   /// Lists tags for one health check or hosted zone.
   ///
-  /// For information about using tags for cost allocation, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// For information about using tags for cost allocation, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [resourceType]: The type of the resource.
@@ -1506,9 +1495,8 @@ class Route53Api {
 
   /// Lists tags for up to 10 health checks or hosted zones.
   ///
-  /// For information about using tags for cost allocation, see [Using Cost
-  /// Allocation
-  /// Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
+  /// For information about using tags for cost allocation, see
+  /// [Using Cost Allocation Tags](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html)
   /// in the _AWS Billing and Cost Management User Guide_.
   ///
   /// [resourceType]: The type of the resources.
@@ -1846,9 +1834,8 @@ class Route53Api {
 
   /// Updates an existing health check. Note that some values can't be updated.
   ///
-  /// For more information about updating health checks, see [Creating,
-  /// Updating, and Deleting Health
-  /// Checks](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html)
+  /// For more information about updating health checks, see
+  /// [Creating, Updating, and Deleting Health Checks](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/health-checks-creating-deleting.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// [healthCheckId]: The ID for the health check for which you want detailed
@@ -1898,12 +1885,12 @@ class Route53Api {
   /// your instance never changes. For more information, see the applicable
   /// documentation:
   ///
-  /// *   Linux: [Elastic IP Addresses
-  /// (EIP)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
+  /// *   Linux:
+  /// [Elastic IP Addresses (EIP)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
   /// in the _Amazon EC2 User Guide for Linux Instances_
   ///
-  /// *   Windows: [Elastic IP Addresses
-  /// (EIP)](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-ip-addresses-eip.html)
+  /// *   Windows:
+  /// [Elastic IP Addresses (EIP)](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-ip-addresses-eip.html)
   /// in the _Amazon EC2 User Guide for Windows Instances_
   ///
   ///
@@ -1919,14 +1906,14 @@ class Route53Api {
   /// information about IP addresses for which you can't create health checks,
   /// see the following documents:
   ///
-  /// *    [RFC 5735, Special Use IPv4
-  /// Addresses](https://tools.ietf.org/html/rfc5735)
+  /// *
+  /// [RFC 5735, Special Use IPv4 Addresses](https://tools.ietf.org/html/rfc5735)
   ///
-  /// *    [RFC 6598, IANA-Reserved IPv4 Prefix for Shared Address
-  /// Space](https://tools.ietf.org/html/rfc6598)
+  /// *
+  /// [RFC 6598, IANA-Reserved IPv4 Prefix for Shared Address Space](https://tools.ietf.org/html/rfc6598)
   ///
-  /// *    [RFC 5156, Special-Use IPv6
-  /// Addresses](https://tools.ietf.org/html/rfc5156)
+  /// *
+  /// [RFC 5156, Special-Use IPv6 Addresses](https://tools.ietf.org/html/rfc5156)
   ///
   /// [port]: The port on the endpoint on which you want Amazon Route 53 to
   /// perform health checks.
@@ -1959,11 +1946,11 @@ class Route53Api {
   /// the `Host` header:
   ///
   /// *   If you specify a value of `80` for `Port` and `HTTP` or
-  /// `HTTP\_STR\_MATCH` for `Type`, Route 53 passes the value of
+  /// `HTTP_STR_MATCH` for `Type`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` to the endpoint in the `Host` header.
   ///
   /// *   If you specify a value of `443` for `Port` and `HTTPS` or
-  /// `HTTPS\_STR\_MATCH` for `Type`, Route 53 passes the value of
+  /// `HTTPS_STR_MATCH` for `Type`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` to the endpoint in the `Host` header.
   ///
   /// *   If you specify another value for `Port` and any value except `TCP` for
@@ -2001,14 +1988,14 @@ class Route53Api {
   /// check with those resource record sets, health check results will be
   /// unpredictable.
   ///
-  /// In addition, if the value of `Type` is `HTTP`, `HTTPS`,
-  /// `HTTP\_STR\_MATCH`, or `HTTPS\_STR\_MATCH`, Route 53 passes the value of
+  /// In addition, if the value of `Type` is `HTTP`, `HTTPS`, `HTTP_STR_MATCH`,
+  /// or `HTTPS_STR_MATCH`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` in the `Host` header, as it does when you
   /// specify a value for `IPAddress`. If the value of `Type` is `TCP`, Route 53
   /// doesn't pass a `Host` header.
   ///
-  /// [searchString]: If the value of `Type` is `HTTP\_STR\_MATCH` or
-  /// `HTTP\_STR\_MATCH`, the string that you want Amazon Route 53 to search for
+  /// [searchString]: If the value of `Type` is `HTTP_STR_MATCH` or
+  /// `HTTP_STR_MATCH`, the string that you want Amazon Route 53 to search for
   /// in the response body from the specified resource. If the string appears in
   /// the response body, Route 53 considers the resource healthy. (You can't
   /// change the value of `Type` when you update a health check.)
@@ -2016,8 +2003,8 @@ class Route53Api {
   /// [failureThreshold]: The number of consecutive health checks that an
   /// endpoint must pass or fail for Amazon Route 53 to change the current
   /// status of the endpoint from unhealthy to healthy or vice versa. For more
-  /// information, see [How Amazon Route 53 Determines Whether an Endpoint Is
-  /// Healthy](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+  /// information, see
+  /// [How Amazon Route 53 Determines Whether an Endpoint Is Healthy](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// If you don't specify a value for `FailureThreshold`, the default value is
@@ -2047,8 +2034,8 @@ class Route53Api {
   /// [Inverted](https://docs.aws.amazon.com/Route53/latest/APIReference/API_UpdateHealthCheck.html#Route53-UpdateHealthCheck-request-Inverted).
   ///
   /// Charges for a health check still apply when the health check is disabled.
-  /// For more information, see [Amazon Route 53
-  /// Pricing](http://aws.amazon.com/route53/pricing/).
+  /// For more information, see
+  /// [Amazon Route 53 Pricing](http://aws.amazon.com/route53/pricing/).
   ///
   /// [healthThreshold]: The number of child health checks that are associated
   /// with a `CALCULATED` health that Amazon Route 53 must consider healthy for
@@ -2219,22 +2206,24 @@ class Route53Api {
   }
 }
 
+/// A complex type that contains the type of limit that you specified in the
+/// request and the current value for that limit.
 class AccountLimit {
   /// The limit that you requested. Valid values include the following:
   ///
-  /// *    **MAX\_HEALTH\_CHECKS\_BY\_OWNER**: The maximum number of health
-  /// checks that you can create using the current account.
-  ///
-  /// *    **MAX\_HOSTED\_ZONES\_BY\_OWNER**: The maximum number of hosted zones
+  /// *    **MAX_HEALTH_CHECKS_BY_OWNER**: The maximum number of health checks
   /// that you can create using the current account.
   ///
-  /// *    **MAX\_REUSABLE\_DELEGATION\_SETS\_BY_OWNER**: The maximum number of
+  /// *    **MAX_HOSTED_ZONES_BY_OWNER**: The maximum number of hosted zones
+  /// that you can create using the current account.
+  ///
+  /// *    **MAX_REUSABLE_DELEGATION_SETS_BY_OWNER**: The maximum number of
   /// reusable delegation sets that you can create using the current account.
   ///
-  /// *    **MAX\_TRAFFIC\_POLICIES\_BY\_OWNER**: The maximum number of traffic
+  /// *    **MAX_TRAFFIC_POLICIES_BY_OWNER**: The maximum number of traffic
   /// policies that you can create using the current account.
   ///
-  /// *    **MAX\_TRAFFIC\_POLICY\_INSTANCES\_BY_OWNER**: The maximum number of
+  /// *    **MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER**: The maximum number of
   /// traffic policy instances that you can create using the current account.
   /// (Traffic policy instances are referred to as traffic flow policy records
   /// in the Amazon Route 53 console.)
@@ -2251,13 +2240,16 @@ class AccountLimit {
   static AccountLimit fromJson(Map<String, dynamic> json) => AccountLimit();
 }
 
+/// A complex type that identifies the CloudWatch alarm that you want Amazon
+/// Route 53 health checkers to use to determine whether the specified health
+/// check is healthy.
 class AlarmIdentifier {
   /// For the CloudWatch alarm that you want Route 53 health checkers to use to
   /// determine whether this health check is healthy, the region that the alarm
   /// was created in.
   ///
-  /// For the current list of CloudWatch regions, see [Amazon
-  /// CloudWatch](http://docs.aws.amazon.com/general/latest/gr/rande.html#cw_region)
+  /// For the current list of CloudWatch regions, see
+  /// [Amazon CloudWatch](http://docs.aws.amazon.com/general/latest/gr/rande.html#cw_region)
   /// in the _AWS Regions and Endpoints_ chapter of the _Amazon Web Services
   /// General Reference_.
   final String region;
@@ -2270,8 +2262,8 @@ class AlarmIdentifier {
   /// Route 53 supports CloudWatch alarms with the following features:
   ///
   /// *   Standard-resolution metrics. High-resolution metrics aren't supported.
-  /// For more information, see [High-Resolution
-  /// Metrics](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics)
+  /// For more information, see
+  /// [High-Resolution Metrics](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/publishingMetrics.html#high-resolution-metrics)
   /// in the _Amazon CloudWatch User Guide_.
   ///
   /// *   Statistics: Average, Minimum, Maximum, Sum, and SampleCount. Extended
@@ -2286,6 +2278,19 @@ class AlarmIdentifier {
       AlarmIdentifier();
 }
 
+///  _Alias resource record sets only:_ Information about the AWS resource, such
+/// as a CloudFront distribution or an Amazon S3 bucket, that you want to route
+/// traffic to.
+///
+/// When creating resource record sets for a private hosted zone, note the
+/// following:
+///
+/// *   Creating geolocation alias resource record sets or latency alias
+/// resource record sets in a private hosted zone is unsupported.
+///
+/// *   For information about creating failover resource record sets in a
+/// private hosted zone, see
+/// [Configuring Failover in a Private Hosted Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html).
 class AliasTarget {
   ///  _Alias resource records sets only_: The value used depends on where you
   /// want to route traffic:
@@ -2319,8 +2324,8 @@ class AliasTarget {
   ///
   /// Specify the hosted zone ID for the region that you created the environment
   /// in. The environment must have a regionalized subdomain. For a list of
-  /// regions and the corresponding hosted zone IDs, see [AWS Elastic
-  /// Beanstalk](http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
+  /// regions and the corresponding hosted zone IDs, see
+  /// [AWS Elastic Beanstalk](http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
   /// in the "AWS Regions and Endpoints" chapter of the _Amazon Web Services
   /// General Reference_.
   ///
@@ -2329,8 +2334,8 @@ class AliasTarget {
   /// Specify the value of the hosted zone ID for the load balancer. Use the
   /// following methods to get the hosted zone ID:
   ///
-  /// *    [Elastic Load
-  /// Balancing](https://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region)
+  /// *
+  /// [Elastic Load Balancing](https://docs.aws.amazon.com/general/latest/gr/rande.html#elb_region)
   /// table in the "AWS Regions and Endpoints" chapter of the _Amazon Web
   /// Services General Reference_: Use the value that corresponds with the
   /// region that you created your load balancer in. Note that there are
@@ -2369,9 +2374,8 @@ class AliasTarget {
   /// An Amazon S3 bucket configured as a static website
   ///
   /// Specify the hosted zone ID for the region that you created the bucket in.
-  /// For more information about valid values, see the [Amazon Simple Storage
-  /// Service Website
-  /// Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
+  /// For more information about valid values, see the
+  /// [Amazon Simple Storage Service Website Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
   /// table in the "AWS Regions and Endpoints" chapter of the _Amazon Web
   /// Services General Reference_.
   ///
@@ -2418,8 +2422,8 @@ class AliasTarget {
   /// matches the name of the resource record set. For example, if the name of
   /// the resource record set is _acme.example.com_, your CloudFront
   /// distribution must include _acme.example.com_ as one of the alternate
-  /// domain names. For more information, see [Using Alternate Domain Names
-  /// (CNAMEs)](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html)
+  /// domain names. For more information, see
+  /// [Using Alternate Domain Names (CNAMEs)](http://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/CNAMEs.html)
   /// in the _Amazon CloudFront Developer Guide_.
   ///
   /// You can't create a resource record set in a private hosted zone to route
@@ -2453,8 +2457,8 @@ class AliasTarget {
   /// following methods to get the value of the CNAME attribute:
   ///
   /// *    _AWS Management Console_: For information about how to get the value
-  /// by using the console, see [Using Custom Domains with AWS Elastic
-  /// Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customdomains.html)
+  /// by using the console, see
+  /// [Using Custom Domains with AWS Elastic Beanstalk](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/customdomains.html)
   /// in the _AWS Elastic Beanstalk Developer Guide_.
   ///
   /// *    _Elastic Beanstalk API_: Use the `DescribeEnvironments` action to get
@@ -2507,12 +2511,11 @@ class AliasTarget {
   ///
   /// Specify the domain name of the Amazon S3 website endpoint that you created
   /// the bucket in, for example, `s3-website.us-east-2.amazonaws.com`. For more
-  /// information about valid values, see the table [Amazon Simple Storage
-  /// Service (S3) Website
-  /// Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
+  /// information about valid values, see the table
+  /// [Amazon Simple Storage Service (S3) Website Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region)
   /// in the _Amazon Web Services General Reference_. For more information about
-  /// using S3 buckets for websites, see [Getting Started with Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html)
+  /// using S3 buckets for websites, see
+  /// [Getting Started with Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/getting-started.html)
   /// in the _Amazon Route 53 Developer Guide._
   ///
   /// Another Route 53 resource record set
@@ -2597,14 +2600,12 @@ class AliasTarget {
   /// If the AWS resource that you specify in `DNSName` is a record or a group
   /// of records (for example, a group of weighted records) but is not another
   /// alias record, we recommend that you associate a health check with all of
-  /// the records in the alias target. For more information, see [What Happens
-  /// When You Omit Health
-  /// Checks?](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-complex-configs.html#dns-failover-complex-configs-hc-omitting)
+  /// the records in the alias target. For more information, see
+  /// [What Happens When You Omit Health Checks?](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-complex-configs.html#dns-failover-complex-configs-hc-omitting)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
-  /// For more information and examples, see [Amazon Route 53 Health Checks and
-  /// DNS
-  /// Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+  /// For more information and examples, see
+  /// [Amazon Route 53 Health Checks and DNS Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final bool evaluateTargetHealth;
 
@@ -2616,6 +2617,8 @@ class AliasTarget {
   static AliasTarget fromJson(Map<String, dynamic> json) => AliasTarget();
 }
 
+/// A complex type that contains the response information for the
+/// `AssociateVPCWithHostedZone` request.
 class AssociateVpcWithHostedZoneResponse {
   /// A complex type that describes the changes made to your hosted zone.
   final ChangeInfo changeInfo;
@@ -2628,6 +2631,7 @@ class AssociateVpcWithHostedZoneResponse {
       AssociateVpcWithHostedZoneResponse();
 }
 
+/// The information for each resource record set that you want to change.
 class Change {
   /// The action to perform:
   ///
@@ -2657,6 +2661,7 @@ class Change {
   });
 }
 
+/// The information for a change request.
 class ChangeBatch {
   ///  _Optional:_ Any comments you want to include about a change batch
   /// request.
@@ -2671,6 +2676,8 @@ class ChangeBatch {
   });
 }
 
+/// A complex type that describes change information about changes made to your
+/// hosted zone.
 class ChangeInfo {
   /// The ID of the request.
   final String id;
@@ -2679,10 +2686,10 @@ class ChangeInfo {
   /// has not yet been applied to all Amazon Route 53 DNS servers.
   final String status;
 
-  /// The date and time that the change request was submitted in [ISO 8601
-  /// format](https://en.wikipedia.org/wiki/ISO_8601) and Coordinated Universal
-  /// Time (UTC). For example, the value `2017-03-27T17:48:16.751Z` represents
-  /// March 27, 2017 at 17:48:16.751 UTC.
+  /// The date and time that the change request was submitted in
+  /// [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) and Coordinated
+  /// Universal Time (UTC). For example, the value `2017-03-27T17:48:16.751Z`
+  /// represents March 27, 2017 at 17:48:16.751 UTC.
   final DateTime submittedAt;
 
   /// A complex type that describes change information about changes made to
@@ -2702,6 +2709,7 @@ class ChangeInfo {
   static ChangeInfo fromJson(Map<String, dynamic> json) => ChangeInfo();
 }
 
+/// A complex type containing the response for the request.
 class ChangeResourceRecordSetsResponse {
   /// A complex type that contains information about changes made to your hosted
   /// zone.
@@ -2718,12 +2726,15 @@ class ChangeResourceRecordSetsResponse {
       ChangeResourceRecordSetsResponse();
 }
 
+/// Empty response for the request.
 class ChangeTagsForResourceResponse {
   ChangeTagsForResourceResponse();
   static ChangeTagsForResourceResponse fromJson(Map<String, dynamic> json) =>
       ChangeTagsForResourceResponse();
 }
 
+/// A complex type that contains information about the CloudWatch alarm that
+/// Amazon Route 53 is monitoring for this health check.
 class CloudWatchAlarmConfiguration {
   /// For the metric that the CloudWatch alarm is associated with, the number of
   /// periods that the metric is compared to the threshold.
@@ -2745,8 +2756,8 @@ class CloudWatchAlarmConfiguration {
   final String metricName;
 
   /// The namespace of the metric that the alarm is associated with. For more
-  /// information, see [Amazon CloudWatch Namespaces, Dimensions, and Metrics
-  /// Reference](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
+  /// information, see
+  /// [Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
   /// in the _Amazon CloudWatch User Guide_.
   final String namespace;
 
@@ -2756,8 +2767,8 @@ class CloudWatchAlarmConfiguration {
 
   /// For the metric that the CloudWatch alarm is associated with, a complex
   /// type that contains information about the dimensions for the metric. For
-  /// information, see [Amazon CloudWatch Namespaces, Dimensions, and Metrics
-  /// Reference](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
+  /// information, see
+  /// [Amazon CloudWatch Namespaces, Dimensions, and Metrics Reference](http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html)
   /// in the _Amazon CloudWatch User Guide_.
   final List<Dimension> dimensions;
 
@@ -2775,6 +2786,7 @@ class CloudWatchAlarmConfiguration {
       CloudWatchAlarmConfiguration();
 }
 
+/// A complex type containing the response information for the new health check.
 class CreateHealthCheckResponse {
   /// A complex type that contains identifying information about the health
   /// check.
@@ -2791,6 +2803,7 @@ class CreateHealthCheckResponse {
       CreateHealthCheckResponse();
 }
 
+/// A complex type containing the response information for the hosted zone.
 class CreateHostedZoneResponse {
   /// A complex type that contains general information about the hosted zone.
   final HostedZone hostedZone;
@@ -2853,6 +2866,8 @@ class CreateReusableDelegationSetResponse {
       CreateReusableDelegationSetResponse();
 }
 
+/// A complex type that contains the response information for the
+/// `CreateTrafficPolicyInstance` request.
 class CreateTrafficPolicyInstanceResponse {
   /// A complex type that contains settings for the new traffic policy instance.
   final TrafficPolicyInstance trafficPolicyInstance;
@@ -2869,6 +2884,8 @@ class CreateTrafficPolicyInstanceResponse {
       CreateTrafficPolicyInstanceResponse();
 }
 
+/// A complex type that contains the response information for the
+/// `CreateTrafficPolicy` request.
 class CreateTrafficPolicyResponse {
   /// A complex type that contains settings for the new traffic policy.
   final TrafficPolicy trafficPolicy;
@@ -2884,6 +2901,8 @@ class CreateTrafficPolicyResponse {
       CreateTrafficPolicyResponse();
 }
 
+/// A complex type that contains the response information for the
+/// `CreateTrafficPolicyVersion` request.
 class CreateTrafficPolicyVersionResponse {
   /// A complex type that contains settings for the new version of the traffic
   /// policy.
@@ -2901,6 +2920,8 @@ class CreateTrafficPolicyVersionResponse {
       CreateTrafficPolicyVersionResponse();
 }
 
+/// A complex type that contains the response information from a
+/// `CreateVPCAssociationAuthorization` request.
 class CreateVpcAssociationAuthorizationResponse {
   /// The ID of the hosted zone that you authorized associating a VPC with.
   final String hostedZoneId;
@@ -2917,6 +2938,8 @@ class CreateVpcAssociationAuthorizationResponse {
       CreateVpcAssociationAuthorizationResponse();
 }
 
+/// A complex type that lists the name servers in a delegation set, as well as
+/// the `CallerReference` and the `ID` for the delegation set.
 class DelegationSet {
   /// The ID that Amazon Route 53 assigns to a reusable delegation set.
   final String id;
@@ -2937,12 +2960,14 @@ class DelegationSet {
   static DelegationSet fromJson(Map<String, dynamic> json) => DelegationSet();
 }
 
+/// An empty element.
 class DeleteHealthCheckResponse {
   DeleteHealthCheckResponse();
   static DeleteHealthCheckResponse fromJson(Map<String, dynamic> json) =>
       DeleteHealthCheckResponse();
 }
 
+/// A complex type that contains the response to a `DeleteHostedZone` request.
 class DeleteHostedZoneResponse {
   /// A complex type that contains the ID, the status, and the date and time of
   /// a request to delete a hosted zone.
@@ -2961,6 +2986,7 @@ class DeleteQueryLoggingConfigResponse {
       DeleteQueryLoggingConfigResponse();
 }
 
+/// An empty element.
 class DeleteReusableDelegationSetResponse {
   DeleteReusableDelegationSetResponse();
   static DeleteReusableDelegationSetResponse fromJson(
@@ -2968,6 +2994,7 @@ class DeleteReusableDelegationSetResponse {
       DeleteReusableDelegationSetResponse();
 }
 
+/// An empty element.
 class DeleteTrafficPolicyInstanceResponse {
   DeleteTrafficPolicyInstanceResponse();
   static DeleteTrafficPolicyInstanceResponse fromJson(
@@ -2975,12 +3002,14 @@ class DeleteTrafficPolicyInstanceResponse {
       DeleteTrafficPolicyInstanceResponse();
 }
 
+/// An empty element.
 class DeleteTrafficPolicyResponse {
   DeleteTrafficPolicyResponse();
   static DeleteTrafficPolicyResponse fromJson(Map<String, dynamic> json) =>
       DeleteTrafficPolicyResponse();
 }
 
+/// Empty response for the request.
 class DeleteVpcAssociationAuthorizationResponse {
   DeleteVpcAssociationAuthorizationResponse();
   static DeleteVpcAssociationAuthorizationResponse fromJson(
@@ -2988,6 +3017,8 @@ class DeleteVpcAssociationAuthorizationResponse {
       DeleteVpcAssociationAuthorizationResponse();
 }
 
+/// For the metric that the CloudWatch alarm is associated with, a complex type
+/// that contains information about one dimension.
 class Dimension {
   /// For the metric that the CloudWatch alarm is associated with, the name of
   /// one dimension.
@@ -3004,6 +3035,8 @@ class Dimension {
   static Dimension fromJson(Map<String, dynamic> json) => Dimension();
 }
 
+/// A complex type that contains the response information for the disassociate
+/// request.
 class DisassociateVpcFromHostedZoneResponse {
   /// A complex type that describes the changes made to the specified private
   /// hosted zone.
@@ -3017,6 +3050,7 @@ class DisassociateVpcFromHostedZoneResponse {
       DisassociateVpcFromHostedZoneResponse();
 }
 
+/// A complex type that contains information about a geographic location.
 class GeoLocation {
   /// The two-letter code for the continent.
   ///
@@ -3041,6 +3075,8 @@ class GeoLocation {
   static GeoLocation fromJson(Map<String, dynamic> json) => GeoLocation();
 }
 
+/// A complex type that contains the codes and full continent, country, and
+/// subdivision names for the specified `geolocation` code.
 class GeoLocationDetails {
   /// The two-letter code for the continent.
   final String continentCode;
@@ -3074,17 +3110,18 @@ class GeoLocationDetails {
       GeoLocationDetails();
 }
 
+/// A complex type that contains the requested limit.
 class GetAccountLimitResponse {
   /// The current setting for the specified limit. For example, if you specified
-  /// `MAX\_HEALTH\_CHECKS\_BY\_OWNER` for the value of `Type` in the request,
-  /// the value of `Limit` is the maximum number of health checks that you can
+  /// `MAX_HEALTH_CHECKS_BY_OWNER` for the value of `Type` in the request, the
+  /// value of `Limit` is the maximum number of health checks that you can
   /// create using the current account.
   final AccountLimit limit;
 
   /// The current number of entities that you have created of the specified
-  /// type. For example, if you specified `MAX\_HEALTH\_CHECKS\_BY\_OWNER` for
-  /// the value of `Type` in the request, the value of `Count` is the current
-  /// number of health checks that you have created using the current account.
+  /// type. For example, if you specified `MAX_HEALTH_CHECKS_BY_OWNER` for the
+  /// value of `Type` in the request, the value of `Count` is the current number
+  /// of health checks that you have created using the current account.
   final BigInt count;
 
   GetAccountLimitResponse({
@@ -3095,6 +3132,7 @@ class GetAccountLimitResponse {
       GetAccountLimitResponse();
 }
 
+/// A complex type that contains the `ChangeInfo` element.
 class GetChangeResponse {
   /// A complex type that contains information about the specified change batch.
   final ChangeInfo changeInfo;
@@ -3106,6 +3144,7 @@ class GetChangeResponse {
       GetChangeResponse();
 }
 
+/// A complex type that contains the `CheckerIpRanges` element.
 class GetCheckerIpRangesResponse {
   /// A complex type that contains sorted list of IP ranges in CIDR format for
   /// Amazon Route 53 health checkers.
@@ -3118,6 +3157,8 @@ class GetCheckerIpRangesResponse {
       GetCheckerIpRangesResponse();
 }
 
+/// A complex type that contains the response information for the specified
+/// geolocation code.
 class GetGeoLocationResponse {
   /// A complex type that contains the codes and full continent, country, and
   /// subdivision names for the specified geolocation code.
@@ -3130,6 +3171,8 @@ class GetGeoLocationResponse {
       GetGeoLocationResponse();
 }
 
+/// A complex type that contains the response to a `GetHealthCheckCount`
+/// request.
 class GetHealthCheckCountResponse {
   /// The number of health checks associated with the current AWS account.
   final BigInt healthCheckCount;
@@ -3141,6 +3184,8 @@ class GetHealthCheckCountResponse {
       GetHealthCheckCountResponse();
 }
 
+/// A complex type that contains the response to a
+/// `GetHealthCheckLastFailureReason` request.
 class GetHealthCheckLastFailureReasonResponse {
   /// A list that contains one `Observation` element for each Amazon Route 53
   /// health checker that is reporting a last failure reason.
@@ -3154,6 +3199,7 @@ class GetHealthCheckLastFailureReasonResponse {
       GetHealthCheckLastFailureReasonResponse();
 }
 
+/// A complex type that contains the response to a `GetHealthCheck` request.
 class GetHealthCheckResponse {
   /// A complex type that contains information about one health check that is
   /// associated with the current AWS account.
@@ -3166,6 +3212,7 @@ class GetHealthCheckResponse {
       GetHealthCheckResponse();
 }
 
+/// A complex type that contains the response to a `GetHealthCheck` request.
 class GetHealthCheckStatusResponse {
   /// A list that contains one `HealthCheckObservation` element for each Amazon
   /// Route 53 health checker that is reporting a status about the health check
@@ -3179,6 +3226,7 @@ class GetHealthCheckStatusResponse {
       GetHealthCheckStatusResponse();
 }
 
+/// A complex type that contains the response to a `GetHostedZoneCount` request.
 class GetHostedZoneCountResponse {
   /// The total number of public and private hosted zones that are associated
   /// with the current AWS account.
@@ -3191,16 +3239,17 @@ class GetHostedZoneCountResponse {
       GetHostedZoneCountResponse();
 }
 
+/// A complex type that contains the requested limit.
 class GetHostedZoneLimitResponse {
   /// The current setting for the specified limit. For example, if you specified
-  /// `MAX\_RRSETS\_BY_ZONE` for the value of `Type` in the request, the value
-  /// of `Limit` is the maximum number of records that you can create in the
+  /// `MAX_RRSETS_BY_ZONE` for the value of `Type` in the request, the value of
+  /// `Limit` is the maximum number of records that you can create in the
   /// specified hosted zone.
   final HostedZoneLimit limit;
 
   /// The current number of entities that you have created of the specified
-  /// type. For example, if you specified `MAX\_RRSETS\_BY_ZONE` for the value
-  /// of `Type` in the request, the value of `Count` is the current number of
+  /// type. For example, if you specified `MAX_RRSETS_BY_ZONE` for the value of
+  /// `Type` in the request, the value of `Count` is the current number of
   /// records that you have created in the specified hosted zone.
   final BigInt count;
 
@@ -3212,6 +3261,7 @@ class GetHostedZoneLimitResponse {
       GetHostedZoneLimitResponse();
 }
 
+/// A complex type that contain the response to a `GetHostedZone` request.
 class GetHostedZoneResponse {
   /// A complex type that contains general information about the specified
   /// hosted zone.
@@ -3248,6 +3298,7 @@ class GetQueryLoggingConfigResponse {
       GetQueryLoggingConfigResponse();
 }
 
+/// A complex type that contains the requested limit.
 class GetReusableDelegationSetLimitResponse {
   /// The current setting for the limit on hosted zones that you can associate
   /// with the specified reusable delegation set.
@@ -3266,6 +3317,8 @@ class GetReusableDelegationSetLimitResponse {
       GetReusableDelegationSetLimitResponse();
 }
 
+/// A complex type that contains the response to the `GetReusableDelegationSet`
+/// request.
 class GetReusableDelegationSetResponse {
   /// A complex type that contains information about the reusable delegation
   /// set.
@@ -3278,6 +3331,8 @@ class GetReusableDelegationSetResponse {
       GetReusableDelegationSetResponse();
 }
 
+/// A complex type that contains information about the resource record sets that
+/// Amazon Route 53 created based on a specified traffic policy.
 class GetTrafficPolicyInstanceCountResponse {
   /// The number of traffic policy instances that are associated with the
   /// current AWS account.
@@ -3291,6 +3346,8 @@ class GetTrafficPolicyInstanceCountResponse {
       GetTrafficPolicyInstanceCountResponse();
 }
 
+/// A complex type that contains information about the resource record sets that
+/// Amazon Route 53 created based on a specified traffic policy.
 class GetTrafficPolicyInstanceResponse {
   /// A complex type that contains settings for the traffic policy instance.
   final TrafficPolicyInstance trafficPolicyInstance;
@@ -3302,6 +3359,7 @@ class GetTrafficPolicyInstanceResponse {
       GetTrafficPolicyInstanceResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class GetTrafficPolicyResponse {
   /// A complex type that contains settings for the specified traffic policy.
   final TrafficPolicy trafficPolicy;
@@ -3313,6 +3371,8 @@ class GetTrafficPolicyResponse {
       GetTrafficPolicyResponse();
 }
 
+/// A complex type that contains information about one health check that is
+/// associated with the current AWS account.
 class HealthCheck {
   /// The identifier that Amazon Route 53assigned to the health check when you
   /// created it. When you add or update a resource record set, you use this
@@ -3351,6 +3411,7 @@ class HealthCheck {
   static HealthCheck fromJson(Map<String, dynamic> json) => HealthCheck();
 }
 
+/// A complex type that contains information about the health check.
 class HealthCheckConfig {
   /// The IPv4 or IPv6 IP address of the endpoint that you want Amazon Route 53
   /// to perform health checks on. If you don't specify a value for `IPAddress`,
@@ -3383,14 +3444,14 @@ class HealthCheckConfig {
   /// information about IP addresses for which you can't create health checks,
   /// see the following documents:
   ///
-  /// *    [RFC 5735, Special Use IPv4
-  /// Addresses](https://tools.ietf.org/html/rfc5735)
+  /// *
+  /// [RFC 5735, Special Use IPv4 Addresses](https://tools.ietf.org/html/rfc5735)
   ///
-  /// *    [RFC 6598, IANA-Reserved IPv4 Prefix for Shared Address
-  /// Space](https://tools.ietf.org/html/rfc6598)
+  /// *
+  /// [RFC 6598, IANA-Reserved IPv4 Prefix for Shared Address Space](https://tools.ietf.org/html/rfc6598)
   ///
-  /// *    [RFC 5156, Special-Use IPv6
-  /// Addresses](https://tools.ietf.org/html/rfc5156)
+  /// *
+  /// [RFC 5156, Special-Use IPv6 Addresses](https://tools.ietf.org/html/rfc5156)
   ///
   ///
   /// When the value of `Type` is `CALCULATED` or `CLOUDWATCH_METRIC`, omit
@@ -3419,13 +3480,13 @@ class HealthCheckConfig {
   ///
   ///      If you specify `HTTPS` for the value of `Type`, the endpoint must
   /// support TLS v1.0 or later.
-  /// *    **HTTP\_STR\_MATCH**: Route 53 tries to establish a TCP connection.
-  /// If successful, Route 53 submits an HTTP request and searches the first
-  /// 5,120 bytes of the response body for the string that you specify in
+  /// *    **HTTP_STR_MATCH**: Route 53 tries to establish a TCP connection. If
+  /// successful, Route 53 submits an HTTP request and searches the first 5,120
+  /// bytes of the response body for the string that you specify in
   /// `SearchString`.
   ///
-  /// *    **HTTPS\_STR\_MATCH**: Route 53 tries to establish a TCP connection.
-  /// If successful, Route 53 submits an `HTTPS` request and searches the first
+  /// *    **HTTPS_STR_MATCH**: Route 53 tries to establish a TCP connection. If
+  /// successful, Route 53 submits an `HTTPS` request and searches the first
   /// 5,120 bytes of the response body for the string that you specify in
   /// `SearchString`.
   ///
@@ -3445,8 +3506,8 @@ class HealthCheckConfig {
   /// value of `HealthThreshold`.
   ///
   ///
-  /// For more information, see [How Route 53 Determines Whether an Endpoint Is
-  /// Healthy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+  /// For more information, see
+  /// [How Route 53 Determines Whether an Endpoint Is Healthy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final String type;
 
@@ -3472,11 +3533,11 @@ class HealthCheckConfig {
   /// the `Host` header:
   ///
   /// *   If you specify a value of `80` for `Port` and `HTTP` or
-  /// `HTTP\_STR\_MATCH` for `Type`, Route 53 passes the value of
+  /// `HTTP_STR_MATCH` for `Type`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` to the endpoint in the Host header.
   ///
   /// *   If you specify a value of `443` for `Port` and `HTTPS` or
-  /// `HTTPS\_STR\_MATCH` for `Type`, Route 53 passes the value of
+  /// `HTTPS_STR_MATCH` for `Type`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` to the endpoint in the `Host` header.
   ///
   /// *   If you specify another value for `Port` and any value except `TCP` for
@@ -3515,16 +3576,16 @@ class HealthCheckConfig {
   /// health check results will be unpredictable.
   ///
   /// In addition, if the value that you specify for `Type` is `HTTP`, `HTTPS`,
-  /// `HTTP\_STR\_MATCH`, or `HTTPS\_STR\_MATCH`, Route 53 passes the value of
+  /// `HTTP_STR_MATCH`, or `HTTPS_STR_MATCH`, Route 53 passes the value of
   /// `FullyQualifiedDomainName` in the `Host` header, as it does when you
   /// specify a value for `IPAddress`. If the value of `Type` is `TCP`, Route 53
   /// doesn't pass a `Host` header.
   final String fullyQualifiedDomainName;
 
-  /// If the value of Type is `HTTP\_STR\_MATCH` or `HTTP\_STR\_MATCH`, the
-  /// string that you want Amazon Route 53 to search for in the response body
-  /// from the specified resource. If the string appears in the response body,
-  /// Route 53 considers the resource healthy.
+  /// If the value of Type is `HTTP_STR_MATCH` or `HTTP_STR_MATCH`, the string
+  /// that you want Amazon Route 53 to search for in the response body from the
+  /// specified resource. If the string appears in the response body, Route 53
+  /// considers the resource healthy.
   ///
   /// Route 53 considers case when searching for `SearchString` in the response
   /// body.
@@ -3544,9 +3605,8 @@ class HealthCheckConfig {
 
   /// The number of consecutive health checks that an endpoint must pass or fail
   /// for Amazon Route 53 to change the current status of the endpoint from
-  /// unhealthy to healthy or vice versa. For more information, see [How Amazon
-  /// Route 53 Determines Whether an Endpoint Is
-  /// Healthy](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+  /// unhealthy to healthy or vice versa. For more information, see
+  /// [How Amazon Route 53 Determines Whether an Endpoint Is Healthy](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// If you don't specify a value for `FailureThreshold`, the default value is
@@ -3589,8 +3649,8 @@ class HealthCheckConfig {
   /// [Inverted](https://docs.aws.amazon.com/Route53/latest/APIReference/API_UpdateHealthCheck.html#Route53-UpdateHealthCheck-request-Inverted).
   ///
   /// Charges for a health check still apply when the health check is disabled.
-  /// For more information, see [Amazon Route 53
-  /// Pricing](http://aws.amazon.com/route53/pricing/).
+  /// For more information, see
+  /// [Amazon Route 53 Pricing](http://aws.amazon.com/route53/pricing/).
   final bool disabled;
 
   /// The number of child health checks that are associated with a `CALCULATED`
@@ -3695,6 +3755,8 @@ class HealthCheckConfig {
       HealthCheckConfig();
 }
 
+/// A complex type that contains the last failure reason as reported by one
+/// Amazon Route 53 health checker.
 class HealthCheckObservation {
   /// The region of the Amazon Route 53 health checker that provided the status
   /// in `StatusReport`.
@@ -3717,6 +3779,7 @@ class HealthCheckObservation {
       HealthCheckObservation();
 }
 
+/// A complex type that contains general information about the hosted zone.
 class HostedZone {
   /// The ID that Amazon Route 53 assigned to the hosted zone when you created
   /// it.
@@ -3758,6 +3821,9 @@ class HostedZone {
   static HostedZone fromJson(Map<String, dynamic> json) => HostedZone();
 }
 
+/// A complex type that contains an optional comment about your hosted zone. If
+/// you don't want to specify a comment, omit both the `HostedZoneConfig` and
+/// `Comment` elements.
 class HostedZoneConfig {
   /// Any comments that you want to include about the hosted zone.
   final String comment;
@@ -3773,14 +3839,16 @@ class HostedZoneConfig {
       HostedZoneConfig();
 }
 
+/// A complex type that contains the type of limit that you specified in the
+/// request and the current value for that limit.
 class HostedZoneLimit {
   /// The limit that you requested. Valid values include the following:
   ///
-  /// *    **MAX\_RRSETS\_BY_ZONE**: The maximum number of records that you can
+  /// *    **MAX_RRSETS_BY_ZONE**: The maximum number of records that you can
   /// create in the specified hosted zone.
   ///
-  /// *    **MAX\_VPCS\_ASSOCIATED\_BY\_ZONE**: The maximum number of Amazon
-  /// VPCs that you can associate with the specified private hosted zone.
+  /// *    **MAX_VPCS_ASSOCIATED_BY_ZONE**: The maximum number of Amazon VPCs
+  /// that you can associate with the specified private hosted zone.
   final String type;
 
   /// The current value for the limit that is specified by `Type`.
@@ -3794,6 +3862,10 @@ class HostedZoneLimit {
       HostedZoneLimit();
 }
 
+/// If a health check or hosted zone was created by another service,
+/// `LinkedService` is a complex type that describes the service that created
+/// the resource. When a resource is created by another service, you can't edit
+/// or delete it using Amazon Route 53.
 class LinkedService {
   /// If the health check or hosted zone was created by another service, the
   /// service that created the resource. When a resource is created by another
@@ -3813,6 +3885,7 @@ class LinkedService {
   static LinkedService fromJson(Map<String, dynamic> json) => LinkedService();
 }
 
+/// A complex type containing the response information for the request.
 class ListGeoLocationsResponse {
   /// A complex type that contains one `GeoLocationDetails` element for each
   /// location that Amazon Route 53 supports for geolocation.
@@ -3856,6 +3929,7 @@ class ListGeoLocationsResponse {
       ListGeoLocationsResponse();
 }
 
+/// A complex type that contains the response to a `ListHealthChecks` request.
 class ListHealthChecksResponse {
   /// A complex type that contains one `HealthCheck` element for each health
   /// check that is associated with the current AWS account.
@@ -3893,6 +3967,7 @@ class ListHealthChecksResponse {
       ListHealthChecksResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListHostedZonesByNameResponse {
   /// A complex type that contains general information about the hosted zone.
   final List<HostedZone> hostedZones;
@@ -4012,6 +4087,7 @@ class ListQueryLoggingConfigsResponse {
       ListQueryLoggingConfigsResponse();
 }
 
+/// A complex type that contains list information for the resource record set.
 class ListResourceRecordSetsResponse {
   /// Information about multiple resource record sets.
   final List<ResourceRecordSet> resourceRecordSets;
@@ -4036,8 +4112,8 @@ class ListResourceRecordSetsResponse {
   /// `SetIdentifier` for the next resource record set that has the current DNS
   /// name and type.
   ///
-  /// For information about routing policies, see [Choosing a Routing
-  /// Policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
+  /// For information about routing policies, see
+  /// [Choosing a Routing Policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final String nextRecordIdentifier;
 
@@ -4056,6 +4132,8 @@ class ListResourceRecordSetsResponse {
       ListResourceRecordSetsResponse();
 }
 
+/// A complex type that contains information about the reusable delegation sets
+/// that are associated with the current AWS account.
 class ListReusableDelegationSetsResponse {
   /// A complex type that contains one `DelegationSet` element for each reusable
   /// delegation set that was created by the current AWS account.
@@ -4092,6 +4170,8 @@ class ListReusableDelegationSetsResponse {
       ListReusableDelegationSetsResponse();
 }
 
+/// A complex type that contains information about the health checks or hosted
+/// zones for which you want to list tags.
 class ListTagsForResourceResponse {
   /// A `ResourceTagSet` containing tags associated with the specified resource.
   final ResourceTagSet resourceTagSet;
@@ -4103,6 +4183,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// A complex type containing tags for the specified resources.
 class ListTagsForResourcesResponse {
   /// A list of `ResourceTagSet`s containing tags associated with the specified
   /// resources.
@@ -4115,6 +4196,7 @@ class ListTagsForResourcesResponse {
       ListTagsForResourcesResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListTrafficPoliciesResponse {
   /// A list that contains one `TrafficPolicySummary` element for each traffic
   /// policy that was created by the current AWS account.
@@ -4146,6 +4228,7 @@ class ListTrafficPoliciesResponse {
       ListTrafficPoliciesResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListTrafficPolicyInstancesByHostedZoneResponse {
   /// A list that contains one `TrafficPolicyInstance` element for each traffic
   /// policy instance that matches the elements in the request.
@@ -4186,6 +4269,7 @@ class ListTrafficPolicyInstancesByHostedZoneResponse {
       ListTrafficPolicyInstancesByHostedZoneResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListTrafficPolicyInstancesByPolicyResponse {
   /// A list that contains one `TrafficPolicyInstance` element for each traffic
   /// policy instance that matches the elements in the request.
@@ -4232,6 +4316,7 @@ class ListTrafficPolicyInstancesByPolicyResponse {
       ListTrafficPolicyInstancesByPolicyResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListTrafficPolicyInstancesResponse {
   /// A list that contains one `TrafficPolicyInstance` element for each traffic
   /// policy instance that matches the elements in the request.
@@ -4277,6 +4362,7 @@ class ListTrafficPolicyInstancesResponse {
       ListTrafficPolicyInstancesResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListTrafficPolicyVersionsResponse {
   /// A list that contains one `TrafficPolicy` element for each traffic policy
   /// version that is associated with the specified traffic policy.
@@ -4312,6 +4398,7 @@ class ListTrafficPolicyVersionsResponse {
       ListTrafficPolicyVersionsResponse();
 }
 
+/// A complex type that contains the response information for the request.
 class ListVpcAssociationAuthorizationsResponse {
   /// The ID of the hosted zone that you can associate the listed VPCs with.
   final String hostedZoneId;
@@ -4337,6 +4424,8 @@ class ListVpcAssociationAuthorizationsResponse {
       ListVpcAssociationAuthorizationsResponse();
 }
 
+/// A complex type that contains information about a configuration for DNS query
+/// logging.
 class QueryLoggingConfig {
   /// The ID for a configuration for DNS query logging.
   final String id;
@@ -4357,12 +4446,17 @@ class QueryLoggingConfig {
       QueryLoggingConfig();
 }
 
+/// Information specific to the resource record.
+///
+///
+///
+/// If you're creating an alias resource record set, omit `ResourceRecord`.
 class ResourceRecord {
   /// The current or new DNS record value, not to exceed 4,000 characters. In
   /// the case of a `DELETE` action, if the current value does not match the
   /// actual value, an error is returned. For descriptions about how to format
-  /// `Value` for different record types, see [Supported DNS Resource Record
-  /// Types](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
+  /// `Value` for different record types, see
+  /// [Supported DNS Resource Record Types](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// You can specify more than one value for all record types except `CNAME`
@@ -4379,6 +4473,7 @@ class ResourceRecord {
   static ResourceRecord fromJson(Map<String, dynamic> json) => ResourceRecord();
 }
 
+/// Information about the resource record set to create or delete.
 class ResourceRecordSet {
   /// For `ChangeResourceRecordSets` requests, the name of the record that you
   /// want to create, update, or delete. For `ListResourceRecordSets` responses,
@@ -4394,8 +4489,7 @@ class ResourceRecordSet {
   ///
   /// For information about how to specify characters other than `a-z`, `0-9`,
   /// and `-` (hyphen) and how to specify internationalized domain names, see
-  /// [DNS Domain Name
-  /// Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
+  /// [DNS Domain Name Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// You can use the asterisk (*) wildcard to replace the leftmost label in a
@@ -4421,8 +4515,8 @@ class ResourceRecordSet {
   final String name;
 
   /// The DNS record type. For information about different record types and how
-  /// data is encoded for them, see [Supported DNS Resource Record
-  /// Types](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
+  /// data is encoded for them, see
+  /// [Supported DNS Resource Record Types](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/ResourceRecordTypes.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Valid values for basic resource record sets: `A` | `AAAA` | `CAA` |
@@ -4441,11 +4535,12 @@ class ResourceRecordSet {
   /// email messages. However, we no longer recommend that you create resource
   /// record sets for which the value of `Type` is `SPF`. RFC 7208, _Sender
   /// Policy Framework (SPF) for Authorizing Use of Domains in Email, Version
-  /// 1_, has been updated to say, "...\[I\]ts existence and mechanism defined
-  /// in \[RFC4408\] have led to some interoperability issues. Accordingly, its
-  /// use is no longer appropriate for SPF version 1; implementations are not to
-  /// use it." In RFC 7208, see section 14.1, [The SPF DNS Record
-  /// Type](http://tools.ietf.org/html/rfc7208#section-14.1).
+  /// 1_, has been updated to say, "...[I]ts existence and mechanism defined in
+  /// [RFC4408] have led to some interoperability issues. Accordingly, its use
+  /// is no longer appropriate for SPF version 1; implementations are not to use
+  /// it." In RFC 7208, see section 14.1,
+  /// [The SPF DNS Record Type](http://tools.ietf.org/html/rfc7208#section-14.1).
+  ///
   ///
   /// Values for alias resource record sets:
   ///
@@ -4486,8 +4581,8 @@ class ResourceRecordSet {
   /// group of resource record sets that have the same name and type, the value
   /// of `SetIdentifier` must be unique for each resource record set.
   ///
-  /// For information about routing policies, see [Choosing a Routing
-  /// Policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
+  /// For information about routing policies, see
+  /// [Choosing a Routing Policy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final String setIdentifier;
 
@@ -4521,8 +4616,8 @@ class ResourceRecordSet {
   ///
   ///     The effect of setting `Weight` to `0` is different when you associate
   /// health checks with weighted resource record sets. For more information,
-  /// see [Options for Configuring Route 53 Active-Active and Active-Passive
-  /// Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring-options.html)
+  /// see
+  /// [Options for Configuring Route 53 Active-Active and Active-Passive Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-configuring-options.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final BigInt weight;
 
@@ -4636,11 +4731,11 @@ class ResourceRecordSet {
   /// For more information about configuring failover for Route 53, see the
   /// following topics in the _Amazon Route 53 Developer Guide_:
   ///
-  /// *    [Route 53 Health Checks and DNS
-  /// Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+  /// *
+  /// [Route 53 Health Checks and DNS Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
   ///
-  /// *    [Configuring Failover in a Private Hosted
-  /// Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+  /// *
+  /// [Configuring Failover in a Private Hosted Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
   final String failover;
 
   ///  _Multivalue answer resource record sets only_: To route traffic
@@ -4716,8 +4811,8 @@ class ResourceRecordSet {
   /// resource record sets in a private hosted zone is unsupported.
   ///
   /// *   For information about creating failover resource record sets in a
-  /// private hosted zone, see [Configuring Failover in a Private Hosted
-  /// Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+  /// private hosted zone, see
+  /// [Configuring Failover in a Private Hosted Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
   /// in the _Amazon Route 53 Developer Guide_.
   final AliasTarget aliasTarget;
 
@@ -4748,14 +4843,14 @@ class ResourceRecordSet {
   /// For more information, see the following topics in the _Amazon Route 53
   /// Developer Guide_:
   ///
-  /// *    [How Amazon Route 53 Determines Whether an Endpoint Is
-  /// Healthy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
+  /// *
+  /// [How Amazon Route 53 Determines Whether an Endpoint Is Healthy](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-determining-health-of-endpoints.html)
   ///
-  /// *    [Route 53 Health Checks and DNS
-  /// Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
+  /// *
+  /// [Route 53 Health Checks and DNS Failover](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html)
   ///
-  /// *    [Configuring Failover in a Private Hosted
-  /// Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
+  /// *
+  /// [Configuring Failover in a Private Hosted Zone](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover-private-hosted-zones.html)
   ///
   ///
   ///  **When to Specify HealthCheckId**
@@ -4883,6 +4978,7 @@ class ResourceRecordSet {
       ResourceRecordSet();
 }
 
+/// A complex type containing a resource and its associated tags.
 class ResourceTagSet {
   /// The type of the resource.
   ///
@@ -4905,14 +5001,15 @@ class ResourceTagSet {
   static ResourceTagSet fromJson(Map<String, dynamic> json) => ResourceTagSet();
 }
 
+/// A complex type that contains the type of limit that you specified in the
+/// request and the current value for that limit.
 class ReusableDelegationSetLimit {
-  /// The limit that you requested: `MAX\_ZONES\_BY\_REUSABLE\_DELEGATION_SET`,
-  /// the maximum number of hosted zones that you can associate with the
-  /// specified reusable delegation set.
+  /// The limit that you requested: `MAX_ZONES_BY_REUSABLE_DELEGATION_SET`, the
+  /// maximum number of hosted zones that you can associate with the specified
+  /// reusable delegation set.
   final String type;
 
-  /// The current value for the `MAX\_ZONES\_BY\_REUSABLE\_DELEGATION_SET`
-  /// limit.
+  /// The current value for the `MAX_ZONES_BY_REUSABLE_DELEGATION_SET` limit.
   final BigInt value;
 
   ReusableDelegationSetLimit({
@@ -4923,6 +5020,8 @@ class ReusableDelegationSetLimit {
       ReusableDelegationSetLimit();
 }
 
+/// A complex type that contains the status that one Amazon Route 53 health
+/// checker reports and the time of the health check.
 class StatusReport {
   /// A description of the status of the health check endpoint as reported by
   /// one of the Amazon Route 53 health checkers.
@@ -4941,6 +5040,8 @@ class StatusReport {
   static StatusReport fromJson(Map<String, dynamic> json) => StatusReport();
 }
 
+/// A complex type that contains information about a tag that you want to add or
+/// edit for the specified health check or hosted zone.
 class Tag {
   /// The value of `Key` depends on the operation that you want to perform:
   ///
@@ -4974,6 +5075,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// A complex type that contains the response to a `TestDNSAnswer` request.
 class TestDnsAnswerResponse {
   /// The Amazon Route 53 name server used to respond to the request.
   final String nameserver;
@@ -4991,8 +5093,8 @@ class TestDnsAnswerResponse {
   /// A code that indicates whether the request is valid or not. The most common
   /// response code is `NOERROR`, meaning that the request is valid. If the
   /// response is not valid, Amazon Route 53 returns a response code that
-  /// describes the error. For a list of possible response codes, see [DNS
-  /// RCODES](http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6)
+  /// describes the error. For a list of possible response codes, see
+  /// [DNS RCODES](http://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6)
   /// on the IANA website.
   final String responseCode;
 
@@ -5012,6 +5114,7 @@ class TestDnsAnswerResponse {
       TestDnsAnswerResponse();
 }
 
+/// A complex type that contains settings for a traffic policy.
 class TrafficPolicy {
   /// The ID that Amazon Route 53 assigned to a traffic policy when you created
   /// it.
@@ -5030,9 +5133,8 @@ class TrafficPolicy {
 
   /// The definition of a traffic policy in JSON format. You specify the JSON
   /// document to use for a new traffic policy in the `CreateTrafficPolicy`
-  /// request. For more information about the JSON format, see [Traffic Policy
-  /// Document
-  /// Format](https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html).
+  /// request. For more information about the JSON format, see
+  /// [Traffic Policy Document Format](https://docs.aws.amazon.com/Route53/latest/APIReference/api-policies-traffic-policy-document-format.html).
   final String document;
 
   /// The comment that you specify in the `CreateTrafficPolicy` request, if any.
@@ -5049,6 +5151,7 @@ class TrafficPolicy {
   static TrafficPolicy fromJson(Map<String, dynamic> json) => TrafficPolicy();
 }
 
+/// A complex type that contains settings for the new traffic policy instance.
 class TrafficPolicyInstance {
   /// The ID that Amazon Route 53 assigned to the new traffic policy instance.
   final String id;
@@ -5117,6 +5220,8 @@ class TrafficPolicyInstance {
       TrafficPolicyInstance();
 }
 
+/// A complex type that contains information about the latest version of one
+/// traffic policy that is associated with the current AWS account.
 class TrafficPolicySummary {
   /// The ID that Amazon Route 53 assigned to the traffic policy when you
   /// created it.
@@ -5147,6 +5252,8 @@ class TrafficPolicySummary {
       TrafficPolicySummary();
 }
 
+/// A complex type that contains the response to the `UpdateHealthCheck`
+/// request.
 class UpdateHealthCheckResponse {
   /// A complex type that contains the response to an `UpdateHealthCheck`
   /// request.
@@ -5159,6 +5266,8 @@ class UpdateHealthCheckResponse {
       UpdateHealthCheckResponse();
 }
 
+/// A complex type that contains the response to the `UpdateHostedZoneComment`
+/// request.
 class UpdateHostedZoneCommentResponse {
   /// A complex type that contains the response to the `UpdateHostedZoneComment`
   /// request.
@@ -5171,6 +5280,8 @@ class UpdateHostedZoneCommentResponse {
       UpdateHostedZoneCommentResponse();
 }
 
+/// A complex type that contains the response information for the traffic
+/// policy.
 class UpdateTrafficPolicyCommentResponse {
   /// A complex type that contains settings for the specified traffic policy.
   final TrafficPolicy trafficPolicy;
@@ -5183,6 +5294,8 @@ class UpdateTrafficPolicyCommentResponse {
       UpdateTrafficPolicyCommentResponse();
 }
 
+/// A complex type that contains information about the resource record sets that
+/// Amazon Route 53 created based on a specified traffic policy.
 class UpdateTrafficPolicyInstanceResponse {
   /// A complex type that contains settings for the updated traffic policy
   /// instance.
@@ -5196,6 +5309,8 @@ class UpdateTrafficPolicyInstanceResponse {
       UpdateTrafficPolicyInstanceResponse();
 }
 
+/// (Private hosted zones only) A complex type that contains information about
+/// an Amazon VPC.
 class Vpc {
   /// (Private hosted zones only) The region that an Amazon VPC was created in.
   final String vpcRegion;

@@ -7,10 +7,9 @@ import 'dart:typed_data';
 /// simplifies the development and management of cloud-scale web, mobile, and
 /// IoT applications. This guide describes the Cloud Directory operations that
 /// you can call programmatically and includes detailed information on data
-/// types and errors. For information about Cloud Directory features, see [AWS
-/// Directory Service](https://aws.amazon.com/directoryservice/) and the [Amazon
-/// Cloud Directory Developer
-/// Guide](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/what_is_cloud_directory.html).
+/// types and errors. For information about Cloud Directory features, see
+/// [AWS Directory Service](https://aws.amazon.com/directoryservice/) and the
+/// [Amazon Cloud Directory Developer Guide](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/what_is_cloud_directory.html).
 class CloudDirectoryApi {
   /// Adds a new Facet to an object. An object can have more than one facet
   /// applied on it.
@@ -108,8 +107,8 @@ class CloudDirectoryApi {
   }
 
   /// Attaches a typed link to a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) of the directory where you
   /// want to attach the typed link.
@@ -167,8 +166,8 @@ class CloudDirectoryApi {
   /// directory cannot be created without a schema.
   ///
   /// You can also quickly create a directory using a managed schema, called the
-  /// `QuickStartSchema`. For more information, see [Managed
-  /// Schema](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_managed.html)
+  /// `QuickStartSchema`. For more information, see
+  /// [Managed Schema](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_managed.html)
   /// in the _Amazon Cloud Directory Developer Guide_.
   ///
   /// [name]: The name of the Directory. Should be unique per account, per
@@ -220,8 +219,8 @@ class CloudDirectoryApi {
     return CreateFacetResponse.fromJson({});
   }
 
-  /// Creates an index object. See [Indexing and
-  /// search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.html)
+  /// Creates an index object. See
+  /// [Indexing and search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.html)
   /// for more information.
   ///
   /// [directoryArn]: The ARN of the directory where the index should be
@@ -298,8 +297,8 @@ class CloudDirectoryApi {
     return CreateSchemaResponse.fromJson({});
   }
 
-  /// Creates a TypedLinkFacet. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// Creates a TypedLinkFacet. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -335,8 +334,8 @@ class CloudDirectoryApi {
   /// Deletes an object and its associated attributes. Only objects with no
   /// children and no parents can be deleted. The maximum number of attributes
   /// that can be deleted during an object deletion is 30. For more information,
-  /// see [Amazon Cloud Directory
-  /// Limits](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html).
+  /// see
+  /// [Amazon Cloud Directory Limits](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html).
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) that is associated with the
   /// Directory where the object resides. For more information, see arns.
@@ -357,8 +356,8 @@ class CloudDirectoryApi {
     return DeleteSchemaResponse.fromJson({});
   }
 
-  /// Deletes a TypedLinkFacet. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// Deletes a TypedLinkFacet. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -420,8 +419,8 @@ class CloudDirectoryApi {
   }
 
   /// Detaches a typed link from a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) of the directory where you
   /// want to detach the typed link.
@@ -481,8 +480,7 @@ class CloudDirectoryApi {
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) that is associated with the
   /// Directory where the typed link resides. For more information, see arns or
-  /// [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [typedLinkSpecifier]: Allows a typed link specifier to be accepted as
   /// input.
@@ -539,8 +537,8 @@ class CloudDirectoryApi {
     return GetObjectInformationResponse.fromJson({});
   }
 
-  /// Retrieves a JSON representation of the schema. See [JSON Schema
-  /// Format](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_jsonformat.html#schemas_json)
+  /// Retrieves a JSON representation of the schema. See
+  /// [JSON Schema Format](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_jsonformat.html#schemas_json)
   /// for more information.
   ///
   /// [schemaArn]: The ARN of the schema to retrieve.
@@ -549,8 +547,8 @@ class CloudDirectoryApi {
   }
 
   /// Returns the identity attribute order for a specific TypedLinkFacet. For
-  /// more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -655,8 +653,8 @@ class CloudDirectoryApi {
 
   /// Returns a paginated list of all the incoming TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) of the directory where you
   /// want to list the typed links.
@@ -699,9 +697,8 @@ class CloudDirectoryApi {
   /// [indexReference]: The reference to the index to list.
   ///
   /// [maxResults]: The maximum number of objects in a single page to retrieve
-  /// from the index during a request. For more information, see [Amazon Cloud
-  /// Directory
-  /// Limits](http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html).
+  /// from the index during a request. For more information, see
+  /// [Amazon Cloud Directory Limits](http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html).
   ///
   /// [nextToken]: The pagination token.
   ///
@@ -788,8 +785,8 @@ class CloudDirectoryApi {
 
   /// Retrieves all available parent paths for any object type such as node,
   /// leaf node, policy node, and index node objects. For more information about
-  /// objects, see [Directory
-  /// Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
+  /// objects, see
+  /// [Directory Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
   ///
   /// Use this API to evaluate all parents for an object. The call returns all
   /// objects from the root of the directory up to the requested object. The API
@@ -874,8 +871,8 @@ class CloudDirectoryApi {
 
   /// Returns a paginated list of all the outgoing TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) of the directory where you
   /// want to list the typed links.
@@ -967,8 +964,8 @@ class CloudDirectoryApi {
   }
 
   /// Returns a paginated list of all attribute definitions for a particular
-  /// TypedLinkFacet. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// TypedLinkFacet. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -987,8 +984,8 @@ class CloudDirectoryApi {
   }
 
   /// Returns a paginated list of `TypedLink` facet names for a particular
-  /// schema. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// schema. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -1054,8 +1051,8 @@ class CloudDirectoryApi {
   }
 
   /// Allows a schema to be updated using JSON upload. Only available for
-  /// development schemas. See [JSON Schema
-  /// Format](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_jsonformat.html#schemas_json)
+  /// development schemas. See
+  /// [JSON Schema Format](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_jsonformat.html#schemas_json)
   /// for more information.
   ///
   /// [schemaArn]: The ARN of the schema to update.
@@ -1135,8 +1132,8 @@ class CloudDirectoryApi {
   ///
   /// [directoryArn]: The Amazon Resource Name (ARN) that is associated with the
   /// Directory where the updated typed link resides. For more information, see
-  /// arns or [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// arns or
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [typedLinkSpecifier]: Allows a typed link specifier to be accepted as
   /// input.
@@ -1176,8 +1173,8 @@ class CloudDirectoryApi {
     return UpdateSchemaResponse.fromJson({});
   }
 
-  /// Updates a TypedLinkFacet. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// Updates a TypedLinkFacet. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   ///
   /// [schemaArn]: The Amazon Resource Name (ARN) that is associated with the
   /// schema. For more information, see arns.
@@ -1194,8 +1191,8 @@ class CloudDirectoryApi {
   /// range specified are presumed to match the entire range. Filters are
   /// interpreted in the order of the attributes on the typed link facet, not
   /// the order in which they are supplied to any API calls. For more
-  /// information about identity attributes, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information about identity attributes, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   Future<UpdateTypedLinkFacetResponse> updateTypedLinkFacet(
       {@required String schemaArn,
       @required String name,
@@ -1316,6 +1313,7 @@ class AttachTypedLinkResponse {
       AttachTypedLinkResponse();
 }
 
+/// A unique identifier for an attribute.
 class AttributeKey {
   /// The Amazon Resource Name (ARN) of the schema that contains the facet and
   /// attribute.
@@ -1335,6 +1333,7 @@ class AttributeKey {
   static AttributeKey fromJson(Map<String, dynamic> json) => AttributeKey();
 }
 
+/// The combination of an attribute key and an attribute value.
 class AttributeKeyAndValue {
   /// The key of the attribute.
   final AttributeKey key;
@@ -1350,6 +1349,7 @@ class AttributeKeyAndValue {
       AttributeKeyAndValue();
 }
 
+/// Identifies the attribute name and value for a typed link.
 class AttributeNameAndValue {
   /// The attribute name of the typed link.
   final String attributeName;
@@ -1365,6 +1365,7 @@ class AttributeNameAndValue {
       AttributeNameAndValue();
 }
 
+/// Represents the output of a batch add facet to object operation.
 class BatchAddFacetToObject {
   /// Represents the facet being added to the object.
   final SchemaFacet schemaFacet;
@@ -1382,12 +1383,14 @@ class BatchAddFacetToObject {
   });
 }
 
+/// The result of a batch add facet to object operation.
 class BatchAddFacetToObjectResponse {
   BatchAddFacetToObjectResponse();
   static BatchAddFacetToObjectResponse fromJson(Map<String, dynamic> json) =>
       BatchAddFacetToObjectResponse();
 }
 
+/// Represents the output of an AttachObject operation.
 class BatchAttachObject {
   /// The parent object reference.
   final ObjectReference parentReference;
@@ -1405,6 +1408,7 @@ class BatchAttachObject {
   });
 }
 
+/// Represents the output batch AttachObject response operation.
 class BatchAttachObjectResponse {
   /// The `ObjectIdentifier` of the object that has been attached.
   final String attachedObjectIdentifier;
@@ -1416,6 +1420,9 @@ class BatchAttachObjectResponse {
       BatchAttachObjectResponse();
 }
 
+/// Attaches a policy object to a regular object inside a BatchRead
+/// operation. For more information, see AttachPolicy and
+/// BatchReadRequest$Operations.
 class BatchAttachPolicy {
   /// The reference that is associated with the policy object.
   final ObjectReference policyReference;
@@ -1430,12 +1437,16 @@ class BatchAttachPolicy {
   });
 }
 
+/// Represents the output of an AttachPolicy response operation.
 class BatchAttachPolicyResponse {
   BatchAttachPolicyResponse();
   static BatchAttachPolicyResponse fromJson(Map<String, dynamic> json) =>
       BatchAttachPolicyResponse();
 }
 
+/// Attaches the specified object to the specified index inside a BatchRead
+/// operation. For more information, see AttachToIndex and
+/// BatchReadRequest$Operations.
 class BatchAttachToIndex {
   /// A reference to the index that you are attaching the object to.
   final ObjectReference indexReference;
@@ -1449,6 +1460,7 @@ class BatchAttachToIndex {
   });
 }
 
+/// Represents the output of a AttachToIndex response operation.
 class BatchAttachToIndexResponse {
   /// The `ObjectIdentifier` of the object that was attached to the index.
   final String attachedObjectIdentifier;
@@ -1460,6 +1472,9 @@ class BatchAttachToIndexResponse {
       BatchAttachToIndexResponse();
 }
 
+/// Attaches a typed link to a specified source and target object inside a
+/// BatchRead operation. For more information, see AttachTypedLink and
+/// BatchReadRequest$Operations.
 class BatchAttachTypedLink {
   /// Identifies the source object that the typed link will attach to.
   final ObjectReference sourceObjectReference;
@@ -1481,6 +1496,7 @@ class BatchAttachTypedLink {
   });
 }
 
+/// Represents the output of a AttachTypedLink response operation.
 class BatchAttachTypedLinkResponse {
   /// Returns a typed link specifier as output.
   final TypedLinkSpecifier typedLinkSpecifier;
@@ -1492,6 +1508,8 @@ class BatchAttachTypedLinkResponse {
       BatchAttachTypedLinkResponse();
 }
 
+/// Creates an index object inside of a BatchRead operation. For more
+/// information, see CreateIndex and BatchReadRequest$Operations.
 class BatchCreateIndex {
   /// Specifies the attributes that should be indexed on. Currently only a
   /// single attribute is supported.
@@ -1507,8 +1525,8 @@ class BatchCreateIndex {
   /// The name of the link between the parent object and the index object.
   final String linkName;
 
-  /// The batch reference name. See [Transaction
-  /// Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
+  /// The batch reference name. See
+  /// [Transaction Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
   /// for more information.
   final String batchReferenceName;
 
@@ -1521,6 +1539,7 @@ class BatchCreateIndex {
   });
 }
 
+/// Represents the output of a CreateIndex response operation.
 class BatchCreateIndexResponse {
   /// The `ObjectIdentifier` of the index created by this operation.
   final String objectIdentifier;
@@ -1532,6 +1551,7 @@ class BatchCreateIndexResponse {
       BatchCreateIndexResponse();
 }
 
+/// Represents the output of a CreateObject operation.
 class BatchCreateObject {
   /// A list of `FacetArns` that will be associated with the object. For more
   /// information, see arns.
@@ -1547,8 +1567,8 @@ class BatchCreateObject {
   /// The name of the link.
   final String linkName;
 
-  /// The batch reference name. See [Transaction
-  /// Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
+  /// The batch reference name. See
+  /// [Transaction Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
   /// for more information.
   final String batchReferenceName;
 
@@ -1561,6 +1581,7 @@ class BatchCreateObject {
   });
 }
 
+/// Represents the output of a CreateObject response operation.
 class BatchCreateObjectResponse {
   /// The ID that is associated with the object.
   final String objectIdentifier;
@@ -1572,6 +1593,7 @@ class BatchCreateObjectResponse {
       BatchCreateObjectResponse();
 }
 
+/// Represents the output of a DeleteObject operation.
 class BatchDeleteObject {
   /// The reference that identifies the object.
   final ObjectReference objectReference;
@@ -1581,12 +1603,16 @@ class BatchDeleteObject {
   });
 }
 
+/// Represents the output of a DeleteObject response operation.
 class BatchDeleteObjectResponse {
   BatchDeleteObjectResponse();
   static BatchDeleteObjectResponse fromJson(Map<String, dynamic> json) =>
       BatchDeleteObjectResponse();
 }
 
+/// Detaches the specified object from the specified index inside a BatchRead
+/// operation. For more information, see DetachFromIndex and
+/// BatchReadRequest$Operations.
 class BatchDetachFromIndex {
   /// A reference to the index object.
   final ObjectReference indexReference;
@@ -1600,6 +1626,7 @@ class BatchDetachFromIndex {
   });
 }
 
+/// Represents the output of a DetachFromIndex response operation.
 class BatchDetachFromIndexResponse {
   /// The `ObjectIdentifier` of the object that was detached from the index.
   final String detachedObjectIdentifier;
@@ -1611,6 +1638,7 @@ class BatchDetachFromIndexResponse {
       BatchDetachFromIndexResponse();
 }
 
+/// Represents the output of a DetachObject operation.
 class BatchDetachObject {
   /// Parent reference from which the object with the specified link name is
   /// detached.
@@ -1619,8 +1647,8 @@ class BatchDetachObject {
   /// The name of the link.
   final String linkName;
 
-  /// The batch reference name. See [Transaction
-  /// Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
+  /// The batch reference name. See
+  /// [Transaction Support](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/transaction_support.html)
   /// for more information.
   final String batchReferenceName;
 
@@ -1631,6 +1659,7 @@ class BatchDetachObject {
   });
 }
 
+/// Represents the output of a DetachObject response operation.
 class BatchDetachObjectResponse {
   /// The `ObjectIdentifier` of the detached object.
   final String detachedObjectIdentifier;
@@ -1642,6 +1671,9 @@ class BatchDetachObjectResponse {
       BatchDetachObjectResponse();
 }
 
+/// Detaches the specified policy from the specified directory inside a
+/// BatchWrite operation. For more information, see DetachPolicy and
+/// BatchWriteRequest$Operations.
 class BatchDetachPolicy {
   /// Reference that identifies the policy object.
   final ObjectReference policyReference;
@@ -1655,12 +1687,16 @@ class BatchDetachPolicy {
   });
 }
 
+/// Represents the output of a DetachPolicy response operation.
 class BatchDetachPolicyResponse {
   BatchDetachPolicyResponse();
   static BatchDetachPolicyResponse fromJson(Map<String, dynamic> json) =>
       BatchDetachPolicyResponse();
 }
 
+/// Detaches a typed link from a specified source and target object inside a
+/// BatchRead operation. For more information, see DetachTypedLink and
+/// BatchReadRequest$Operations.
 class BatchDetachTypedLink {
   /// Used to accept a typed link specifier as input.
   final TypedLinkSpecifier typedLinkSpecifier;
@@ -1670,12 +1706,16 @@ class BatchDetachTypedLink {
   });
 }
 
+/// Represents the output of a DetachTypedLink response operation.
 class BatchDetachTypedLinkResponse {
   BatchDetachTypedLinkResponse();
   static BatchDetachTypedLinkResponse fromJson(Map<String, dynamic> json) =>
       BatchDetachTypedLinkResponse();
 }
 
+/// Retrieves attributes that are associated with a typed link inside a
+/// BatchRead operation. For more information, see GetLinkAttributes and
+/// BatchReadRequest$Operations.
 class BatchGetLinkAttributes {
   /// Allows a typed link specifier to be accepted as input.
   final TypedLinkSpecifier typedLinkSpecifier;
@@ -1689,6 +1729,7 @@ class BatchGetLinkAttributes {
   });
 }
 
+/// Represents the output of a GetLinkAttributes response operation.
 class BatchGetLinkAttributesResponse {
   /// The attributes that are associated with the typed link.
   final List<AttributeKeyAndValue> attributes;
@@ -1700,6 +1741,9 @@ class BatchGetLinkAttributesResponse {
       BatchGetLinkAttributesResponse();
 }
 
+/// Retrieves attributes within a facet that are associated with an object
+/// inside an BatchRead operation. For more information, see GetObjectAttributes
+/// and BatchReadRequest$Operations.
 class BatchGetObjectAttributes {
   /// Reference that identifies the object whose attributes will be retrieved.
   final ObjectReference objectReference;
@@ -1718,6 +1762,7 @@ class BatchGetObjectAttributes {
   });
 }
 
+/// Represents the output of a GetObjectAttributes response operation.
 class BatchGetObjectAttributesResponse {
   /// The attribute values that are associated with an object.
   final List<AttributeKeyAndValue> attributes;
@@ -1729,6 +1774,8 @@ class BatchGetObjectAttributesResponse {
       BatchGetObjectAttributesResponse();
 }
 
+/// Retrieves metadata about an object inside a BatchRead operation. For more
+/// information, see GetObjectInformation and BatchReadRequest$Operations.
 class BatchGetObjectInformation {
   /// A reference to the object.
   final ObjectReference objectReference;
@@ -1738,6 +1785,7 @@ class BatchGetObjectInformation {
   });
 }
 
+/// Represents the output of a GetObjectInformation response operation.
 class BatchGetObjectInformationResponse {
   /// The facets attached to the specified object.
   final List<SchemaFacet> schemaFacets;
@@ -1754,6 +1802,8 @@ class BatchGetObjectInformationResponse {
       BatchGetObjectInformationResponse();
 }
 
+/// Lists indices attached to an object inside a BatchRead operation. For more
+/// information, see ListAttachedIndices and BatchReadRequest$Operations.
 class BatchListAttachedIndices {
   /// A reference to the object that has indices attached.
   final ObjectReference targetReference;
@@ -1771,6 +1821,7 @@ class BatchListAttachedIndices {
   });
 }
 
+/// Represents the output of a ListAttachedIndices response operation.
 class BatchListAttachedIndicesResponse {
   /// The indices attached to the specified object.
   final List<IndexAttachment> indexAttachments;
@@ -1786,6 +1837,9 @@ class BatchListAttachedIndicesResponse {
       BatchListAttachedIndicesResponse();
 }
 
+/// Returns a paginated list of all the incoming TypedLinkSpecifier information
+/// for an object inside a BatchRead operation. For more information, see
+/// ListIncomingTypedLinks and BatchReadRequest$Operations.
 class BatchListIncomingTypedLinks {
   /// The reference that identifies the object whose attributes will be listed.
   final ObjectReference objectReference;
@@ -1815,6 +1869,7 @@ class BatchListIncomingTypedLinks {
   });
 }
 
+/// Represents the output of a ListIncomingTypedLinks response operation.
 class BatchListIncomingTypedLinksResponse {
   /// Returns one or more typed link specifiers as output.
   final List<TypedLinkSpecifier> linkSpecifiers;
@@ -1831,6 +1886,8 @@ class BatchListIncomingTypedLinksResponse {
       BatchListIncomingTypedLinksResponse();
 }
 
+/// Lists objects attached to the specified index inside a BatchRead operation.
+/// For more information, see ListIndex and BatchReadRequest$Operations.
 class BatchListIndex {
   /// Specifies the ranges of indexed values that you want to query.
   final List<ObjectAttributeRange> rangesOnIndexedValues;
@@ -1852,6 +1909,7 @@ class BatchListIndex {
   });
 }
 
+/// Represents the output of a ListIndex response operation.
 class BatchListIndexResponse {
   /// The objects and indexed values attached to the index.
   final List<IndexAttachment> indexAttachments;
@@ -1867,6 +1925,7 @@ class BatchListIndexResponse {
       BatchListIndexResponse();
 }
 
+/// Represents the output of a ListObjectAttributes operation.
 class BatchListObjectAttributes {
   /// Reference of the object whose attributes need to be listed.
   final ObjectReference objectReference;
@@ -1890,6 +1949,7 @@ class BatchListObjectAttributes {
   });
 }
 
+/// Represents the output of a ListObjectAttributes response operation.
 class BatchListObjectAttributesResponse {
   /// The attributes map that is associated with the object. `AttributeArn` is
   /// the key; attribute value is the value.
@@ -1907,6 +1967,7 @@ class BatchListObjectAttributesResponse {
       BatchListObjectAttributesResponse();
 }
 
+/// Represents the output of a ListObjectChildren operation.
 class BatchListObjectChildren {
   /// Reference of the object for which child objects are being listed.
   final ObjectReference objectReference;
@@ -1925,6 +1986,7 @@ class BatchListObjectChildren {
   });
 }
 
+/// Represents the output of a ListObjectChildren response operation.
 class BatchListObjectChildrenResponse {
   /// The children structure, which is a map with the key as the `LinkName` and
   /// `ObjectIdentifier` as the value.
@@ -1941,6 +2003,9 @@ class BatchListObjectChildrenResponse {
       BatchListObjectChildrenResponse();
 }
 
+/// Retrieves all available parent paths for any object type such as node, leaf
+/// node, policy node, and index node objects inside a BatchRead operation. For
+/// more information, see ListObjectParentPaths and BatchReadRequest$Operations.
 class BatchListObjectParentPaths {
   /// The reference that identifies the object whose attributes will be listed.
   final ObjectReference objectReference;
@@ -1958,6 +2023,7 @@ class BatchListObjectParentPaths {
   });
 }
 
+/// Represents the output of a ListObjectParentPaths response operation.
 class BatchListObjectParentPathsResponse {
   /// Returns the path to the `ObjectIdentifiers` that are associated with the
   /// directory.
@@ -2002,6 +2068,9 @@ class BatchListObjectParentsResponse {
       BatchListObjectParentsResponse();
 }
 
+/// Returns policies attached to an object in pagination fashion inside a
+/// BatchRead operation. For more information, see ListObjectPolicies and
+/// BatchReadRequest$Operations.
 class BatchListObjectPolicies {
   /// The reference that identifies the object whose attributes will be listed.
   final ObjectReference objectReference;
@@ -2019,6 +2088,7 @@ class BatchListObjectPolicies {
   });
 }
 
+/// Represents the output of a ListObjectPolicies response operation.
 class BatchListObjectPoliciesResponse {
   /// A list of policy `ObjectIdentifiers`, that are attached to the object.
   final List<String> attachedPolicyIds;
@@ -2034,6 +2104,9 @@ class BatchListObjectPoliciesResponse {
       BatchListObjectPoliciesResponse();
 }
 
+/// Returns a paginated list of all the outgoing TypedLinkSpecifier information
+/// for an object inside a BatchRead operation. For more information, see
+/// ListOutgoingTypedLinks and BatchReadRequest$Operations.
 class BatchListOutgoingTypedLinks {
   /// The reference that identifies the object whose attributes will be listed.
   final ObjectReference objectReference;
@@ -2063,6 +2136,7 @@ class BatchListOutgoingTypedLinks {
   });
 }
 
+/// Represents the output of a ListOutgoingTypedLinks response operation.
 class BatchListOutgoingTypedLinksResponse {
   /// Returns a typed link specifier as output.
   final List<TypedLinkSpecifier> typedLinkSpecifiers;
@@ -2079,6 +2153,9 @@ class BatchListOutgoingTypedLinksResponse {
       BatchListOutgoingTypedLinksResponse();
 }
 
+/// Returns all of the `ObjectIdentifiers` to which a given policy is attached
+/// inside a BatchRead operation. For more information, see
+/// ListPolicyAttachments and BatchReadRequest$Operations.
 class BatchListPolicyAttachments {
   /// The reference that identifies the policy object.
   final ObjectReference policyReference;
@@ -2096,6 +2173,7 @@ class BatchListPolicyAttachments {
   });
 }
 
+/// Represents the output of a ListPolicyAttachments response operation.
 class BatchListPolicyAttachmentsResponse {
   /// A list of `ObjectIdentifiers` to which the policy is attached.
   final List<String> objectIdentifiers;
@@ -2112,6 +2190,9 @@ class BatchListPolicyAttachmentsResponse {
       BatchListPolicyAttachmentsResponse();
 }
 
+/// Lists all policies from the root of the Directory to the object specified
+/// inside a BatchRead operation. For more information, see LookupPolicy and
+/// BatchReadRequest$Operations.
 class BatchLookupPolicy {
   /// Reference that identifies the object whose policies will be looked up.
   final ObjectReference objectReference;
@@ -2129,6 +2210,7 @@ class BatchLookupPolicy {
   });
 }
 
+/// Represents the output of a LookupPolicy response operation.
 class BatchLookupPolicyResponse {
   /// Provides list of path to policies. Policies contain `PolicyId`,
   /// `ObjectIdentifier`, and `PolicyType`. For more information, see
@@ -2146,6 +2228,8 @@ class BatchLookupPolicyResponse {
       BatchLookupPolicyResponse();
 }
 
+/// The batch read exception structure, which contains the exception type and
+/// message.
 class BatchReadException {
   /// A type of exception, such as `InvalidArnException`.
   final String type;
@@ -2161,6 +2245,7 @@ class BatchReadException {
       BatchReadException();
 }
 
+/// Represents the output of a `BatchRead` operation.
 class BatchReadOperation {
   /// Lists all attributes that are associated with an object.
   final BatchListObjectAttributes listObjectAttributes;
@@ -2174,8 +2259,8 @@ class BatchReadOperation {
 
   /// Retrieves all available parent paths for any object type such as node,
   /// leaf node, policy node, and index node objects. For more information about
-  /// objects, see [Directory
-  /// Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
+  /// objects, see
+  /// [Directory Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
   final BatchListObjectParentPaths listObjectParentPaths;
 
   /// Retrieves metadata about an object.
@@ -2208,14 +2293,14 @@ class BatchReadOperation {
 
   /// Returns a paginated list of all the outgoing TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchListOutgoingTypedLinks listOutgoingTypedLinks;
 
   /// Returns a paginated list of all the incoming TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchListIncomingTypedLinks listIncomingTypedLinks;
 
   /// Retrieves attributes that are associated with a typed link.
@@ -2239,6 +2324,7 @@ class BatchReadOperation {
   });
 }
 
+/// Represents the output of a `BatchRead` response operation.
 class BatchReadOperationResponse {
   /// Identifies which operation in a batch has succeeded.
   final BatchReadSuccessfulResponse successfulResponse;
@@ -2265,6 +2351,7 @@ class BatchReadResponse {
       BatchReadResponse();
 }
 
+/// Represents the output of a `BatchRead` success response operation.
 class BatchReadSuccessfulResponse {
   /// Lists all attributes that are associated with an object.
   final BatchListObjectAttributesResponse listObjectAttributes;
@@ -2284,8 +2371,8 @@ class BatchReadSuccessfulResponse {
 
   /// Retrieves all available parent paths for any object type such as node,
   /// leaf node, policy node, and index node objects. For more information about
-  /// objects, see [Directory
-  /// Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
+  /// objects, see
+  /// [Directory Structure](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directorystructure.html).
   final BatchListObjectParentPathsResponse listObjectParentPaths;
 
   /// Returns policies attached to an object in pagination fashion.
@@ -2310,14 +2397,14 @@ class BatchReadSuccessfulResponse {
 
   /// Returns a paginated list of all the outgoing TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchListOutgoingTypedLinksResponse listOutgoingTypedLinks;
 
   /// Returns a paginated list of all the incoming TypedLinkSpecifier
   /// information for an object. It also supports filtering by typed link facet
-  /// and identity attributes. For more information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// and identity attributes. For more information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchListIncomingTypedLinksResponse listIncomingTypedLinks;
 
   /// The list of attributes to retrieve from the typed link.
@@ -2345,6 +2432,7 @@ class BatchReadSuccessfulResponse {
       BatchReadSuccessfulResponse();
 }
 
+/// A batch operation to remove a facet from an object.
 class BatchRemoveFacetFromObject {
   /// The facet to remove from the object.
   final SchemaFacet schemaFacet;
@@ -2358,6 +2446,7 @@ class BatchRemoveFacetFromObject {
   });
 }
 
+/// An empty result that represents success.
 class BatchRemoveFacetFromObjectResponse {
   BatchRemoveFacetFromObjectResponse();
   static BatchRemoveFacetFromObjectResponse fromJson(
@@ -2365,6 +2454,10 @@ class BatchRemoveFacetFromObjectResponse {
       BatchRemoveFacetFromObjectResponse();
 }
 
+/// Updates a given typed link’s attributes inside a BatchRead operation.
+/// Attributes to be updated must not contribute to the typed link’s identity,
+/// as defined by its `IdentityAttributeOrder`. For more information, see
+/// UpdateLinkAttributes and BatchReadRequest$Operations.
 class BatchUpdateLinkAttributes {
   /// Allows a typed link specifier to be accepted as input.
   final TypedLinkSpecifier typedLinkSpecifier;
@@ -2378,6 +2471,7 @@ class BatchUpdateLinkAttributes {
   });
 }
 
+/// Represents the output of a UpdateLinkAttributes response operation.
 class BatchUpdateLinkAttributesResponse {
   BatchUpdateLinkAttributesResponse();
   static BatchUpdateLinkAttributesResponse fromJson(
@@ -2385,6 +2479,7 @@ class BatchUpdateLinkAttributesResponse {
       BatchUpdateLinkAttributesResponse();
 }
 
+/// Represents the output of a `BatchUpdate` operation.
 class BatchUpdateObjectAttributes {
   /// Reference that identifies the object.
   final ObjectReference objectReference;
@@ -2398,6 +2493,7 @@ class BatchUpdateObjectAttributes {
   });
 }
 
+/// Represents the output of a `BatchUpdate` response operation.
 class BatchUpdateObjectAttributesResponse {
   /// ID that is associated with the object.
   final String objectIdentifier;
@@ -2410,6 +2506,7 @@ class BatchUpdateObjectAttributesResponse {
       BatchUpdateObjectAttributesResponse();
 }
 
+/// Represents the output of a `BatchWrite` operation.
 class BatchWriteOperation {
   /// Creates an object.
   final BatchCreateObject createObject;
@@ -2439,8 +2536,8 @@ class BatchWriteOperation {
   /// Detaches a policy from a Directory.
   final BatchDetachPolicy detachPolicy;
 
-  /// Creates an index object. See [Indexing and
-  /// search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm)
+  /// Creates an index object. See
+  /// [Indexing and search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm)
   /// for more information.
   final BatchCreateIndex createIndex;
 
@@ -2451,13 +2548,13 @@ class BatchWriteOperation {
   final BatchDetachFromIndex detachFromIndex;
 
   /// Attaches a typed link to a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchAttachTypedLink attachTypedLink;
 
   /// Detaches a typed link from a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchDetachTypedLink detachTypedLink;
 
   /// Updates a given object's attributes.
@@ -2482,6 +2579,7 @@ class BatchWriteOperation {
   });
 }
 
+/// Represents the output of a `BatchWrite` response operation.
 class BatchWriteOperationResponse {
   /// Creates an object in a Directory.
   final BatchCreateObjectResponse createObject;
@@ -2511,8 +2609,8 @@ class BatchWriteOperationResponse {
   /// Detaches a policy from a Directory.
   final BatchDetachPolicyResponse detachPolicy;
 
-  /// Creates an index object. See [Indexing and
-  /// search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm)
+  /// Creates an index object. See
+  /// [Indexing and search](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/indexing_search.htm)
   /// for more information.
   final BatchCreateIndexResponse createIndex;
 
@@ -2523,13 +2621,13 @@ class BatchWriteOperationResponse {
   final BatchDetachFromIndexResponse detachFromIndex;
 
   /// Attaches a typed link to a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchAttachTypedLinkResponse attachTypedLink;
 
   /// Detaches a typed link from a specified source and target object. For more
-  /// information, see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// information, see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final BatchDetachTypedLinkResponse detachTypedLink;
 
   /// Represents the output of a `BatchWrite` response operation.
@@ -2708,6 +2806,7 @@ class DetachPolicyResponse {
       DetachPolicyResponse();
 }
 
+/// Directory structure that includes the directory name and directory ARN.
 class Directory {
   /// The name of the directory.
   final String name;
@@ -2754,6 +2853,10 @@ class EnableDirectoryResponse {
       EnableDirectoryResponse();
 }
 
+/// A structure that contains `Name`, `ARN`, `Attributes`,  `Rules`, and
+/// `ObjectTypes`. See
+/// [Facets](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_whatarefacets.html)
+/// for more information.
 class Facet {
   /// The name of the Facet.
   final String name;
@@ -2776,19 +2879,19 @@ class Facet {
   static Facet fromJson(Map<String, dynamic> json) => Facet();
 }
 
+/// An attribute that is associated with the Facet.
 class FacetAttribute {
   /// The name of the facet attribute.
   final String name;
 
   /// A facet attribute consists of either a definition or a reference. This
-  /// structure contains the attribute definition. See [Attribute
-  /// References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
+  /// structure contains the attribute definition. See
+  /// [Attribute References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
   /// for more information.
   final FacetAttributeDefinition attributeDefinition;
 
   /// An attribute reference that is associated with the attribute. See
-  /// [Attribute
-  /// References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
+  /// [Attribute References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
   /// for more information.
   final FacetAttributeReference attributeReference;
 
@@ -2804,6 +2907,9 @@ class FacetAttribute {
   static FacetAttribute fromJson(Map<String, dynamic> json) => FacetAttribute();
 }
 
+/// A facet attribute definition. See
+/// [Attribute References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
+/// for more information.
 class FacetAttributeDefinition {
   /// The type of the attribute.
   final String type;
@@ -2827,16 +2933,16 @@ class FacetAttributeDefinition {
       FacetAttributeDefinition();
 }
 
+/// The facet attribute reference that specifies the attribute definition that
+/// contains the attribute facet name and attribute name.
 class FacetAttributeReference {
   /// The target facet name that is associated with the facet reference. See
-  /// [Attribute
-  /// References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
+  /// [Attribute References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
   /// for more information.
   final String targetFacetName;
 
   /// The target attribute name that is associated with the facet reference. See
-  /// [Attribute
-  /// References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
+  /// [Attribute References](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_attributereferences.html)
   /// for more information.
   final String targetAttributeName;
 
@@ -2848,6 +2954,7 @@ class FacetAttributeReference {
       FacetAttributeReference();
 }
 
+/// A structure that contains information used to update an attribute.
 class FacetAttributeUpdate {
   /// The attribute to update.
   final FacetAttribute attribute;
@@ -2959,8 +3066,8 @@ class GetTypedLinkFacetInformationResponse {
   /// match the entire range. Filters are interpreted in the order of the
   /// attributes on the typed link facet, not the order in which they are
   /// supplied to any API calls. For more information about identity attributes,
-  /// see [Typed
-  /// Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
+  /// see
+  /// [Typed Links](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_links.html#directory_objects_links_typedlink).
   final List<String> identityAttributeOrder;
 
   GetTypedLinkFacetInformationResponse({
@@ -2971,6 +3078,7 @@ class GetTypedLinkFacetInformationResponse {
       GetTypedLinkFacetInformationResponse();
 }
 
+/// Represents an index and an attached object.
 class IndexAttachment {
   /// The indexed attribute values.
   final List<AttributeKeyAndValue> indexedAttributes;
@@ -2990,8 +3098,10 @@ class IndexAttachment {
       IndexAttachment();
 }
 
+/// The action to take on a typed link attribute value. Updates are only
+/// supported for attributes which don’t contribute to link identity.
 class LinkAttributeAction {
-  /// A type that can be either `UPDATE\_OR\_CREATE` or `DELETE`.
+  /// A type that can be either `UPDATE_OR_CREATE` or `DELETE`.
   final String attributeActionType;
 
   /// The value that you want to update to.
@@ -3003,6 +3113,7 @@ class LinkAttributeAction {
   });
 }
 
+/// Structure that contains attribute update information.
 class LinkAttributeUpdate {
   /// The key of the attribute being updated.
   final AttributeKey attributeKey;
@@ -3345,6 +3456,7 @@ class LookupPolicyResponse {
       LookupPolicyResponse();
 }
 
+/// The action to take on the object attribute.
 class ObjectAttributeAction {
   /// A type that can be either `Update` or `Delete`.
   final String objectAttributeActionType;
@@ -3358,6 +3470,7 @@ class ObjectAttributeAction {
   });
 }
 
+/// A range of attributes.
 class ObjectAttributeRange {
   /// The key of the attribute that the attribute range covers.
   final AttributeKey attributeKey;
@@ -3371,6 +3484,7 @@ class ObjectAttributeRange {
   });
 }
 
+/// Structure that contains attribute update information.
 class ObjectAttributeUpdate {
   /// The key of the attribute being updated.
   final AttributeKey objectAttributeKey;
@@ -3384,6 +3498,7 @@ class ObjectAttributeUpdate {
   });
 }
 
+/// A pair of ObjectIdentifier and LinkName.
 class ObjectIdentifierAndLinkNameTuple {
   /// The ID that is associated with the object.
   final String objectIdentifier;
@@ -3399,24 +3514,25 @@ class ObjectIdentifierAndLinkNameTuple {
       ObjectIdentifierAndLinkNameTuple();
 }
 
+/// The reference that identifies an object.
 class ObjectReference {
   /// A path selector supports easy selection of an object by the parent/child
   /// links leading to it from the directory root. Use the link names from each
   /// parent/child link to construct the path. Path selectors start with a slash
   /// (/) and link names are separated by slashes. For more information about
-  /// paths, see [Access
-  /// Objects](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html).
+  /// paths, see
+  /// [Access Objects](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_access_objects.html).
   /// You can identify an object in one of the following ways:
   ///
-  /// *    _$ObjectIdentifier_ \- An object identifier is an opaque string
+  /// *    _$ObjectIdentifier_ - An object identifier is an opaque string
   /// provided by Amazon Cloud Directory. When creating objects, the system will
   /// provide you with the identifier of the created object. An object’s
   /// identifier is immutable and no two objects will ever share the same object
   /// identifier
   ///
-  /// *    _/some/path_ \- Identifies the object based on path
+  /// *    _/some/path_ - Identifies the object based on path
   ///
-  /// *    _#SomeBatchReference_ \- Identifies the object in a batch call
+  /// *    _#SomeBatchReference_ - Identifies the object in a batch call
   final String selector;
 
   ObjectReference({
@@ -3426,6 +3542,8 @@ class ObjectReference {
       ObjectReference();
 }
 
+/// Returns the path to the `ObjectIdentifiers` that is associated with the
+/// directory.
 class PathToObjectIdentifiers {
   /// The path that is used to identify the object starting from directory root.
   final String path;
@@ -3442,6 +3560,9 @@ class PathToObjectIdentifiers {
       PathToObjectIdentifiers();
 }
 
+/// Contains the `PolicyType`, `PolicyId`, and the `ObjectIdentifier` to which
+/// it is attached. For more information, see
+/// [Policies](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/key_concepts_directory.html#key_concepts_policies).
 class PolicyAttachment {
   /// The ID of `PolicyAttachment`.
   final String policyId;
@@ -3461,6 +3582,9 @@ class PolicyAttachment {
       PolicyAttachment();
 }
 
+/// Used when a regular object exists in a Directory and you want to find all of
+/// the policies that are associated with that object and the parent to that
+/// object.
 class PolicyToPath {
   /// The path that is referenced from the root.
   final String path;
@@ -3504,6 +3628,8 @@ class RemoveFacetFromObjectResponse {
       RemoveFacetFromObjectResponse();
 }
 
+/// Contains an Amazon Resource Name (ARN) and parameters that are associated
+/// with the rule.
 class Rule {
   /// The type of attribute validation rule.
   final String type;
@@ -3518,10 +3644,11 @@ class Rule {
   static Rule fromJson(Map<String, dynamic> json) => Rule();
 }
 
+/// A facet.
 class SchemaFacet {
   /// The ARN of the schema that contains the facet with no minor component. See
-  /// arns and [In-Place Schema
-  /// Upgrade](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html)
+  /// arns and
+  /// [In-Place Schema Upgrade](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/schemas_inplaceschemaupgrade.html)
   /// for a description of when to provide minor versions.
   final String schemaArn;
 
@@ -3535,6 +3662,7 @@ class SchemaFacet {
   static SchemaFacet fromJson(Map<String, dynamic> json) => SchemaFacet();
 }
 
+/// The tag structure that contains a tag key and value.
 class Tag {
   /// The key that is associated with the tag.
   final String key;
@@ -3555,6 +3683,9 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Represents the data for a typed attribute. You can set one, and only one, of
+/// the elements. Each attribute in an item is a name-value pair. Attributes
+/// have a single value.
 class TypedAttributeValue {
   /// A string data value.
   final String stringValue;
@@ -3582,6 +3713,8 @@ class TypedAttributeValue {
       TypedAttributeValue();
 }
 
+/// A range of attribute values. For more information, see
+/// [Range Filters](https://docs.aws.amazon.com/clouddirectory/latest/developerguide/directory_objects_range_filters.html).
 class TypedAttributeValueRange {
   /// The inclusive or exclusive range start.
   final String startMode;
@@ -3603,6 +3736,7 @@ class TypedAttributeValueRange {
   });
 }
 
+/// A typed link attribute definition.
 class TypedLinkAttributeDefinition {
   /// The unique name of the typed link attribute.
   final String name;
@@ -3634,6 +3768,7 @@ class TypedLinkAttributeDefinition {
       TypedLinkAttributeDefinition();
 }
 
+/// Identifies the range of attributes that are used by a specified filter.
 class TypedLinkAttributeRange {
   /// The unique name of the typed link attribute.
   final String attributeName;
@@ -3647,6 +3782,8 @@ class TypedLinkAttributeRange {
   });
 }
 
+/// Defines the typed links structure and its attributes. To create a typed link
+/// facet, use the CreateTypedLinkFacet API.
 class TypedLinkFacet {
   /// The unique name of the typed link facet.
   final String name;
@@ -3671,6 +3808,7 @@ class TypedLinkFacet {
   });
 }
 
+/// A typed link facet attribute update.
 class TypedLinkFacetAttributeUpdate {
   /// The attribute to update.
   final TypedLinkAttributeDefinition attribute;
@@ -3684,6 +3822,8 @@ class TypedLinkFacetAttributeUpdate {
   });
 }
 
+/// Identifies the schema Amazon Resource Name (ARN) and facet name for the
+/// typed link.
 class TypedLinkSchemaAndFacetName {
   /// The Amazon Resource Name (ARN) that is associated with the schema. For
   /// more information, see arns.
@@ -3700,6 +3840,13 @@ class TypedLinkSchemaAndFacetName {
       TypedLinkSchemaAndFacetName();
 }
 
+/// Contains all the information that is used to uniquely identify a typed link.
+/// The parameters discussed in this topic are used to uniquely specify the
+/// typed link being operated on. The AttachTypedLink API returns a typed link
+/// specifier while the DetachTypedLink API accepts one as input. Similarly, the
+/// ListIncomingTypedLinks and ListOutgoingTypedLinks API operations provide
+/// typed link specifiers as output. You can also construct a typed link
+/// specifier from scratch.
 class TypedLinkSpecifier {
   /// Identifies the typed link facet that is associated with the typed link.
   final TypedLinkSchemaAndFacetName typedLinkFacet;

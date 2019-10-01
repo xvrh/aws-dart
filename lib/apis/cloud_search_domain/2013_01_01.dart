@@ -10,8 +10,8 @@ import 'dart:typed_data';
 /// domain endpoints are also displayed on the domain dashboard in the Amazon
 /// CloudSearch console. You submit suggest requests to the search endpoint.
 ///
-/// For more information, see the [Amazon CloudSearch Developer
-/// Guide](http://docs.aws.amazon.com/cloudsearch/latest/developerguide).
+/// For more information, see the
+/// [Amazon CloudSearch Developer Guide](http://docs.aws.amazon.com/cloudsearch/latest/developerguide).
 class CloudSearchDomainApi {
   /// Retrieves a list of documents that match the specified search criteria.
   /// How you specify the search criteria depends on which query parser you use.
@@ -27,8 +27,8 @@ class CloudSearchDomainApi {
   /// *   `dismax`: specify search criteria using the simplified subset of the
   /// Apache Lucene query parser syntax defined by the DisMax query parser.
   ///
-  /// For more information, see [Searching Your
-  /// Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html)
+  /// For more information, see
+  /// [Searching Your Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// The endpoint for submitting `Search` requests is domain-specific. You
@@ -44,8 +44,8 @@ class CloudSearchDomainApi {
   /// cursor, set the cursor value to `initial`. In subsequent requests, specify
   /// the cursor value returned in the hits section of the response.
   ///
-  /// For more information, see [Paginating
-  /// Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html)
+  /// For more information, see
+  /// [Paginating Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [expr]: Defines one or more numeric expressions that can be used to sort
@@ -56,11 +56,11 @@ class CloudSearchDomainApi {
   /// `{"EXPRESSIONNAME":"EXPRESSION"}`. You can define and use multiple
   /// expressions in a search request. For example:
   ///
-  ///  `{"expression1":"_score\*rating", "expression2":"(1/rank)\*year"}`
+  ///  `{"expression1":"_score*rating", "expression2":"(1/rank)*year"}`
   ///
   /// For information about the variables, operators, and functions you can use
-  /// in expressions, see [Writing
-  /// Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions)
+  /// in expressions, see
+  /// [Writing Expressions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [facet]: Specifies one or more fields for which to get facet information,
@@ -73,8 +73,8 @@ class CloudSearchDomainApi {
   ///
   /// *   `buckets` specifies an array of the facet values or ranges to count.
   /// Ranges are specified using the same syntax that you use to search for a
-  /// range of values. For more information, see  [Searching for a Range of
-  /// Values](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html)
+  /// range of values. For more information, see
+  /// [Searching for a Range of Values](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html)
   /// in the _Amazon CloudSearch Developer Guide_. Buckets are returned in the
   /// order they are specified in the request. The `sort` and `size` options are
   /// not valid if you specify `buckets`.
@@ -101,7 +101,7 @@ class CloudSearchDomainApi {
   /// return facet counts by decade.
   ///
   ///
-  /// `{"year":{"buckets":\["\[1970,1979\]","\[1980,1989\]","\[1990,1999\]","\[2000,2009\]","\[2010,}"\]}}`
+  /// `{"year":{"buckets":["[1970,1979]","[1980,1989]","[1990,1999]","[2000,2009]","[2010,}"]}}`
   ///
   /// To sort facets by facet count, use the `count` option. For example, the
   /// following request sets the `sort` option to `count` to sort the facet
@@ -117,8 +117,8 @@ class CloudSearchDomainApi {
   ///
   ///  `{"year":{"sort":"bucket"}}`
   ///
-  /// For more information, see [Getting and Using Facet
-  /// Information](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html)
+  /// For more information, see
+  /// [Getting and Using Facet Information](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [filterQuery]: Specifies a structured query that filters the results of a
@@ -129,8 +129,8 @@ class CloudSearchDomainApi {
   /// the results, it has no effect on how they are scored and sorted. The
   /// `filterQuery` parameter supports the full structured query syntax.
   ///
-  /// For more information about using filters, see [Filtering Matching
-  /// Documents](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html)
+  /// For more information about using filters, see
+  /// [Filtering Matching Documents](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [highlight]: Retrieves highlights for matches in the specified `text` or
@@ -161,7 +161,7 @@ class CloudSearchDomainApi {
   /// For example, the following request retrieves highlights for the `actors`
   /// and `title` fields.
   ///
-  ///  `{ "actors": {}, "title": {"format": "text","max\_phrases": 2,"pre\_tag":
+  ///  `{ "actors": {}, "title": {"format": "text","max_phrases": 2,"pre_tag":
   /// "**","post_tag": "**"} }`
   ///
   /// [partial]: Enables partial results to be returned if one or more index
@@ -183,8 +183,8 @@ class CloudSearchDomainApi {
   /// `structured`, `lucene`, or `dismax` query parser, you must also specify
   /// the `queryParser` parameter.
   ///
-  /// For more information about specifying search criteria, see [Searching Your
-  /// Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html)
+  /// For more information about specifying search criteria, see
+  /// [Searching Your Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [queryOptions]: Configures options for the query parser specified in the
@@ -213,7 +213,7 @@ class CloudSearchDomainApi {
   /// a field weight, append a caret (`^`) symbol and the weight to the field
   /// name. For example, to boost the importance of the `title` field over the
   /// `description` field you could specify:
-  /// `"fields":\["title^5","description"\]`. Valid values: The name of any
+  /// `"fields":["title^5","description"]`. Valid values: The name of any
   /// configured field and an optional numeric value greater than zero. Default:
   /// All `text` and `text-array` fields. Valid for: `simple`, `structured`,
   /// `lucene`, and `dismax`.
@@ -227,16 +227,16 @@ class CloudSearchDomainApi {
   /// order of precedence using parentheses. Disabling `near` disables the
   /// ability to use the ~ operator to perform a sloppy phrase search. Disabling
   /// the `fuzzy` operator disables the ability to use the ~ operator to perform
-  /// a fuzzy search. `escape` disables the ability to use a backslash (`\`) to
+  /// a fuzzy search. `escape` disables the ability to use a backslash (``) to
   /// escape special characters within the search string. Disabling whitespace
   /// is an advanced option that prevents the parser from tokenizing on
   /// whitespace, which can be useful for Vietnamese. (It prevents Vietnamese
   /// words from being split incorrectly.) For example, you could disable all
   /// operators other than the phrase operator to support just simple term and
-  /// phrase queries: `"operators":\["and","not","or", "prefix"\]`. Valid
-  /// values: `and`, `escape`, `fuzzy`, `near`, `not`, `or`, `phrase`,
-  /// `precedence`, `prefix`, `whitespace`. Default: All operators and special
-  /// characters are enabled. Valid for: `simple`.
+  /// phrase queries: `"operators":["and","not","or", "prefix"]`. Valid values:
+  /// `and`, `escape`, `fuzzy`, `near`, `not`, `or`, `phrase`, `precedence`,
+  /// `prefix`, `whitespace`. Default: All operators and special characters are
+  /// enabled. Valid for: `simple`.
   /// *   `phraseFields`: An array of the `text` or `text-array` fields you want
   /// to use for phrase searches. When the terms in the search string appear in
   /// close proximity within a field, the field scores higher. You can specify a
@@ -245,11 +245,11 @@ class CloudSearchDomainApi {
   /// be boosted. To specify a field weight, append a caret (`^`) symbol and the
   /// weight to the field name. For example, to boost phrase matches in the
   /// `title` field over the `abstract` field, you could specify:
-  /// `"phraseFields":\["title^3", "plot"\]` Valid values: The name of any
-  /// `text` or `text-array` field and an optional numeric value greater than
-  /// zero. Default: No fields. If you don't specify any fields with
-  /// `phraseFields`, proximity scoring is disabled even if `phraseSlop` is
-  /// specified. Valid for: `dismax`.
+  /// `"phraseFields":["title^3", "plot"]` Valid values: The name of any `text`
+  /// or `text-array` field and an optional numeric value greater than zero.
+  /// Default: No fields. If you don't specify any fields with `phraseFields`,
+  /// proximity scoring is disabled even if `phraseSlop` is specified. Valid
+  /// for: `dismax`.
   /// *   `phraseSlop`: An integer value that specifies how much matches can
   /// deviate from the search phrase and still be boosted according to the
   /// weights specified in the `phraseFields` option; for example, `phraseSlop:
@@ -292,31 +292,30 @@ class CloudSearchDomainApi {
   /// can use the `-` (NOT), `|` (OR), and `*` (wildcard) operators to exclude
   /// particular terms, find results that match any of the specified terms, or
   /// search for a prefix. To search for a phrase rather than individual terms,
-  /// enclose the phrase in double quotes. For more information, see [Searching
-  /// for
-  /// Text](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-text.html)
+  /// enclose the phrase in double quotes. For more information, see
+  /// [Searching for Text](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-text.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   /// *    `structured`: perform advanced searches by combining multiple
   /// expressions to define the search criteria. You can also search within
   /// particular fields, search for values and ranges of values, and use
   /// advanced options such as term boosting, `matchall`, and `near`. For more
-  /// information, see [Constructing Compound
-  /// Queries](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html)
+  /// information, see
+  /// [Constructing Compound Queries](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-compound-queries.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   /// *    `lucene`: search using the Apache Lucene query parser syntax. For
-  /// more information, see [Apache Lucene Query Parser
-  /// Syntax](http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description).
+  /// more information, see
+  /// [Apache Lucene Query Parser Syntax](http://lucene.apache.org/core/4_6_0/queryparser/org/apache/lucene/queryparser/classic/package-summary.html#package_description).
   /// *    `dismax`: search using the simplified subset of the Apache Lucene
   /// query parser syntax defined by the DisMax query parser. For more
-  /// information, see [DisMax Query Parser
-  /// Syntax](http://wiki.apache.org/solr/DisMaxQParserPlugin#Query_Syntax).
+  /// information, see
+  /// [DisMax Query Parser Syntax](http://wiki.apache.org/solr/DisMaxQParserPlugin#Query_Syntax).
   ///
   /// [return$]: Specifies the field and expression values to include in the
   /// response. Multiple fields or expressions are specified as a
   /// comma-separated list. By default, a search response includes all return
-  /// enabled fields (`\_all\_fields`). To return only the document IDs for the
-  /// matching documents, specify `\_no\_fields`. To retrieve the relevance
-  /// score calculated for each document, specify `_score`.
+  /// enabled fields (`_all_fields`). To return only the document IDs for the
+  /// matching documents, specify `_no_fields`. To retrieve the relevance score
+  /// calculated for each document, specify `_score`.
   ///
   /// [size]: Specifies the maximum number of search hits to include in the
   /// response.
@@ -331,8 +330,8 @@ class CloudSearchDomainApi {
   /// scores in descending order: `_score desc`. You can also sort by document
   /// ID (`_id asc`) and version (`_version desc`).
   ///
-  /// For more information, see [Sorting
-  /// Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html)
+  /// For more information, see
+  /// [Sorting Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [start]: Specifies the offset of the first search hit you want to return.
@@ -340,8 +339,8 @@ class CloudSearchDomainApi {
   /// You can specify either the `start` or `cursor` parameter in a request,
   /// they are mutually exclusive.
   ///
-  /// For more information, see [Paginating
-  /// Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html)
+  /// For more information, see
+  /// [Paginating Results](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [stats]: Specifies one or more fields for which to get statistics
@@ -377,8 +376,8 @@ class CloudSearchDomainApi {
   /// query string to be considered a match.
   ///
   /// For more information about configuring suggesters and retrieving
-  /// suggestions, see [Getting
-  /// Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
+  /// suggestions, see
+  /// [Getting Suggestions](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/getting-suggestions.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// The endpoint for submitting `Suggest` requests is domain-specific. You
@@ -417,11 +416,11 @@ class CloudSearchDomainApi {
   /// also displayed on the domain dashboard in the Amazon CloudSearch console.
   ///
   /// For more information about formatting your data for Amazon CloudSearch,
-  /// see [Preparing Your
-  /// Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html)
+  /// see
+  /// [Preparing Your Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/preparing-data.html)
   /// in the _Amazon CloudSearch Developer Guide_. For more information about
-  /// uploading data for indexing, see [Uploading
-  /// Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html)
+  /// uploading data for indexing, see
+  /// [Uploading Data](http://docs.aws.amazon.com/cloudsearch/latest/developerguide/uploading-data.html)
   /// in the _Amazon CloudSearch Developer Guide_.
   ///
   /// [documents]: A batch of documents formatted in JSON or HTML.
@@ -437,6 +436,7 @@ class CloudSearchDomainApi {
   }
 }
 
+/// A container for facet information.
 class Bucket {
   /// The facet value being counted.
   final String value;
@@ -452,6 +452,7 @@ class Bucket {
   static Bucket fromJson(Map<String, dynamic> json) => Bucket();
 }
 
+/// A container for the calculated facet values and counts.
 class BucketInfo {
   /// A list of the calculated facet values and counts.
   final List<Bucket> buckets;
@@ -462,6 +463,8 @@ class BucketInfo {
   static BucketInfo fromJson(Map<String, dynamic> json) => BucketInfo();
 }
 
+/// A warning returned by the document service when an issue is discovered while
+/// processing an upload request.
 class DocumentServiceWarning {
   /// The description for a warning returned by the document service.
   final String message;
@@ -473,14 +476,16 @@ class DocumentServiceWarning {
       DocumentServiceWarning();
 }
 
+/// The statistics for a field calculated in the request.
 class FieldStats {
   /// The minimum value found in the specified field in the result set.
   ///
   /// If the field is numeric (`int`, `int-array`, `double`, or `double-array`),
   /// `min` is the string representation of a double-precision 64-bit floating
   /// point value. If the field is `date` or `date-array`, `min` is the string
-  /// representation of a date with the format specified in [IETF
-  /// RFC3339](http://tools.ietf.org/html/rfc3339): yyyy-mm-ddTHH:mm:ss.SSSZ.
+  /// representation of a date with the format specified in
+  /// [IETF RFC3339](http://tools.ietf.org/html/rfc3339):
+  /// yyyy-mm-ddTHH:mm:ss.SSSZ.
   final String min;
 
   /// The maximum value found in the specified field in the result set.
@@ -488,8 +493,9 @@ class FieldStats {
   /// If the field is numeric (`int`, `int-array`, `double`, or `double-array`),
   /// `max` is the string representation of a double-precision 64-bit floating
   /// point value. If the field is `date` or `date-array`, `max` is the string
-  /// representation of a date with the format specified in [IETF
-  /// RFC3339](http://tools.ietf.org/html/rfc3339): yyyy-mm-ddTHH:mm:ss.SSSZ.
+  /// representation of a date with the format specified in
+  /// [IETF RFC3339](http://tools.ietf.org/html/rfc3339):
+  /// yyyy-mm-ddTHH:mm:ss.SSSZ.
   final String max;
 
   /// The number of documents that contain a value in the specified field in the
@@ -512,8 +518,9 @@ class FieldStats {
   /// If the field is numeric (`int`, `int-array`, `double`, or `double-array`),
   /// `mean` is the string representation of a double-precision 64-bit floating
   /// point value. If the field is `date` or `date-array`, `mean` is the string
-  /// representation of a date with the format specified in [IETF
-  /// RFC3339](http://tools.ietf.org/html/rfc3339): yyyy-mm-ddTHH:mm:ss.SSSZ.
+  /// representation of a date with the format specified in
+  /// [IETF RFC3339](http://tools.ietf.org/html/rfc3339):
+  /// yyyy-mm-ddTHH:mm:ss.SSSZ.
   final String mean;
 
   /// The standard deviation of the values in the specified field in the result
@@ -533,6 +540,7 @@ class FieldStats {
   static FieldStats fromJson(Map<String, dynamic> json) => FieldStats();
 }
 
+/// Information about a document that matches the search request.
 class Hit {
   /// The document ID of a document that matches the search request.
   final String id;
@@ -555,6 +563,7 @@ class Hit {
   static Hit fromJson(Map<String, dynamic> json) => Hit();
 }
 
+/// The collection of documents that match the search request.
 class Hits {
   /// The total number of documents that match the search request.
   final BigInt found;
@@ -578,6 +587,9 @@ class Hits {
   static Hits fromJson(Map<String, dynamic> json) => Hits();
 }
 
+/// The result of a `Search` request. Contains the documents that match the
+/// specified search criteria and any requested fields, highlights, and facet
+/// information.
 class SearchResponse {
   /// The status information returned for the search request.
   final SearchStatus status;
@@ -600,6 +612,8 @@ class SearchResponse {
   static SearchResponse fromJson(Map<String, dynamic> json) => SearchResponse();
 }
 
+/// Contains the resource id (`rid`) and the time it took to process the request
+/// (`timems`).
 class SearchStatus {
   /// How long it took to process the request, in milliseconds.
   final BigInt timems;
@@ -614,6 +628,7 @@ class SearchStatus {
   static SearchStatus fromJson(Map<String, dynamic> json) => SearchStatus();
 }
 
+/// Container for the suggestion information returned in a `SuggestResponse`.
 class SuggestModel {
   /// The query string specified in the suggest request.
   final String query;
@@ -632,6 +647,7 @@ class SuggestModel {
   static SuggestModel fromJson(Map<String, dynamic> json) => SuggestModel();
 }
 
+/// Contains the response to a `Suggest` request.
 class SuggestResponse {
   /// The status of a `SuggestRequest`. Contains the resource ID (`rid`) and how
   /// long it took to process the request (`timems`).
@@ -648,6 +664,8 @@ class SuggestResponse {
       SuggestResponse();
 }
 
+/// Contains the resource id (`rid`) and the time it took to process the request
+/// (`timems`).
 class SuggestStatus {
   /// How long it took to process the request, in milliseconds.
   final BigInt timems;
@@ -662,6 +680,8 @@ class SuggestStatus {
   static SuggestStatus fromJson(Map<String, dynamic> json) => SuggestStatus();
 }
 
+/// An autocomplete suggestion that matches the query string specified in a
+/// `SuggestRequest`.
 class SuggestionMatch {
   /// The string that matches the query string specified in the
   /// `SuggestRequest`.
@@ -682,6 +702,7 @@ class SuggestionMatch {
       SuggestionMatch();
 }
 
+/// Contains the response to an `UploadDocuments` request.
 class UploadDocumentsResponse {
   /// The status of an `UploadDocumentsRequest`.
   final String status;

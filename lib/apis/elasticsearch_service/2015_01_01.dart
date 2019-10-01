@@ -7,13 +7,13 @@ import 'package:meta/meta.dart';
 ///
 /// The endpoint for configuration service requests is region-specific:
 /// es._region_.amazonaws.com. For example, es.us-east-1.amazonaws.com. For a
-/// current list of supported regions and endpoints, see [Regions and
-/// Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticsearch-service-regions).
+/// current list of supported regions and endpoints, see
+/// [Regions and Endpoints](http://docs.aws.amazon.com/general/latest/gr/rande.html#elasticsearch-service-regions).
 class ElasticsearchServiceApi {
   /// Attaches tags to an existing Elasticsearch domain. Tags are a set of
   /// case-sensitive key value pairs. An Elasticsearch domain may have up to 10
-  /// tags. See  [Tagging Amazon Elasticsearch Service Domains for more
-  /// information.](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-awsresorcetagging)
+  /// tags. See
+  /// [Tagging Amazon Elasticsearch Service Domains for more information.](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-awsresorcetagging)
   ///
   /// [arn]:  Specify the `ARN` for which you want to add the tags.
   ///
@@ -33,9 +33,8 @@ class ElasticsearchServiceApi {
     return CancelElasticsearchServiceSoftwareUpdateResponse.fromJson({});
   }
 
-  /// Creates a new Elasticsearch domain. For more information, see [Creating
-  /// Elasticsearch
-  /// Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains)
+  /// Creates a new Elasticsearch domain. For more information, see
+  /// [Creating Elasticsearch Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains)
   /// in the _Amazon Elasticsearch Service Developer Guide_.
   ///
   /// [domainName]: The name of the Elasticsearch domain that you are creating.
@@ -45,8 +44,7 @@ class ElasticsearchServiceApi {
   ///
   /// [elasticsearchVersion]: String of format X.Y to specify version for the
   /// Elasticsearch domain eg. "1.5" or "2.3". For more information, see
-  /// [Creating Elasticsearch
-  /// Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains)
+  /// [Creating Elasticsearch Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomains)
   /// in the _Amazon Elasticsearch Service Developer Guide_.
   ///
   /// [elasticsearchClusterConfig]: Configuration options for an Elasticsearch
@@ -62,14 +60,13 @@ class ElasticsearchServiceApi {
   /// automated snapshot. Default value is 0 hours.
   ///
   /// [vpcOptions]: Options to specify the subnets and security groups for VPC
-  /// endpoint. For more information, see [Creating a
-  /// VPC](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc)
+  /// endpoint. For more information, see
+  /// [Creating a VPC](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc)
   /// in _VPC Endpoints for Amazon Elasticsearch Service Domains_
   ///
   /// [cognitoOptions]: Options to specify the Cognito user and identity pools
-  /// for Kibana authentication. For more information, see [Amazon Cognito
-  /// Authentication for
-  /// Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
+  /// for Kibana authentication. For more information, see
+  /// [Amazon Cognito Authentication for Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
   ///
   /// [encryptionAtRestOptions]: Specifies the Encryption At Rest Options.
   ///
@@ -77,9 +74,8 @@ class ElasticsearchServiceApi {
   ///
   /// [advancedOptions]:  Option to allow references to indices in an HTTP
   /// request body. Must be `false` when configuring access to individual
-  /// sub-resources. By default, the value is `true`. See [Configuration
-  /// Advanced
-  /// Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
+  /// sub-resources. By default, the value is `true`. See
+  /// [Configuration Advanced Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
   /// for more information.
   ///
   /// [logPublishingOptions]: Map of `LogType` and `LogPublishingOption`, each
@@ -113,8 +109,8 @@ class ElasticsearchServiceApi {
   /// Deletes the service-linked role that Elasticsearch Service uses to manage
   /// and maintain VPC domains. Role deletion will fail if any existing VPC
   /// domains use the role. You must delete any such Elasticsearch domains
-  /// before deleting the role. See [Deleting Elasticsearch Service
-  /// Role](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-enabling-slr)
+  /// before deleting the role. See
+  /// [Deleting Elasticsearch Service Role](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-enabling-slr)
   /// in _VPC Endpoints for Amazon Elasticsearch Service Domains_.
   Future<void> deleteElasticsearchServiceRole() async {}
 
@@ -326,20 +322,18 @@ class ElasticsearchServiceApi {
   /// automated snapshot. Default value is `0` hours.
   ///
   /// [vpcOptions]: Options to specify the subnets and security groups for VPC
-  /// endpoint. For more information, see [Creating a
-  /// VPC](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc)
+  /// endpoint. For more information, see
+  /// [Creating a VPC](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html#es-creating-vpc)
   /// in _VPC Endpoints for Amazon Elasticsearch Service Domains_
   ///
   /// [cognitoOptions]: Options to specify the Cognito user and identity pools
-  /// for Kibana authentication. For more information, see [Amazon Cognito
-  /// Authentication for
-  /// Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
+  /// for Kibana authentication. For more information, see
+  /// [Amazon Cognito Authentication for Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
   ///
   /// [advancedOptions]: Modifies the advanced option to allow references to
   /// indices in an HTTP request body. Must be `false` when configuring access
   /// to individual sub-resources. By default, the value is `true`. See
-  /// [Configuration Advanced
-  /// Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
+  /// [Configuration Advanced Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
   /// for more information.
   ///
   /// [accessPolicies]: IAM access policy as a JSON-formatted string.
@@ -376,10 +370,12 @@ class ElasticsearchServiceApi {
   }
 }
 
+/// The configured access rules for the domain's document and search endpoints,
+/// and the current status of those rules.
 class AccessPoliciesStatus {
   /// The access policy configured for the Elasticsearch domain. Access policies
-  /// may be resource-based, IP-based, or IAM-based. See  [Configuring Access
-  /// Policies](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-access-policies)for
+  /// may be resource-based, IP-based, or IAM-based. See
+  /// [Configuring Access Policies](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-access-policies)for
   /// more information.
   final String options;
 
@@ -395,6 +391,8 @@ class AccessPoliciesStatus {
       AccessPoliciesStatus();
 }
 
+///  List of limits that are specific to a given InstanceType and for each of
+/// it's  `InstanceRole`  .
 class AdditionalLimit {
   ///  Name of Additional Limit is specific to a given InstanceType and for each
   /// of it's  `InstanceRole`  etc.
@@ -420,6 +418,19 @@ class AdditionalLimit {
       AdditionalLimit();
 }
 
+///  Status of the advanced options for the specified Elasticsearch domain.
+/// Currently, the following advanced options are available:
+///
+/// *   Option to allow references to indices in an HTTP request body. Must be
+/// `false` when configuring access to individual sub-resources. By default, the
+/// value is `true`. See
+/// [Configuration Advanced Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
+/// for more information.
+/// *   Option to specify the percentage of heap space that is allocated to
+/// field data. By default, this setting is unbounded.
+///
+/// For more information, see
+/// [Configuring Advanced Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options).
 class AdvancedOptionsStatus {
   ///  Specifies the status of advanced options for the specified Elasticsearch
   /// domain.
@@ -437,6 +448,8 @@ class AdvancedOptionsStatus {
       AdvancedOptionsStatus();
 }
 
+/// The result of a `CancelElasticsearchServiceSoftwareUpdate` operation.
+/// Contains the status of the update.
 class CancelElasticsearchServiceSoftwareUpdateResponse {
   /// The current status of the Elasticsearch service software update.
   final ServiceSoftwareOptions serviceSoftwareOptions;
@@ -449,6 +462,9 @@ class CancelElasticsearchServiceSoftwareUpdateResponse {
       CancelElasticsearchServiceSoftwareUpdateResponse();
 }
 
+/// Options to specify the Cognito user and identity pools for Kibana
+/// authentication. For more information, see
+/// [Amazon Cognito Authentication for Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
 class CognitoOptions {
   /// Specifies the option to enable Cognito for Kibana authentication.
   final bool enabled;
@@ -472,6 +488,7 @@ class CognitoOptions {
   static CognitoOptions fromJson(Map<String, dynamic> json) => CognitoOptions();
 }
 
+/// Status of the Cognito options for the specified Elasticsearch domain.
 class CognitoOptionsStatus {
   /// Specifies the Cognito options for the specified Elasticsearch domain.
   final CognitoOptions options;
@@ -488,6 +505,8 @@ class CognitoOptionsStatus {
       CognitoOptionsStatus();
 }
 
+///  A map from an  `ElasticsearchVersion`  to a list of compatible
+/// `ElasticsearchVersion`  s to which the domain can be upgraded.
 class CompatibleVersionsMap {
   /// The current version of Elasticsearch on which a domain is.
   final String sourceVersion;
@@ -502,6 +521,8 @@ class CompatibleVersionsMap {
       CompatibleVersionsMap();
 }
 
+/// The result of a `CreateElasticsearchDomain` operation. Contains the status
+/// of the newly created Elasticsearch domain.
 class CreateElasticsearchDomainResponse {
   /// The status of the newly created Elasticsearch domain.
   final ElasticsearchDomainStatus domainStatus;
@@ -514,6 +535,9 @@ class CreateElasticsearchDomainResponse {
       CreateElasticsearchDomainResponse();
 }
 
+/// The result of a `DeleteElasticsearchDomain` request. Contains the status of
+/// the pending deletion, or no status if the domain and all of its resources
+/// have been deleted.
 class DeleteElasticsearchDomainResponse {
   /// The status of the Elasticsearch domain being deleted.
   final ElasticsearchDomainStatus domainStatus;
@@ -526,6 +550,8 @@ class DeleteElasticsearchDomainResponse {
       DeleteElasticsearchDomainResponse();
 }
 
+/// The result of a `DescribeElasticsearchDomainConfig` request. Contains the
+/// configuration information of the requested domain.
 class DescribeElasticsearchDomainConfigResponse {
   /// The configuration information of the domain requested in the
   /// `DescribeElasticsearchDomainConfig` request.
@@ -539,6 +565,8 @@ class DescribeElasticsearchDomainConfigResponse {
       DescribeElasticsearchDomainConfigResponse();
 }
 
+/// The result of a `DescribeElasticsearchDomain` request. Contains the status
+/// of the domain specified in the request.
 class DescribeElasticsearchDomainResponse {
   /// The current status of the Elasticsearch domain.
   final ElasticsearchDomainStatus domainStatus;
@@ -551,6 +579,8 @@ class DescribeElasticsearchDomainResponse {
       DescribeElasticsearchDomainResponse();
 }
 
+/// The result of a `DescribeElasticsearchDomains` request. Contains the status
+/// of the specified domains or all domains owned by the account.
 class DescribeElasticsearchDomainsResponse {
   /// The status of the domains requested in the `DescribeElasticsearchDomains`
   /// request.
@@ -564,6 +594,8 @@ class DescribeElasticsearchDomainsResponse {
       DescribeElasticsearchDomainsResponse();
 }
 
+///  Container for the parameters received from
+/// `DescribeElasticsearchInstanceTypeLimits`  operation.
 class DescribeElasticsearchInstanceTypeLimitsResponse {
   final Map<String, Limits> limitsByRole;
 
@@ -575,6 +607,7 @@ class DescribeElasticsearchInstanceTypeLimitsResponse {
       DescribeElasticsearchInstanceTypeLimitsResponse();
 }
 
+/// Container for results from `DescribeReservedElasticsearchInstanceOfferings`
 class DescribeReservedElasticsearchInstanceOfferingsResponse {
   /// Provides an identifier to allow retrieval of paginated results.
   final String nextToken;
@@ -592,6 +625,7 @@ class DescribeReservedElasticsearchInstanceOfferingsResponse {
       DescribeReservedElasticsearchInstanceOfferingsResponse();
 }
 
+/// Container for results from `DescribeReservedElasticsearchInstances`
 class DescribeReservedElasticsearchInstancesResponse {
   /// Provides an identifier to allow retrieval of paginated results.
   final String nextToken;
@@ -618,6 +652,9 @@ class DomainInfo {
   static DomainInfo fromJson(Map<String, dynamic> json) => DomainInfo();
 }
 
+/// Options to enable, disable, and specify the properties of EBS storage
+/// volumes. For more information, see
+/// [Configuring EBS-based Storage](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs).
 class EbsOptions {
   /// Specifies whether EBS-based storage is enabled.
   final bool ebsEnabled;
@@ -640,6 +677,7 @@ class EbsOptions {
   static EbsOptions fromJson(Map<String, dynamic> json) => EbsOptions();
 }
 
+///  Status of the EBS options for the specified Elasticsearch domain.
 class EbsOptionsStatus {
   ///  Specifies the EBS options for the specified Elasticsearch domain.
   final EbsOptions options;
@@ -656,6 +694,8 @@ class EbsOptionsStatus {
       EbsOptionsStatus();
 }
 
+/// Specifies the configuration for the domain cluster, such as the type and
+/// number of instances.
 class ElasticsearchClusterConfig {
   /// The instance type for an Elasticsearch cluster.
   final String instanceType;
@@ -664,14 +704,13 @@ class ElasticsearchClusterConfig {
   final int instanceCount;
 
   /// A boolean value to indicate whether a dedicated master node is enabled.
-  /// See [About Dedicated Master
-  /// Nodes](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-dedicatedmasternodes)
+  /// See
+  /// [About Dedicated Master Nodes](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-dedicatedmasternodes)
   /// for more information.
   final bool dedicatedMasterEnabled;
 
-  /// A boolean value to indicate whether zone awareness is enabled. See [About
-  /// Zone
-  /// Awareness](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-zoneawareness)
+  /// A boolean value to indicate whether zone awareness is enabled. See
+  /// [About Zone Awareness](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains.html#es-managedomains-zoneawareness)
   /// for more information.
   final bool zoneAwarenessEnabled;
 
@@ -699,6 +738,7 @@ class ElasticsearchClusterConfig {
       ElasticsearchClusterConfig();
 }
 
+///  Specifies the configuration status for the specified Elasticsearch domain.
 class ElasticsearchClusterConfigStatus {
   ///  Specifies the cluster configuration for the specified Elasticsearch
   /// domain.
@@ -716,6 +756,7 @@ class ElasticsearchClusterConfigStatus {
       ElasticsearchClusterConfigStatus();
 }
 
+/// The configuration of an Elasticsearch domain.
 class ElasticsearchDomainConfig {
   /// String of format X.Y to specify version for the Elasticsearch domain.
   final ElasticsearchVersionStatus elasticsearchVersion;
@@ -732,14 +773,12 @@ class ElasticsearchDomainConfig {
   /// Specifies the `SnapshotOptions` for the Elasticsearch domain.
   final SnapshotOptionsStatus snapshotOptions;
 
-  /// The `VPCOptions` for the specified domain. For more information, see [VPC
-  /// Endpoints for Amazon Elasticsearch Service
-  /// Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
+  /// The `VPCOptions` for the specified domain. For more information, see
+  /// [VPC Endpoints for Amazon Elasticsearch Service Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
   final VpcDerivedInfoStatus vpcOptions;
 
   /// The `CognitoOptions` for the specified domain. For more information, see
-  /// [Amazon Cognito Authentication for
-  /// Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
+  /// [Amazon Cognito Authentication for Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
   final CognitoOptionsStatus cognitoOptions;
 
   /// Specifies the `EncryptionAtRestOptions` for the Elasticsearch domain.
@@ -748,8 +787,8 @@ class ElasticsearchDomainConfig {
   /// Specifies the `NodeToNodeEncryptionOptions` for the Elasticsearch domain.
   final NodeToNodeEncryptionOptionsStatus nodeToNodeEncryptionOptions;
 
-  /// Specifies the `AdvancedOptions` for the domain. See [Configuring Advanced
-  /// Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
+  /// Specifies the `AdvancedOptions` for the domain. See
+  /// [Configuring Advanced Options](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-advanced-options)
   /// for more information.
   final AdvancedOptionsStatus advancedOptions;
 
@@ -773,6 +812,7 @@ class ElasticsearchDomainConfig {
       ElasticsearchDomainConfig();
 }
 
+/// The current status of an Elasticsearch domain.
 class ElasticsearchDomainStatus {
   /// The unique identifier for the specified Elasticsearch domain.
   final String domainId;
@@ -784,8 +824,7 @@ class ElasticsearchDomainStatus {
   final String domainName;
 
   /// The Amazon resource name (ARN) of an Elasticsearch domain. See
-  /// [Identifiers for IAM
-  /// Entities](http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html)
+  /// [Identifiers for IAM Entities](http://docs.aws.amazon.com/IAM/latest/UserGuide/index.html?Using_Identifiers.html)
   /// in _Using AWS Identity and Access Management_ for more information.
   final String arn;
 
@@ -823,8 +862,8 @@ class ElasticsearchDomainStatus {
   /// The type and number of instances in the domain cluster.
   final ElasticsearchClusterConfig elasticsearchClusterConfig;
 
-  /// The `EBSOptions` for the specified domain. See [Configuring EBS-based
-  /// Storage](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs)
+  /// The `EBSOptions` for the specified domain. See
+  /// [Configuring EBS-based Storage](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-createupdatedomains.html#es-createdomain-configure-ebs)
   /// for more information.
   final EbsOptions ebsOptions;
 
@@ -834,14 +873,12 @@ class ElasticsearchDomainStatus {
   /// Specifies the status of the `SnapshotOptions`
   final SnapshotOptions snapshotOptions;
 
-  /// The `VPCOptions` for the specified domain. For more information, see [VPC
-  /// Endpoints for Amazon Elasticsearch Service
-  /// Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
+  /// The `VPCOptions` for the specified domain. For more information, see
+  /// [VPC Endpoints for Amazon Elasticsearch Service Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
   final VpcDerivedInfo vpcOptions;
 
   /// The `CognitoOptions` for the specified domain. For more information, see
-  /// [Amazon Cognito Authentication for
-  /// Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
+  /// [Amazon Cognito Authentication for Kibana](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-cognito-auth.html).
   final CognitoOptions cognitoOptions;
 
   ///  Specifies the status of the `EncryptionAtRestOptions`.
@@ -886,6 +923,8 @@ class ElasticsearchDomainStatus {
       ElasticsearchDomainStatus();
 }
 
+///  Status of the Elasticsearch version options for the specified Elasticsearch
+/// domain.
 class ElasticsearchVersionStatus {
   ///  Specifies the Elasticsearch version for the specified Elasticsearch
   /// domain.
@@ -903,6 +942,7 @@ class ElasticsearchVersionStatus {
       ElasticsearchVersionStatus();
 }
 
+/// Specifies the Encryption At Rest Options.
 class EncryptionAtRestOptions {
   /// Specifies the option to enable Encryption At Rest.
   final bool enabled;
@@ -918,6 +958,8 @@ class EncryptionAtRestOptions {
       EncryptionAtRestOptions();
 }
 
+///  Status of the Encryption At Rest options for the specified Elasticsearch
+/// domain.
 class EncryptionAtRestOptionsStatus {
   ///  Specifies the Encryption At Rest options for the specified Elasticsearch
   /// domain.
@@ -935,6 +977,8 @@ class EncryptionAtRestOptionsStatus {
       EncryptionAtRestOptionsStatus();
 }
 
+///  Container for response returned by  `GetCompatibleElasticsearchVersions`
+/// operation.
 class GetCompatibleElasticsearchVersionsResponse {
   ///  A map of compatible Elasticsearch versions returned as part of the
   /// `GetCompatibleElasticsearchVersions`  operation.
@@ -948,6 +992,7 @@ class GetCompatibleElasticsearchVersionsResponse {
       GetCompatibleElasticsearchVersionsResponse();
 }
 
+///  Container for response returned by  `GetUpgradeHistory`  operation.
 class GetUpgradeHistoryResponse {
   ///  A list of  `UpgradeHistory`  objects corresponding to each Upgrade or
   /// Upgrade Eligibility Check performed on a domain returned as part of
@@ -966,6 +1011,7 @@ class GetUpgradeHistoryResponse {
       GetUpgradeHistoryResponse();
 }
 
+///  Container for response returned by  `GetUpgradeStatus`  operation.
 class GetUpgradeStatusResponse {
   ///  Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
   /// does through:
@@ -997,6 +1043,8 @@ class GetUpgradeStatusResponse {
       GetUpgradeStatusResponse();
 }
 
+///  InstanceCountLimits represents the limits on number of instances that be
+/// created in Amazon Elasticsearch for given InstanceType.
 class InstanceCountLimits {
   final int minimumInstanceCount;
 
@@ -1010,6 +1058,8 @@ class InstanceCountLimits {
       InstanceCountLimits();
 }
 
+/// InstanceLimits represents the list of instance related attributes that are
+/// available for given InstanceType.
 class InstanceLimits {
   final InstanceCountLimits instanceCountLimits;
 
@@ -1019,6 +1069,9 @@ class InstanceLimits {
   static InstanceLimits fromJson(Map<String, dynamic> json) => InstanceLimits();
 }
 
+///  Limits for given InstanceType and for each of it's role.
+///  Limits contains following  `StorageTypes,`   `InstanceLimits`  and
+/// `AdditionalLimits`
 class Limits {
   /// StorageType represents the list of storage related types and attributes
   /// that are available for given InstanceType.
@@ -1038,6 +1091,8 @@ class Limits {
   static Limits fromJson(Map<String, dynamic> json) => Limits();
 }
 
+/// The result of a `ListDomainNames` operation. Contains the names of all
+/// Elasticsearch domains owned by this account.
 class ListDomainNamesResponse {
   /// List of Elasticsearch domain names.
   final List<DomainInfo> domainNames;
@@ -1049,6 +1104,8 @@ class ListDomainNamesResponse {
       ListDomainNamesResponse();
 }
 
+///  Container for the parameters returned by  `ListElasticsearchInstanceTypes`
+/// operation.
 class ListElasticsearchInstanceTypesResponse {
   ///  List of instance types supported by Amazon Elasticsearch service for
   /// given  `ElasticsearchVersion`
@@ -1068,6 +1125,8 @@ class ListElasticsearchInstanceTypesResponse {
       ListElasticsearchInstanceTypesResponse();
 }
 
+///  Container for the parameters for response received from
+/// `ListElasticsearchVersions`  operation.
 class ListElasticsearchVersionsResponse {
   final List<String> elasticsearchVersions;
 
@@ -1082,6 +1141,8 @@ class ListElasticsearchVersionsResponse {
       ListElasticsearchVersionsResponse();
 }
 
+/// The result of a `ListTags` operation. Contains tags for all requested
+/// Elasticsearch domains.
 class ListTagsResponse {
   ///  List of `Tag` for the requested Elasticsearch domain.
   final List<Tag> tagList;
@@ -1093,6 +1154,12 @@ class ListTagsResponse {
       ListTagsResponse();
 }
 
+/// Log Publishing option that is set for given domain.
+/// Attributes and their details:
+///
+/// *   CloudWatchLogsLogGroupArn: ARN of the Cloudwatch log group to which log
+/// needs to be published.
+/// *   Enabled: Whether the log publishing for given log type is enabled or not
 class LogPublishingOption {
   final String cloudWatchLogsLogGroupArn;
 
@@ -1107,6 +1174,8 @@ class LogPublishingOption {
       LogPublishingOption();
 }
 
+/// The configured log publishing options for the domain and their current
+/// status.
 class LogPublishingOptionsStatus {
   /// The log publishing options configured for the Elasticsearch domain.
   final Map<String, LogPublishingOption> options;
@@ -1123,6 +1192,7 @@ class LogPublishingOptionsStatus {
       LogPublishingOptionsStatus();
 }
 
+/// Specifies the node-to-node encryption options.
 class NodeToNodeEncryptionOptions {
   /// Specify true to enable node-to-node encryption.
   final bool enabled;
@@ -1134,6 +1204,8 @@ class NodeToNodeEncryptionOptions {
       NodeToNodeEncryptionOptions();
 }
 
+/// Status of the node-to-node encryption options for the specified
+/// Elasticsearch domain.
 class NodeToNodeEncryptionOptionsStatus {
   /// Specifies the node-to-node encryption options for the specified
   /// Elasticsearch domain.
@@ -1152,6 +1224,7 @@ class NodeToNodeEncryptionOptionsStatus {
       NodeToNodeEncryptionOptionsStatus();
 }
 
+/// Provides the current status of the entity.
 class OptionStatus {
   /// Timestamp which tells the creation date for the entity.
   final DateTime creationDate;
@@ -1178,6 +1251,8 @@ class OptionStatus {
   static OptionStatus fromJson(Map<String, dynamic> json) => OptionStatus();
 }
 
+/// Represents the output of a `PurchaseReservedElasticsearchInstanceOffering`
+/// operation.
 class PurchaseReservedElasticsearchInstanceOfferingResponse {
   /// Details of the reserved Elasticsearch instance which was purchased.
   final String reservedElasticsearchInstanceId;
@@ -1194,6 +1269,9 @@ class PurchaseReservedElasticsearchInstanceOfferingResponse {
       PurchaseReservedElasticsearchInstanceOfferingResponse();
 }
 
+/// Contains the specific price and frequency of a recurring charges for a
+/// reserved Elasticsearch instance, or for a reserved Elasticsearch instance
+/// offering.
 class RecurringCharge {
   /// The monetary amount of the recurring charge.
   final double recurringChargeAmount;
@@ -1209,6 +1287,7 @@ class RecurringCharge {
       RecurringCharge();
 }
 
+/// Details of a reserved Elasticsearch instance.
 class ReservedElasticsearchInstance {
   /// The customer-specified identifier to track this reservation.
   final String reservationName;
@@ -1273,6 +1352,7 @@ class ReservedElasticsearchInstance {
       ReservedElasticsearchInstance();
 }
 
+/// Details of a reserved Elasticsearch instance offering.
 class ReservedElasticsearchInstanceOffering {
   /// The Elasticsearch reserved instance offering identifier.
   final String reservedElasticsearchInstanceOfferingId;
@@ -1317,6 +1397,7 @@ class ReservedElasticsearchInstanceOffering {
       ReservedElasticsearchInstanceOffering();
 }
 
+/// The current options of an Elasticsearch domain service software options.
 class ServiceSoftwareOptions {
   /// The current service software version that is present on the domain.
   final String currentVersion;
@@ -1358,6 +1439,8 @@ class ServiceSoftwareOptions {
       ServiceSoftwareOptions();
 }
 
+/// Specifies the time, in UTC format, when the service takes a daily automated
+/// snapshot of the specified Elasticsearch domain. Default value is `0` hours.
 class SnapshotOptions {
   /// Specifies the time, in UTC format, when the service takes a daily
   /// automated snapshot of the specified Elasticsearch domain. Default value is
@@ -1371,6 +1454,7 @@ class SnapshotOptions {
       SnapshotOptions();
 }
 
+/// Status of a daily automated snapshot.
 class SnapshotOptionsStatus {
   /// Specifies the daily snapshot options specified for the Elasticsearch
   /// domain.
@@ -1387,6 +1471,8 @@ class SnapshotOptionsStatus {
       SnapshotOptionsStatus();
 }
 
+/// The result of a `StartElasticsearchServiceSoftwareUpdate` operation.
+/// Contains the status of the update.
 class StartElasticsearchServiceSoftwareUpdateResponse {
   /// The current status of the Elasticsearch service software update.
   final ServiceSoftwareOptions serviceSoftwareOptions;
@@ -1399,6 +1485,8 @@ class StartElasticsearchServiceSoftwareUpdateResponse {
       StartElasticsearchServiceSoftwareUpdateResponse();
 }
 
+/// StorageTypes represents the list of storage related types and their
+/// attributes that are available for given InstanceType.
 class StorageType {
   final String storageTypeName;
 
@@ -1415,6 +1503,7 @@ class StorageType {
   static StorageType fromJson(Map<String, dynamic> json) => StorageType();
 }
 
+/// Limits that are applicable for given storage type.
 class StorageTypeLimit {
   ///  Name of storage limits that are applicable for given storage type. If
   /// `StorageType`  is ebs, following storage options are applicable
@@ -1441,6 +1530,7 @@ class StorageTypeLimit {
       StorageTypeLimit();
 }
 
+/// Specifies a key value pair for a resource tag.
 class Tag {
   /// Specifies the `TagKey`, the name of the tag. Tag keys must be unique for
   /// the Elasticsearch domain to which they are attached.
@@ -1459,6 +1549,8 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The result of an `UpdateElasticsearchDomain` request. Contains the status of
+/// the Elasticsearch domain being updated.
 class UpdateElasticsearchDomainConfigResponse {
   /// The status of the updated Elasticsearch domain.
   final ElasticsearchDomainConfig domainConfig;
@@ -1471,6 +1563,8 @@ class UpdateElasticsearchDomainConfigResponse {
       UpdateElasticsearchDomainConfigResponse();
 }
 
+///  Container for response returned by  `UpgradeElasticsearchDomain`
+/// operation.
 class UpgradeElasticsearchDomainResponse {
   final String domainName;
 
@@ -1491,6 +1585,7 @@ class UpgradeElasticsearchDomainResponse {
       UpgradeElasticsearchDomainResponse();
 }
 
+/// History of the last 10 Upgrades and Upgrade Eligibility Checks.
 class UpgradeHistory {
   /// A string that describes the update briefly
   final String upgradeName;
@@ -1521,6 +1616,8 @@ class UpgradeHistory {
   static UpgradeHistory fromJson(Map<String, dynamic> json) => UpgradeHistory();
 }
 
+/// Represents a single step of the Upgrade or Upgrade Eligibility Check
+/// workflow.
 class UpgradeStepItem {
   ///  Represents one of 3 steps that an Upgrade or Upgrade Eligibility Check
   /// does through:
@@ -1557,6 +1654,9 @@ class UpgradeStepItem {
       UpgradeStepItem();
 }
 
+/// Options to specify the subnets and security groups for VPC endpoint. For
+/// more information, see
+/// [VPC Endpoints for Amazon Elasticsearch Service Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
 class VpcDerivedInfo {
   /// The VPC Id for the Elasticsearch domain. Exists only if the domain was
   /// created with VPCOptions.
@@ -1581,6 +1681,7 @@ class VpcDerivedInfo {
   static VpcDerivedInfo fromJson(Map<String, dynamic> json) => VpcDerivedInfo();
 }
 
+///  Status of the VPC options for the specified Elasticsearch domain.
 class VpcDerivedInfoStatus {
   ///  Specifies the VPC options for the specified Elasticsearch domain.
   final VpcDerivedInfo options;
@@ -1597,6 +1698,9 @@ class VpcDerivedInfoStatus {
       VpcDerivedInfoStatus();
 }
 
+/// Options to specify the subnets and security groups for VPC endpoint. For
+/// more information, see
+/// [VPC Endpoints for Amazon Elasticsearch Service Domains](http://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-vpc.html).
 class VpcOptions {
   /// Specifies the subnets for VPC endpoint.
   final List<String> subnetIds;
@@ -1610,6 +1714,8 @@ class VpcOptions {
   });
 }
 
+/// Specifies the zone awareness configuration for the domain cluster, such as
+/// the number of availability zones.
 class ZoneAwarenessConfig {
   /// An integer value to indicate the number of availability zones for a domain
   /// when zone awareness is enabled. This should be equal to number of subnets

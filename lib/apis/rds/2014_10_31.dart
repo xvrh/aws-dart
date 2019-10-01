@@ -30,32 +30,30 @@ import 'package:meta/meta.dart';
 ///
 ///  **Amazon RDS API Reference**
 ///
-/// *   For the alphabetical list of API actions, see [API
-/// Actions](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Operations.html).
+/// *   For the alphabetical list of API actions, see
+/// [API Actions](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Operations.html).
 ///
-/// *   For the alphabetical list of data types, see [Data
-/// Types](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Types.html).
+/// *   For the alphabetical list of data types, see
+/// [Data Types](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/API_Types.html).
 ///
-/// *   For a list of common query parameters, see [Common
-/// Parameters](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonParameters.html).
+/// *   For a list of common query parameters, see
+/// [Common Parameters](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonParameters.html).
 ///
-/// *   For descriptions of the error codes, see [Common
-/// Errors](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonErrors.html).
+/// *   For descriptions of the error codes, see
+/// [Common Errors](https://docs.aws.amazon.com/AmazonRDS/latest/APIReference/CommonErrors.html).
 ///
 ///
 ///  **Amazon RDS User Guide**
 ///
-/// *   For a summary of the Amazon RDS interfaces, see [Available RDS
-/// Interfaces](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces).
+/// *   For a summary of the Amazon RDS interfaces, see
+/// [Available RDS Interfaces](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html#Welcome.Interfaces).
 ///
-/// *   For more information about how to use the Query API, see [Using the
-/// Query
-/// API](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Using_the_Query_API.html).
+/// *   For more information about how to use the Query API, see
+/// [Using the Query API](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Using_the_Query_API.html).
 class RdsApi {
   /// Associates an Identity and Access Management (IAM) role from an Amazon
-  /// Aurora DB cluster. For more information, see [Authorizing Amazon Aurora
-  /// MySQL to Access Other AWS Services on Your
-  /// Behalf](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html)
+  /// Aurora DB cluster. For more information, see
+  /// [Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   ///
@@ -133,13 +131,13 @@ class RdsApi {
   /// resources, or used in a Condition statement in an IAM policy for Amazon
   /// RDS.
   ///
-  /// For an overview on tagging Amazon RDS resources, see [Tagging Amazon RDS
-  /// Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html).
+  /// For an overview on tagging Amazon RDS resources, see
+  /// [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html).
   ///
   /// [resourceName]: The Amazon RDS resource that the tags are added to. This
   /// value is an Amazon Resource Name (ARN). For information about creating an
-  /// ARN, see  [Constructing an RDS Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing).
+  /// ARN, see
+  /// [Constructing an RDS Amazon Resource Name (ARN)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing).
   ///
   /// [tags]: The tags to be assigned to the Amazon RDS resource.
   Future<void> addTagsToResource(
@@ -150,8 +148,8 @@ class RdsApi {
   ///
   /// [resourceIdentifier]: The RDS Amazon Resource Name (ARN) of the resource
   /// that the pending maintenance action applies to. For information about
-  /// creating an ARN, see  [Constructing an RDS Amazon Resource Name
-  /// (ARN)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing).
+  /// creating an ARN, see
+  /// [Constructing an RDS Amazon Resource Name (ARN)](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing).
   ///
   /// [applyAction]: The pending maintenance action to apply to this resource.
   ///
@@ -162,12 +160,12 @@ class RdsApi {
   ///
   /// Valid values:
   ///
-  /// *    `immediate` \- Apply the maintenance action immediately.
+  /// *    `immediate` - Apply the maintenance action immediately.
   ///
-  /// *    `next-maintenance` \- Apply the maintenance action during the next
+  /// *    `next-maintenance` - Apply the maintenance action during the next
   /// maintenance window for the resource.
   ///
-  /// *    `undo-opt-in` \- Cancel any existing `next-maintenance` opt-in
+  /// *    `undo-opt-in` - Cancel any existing `next-maintenance` opt-in
   /// requests.
   Future<ApplyPendingMaintenanceActionResult> applyPendingMaintenanceAction(
       {@required String resourceIdentifier,
@@ -189,8 +187,8 @@ class RdsApi {
   /// to an Amazon RDS DB instance in another. You can't authorize ingress from
   /// a VPC security group in one VPC to an Amazon RDS DB instance in another.
   ///
-  /// For an overview of CIDR ranges, go to the [Wikipedia
-  /// Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// For an overview of CIDR ranges, go to the
+  /// [Wikipedia Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// [dbSecurityGroupName]: The name of the DB security group to add
   /// authorization to.
@@ -225,8 +223,8 @@ class RdsApi {
   /// Backtracks a DB cluster to a specific time, without creating a new DB
   /// cluster.
   ///
-  /// For more information on backtracking, see  [Backtracking an Aurora DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html)
+  /// For more information on backtracking, see
+  /// [Backtracking an Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Managing.Backtrack.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -289,8 +287,8 @@ class RdsApi {
   ///
   /// [sourceDBClusterParameterGroupIdentifier]: The identifier or Amazon
   /// Resource Name (ARN) for the source DB cluster parameter group. For
-  /// information about creating an ARN, see  [Constructing an ARN for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// information about creating an ARN, see
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// Constraints:
@@ -343,11 +341,11 @@ class RdsApi {
   /// to be copied to. To copy an encrypted DB cluster snapshot from another AWS
   /// Region, you must provide the following values:
   ///
-  /// *    `KmsKeyId` \- The AWS Key Management System (AWS KMS) key identifier
+  /// *    `KmsKeyId` - The AWS Key Management System (AWS KMS) key identifier
   /// for the key to use to encrypt the copy of the DB cluster snapshot in the
   /// destination AWS Region.
   ///
-  /// *    `PreSignedUrl` \- A URL that contains a Signature Version 4 signed
+  /// *    `PreSignedUrl` - A URL that contains a Signature Version 4 signed
   /// request for the `CopyDBClusterSnapshot` action to be called in the source
   /// AWS Region where the DB cluster snapshot is copied from. The pre-signed
   /// URL must be a valid request for the `CopyDBClusterSnapshot` API action
@@ -357,16 +355,16 @@ class RdsApi {
   ///     The pre-signed URL request must contain the following parameter
   /// values:
   ///
-  ///     *    `KmsKeyId` \- The KMS key identifier for the key to use to
-  /// encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-  /// This is the same identifier for both the `CopyDBClusterSnapshot` action
-  /// that is called in the destination AWS Region, and the action contained in
-  /// the pre-signed URL.
+  ///     *    `KmsKeyId` - The KMS key identifier for the key to use to encrypt
+  /// the copy of the DB cluster snapshot in the destination AWS Region. This is
+  /// the same identifier for both the `CopyDBClusterSnapshot` action that is
+  /// called in the destination AWS Region, and the action contained in the
+  /// pre-signed URL.
   ///
-  ///     *    `DestinationRegion` \- The name of the AWS Region that the DB
+  ///     *    `DestinationRegion` - The name of the AWS Region that the DB
   /// cluster snapshot will be created in.
   ///
-  ///     *    `SourceDBClusterSnapshotIdentifier` \- The DB cluster snapshot
+  ///     *    `SourceDBClusterSnapshotIdentifier` - The DB cluster snapshot
   /// identifier for the encrypted DB cluster snapshot to be copied. This
   /// identifier must be in the Amazon Resource Name (ARN) format for the source
   /// AWS Region. For example, if you are copying an encrypted DB cluster
@@ -376,15 +374,14 @@ class RdsApi {
   ///
   ///
   ///     To learn how to generate a Signature Version 4 signed request, see
-  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version
-  /// 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-  /// and  [Signature Version 4 Signing
-  /// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
+  /// and
+  /// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
-  /// *    `TargetDBClusterSnapshotIdentifier` \- The identifier for the new
-  /// copy of the DB cluster snapshot in the destination AWS Region.
+  /// *    `TargetDBClusterSnapshotIdentifier` - The identifier for the new copy
+  /// of the DB cluster snapshot in the destination AWS Region.
   ///
-  /// *    `SourceDBClusterSnapshotIdentifier` \- The DB cluster snapshot
+  /// *    `SourceDBClusterSnapshotIdentifier` - The DB cluster snapshot
   /// identifier for the encrypted DB cluster snapshot to be copied. This
   /// identifier must be in the ARN format for the source AWS Region and is the
   /// same value as the `SourceDBClusterSnapshotIdentifier` in the pre-signed
@@ -396,12 +393,12 @@ class RdsApi {
   /// that DB cluster snapshot is in "copying" status.
   ///
   /// For more information on copying encrypted DB cluster snapshots from one
-  /// AWS Region to another, see  [Copying a
-  /// Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html)
+  /// AWS Region to another, see
+  /// [Copying a Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html)
   /// in the _Amazon Aurora User Guide._
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -423,8 +420,7 @@ class RdsApi {
   ///
   /// *   If the source snapshot is in a different AWS Region than the copy,
   /// specify a valid DB cluster snapshot ARN. For more information, go to
-  /// [Copying Snapshots Across AWS
-  /// Regions](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions)
+  /// [Copying Snapshots Across AWS Regions](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_CopySnapshot.html#USER_CopySnapshot.AcrossRegions)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -478,16 +474,16 @@ class RdsApi {
   /// Region that contains the encrypted DB cluster snapshot to be copied. The
   /// pre-signed URL request must contain the following parameter values:
   ///
-  /// *    `KmsKeyId` \- The AWS KMS key identifier for the key to use to
-  /// encrypt the copy of the DB cluster snapshot in the destination AWS Region.
-  /// This is the same identifier for both the `CopyDBClusterSnapshot` action
-  /// that is called in the destination AWS Region, and the action contained in
-  /// the pre-signed URL.
+  /// *    `KmsKeyId` - The AWS KMS key identifier for the key to use to encrypt
+  /// the copy of the DB cluster snapshot in the destination AWS Region. This is
+  /// the same identifier for both the `CopyDBClusterSnapshot` action that is
+  /// called in the destination AWS Region, and the action contained in the
+  /// pre-signed URL.
   ///
-  /// *    `DestinationRegion` \- The name of the AWS Region that the DB cluster
+  /// *    `DestinationRegion` - The name of the AWS Region that the DB cluster
   /// snapshot will be created in.
   ///
-  /// *    `SourceDBClusterSnapshotIdentifier` \- The DB cluster snapshot
+  /// *    `SourceDBClusterSnapshotIdentifier` - The DB cluster snapshot
   /// identifier for the encrypted DB cluster snapshot to be copied. This
   /// identifier must be in the Amazon Resource Name (ARN) format for the source
   /// AWS Region. For example, if you are copying an encrypted DB cluster
@@ -497,10 +493,9 @@ class RdsApi {
   ///
   ///
   /// To learn how to generate a Signature Version 4 signed request, see
-  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version
-  /// 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-  /// and  [Signature Version 4 Signing
-  /// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
+  /// and
+  /// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// If you supply a value for this operation's `SourceRegion` parameter, a
   /// pre-signed URL will be calculated on your behalf.
@@ -526,8 +521,7 @@ class RdsApi {
   ///
   /// [sourceDBParameterGroupIdentifier]:  The identifier or ARN for the source
   /// DB parameter group. For information about creating an ARN, see
-  /// [Constructing an ARN for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon RDS User Guide_.
   ///
   /// Constraints:
@@ -570,8 +564,8 @@ class RdsApi {
   /// AWS Region where you call the `CopyDBSnapshot` action is the destination
   /// AWS Region for the DB snapshot copy.
   ///
-  /// For more information about copying snapshots, see [Copying a DB
-  /// Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html)
+  /// For more information about copying snapshots, see
+  /// [Copying a DB Snapshot](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopyDBSnapshot.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [sourceDBSnapshotIdentifier]: The identifier for the source DB snapshot.
@@ -655,7 +649,7 @@ class RdsApi {
   /// encrypted DB snapshot to be copied. The presigned URL request must contain
   /// the following parameter values:
   ///
-  /// *    `DestinationRegion` \- The AWS Region that the encrypted DB snapshot
+  /// *    `DestinationRegion` - The AWS Region that the encrypted DB snapshot
   /// is copied to. This AWS Region is the same one where the `CopyDBSnapshot`
   /// action is called that contains this presigned URL.
   ///
@@ -666,12 +660,12 @@ class RdsApi {
   /// Region. For this example, the `DestinationRegion` in the presigned URL
   /// must be set to the us-east-1 AWS Region.
   ///
-  /// *    `KmsKeyId` \- The AWS KMS key identifier for the key to use to
-  /// encrypt the copy of the DB snapshot in the destination AWS Region. This is
-  /// the same identifier for both the `CopyDBSnapshot` action that is called in
-  /// the destination AWS Region, and the action contained in the presigned URL.
+  /// *    `KmsKeyId` - The AWS KMS key identifier for the key to use to encrypt
+  /// the copy of the DB snapshot in the destination AWS Region. This is the
+  /// same identifier for both the `CopyDBSnapshot` action that is called in the
+  /// destination AWS Region, and the action contained in the presigned URL.
   ///
-  /// *    `SourceDBSnapshotIdentifier` \- The DB snapshot identifier for the
+  /// *    `SourceDBSnapshotIdentifier` - The DB snapshot identifier for the
   /// encrypted snapshot to be copied. This identifier must be in the Amazon
   /// Resource Name (ARN) format for the source AWS Region. For example, if you
   /// are copying an encrypted DB snapshot from the us-west-2 AWS Region, then
@@ -680,10 +674,9 @@ class RdsApi {
   ///
   ///
   /// To learn how to generate a Signature Version 4 signed request, see
-  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version
-  /// 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-  /// and [Signature Version 4 Signing
-  /// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
+  /// and
+  /// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// If you supply a value for this operation's `SourceRegion` parameter, a
   /// pre-signed URL will be calculated on your behalf.
@@ -695,8 +688,8 @@ class RdsApi {
   /// another, and your DB instance uses a nondefault option group. If your
   /// source DB instance uses Transparent Data Encryption for Oracle or
   /// Microsoft SQL Server, you must specify this option when copying across AWS
-  /// Regions. For more information, see [Option Group
-  /// Considerations](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopySnapshot.Options)
+  /// Regions. For more information, see
+  /// [Option Group Considerations](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_CopySnapshot.html#USER_CopySnapshot.Options)
   /// in the _Amazon RDS User Guide._
   ///
   /// [sourceRegion]: The ID of the region that contains the snapshot to be
@@ -716,9 +709,8 @@ class RdsApi {
   /// Copies the specified option group.
   ///
   /// [sourceOptionGroupIdentifier]: The identifier or ARN for the source option
-  /// group. For information about creating an ARN, see  [Constructing an ARN
-  /// for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// group. For information about creating an ARN, see
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon RDS User Guide_.
   ///
   /// Constraints:
@@ -766,8 +758,8 @@ class RdsApi {
   /// `ReplicationSourceIdentifier` is encrypted, you must also specify the
   /// `PreSignedUrl` parameter.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -776,8 +768,8 @@ class RdsApi {
   ///
   /// [availabilityZones]: A list of Availability Zones (AZs) where instances in
   /// the DB cluster can be created. For information on AWS Regions and
-  /// Availability Zones, see [Choosing the Regions and Availability
-  /// Zones](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html)
+  /// Availability Zones, see
+  /// [Choosing the Regions and Availability Zones](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Concepts.RegionsAndAvailabilityZones.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [backupRetentionPeriod]: The number of days for which automated backups
@@ -840,19 +832,19 @@ class RdsApi {
   /// 5.6-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-mysql` (for MySQL
   /// 5.7-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-mysql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-postgresql`, use
   /// the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-postgresql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   ///  **Aurora MySQL**
   ///
@@ -898,8 +890,7 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred DB Cluster Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// [Adjusting the Preferred DB Cluster Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Constraints:
@@ -919,9 +910,8 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region, occurring on a random day of the week. To see
-  /// the time blocks available, see  [Adjusting the Preferred DB Cluster
-  /// Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// the time blocks available, see
+  /// [Adjusting the Preferred DB Cluster Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -976,16 +966,16 @@ class RdsApi {
   ///
   /// The pre-signed URL request must contain the following parameter values:
   ///
-  /// *    `KmsKeyId` \- The AWS KMS key identifier for the key to use to
-  /// encrypt the copy of the DB cluster in the destination AWS Region. This
-  /// should refer to the same KMS key for both the `CreateDBCluster` action
-  /// that is called in the destination AWS Region, and the action contained in
-  /// the pre-signed URL.
+  /// *    `KmsKeyId` - The AWS KMS key identifier for the key to use to encrypt
+  /// the copy of the DB cluster in the destination AWS Region. This should
+  /// refer to the same KMS key for both the `CreateDBCluster` action that is
+  /// called in the destination AWS Region, and the action contained in the
+  /// pre-signed URL.
   ///
-  /// *    `DestinationRegion` \- The name of the AWS Region that Aurora Read
+  /// *    `DestinationRegion` - The name of the AWS Region that Aurora Read
   /// Replica will be created in.
   ///
-  /// *    `ReplicationSourceIdentifier` \- The DB cluster identifier for the
+  /// *    `ReplicationSourceIdentifier` - The DB cluster identifier for the
   /// encrypted DB cluster to be copied. This identifier must be in the Amazon
   /// Resource Name (ARN) format for the source AWS Region. For example, if you
   /// are copying an encrypted DB cluster from the us-west-2 AWS Region, then
@@ -994,10 +984,9 @@ class RdsApi {
   ///
   ///
   /// To learn how to generate a Signature Version 4 signed request, see
-  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version
-  /// 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-  /// and  [Signature Version 4 Signing
-  /// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
+  /// and
+  /// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// If you supply a value for this operation's `SourceRegion` parameter, a
   /// pre-signed URL will be calculated on your behalf.
@@ -1006,8 +995,8 @@ class RdsApi {
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
   /// database accounts. By default, mapping is disabled.
   ///
-  /// For more information, see  [IAM Database
-  /// Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [backtrackWindow]: The target backtrack window, in seconds. To disable
@@ -1022,9 +1011,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of log types that need to be
   /// enabled for exporting to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [engineMode]: The DB engine mode of the DB cluster, either `provisioned`,
@@ -1048,8 +1036,8 @@ class RdsApi {
   /// for running SQL queries on the Aurora Serverless DB cluster. You can also
   /// query your database from inside the RDS console with the query editor.
   ///
-  /// For more information, see [Using the Data API for Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
+  /// For more information, see
+  /// [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [copyTagsToSnapshot]: A value that indicates whether to copy all tags from
@@ -1147,13 +1135,13 @@ class RdsApi {
   /// used as the default for a new DB cluster. This is especially important for
   /// parameters that are critical when creating the default database for a DB
   /// cluster, such as the character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the [Amazon RDS console](https://console.aws.amazon.com/rds/) or
   /// the `DescribeDBClusterParameters` action to verify that your DB cluster
   /// parameter group has been created or modified.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -1197,8 +1185,8 @@ class RdsApi {
   }
 
   /// Creates a snapshot of a DB cluster. For more information on Amazon Aurora,
-  /// see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -1421,8 +1409,8 @@ class RdsApi {
   /// [dbInstanceClass]: The compute and memory capacity of the DB instance, for
   /// example, `db.m4.large`. Not all DB instance classes are available in all
   /// AWS Regions, or for all database engines. For the full list of DB instance
-  /// classes, and availability for your engine, see [DB Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [engine]: The name of the database engine to be used for this instance.
@@ -1572,8 +1560,7 @@ class RdsApi {
   ///
   /// [availabilityZone]:  The Availability Zone (AZ) where the database will be
   /// created. For information on AWS Regions and Availability Zones, see
-  /// [Regions and Availability
-  /// Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+  /// [Regions and Availability Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
   ///
   /// Default: A random, system-chosen Availability Zone in the endpoint's AWS
   /// Region.
@@ -1590,8 +1577,8 @@ class RdsApi {
   ///
   /// [preferredMaintenanceWindow]: The time range each week during which system
   /// maintenance can occur, in Universal Coordinated Time (UTC). For more
-  /// information, see [Amazon RDS Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance).
+  /// information, see
+  /// [Amazon RDS Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance).
   ///
   ///  Format: `ddd:hh24:mi-ddd:hh24:mi`
   ///
@@ -1634,8 +1621,8 @@ class RdsApi {
   ///
   /// [preferredBackupWindow]:  The daily time range during which automated
   /// backups are created if automated backups are enabled, using the
-  /// `BackupRetentionPeriod` parameter. For more information, see [The Backup
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
+  /// `BackupRetentionPeriod` parameter. For more information, see
+  /// [The Backup Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
   /// in the _Amazon RDS User Guide_.
   ///
   ///  **Amazon Aurora**
@@ -1645,8 +1632,7 @@ class RdsApi {
   ///
   ///  The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred DB Instance Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)
+  /// [Adjusting the Preferred DB Instance Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow)
   /// in the _Amazon RDS User Guide_.
   ///
   /// Constraints:
@@ -1726,32 +1712,32 @@ class RdsApi {
   ///
   ///  **MariaDB**
   ///
-  /// See [MariaDB on Amazon RDS
-  /// Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MariaDB.html#MariaDB.Concepts.VersionMgmt)
+  /// See
+  /// [MariaDB on Amazon RDS Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MariaDB.html#MariaDB.Concepts.VersionMgmt)
   /// in the _Amazon RDS User Guide._
   ///
   ///  **Microsoft SQL Server**
   ///
-  /// See [Version and Feature Support on Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.FeatureSupport)
+  /// See
+  /// [Version and Feature Support on Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.FeatureSupport)
   /// in the _Amazon RDS User Guide._
   ///
   ///  **MySQL**
   ///
-  /// See [MySQL on Amazon RDS
-  /// Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt)
+  /// See
+  /// [MySQL on Amazon RDS Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_MySQL.html#MySQL.Concepts.VersionMgmt)
   /// in the _Amazon RDS User Guide._
   ///
   ///  **Oracle**
   ///
-  /// See [Oracle Database Engine Release
-  /// Notes](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.Oracle.PatchComposition.html)
+  /// See
+  /// [Oracle Database Engine Release Notes](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.Oracle.PatchComposition.html)
   /// in the _Amazon RDS User Guide._
   ///
   ///  **PostgreSQL**
   ///
-  /// See [Supported PostgreSQL Database
-  /// Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.DBVersions)
+  /// See
+  /// [Supported PostgreSQL Database Versions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html#PostgreSQL.Concepts.General.DBVersions)
   /// in the _Amazon RDS User Guide._
   ///
   /// [autoMinorVersionUpgrade]: A value that indicates whether minor engine
@@ -1766,9 +1752,8 @@ class RdsApi {
   ///
   /// [iops]: The amount of Provisioned IOPS (input/output operations per
   /// second) to be initially allocated for the DB instance. For information
-  /// about valid Iops values, see [Amazon RDS Provisioned IOPS Storage to
-  /// Improve
-  /// Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
+  /// about valid Iops values, see
+  /// [Amazon RDS Provisioned IOPS Storage to Improve Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
   /// in the _Amazon RDS User Guide_.
   ///
   /// Constraints: Must be a multiple between 1 and 50 of the storage amount for
@@ -1869,9 +1854,8 @@ class RdsApi {
   /// Server, this parameter specifies the Active Directory directory ID to
   /// create the instance in. Amazon RDS uses Windows Authentication to
   /// authenticate users that connect to the DB instance. For more information,
-  /// see [Using Windows Authentication with an Amazon RDS DB Instance Running
-  /// Microsoft SQL
-  /// Server](https://docs.aws.amazon.com/AmazonRDS/latest/DeveloperGuide/USER_SQLServerWinAuth.html)
+  /// see
+  /// [Using Windows Authentication with an Amazon RDS DB Instance Running Microsoft SQL Server](https://docs.aws.amazon.com/AmazonRDS/latest/DeveloperGuide/USER_SQLServerWinAuth.html)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [copyTagsToSnapshot]: A value that indicates whether to copy tags from the
@@ -1896,8 +1880,8 @@ class RdsApi {
   /// [monitoringRoleArn]: The ARN for the IAM role that permits RDS to send
   /// enhanced monitoring metrics to Amazon CloudWatch Logs. For example,
   /// `arn:aws:iam:123456789012:role/emaccess`. For information on creating a
-  /// monitoring role, go to [Setting Up and Enabling Enhanced
-  /// Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling)
+  /// monitoring role, go to
+  /// [Setting Up and Enabling Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling)
   /// in the _Amazon RDS User Guide_.
   ///
   /// If `MonitoringInterval` is set to a value other than 0, then you must
@@ -1908,9 +1892,8 @@ class RdsApi {
   ///
   /// [promotionTier]: A value that specifies the order in which an Aurora
   /// Replica is promoted to the primary instance after a failure of the
-  /// existing primary instance. For more information, see  [Fault Tolerance for
-  /// an Aurora DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
+  /// existing primary instance. For more information, see
+  /// [Fault Tolerance for an Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// Default: 1
@@ -1918,8 +1901,8 @@ class RdsApi {
   /// Valid Values: 0 - 15
   ///
   /// [timezone]: The time zone of the DB instance. The time zone parameter is
-  /// currently supported only by [Microsoft SQL
-  /// Server](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone).
+  /// currently supported only by
+  /// [Microsoft SQL Server](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_SQLServer.html#SQLServer.Concepts.General.TimeZone).
   ///
   /// [enableIamDatabaseAuthentication]: A value that indicates whether to
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
@@ -1951,15 +1934,15 @@ class RdsApi {
   /// *   PostgreSQL 10.6, 10.7, and 10.9
   ///
   ///
-  /// For more information, see  [IAM Database Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [enablePerformanceInsights]: A value that indicates whether to enable
   /// Performance Insights for the DB instance.
   ///
-  /// For more information, see [Using Amazon Performance
-  /// Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
+  /// For more information, see
+  /// [Using Amazon Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
   /// in the _Amazon Relational Database Service User Guide_.
   ///
   /// [performanceInsightsKmsKeyId]: The AWS KMS key identifier for encryption
@@ -1977,9 +1960,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of log types that need to be
   /// enabled for exporting to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   ///  in the _Amazon Relational Database Service User Guide_.
   ///
   /// [processorFeatures]: The number of CPU cores and the number of threads per
@@ -1988,8 +1970,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   ///
   /// [maxAllocatedStorage]: The upper limit to which Amazon RDS can
   /// automatically scale the storage of the DB instance.
@@ -2046,8 +2028,7 @@ class RdsApi {
   /// Creates a new DB instance that acts as a Read Replica for an existing
   /// source DB instance. You can create a Read Replica for a DB instance
   /// running MySQL, MariaDB, Oracle, or PostgreSQL. For more information, see
-  /// [Working with Read
-  /// Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
+  /// [Working with Read Replicas](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html)
   /// in the _Amazon RDS User Guide_.
   ///
   /// Amazon Aurora doesn't support this action. You must call the
@@ -2079,9 +2060,8 @@ class RdsApi {
   /// *   Can specify a DB instance that is a MySQL Read Replica only if the
   /// source is running MySQL 5.6 or later.
   ///
-  /// *   For the limitations of Oracle Read Replicas, see [Read Replica
-  /// Limitations with
-  /// Oracle](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html)
+  /// *   For the limitations of Oracle Read Replicas, see
+  /// [Read Replica Limitations with Oracle](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/oracle-read-replicas.html)
   /// in the _Amazon RDS User Guide_.
   ///
   /// *   Can specify a DB instance that is a PostgreSQL DB instance only if the
@@ -2096,15 +2076,14 @@ class RdsApi {
   ///
   /// *   If the source DB instance is in a different AWS Region than the Read
   /// Replica, specify a valid DB instance ARN. For more information, go to
-  /// [Constructing an ARN for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [dbInstanceClass]: The compute and memory capacity of the Read Replica,
   /// for example, `db.m4.large`. Not all DB instance classes are available in
   /// all AWS Regions, or for all database engines. For the full list of DB
-  /// instance classes, and availability for your engine, see [DB Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// instance classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Default: Inherits from the source DB instance.
@@ -2226,8 +2205,8 @@ class RdsApi {
   /// [monitoringRoleArn]: The ARN for the IAM role that permits RDS to send
   /// enhanced monitoring metrics to Amazon CloudWatch Logs. For example,
   /// `arn:aws:iam:123456789012:role/emaccess`. For information on creating a
-  /// monitoring role, go to [To create an IAM role for Amazon RDS Enhanced
-  /// Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole)
+  /// monitoring role, go to
+  /// [To create an IAM role for Amazon RDS Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole)
   /// in the _Amazon RDS User Guide_.
   ///
   /// If `MonitoringInterval` is set to a value other than 0, then you must
@@ -2264,7 +2243,7 @@ class RdsApi {
   /// source AWS Region that contains the encrypted source DB instance. The
   /// presigned URL request must contain the following parameter values:
   ///
-  /// *    `DestinationRegion` \- The AWS Region that the encrypted Read Replica
+  /// *    `DestinationRegion` - The AWS Region that the encrypted Read Replica
   /// is created in. This AWS Region is the same one where the
   /// `CreateDBInstanceReadReplica` action is called that contains this
   /// presigned URL.
@@ -2277,13 +2256,13 @@ class RdsApi {
   /// example, the `DestinationRegion` in the presigned URL must be set to the
   /// us-east-1 AWS Region.
   ///
-  /// *    `KmsKeyId` \- The AWS KMS key identifier for the key to use to
-  /// encrypt the Read Replica in the destination AWS Region. This is the same
+  /// *    `KmsKeyId` - The AWS KMS key identifier for the key to use to encrypt
+  /// the Read Replica in the destination AWS Region. This is the same
   /// identifier for both the `CreateDBInstanceReadReplica` action that is
   /// called in the destination AWS Region, and the action contained in the
   /// presigned URL.
   ///
-  /// *    `SourceDBInstanceIdentifier` \- The DB instance identifier for the
+  /// *    `SourceDBInstanceIdentifier` - The DB instance identifier for the
   /// encrypted DB instance to be replicated. This identifier must be in the
   /// Amazon Resource Name (ARN) format for the source AWS Region. For example,
   /// if you are creating an encrypted Read Replica from a DB instance in the
@@ -2293,10 +2272,9 @@ class RdsApi {
   ///
   ///
   /// To learn how to generate a Signature Version 4 signed request, see
-  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version
-  /// 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
-  /// and [Signature Version 4 Signing
-  /// Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
+  /// [Authenticating Requests: Using Query Parameters (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html)
+  /// and
+  /// [Signature Version 4 Signing Process](https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html).
   ///
   /// If you supply a value for this operation's `SourceRegion` parameter, a
   /// pre-signed URL will be calculated on your behalf.
@@ -2306,16 +2284,15 @@ class RdsApi {
   /// database accounts. By default, mapping is disabled. For information about
   /// the supported DB engines, see CreateDBInstance.
   ///
-  /// For more information about IAM database authentication, see  [IAM Database
-  /// Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information about IAM database authentication, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [enablePerformanceInsights]: A value that indicates whether to enable
   /// Performance Insights for the Read Replica.
   ///
-  /// For more information, see [Using Amazon Performance
-  /// Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
+  /// For more information, see
+  /// [Using Amazon Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [performanceInsightsKmsKeyId]: The AWS KMS key identifier for encryption
@@ -2333,9 +2310,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the new DB instance
   /// is to export to CloudWatch Logs. The values in the list depend on the DB
-  /// engine being used. For more information, see [Publishing Database Logs to
-  /// Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   ///  in the _Amazon RDS User Guide_.
   ///
   /// [processorFeatures]: The number of CPU cores and the number of threads per
@@ -2347,8 +2323,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   ///
   /// [sourceRegion]: The ID of the region that contains the source for the read
   /// replica.
@@ -2405,7 +2381,7 @@ class RdsApi {
   /// new DB instance. This is especially important for parameters that are
   /// critical when creating the default database for a DB instance, such as the
   /// character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the [Amazon RDS console](https://console.aws.amazon.com/rds/) or
   /// the _DescribeDBParameters_ command to verify that your DB parameter group
   /// has been created or modified.
@@ -2434,7 +2410,7 @@ class RdsApi {
   /// command:
   ///
   ///  `aws rds describe-db-engine-versions --query
-  /// "DBEngineVersions\[\].DBParameterGroupFamily"`
+  /// "DBEngineVersions[].DBParameterGroupFamily"`
   ///
   ///
   ///
@@ -2705,8 +2681,8 @@ class RdsApi {
   /// are deleted and can't be recovered. Manual DB cluster snapshots of the
   /// specified DB cluster are not deleted.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -2767,8 +2743,8 @@ class RdsApi {
   /// Deletes a specified DB cluster parameter group. The DB cluster parameter
   /// group to be deleted can't be associated with any DB clusters.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -2792,8 +2768,8 @@ class RdsApi {
   ///
   ///  The DB cluster snapshot must be in the `available` state to be deleted.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3049,8 +3025,8 @@ class RdsApi {
 
   /// Returns information about backtracks for a DB cluster.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3077,8 +3053,8 @@ class RdsApi {
   /// Constraints:
   ///
   /// *   Must contain a valid universally unique identifier (UUID). For more
-  /// information about UUIDs, see [A Universally Unique Identifier (UUID) URN
-  /// Namespace](http://www.ietf.org/rfc/rfc4122.txt).
+  /// information about UUIDs, see
+  /// [A Universally Unique Identifier (UUID) URN Namespace](http://www.ietf.org/rfc/rfc4122.txt).
   ///
   ///
   /// Example: `123e4567-e89b-12d3-a456-426655440000`
@@ -3086,11 +3062,11 @@ class RdsApi {
   /// [filters]: A filter that specifies one or more DB clusters to describe.
   /// Supported filters include the following:
   ///
-  /// *    `db-cluster-backtrack-id` \- Accepts backtrack identifiers. The
+  /// *    `db-cluster-backtrack-id` - Accepts backtrack identifiers. The
   /// results list includes information about only the backtracks identified by
   /// these identifiers.
   ///
-  /// *    `db-cluster-backtrack-status` \- Accepts any of the following
+  /// *    `db-cluster-backtrack-status` - Accepts any of the following
   /// backtrack status values:
   ///
   ///     *    `applying`
@@ -3178,8 +3154,8 @@ class RdsApi {
   /// `DBClusterParameterGroupName` parameter is specified, the list will
   /// contain only the description of the specified DB cluster parameter group.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3220,8 +3196,8 @@ class RdsApi {
   /// Returns the detailed parameter list for a particular DB cluster parameter
   /// group.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3292,8 +3268,8 @@ class RdsApi {
   /// Returns information about DB cluster snapshots. This API action supports
   /// pagination.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3325,16 +3301,16 @@ class RdsApi {
   /// [snapshotType]: The type of DB cluster snapshots to be returned. You can
   /// specify one of the following values:
   ///
-  /// *    `automated` \- Return all DB cluster snapshots that have been
+  /// *    `automated` - Return all DB cluster snapshots that have been
   /// automatically taken by Amazon RDS for my AWS account.
   ///
-  /// *    `manual` \- Return all DB cluster snapshots that have been taken by
-  /// my AWS account.
+  /// *    `manual` - Return all DB cluster snapshots that have been taken by my
+  /// AWS account.
   ///
-  /// *    `shared` \- Return all manual DB cluster snapshots that have been
+  /// *    `shared` - Return all manual DB cluster snapshots that have been
   /// shared to my AWS account.
   ///
-  /// *    `public` \- Return all DB cluster snapshots that have been marked as
+  /// *    `public` - Return all DB cluster snapshots that have been marked as
   /// public.
   ///
   ///
@@ -3355,14 +3331,14 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs).
   ///
-  /// *    `db-cluster-snapshot-id` \- Accepts DB cluster snapshot identifiers.
+  /// *    `db-cluster-snapshot-id` - Accepts DB cluster snapshot identifiers.
   ///
-  /// *    `snapshot-type` \- Accepts types of DB cluster snapshots.
+  /// *    `snapshot-type` - Accepts types of DB cluster snapshots.
   ///
-  /// *    `engine` \- Accepts names of database engines.
+  /// *    `engine` - Accepts names of database engines.
   ///
   /// [maxRecords]: The maximum number of records to include in the response. If
   /// more records exist than the specified `MaxRecords` value, a pagination
@@ -3408,8 +3384,8 @@ class RdsApi {
   /// Returns information about provisioned Aurora DB clusters. This API
   /// supports pagination.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -3428,7 +3404,7 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB clusters identified by these ARNs.
   ///
@@ -3544,20 +3520,20 @@ class RdsApi {
   ///
   /// *    `status`
   ///
-  ///     *    `active` \- automated backups for current instances
+  ///     *    `active` - automated backups for current instances
   ///
-  ///     *    `retained` \- automated backups for deleted instances
+  ///     *    `retained` - automated backups for deleted instances
   ///
-  ///     *    `creating` \- automated backups that are waiting for the first
+  ///     *    `creating` - automated backups that are waiting for the first
   /// automated snapshot to be available
   ///
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and Amazon
+  /// *    `db-instance-id` - Accepts DB instance identifiers and Amazon
   /// Resource Names (ARNs) for DB instances. The results list includes only
   /// information about the DB instance automated backupss identified by these
   /// ARNs.
   ///
-  /// *    `dbi-resource-id` \- Accepts DB instance resource identifiers and DB
+  /// *    `dbi-resource-id` - Accepts DB instance resource identifiers and DB
   /// Amazon Resource Names (ARNs) for DB instances. The results list includes
   /// only information about the DB instance resources identified by these ARNs.
   ///
@@ -3597,16 +3573,16 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB instances associated with the DB clusters
   /// identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB instances identified by these ARNs.
   ///
-  /// *    `dbi-resource-id` \- Accepts DB instance resource identifiers. The
+  /// *    `dbi-resource-id` - Accepts DB instance resource identifiers. The
   /// results list will only include information about the DB instances
   /// identified by these resource identifiers.
   ///
@@ -3820,22 +3796,22 @@ class RdsApi {
   /// [snapshotType]: The type of snapshots to be returned. You can specify one
   /// of the following values:
   ///
-  /// *    `automated` \- Return all DB snapshots that have been automatically
+  /// *    `automated` - Return all DB snapshots that have been automatically
   /// taken by Amazon RDS for my AWS account.
   ///
-  /// *    `manual` \- Return all DB snapshots that have been taken by my AWS
+  /// *    `manual` - Return all DB snapshots that have been taken by my AWS
   /// account.
   ///
-  /// *    `shared` \- Return all manual DB snapshots that have been shared to
-  /// my AWS account.
+  /// *    `shared` - Return all manual DB snapshots that have been shared to my
+  /// AWS account.
   ///
-  /// *    `public` \- Return all DB snapshots that have been marked as public.
+  /// *    `public` - Return all DB snapshots that have been marked as public.
   ///
-  /// *    `awsbackup` \- Return the DB snapshots managed by the AWS Backup
+  /// *    `awsbackup` - Return the DB snapshots managed by the AWS Backup
   /// service.
   ///
-  ///     For information about AWS Backup, see the  [_AWS Backup Developer
-  /// Guide._](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
+  ///     For information about AWS Backup, see the
+  /// [_AWS Backup Developer Guide._](https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html)
   ///
   ///
   ///     The `awsbackup` type does not apply to Aurora.
@@ -3858,16 +3834,16 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// Amazon Resource Names (ARNs).
   ///
-  /// *    `db-snapshot-id` \- Accepts DB snapshot identifiers.
+  /// *    `db-snapshot-id` - Accepts DB snapshot identifiers.
   ///
-  /// *    `dbi-resource-id` \- Accepts identifiers of source DB instances.
+  /// *    `dbi-resource-id` - Accepts identifiers of source DB instances.
   ///
-  /// *    `snapshot-type` \- Accepts types of DB snapshots.
+  /// *    `snapshot-type` - Accepts types of DB snapshots.
   ///
-  /// *    `engine` \- Accepts names of database engines.
+  /// *    `engine` - Accepts names of database engines.
   ///
   /// [maxRecords]:  The maximum number of records to include in the response.
   /// If more records exist than the specified `MaxRecords` value, a pagination
@@ -3917,8 +3893,8 @@ class RdsApi {
   /// specified, the list will contain only the descriptions of the specified
   /// DBSubnetGroup.
   ///
-  /// For an overview of CIDR ranges, go to the [Wikipedia
-  /// Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+  /// For an overview of CIDR ranges, go to the
+  /// [Wikipedia Tutorial](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
   ///
   /// [dbSubnetGroupName]: The name of the DB subnet group to return details
   /// for.
@@ -3949,8 +3925,8 @@ class RdsApi {
   /// Returns the default engine and system parameter information for the
   /// cluster database engine.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [dbParameterGroupFamily]: The name of the DB cluster parameter group
@@ -4136,8 +4112,8 @@ class RdsApi {
   ///  Returns information about Aurora global database clusters. This API
   /// supports pagination.
   ///
-  ///  For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  ///  For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -4157,7 +4133,7 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include
   /// information about the DB clusters identified by these ARNs.
   ///
@@ -4306,11 +4282,11 @@ class RdsApi {
   ///
   /// Supported filters:
   ///
-  /// *    `db-cluster-id` \- Accepts DB cluster identifiers and DB cluster
+  /// *    `db-cluster-id` - Accepts DB cluster identifiers and DB cluster
   /// Amazon Resource Names (ARNs). The results list will only include pending
   /// maintenance actions for the DB clusters identified by these ARNs.
   ///
-  /// *    `db-instance-id` \- Accepts DB instance identifiers and DB instance
+  /// *    `db-instance-id` - Accepts DB instance identifiers and DB instance
   /// ARNs. The results list will only include pending maintenance actions for
   /// the DB instances identified by these ARNs.
   ///
@@ -4560,8 +4536,8 @@ class RdsApi {
   /// clean up and re-establish any existing connections that use those endpoint
   /// addresses when the failover is complete.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -4587,14 +4563,14 @@ class RdsApi {
 
   /// Lists all tags on an Amazon RDS resource.
   ///
-  /// For an overview on tagging an Amazon RDS resource, see [Tagging Amazon RDS
-  /// Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html)
+  /// For an overview on tagging an Amazon RDS resource, see
+  /// [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [resourceName]: The Amazon RDS resource with tags to be listed. This value
   /// is an Amazon Resource Name (ARN). For information about creating an ARN,
-  /// see  [Constructing an ARN for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// see
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [filters]: This parameter is not currently supported.
@@ -4614,15 +4590,15 @@ class RdsApi {
   /// automatically scale the DB cluster based on the cooldown period for
   /// scaling up and the cooldown period for scaling down.
   ///
-  /// For more information about Aurora Serverless, see [Using Amazon Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
+  /// For more information about Aurora Serverless, see
+  /// [Using Amazon Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   ///  If you call `ModifyCurrentDBClusterCapacity` with the default
   /// `TimeoutAction`, connections that prevent Aurora Serverless from finding a
   /// scaling point might be dropped. For more information about scaling points,
-  /// see  [Autoscaling for Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling)
+  /// see
+  /// [Autoscaling for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// This action only applies to Aurora DB clusters.
@@ -4668,8 +4644,7 @@ class RdsApi {
   /// Modify a setting for an Amazon Aurora DB cluster. You can change one or
   /// more database configuration parameters by specifying these parameters and
   /// the new values in the request. For more information on Amazon Aurora, see
-  /// [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -4758,8 +4733,7 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred DB Cluster Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// [Adjusting the Preferred DB Cluster Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Constraints:
@@ -4779,9 +4753,8 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region, occurring on a random day of the week. To see
-  /// the time blocks available, see  [Adjusting the Preferred DB Cluster
-  /// Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// the time blocks available, see
+  /// [Adjusting the Preferred DB Cluster Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -4792,8 +4765,8 @@ class RdsApi {
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
   /// database accounts. By default, mapping is disabled.
   ///
-  /// For more information, see  [IAM Database
-  /// Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [backtrackWindow]: The target backtrack window, in seconds. To disable
@@ -4819,19 +4792,19 @@ class RdsApi {
   /// 5.6-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-mysql` (for MySQL
   /// 5.7-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-mysql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-postgresql`, use
   /// the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-postgresql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// [allowMajorVersionUpgrade]: A value that indicates whether major version
   /// upgrades are allowed.
@@ -4874,8 +4847,8 @@ class RdsApi {
   /// for running SQL queries on the Aurora Serverless DB cluster. You can also
   /// query your database from inside the RDS console with the query editor.
   ///
-  /// For more information, see [Using the Data API for Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
+  /// For more information, see
+  /// [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [copyTagsToSnapshot]: A value that indicates whether to copy all tags from
@@ -4936,8 +4909,8 @@ class RdsApi {
   /// `ParameterValue`, and `ApplyMethod`. A maximum of 20 parameters can be
   /// modified in a single request.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///  Changes to dynamic parameters are applied immediately. Changes to static
@@ -4950,7 +4923,7 @@ class RdsApi {
   /// default for a new DB cluster. This is especially important for parameters
   /// that are critical when creating the default database for a DB cluster,
   /// such as the character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the [Amazon RDS console](https://console.aws.amazon.com/rds/) or
   /// the `DescribeDBClusterParameters` action to verify that your DB cluster
   /// parameter group has been created or modified.
@@ -5053,8 +5026,8 @@ class RdsApi {
   /// [dbInstanceClass]: The new compute and memory capacity of the DB instance,
   /// for example, `db.m4.large`. Not all DB instance classes are available in
   /// all AWS Regions, or for all database engines. For the full list of DB
-  /// instance classes, and availability for your engine, see [DB Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// instance classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// If you modify the DB instance class, an outage occurs during the change.
@@ -5066,8 +5039,8 @@ class RdsApi {
   /// [dbSubnetGroupName]: The new DB subnet group for the DB instance. You can
   /// use this parameter to move your DB instance to a different VPC. If your DB
   /// instance is not in a VPC, you can also use this parameter to move your DB
-  /// instance into a VPC. For more information, see [Updating the VPC for a DB
-  /// Instance](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Non-VPC2VPC)
+  /// instance into a VPC. For more information, see
+  /// [Updating the VPC for a DB Instance](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.WorkingWithRDSInstanceinaVPC.html#USER_VPC.Non-VPC2VPC)
   /// in the _Amazon RDS User Guide._
   ///
   /// Changing the subnet group causes an outage during the change. The change
@@ -5108,8 +5081,8 @@ class RdsApi {
   ///  If this parameter is disabled, changes to the DB instance are applied
   /// during the next maintenance window. Some parameter changes can cause an
   /// outage and are applied on the next call to RebootDBInstance, or the next
-  /// failure reboot. Review the table of parameters in [Modifying a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html)
+  /// failure reboot. Review the table of parameters in
+  /// [Modifying a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.DBInstance.Modifying.html)
   /// in the _Amazon RDS User Guide._ to see the impact of enabling or disabling
   /// `ApplyImmediately` for each modified parameter and to determine when the
   /// changes are applied.
@@ -5457,8 +5430,8 @@ class RdsApi {
   /// [monitoringRoleArn]: The ARN for the IAM role that permits RDS to send
   /// enhanced monitoring metrics to Amazon CloudWatch Logs. For example,
   /// `arn:aws:iam:123456789012:role/emaccess`. For information on creating a
-  /// monitoring role, go to [To create an IAM role for Amazon RDS Enhanced
-  /// Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole)
+  /// monitoring role, go to
+  /// [To create an IAM role for Amazon RDS Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.html#USER_Monitoring.OS.IAMRole)
   /// in the _Amazon RDS User Guide._
   ///
   /// If `MonitoringInterval` is set to a value other than 0, then you must
@@ -5469,9 +5442,8 @@ class RdsApi {
   ///
   /// [promotionTier]: A value that specifies the order in which an Aurora
   /// Replica is promoted to the primary instance after a failure of the
-  /// existing primary instance. For more information, see  [Fault Tolerance for
-  /// an Aurora DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
+  /// existing primary instance. For more information, see
+  /// [Fault Tolerance for an Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// Default: 1
@@ -5483,16 +5455,15 @@ class RdsApi {
   /// database accounts. By default, mapping is disabled. For information about
   /// the supported DB engines, see CreateDBInstance.
   ///
-  /// For more information about IAM database authentication, see  [IAM Database
-  /// Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information about IAM database authentication, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [enablePerformanceInsights]: A value that indicates whether to enable
   /// Performance Insights for the DB instance.
   ///
-  /// For more information, see [Using Amazon Performance
-  /// Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
+  /// For more information, see
+  /// [Using Amazon Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
   /// in the _Amazon Relational Database Service User Guide_.
   ///
   /// [performanceInsightsKmsKeyId]: The AWS KMS key identifier for encryption
@@ -5525,8 +5496,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   ///
   /// [maxAllocatedStorage]: The upper limit to which Amazon RDS can
   /// automatically scale the storage of the DB instance.
@@ -5590,7 +5561,7 @@ class RdsApi {
   /// new DB instance. This is especially important for parameters that are
   /// critical when creating the default database for a DB instance, such as the
   /// character set for the default database defined by the
-  /// `character\_set\_database` parameter. You can use the _Parameter Groups_
+  /// `character_set_database` parameter. You can use the _Parameter Groups_
   /// option of the [Amazon RDS console](https://console.aws.amazon.com/rds/) or
   /// the _DescribeDBParameters_ command to verify that your DB parameter group
   /// has been created or modified.
@@ -5649,8 +5620,8 @@ class RdsApi {
   ///
   /// You can specify this parameter when you upgrade an Oracle DB snapshot. The
   /// same option group considerations apply when upgrading a DB snapshot as
-  /// when upgrading a DB instance. For more information, see [Option Group
-  /// Considerations](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG)
+  /// when upgrading a DB instance. For more information, see
+  /// [Option Group Considerations](http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Oracle.html#USER_UpgradeDBInstance.Oracle.OGPG.OG)
   /// in the _Amazon RDS User Guide._
   Future<ModifyDBSnapshotResult> modifyDBSnapshot(String dbSnapshotIdentifier,
       {String engineVersion, String optionGroupName}) async {
@@ -5775,8 +5746,8 @@ class RdsApi {
   ///  Modify a setting for an Amazon Aurora global cluster. You can change one
   /// or more database configuration parameters by specifying these parameters
   /// and the new values in the request. For more information on Amazon Aurora,
-  /// see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -5882,8 +5853,7 @@ class RdsApi {
   ///
   ///  The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
+  /// [Adjusting the Preferred Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/AdjustingTheMaintenanceWindow.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Constraints:
@@ -5954,8 +5924,8 @@ class RdsApi {
   /// DB instance results in a momentary outage, during which the DB instance
   /// status is set to rebooting.
   ///
-  /// For more information about rebooting, see [Rebooting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html)
+  /// For more information about rebooting, see
+  /// [Rebooting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [dbInstanceIdentifier]: The DB instance identifier. This parameter is
@@ -5995,9 +5965,8 @@ class RdsApi {
   }
 
   /// Disassociates an AWS Identity and Access Management (IAM) role from an
-  /// Amazon Aurora DB cluster. For more information, see [Authorizing Amazon
-  /// Aurora MySQL to Access Other AWS Services on Your
-  /// Behalf](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html)
+  /// Amazon Aurora DB cluster. For more information, see
+  /// [Authorizing Amazon Aurora MySQL to Access Other AWS Services on Your Behalf](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Integrating.Authorizing.html)
   ///  in the _Amazon Aurora User Guide_.
   ///
   ///
@@ -6055,14 +6024,14 @@ class RdsApi {
 
   /// Removes metadata tags from an Amazon RDS resource.
   ///
-  /// For an overview on tagging an Amazon RDS resource, see [Tagging Amazon RDS
-  /// Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html)
+  /// For an overview on tagging an Amazon RDS resource, see
+  /// [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Overview.Tagging.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [resourceName]: The Amazon RDS resource that the tags are removed from.
   /// This value is an Amazon Resource Name (ARN). For information about
-  /// creating an ARN, see  [Constructing an ARN for Amazon
-  /// RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
+  /// creating an ARN, see
+  /// [Constructing an ARN for Amazon RDS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.ARN.html#USER_Tagging.ARN.Constructing)
   /// in the _Amazon RDS User Guide._
   ///
   /// [tagKeys]: The tag key (name) of the tag to be removed.
@@ -6081,8 +6050,8 @@ class RdsApi {
   /// must call `RebootDBInstance` for every DB instance in your DB cluster that
   /// you want the updated static parameter to apply to.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -6161,8 +6130,8 @@ class RdsApi {
   /// Creates an Amazon Aurora DB cluster from data stored in an Amazon S3
   /// bucket. Amazon RDS must be authorized to access the Amazon S3 bucket and
   /// the data must be created using the Percona XtraBackup utility as described
-  /// in  [Migrating Data to an Amazon Aurora MySQL DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.html)
+  /// in
+  /// [Migrating Data to an Amazon Aurora MySQL DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/AuroraMySQL.Migrating.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   ///
@@ -6233,19 +6202,19 @@ class RdsApi {
   /// 5.6-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-mysql` (for MySQL
   /// 5.7-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-mysql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-postgresql`, use
   /// the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-postgresql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   ///  **Aurora MySQL**
   ///
@@ -6290,8 +6259,7 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region. To see the time blocks available, see
-  /// [Adjusting the Preferred Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// [Adjusting the Preferred Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Constraints:
@@ -6311,8 +6279,8 @@ class RdsApi {
   ///
   /// The default is a 30-minute window selected at random from an 8-hour block
   /// of time for each AWS Region, occurring on a random day of the week. To see
-  /// the time blocks available, see  [Adjusting the Preferred Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
+  /// the time blocks available, see
+  /// [Adjusting the Preferred Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_UpgradeDBInstance.Maintenance.html#AdjustingTheMaintenanceWindow.Aurora)
   /// in the _Amazon Aurora User Guide._
   ///
   /// Valid Days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
@@ -6340,8 +6308,8 @@ class RdsApi {
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
   /// database accounts. By default, mapping is disabled.
   ///
-  /// For more information, see  [IAM Database
-  /// Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [sourceEngine]: The identifier for the database engine that was backed up
@@ -6380,9 +6348,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// cluster is to export to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [deletionProtection]: A value that indicates whether the DB cluster has
@@ -6436,8 +6403,8 @@ class RdsApi {
   /// the original source DB cluster, except that the new DB cluster is created
   /// with the default security group.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -6485,19 +6452,19 @@ class RdsApi {
   /// 5.6-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-mysql` (for MySQL
   /// 5.7-compatible Aurora), use the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-mysql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   /// To list all of the available engine versions for `aurora-postgresql`, use
   /// the following command:
   ///
   ///  `aws rds describe-db-engine-versions --engine aurora-postgresql --query
-  /// "DBEngineVersions\[\].EngineVersion"`
+  /// "DBEngineVersions[].EngineVersion"`
   ///
   ///  **Aurora MySQL**
   ///
@@ -6555,8 +6522,8 @@ class RdsApi {
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
   /// database accounts. By default, mapping is disabled.
   ///
-  /// For more information, see  [IAM Database
-  /// Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [backtrackWindow]: The target backtrack window, in seconds. To disable
@@ -6571,9 +6538,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// cluster is to export to Amazon CloudWatch Logs. The values in the list
-  /// depend on the DB engine being used. For more information, see [Publishing
-  /// Database Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// depend on the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   ///  in the _Amazon Aurora User Guide_.
   ///
   /// [engineMode]: The DB engine mode of the DB cluster, either `provisioned`,
@@ -6642,8 +6608,8 @@ class RdsApi {
   /// only after the `RestoreDBClusterToPointInTime` action has completed and
   /// the DB cluster is available.
   ///
-  /// For more information on Amazon Aurora, see  [What Is Amazon
-  /// Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
+  /// For more information on Amazon Aurora, see
+  /// [What Is Amazon Aurora?](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -6663,10 +6629,10 @@ class RdsApi {
   /// [restoreType]: The type of restore to be performed. You can specify one of
   /// the following values:
   ///
-  /// *    `full-copy` \- The new DB cluster is restored as a full copy of the
+  /// *    `full-copy` - The new DB cluster is restored as a full copy of the
   /// source DB cluster.
   ///
-  /// *    `copy-on-write` \- The new DB cluster is restored as a clone of the
+  /// *    `copy-on-write` - The new DB cluster is restored as a clone of the
   /// source DB cluster.
   ///
   ///
@@ -6760,8 +6726,8 @@ class RdsApi {
   /// enable mapping of AWS Identity and Access Management (IAM) accounts to
   /// database accounts. By default, mapping is disabled.
   ///
-  /// For more information, see  [IAM Database
-  /// Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information, see
+  /// [IAM Database Authentication](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon Aurora User Guide._
   ///
   /// [backtrackWindow]: The target backtrack window, in seconds. To disable
@@ -6776,9 +6742,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// cluster is to export to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [dbClusterParameterGroupName]: The name of the DB cluster parameter group
@@ -6877,9 +6842,8 @@ class RdsApi {
   /// [dbInstanceClass]: The compute and memory capacity of the Amazon RDS DB
   /// instance, for example, `db.m4.large`. Not all DB instance classes are
   /// available in all AWS Regions, or for all database engines. For the full
-  /// list of DB instance classes, and availability for your engine, see [DB
-  /// Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// list of DB instance classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Default: The same DBInstanceClass as the original DB instance.
@@ -6976,9 +6940,8 @@ class RdsApi {
   /// connections before the conversion starts.
   ///
   /// The provisioned IOPS value must follow the requirements for your database
-  /// engine. For more information, see [Amazon RDS Provisioned IOPS Storage to
-  /// Improve
-  /// Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
+  /// engine. For more information, see
+  /// [Amazon RDS Provisioned IOPS Storage to Improve Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
   /// in the _Amazon RDS User Guide._
   ///
   /// Constraints: Must be an integer greater than 1000.
@@ -7026,16 +6989,14 @@ class RdsApi {
   /// database accounts. By default, mapping is disabled. For information about
   /// the supported DB engines, see CreateDBInstance.
   ///
-  /// For more information about IAM database authentication, see  [IAM Database
-  /// Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information about IAM database authentication, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// instance is to export to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [processorFeatures]: The number of CPU cores and the number of threads per
@@ -7063,8 +7024,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   Future<RestoreDBInstanceFromDBSnapshotResult> restoreDBInstanceFromDBSnapshot(
       {@required String dbInstanceIdentifier,
       @required String dbSnapshotIdentifier,
@@ -7101,9 +7062,8 @@ class RdsApi {
   /// databases by using backup files. You can create a backup of your
   /// on-premises database, store it on Amazon Simple Storage Service (Amazon
   /// S3), and then restore the backup file onto a new Amazon RDS DB instance
-  /// running MySQL. For more information, see [Importing Data into an Amazon
-  /// RDS MySQL DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html)
+  /// running MySQL. For more information, see
+  /// [Importing Data into an Amazon RDS MySQL DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [dbName]: The name of the database to create when the DB instance is
@@ -7136,8 +7096,8 @@ class RdsApi {
   /// [dbInstanceClass]: The compute and memory capacity of the DB instance, for
   /// example, `db.m4.large`. Not all DB instance classes are available in all
   /// AWS Regions, or for all database engines. For the full list of DB instance
-  /// classes, and availability for your engine, see [DB Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Importing from Amazon S3 is not supported on the db.t2.micro DB instance
@@ -7171,9 +7131,8 @@ class RdsApi {
   /// this DB instance.
   ///
   /// [availabilityZone]: The Availability Zone that the DB instance is created
-  /// in. For information about AWS Regions and Availability Zones, see [Regions
-  /// and Availability
-  /// Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
+  /// in. For information about AWS Regions and Availability Zones, see
+  /// [Regions and Availability Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Default: A random, system-chosen Availability Zone in the endpoint's AWS
@@ -7189,8 +7148,8 @@ class RdsApi {
   ///
   /// [preferredMaintenanceWindow]: The time range each week during which system
   /// maintenance can occur, in Universal Coordinated Time (UTC). For more
-  /// information, see [Amazon RDS Maintenance
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance)
+  /// information, see
+  /// [Amazon RDS Maintenance Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.Maintenance.html#Concepts.DBMaintenance)
   /// in the _Amazon RDS User Guide._
   ///
   /// Constraints:
@@ -7217,8 +7176,8 @@ class RdsApi {
   ///
   /// [preferredBackupWindow]: The time range each day during which automated
   /// backups are created if automated backups are enabled. For more
-  /// information, see [The Backup
-  /// Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
+  /// information, see
+  /// [The Backup Window](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
   /// in the _Amazon RDS User Guide._
   ///
   /// Constraints:
@@ -7258,8 +7217,8 @@ class RdsApi {
   ///
   /// [iops]: The amount of Provisioned IOPS (input/output operations per
   /// second) to allocate initially for the DB instance. For information about
-  /// valid Iops values, see [Amazon RDS Provisioned IOPS Storage to Improve
-  /// Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
+  /// valid Iops values, see
+  /// [Amazon RDS Provisioned IOPS Storage to Improve Performance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Storage.html#USER_PIOPS)
   /// in the _Amazon RDS User Guide._
   ///
   /// [optionGroupName]: The name of the option group to associate with this DB
@@ -7274,8 +7233,8 @@ class RdsApi {
   /// private IP address. For more information, see CreateDBInstance.
   ///
   /// [tags]: A list of tags to associate with this DB instance. For more
-  /// information, see [Tagging Amazon RDS
-  /// Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html)
+  /// information, see
+  /// [Tagging Amazon RDS Resources](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Tagging.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [storageType]: Specifies the storage type to be associated with the DB
@@ -7323,8 +7282,8 @@ class RdsApi {
   /// [monitoringRoleArn]: The ARN for the IAM role that permits RDS to send
   /// enhanced monitoring metrics to Amazon CloudWatch Logs. For example,
   /// `arn:aws:iam:123456789012:role/emaccess`. For information on creating a
-  /// monitoring role, see [Setting Up and Enabling Enhanced
-  /// Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling)
+  /// monitoring role, see
+  /// [Setting Up and Enabling Enhanced Monitoring](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Monitoring.OS.html#USER_Monitoring.OS.Enabling)
   /// in the _Amazon RDS User Guide._
   ///
   /// If `MonitoringInterval` is set to a value other than 0, then you must
@@ -7335,9 +7294,8 @@ class RdsApi {
   /// database accounts. By default, mapping is disabled. For information about
   /// the supported DB engines, see CreateDBInstance.
   ///
-  /// For more information about IAM database authentication, see  [IAM Database
-  /// Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information about IAM database authentication, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [sourceEngine]: The name of the engine of your source database.
@@ -7359,8 +7317,8 @@ class RdsApi {
   /// [enablePerformanceInsights]: A value that indicates whether to enable
   /// Performance Insights for the DB instance.
   ///
-  /// For more information, see [Using Amazon Performance
-  /// Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
+  /// For more information, see
+  /// [Using Amazon Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)
   /// in the _Amazon Relational Database Service User Guide_.
   ///
   /// [performanceInsightsKmsKeyId]: The AWS KMS key identifier for encryption
@@ -7378,9 +7336,8 @@ class RdsApi {
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// instance is to export to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [processorFeatures]: The number of CPU cores and the number of threads per
@@ -7392,8 +7349,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   Future<RestoreDBInstanceFromS3Result> restoreDBInstanceFromS3(
       {String dbName,
       @required String dbInstanceIdentifier,
@@ -7502,9 +7459,8 @@ class RdsApi {
   /// [dbInstanceClass]: The compute and memory capacity of the Amazon RDS DB
   /// instance, for example, `db.m4.large`. Not all DB instance classes are
   /// available in all AWS Regions, or for all database engines. For the full
-  /// list of DB instance classes, and availability for your engine, see [DB
-  /// Instance
-  /// Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
+  /// list of DB instance classes, and availability for your engine, see
+  /// [DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// Default: The same DBInstanceClass as the original DB instance.
@@ -7645,16 +7601,14 @@ class RdsApi {
   /// database accounts. By default, mapping is disabled. For information about
   /// the supported DB engines, see CreateDBInstance.
   ///
-  /// For more information about IAM database authentication, see  [IAM Database
-  /// Authentication for MySQL and
-  /// PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
+  /// For more information about IAM database authentication, see
+  /// [IAM Database Authentication for MySQL and PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html)
   /// in the _Amazon RDS User Guide._
   ///
   /// [enableCloudwatchLogsExports]: The list of logs that the restored DB
   /// instance is to export to CloudWatch Logs. The values in the list depend on
-  /// the DB engine being used. For more information, see [Publishing Database
-  /// Logs to Amazon CloudWatch
-  /// Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+  /// the DB engine being used. For more information, see
+  /// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
   /// in the _Amazon RDS User Guide_.
   ///
   /// [processorFeatures]: The number of CPU cores and the number of threads per
@@ -7682,8 +7636,8 @@ class RdsApi {
   /// [deletionProtection]: A value that indicates whether the DB instance has
   /// deletion protection enabled. The database can't be deleted when deletion
   /// protection is enabled. By default, deletion protection is disabled. For
-  /// more information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// more information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   ///
   /// [sourceDbiResourceId]: The resource ID of the source DB instance from
   /// which to restore.
@@ -7760,8 +7714,8 @@ class RdsApi {
   }
 
   /// Starts a database activity stream to monitor activity on the database. For
-  /// more information, see [Database Activity
-  /// Streams](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html)
+  /// more information, see
+  /// [Database Activity Streams](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the DB cluster, for
@@ -7790,8 +7744,8 @@ class RdsApi {
   /// Starts an Amazon Aurora DB cluster that was stopped using the AWS console,
   /// the stop-db-cluster AWS CLI command, or the StopDBCluster action.
   ///
-  /// For more information, see  [Stopping and Starting an Aurora
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html)
+  /// For more information, see
+  /// [Stopping and Starting an Aurora Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -7808,9 +7762,8 @@ class RdsApi {
   ///  Starts an Amazon RDS DB instance that was stopped using the AWS console,
   /// the stop-db-instance AWS CLI command, or the StopDBInstance action.
   ///
-  /// For more information, see  [Starting an Amazon RDS DB instance That Was
-  /// Previously
-  /// Stopped](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html)
+  /// For more information, see
+  /// [Starting an Amazon RDS DB instance That Was Previously Stopped](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html)
   /// in the _Amazon RDS User Guide._
   ///
   ///   This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For
@@ -7826,8 +7779,8 @@ class RdsApi {
   /// the `start-activity-stream` AWS CLI command, or the `StartActivityStream`
   /// action.
   ///
-  /// For more information, see [Database Activity
-  /// Streams](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html)
+  /// For more information, see
+  /// [Database Activity Streams](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/DBActivityStreams.html)
   /// in the _Amazon Aurora User Guide_.
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the DB cluster for the
@@ -7847,8 +7800,8 @@ class RdsApi {
   /// parameter groups. Aurora also retains the transaction logs so you can do a
   /// point-in-time restore if necessary.
   ///
-  /// For more information, see  [Stopping and Starting an Aurora
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html)
+  /// For more information, see
+  /// [Stopping and Starting an Aurora Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html)
   /// in the _Amazon Aurora User Guide._
   ///
   ///
@@ -7866,8 +7819,8 @@ class RdsApi {
   /// group, and option group membership. Amazon RDS also retains the
   /// transaction logs so you can do a point-in-time restore if necessary.
   ///
-  /// For more information, see  [Stopping an Amazon RDS DB Instance
-  /// Temporarily](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html)
+  /// For more information, see
+  /// [Stopping an Amazon RDS DB Instance Temporarily](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html)
   /// in the _Amazon RDS User Guide._
   ///
   ///   This command doesn't apply to Aurora MySQL and Aurora PostgreSQL. For
@@ -7883,6 +7836,7 @@ class RdsApi {
   }
 }
 
+/// Data returned by the **DescribeAccountAttributes** action.
 class AccountAttributesMessage {
   /// A list of `AccountQuota` objects. Within this list, each quota has a name,
   /// a count of usage toward the quota maximum, and a maximum value for the
@@ -7896,6 +7850,84 @@ class AccountAttributesMessage {
       AccountAttributesMessage();
 }
 
+/// Describes a quota for an AWS account.
+///
+/// The following are account quotas:
+///
+/// *    `AllocatedStorage` - The total allocated storage per account, in GiB.
+/// The used value is the total allocated storage in the account, in GiB.
+///
+/// *    `AuthorizationsPerDBSecurityGroup` - The number of ingress rules per DB
+/// security group. The used value is the highest number of ingress rules in a
+/// DB security group in the account. Other DB security groups in the account
+/// might have a lower number of ingress rules.
+///
+/// *    `CustomEndpointsPerDBCluster` - The number of custom endpoints per DB
+/// cluster. The used value is the highest number of custom endpoints in a DB
+/// clusters in the account. Other DB clusters in the account might have a lower
+/// number of custom endpoints.
+///
+/// *    `DBClusterParameterGroups` - The number of DB cluster parameter groups
+/// per account, excluding default parameter groups. The used value is the count
+/// of nondefault DB cluster parameter groups in the account.
+///
+/// *    `DBClusterRoles` - The number of associated AWS Identity and Access
+/// Management (IAM) roles per DB cluster. The used value is the highest number
+/// of associated IAM roles for a DB cluster in the account. Other DB clusters
+/// in the account might have a lower number of associated IAM roles.
+///
+/// *    `DBClusters` - The number of DB clusters per account. The used value is
+/// the count of DB clusters in the account.
+///
+/// *    `DBInstanceRoles` - The number of associated IAM roles per DB instance.
+/// The used value is the highest number of associated IAM roles for a DB
+/// instance in the account. Other DB instances in the account might have a
+/// lower number of associated IAM roles.
+///
+/// *    `DBInstances` - The number of DB instances per account. The used value
+/// is the count of the DB instances in the account.
+///
+/// *    `DBParameterGroups` - The number of DB parameter groups per account,
+/// excluding default parameter groups. The used value is the count of
+/// nondefault DB parameter groups in the account.
+///
+/// *    `DBSecurityGroups` - The number of DB security groups (not VPC security
+/// groups) per account, excluding the default security group. The used value is
+/// the count of nondefault DB security groups in the account.
+///
+/// *    `DBSubnetGroups` - The number of DB subnet groups per account. The used
+/// value is the count of the DB subnet groups in the account.
+///
+/// *    `EventSubscriptions` - The number of event subscriptions per account.
+/// The used value is the count of the event subscriptions in the account.
+///
+/// *    `ManualSnapshots` - The number of manual DB snapshots per account. The
+/// used value is the count of the manual DB snapshots in the account.
+///
+/// *    `OptionGroups` - The number of DB option groups per account, excluding
+/// default option groups. The used value is the count of nondefault DB option
+/// groups in the account.
+///
+/// *    `ReadReplicasPerMaster` - The number of Read Replicas per DB instance.
+/// The used value is the highest number of Read Replicas for a DB instance in
+/// the account. Other DB instances in the account might have a lower number of
+/// Read Replicas.
+///
+/// *    `ReservedDBInstances` - The number of reserved DB instances per
+/// account. The used value is the count of the active reserved DB instances in
+/// the account.
+///
+/// *    `SubnetsPerDBSubnetGroup` - The number of subnets per DB subnet group.
+/// The used value is highest number of subnets for a DB subnet group in the
+/// account. Other DB subnet groups in the account might have a lower number of
+/// subnets.
+///
+///
+/// For more information, see
+/// [Limits](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_Limits.html)
+/// in the _Amazon RDS User Guide_ and
+/// [Limits](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_Limits.html)
+/// in the _Amazon Aurora User Guide_.
 class AccountQuota {
   /// The name of the Amazon RDS quota for this AWS account.
   final String accountQuotaName;
@@ -7947,6 +7979,10 @@ class AuthorizeDBSecurityGroupIngressResult {
       AuthorizeDBSecurityGroupIngressResult();
 }
 
+/// Contains Availability Zone information.
+///
+///  This data type is used as an element in the `OrderableDBInstanceOption`
+/// data type.
 class AvailabilityZone {
   /// The name of the Availability Zone.
   final String name;
@@ -7958,6 +7994,12 @@ class AvailabilityZone {
       AvailabilityZone();
 }
 
+/// Contains the available processor feature information for the DB instance
+/// class of a DB instance.
+///
+/// For more information, see
+/// [Configuring the Processor of the DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor)
+/// in the _Amazon RDS User Guide._
 class AvailableProcessorFeature {
   /// The name of the processor feature. Valid names are `coreCount` and
   /// `threadsPerCore`.
@@ -7978,6 +8020,7 @@ class AvailableProcessorFeature {
       AvailableProcessorFeature();
 }
 
+/// A CA certificate for an AWS account.
 class Certificate {
   /// The unique key that identifies a certificate.
   final String certificateIdentifier;
@@ -8008,6 +8051,7 @@ class Certificate {
   static Certificate fromJson(Map<String, dynamic> json) => Certificate();
 }
 
+/// Data returned by the **DescribeCertificates** action.
 class CertificateMessage {
   /// The list of `Certificate` objects for the AWS account.
   final List<Certificate> certificates;
@@ -8026,6 +8070,8 @@ class CertificateMessage {
       CertificateMessage();
 }
 
+///  This data type is used as a response element in the action
+/// `DescribeDBEngineVersions`.
 class CharacterSet {
   /// The name of the character set.
   final String characterSetName;
@@ -8040,6 +8086,14 @@ class CharacterSet {
   static CharacterSet fromJson(Map<String, dynamic> json) => CharacterSet();
 }
 
+/// The configuration setting for the log types to be enabled for export to
+/// CloudWatch Logs for a specific DB instance or DB cluster.
+///
+/// The `EnableLogTypes` and `DisableLogTypes` arrays determine which logs will
+/// be exported (or not exported) to CloudWatch Logs. The values within these
+/// arrays depend on the DB engine being used. For more information, see
+/// [Publishing Database Logs to Amazon CloudWatch Logs](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html#USER_LogAccess.Procedural.UploadtoCloudWatch)
+///  in the _Amazon RDS User Guide_.
 class CloudwatchLogsExportConfiguration {
   /// The list of log types to enable.
   final List<String> enableLogTypes;
@@ -8226,6 +8280,10 @@ class CreateOptionGroupResult {
       CreateOptionGroupResult();
 }
 
+/// Contains the details of an Amazon Aurora DB cluster.
+///
+/// This data type is used as a response element in the `DescribeDBClusters`,
+/// `StopDBCluster`, and `StartDBCluster` actions.
 class DBCluster {
   /// For all database engines except Amazon Aurora, `AllocatedStorage`
   /// specifies the allocated storage size in gibibytes (GiB). For Aurora,
@@ -8388,16 +8446,16 @@ class DBCluster {
   /// CloudWatch Logs.
   ///
   /// Log types vary by DB engine. For information about the log types for each
-  /// DB engine, see [Amazon RDS Database Log
-  /// Files](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html)
+  /// DB engine, see
+  /// [Amazon RDS Database Log Files](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_LogAccess.html)
   /// in the _Amazon Aurora User Guide._
   final List<String> enabledCloudwatchLogsExports;
 
   /// The current capacity of an Aurora Serverless DB cluster. The capacity is 0
   /// (zero) when the cluster is paused.
   ///
-  /// For more information about Aurora Serverless, see [Using Amazon Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
+  /// For more information about Aurora Serverless, see
+  /// [Using Amazon Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
   /// in the _Amazon Aurora User Guide_.
   final int capacity;
 
@@ -8418,8 +8476,8 @@ class DBCluster {
   /// for running SQL queries on the Aurora Serverless DB cluster. You can also
   /// query your database from inside the RDS console with the query editor.
   ///
-  /// For more information, see [Using the Data API for Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
+  /// For more information, see
+  /// [Using the Data API for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html)
   /// in the _Amazon Aurora User Guide_.
   final bool httpEndpointEnabled;
 
@@ -8503,6 +8561,8 @@ class DBCluster {
   static DBCluster fromJson(Map<String, dynamic> json) => DBCluster();
 }
 
+/// This data type is used as a response element in the
+/// `DescribeDBClusterBacktracks` action.
 class DBClusterBacktrack {
   /// Contains a user-supplied DB cluster identifier. This identifier is the
   /// unique key that identifies a DB cluster.
@@ -8523,16 +8583,16 @@ class DBClusterBacktrack {
   /// The status of the backtrack. This property returns one of the following
   /// values:
   ///
-  /// *    `applying` \- The backtrack is currently being applied to or rolled
+  /// *    `applying` - The backtrack is currently being applied to or rolled
   /// back from the DB cluster.
   ///
-  /// *    `completed` \- The backtrack has successfully been applied to or
+  /// *    `completed` - The backtrack has successfully been applied to or
   /// rolled back from the DB cluster.
   ///
-  /// *    `failed` \- An error occurred while the backtrack was applied to or
+  /// *    `failed` - An error occurred while the backtrack was applied to or
   /// rolled back from the DB cluster.
   ///
-  /// *    `pending` \- The backtrack is currently pending application to or
+  /// *    `pending` - The backtrack is currently pending application to or
   /// rollback from the DB cluster.
   final String status;
 
@@ -8548,6 +8608,8 @@ class DBClusterBacktrack {
       DBClusterBacktrack();
 }
 
+/// Contains the result of a successful invocation of the
+/// `DescribeDBClusterBacktracks` action.
 class DBClusterBacktrackMessage {
   /// A pagination token that can be used in a subsequent
   /// `DescribeDBClusterBacktracks` request.
@@ -8594,6 +8656,21 @@ class DBClusterCapacityInfo {
       DBClusterCapacityInfo();
 }
 
+/// This data type represents the information you need to connect to an Amazon
+/// Aurora DB cluster. This data type is used as a response element in the
+/// following actions:
+///
+/// *    `CreateDBClusterEndpoint`
+///
+/// *    `DescribeDBClusterEndpoints`
+///
+/// *    `ModifyDBClusterEndpoint`
+///
+/// *    `DeleteDBClusterEndpoint`
+///
+///
+/// For the data structure that represents Amazon RDS DB instance endpoints, see
+/// `Endpoint`.
 class DBClusterEndpoint {
   /// The identifier associated with the endpoint. This parameter is stored as a
   /// lowercase string.
@@ -8668,6 +8745,7 @@ class DBClusterEndpointMessage {
       DBClusterEndpointMessage();
 }
 
+/// Contains information about an instance that is part of a DB cluster.
 class DBClusterMember {
   /// Specifies the instance identifier for this member of the DB cluster.
   final String dbInstanceIdentifier;
@@ -8682,8 +8760,8 @@ class DBClusterMember {
 
   /// A value that specifies the order in which an Aurora Replica is promoted to
   /// the primary instance after a failure of the existing primary instance. For
-  /// more information, see  [Fault Tolerance for an Aurora DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
+  /// more information, see
+  /// [Fault Tolerance for an Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
   /// in the _Amazon Aurora User Guide_.
   final int promotionTier;
 
@@ -8697,6 +8775,8 @@ class DBClusterMember {
       DBClusterMember();
 }
 
+/// Contains the result of a successful invocation of the `DescribeDBClusters`
+/// action.
 class DBClusterMessage {
   /// A pagination token that can be used in a subsequent DescribeDBClusters
   /// request.
@@ -8713,6 +8793,7 @@ class DBClusterMessage {
       DBClusterMessage();
 }
 
+/// Contains status information for a DB cluster option group.
 class DBClusterOptionGroupStatus {
   /// Specifies the name of the DB cluster option group.
   final String dbClusterOptionGroupName;
@@ -8728,6 +8809,10 @@ class DBClusterOptionGroupStatus {
       DBClusterOptionGroupStatus();
 }
 
+/// Contains the details of an Amazon RDS DB cluster parameter group.
+///
+/// This data type is used as a response element in the
+/// `DescribeDBClusterParameterGroups` action.
 class DBClusterParameterGroup {
   /// Provides the name of the DB cluster parameter group.
   final String dbClusterParameterGroupName;
@@ -8753,6 +8838,8 @@ class DBClusterParameterGroup {
       DBClusterParameterGroup();
 }
 
+/// Provides details about a DB cluster parameter group including the parameters
+/// in the DB cluster parameter group.
 class DBClusterParameterGroupDetails {
   /// Provides a list of parameters for the DB cluster parameter group.
   final List<Parameter> parameters;
@@ -8814,6 +8901,8 @@ class DBClusterParameterGroupsMessage {
       DBClusterParameterGroupsMessage();
 }
 
+/// Describes an AWS Identity and Access Management (IAM) role that is
+/// associated with a DB cluster.
 class DBClusterRole {
   /// The Amazon Resource Name (ARN) of the IAM role that is associated with the
   /// DB cluster.
@@ -8822,13 +8911,12 @@ class DBClusterRole {
   /// Describes the state of association between the IAM role and the DB
   /// cluster. The Status property returns one of the following values:
   ///
-  /// *    `ACTIVE` \- the IAM role ARN is associated with the DB cluster and
-  /// can be used to access other AWS services on your behalf.
+  /// *    `ACTIVE` - the IAM role ARN is associated with the DB cluster and can
+  /// be used to access other AWS services on your behalf.
   ///
-  /// *    `PENDING` \- the IAM role ARN is being associated with the DB
-  /// cluster.
+  /// *    `PENDING` - the IAM role ARN is being associated with the DB cluster.
   ///
-  /// *    `INVALID` \- the IAM role ARN is associated with the DB cluster, but
+  /// *    `INVALID` - the IAM role ARN is associated with the DB cluster, but
   /// the DB cluster is unable to assume the IAM role in order to access other
   /// AWS services on your behalf.
   final String status;
@@ -8846,6 +8934,10 @@ class DBClusterRole {
   static DBClusterRole fromJson(Map<String, dynamic> json) => DBClusterRole();
 }
 
+/// Contains the details for an Amazon RDS DB cluster snapshot
+///
+/// This data type is used as a response element in the
+/// `DescribeDBClusterSnapshots` action.
 class DBClusterSnapshot {
   /// Provides the list of Availability Zones (AZs) where instances in the DB
   /// cluster snapshot can be restored.
@@ -8942,6 +9034,11 @@ class DBClusterSnapshot {
       DBClusterSnapshot();
 }
 
+/// Contains the name and values of a manual DB cluster snapshot attribute.
+///
+/// Manual DB cluster snapshot attributes are used to authorize other AWS
+/// accounts to restore a manual DB cluster snapshot. For more information, see
+/// the `ModifyDBClusterSnapshotAttribute` API action.
 class DBClusterSnapshotAttribute {
   /// The name of the manual DB cluster snapshot attribute.
   ///
@@ -8967,6 +9064,12 @@ class DBClusterSnapshotAttribute {
       DBClusterSnapshotAttribute();
 }
 
+/// Contains the results of a successful call to the
+/// `DescribeDBClusterSnapshotAttributes` API action.
+///
+/// Manual DB cluster snapshot attributes are used to authorize other AWS
+/// accounts to copy or restore a manual DB cluster snapshot. For more
+/// information, see the `ModifyDBClusterSnapshotAttribute` API action.
 class DBClusterSnapshotAttributesResult {
   /// The identifier of the manual DB cluster snapshot that the attributes apply
   /// to.
@@ -8984,6 +9087,8 @@ class DBClusterSnapshotAttributesResult {
       DBClusterSnapshotAttributesResult();
 }
 
+///  Provides a list of DB cluster snapshots for the user as the result of a
+/// call to the `DescribeDBClusterSnapshots` action.
 class DBClusterSnapshotMessage {
   ///  An optional pagination token provided by a previous
   /// `DescribeDBClusterSnapshots` request. If this parameter is specified, the
@@ -9002,6 +9107,8 @@ class DBClusterSnapshotMessage {
       DBClusterSnapshotMessage();
 }
 
+///  This data type is used as a response element in the action
+/// `DescribeDBEngineVersions`.
 class DBEngineVersion {
   /// The name of the database engine.
   final String engine;
@@ -9079,6 +9186,8 @@ class DBEngineVersion {
       DBEngineVersion();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBEngineVersions` action.
 class DBEngineVersionMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9096,6 +9205,10 @@ class DBEngineVersionMessage {
       DBEngineVersionMessage();
 }
 
+/// Contains the details of an Amazon RDS DB instance.
+///
+/// This data type is used as a response element in the `DescribeDBInstances`
+/// action.
 class DBInstance {
   /// Contains a user-supplied database identifier. This identifier is the
   /// unique key that identifies a DB instance.
@@ -9294,8 +9407,8 @@ class DBInstance {
 
   /// A value that specifies the order in which an Aurora Replica is promoted to
   /// the primary instance after a failure of the existing primary instance. For
-  /// more information, see  [Fault Tolerance for an Aurora DB
-  /// Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
+  /// more information, see
+  /// [Fault Tolerance for an Aurora DB Cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html#Aurora.Managing.FaultTolerance)
   /// in the _Amazon Aurora User Guide_.
   final int promotionTier;
 
@@ -9338,8 +9451,8 @@ class DBInstance {
   /// CloudWatch Logs.
   ///
   /// Log types vary by DB engine. For information about the log types for each
-  /// DB engine, see [Amazon RDS Database Log
-  /// Files](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html)
+  /// DB engine, see
+  /// [Amazon RDS Database Log Files](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_LogAccess.html)
   /// in the _Amazon RDS User Guide._
   final List<String> enabledCloudwatchLogsExports;
 
@@ -9349,8 +9462,8 @@ class DBInstance {
 
   /// Indicates if the DB instance has deletion protection enabled. The database
   /// can't be deleted when deletion protection is enabled. For more
-  /// information, see  [Deleting a DB
-  /// Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
+  /// information, see
+  /// [Deleting a DB Instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_DeleteInstance.html).
   final bool deletionProtection;
 
   ///  The AWS Identity and Access Management (IAM) roles associated with the DB
@@ -9427,6 +9540,9 @@ class DBInstance {
   static DBInstance fromJson(Map<String, dynamic> json) => DBInstance();
 }
 
+/// An automated backup of a DB instance. It it consists of system backups,
+/// transaction logs, and the database instance properties that existed at the
+/// time you deleted the source instance.
 class DBInstanceAutomatedBackup {
   /// The Amazon Resource Name (ARN) for the automated backup.
   final String dbInstanceArn;
@@ -9450,11 +9566,11 @@ class DBInstanceAutomatedBackup {
 
   /// Provides a list of status information for an automated backup:
   ///
-  /// *    `active` \- automated backups for current instances
+  /// *    `active` - automated backups for current instances
   ///
-  /// *    `retained` \- automated backups for deleted instances
+  /// *    `retained` - automated backups for deleted instances
   ///
-  /// *    `creating` \- automated backups that are waiting for the first
+  /// *    `creating` - automated backups that are waiting for the first
   /// automated snapshot to be available.
   final String status;
 
@@ -9466,9 +9582,8 @@ class DBInstanceAutomatedBackup {
   final int port;
 
   /// The Availability Zone that the automated backup was created in. For
-  /// information on AWS Regions and Availability Zones, see [Regions and
-  /// Availability
-  /// Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
+  /// information on AWS Regions and Availability Zones, see
+  /// [Regions and Availability Zones](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html).
   final String availabilityZone;
 
   /// Provides the VPC ID associated with the DB instance
@@ -9549,6 +9664,8 @@ class DBInstanceAutomatedBackup {
       DBInstanceAutomatedBackup();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBInstanceAutomatedBackups` action.
 class DBInstanceAutomatedBackupMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9566,6 +9683,8 @@ class DBInstanceAutomatedBackupMessage {
       DBInstanceAutomatedBackupMessage();
 }
 
+///  Contains the result of a successful invocation of the `DescribeDBInstances`
+/// action.
 class DBInstanceMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9583,6 +9702,8 @@ class DBInstanceMessage {
       DBInstanceMessage();
 }
 
+/// Describes an AWS Identity and Access Management (IAM) role that is
+/// associated with a DB instance.
 class DBInstanceRole {
   /// The Amazon Resource Name (ARN) of the IAM role that is associated with the
   /// DB instance.
@@ -9596,13 +9717,13 @@ class DBInstanceRole {
   /// Describes the state of association between the IAM role and the DB
   /// instance. The Status property returns one of the following values:
   ///
-  /// *    `ACTIVE` \- the IAM role ARN is associated with the DB instance and
+  /// *    `ACTIVE` - the IAM role ARN is associated with the DB instance and
   /// can be used to access other AWS services on your behalf.
   ///
-  /// *    `PENDING` \- the IAM role ARN is being associated with the DB
+  /// *    `PENDING` - the IAM role ARN is being associated with the DB
   /// instance.
   ///
-  /// *    `INVALID` \- the IAM role ARN is associated with the DB instance, but
+  /// *    `INVALID` - the IAM role ARN is associated with the DB instance, but
   /// the DB instance is unable to assume the IAM role in order to access other
   /// AWS services on your behalf.
   final String status;
@@ -9615,6 +9736,7 @@ class DBInstanceRole {
   static DBInstanceRole fromJson(Map<String, dynamic> json) => DBInstanceRole();
 }
 
+/// Provides a list of status information for a DB instance.
 class DBInstanceStatusInfo {
   /// This value is currently "read replication."
   final String statusType;
@@ -9642,6 +9764,10 @@ class DBInstanceStatusInfo {
       DBInstanceStatusInfo();
 }
 
+/// Contains the details of an Amazon RDS DB parameter group.
+///
+/// This data type is used as a response element in the
+/// `DescribeDBParameterGroups` action.
 class DBParameterGroup {
   /// Provides the name of the DB parameter group.
   final String dbParameterGroupName;
@@ -9666,6 +9792,8 @@ class DBParameterGroup {
       DBParameterGroup();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBParameters` action.
 class DBParameterGroupDetails {
   ///  A list of `Parameter` values.
   final List<Parameter> parameters;
@@ -9683,6 +9811,8 @@ class DBParameterGroupDetails {
       DBParameterGroupDetails();
 }
 
+///  Contains the result of a successful invocation of the
+/// `ModifyDBParameterGroup` or `ResetDBParameterGroup` action.
 class DBParameterGroupNameMessage {
   /// Provides the name of the DB parameter group.
   final String dbParameterGroupName;
@@ -9694,6 +9824,21 @@ class DBParameterGroupNameMessage {
       DBParameterGroupNameMessage();
 }
 
+/// The status of the DB parameter group.
+///
+/// This data type is used as a response element in the following actions:
+///
+/// *    `CreateDBInstance`
+///
+/// *    `CreateDBInstanceReadReplica`
+///
+/// *    `DeleteDBInstance`
+///
+/// *    `ModifyDBInstance`
+///
+/// *    `RebootDBInstance`
+///
+/// *    `RestoreDBInstanceFromDBSnapshot`
 class DBParameterGroupStatus {
   /// The name of the DB parameter group.
   final String dbParameterGroupName;
@@ -9709,6 +9854,8 @@ class DBParameterGroupStatus {
       DBParameterGroupStatus();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBParameterGroups` action.
 class DBParameterGroupsMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9726,6 +9873,10 @@ class DBParameterGroupsMessage {
       DBParameterGroupsMessage();
 }
 
+/// Contains the details for an Amazon RDS DB security group.
+///
+/// This data type is used as a response element in the
+/// `DescribeDBSecurityGroups` action.
 class DBSecurityGroup {
   /// Provides the AWS ID of the owner of a specific DB security group.
   final String ownerId;
@@ -9761,6 +9912,15 @@ class DBSecurityGroup {
       DBSecurityGroup();
 }
 
+/// This data type is used as a response element in the following actions:
+///
+/// *    `ModifyDBInstance`
+///
+/// *    `RebootDBInstance`
+///
+/// *    `RestoreDBInstanceFromDBSnapshot`
+///
+/// *    `RestoreDBInstanceToPointInTime`
 class DBSecurityGroupMembership {
   /// The name of the DB security group.
   final String dbSecurityGroupName;
@@ -9776,6 +9936,8 @@ class DBSecurityGroupMembership {
       DBSecurityGroupMembership();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBSecurityGroups` action.
 class DBSecurityGroupMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9793,6 +9955,10 @@ class DBSecurityGroupMessage {
       DBSecurityGroupMessage();
 }
 
+/// Contains the details of an Amazon RDS DB snapshot.
+///
+/// This data type is used as a response element in the `DescribeDBSnapshots`
+/// action.
 class DBSnapshot {
   /// Specifies the identifier for the DB snapshot.
   final String dbSnapshotIdentifier;
@@ -9925,6 +10091,11 @@ class DBSnapshot {
   static DBSnapshot fromJson(Map<String, dynamic> json) => DBSnapshot();
 }
 
+/// Contains the name and values of a manual DB snapshot attribute
+///
+/// Manual DB snapshot attributes are used to authorize other AWS accounts to
+/// restore a manual DB snapshot. For more information, see the
+/// `ModifyDBSnapshotAttribute` API.
 class DBSnapshotAttribute {
   /// The name of the manual DB snapshot attribute.
   ///
@@ -9950,6 +10121,12 @@ class DBSnapshotAttribute {
       DBSnapshotAttribute();
 }
 
+/// Contains the results of a successful call to the
+/// `DescribeDBSnapshotAttributes` API action.
+///
+/// Manual DB snapshot attributes are used to authorize other AWS accounts to
+/// copy or restore a manual DB snapshot. For more information, see the
+/// `ModifyDBSnapshotAttribute` API action.
 class DBSnapshotAttributesResult {
   /// The identifier of the manual DB snapshot that the attributes apply to.
   final String dbSnapshotIdentifier;
@@ -9965,6 +10142,8 @@ class DBSnapshotAttributesResult {
       DBSnapshotAttributesResult();
 }
 
+///  Contains the result of a successful invocation of the `DescribeDBSnapshots`
+/// action.
 class DBSnapshotMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -9982,6 +10161,10 @@ class DBSnapshotMessage {
       DBSnapshotMessage();
 }
 
+/// Contains the details of an Amazon RDS DB subnet group.
+///
+/// This data type is used as a response element in the `DescribeDBSubnetGroups`
+/// action.
 class DBSubnetGroup {
   /// The name of the DB subnet group.
   final String dbSubnetGroupName;
@@ -10012,6 +10195,8 @@ class DBSubnetGroup {
   static DBSubnetGroup fromJson(Map<String, dynamic> json) => DBSubnetGroup();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeDBSubnetGroups` action.
 class DBSubnetGroupMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -10111,6 +10296,7 @@ class DescribeDBClusterSnapshotAttributesResult {
       DescribeDBClusterSnapshotAttributesResult();
 }
 
+/// This data type is used as a response element to `DescribeDBLogFiles`.
 class DescribeDBLogFilesDetails {
   /// The name of the log file for the specified DB instance.
   final String logFileName;
@@ -10130,6 +10316,7 @@ class DescribeDBLogFilesDetails {
       DescribeDBLogFilesDetails();
 }
 
+///  The response from a call to `DescribeDBLogFiles`.
 class DescribeDBLogFilesResponse {
   /// The DB log files returned.
   final List<DescribeDBLogFilesDetails> describeDBLogFiles;
@@ -10190,6 +10377,8 @@ class DescribeValidDBInstanceModificationsResult {
       DescribeValidDBInstanceModificationsResult();
 }
 
+/// An Active Directory Domain membership record associated with the DB
+/// instance.
 class DomainMembership {
   /// The identifier of the Active Directory Domain.
   final String domain;
@@ -10215,6 +10404,7 @@ class DomainMembership {
       DomainMembership();
 }
 
+/// A range of double values.
 class DoubleRange {
   /// The minimum value in the range.
   final double from;
@@ -10229,6 +10419,7 @@ class DoubleRange {
   static DoubleRange fromJson(Map<String, dynamic> json) => DoubleRange();
 }
 
+/// This data type is used as a response element to `DownloadDBLogFilePortion`.
 class DownloadDBLogFilePortionDetails {
   /// Entries from the specified log file.
   final String logFileData;
@@ -10249,6 +10440,13 @@ class DownloadDBLogFilePortionDetails {
       DownloadDBLogFilePortionDetails();
 }
 
+/// This data type is used as a response element in the following actions:
+///
+/// *    `AuthorizeDBSecurityGroupIngress`
+///
+/// *    `DescribeDBSecurityGroups`
+///
+/// *    `RevokeDBSecurityGroupIngress`
 class Ec2SecurityGroup {
   /// Provides the status of the EC2 security group. Status can be
   /// "authorizing", "authorized", "revoking", and "revoked".
@@ -10274,6 +10472,19 @@ class Ec2SecurityGroup {
       Ec2SecurityGroup();
 }
 
+/// This data type represents the information you need to connect to an Amazon
+/// RDS DB instance. This data type is used as a response element in the
+/// following actions:
+///
+/// *    `CreateDBInstance`
+///
+/// *    `DescribeDBInstances`
+///
+/// *    `DeleteDBInstance`
+///
+///
+/// For the data structure that represents Amazon Aurora DB cluster endpoints,
+/// see `DBClusterEndpoint`.
 class Endpoint {
   /// Specifies the DNS address of the DB instance.
   final String address;
@@ -10293,6 +10504,8 @@ class Endpoint {
   static Endpoint fromJson(Map<String, dynamic> json) => Endpoint();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeEngineDefaultParameters` action.
 class EngineDefaults {
   /// Specifies the name of the DB parameter group family that the engine
   /// default parameters apply to.
@@ -10314,6 +10527,8 @@ class EngineDefaults {
   static EngineDefaults fromJson(Map<String, dynamic> json) => EngineDefaults();
 }
 
+///  This data type is used as a response element in the `DescribeEvents`
+/// action.
 class Event {
   /// Provides the identifier for the source of the event.
   final String sourceIdentifier;
@@ -10344,6 +10559,8 @@ class Event {
   static Event fromJson(Map<String, dynamic> json) => Event();
 }
 
+/// Contains the results of a successful invocation of the
+/// `DescribeEventCategories` action.
 class EventCategoriesMap {
   /// The source type that the returned categories belong to
   final String sourceType;
@@ -10359,6 +10576,7 @@ class EventCategoriesMap {
       EventCategoriesMap();
 }
 
+/// Data returned from the **DescribeEventCategories** action.
 class EventCategoriesMessage {
   /// A list of EventCategoriesMap data types.
   final List<EventCategoriesMap> eventCategoriesMapList;
@@ -10370,6 +10588,8 @@ class EventCategoriesMessage {
       EventCategoriesMessage();
 }
 
+/// Contains the results of a successful invocation of the
+/// `DescribeEventSubscriptions` action.
 class EventSubscription {
   /// The AWS customer account associated with the RDS event notification
   /// subscription.
@@ -10428,6 +10648,7 @@ class EventSubscription {
       EventSubscription();
 }
 
+/// Data returned by the **DescribeEventSubscriptions** action.
 class EventSubscriptionsMessage {
   ///  An optional pagination token provided by a previous
   /// DescribeOrderableDBInstanceOptions request. If this parameter is
@@ -10446,6 +10667,8 @@ class EventSubscriptionsMessage {
       EventSubscriptionsMessage();
 }
 
+///  Contains the result of a successful invocation of the `DescribeEvents`
+/// action.
 class EventsMessage {
   ///  An optional pagination token provided by a previous Events request. If
   /// this parameter is specified, the response includes only records beyond the
@@ -10472,6 +10695,24 @@ class FailoverDBClusterResult {
       FailoverDBClusterResult();
 }
 
+/// A filter name and value pair that is used to return a more specific list of
+/// results from a describe operation. Filters can be used to match a set of
+/// resources by specific criteria, such as IDs. The filters supported by a
+/// describe operation are documented with the describe operation.
+///
+///  Currently, wildcards are not supported in filters.
+///
+/// The following actions can be filtered:
+///
+/// *    `DescribeDBClusterBacktracks`
+///
+/// *    `DescribeDBClusterEndpoints`
+///
+/// *    `DescribeDBClusters`
+///
+/// *    `DescribeDBInstances`
+///
+/// *    `DescribePendingMaintenanceActions`
 class Filter {
   /// The name of the filter. Filter names are case-sensitive.
   final String name;
@@ -10485,6 +10726,7 @@ class Filter {
   });
 }
 
+/// A data type representing an Aurora global database.
 class GlobalCluster {
   ///  Contains a user-supplied global database cluster identifier. This
   /// identifier is the unique key that identifies a global database cluster.
@@ -10535,6 +10777,8 @@ class GlobalCluster {
   static GlobalCluster fromJson(Map<String, dynamic> json) => GlobalCluster();
 }
 
+///  A data structure with information about any primary and secondary clusters
+/// associated with an Aurora global database.
 class GlobalClusterMember {
   ///  The Amazon Resource Name (ARN) for each Aurora cluster.
   final String dbClusterArn;
@@ -10575,6 +10819,8 @@ class GlobalClustersMessage {
       GlobalClustersMessage();
 }
 
+///  This data type is used as a response element in the
+/// `DescribeDBSecurityGroups` action.
 class IPRange {
   /// Specifies the status of the IP range. Status can be "authorizing",
   /// "authorized", "revoking", and "revoked".
@@ -10590,6 +10836,8 @@ class IPRange {
   static IPRange fromJson(Map<String, dynamic> json) => IPRange();
 }
 
+/// The minimum DB engine version required for each corresponding allowed value
+/// for an option setting.
 class MinimumEngineVersionPerAllowedValue {
   /// The allowed value for an option setting.
   final String allowedValue;
@@ -10697,6 +10945,7 @@ class ModifyOptionGroupResult {
       ModifyOptionGroupResult();
 }
 
+/// Option details.
 class Option {
   /// The name of the option.
   final String optionName;
@@ -10741,6 +10990,7 @@ class Option {
   static Option fromJson(Map<String, dynamic> json) => Option();
 }
 
+/// A list of all available options
 class OptionConfiguration {
   /// The configuration of options to include in a group.
   final String optionName;
@@ -10815,6 +11065,7 @@ class OptionGroup {
   static OptionGroup fromJson(Map<String, dynamic> json) => OptionGroup();
 }
 
+/// Provides information on the option groups the DB instance is a member of.
 class OptionGroupMembership {
   /// The name of the option group that the instance belongs to.
   final String optionGroupName;
@@ -10833,6 +11084,7 @@ class OptionGroupMembership {
       OptionGroupMembership();
 }
 
+/// Available option.
 class OptionGroupOption {
   /// The name of the option.
   final String name;
@@ -10913,6 +11165,9 @@ class OptionGroupOption {
       OptionGroupOption();
 }
 
+/// Option group option settings are used to display settings available for each
+/// option with their default values and other information. These values are
+/// used with the DescribeOptionGroupOptions action.
 class OptionGroupOptionSetting {
   /// The name of the option group option.
   final String settingName;
@@ -10972,6 +11227,7 @@ class OptionGroupOptionsMessage {
       OptionGroupOptionsMessage();
 }
 
+/// List of option groups.
 class OptionGroups {
   /// List of option groups.
   final List<OptionGroup> optionGroupsList;
@@ -10988,6 +11244,10 @@ class OptionGroups {
   static OptionGroups fromJson(Map<String, dynamic> json) => OptionGroups();
 }
 
+/// Option settings are the actual settings being applied or configured for that
+/// option. It is used when you modify an option group or describe option
+/// groups. For example, the NATIVE_NETWORK_ENCRYPTION option has a setting
+/// called SQLNET.ENCRYPTION_SERVER that can have several different values.
 class OptionSetting {
   /// The name of the option that has settings that you can set.
   final String name;
@@ -11031,6 +11291,8 @@ class OptionSetting {
   static OptionSetting fromJson(Map<String, dynamic> json) => OptionSetting();
 }
 
+/// The version for an option. Option group option versions are returned by the
+/// `DescribeOptionGroupOptions` action.
 class OptionVersion {
   /// The version of the option.
   final String version;
@@ -11046,6 +11308,10 @@ class OptionVersion {
   static OptionVersion fromJson(Map<String, dynamic> json) => OptionVersion();
 }
 
+/// Contains a list of available options for a DB instance.
+///
+///  This data type is used as a response element in the
+/// `DescribeOrderableDBInstanceOptions` action.
 class OrderableDBInstanceOption {
   /// The engine type of a DB instance.
   final String engine;
@@ -11148,6 +11414,8 @@ class OrderableDBInstanceOption {
       OrderableDBInstanceOption();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeOrderableDBInstanceOptions` action.
 class OrderableDBInstanceOptionsMessage {
   /// An `OrderableDBInstanceOption` structure containing information about
   /// orderable options for the DB instance.
@@ -11168,6 +11436,11 @@ class OrderableDBInstanceOptionsMessage {
       OrderableDBInstanceOptionsMessage();
 }
 
+///  This data type is used as a request parameter in the
+/// `ModifyDBParameterGroup` and `ResetDBParameterGroup` actions.
+///
+/// This data type is used as a response element in the
+/// `DescribeEngineDefaultParameters` and `DescribeDBParameters` actions.
 class Parameter {
   /// Specifies the name of the parameter.
   final String parameterName;
@@ -11220,6 +11493,8 @@ class Parameter {
   static Parameter fromJson(Map<String, dynamic> json) => Parameter();
 }
 
+/// A list of the log types whose configuration is still pending. In other
+/// words, these log types are in the process of being activated or deactivated.
 class PendingCloudwatchLogsExports {
   /// Log types that are in the process of being deactivated. After they are
   /// deactivated, these log types aren't exported to CloudWatch Logs.
@@ -11237,6 +11512,7 @@ class PendingCloudwatchLogsExports {
       PendingCloudwatchLogsExports();
 }
 
+/// Provides information about a pending maintenance action for a resource.
 class PendingMaintenanceAction {
   /// The type of pending maintenance action that is available for the resource.
   /// Valid actions are `system-update`, `db-upgrade`, and
@@ -11280,6 +11556,7 @@ class PendingMaintenanceAction {
       PendingMaintenanceAction();
 }
 
+/// Data returned from the **DescribePendingMaintenanceActions** action.
 class PendingMaintenanceActionsMessage {
   /// A list of the pending maintenance actions for the resource.
   final List<ResourcePendingMaintenanceActions> pendingMaintenanceActions;
@@ -11298,6 +11575,8 @@ class PendingMaintenanceActionsMessage {
       PendingMaintenanceActionsMessage();
 }
 
+///  This data type is used as a response element in the `ModifyDBInstance`
+/// action.
 class PendingModifiedValues {
   ///  Contains the new `DBInstanceClass` for the DB instance that will be
   /// applied or is currently being applied.
@@ -11375,6 +11654,43 @@ class PendingModifiedValues {
       PendingModifiedValues();
 }
 
+/// Contains the processor features of a DB instance class.
+///
+/// To specify the number of CPU cores, use the `coreCount` feature name for the
+/// `Name` parameter. To specify the number of threads per core, use the
+/// `threadsPerCore` feature name for the `Name` parameter.
+///
+/// You can set the processor features of the DB instance class for a DB
+/// instance when you call one of the following actions:
+///
+/// *    `CreateDBInstance`
+///
+/// *    `ModifyDBInstance`
+///
+/// *    `RestoreDBInstanceFromDBSnapshot`
+///
+/// *    `RestoreDBInstanceFromS3`
+///
+/// *    `RestoreDBInstanceToPointInTime`
+///
+///
+/// You can view the valid processor values for a particular instance class by
+/// calling the `DescribeOrderableDBInstanceOptions` action and specifying the
+/// instance class for the `DBInstanceClass` parameter.
+///
+/// In addition, you can use the following actions for DB instance class
+/// processor information:
+///
+/// *    `DescribeDBInstances`
+///
+/// *    `DescribeDBSnapshots`
+///
+/// *    `DescribeValidDBInstanceModifications`
+///
+///
+/// For more information, see
+/// [Configuring the Processor of the DB Instance Class](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html#USER_ConfigureProcessor)
+/// in the _Amazon RDS User Guide._
 class ProcessorFeature {
   /// The name of the processor feature. Valid names are `coreCount` and
   /// `threadsPerCore`.
@@ -11423,6 +11739,7 @@ class PurchaseReservedDBInstancesOfferingResult {
       PurchaseReservedDBInstancesOfferingResult();
 }
 
+/// A range of integer values.
 class Range {
   /// The minimum value in the range.
   final int from;
@@ -11454,6 +11771,9 @@ class RebootDBInstanceResult {
       RebootDBInstanceResult();
 }
 
+///  This data type is used as a response element in the
+/// `DescribeReservedDBInstances` and `DescribeReservedDBInstancesOfferings`
+/// actions.
 class RecurringCharge {
   /// The amount of the recurring charge.
   final double recurringChargeAmount;
@@ -11490,6 +11810,9 @@ class RemoveSourceIdentifierFromSubscriptionResult {
       RemoveSourceIdentifierFromSubscriptionResult();
 }
 
+///  This data type is used as a response element in the
+/// `DescribeReservedDBInstances` and `PurchaseReservedDBInstancesOffering`
+/// actions.
 class ReservedDBInstance {
   /// The unique identifier for the reservation.
   final String reservedDBInstanceId;
@@ -11557,6 +11880,8 @@ class ReservedDBInstance {
       ReservedDBInstance();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeReservedDBInstances` action.
 class ReservedDBInstanceMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -11574,6 +11899,8 @@ class ReservedDBInstanceMessage {
       ReservedDBInstanceMessage();
 }
 
+///  This data type is used as a response element in the
+/// `DescribeReservedDBInstancesOfferings` action.
 class ReservedDBInstancesOffering {
   /// The offering identifier.
   final String reservedDBInstancesOfferingId;
@@ -11621,6 +11948,8 @@ class ReservedDBInstancesOffering {
       ReservedDBInstancesOffering();
 }
 
+///  Contains the result of a successful invocation of the
+/// `DescribeReservedDBInstancesOfferings` action.
 class ReservedDBInstancesOfferingMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -11639,6 +11968,7 @@ class ReservedDBInstancesOfferingMessage {
       ReservedDBInstancesOfferingMessage();
 }
 
+/// Describes the pending maintenance actions for a resource.
 class ResourcePendingMaintenanceActions {
   /// The ARN of the resource that has pending maintenance actions.
   final String resourceIdentifier;
@@ -11720,6 +12050,7 @@ class RestoreDBInstanceToPointInTimeResult {
       RestoreDBInstanceToPointInTimeResult();
 }
 
+/// Earliest and latest time an instance can be restored to:
 class RestoreWindow {
   /// The earliest time you can restore an instance to.
   final DateTime earliestTime;
@@ -11745,6 +12076,11 @@ class RevokeDBSecurityGroupIngressResult {
       RevokeDBSecurityGroupIngressResult();
 }
 
+/// Contains the scaling configuration of an Aurora Serverless DB cluster.
+///
+/// For more information, see
+/// [Using Amazon Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
+/// in the _Amazon Aurora User Guide_.
 class ScalingConfiguration {
   /// The minimum capacity for an Aurora DB cluster in `serverless` DB engine
   /// mode.
@@ -11792,8 +12128,8 @@ class ScalingConfiguration {
   ///  If you specify `ForceApplyCapacityChange`, connections that prevent
   /// Aurora Serverless from finding a scaling point might be dropped.
   ///
-  /// For more information, see  [Autoscaling for Aurora
-  /// Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling)
+  /// For more information, see
+  /// [Autoscaling for Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling)
   /// in the _Amazon Aurora User Guide_.
   final String timeoutAction;
 
@@ -11806,6 +12142,12 @@ class ScalingConfiguration {
   });
 }
 
+/// Shows the scaling configuration for an Aurora DB cluster in `serverless` DB
+/// engine mode.
+///
+/// For more information, see
+/// [Using Amazon Aurora Serverless](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html)
+/// in the _Amazon Aurora User Guide_.
 class ScalingConfigurationInfo {
   /// The maximum capacity for the Aurora DB cluster in `serverless` DB engine
   /// mode.
@@ -11842,6 +12184,8 @@ class ScalingConfigurationInfo {
       ScalingConfigurationInfo();
 }
 
+/// Contains an AWS Region name as the result of a successful call to the
+/// `DescribeSourceRegions` action.
 class SourceRegion {
   /// The name of the source AWS Region.
   final String regionName;
@@ -11860,6 +12204,8 @@ class SourceRegion {
   static SourceRegion fromJson(Map<String, dynamic> json) => SourceRegion();
 }
 
+/// Contains the result of a successful invocation of the
+/// `DescribeSourceRegions` action.
 class SourceRegionMessage {
   ///  An optional pagination token provided by a previous request. If this
   /// parameter is specified, the response includes only records beyond the
@@ -11969,6 +12315,8 @@ class StopDBInstanceResult {
       StopDBInstanceResult();
 }
 
+///  This data type is used as a response element in the
+/// `DescribeDBSubnetGroups` action.
 class Subnet {
   /// Specifies the identifier of the subnet.
   final String subnetIdentifier;
@@ -11986,19 +12334,20 @@ class Subnet {
   static Subnet fromJson(Map<String, dynamic> json) => Subnet();
 }
 
+/// Metadata assigned to an Amazon RDS resource consisting of a key-value pair.
 class Tag {
   /// A key is the required name of the tag. The string value can be from 1 to
   /// 128 Unicode characters in length and can't be prefixed with "aws:" or
   /// "rds:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String key;
 
   /// A value is the optional value of the tag. The string value can be from 1
   /// to 256 Unicode characters in length and can't be prefixed with "aws:" or
   /// "rds:". The string can only contain only the set of Unicode letters,
   /// digits, white-space, '_', '.', '/', '=', '+', '-' (Java regex:
-  /// "^(\[\\\p{L}\\\p{Z}\\\p{N}_.:/=+\\\-\]*)$").
+  /// "^([p{L}p{Z}p{N}_.:/=+-]*)$").
   final String value;
 
   Tag({
@@ -12018,6 +12367,9 @@ class TagListMessage {
   static TagListMessage fromJson(Map<String, dynamic> json) => TagListMessage();
 }
 
+/// A time zone associated with a `DBInstance` or a `DBSnapshot`. This data type
+/// is an element in the response to the `DescribeDBInstances`, the
+/// `DescribeDBSnapshots`, and the `DescribeDBEngineVersions` actions.
 class Timezone {
   /// The name of the time zone.
   final String timezoneName;
@@ -12028,6 +12380,7 @@ class Timezone {
   static Timezone fromJson(Map<String, dynamic> json) => Timezone();
 }
 
+/// The version of the database engine that a DB instance can be upgraded to.
 class UpgradeTarget {
   /// The name of the upgrade target database engine.
   final String engine;
@@ -12056,6 +12409,10 @@ class UpgradeTarget {
   static UpgradeTarget fromJson(Map<String, dynamic> json) => UpgradeTarget();
 }
 
+/// Information about valid modifications that you can make to your DB instance.
+/// Contains the result of a successful call to the
+/// `DescribeValidDBInstanceModifications` action. You can use this information
+/// when you call `ModifyDBInstance`.
 class ValidDBInstanceModificationsMessage {
   /// Valid storage options for your DB instance.
   final List<ValidStorageOptions> storage;
@@ -12072,6 +12429,9 @@ class ValidDBInstanceModificationsMessage {
       ValidDBInstanceModificationsMessage();
 }
 
+/// Information about valid modifications that you can make to your DB instance.
+/// Contains the result of a successful call to the
+/// `DescribeValidDBInstanceModifications` action.
 class ValidStorageOptions {
   /// The valid storage types for your DB instance. For example, gp2, io1.
   final String storageType;
@@ -12102,6 +12462,8 @@ class ValidStorageOptions {
       ValidStorageOptions();
 }
 
+/// This data type is used as a response element for queries on VPC security
+/// group membership.
 class VpcSecurityGroupMembership {
   /// The name of the VPC security group.
   final String vpcSecurityGroupId;

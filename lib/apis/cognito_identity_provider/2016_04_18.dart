@@ -63,7 +63,7 @@ class CognitoIdentityProviderApi {
   /// Alternatively, you can call AdminCreateUser with “SUPPRESS” for the
   /// `MessageAction` parameter, and Amazon Cognito will not send any email.
   ///
-  /// In either case, the user will be in the `FORCE\_CHANGE\_PASSWORD` state
+  /// In either case, the user will be in the `FORCE_CHANGE_PASSWORD` state
   /// until they sign in and change their password.
   ///
   /// AdminCreateUser requires developer credentials.
@@ -92,8 +92,8 @@ class CognitoIdentityProviderApi {
   /// managing your user pools.
   ///
   /// In your call to `AdminCreateUser`, you can set the `email_verified`
-  /// attribute to `True`, and you can set the `phone\_number\_verified`
-  /// attribute to `True`. (You can also do this by calling .)
+  /// attribute to `True`, and you can set the `phone_number_verified` attribute
+  /// to `True`. (You can also do this by calling .)
   ///
   /// *    **email**: The email address of the user to whom the message that
   /// contains the code and username will be sent. Required if the
@@ -102,7 +102,7 @@ class CognitoIdentityProviderApi {
   ///
   /// *    **phone_number**: The phone number of the user to whom the message
   /// that contains the code and username will be sent. Required if the
-  /// `phone\_number\_verified` attribute is set to `True`, or if `"SMS"` is
+  /// `phone_number_verified` attribute is set to `True`, or if `"SMS"` is
   /// specified in the `DesiredDeliveryMediums` parameter.
   ///
   /// [validationData]: The user's validation data. This is an array of
@@ -135,7 +135,7 @@ class CognitoIdentityProviderApi {
   /// specifying `"RESEND"` for the `MessageAction` parameter.
   ///
   /// [forceAliasCreation]: This parameter is only used if the
-  /// `phone\_number\_verified` or `email_verified` attribute is set to `True`.
+  /// `phone_number_verified` or `email_verified` attribute is set to `True`.
   /// Otherwise, it is ignored.
   ///
   /// If this parameter is set to `True` and the phone number or email address
@@ -325,32 +325,32 @@ class CognitoIdentityProviderApi {
   /// [authFlow]: The authentication flow for this call to execute. The API
   /// action will depend on this value. For example:
   ///
-  /// *    `REFRESH\_TOKEN\_AUTH` will take in a valid refresh token and return
+  /// *    `REFRESH_TOKEN_AUTH` will take in a valid refresh token and return
   /// new tokens.
   ///
-  /// *    `USER\_SRP\_AUTH` will take in `USERNAME` and `SRP_A` and return the
+  /// *    `USER_SRP_AUTH` will take in `USERNAME` and `SRP_A` and return the
   /// SRP variables to be used for next challenge execution.
   ///
-  /// *    `USER\_PASSWORD\_AUTH` will take in `USERNAME` and `PASSWORD` and
+  /// *    `USER_PASSWORD_AUTH` will take in `USERNAME` and `PASSWORD` and
   /// return the next challenge or tokens.
   ///
   ///
   /// Valid values include:
   ///
-  /// *    `USER\_SRP\_AUTH`: Authentication flow for the Secure Remote Password
+  /// *    `USER_SRP_AUTH`: Authentication flow for the Secure Remote Password
   /// (SRP) protocol.
   ///
-  /// *    `REFRESH\_TOKEN\_AUTH`/`REFRESH_TOKEN`: Authentication flow for
+  /// *    `REFRESH_TOKEN_AUTH`/`REFRESH_TOKEN`: Authentication flow for
   /// refreshing the access token and ID token by supplying a valid refresh
   /// token.
   ///
   /// *    `CUSTOM_AUTH`: Custom authentication flow.
   ///
-  /// *    `ADMIN\_NO\_SRP_AUTH`: Non-SRP authentication flow; you can pass in
-  /// the USERNAME and PASSWORD directly if the flow is enabled for calling the
-  /// app client.
+  /// *    `ADMIN_NO_SRP_AUTH`: Non-SRP authentication flow; you can pass in the
+  /// USERNAME and PASSWORD directly if the flow is enabled for calling the app
+  /// client.
   ///
-  /// *    `USER\_PASSWORD\_AUTH`: Non-SRP authentication flow; USERNAME and
+  /// *    `USER_PASSWORD_AUTH`: Non-SRP authentication flow; USERNAME and
   /// PASSWORD are passed directly. If a user migration Lambda trigger is set,
   /// this flow will invoke the user migration Lambda if the USERNAME is not
   /// found in the user pool.
@@ -359,16 +359,16 @@ class CognitoIdentityProviderApi {
   /// corresponding to the `AuthFlow` that you are invoking. The required values
   /// depend on the value of `AuthFlow`:
   ///
-  /// *   For `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required),
+  /// *   For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required),
   /// `SECRET_HASH` (required if the app client is configured with a client
   /// secret), `DEVICE_KEY`
   ///
-  /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
+  /// *   For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
   /// `SECRET_HASH` (required if the app client is configured with a client
   /// secret), `DEVICE_KEY`
   ///
-  /// *   For `ADMIN\_NO\_SRP_AUTH`: `USERNAME` (required), `SECRET_HASH` (if
-  /// app client is configured with client secret), `PASSWORD` (required),
+  /// *   For `ADMIN_NO_SRP_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app
+  /// client is configured with client secret), `PASSWORD` (required),
   /// `DEVICE_KEY`
   ///
   /// *   For `CUSTOM_AUTH`: `USERNAME` (required), `SECRET_HASH` (if app client
@@ -573,17 +573,17 @@ class CognitoIdentityProviderApi {
   /// [challengeResponses]: The challenge responses. These are inputs
   /// corresponding to the value of `ChallengeName`, for example:
   ///
-  /// *    `SMS_MFA`: `SMS\_MFA\_CODE`, `USERNAME`, `SECRET_HASH` (if app client
+  /// *    `SMS_MFA`: `SMS_MFA_CODE`, `USERNAME`, `SECRET_HASH` (if app client
   /// is configured with client secret).
   ///
-  /// *    `PASSWORD_VERIFIER`: `PASSWORD\_CLAIM\_SIGNATURE`,
-  /// `PASSWORD\_CLAIM\_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`, `SECRET_HASH`
-  /// (if app client is configured with client secret).
+  /// *    `PASSWORD_VERIFIER`: `PASSWORD_CLAIM_SIGNATURE`,
+  /// `PASSWORD_CLAIM_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`, `SECRET_HASH` (if
+  /// app client is configured with client secret).
   ///
-  /// *    `ADMIN\_NO\_SRP_AUTH`: `PASSWORD`, `USERNAME`, `SECRET_HASH` (if app
+  /// *    `ADMIN_NO_SRP_AUTH`: `PASSWORD`, `USERNAME`, `SECRET_HASH` (if app
   /// client is configured with client secret).
   ///
-  /// *    `NEW\_PASSWORD\_REQUIRED`: `NEW_PASSWORD`, any other required
+  /// *    `NEW_PASSWORD_REQUIRED`: `NEW_PASSWORD`, any other required
   /// attributes, `USERNAME`, `SECRET_HASH` (if app client is configured with
   /// client secret).
   ///
@@ -591,7 +591,7 @@ class CognitoIdentityProviderApi {
   /// The value of the `USERNAME` attribute must be the user's actual username,
   /// not an alias (such as email address or phone number). To make this easier,
   /// the `AdminInitiateAuth` response includes the actual username value in the
-  /// `USERNAMEUSER\_ID\_FOR_SRP` attribute, even if you specified an alias in
+  /// `USERNAMEUSER_ID_FOR_SRP` attribute, even if you specified an alias in
   /// your call to `AdminInitiateAuth`.
   ///
   /// [session]: The session which should be passed both ways in
@@ -1076,8 +1076,7 @@ class CognitoIdentityProviderApi {
   /// sign in to your application through an identity provider. If your app
   /// client lacks write access to a mapped attribute, Amazon Cognito throws an
   /// error when it attempts to update the attribute. For more information, see
-  /// [Specifying Identity Provider Attribute Mappings for Your User
-  /// Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html).
+  /// [Specifying Identity Provider Attribute Mappings for Your User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html).
   ///
   /// [explicitAuthFlows]: The explicit authentication flows.
   ///
@@ -1097,8 +1096,8 @@ class CognitoIdentityProviderApi {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -1119,8 +1118,8 @@ class CognitoIdentityProviderApi {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -1175,8 +1174,7 @@ class CognitoIdentityProviderApi {
   /// Cognito hosted domain instead.
   ///
   /// For more information about the hosted domain and custom domains, see
-  /// [Configuring a User Pool
-  /// Domain](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html).
+  /// [Configuring a User Pool Domain](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-assign-domain.html).
   Future<CreateUserPoolDomainResponse> createUserPoolDomain(
       {@required String domain,
       @required String userPoolId,
@@ -1473,44 +1471,44 @@ class CognitoIdentityProviderApi {
   /// [authFlow]: The authentication flow for this call to execute. The API
   /// action will depend on this value. For example:
   ///
-  /// *    `REFRESH\_TOKEN\_AUTH` will take in a valid refresh token and return
+  /// *    `REFRESH_TOKEN_AUTH` will take in a valid refresh token and return
   /// new tokens.
   ///
-  /// *    `USER\_SRP\_AUTH` will take in `USERNAME` and `SRP_A` and return the
+  /// *    `USER_SRP_AUTH` will take in `USERNAME` and `SRP_A` and return the
   /// SRP variables to be used for next challenge execution.
   ///
-  /// *    `USER\_PASSWORD\_AUTH` will take in `USERNAME` and `PASSWORD` and
+  /// *    `USER_PASSWORD_AUTH` will take in `USERNAME` and `PASSWORD` and
   /// return the next challenge or tokens.
   ///
   ///
   /// Valid values include:
   ///
-  /// *    `USER\_SRP\_AUTH`: Authentication flow for the Secure Remote Password
+  /// *    `USER_SRP_AUTH`: Authentication flow for the Secure Remote Password
   /// (SRP) protocol.
   ///
-  /// *    `REFRESH\_TOKEN\_AUTH`/`REFRESH_TOKEN`: Authentication flow for
+  /// *    `REFRESH_TOKEN_AUTH`/`REFRESH_TOKEN`: Authentication flow for
   /// refreshing the access token and ID token by supplying a valid refresh
   /// token.
   ///
   /// *    `CUSTOM_AUTH`: Custom authentication flow.
   ///
-  /// *    `USER\_PASSWORD\_AUTH`: Non-SRP authentication flow; USERNAME and
+  /// *    `USER_PASSWORD_AUTH`: Non-SRP authentication flow; USERNAME and
   /// PASSWORD are passed directly. If a user migration Lambda trigger is set,
   /// this flow will invoke the user migration Lambda if the USERNAME is not
   /// found in the user pool.
   ///
   ///
-  ///  `ADMIN\_NO\_SRP_AUTH` is not a valid value.
+  ///  `ADMIN_NO_SRP_AUTH` is not a valid value.
   ///
   /// [authParameters]: The authentication parameters. These are inputs
   /// corresponding to the `AuthFlow` that you are invoking. The required values
   /// depend on the value of `AuthFlow`:
   ///
-  /// *   For `USER\_SRP\_AUTH`: `USERNAME` (required), `SRP_A` (required),
+  /// *   For `USER_SRP_AUTH`: `USERNAME` (required), `SRP_A` (required),
   /// `SECRET_HASH` (required if the app client is configured with a client
   /// secret), `DEVICE_KEY`
   ///
-  /// *   For `REFRESH\_TOKEN\_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
+  /// *   For `REFRESH_TOKEN_AUTH/REFRESH_TOKEN`: `REFRESH_TOKEN` (required),
   /// `SECRET_HASH` (required if the app client is configured with a client
   /// secret), `DEVICE_KEY`
   ///
@@ -1670,15 +1668,15 @@ class CognitoIdentityProviderApi {
   ///
   /// [filter]: A filter string of the form "_AttributeName_ _Filter-Type_
   /// "_AttributeValue_"". Quotation marks within the filter string must be
-  /// escaped using the backslash (\\) character. For example, "`family_name` =
-  /// \\"Reddy\\"".
+  /// escaped using the backslash () character. For example, "`family_name` =
+  /// "Reddy"".
   ///
   /// *    _AttributeName_: The name of the attribute to search for. You can
   /// only search for one attribute at a time.
   ///
   /// *    _Filter-Type_: For an exact match, use =, for example, "`given_name`
-  /// = \\"Jon\\"". For a prefix ("starts with") match, use ^=, for example,
-  /// "`given_name` ^= \\"Jon\\"".
+  /// = "Jon"". For a prefix ("starts with") match, use ^=, for example,
+  /// "`given_name` ^= "Jon"".
   ///
   /// *    _AttributeValue_: The attribute value that must be matched for each
   /// user.
@@ -1713,10 +1711,10 @@ class CognitoIdentityProviderApi {
   ///
   /// Custom attributes are not searchable.
   ///
-  /// For more information, see [Searching for Users Using the ListUsers
-  /// API](http://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api)
-  /// and [Examples of Using the ListUsers
-  /// API](http://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples)
+  /// For more information, see
+  /// [Searching for Users Using the ListUsers API](http://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api)
+  /// and
+  /// [Examples of Using the ListUsers API](http://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples)
   /// in the _Amazon Cognito Developer Guide_.
   Future<ListUsersResponse> listUsers(String userPoolId,
       {List<String> attributesToGet,
@@ -1780,7 +1778,7 @@ class CognitoIdentityProviderApi {
   ///
   /// [challengeName]: The challenge name. For more information, see .
   ///
-  ///  `ADMIN\_NO\_SRP_AUTH` is not a valid value.
+  ///  `ADMIN_NO_SRP_AUTH` is not a valid value.
   ///
   /// [session]: The session which should be passed both ways in
   /// challenge-response calls to the service. If `InitiateAuth` or
@@ -1792,14 +1790,14 @@ class CognitoIdentityProviderApi {
   /// [challengeResponses]: The challenge responses. These are inputs
   /// corresponding to the value of `ChallengeName`, for example:
   ///
-  /// *    `SMS_MFA`: `SMS\_MFA\_CODE`, `USERNAME`, `SECRET_HASH` (if app client
+  /// *    `SMS_MFA`: `SMS_MFA_CODE`, `USERNAME`, `SECRET_HASH` (if app client
   /// is configured with client secret).
   ///
-  /// *    `PASSWORD_VERIFIER`: `PASSWORD\_CLAIM\_SIGNATURE`,
-  /// `PASSWORD\_CLAIM\_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`, `SECRET_HASH`
-  /// (if app client is configured with client secret).
+  /// *    `PASSWORD_VERIFIER`: `PASSWORD_CLAIM_SIGNATURE`,
+  /// `PASSWORD_CLAIM_SECRET_BLOCK`, `TIMESTAMP`, `USERNAME`, `SECRET_HASH` (if
+  /// app client is configured with client secret).
   ///
-  /// *    `NEW\_PASSWORD\_REQUIRED`: `NEW_PASSWORD`, any other required
+  /// *    `NEW_PASSWORD_REQUIRED`: `NEW_PASSWORD`, any other required
   /// attributes, `USERNAME`, `SECRET_HASH` (if app client is configured with
   /// client secret).
   ///
@@ -2171,13 +2169,13 @@ class CognitoIdentityProviderApi {
   ///
   /// [mfaConfiguration]: Can be one of the following values:
   ///
-  /// *    `OFF` \- MFA tokens are not required and cannot be specified during
+  /// *    `OFF` - MFA tokens are not required and cannot be specified during
   /// user registration.
   ///
-  /// *    `ON` \- MFA tokens are required for all user registrations. You can
+  /// *    `ON` - MFA tokens are required for all user registrations. You can
   /// only specify required when you are initially creating a user pool.
   ///
-  /// *    `OPTIONAL` \- Users have the option when registering to create an MFA
+  /// *    `OPTIONAL` - Users have the option when registering to create an MFA
   /// token.
   ///
   /// [deviceConfiguration]: Device configuration.
@@ -2249,8 +2247,8 @@ class CognitoIdentityProviderApi {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -2271,8 +2269,8 @@ class CognitoIdentityProviderApi {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -2339,8 +2337,7 @@ class CognitoIdentityProviderApi {
   /// distribute your new certificate to your custom domain.
   ///
   /// For more information about adding a custom domain to your user pool, see
-  /// [Using Your Own Domain for the Hosted
-  /// UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html).
+  /// [Using Your Own Domain for the Hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html).
   ///
   /// [domain]: The domain name for the custom domain that hosts the sign-up and
   /// sign-in pages for your application. For example: `auth.example.com`.
@@ -2397,6 +2394,7 @@ class CognitoIdentityProviderApi {
   }
 }
 
+/// Account takeover action type.
 class AccountTakeoverActionType {
   /// Flag specifying whether to send a notification.
   final bool notify;
@@ -2405,7 +2403,7 @@ class AccountTakeoverActionType {
   ///
   /// *    `BLOCK` Choosing this action will block the request.
   ///
-  /// *    `MFA\_IF\_CONFIGURED` Throw MFA challenge if user has configured it,
+  /// *    `MFA_IF_CONFIGURED` Throw MFA challenge if user has configured it,
   /// else allow the request.
   ///
   /// *    `MFA_REQUIRED` Throw MFA challenge if user has configured it, else
@@ -2422,6 +2420,7 @@ class AccountTakeoverActionType {
       AccountTakeoverActionType();
 }
 
+/// Account takeover actions type.
 class AccountTakeoverActionsType {
   /// Action to take for a low risk.
   final AccountTakeoverActionType lowAction;
@@ -2441,6 +2440,8 @@ class AccountTakeoverActionsType {
       AccountTakeoverActionsType();
 }
 
+/// Configuration for mitigation actions and notification for different levels
+/// of risk detected for a potential account takeover.
 class AccountTakeoverRiskConfigurationType {
   /// The notify configuration used to construct email notifications.
   final NotifyConfigurationType notifyConfiguration;
@@ -2457,18 +2458,23 @@ class AccountTakeoverRiskConfigurationType {
       AccountTakeoverRiskConfigurationType();
 }
 
+/// Represents the response from the server for the request to add custom
+/// attributes.
 class AddCustomAttributesResponse {
   AddCustomAttributesResponse();
   static AddCustomAttributesResponse fromJson(Map<String, dynamic> json) =>
       AddCustomAttributesResponse();
 }
 
+/// Represents the response from the server for the request to confirm
+/// registration.
 class AdminConfirmSignUpResponse {
   AdminConfirmSignUpResponse();
   static AdminConfirmSignUpResponse fromJson(Map<String, dynamic> json) =>
       AdminConfirmSignUpResponse();
 }
 
+/// The configuration for creating a new user profile.
 class AdminCreateUserConfigType {
   /// Set to `True` if only the administrator is allowed to create user
   /// profiles. Set to `False` if users can sign themselves up via an app.
@@ -2488,8 +2494,8 @@ class AdminCreateUserConfigType {
 
   /// The message template to be used for the welcome message to new users.
   ///
-  /// See also [Customizing User Invitation
-  /// Messages](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization).
+  /// See also
+  /// [Customizing User Invitation Messages](http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-message-customizations.html#cognito-user-pool-settings-user-invitation-message-customization).
   final MessageTemplateType inviteMessageTemplate;
 
   AdminCreateUserConfigType({
@@ -2501,6 +2507,7 @@ class AdminCreateUserConfigType {
       AdminCreateUserConfigType();
 }
 
+/// Represents the response from the server to the request to create the user.
 class AdminCreateUserResponse {
   /// The newly created user.
   final UserType user;
@@ -2512,6 +2519,8 @@ class AdminCreateUserResponse {
       AdminCreateUserResponse();
 }
 
+/// Represents the response received from the server for a request to delete
+/// user attributes.
 class AdminDeleteUserAttributesResponse {
   AdminDeleteUserAttributesResponse();
   static AdminDeleteUserAttributesResponse fromJson(
@@ -2526,18 +2535,23 @@ class AdminDisableProviderForUserResponse {
       AdminDisableProviderForUserResponse();
 }
 
+/// Represents the response received from the server to disable the user as an
+/// administrator.
 class AdminDisableUserResponse {
   AdminDisableUserResponse();
   static AdminDisableUserResponse fromJson(Map<String, dynamic> json) =>
       AdminDisableUserResponse();
 }
 
+/// Represents the response from the server for the request to enable a user as
+/// an administrator.
 class AdminEnableUserResponse {
   AdminEnableUserResponse();
   static AdminEnableUserResponse fromJson(Map<String, dynamic> json) =>
       AdminEnableUserResponse();
 }
 
+/// Gets the device response, as an administrator.
 class AdminGetDeviceResponse {
   /// The device.
   final DeviceType device;
@@ -2549,6 +2563,8 @@ class AdminGetDeviceResponse {
       AdminGetDeviceResponse();
 }
 
+/// Represents the response from the server from the request to get the
+/// specified user as an administrator.
 class AdminGetUserResponse {
   /// The user name of the user about whom you are receiving information.
   final String username;
@@ -2580,9 +2596,9 @@ class AdminGetUserResponse {
   /// *   RESET_REQUIRED - User is confirmed, but the user must request a code
   /// and reset his or her password before he or she can sign in.
   ///
-  /// *   FORCE\_CHANGE\_PASSWORD - The user is confirmed and the user can sign
-  /// in using a temporary password, but on first sign-in, the user must change
-  /// his or her password to a new value before doing anything else.
+  /// *   FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in
+  /// using a temporary password, but on first sign-in, the user must change his
+  /// or her password to a new value before doing anything else.
   final String userStatus;
 
   /// Specifies the options for MFA (e.g., email or phone number).
@@ -2609,6 +2625,7 @@ class AdminGetUserResponse {
       AdminGetUserResponse();
 }
 
+/// Initiates the authentication response, as an administrator.
 class AdminInitiateAuthResponse {
   /// The name of the challenge which you are responding to with this call. This
   /// is returned to you in the `AdminInitiateAuth` response if you need to pass
@@ -2618,35 +2635,35 @@ class AdminInitiateAuthResponse {
   /// of the MFA methods set up are presented with an `MFA_SETUP` challenge. The
   /// user must set up at least one MFA type to continue to authenticate.
   ///
-  /// *    `SELECT\_MFA\_TYPE`: Selects the MFA type. Valid MFA options are
-  /// `SMS_MFA` for text SMS MFA, and `SOFTWARE\_TOKEN\_MFA` for TOTP software
+  /// *    `SELECT_MFA_TYPE`: Selects the MFA type. Valid MFA options are
+  /// `SMS_MFA` for text SMS MFA, and `SOFTWARE_TOKEN_MFA` for TOTP software
   /// token MFA.
   ///
-  /// *    `SMS_MFA`: Next challenge is to supply an `SMS\_MFA\_CODE`, delivered
+  /// *    `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`, delivered
   /// via SMS.
   ///
   /// *    `PASSWORD_VERIFIER`: Next challenge is to supply
-  /// `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and
-  /// `TIMESTAMP` after the client-side SRP calculations.
+  /// `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP`
+  /// after the client-side SRP calculations.
   ///
   /// *    `CUSTOM_CHALLENGE`: This is returned if your custom authentication
   /// flow determines that the user should pass another challenge before tokens
   /// are issued.
   ///
-  /// *    `DEVICE\_SRP\_AUTH`: If device tracking was enabled on your user pool
+  /// *    `DEVICE_SRP_AUTH`: If device tracking was enabled on your user pool
   /// and the previous challenges were passed, this challenge is returned so
   /// that Amazon Cognito can start tracking this device.
   ///
-  /// *    `DEVICE\_PASSWORD\_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for
+  /// *    `DEVICE_PASSWORD_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for
   /// devices only.
   ///
-  /// *    `ADMIN\_NO\_SRP_AUTH`: This is returned if you need to authenticate
+  /// *    `ADMIN_NO_SRP_AUTH`: This is returned if you need to authenticate
   /// with `USERNAME` and `PASSWORD` directly. An app client must be enabled to
   /// use this flow.
   ///
-  /// *    `NEW\_PASSWORD\_REQUIRED`: For users which are required to change
-  /// their passwords after successful first login. This challenge should be
-  /// passed with `NEW_PASSWORD` and any other required attributes.
+  /// *    `NEW_PASSWORD_REQUIRED`: For users which are required to change their
+  /// passwords after successful first login. This challenge should be passed
+  /// with `NEW_PASSWORD` and any other required attributes.
   final String challengeName;
 
   /// The session which should be passed both ways in challenge-response calls
@@ -2663,7 +2680,7 @@ class AdminInitiateAuthResponse {
   ///
   /// All challenges require `USERNAME` and `SECRET_HASH` (if applicable).
   ///
-  /// The value of the `USER\_ID\_FOR_SRP` attribute will be the user's actual
+  /// The value of the `USER_ID_FOR_SRP` attribute will be the user's actual
   /// username, not an alias (such as email address or phone number), even if
   /// you specified an alias in your call to `AdminInitiateAuth`. This is
   /// because, in the `AdminRespondToAuthChallenge` API `ChallengeResponses`,
@@ -2692,6 +2709,7 @@ class AdminLinkProviderForUserResponse {
       AdminLinkProviderForUserResponse();
 }
 
+/// Lists the device's response, as an administrator.
 class AdminListDevicesResponse {
   /// The devices in the list of devices response.
   final List<DeviceType> devices;
@@ -2739,12 +2757,15 @@ class AdminListUserAuthEventsResponse {
       AdminListUserAuthEventsResponse();
 }
 
+/// Represents the response from the server to reset a user password as an
+/// administrator.
 class AdminResetUserPasswordResponse {
   AdminResetUserPasswordResponse();
   static AdminResetUserPasswordResponse fromJson(Map<String, dynamic> json) =>
       AdminResetUserPasswordResponse();
 }
 
+/// Responds to the authentication challenge, as an administrator.
 class AdminRespondToAuthChallengeResponse {
   /// The name of the challenge. For more information, see .
   final String challengeName;
@@ -2787,6 +2808,8 @@ class AdminSetUserPasswordResponse {
       AdminSetUserPasswordResponse();
 }
 
+/// Represents the response from the server to set user settings as an
+/// administrator.
 class AdminSetUserSettingsResponse {
   AdminSetUserSettingsResponse();
   static AdminSetUserSettingsResponse fromJson(Map<String, dynamic> json) =>
@@ -2800,12 +2823,16 @@ class AdminUpdateAuthEventFeedbackResponse {
       AdminUpdateAuthEventFeedbackResponse();
 }
 
+/// The status response from the request to update the device, as an
+/// administrator.
 class AdminUpdateDeviceStatusResponse {
   AdminUpdateDeviceStatusResponse();
   static AdminUpdateDeviceStatusResponse fromJson(Map<String, dynamic> json) =>
       AdminUpdateDeviceStatusResponse();
 }
 
+/// Represents the response from the server for the request to update user
+/// attributes as an administrator.
 class AdminUpdateUserAttributesResponse {
   AdminUpdateUserAttributesResponse();
   static AdminUpdateUserAttributesResponse fromJson(
@@ -2813,12 +2840,15 @@ class AdminUpdateUserAttributesResponse {
       AdminUpdateUserAttributesResponse();
 }
 
+/// The global sign-out response, as an administrator.
 class AdminUserGlobalSignOutResponse {
   AdminUserGlobalSignOutResponse();
   static AdminUserGlobalSignOutResponse fromJson(Map<String, dynamic> json) =>
       AdminUserGlobalSignOutResponse();
 }
 
+/// The Amazon Pinpoint analytics configuration for collecting metrics for a
+/// user pool.
 class AnalyticsConfigurationType {
   /// The application ID for an Amazon Pinpoint application.
   final String applicationId;
@@ -2844,6 +2874,10 @@ class AnalyticsConfigurationType {
       AnalyticsConfigurationType();
 }
 
+/// An Amazon Pinpoint analytics endpoint.
+///
+/// An endpoint uniquely identifies a mobile device, email address, or phone
+/// number that can receive messages from Amazon Pinpoint analytics.
 class AnalyticsMetadataType {
   /// The endpoint ID.
   final String analyticsEndpointId;
@@ -2871,6 +2905,7 @@ class AssociateSoftwareTokenResponse {
       AssociateSoftwareTokenResponse();
 }
 
+/// Specifies whether the attribute is standard or custom.
 class AttributeType {
   /// The name of the attribute.
   final String name;
@@ -2885,6 +2920,7 @@ class AttributeType {
   static AttributeType fromJson(Map<String, dynamic> json) => AttributeType();
 }
 
+/// The authentication event type.
 class AuthEventType {
   /// The event ID.
   final String eventId;
@@ -2926,6 +2962,7 @@ class AuthEventType {
   static AuthEventType fromJson(Map<String, dynamic> json) => AuthEventType();
 }
 
+/// The authentication result.
 class AuthenticationResultType {
   /// The access token.
   final String accessToken;
@@ -2957,6 +2994,7 @@ class AuthenticationResultType {
       AuthenticationResultType();
 }
 
+/// The challenge response type.
 class ChallengeResponseType {
   /// The challenge name
   final String challengeName;
@@ -2972,12 +3010,14 @@ class ChallengeResponseType {
       ChallengeResponseType();
 }
 
+/// The response from the server to the change password request.
 class ChangePasswordResponse {
   ChangePasswordResponse();
   static ChangePasswordResponse fromJson(Map<String, dynamic> json) =>
       ChangePasswordResponse();
 }
 
+/// The code delivery details being returned from the server.
 class CodeDeliveryDetailsType {
   /// The destination for the code delivery details.
   final String destination;
@@ -2997,6 +3037,7 @@ class CodeDeliveryDetailsType {
       CodeDeliveryDetailsType();
 }
 
+/// The compromised credentials actions type
 class CompromisedCredentialsActionsType {
   /// The event action.
   final String eventAction;
@@ -3009,6 +3050,7 @@ class CompromisedCredentialsActionsType {
       CompromisedCredentialsActionsType();
 }
 
+/// The compromised credentials risk configuration type.
 class CompromisedCredentialsRiskConfigurationType {
   /// Perform the action for these events. The default is to perform all events
   /// if no event filter is specified.
@@ -3026,6 +3068,7 @@ class CompromisedCredentialsRiskConfigurationType {
       CompromisedCredentialsRiskConfigurationType();
 }
 
+/// Confirms the device response.
 class ConfirmDeviceResponse {
   /// Indicates whether the user confirmation is necessary to confirm the device
   /// response.
@@ -3038,18 +3081,23 @@ class ConfirmDeviceResponse {
       ConfirmDeviceResponse();
 }
 
+/// The response from the server that results from a user's request to retrieve
+/// a forgotten password.
 class ConfirmForgotPasswordResponse {
   ConfirmForgotPasswordResponse();
   static ConfirmForgotPasswordResponse fromJson(Map<String, dynamic> json) =>
       ConfirmForgotPasswordResponse();
 }
 
+/// Represents the response from the server for the registration confirmation.
 class ConfirmSignUpResponse {
   ConfirmSignUpResponse();
   static ConfirmSignUpResponse fromJson(Map<String, dynamic> json) =>
       ConfirmSignUpResponse();
 }
 
+/// Contextual user data type used for evaluating the risk of an unexpected
+/// event by Amazon Cognito advanced security.
 class ContextDataType {
   /// Source IP address of your user.
   final String ipAddress;
@@ -3109,6 +3157,8 @@ class CreateResourceServerResponse {
       CreateResourceServerResponse();
 }
 
+/// Represents the response from the server to the request to create the user
+/// import job.
 class CreateUserImportJobResponse {
   /// The job object that represents the user import job.
   final UserImportJobType userImportJob;
@@ -3120,6 +3170,7 @@ class CreateUserImportJobResponse {
       CreateUserImportJobResponse();
 }
 
+/// Represents the response from the server to create a user pool client.
 class CreateUserPoolClientResponse {
   /// The user pool client that was just created.
   final UserPoolClientType userPoolClient;
@@ -3143,6 +3194,8 @@ class CreateUserPoolDomainResponse {
       CreateUserPoolDomainResponse();
 }
 
+/// Represents the response from the server for the request to create a user
+/// pool.
 class CreateUserPoolResponse {
   /// A container for the user pool details.
   final UserPoolType userPool;
@@ -3154,6 +3207,8 @@ class CreateUserPoolResponse {
       CreateUserPoolResponse();
 }
 
+/// The configuration for a custom domain that hosts the sign-up and sign-in
+/// webpages for your application.
 class CustomDomainConfigType {
   /// The Amazon Resource Name (ARN) of an AWS Certificate Manager SSL
   /// certificate. You use this certificate for the subdomain of your custom
@@ -3167,6 +3222,7 @@ class CustomDomainConfigType {
       CustomDomainConfigType();
 }
 
+/// Represents the response from the server to delete user attributes.
 class DeleteUserAttributesResponse {
   DeleteUserAttributesResponse();
   static DeleteUserAttributesResponse fromJson(Map<String, dynamic> json) =>
@@ -3213,6 +3269,8 @@ class DescribeRiskConfigurationResponse {
       DescribeRiskConfigurationResponse();
 }
 
+/// Represents the response from the server to the request to describe the user
+/// import job.
 class DescribeUserImportJobResponse {
   /// The job object that represents the user import job.
   final UserImportJobType userImportJob;
@@ -3224,6 +3282,8 @@ class DescribeUserImportJobResponse {
       DescribeUserImportJobResponse();
 }
 
+/// Represents the response from the server from a request to describe the user
+/// pool client.
 class DescribeUserPoolClientResponse {
   /// The user pool client from a server response to describe the user pool
   /// client.
@@ -3247,6 +3307,7 @@ class DescribeUserPoolDomainResponse {
       DescribeUserPoolDomainResponse();
 }
 
+/// Represents the response to describe the user pool.
 class DescribeUserPoolResponse {
   /// The container of metadata returned by the server to describe the pool.
   final UserPoolType userPool;
@@ -3258,6 +3319,7 @@ class DescribeUserPoolResponse {
       DescribeUserPoolResponse();
 }
 
+/// The configuration for the user pool's device tracking.
 class DeviceConfigurationType {
   /// Indicates whether a challenge is required on a new device. Only applicable
   /// to a new device.
@@ -3274,6 +3336,7 @@ class DeviceConfigurationType {
       DeviceConfigurationType();
 }
 
+/// The device verifier against which it will be authenticated.
 class DeviceSecretVerifierConfigType {
   /// The password verifier.
   final String passwordVerifier;
@@ -3287,6 +3350,7 @@ class DeviceSecretVerifierConfigType {
   });
 }
 
+/// The device type.
 class DeviceType {
   /// The device key.
   final String deviceKey;
@@ -3313,6 +3377,7 @@ class DeviceType {
   static DeviceType fromJson(Map<String, dynamic> json) => DeviceType();
 }
 
+/// A container for information about a domain.
 class DomainDescriptionType {
   /// The user pool ID.
   final String userPoolId;
@@ -3353,6 +3418,7 @@ class DomainDescriptionType {
       DomainDescriptionType();
 }
 
+/// The email configuration type.
 class EmailConfigurationType {
   /// The Amazon Resource Name (ARN) of a verified email address in Amazon SES.
   /// This email address is used in one of the following ways, depending on the
@@ -3382,9 +3448,8 @@ class EmailConfigurationType {
   /// delivery volume. To achieve a higher delivery volume, specify DEVELOPER to
   /// use your Amazon SES email configuration.
   ///
-  /// To look up the email delivery limit for the default option, see [Limits in
-  /// Amazon
-  /// Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)
+  /// To look up the email delivery limit for the default option, see
+  /// [Limits in Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/limits.html)
   /// in the _Amazon Cognito Developer Guide_.
   ///
   /// The default FROM address is no-reply@verificationemail.com. To customize
@@ -3408,9 +3473,8 @@ class EmailConfigurationType {
   /// which is a type of IAM role, in your AWS account. This role contains the
   /// permissions that allow Amazon Cognito to access Amazon SES and send email
   /// messages with your address. For more information about the service-linked
-  /// role that Amazon Cognito creates, see [Using Service-Linked Roles for
-  /// Amazon
-  /// Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/using-service-linked-roles.html)
+  /// role that Amazon Cognito creates, see
+  /// [Using Service-Linked Roles for Amazon Cognito](https://docs.aws.amazon.com/cognito/latest/developerguide/using-service-linked-roles.html)
   /// in the _Amazon Cognito Developer Guide_.
   final String emailSendingAccount;
 
@@ -3423,6 +3487,7 @@ class EmailConfigurationType {
       EmailConfigurationType();
 }
 
+/// Specifies the user context data captured at the time of an event request.
 class EventContextDataType {
   /// The user's IP address.
   final String ipAddress;
@@ -3450,6 +3515,7 @@ class EventContextDataType {
       EventContextDataType();
 }
 
+/// Specifies the event feedback type.
 class EventFeedbackType {
   /// The event feedback value.
   final String feedbackValue;
@@ -3469,6 +3535,7 @@ class EventFeedbackType {
       EventFeedbackType();
 }
 
+/// The event risk type.
 class EventRiskType {
   /// The risk decision.
   final String riskDecision;
@@ -3483,6 +3550,8 @@ class EventRiskType {
   static EventRiskType fromJson(Map<String, dynamic> json) => EventRiskType();
 }
 
+/// Respresents the response from the server regarding the request to reset a
+/// password.
 class ForgotPasswordResponse {
   /// The code delivery details returned by the server in response to the
   /// request to reset a password.
@@ -3495,6 +3564,8 @@ class ForgotPasswordResponse {
       ForgotPasswordResponse();
 }
 
+/// Represents the response from the server to the request to get the header
+/// information for the .csv file for the user import job.
 class GetCsvHeaderResponse {
   /// The user pool ID for the user pool that the users are to be imported into.
   final String userPoolId;
@@ -3510,6 +3581,7 @@ class GetCsvHeaderResponse {
       GetCsvHeaderResponse();
 }
 
+/// Gets the device response.
 class GetDeviceResponse {
   /// The device.
   final DeviceType device;
@@ -3544,6 +3616,7 @@ class GetIdentityProviderByIdentifierResponse {
       GetIdentityProviderByIdentifierResponse();
 }
 
+/// Response from Cognito for a signing certificate request.
 class GetSigningCertificateResponse {
   /// The signing certificate.
   final String certificate;
@@ -3566,6 +3639,8 @@ class GetUICustomizationResponse {
       GetUICustomizationResponse();
 }
 
+/// The verification code response returned by the server response to get the
+/// user attribute verification code.
 class GetUserAttributeVerificationCodeResponse {
   /// The code delivery details returned by the server in response to the
   /// request to get the user attribute verification code.
@@ -3598,6 +3673,8 @@ class GetUserPoolMfaConfigResponse {
       GetUserPoolMfaConfigResponse();
 }
 
+/// Represents the response from the server from the request to get information
+/// about the user.
 class GetUserResponse {
   /// The user name of the user you wish to retrieve from the get user request.
   final String username;
@@ -3628,12 +3705,14 @@ class GetUserResponse {
       GetUserResponse();
 }
 
+/// The response to the request to sign out all devices.
 class GlobalSignOutResponse {
   GlobalSignOutResponse();
   static GlobalSignOutResponse fromJson(Map<String, dynamic> json) =>
       GlobalSignOutResponse();
 }
 
+/// The group type.
 class GroupType {
   /// The name of the group.
   final String groupName;
@@ -3683,6 +3762,7 @@ class GroupType {
   static GroupType fromJson(Map<String, dynamic> json) => GroupType();
 }
 
+/// The HTTP header.
 class HttpHeader {
   /// The header name
   final String headerName;
@@ -3696,6 +3776,7 @@ class HttpHeader {
   });
 }
 
+/// A container for information about an identity provider.
 class IdentityProviderType {
   /// The user pool ID.
   final String userPoolId;
@@ -3736,6 +3817,7 @@ class IdentityProviderType {
       IdentityProviderType();
 }
 
+/// Initiates the authentication response.
 class InitiateAuthResponse {
   /// The name of the challenge which you are responding to with this call. This
   /// is returned to you in the `AdminInitiateAuth` response if you need to pass
@@ -3744,27 +3826,27 @@ class InitiateAuthResponse {
   /// Valid values include the following. Note that all of these challenges
   /// require `USERNAME` and `SECRET_HASH` (if applicable) in the parameters.
   ///
-  /// *    `SMS_MFA`: Next challenge is to supply an `SMS\_MFA\_CODE`, delivered
+  /// *    `SMS_MFA`: Next challenge is to supply an `SMS_MFA_CODE`, delivered
   /// via SMS.
   ///
   /// *    `PASSWORD_VERIFIER`: Next challenge is to supply
-  /// `PASSWORD\_CLAIM\_SIGNATURE`, `PASSWORD\_CLAIM\_SECRET_BLOCK`, and
-  /// `TIMESTAMP` after the client-side SRP calculations.
+  /// `PASSWORD_CLAIM_SIGNATURE`, `PASSWORD_CLAIM_SECRET_BLOCK`, and `TIMESTAMP`
+  /// after the client-side SRP calculations.
   ///
   /// *    `CUSTOM_CHALLENGE`: This is returned if your custom authentication
   /// flow determines that the user should pass another challenge before tokens
   /// are issued.
   ///
-  /// *    `DEVICE\_SRP\_AUTH`: If device tracking was enabled on your user pool
+  /// *    `DEVICE_SRP_AUTH`: If device tracking was enabled on your user pool
   /// and the previous challenges were passed, this challenge is returned so
   /// that Amazon Cognito can start tracking this device.
   ///
-  /// *    `DEVICE\_PASSWORD\_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for
+  /// *    `DEVICE_PASSWORD_VERIFIER`: Similar to `PASSWORD_VERIFIER`, but for
   /// devices only.
   ///
-  /// *    `NEW\_PASSWORD\_REQUIRED`: For users which are required to change
-  /// their passwords after successful first login. This challenge should be
-  /// passed with `NEW_PASSWORD` and any other required attributes.
+  /// *    `NEW_PASSWORD_REQUIRED`: For users which are required to change their
+  /// passwords after successful first login. This challenge should be passed
+  /// with `NEW_PASSWORD` and any other required attributes.
   final String challengeName;
 
   /// The session which should be passed both ways in challenge-response calls
@@ -3798,6 +3880,7 @@ class InitiateAuthResponse {
       InitiateAuthResponse();
 }
 
+/// Specifies the configuration for AWS Lambda triggers.
 class LambdaConfigType {
   /// A pre-registration AWS Lambda trigger.
   final String preSignUp;
@@ -3845,6 +3928,7 @@ class LambdaConfigType {
       LambdaConfigType();
 }
 
+/// Represents the response to list devices.
 class ListDevicesResponse {
   /// The devices returned in the list devices response.
   final List<DeviceType> devices;
@@ -3917,6 +4001,8 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// Represents the response from the server to the request to list the user
+/// import jobs.
 class ListUserImportJobsResponse {
   /// The user import jobs.
   final List<UserImportJobType> userImportJobs;
@@ -3933,6 +4019,7 @@ class ListUserImportJobsResponse {
       ListUserImportJobsResponse();
 }
 
+/// Represents the response from the server that lists user pool clients.
 class ListUserPoolClientsResponse {
   /// The user pool clients in the response that lists user pool clients.
   final List<UserPoolClientDescription> userPoolClients;
@@ -3949,6 +4036,7 @@ class ListUserPoolClientsResponse {
       ListUserPoolClientsResponse();
 }
 
+/// Represents the response to list user pools.
 class ListUserPoolsResponse {
   /// The user pools from the response to list users.
   final List<UserPoolDescriptionType> userPools;
@@ -3981,6 +4069,7 @@ class ListUsersInGroupResponse {
       ListUsersInGroupResponse();
 }
 
+/// The response from the request to list users.
 class ListUsersResponse {
   /// The users returned in the request to list users.
   final List<UserType> users;
@@ -3997,6 +4086,7 @@ class ListUsersResponse {
       ListUsersResponse();
 }
 
+/// Specifies the different settings for multi-factor authentication (MFA).
 class MfaOptionType {
   /// The delivery medium (email message or SMS message) to send the MFA code.
   final String deliveryMedium;
@@ -4011,6 +4101,7 @@ class MfaOptionType {
   static MfaOptionType fromJson(Map<String, dynamic> json) => MfaOptionType();
 }
 
+/// The message template structure.
 class MessageTemplateType {
   /// The message template for SMS messages.
   final String smsMessage;
@@ -4030,6 +4121,7 @@ class MessageTemplateType {
       MessageTemplateType();
 }
 
+/// The new device metadata type.
 class NewDeviceMetadataType {
   /// The device key.
   final String deviceKey;
@@ -4045,6 +4137,7 @@ class NewDeviceMetadataType {
       NewDeviceMetadataType();
 }
 
+/// The notify configuration type.
 class NotifyConfigurationType {
   /// The email address that is sending the email. It must be either
   /// individually verified with Amazon SES, or from a domain that has been
@@ -4081,6 +4174,7 @@ class NotifyConfigurationType {
       NotifyConfigurationType();
 }
 
+/// The notify email type.
 class NotifyEmailType {
   /// The subject.
   final String subject;
@@ -4100,6 +4194,8 @@ class NotifyEmailType {
       NotifyEmailType();
 }
 
+/// The minimum and maximum value of an attribute that is of the number data
+/// type.
 class NumberAttributeConstraintsType {
   /// The minimum value of an attribute that is of the number data type.
   final String minValue;
@@ -4115,6 +4211,7 @@ class NumberAttributeConstraintsType {
       NumberAttributeConstraintsType();
 }
 
+/// The password policy type.
 class PasswordPolicyType {
   /// The minimum length of the password policy that you have set. Cannot be
   /// less than 6.
@@ -4150,6 +4247,7 @@ class PasswordPolicyType {
       PasswordPolicyType();
 }
 
+/// A container for identity provider details.
 class ProviderDescription {
   /// The identity provider name.
   final String providerName;
@@ -4173,6 +4271,7 @@ class ProviderDescription {
       ProviderDescription();
 }
 
+/// A container for information about an identity provider for a user pool.
 class ProviderUserIdentifierType {
   /// The name of the provider, for example, Facebook, Google, or Login with
   /// Amazon.
@@ -4192,6 +4291,8 @@ class ProviderUserIdentifierType {
   });
 }
 
+/// The response from the server when the Amazon Cognito Your User Pools service
+/// makes the request to resend a confirmation code.
 class ResendConfirmationCodeResponse {
   /// The code delivery details returned by the server in response to the
   /// request to resend the confirmation code.
@@ -4204,6 +4305,7 @@ class ResendConfirmationCodeResponse {
       ResendConfirmationCodeResponse();
 }
 
+/// A resource server scope.
 class ResourceServerScopeType {
   /// The name of the scope.
   final String scopeName;
@@ -4219,6 +4321,7 @@ class ResourceServerScopeType {
       ResourceServerScopeType();
 }
 
+/// A container for information about a resource server for a user pool.
 class ResourceServerType {
   /// The user pool ID for the user pool that hosts the resource server.
   final String userPoolId;
@@ -4242,6 +4345,7 @@ class ResourceServerType {
       ResourceServerType();
 }
 
+/// The response to respond to the authentication challenge.
 class RespondToAuthChallengeResponse {
   /// The challenge name. For more information, see .
   final String challengeName;
@@ -4270,6 +4374,7 @@ class RespondToAuthChallengeResponse {
       RespondToAuthChallengeResponse();
 }
 
+/// The risk configuration type.
 class RiskConfigurationType {
   /// The user pool ID.
   final String userPoolId;
@@ -4305,6 +4410,7 @@ class RiskConfigurationType {
       RiskConfigurationType();
 }
 
+/// The type of the configuration to override the risk decision.
 class RiskExceptionConfigurationType {
   /// Overrides the risk decision to always block the pre-authentication
   /// requests. The IP range is in CIDR notation: a compact representation of an
@@ -4323,6 +4429,7 @@ class RiskExceptionConfigurationType {
       RiskExceptionConfigurationType();
 }
 
+/// The SMS multi-factor authentication (MFA) settings type.
 class SmsMfaSettingsType {
   /// Specifies whether SMS text message MFA is enabled.
   final bool enabled;
@@ -4336,6 +4443,7 @@ class SmsMfaSettingsType {
   });
 }
 
+/// Contains information about the schema attribute.
 class SchemaAttributeType {
   /// A schema attribute of the name type.
   final String name;
@@ -4353,8 +4461,7 @@ class SchemaAttributeType {
   /// mapped attributes when users sign in to your application through an
   /// identity provider. If an attribute is immutable, Amazon Cognito throws an
   /// error when it attempts to update the attribute. For more information, see
-  /// [Specifying Identity Provider Attribute Mappings for Your User
-  /// Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html).
+  /// [Specifying Identity Provider Attribute Mappings for Your User Pool](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-specifying-attribute-mapping.html).
   final bool mutable;
 
   /// Specifies whether a user pool attribute is required. If the attribute is
@@ -4428,12 +4535,14 @@ class SetUserPoolMfaConfigResponse {
       SetUserPoolMfaConfigResponse();
 }
 
+/// The response from the server for a set user settings request.
 class SetUserSettingsResponse {
   SetUserSettingsResponse();
   static SetUserSettingsResponse fromJson(Map<String, dynamic> json) =>
       SetUserSettingsResponse();
 }
 
+/// The response from the server for a registration request.
 class SignUpResponse {
   /// A response from the server indicating that a user registration has been
   /// confirmed.
@@ -4454,6 +4563,7 @@ class SignUpResponse {
   static SignUpResponse fromJson(Map<String, dynamic> json) => SignUpResponse();
 }
 
+/// The SMS configuration type.
 class SmsConfigurationType {
   /// The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
   /// (SNS) caller.
@@ -4470,6 +4580,7 @@ class SmsConfigurationType {
       SmsConfigurationType();
 }
 
+/// The SMS text message multi-factor authentication (MFA) configuration type.
 class SmsMfaConfigType {
   /// The SMS authentication message.
   final String smsAuthenticationMessage;
@@ -4485,6 +4596,7 @@ class SmsMfaConfigType {
       SmsMfaConfigType();
 }
 
+/// The type used for enabling software token MFA at the user pool level.
 class SoftwareTokenMfaConfigType {
   /// Specifies whether software token MFA is enabled.
   final bool enabled;
@@ -4496,6 +4608,7 @@ class SoftwareTokenMfaConfigType {
       SoftwareTokenMfaConfigType();
 }
 
+/// The type used for enabling software token MFA at the user level.
 class SoftwareTokenMfaSettingsType {
   /// Specifies whether software token MFA is enabled.
   final bool enabled;
@@ -4509,6 +4622,8 @@ class SoftwareTokenMfaSettingsType {
   });
 }
 
+/// Represents the response from the server to the request to start the user
+/// import job.
 class StartUserImportJobResponse {
   /// The job object that represents the user import job.
   final UserImportJobType userImportJob;
@@ -4520,6 +4635,8 @@ class StartUserImportJobResponse {
       StartUserImportJobResponse();
 }
 
+/// Represents the response from the server to the request to stop the user
+/// import job.
 class StopUserImportJobResponse {
   /// The job object that represents the user import job.
   final UserImportJobType userImportJob;
@@ -4531,6 +4648,7 @@ class StopUserImportJobResponse {
       StopUserImportJobResponse();
 }
 
+/// The constraints associated with a string attribute.
 class StringAttributeConstraintsType {
   /// The minimum length.
   final String minLength;
@@ -4552,6 +4670,8 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// A container for the UI customization information for a user pool's built-in
+/// app UI.
 class UICustomizationType {
   /// The user pool ID for the user pool.
   final String userPoolId;
@@ -4599,6 +4719,7 @@ class UpdateAuthEventFeedbackResponse {
       UpdateAuthEventFeedbackResponse();
 }
 
+/// The response to the request to update the device status.
 class UpdateDeviceStatusResponse {
   UpdateDeviceStatusResponse();
   static UpdateDeviceStatusResponse fromJson(Map<String, dynamic> json) =>
@@ -4638,6 +4759,8 @@ class UpdateResourceServerResponse {
       UpdateResourceServerResponse();
 }
 
+/// Represents the response from the server for the request to update user
+/// attributes.
 class UpdateUserAttributesResponse {
   /// The code delivery details list from the server for the request to update
   /// user attributes.
@@ -4650,6 +4773,8 @@ class UpdateUserAttributesResponse {
       UpdateUserAttributesResponse();
 }
 
+/// Represents the response from the server to the request to update the user
+/// pool client.
 class UpdateUserPoolClientResponse {
   /// The user pool client value from the response from the server when an
   /// update user pool client request is made.
@@ -4662,6 +4787,7 @@ class UpdateUserPoolClientResponse {
       UpdateUserPoolClientResponse();
 }
 
+/// The UpdateUserPoolDomain response output.
 class UpdateUserPoolDomainResponse {
   /// The Amazon CloudFront endpoint that Amazon Cognito set up when you added
   /// the custom domain to your user pool.
@@ -4674,12 +4800,17 @@ class UpdateUserPoolDomainResponse {
       UpdateUserPoolDomainResponse();
 }
 
+/// Represents the response from the server when you make a request to update
+/// the user pool.
 class UpdateUserPoolResponse {
   UpdateUserPoolResponse();
   static UpdateUserPoolResponse fromJson(Map<String, dynamic> json) =>
       UpdateUserPoolResponse();
 }
 
+/// Contextual data such as the user's device fingerprint, IP address, or
+/// location used for evaluating the risk of an unexpected event by Amazon
+/// Cognito advanced security.
 class UserContextDataType {
   /// Contextual data such as the user's device fingerprint, IP address, or
   /// location used for evaluating the risk of an unexpected event by Amazon
@@ -4691,6 +4822,7 @@ class UserContextDataType {
   });
 }
 
+/// The user import job type.
 class UserImportJobType {
   /// The job name for the user import job.
   final String jobName;
@@ -4715,26 +4847,26 @@ class UserImportJobType {
 
   /// The status of the user import job. One of the following:
   ///
-  /// *    `Created` \- The job was created but not started.
+  /// *    `Created` - The job was created but not started.
   ///
-  /// *    `Pending` \- A transition state. You have started the job, but it has
+  /// *    `Pending` - A transition state. You have started the job, but it has
   /// not begun importing users yet.
   ///
-  /// *    `InProgress` \- The job has started, and users are being imported.
+  /// *    `InProgress` - The job has started, and users are being imported.
   ///
-  /// *    `Stopping` \- You have stopped the job, but the job has not stopped
+  /// *    `Stopping` - You have stopped the job, but the job has not stopped
   /// importing users yet.
   ///
-  /// *    `Stopped` \- You have stopped the job, and the job has stopped
+  /// *    `Stopped` - You have stopped the job, and the job has stopped
   /// importing users.
   ///
-  /// *    `Succeeded` \- The job has completed successfully.
+  /// *    `Succeeded` - The job has completed successfully.
   ///
-  /// *    `Failed` \- The job has stopped due to an error.
+  /// *    `Failed` - The job has stopped due to an error.
   ///
-  /// *    `Expired` \- You created a job, but did not start the job within
-  /// 24-48 hours. All data associated with the job was deleted, and the job
-  /// cannot be started.
+  /// *    `Expired` - You created a job, but did not start the job within 24-48
+  /// hours. All data associated with the job was deleted, and the job cannot be
+  /// started.
   final String status;
 
   /// The role ARN for the Amazon CloudWatch Logging role for the user import
@@ -4773,6 +4905,7 @@ class UserImportJobType {
       UserImportJobType();
 }
 
+/// The user pool add-ons type.
 class UserPoolAddOnsType {
   /// The advanced security mode.
   final String advancedSecurityMode;
@@ -4784,6 +4917,7 @@ class UserPoolAddOnsType {
       UserPoolAddOnsType();
 }
 
+/// The description of the user pool client.
 class UserPoolClientDescription {
   /// The ID of the client associated with the user pool.
   final String clientId;
@@ -4804,6 +4938,7 @@ class UserPoolClientDescription {
       UserPoolClientDescription();
 }
 
+/// Contains information about a user pool client.
 class UserPoolClientType {
   /// The user pool ID for the user pool client.
   final String userPoolId;
@@ -4851,8 +4986,8 @@ class UserPoolClientType {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -4874,8 +5009,8 @@ class UserPoolClientType {
   /// *   Not include a fragment component.
   ///
   ///
-  /// See [OAuth 2.0 - Redirection
-  /// Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
+  /// See
+  /// [OAuth 2.0 - Redirection Endpoint](https://tools.ietf.org/html/rfc6749#section-3.1.2).
   ///
   /// Amazon Cognito requires HTTPS over HTTP except for http://localhost for
   /// testing purposes only.
@@ -4926,6 +5061,7 @@ class UserPoolClientType {
       UserPoolClientType();
 }
 
+/// A user pool description.
 class UserPoolDescriptionType {
   /// The ID in a user pool description.
   final String id;
@@ -4957,6 +5093,7 @@ class UserPoolDescriptionType {
       UserPoolDescriptionType();
 }
 
+/// The policy associated with a user pool.
 class UserPoolPolicyType {
   /// The password policy.
   final PasswordPolicyType passwordPolicy;
@@ -4968,6 +5105,7 @@ class UserPoolPolicyType {
       UserPoolPolicyType();
 }
 
+/// A container for information about the user pool.
 class UserPoolType {
   /// The ID of the user pool.
   final String id;
@@ -5020,13 +5158,13 @@ class UserPoolType {
 
   /// Can be one of the following values:
   ///
-  /// *    `OFF` \- MFA tokens are not required and cannot be specified during
+  /// *    `OFF` - MFA tokens are not required and cannot be specified during
   /// user registration.
   ///
-  /// *    `ON` \- MFA tokens are required for all user registrations. You can
+  /// *    `ON` - MFA tokens are required for all user registrations. You can
   /// only specify required when you are initially creating a user pool.
   ///
-  /// *    `OPTIONAL` \- Users have the option when registering to create an MFA
+  /// *    `OPTIONAL` - Users have the option when registering to create an MFA
   /// token.
   final String mfaConfiguration;
 
@@ -5063,8 +5201,7 @@ class UserPoolType {
   /// pages for your application. For example: `auth.example.com`.
   ///
   /// For more information about adding a custom domain to your user pool, see
-  /// [Using Your Own Domain for the Hosted
-  /// UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html).
+  /// [Using Your Own Domain for the Hosted UI](https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-add-custom-domain.html).
   final String customDomain;
 
   /// The configuration for `AdminCreateUser` requests.
@@ -5110,6 +5247,7 @@ class UserPoolType {
   static UserPoolType fromJson(Map<String, dynamic> json) => UserPoolType();
 }
 
+/// The user type.
 class UserType {
   /// The user name of the user you wish to describe.
   final String username;
@@ -5141,9 +5279,9 @@ class UserType {
   /// *   RESET_REQUIRED - User is confirmed, but the user must request a code
   /// and reset his or her password before he or she can sign in.
   ///
-  /// *   FORCE\_CHANGE\_PASSWORD - The user is confirmed and the user can sign
-  /// in using a temporary password, but on first sign-in, the user must change
-  /// his or her password to a new value before doing anything else.
+  /// *   FORCE_CHANGE_PASSWORD - The user is confirmed and the user can sign in
+  /// using a temporary password, but on first sign-in, the user must change his
+  /// or her password to a new value before doing anything else.
   final String userStatus;
 
   /// The MFA options for the user.
@@ -5161,6 +5299,7 @@ class UserType {
   static UserType fromJson(Map<String, dynamic> json) => UserType();
 }
 
+/// The template for verification messages.
 class VerificationMessageTemplateType {
   /// The SMS message template.
   final String smsMessage;
@@ -5209,6 +5348,8 @@ class VerifySoftwareTokenResponse {
       VerifySoftwareTokenResponse();
 }
 
+/// A container representing the response from the server from the request to
+/// verify user attributes.
 class VerifyUserAttributeResponse {
   VerifyUserAttributeResponse();
   static VerifyUserAttributeResponse fromJson(Map<String, dynamic> json) =>

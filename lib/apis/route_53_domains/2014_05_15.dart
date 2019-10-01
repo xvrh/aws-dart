@@ -83,9 +83,8 @@ class Route53DomainsApi {
   /// renewing your domain registration is billed to your AWS account.
   ///
   /// The period during which you can renew a domain name varies by TLD. For a
-  /// list of TLDs and their renewal policies, see ["Renewal, restoration, and
-  /// deletion
-  /// times"](http://wiki.gandi.net/en/domains/renew#renewal_restoration_and_deletion_times)
+  /// list of TLDs and their renewal policies, see
+  /// ["Renewal, restoration, and deletion times"](http://wiki.gandi.net/en/domains/renew#renewal_restoration_and_deletion_times)
   /// on the website for our registrar associate, Gandi. Amazon Route 53
   /// requires that you renew before the end of the renewal period that is
   /// listed on the Gandi website so we can complete processing before the
@@ -143,8 +142,8 @@ class Route53DomainsApi {
   /// [domainName]: A domain name that you want to use as the basis for a list
   /// of possible domain names. The domain name must contain a top-level domain
   /// (TLD), such as .com, that Amazon Route 53 supports. For a list of TLDs,
-  /// see [Domains that You Can Register with Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
+  /// see
+  /// [Domains that You Can Register with Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// [suggestionCount]: The number of suggested domain names that you want
@@ -253,8 +252,8 @@ class Route53DomainsApi {
   /// not completed successfully, the domain registrant is notified by email.
   ///
   /// *   Charges your AWS account an amount based on the top-level domain. For
-  /// more information, see [Amazon Route 53
-  /// Pricing](http://aws.amazon.com/route53/pricing/).
+  /// more information, see
+  /// [Amazon Route 53 Pricing](http://aws.amazon.com/route53/pricing/).
   ///
   /// [domainName]: The domain name that you want to register.
   ///
@@ -267,8 +266,8 @@ class Route53DomainsApi {
   /// [durationInYears]: The number of years that you want to register the
   /// domain for. Domains are registered for a minimum of one year. The maximum
   /// period depends on the top-level domain. For the range of valid values for
-  /// your domain, see [Domains that You Can Register with Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
+  /// your domain, see
+  /// [Domains that You Can Register with Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Default: 1
@@ -331,17 +330,16 @@ class Route53DomainsApi {
   /// We recommend that you renew your domain several weeks before the
   /// expiration date. Some TLD registries delete domains before the expiration
   /// date if you haven't renewed far enough in advance. For more information
-  /// about renewing domain registration, see [Renewing Registration for a
-  /// Domain](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-renew.html)
+  /// about renewing domain registration, see
+  /// [Renewing Registration for a Domain](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-renew.html)
   /// in the Amazon Route 53 Developer Guide.
   ///
   /// [domainName]: The name of the domain that you want to renew.
   ///
   /// [durationInYears]: The number of years that you want to renew the domain
   /// for. The maximum number of years depends on the top-level domain. For the
-  /// range of valid values for your domain, see [Domains that You Can Register
-  /// with Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
+  /// range of valid values for your domain, see
+  /// [Domains that You Can Register with Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/registrar-tld-list.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// Default: 1
@@ -384,9 +382,8 @@ class Route53DomainsApi {
   /// associate, Gandi (for all other TLDs).
   ///
   /// For transfer requirements, a detailed procedure, and information about
-  /// viewing the status of a domain transfer, see [Transferring Registration
-  /// for a Domain to Amazon Route
-  /// 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html)
+  /// viewing the status of a domain transfer, see
+  /// [Transferring Registration for a Domain to Amazon Route 53](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-transfer-to-route-53.html)
   /// in the _Amazon Route 53 Developer Guide_.
   ///
   /// If the registrar for your domain is also the DNS service provider for the
@@ -617,12 +614,13 @@ class Route53DomainsApi {
   }
 }
 
+/// Information for one billing record.
 class BillingRecord {
   /// The name of the domain that the billing record applies to. If the domain
   /// name contains characters other than a-z, 0-9, and - (hyphen), such as an
   /// internationalized domain name, then this value is in Punycode. For more
-  /// information, see [DNS Domain Name
-  /// Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
+  /// information, see
+  /// [DNS Domain Name Format](http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/DomainNameFormat.html)
   /// in the _Amazon Route 53 Developer Guidezzz_.
   final String domainName;
 
@@ -650,6 +648,7 @@ class BillingRecord {
   static BillingRecord fromJson(Map<String, dynamic> json) => BillingRecord();
 }
 
+/// The CheckDomainAvailability response includes the following elements.
 class CheckDomainAvailabilityResponse {
   /// Whether the domain name is available for registering.
   ///
@@ -706,6 +705,7 @@ class CheckDomainAvailabilityResponse {
       CheckDomainAvailabilityResponse();
 }
 
+/// The CheckDomainTransferability response includes the following elements.
 class CheckDomainTransferabilityResponse {
   /// A complex type that contains information about whether the specified
   /// domain can be transferred to Amazon Route 53.
@@ -719,6 +719,7 @@ class CheckDomainTransferabilityResponse {
       CheckDomainTransferabilityResponse();
 }
 
+/// ContactDetail includes the following elements.
 class ContactDetail {
   /// First name of contact.
   final String firstName;
@@ -755,9 +756,9 @@ class ContactDetail {
 
   /// The phone number of the contact.
   ///
-  /// Constraints: Phone number must be specified in the format "+\[country
-  /// dialing code\].\[number including any area code>\]". For example, a US
-  /// phone number might appear as `"+1.1234567890"`.
+  /// Constraints: Phone number must be specified in the format
+  /// "+[country dialing code].[number including any area code>]". For example,
+  /// a US phone number might appear as `"+1.1234567890"`.
   final String phoneNumber;
 
   /// Email address of the contact.
@@ -765,9 +766,9 @@ class ContactDetail {
 
   /// Fax number of the contact.
   ///
-  /// Constraints: Phone number must be specified in the format "+\[country
-  /// dialing code\].\[number including any area code\]". For example, a US
-  /// phone number might appear as `"+1.1234567890"`.
+  /// Constraints: Phone number must be specified in the format
+  /// "+[country dialing code].[number including any area code]". For example, a
+  /// US phone number might appear as `"+1.1234567890"`.
   final String fax;
 
   /// A list of name-value pairs for parameters required by certain top-level
@@ -805,6 +806,7 @@ class DisableDomainAutoRenewResponse {
       DisableDomainAutoRenewResponse();
 }
 
+/// The DisableDomainTransferLock response includes the following element.
 class DisableDomainTransferLockResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -818,6 +820,7 @@ class DisableDomainTransferLockResponse {
       DisableDomainTransferLockResponse();
 }
 
+/// Information about one suggested domain name.
 class DomainSuggestion {
   /// A suggested domain name.
   final String domainName;
@@ -878,6 +881,7 @@ class DomainSuggestion {
       DomainSuggestion();
 }
 
+/// Summary information about one domain.
 class DomainSummary {
   /// The name of the domain that the summary information applies to.
   final String domainName;
@@ -901,6 +905,8 @@ class DomainSummary {
   static DomainSummary fromJson(Map<String, dynamic> json) => DomainSummary();
 }
 
+/// A complex type that contains information about whether the specified domain
+/// can be transferred to Amazon Route 53.
 class DomainTransferability {
   final String transferable;
 
@@ -917,6 +923,7 @@ class EnableDomainAutoRenewResponse {
       EnableDomainAutoRenewResponse();
 }
 
+/// The EnableDomainTransferLock response includes the following elements.
 class EnableDomainTransferLockResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -929,35 +936,36 @@ class EnableDomainTransferLockResponse {
       EnableDomainTransferLockResponse();
 }
 
+/// ExtraParam includes the following elements.
 class ExtraParam {
   /// Name of the additional parameter required by the top-level domain. Here
   /// are the top-level domains that require additional parameters and which
   /// parameters they require:
   ///
-  /// *    **.com.au and .net.au:** `AU\_ID\_NUMBER` and `AU\_ID\_TYPE`
+  /// *    **.com.au and .net.au:** `AU_ID_NUMBER` and `AU_ID_TYPE`
   ///
-  /// *    **.ca:** `BRAND_NUMBER`, `CA\_LEGAL\_TYPE`, and
-  /// `CA\_BUSINESS\_ENTITY_TYPE`
+  /// *    **.ca:** `BRAND_NUMBER`, `CA_LEGAL_TYPE`, and
+  /// `CA_BUSINESS_ENTITY_TYPE`
   ///
-  /// *    **.es:** `ES_IDENTIFICATION`, `ES\_IDENTIFICATION\_TYPE`, and
-  /// `ES\_LEGAL\_FORM`
+  /// *    **.es:** `ES_IDENTIFICATION`, `ES_IDENTIFICATION_TYPE`, and
+  /// `ES_LEGAL_FORM`
   ///
-  /// *    **.fi:** `BIRTH\_DATE\_IN\_YYYY\_MM_DD`, `FI\_BUSINESS\_NUMBER`,
-  /// `FI\_ID\_NUMBER`, `FI_NATIONALITY`, and `FI\_ORGANIZATION\_TYPE`
+  /// *    **.fi:** `BIRTH_DATE_IN_YYYY_MM_DD`, `FI_BUSINESS_NUMBER`,
+  /// `FI_ID_NUMBER`, `FI_NATIONALITY`, and `FI_ORGANIZATION_TYPE`
   ///
   /// *    **.fr:** `BRAND_NUMBER`, `BIRTH_DEPARTMENT`,
-  /// `BIRTH\_DATE\_IN\_YYYY\_MM_DD`, `BIRTH_COUNTRY`, and `BIRTH_CITY`
+  /// `BIRTH_DATE_IN_YYYY_MM_DD`, `BIRTH_COUNTRY`, and `BIRTH_CITY`
   ///
-  /// *    **.it:** `BIRTH_COUNTRY`, `IT_PIN`, and `IT\_REGISTRANT\_ENTITY_TYPE`
+  /// *    **.it:** `BIRTH_COUNTRY`, `IT_PIN`, and `IT_REGISTRANT_ENTITY_TYPE`
   ///
-  /// *    **.ru:** `BIRTH\_DATE\_IN\_YYYY\_MM_DD` and `RU\_PASSPORT\_DATA`
+  /// *    **.ru:** `BIRTH_DATE_IN_YYYY_MM_DD` and `RU_PASSPORT_DATA`
   ///
-  /// *    **.se:** `BIRTH_COUNTRY` and `SE\_ID\_NUMBER`
+  /// *    **.se:** `BIRTH_COUNTRY` and `SE_ID_NUMBER`
   ///
-  /// *    **.sg:** `SG\_ID\_NUMBER`
+  /// *    **.sg:** `SG_ID_NUMBER`
   ///
-  /// *    **.co.uk, .me.uk, and .org.uk:** `UK\_CONTACT\_TYPE` and
-  /// `UK\_COMPANY\_NUMBER`
+  /// *    **.co.uk, .me.uk, and .org.uk:** `UK_CONTACT_TYPE` and
+  /// `UK_COMPANY_NUMBER`
   ///
   ///
   /// In addition, many TLDs require `VAT_NUMBER`.
@@ -1003,6 +1011,7 @@ class GetContactReachabilityStatusResponse {
       GetContactReachabilityStatusResponse();
 }
 
+/// The GetDomainDetail response includes the following elements.
 class GetDomainDetailResponse {
   /// The name of a domain.
   final String domainName;
@@ -1146,6 +1155,7 @@ class GetDomainSuggestionsResponse {
       GetDomainSuggestionsResponse();
 }
 
+/// The GetOperationDetail response includes the following elements.
 class GetOperationDetailResponse {
   /// The identifier for the operation.
   final String operationId;
@@ -1177,6 +1187,7 @@ class GetOperationDetailResponse {
       GetOperationDetailResponse();
 }
 
+/// The ListDomains response includes the following elements.
 class ListDomainsResponse {
   /// A summary of domains.
   final List<DomainSummary> domains;
@@ -1194,6 +1205,7 @@ class ListDomainsResponse {
       ListDomainsResponse();
 }
 
+/// The ListOperations response includes the following elements.
 class ListOperationsResponse {
   /// Lists summaries of the operations.
   final List<OperationSummary> operations;
@@ -1211,6 +1223,7 @@ class ListOperationsResponse {
       ListOperationsResponse();
 }
 
+/// The ListTagsForDomain response includes the following elements.
 class ListTagsForDomainResponse {
   /// A list of the tags that are associated with the specified domain.
   final List<Tag> tagList;
@@ -1222,6 +1235,7 @@ class ListTagsForDomainResponse {
       ListTagsForDomainResponse();
 }
 
+/// Nameserver includes the following elements.
 class Nameserver {
   /// The fully qualified host name of the name server.
   ///
@@ -1243,6 +1257,7 @@ class Nameserver {
   static Nameserver fromJson(Map<String, dynamic> json) => Nameserver();
 }
 
+/// OperationSummary includes the following elements.
 class OperationSummary {
   /// Identifier returned to track the requested action.
   final String operationId;
@@ -1266,6 +1281,7 @@ class OperationSummary {
       OperationSummary();
 }
 
+/// The RegisterDomain response includes the following element.
 class RegisterDomainResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -1313,6 +1329,7 @@ class ResendContactReachabilityEmailResponse {
       ResendContactReachabilityEmailResponse();
 }
 
+/// The RetrieveDomainAuthCode response includes the following element.
 class RetrieveDomainAuthCodeResponse {
   /// The authorization code for the domain.
   final String authCode;
@@ -1324,17 +1341,18 @@ class RetrieveDomainAuthCodeResponse {
       RetrieveDomainAuthCodeResponse();
 }
 
+/// Each tag includes the following elements.
 class Tag {
   /// The key (name) of a tag.
   ///
-  /// Valid values: A-Z, a-z, 0-9, space, ".:/=+\\-@"
+  /// Valid values: A-Z, a-z, 0-9, space, ".:/=+-@"
   ///
   /// Constraints: Each key can be 1-128 characters long.
   final String key;
 
   /// The value of a tag.
   ///
-  /// Valid values: A-Z, a-z, 0-9, space, ".:/=+\\-@"
+  /// Valid values: A-Z, a-z, 0-9, space, ".:/=+-@"
   ///
   /// Constraints: Each value can be 0-256 characters long.
   final String value;
@@ -1346,6 +1364,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// The TranserDomain response includes the following element.
 class TransferDomainResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -1358,6 +1377,7 @@ class TransferDomainResponse {
       TransferDomainResponse();
 }
 
+/// The UpdateDomainContactPrivacy response includes the following element.
 class UpdateDomainContactPrivacyResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -1371,6 +1391,7 @@ class UpdateDomainContactPrivacyResponse {
       UpdateDomainContactPrivacyResponse();
 }
 
+/// The UpdateDomainContact response includes the following element.
 class UpdateDomainContactResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -1383,6 +1404,7 @@ class UpdateDomainContactResponse {
       UpdateDomainContactResponse();
 }
 
+/// The UpdateDomainNameservers response includes the following element.
 class UpdateDomainNameserversResponse {
   /// Identifier for tracking the progress of the request. To use this ID to
   /// query the operation status, use GetOperationDetail.
@@ -1401,6 +1423,7 @@ class UpdateTagsForDomainResponse {
       UpdateTagsForDomainResponse();
 }
 
+/// The ViewBilling response includes the following elements.
 class ViewBillingResponse {
   /// If there are more billing records than you specified for `MaxItems` in the
   /// request, submit another request and include the value of `NextPageMarker`

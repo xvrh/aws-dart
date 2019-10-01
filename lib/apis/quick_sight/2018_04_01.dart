@@ -82,8 +82,8 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight delete-group -\\-aws-account-id=111122223333
-  /// -\\-namespace=default -\\-group-name=Sales-Management`
+  ///  `aws quicksight delete-group --aws-account-id=111122223333
+  /// --namespace=default --group-name=Sales-Management`
   ///
   /// [groupName]: The name of the group that you want to delete.
   ///
@@ -196,8 +196,8 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight describe-group -\\-aws-account-id=11112222333
-  /// -\\-namespace=default -\\-group-name=Sales`
+  ///  `aws quicksight describe-group --aws-account-id=11112222333
+  /// --namespace=default --group-name=Sales`
   ///
   /// [groupName]: The name of the group that you want to describe.
   ///
@@ -244,8 +244,8 @@ class QuickSightApi {
 
   /// Generates a server-side embeddable URL and authorization code. Before this
   /// can work properly, first you need to configure the dashboards and user
-  /// permissions. For more information, see  [Embedding Amazon QuickSight
-  /// Dashboards](https://docs.aws.amazon.com/en_us/quicksight/latest/user/embedding.html).
+  /// permissions. For more information, see
+  /// [Embedding Amazon QuickSight Dashboards](https://docs.aws.amazon.com/en_us/quicksight/latest/user/embedding.html).
   ///
   /// Currently, you can use `GetDashboardEmbedURL` only from the server, not
   /// from the user’s browser.
@@ -257,14 +257,14 @@ class QuickSightApi {
   /// use assume-role, assume-role-with-web-identity, or assume-role-with-saml.
   ///
   ///  `aws sts assume-role --role-arn
-  /// "arn:aws:iam::111122223333:role/embedding\_quicksight\_dashboard_role"
+  /// "arn:aws:iam::111122223333:role/embedding_quicksight_dashboard_role"
   /// --role-session-name embeddingsession`
   ///
   /// If the user does not exist in QuickSight, register the user:
   ///
   ///  `aws quicksight register-user --aws-account-id 111122223333 --namespace
   /// default --identity-type IAM --iam-arn
-  /// "arn:aws:iam::111122223333:role/embedding\_quicksight\_dashboard_role"
+  /// "arn:aws:iam::111122223333:role/embedding_quicksight_dashboard_role"
   /// --user-role READER --session-name "embeddingsession" --email
   /// user123@example.com --region us-east-1`
   ///
@@ -323,8 +323,8 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight list-group-memberships -\\-aws-account-id=111122223333
-  /// -\\-namespace=default`
+  ///  `aws quicksight list-group-memberships --aws-account-id=111122223333
+  /// --namespace=default`
   ///
   /// [groupName]: The name of the group that you want to see a membership list
   /// of.
@@ -356,8 +356,8 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight list-groups -\\-aws-account-id=111122223333
-  /// -\\-namespace=default`
+  ///  `aws quicksight list-groups --aws-account-id=111122223333
+  /// --namespace=default`
   ///
   /// [awsAccountId]: The ID for the AWS account that the group is in.
   /// Currently, you use the ID for the AWS account that contains your Amazon
@@ -387,9 +387,8 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight list-user-groups -\\-user-name=Pat
-  /// -\\-aws-account-id=111122223333 -\\-namespace=default
-  /// -\\-region=us-east-1`
+  ///  `aws quicksight list-user-groups --user-name=Pat
+  /// --aws-account-id=111122223333 --namespace=default --region=us-east-1`
   ///
   /// [userName]: The Amazon QuickSight user name that you want to list group
   /// memberships for.
@@ -458,9 +457,9 @@ class QuickSightApi {
   ///
   ///  **CLI Sample:**
   ///
-  ///  `aws quicksight register-user -\\-aws-account-id=111122223333
-  /// -\\-namespace=default -\\-email=pat@example.com -\\-identity-type=IAM
-  /// -\\-user-role=AUTHOR -\\-iam-arn=arn:aws:iam::111122223333:user/Pat`
+  ///  `aws quicksight register-user --aws-account-id=111122223333
+  /// --namespace=default --email=pat@example.com --identity-type=IAM
+  /// --user-role=AUTHOR --iam-arn=arn:aws:iam::111122223333:user/Pat`
   ///
   /// [identityType]: Amazon QuickSight supports several ways of managing the
   /// identity of users. This parameter accepts two values:
@@ -611,6 +610,7 @@ class CreateGroupMembershipResponse {
       CreateGroupMembershipResponse();
 }
 
+/// The response object for this operation.
 class CreateGroupResponse {
   /// The name of the group.
   final Group group;
@@ -750,6 +750,10 @@ class GetDashboardEmbedUrlResponse {
       GetDashboardEmbedUrlResponse();
 }
 
+/// A _group_ in Amazon QuickSight consists of a set of users. You can use
+/// groups to make it easier to manage access and security. Currently, an Amazon
+/// QuickSight subscription can't contain more than 500 Amazon QuickSight
+/// groups.
 class Group {
   /// The Amazon Resource Name (ARN) for the group.
   final String arn;
@@ -772,6 +776,8 @@ class Group {
   static Group fromJson(Map<String, dynamic> json) => Group();
 }
 
+/// A member of an Amazon QuickSight group. Currently, group members must be
+/// users. Groups can't be members of another group.
 class GroupMember {
   /// The Amazon Resource Name (ARN) for the group member (user).
   final String arn;
@@ -940,6 +946,8 @@ class UpdateUserResponse {
       UpdateUserResponse();
 }
 
+/// A registered user of Amazon QuickSight. Currently, an Amazon QuickSight
+/// subscription can't contain more than 20 million users.
 class User {
   /// The Amazon Resource Name (ARN) for the user.
   final String arn;

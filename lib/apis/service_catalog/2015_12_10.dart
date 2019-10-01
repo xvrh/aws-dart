@@ -5,30 +5,30 @@ import 'package:meta/meta.dart';
 ///  [AWS Service Catalog](https://aws.amazon.com/servicecatalog/) enables
 /// organizations to create and manage catalogs of IT services that are approved
 /// for use on AWS. To get the most out of this documentation, you should be
-/// familiar with the terminology discussed in [AWS Service Catalog
-/// Concepts](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html).
+/// familiar with the terminology discussed in
+/// [AWS Service Catalog Concepts](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/what-is_concepts.html).
 class ServiceCatalogApi {
   /// Accepts an offer to share the specified portfolio.
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
   /// [portfolioShareType]: The type of shared portfolios to accept. The default
   /// is to accept imported portfolios.
   ///
-  /// *    `AWS_ORGANIZATIONS` \- Accept portfolios shared by the master account
+  /// *    `AWS_ORGANIZATIONS` - Accept portfolios shared by the master account
   /// of your organization.
   ///
-  /// *    `IMPORTED` \- Accept imported portfolios.
+  /// *    `IMPORTED` - Accept imported portfolios.
   ///
-  /// *    `AWS_SERVICECATALOG` \- Not supported. (Throws
+  /// *    `AWS_SERVICECATALOG` - Not supported. (Throws
   /// ResourceNotFoundException.)
   ///
   ///
@@ -54,11 +54,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -77,11 +77,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -108,11 +108,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<AssociateServiceActionWithProvisioningArtifactOutput>
       associateServiceActionWithProvisioningArtifact(
           {@required String productId,
@@ -139,11 +139,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<BatchAssociateServiceActionWithProvisioningArtifactOutput>
       batchAssociateServiceActionWithProvisioningArtifact(
           List<ServiceActionAssociation> serviceActionAssociations,
@@ -160,11 +160,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<BatchDisassociateServiceActionFromProvisioningArtifactOutput>
       batchDisassociateServiceActionFromProvisioningArtifact(
           List<ServiceActionAssociation> serviceActionAssociations,
@@ -184,11 +184,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [sourceProductArn]: The Amazon Resource Name (ARN) of the source product.
   ///
@@ -223,11 +223,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -251,7 +251,7 @@ class ServiceCatalogApi {
   ///
   /// Specify the `NotificationArns` property as follows:
   ///
-  ///  `{"NotificationArns" : \["arn:aws:sns:us-east-1:123456789012:Topic"\]}`
+  ///  `{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}`
   ///
   /// RESOURCE_UPDATE
   ///
@@ -267,8 +267,8 @@ class ServiceCatalogApi {
   ///
   /// Specify the `Parameters` property as follows:
   ///
-  ///  `{"Version": "String", "Properties": {"AccountList": \[ "String" \],
-  /// "RegionList": \[ "String" \], "AdminRole": "String", "ExecutionRole":
+  ///  `{"Version": "String", "Properties": {"AccountList": [ "String" ],
+  /// "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole":
   /// "String"}}`
   ///
   /// You cannot have both a `LAUNCH` and a `STACKSET` constraint.
@@ -281,9 +281,8 @@ class ServiceCatalogApi {
   ///
   /// TEMPLATE
   ///
-  /// Specify the `Rules` property. For more information, see [Template
-  /// Constraint
-  /// Rules](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
+  /// Specify the `Rules` property. For more information, see
+  /// [Template Constraint Rules](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
   ///
   /// [type]: The type of constraint.
   ///
@@ -317,11 +316,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [displayName]: The name to use for display purposes.
   ///
@@ -351,11 +350,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -377,11 +376,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [name]: The name of the product.
   ///
@@ -437,11 +436,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [planName]: The name of the plan.
   ///
@@ -497,11 +496,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -551,17 +550,17 @@ class ServiceCatalogApi {
   ///
   /// The list of parameters in JSON format.
   ///
-  /// For example: `\[{\\"Name\\":\\"InstanceId\\",\\"Type\\":\\"TARGET\\"}\]`.
+  /// For example: `[{"Name":"InstanceId","Type":"TARGET"}]`.
   ///
   /// [description]: The self-service action description.
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [idempotencyToken]: A unique identifier that you provide to ensure
   /// idempotency. If multiple requests differ only by the idempotency token,
@@ -590,11 +589,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The identifier of the constraint.
   Future<DeleteConstraintOutput> deleteConstraint(String id,
@@ -609,11 +608,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The portfolio identifier.
   Future<DeletePortfolioOutput> deletePortfolio(String id,
@@ -627,11 +626,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -653,11 +652,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The product identifier.
   Future<DeleteProductOutput> deleteProduct(String id,
@@ -669,11 +668,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [planId]: The plan identifier.
   ///
@@ -696,11 +695,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -719,11 +718,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<DeleteServiceActionOutput> deleteServiceAction(String id,
       {String acceptLanguage}) async {
     return DeleteServiceActionOutput.fromJson({});
@@ -743,11 +742,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The identifier of the constraint.
   Future<DescribeConstraintOutput> describeConstraint(String id,
@@ -759,11 +758,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [copyProductToken]: The token for the copy product operation. This token
   /// is returned by CopyProduct.
@@ -777,11 +776,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The portfolio identifier.
   Future<DescribePortfolioOutput> describePortfolio(String id,
@@ -804,11 +803,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The product identifier.
   Future<DescribeProductOutput> describeProduct(String id,
@@ -821,11 +820,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The product identifier.
   Future<DescribeProductAsAdminOutput> describeProductAsAdmin(String id,
@@ -837,11 +836,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The product view identifier.
   Future<DescribeProductViewOutput> describeProductView(String id,
@@ -853,11 +852,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The provisioned product identifier.
   Future<DescribeProvisionedProductOutput> describeProvisionedProduct(String id,
@@ -869,11 +868,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [planId]: The plan identifier.
   ///
@@ -894,11 +893,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [provisioningArtifactId]: The identifier of the provisioning artifact.
   ///
@@ -921,16 +920,16 @@ class ServiceCatalogApi {
   /// fix the conflict, and launch is not blocked. In subsequent calls to
   /// ProvisionProduct, do not include conflicted TagOption keys as tags, or
   /// this causes the error "Parameter validation failed: Missing required
-  /// parameter in Tags\[_N_\]:_Value_". Tag the provisioned product with the
+  /// parameter in Tags[_N_]:_Value_". Tag the provisioned product with the
   /// value `sc-tagoption-conflict-portfolioId-productId`.
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -963,11 +962,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The record identifier of the provisioned product. This identifier is
   /// returned by the request operation.
@@ -987,11 +986,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<DescribeServiceActionOutput> describeServiceAction(String id,
       {String acceptLanguage}) async {
     return DescribeServiceActionOutput.fromJson({});
@@ -1039,11 +1038,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -1060,11 +1059,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -1090,11 +1089,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<DisassociateServiceActionFromProvisioningArtifactOutput>
       disassociateServiceActionFromProvisioningArtifact(
           {@required String productId,
@@ -1133,11 +1132,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [planId]: The plan identifier.
   ///
@@ -1163,11 +1162,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<ExecuteProvisionedProductServiceActionOutput>
       executeProvisionedProductServiceAction(
           {@required String provisionedProductId,
@@ -1189,11 +1188,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [pageToken]: The page token for the next set of results. To retrieve the
   /// first set of results, use null.
@@ -1203,12 +1202,12 @@ class ServiceCatalogApi {
   /// [portfolioShareType]: The type of shared portfolios to list. The default
   /// is to list imported portfolios.
   ///
-  /// *    `AWS_ORGANIZATIONS` \- List portfolios shared by the master account
-  /// of your organization
+  /// *    `AWS_ORGANIZATIONS` - List portfolios shared by the master account of
+  /// your organization
   ///
-  /// *    `AWS_SERVICECATALOG` \- List default portfolios
+  /// *    `AWS_SERVICECATALOG` - List default portfolios
   ///
-  /// *    `IMPORTED` \- List imported portfolios
+  /// *    `IMPORTED` - List imported portfolios
   Future<ListAcceptedPortfolioSharesOutput> listAcceptedPortfolioShares(
       {String acceptLanguage,
       String pageToken,
@@ -1221,11 +1220,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [resourceId]: The resource identifier.
   ///
@@ -1242,11 +1241,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -1271,11 +1270,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -1293,11 +1292,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier. For example,
   /// `port-2abcdext3y5fk`.
@@ -1305,12 +1304,12 @@ class ServiceCatalogApi {
   /// [organizationNodeType]: The organization node type that will be returned
   /// in the output.
   ///
-  /// *    `ORGANIZATION` \- Organization that has access to the portfolio.
+  /// *    `ORGANIZATION` - Organization that has access to the portfolio.
   ///
-  /// *    `ORGANIZATIONAL_UNIT` \- Organizational unit that has access to the
+  /// *    `ORGANIZATIONAL_UNIT` - Organizational unit that has access to the
   /// portfolio within your organization.
   ///
-  /// *    `ACCOUNT` \- Account that has access to the portfolio within your
+  /// *    `ACCOUNT` - Account that has access to the portfolio within your
   /// organization.
   ///
   /// [pageToken]: The page token for the next set of results. To retrieve the
@@ -1330,11 +1329,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   Future<ListPortfolioAccessOutput> listPortfolioAccess(String portfolioId,
@@ -1346,11 +1345,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [pageToken]: The page token for the next set of results. To retrieve the
   /// first set of results, use null.
@@ -1365,11 +1364,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -1389,11 +1388,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -1414,11 +1413,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [provisionProductId]: The product identifier.
   ///
@@ -1443,11 +1442,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   Future<ListProvisioningArtifactsOutput> listProvisioningArtifacts(
@@ -1469,11 +1468,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<ListProvisioningArtifactsForServiceActionOutput>
       listProvisioningArtifactsForServiceAction(String serviceActionId,
           {int pageSize, String pageToken, String acceptLanguage}) async {
@@ -1484,11 +1483,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [accessLevelFilter]: The access level to use to obtain results. The
   /// default is `User`.
@@ -1534,11 +1533,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [pageSize]: The maximum number of items to return with this call.
   ///
@@ -1564,11 +1563,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<ListServiceActionsForProvisioningArtifactOutput>
       listServiceActionsForProvisioningArtifact(
           {@required String productId,
@@ -1586,11 +1585,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [provisionedProductId]: The identifier of the provisioned product.
   ///
@@ -1628,15 +1627,15 @@ class ServiceCatalogApi {
   /// If the request contains a tag key with an empty list of values, there is a
   /// tag conflict for that key. Do not include conflicted keys as tags, or this
   /// causes the error "Parameter validation failed: Missing required parameter
-  /// in Tags\[_N_\]:_Value_".
+  /// in Tags[_N_]:_Value_".
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -1681,23 +1680,23 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
   /// [portfolioShareType]: The type of shared portfolios to reject. The default
   /// is to reject imported portfolios.
   ///
-  /// *    `AWS_ORGANIZATIONS` \- Reject portfolios shared by the master account
+  /// *    `AWS_ORGANIZATIONS` - Reject portfolios shared by the master account
   /// of your organization.
   ///
-  /// *    `IMPORTED` \- Reject imported portfolios.
+  /// *    `IMPORTED` - Reject imported portfolios.
   ///
-  /// *    `AWS_SERVICECATALOG` \- Not supported. (Throws
+  /// *    `AWS_SERVICECATALOG` - Not supported. (Throws
   /// ResourceNotFoundException.)
   ///
   ///
@@ -1714,11 +1713,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [accessLevelFilter]: The access level to use to obtain results. The
   /// default is `User`.
@@ -1739,11 +1738,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [filters]: The search filters. If no search filters are specified, the
   /// output includes all products to which the caller has access.
@@ -1773,11 +1772,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [portfolioId]: The portfolio identifier.
   ///
@@ -1813,11 +1812,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [accessLevelFilter]: The access level to use to obtain results. The
   /// default is `User`.
@@ -1829,7 +1828,7 @@ class ServiceCatalogApi {
   /// `physicalId`, `productId`, `provisioningArtifact`, `type`, `status`,
   /// `tags`, `userArn`, and `userArnSession`.
   ///
-  /// Example: `"SearchQuery":\["status:AVAILABLE"\]`
+  /// Example: `"SearchQuery":["status:AVAILABLE"]`
   ///
   /// [sortBy]: The sort field. If no value is specified, the results are not
   /// sorted. The valid values are `arn`, `id`, `name`, and `lastRecordId`.
@@ -1877,11 +1876,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<TerminateProvisionedProductOutput> terminateProvisionedProduct(
       String terminateToken,
       {String provisionedProductName,
@@ -1895,11 +1894,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The identifier of the constraint.
   ///
@@ -1923,7 +1922,7 @@ class ServiceCatalogApi {
   ///
   /// Specify the `NotificationArns` property as follows:
   ///
-  ///  `{"NotificationArns" : \["arn:aws:sns:us-east-1:123456789012:Topic"\]}`
+  ///  `{"NotificationArns" : ["arn:aws:sns:us-east-1:123456789012:Topic"]}`
   ///
   /// RESOURCE_UPDATE
   ///
@@ -1939,8 +1938,8 @@ class ServiceCatalogApi {
   ///
   /// Specify the `Parameters` property as follows:
   ///
-  ///  `{"Version": "String", "Properties": {"AccountList": \[ "String" \],
-  /// "RegionList": \[ "String" \], "AdminRole": "String", "ExecutionRole":
+  ///  `{"Version": "String", "Properties": {"AccountList": [ "String" ],
+  /// "RegionList": [ "String" ], "AdminRole": "String", "ExecutionRole":
   /// "String"}}`
   ///
   /// You cannot have both a `LAUNCH` and a `STACKSET` constraint.
@@ -1953,9 +1952,8 @@ class ServiceCatalogApi {
   ///
   /// TEMPLATE
   ///
-  /// Specify the `Rules` property. For more information, see [Template
-  /// Constraint
-  /// Rules](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
+  /// Specify the `Rules` property. For more information, see
+  /// [Template Constraint Rules](http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html).
   Future<UpdateConstraintOutput> updateConstraint(String id,
       {String acceptLanguage, String description, String parameters}) async {
     return UpdateConstraintOutput.fromJson({});
@@ -1967,11 +1965,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The portfolio identifier.
   ///
@@ -1998,11 +1996,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [id]: The product identifier.
   ///
@@ -2049,11 +2047,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [provisionedProductName]: The name of the provisioned product. You cannot
   /// specify both `ProvisionedProductName` and `ProvisionedProductId`.
@@ -2097,11 +2095,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [provisionedProductId]: The identifier of the provisioned product.
   ///
@@ -2146,11 +2144,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   ///
   /// [productId]: The product identifier.
   ///
@@ -2194,11 +2192,11 @@ class ServiceCatalogApi {
   ///
   /// [acceptLanguage]: The language code.
   ///
-  /// *    `en` \- English (default)
+  /// *    `en` - English (default)
   ///
-  /// *    `jp` \- Japanese
+  /// *    `jp` - Japanese
   ///
-  /// *    `zh` \- Chinese
+  /// *    `zh` - Chinese
   Future<UpdateServiceActionOutput> updateServiceAction(String id,
       {String name,
       Map<String, String> definition,
@@ -2226,15 +2224,16 @@ class AcceptPortfolioShareOutput {
       AcceptPortfolioShareOutput();
 }
 
+/// The access level to use to filter results.
 class AccessLevelFilter {
   /// The access level.
   ///
-  /// *    `Account` \- Filter results based on the account.
+  /// *    `Account` - Filter results based on the account.
   ///
-  /// *    `Role` \- Filter results based on the federated role of the specified
+  /// *    `Role` - Filter results based on the federated role of the specified
   /// user.
   ///
-  /// *    `User` \- Filter results based on the specified user.
+  /// *    `User` - Filter results based on the specified user.
   final String key;
 
   /// The user to which the access level applies. The only supported value is
@@ -2308,6 +2307,7 @@ class BatchDisassociateServiceActionFromProvisioningArtifactOutput {
       BatchDisassociateServiceActionFromProvisioningArtifactOutput();
 }
 
+/// Information about a budget.
 class BudgetDetail {
   /// Name of the associated budget.
   final String budgetName;
@@ -2318,6 +2318,7 @@ class BudgetDetail {
   static BudgetDetail fromJson(Map<String, dynamic> json) => BudgetDetail();
 }
 
+/// Information about a CloudWatch dashboard.
 class CloudWatchDashboard {
   /// The name of the CloudWatch dashboard.
   final String name;
@@ -2329,6 +2330,7 @@ class CloudWatchDashboard {
       CloudWatchDashboard();
 }
 
+/// Information about a constraint.
 class ConstraintDetail {
   /// The identifier of the constraint.
   final String constraintId;
@@ -2360,6 +2362,7 @@ class ConstraintDetail {
       ConstraintDetail();
 }
 
+/// Summary information about a constraint.
 class ConstraintSummary {
   /// The type of constraint.
   ///
@@ -2969,6 +2972,8 @@ class ExecutionParameter {
       ExecutionParameter();
 }
 
+/// An object containing information about the error, along with identifying
+/// information about the self-service action and its associations.
 class FailedServiceActionAssociation {
   /// The self-service action identifier. For example, `act-fs7abcd89wxyz`.
   final String serviceActionId;
@@ -3009,6 +3014,7 @@ class GetAwsOrganizationsAccessStatusOutput {
       GetAwsOrganizationsAccessStatusOutput();
 }
 
+/// Summary information about a product path for a user.
 class LaunchPathSummary {
   /// The identifier of the product path.
   final String id;
@@ -3246,13 +3252,13 @@ class ListRecordHistoryOutput {
       ListRecordHistoryOutput();
 }
 
+/// The search filter to use when listing history records.
 class ListRecordHistorySearchFilter {
   /// The filter key.
   ///
-  /// *    `product` \- Filter results based on the specified product
-  /// identifier.
+  /// *    `product` - Filter results based on the specified product identifier.
   ///
-  /// *    `provisionedproduct` \- Filter results based on the provisioned
+  /// *    `provisionedproduct` - Filter results based on the provisioned
   /// product identifier.
   final String key;
 
@@ -3333,6 +3339,7 @@ class ListStackInstancesForProvisionedProductOutput {
       ListStackInstancesForProvisionedProductOutput();
 }
 
+/// Filters to use when listing TagOptions.
 class ListTagOptionsFilters {
   /// The TagOption key.
   final String key;
@@ -3366,6 +3373,7 @@ class ListTagOptionsOutput {
       ListTagOptionsOutput();
 }
 
+/// Information about the organization node.
 class OrganizationNode {
   /// The organization node type.
   final String type;
@@ -3381,6 +3389,7 @@ class OrganizationNode {
       OrganizationNode();
 }
 
+/// The constraints that the administrator has put on the parameter.
 class ParameterConstraints {
   /// The values that the administrator has allowed for the parameter.
   final List<String> allowedValues;
@@ -3392,6 +3401,7 @@ class ParameterConstraints {
       ParameterConstraints();
 }
 
+/// Information about a portfolio.
 class PortfolioDetail {
   /// The portfolio identifier.
   final String id;
@@ -3423,6 +3433,7 @@ class PortfolioDetail {
       PortfolioDetail();
 }
 
+/// Information about a principal.
 class Principal {
   /// The ARN of the principal (IAM user, role, or group).
   final String principalArn;
@@ -3437,6 +3448,8 @@ class Principal {
   static Principal fromJson(Map<String, dynamic> json) => Principal();
 }
 
+/// A single product view aggregation value/count pair, containing metadata
+/// about each product to which the calling user has access.
 class ProductViewAggregationValue {
   /// The value of the product view aggregation.
   final String value;
@@ -3452,18 +3465,19 @@ class ProductViewAggregationValue {
       ProductViewAggregationValue();
 }
 
+/// Information about a product view.
 class ProductViewDetail {
   /// Summary information about the product view.
   final ProductViewSummary productViewSummary;
 
   /// The status of the product.
   ///
-  /// *    `AVAILABLE` \- The product is ready for use.
+  /// *    `AVAILABLE` - The product is ready for use.
   ///
-  /// *    `CREATING` \- Product creation has started; the product is not ready
+  /// *    `CREATING` - Product creation has started; the product is not ready
   /// for use.
   ///
-  /// *    `FAILED` \- An action failed.
+  /// *    `FAILED` - An action failed.
   final String status;
 
   /// The ARN of the product.
@@ -3482,6 +3496,7 @@ class ProductViewDetail {
       ProductViewDetail();
 }
 
+/// Summary information about a product view.
 class ProductViewSummary {
   /// The product view identifier.
   final String id;
@@ -3552,6 +3567,7 @@ class ProvisionProductOutput {
       ProvisionProductOutput();
 }
 
+/// Information about a provisioned product.
 class ProvisionedProductAttribute {
   /// The user-friendly name of the provisioned product.
   final String name;
@@ -3568,23 +3584,23 @@ class ProvisionedProductAttribute {
 
   /// The current status of the provisioned product.
   ///
-  /// *    `AVAILABLE` \- Stable state, ready to perform any operation. The most
+  /// *    `AVAILABLE` - Stable state, ready to perform any operation. The most
   /// recent operation succeeded and completed.
   ///
-  /// *    `UNDER_CHANGE` \- Transitive state. Operations performed might not
+  /// *    `UNDER_CHANGE` - Transitive state. Operations performed might not
   /// have valid results. Wait for an `AVAILABLE` status before performing
   /// operations.
   ///
-  /// *    `TAINTED` \- Stable state, ready to perform any operation. The stack
+  /// *    `TAINTED` - Stable state, ready to perform any operation. The stack
   /// has completed the requested operation but is not exactly what was
   /// requested. For example, a request to update to a new version failed and
   /// the stack rolled back to the current version.
   ///
-  /// *    `ERROR` \- An unexpected error occurred. The provisioned product
+  /// *    `ERROR` - An unexpected error occurred. The provisioned product
   /// exists but the stack is not running. For example, CloudFormation received
   /// a parameter value that was not valid and could not launch the stack.
   ///
-  /// *    `PLAN\_IN\_PROGRESS` \- Transitive state. The plan operations were
+  /// *    `PLAN_IN_PROGRESS` - Transitive state. The plan operations were
   /// performed to provision a new product, but resources have not yet been
   /// created. After reviewing the list of resources to be created, execute the
   /// plan. Wait for an `AVAILABLE` status before performing operations.
@@ -3646,6 +3662,7 @@ class ProvisionedProductAttribute {
       ProvisionedProductAttribute();
 }
 
+/// Information about a provisioned product.
 class ProvisionedProductDetail {
   /// The user-friendly name of the provisioned product.
   final String name;
@@ -3662,23 +3679,23 @@ class ProvisionedProductDetail {
 
   /// The current status of the provisioned product.
   ///
-  /// *    `AVAILABLE` \- Stable state, ready to perform any operation. The most
+  /// *    `AVAILABLE` - Stable state, ready to perform any operation. The most
   /// recent operation succeeded and completed.
   ///
-  /// *    `UNDER_CHANGE` \- Transitive state. Operations performed might not
+  /// *    `UNDER_CHANGE` - Transitive state. Operations performed might not
   /// have valid results. Wait for an `AVAILABLE` status before performing
   /// operations.
   ///
-  /// *    `TAINTED` \- Stable state, ready to perform any operation. The stack
+  /// *    `TAINTED` - Stable state, ready to perform any operation. The stack
   /// has completed the requested operation but is not exactly what was
   /// requested. For example, a request to update to a new version failed and
   /// the stack rolled back to the current version.
   ///
-  /// *    `ERROR` \- An unexpected error occurred. The provisioned product
+  /// *    `ERROR` - An unexpected error occurred. The provisioned product
   /// exists but the stack is not running. For example, CloudFormation received
   /// a parameter value that was not valid and could not launch the stack.
   ///
-  /// *    `PLAN\_IN\_PROGRESS` \- Transitive state. The plan operations were
+  /// *    `PLAN_IN_PROGRESS` - Transitive state. The plan operations were
   /// performed to provision a new product, but resources have not yet been
   /// created. After reviewing the list of resources to be created, execute the
   /// plan. Wait for an `AVAILABLE` status before performing operations.
@@ -3723,6 +3740,7 @@ class ProvisionedProductDetail {
       ProvisionedProductDetail();
 }
 
+/// Information about a plan.
 class ProvisionedProductPlanDetails {
   /// The UTC time stamp of the creation time.
   final DateTime createdTime;
@@ -3794,6 +3812,7 @@ class ProvisionedProductPlanDetails {
       ProvisionedProductPlanDetails();
 }
 
+/// Summary information about a plan.
 class ProvisionedProductPlanSummary {
   /// The name of the plan.
   final String planName;
@@ -3825,6 +3844,8 @@ class ProvisionedProductPlanSummary {
       ProvisionedProductPlanSummary();
 }
 
+/// Information about a provisioning artifact. A provisioning artifact is also
+/// known as a product version.
 class ProvisioningArtifact {
   /// The identifier of the provisioning artifact.
   final String id;
@@ -3853,6 +3874,8 @@ class ProvisioningArtifact {
       ProvisioningArtifact();
 }
 
+/// Information about a provisioning artifact (also known as a version) for a
+/// product.
 class ProvisioningArtifactDetail {
   /// The identifier of the provisioning artifact.
   final String id;
@@ -3865,11 +3888,11 @@ class ProvisioningArtifactDetail {
 
   /// The type of provisioning artifact.
   ///
-  /// *    `CLOUD\_FORMATION\_TEMPLATE` \- AWS CloudFormation template
+  /// *    `CLOUD_FORMATION_TEMPLATE` - AWS CloudFormation template
   ///
-  /// *    `MARKETPLACE_AMI` \- AWS Marketplace AMI
+  /// *    `MARKETPLACE_AMI` - AWS Marketplace AMI
   ///
-  /// *    `MARKETPLACE_CAR` \- AWS Marketplace Clusters and AWS Resources
+  /// *    `MARKETPLACE_CAR` - AWS Marketplace Clusters and AWS Resources
   final String type;
 
   /// The UTC time stamp of the creation time.
@@ -3895,6 +3918,7 @@ class ProvisioningArtifactDetail {
       ProvisioningArtifactDetail();
 }
 
+/// Information about a parameter used to provision a product.
 class ProvisioningArtifactParameter {
   /// The parameter key.
   final String parameterKey;
@@ -3928,6 +3952,14 @@ class ProvisioningArtifactParameter {
       ProvisioningArtifactParameter();
 }
 
+/// The user-defined preferences that will be applied during product
+/// provisioning, unless overridden by `ProvisioningPreferences` or
+/// `UpdateProvisioningPreferences`.
+///
+/// For more information on maximum concurrent accounts and failure tolerance,
+/// see
+/// [Stack set operation options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-concepts.html#stackset-ops-options)
+/// in the _AWS CloudFormation User Guide_.
 class ProvisioningArtifactPreferences {
   /// One or more AWS accounts where stack instances are deployed from the stack
   /// set. These accounts can be scoped in
@@ -3953,6 +3985,8 @@ class ProvisioningArtifactPreferences {
       ProvisioningArtifactPreferences();
 }
 
+/// Information about a provisioning artifact (also known as a version) for a
+/// product.
 class ProvisioningArtifactProperties {
   /// The name of the provisioning artifact (for example, v1 v2beta). No spaces
   /// are allowed.
@@ -3971,11 +4005,11 @@ class ProvisioningArtifactProperties {
 
   /// The type of provisioning artifact.
   ///
-  /// *    `CLOUD\_FORMATION\_TEMPLATE` \- AWS CloudFormation template
+  /// *    `CLOUD_FORMATION_TEMPLATE` - AWS CloudFormation template
   ///
-  /// *    `MARKETPLACE_AMI` \- AWS Marketplace AMI
+  /// *    `MARKETPLACE_AMI` - AWS Marketplace AMI
   ///
-  /// *    `MARKETPLACE_CAR` \- AWS Marketplace Clusters and AWS Resources
+  /// *    `MARKETPLACE_CAR` - AWS Marketplace Clusters and AWS Resources
   final String type;
 
   /// If set to true, AWS Service Catalog stops validating the specified
@@ -3991,6 +4025,8 @@ class ProvisioningArtifactProperties {
   });
 }
 
+/// Summary information about a provisioning artifact (also known as a version)
+/// for a product.
 class ProvisioningArtifactSummary {
   /// The identifier of the provisioning artifact.
   final String id;
@@ -4019,6 +4055,8 @@ class ProvisioningArtifactSummary {
       ProvisioningArtifactSummary();
 }
 
+/// An object that contains summary information about a product view and a
+/// provisioning artifact.
 class ProvisioningArtifactView {
   /// Summary information about a product view.
   final ProductViewSummary productViewSummary;
@@ -4035,6 +4073,7 @@ class ProvisioningArtifactView {
       ProvisioningArtifactView();
 }
 
+/// Information about a parameter used to provision a product.
 class ProvisioningParameter {
   /// The parameter key.
   final String key;
@@ -4048,6 +4087,9 @@ class ProvisioningParameter {
   });
 }
 
+/// The user-defined preferences that will be applied when updating a
+/// provisioned product. Not all preferences are applicable to all provisioned
+/// product types.
 class ProvisioningPreferences {
   /// One or more AWS accounts that will have access to the provisioned product.
   ///
@@ -4143,6 +4185,7 @@ class ProvisioningPreferences {
   });
 }
 
+/// Information about a request operation.
 class RecordDetail {
   /// The identifier of the record.
   final String recordId;
@@ -4152,18 +4195,18 @@ class RecordDetail {
 
   /// The status of the provisioned product.
   ///
-  /// *    `CREATED` \- The request was created but the operation has not
+  /// *    `CREATED` - The request was created but the operation has not
   /// started.
   ///
-  /// *    `IN_PROGRESS` \- The requested operation is in progress.
+  /// *    `IN_PROGRESS` - The requested operation is in progress.
   ///
-  /// *    `IN\_PROGRESS\_IN_ERROR` \- The provisioned product is under change
-  /// but the requested operation failed and some remediation is occurring. For
+  /// *    `IN_PROGRESS_IN_ERROR` - The provisioned product is under change but
+  /// the requested operation failed and some remediation is occurring. For
   /// example, a rollback.
   ///
-  /// *    `SUCCEEDED` \- The requested operation has successfully completed.
+  /// *    `SUCCEEDED` - The requested operation has successfully completed.
   ///
-  /// *    `FAILED` \- The requested operation has unsuccessfully completed.
+  /// *    `FAILED` - The requested operation has unsuccessfully completed.
   /// Investigate using the error messages returned.
   final String status;
 
@@ -4181,9 +4224,9 @@ class RecordDetail {
   ///
   /// *    `PROVISION_PRODUCT`
   ///
-  /// *    `UPDATE\_PROVISIONED\_PRODUCT`
+  /// *    `UPDATE_PROVISIONED_PRODUCT`
   ///
-  /// *    `TERMINATE\_PROVISIONED\_PRODUCT`
+  /// *    `TERMINATE_PROVISIONED_PRODUCT`
   final String recordType;
 
   /// The identifier of the provisioned product.
@@ -4222,6 +4265,7 @@ class RecordDetail {
   static RecordDetail fromJson(Map<String, dynamic> json) => RecordDetail();
 }
 
+/// The error code and description resulting from an operation.
 class RecordError {
   /// The numeric value of the error.
   final String code;
@@ -4236,6 +4280,9 @@ class RecordError {
   static RecordError fromJson(Map<String, dynamic> json) => RecordError();
 }
 
+/// The output for the product created as the result of a request. For example,
+/// the output for a CloudFormation-backed product that creates an S3 bucket
+/// would include the S3 bucket URL.
 class RecordOutput {
   /// The output key.
   final String outputKey;
@@ -4254,6 +4301,7 @@ class RecordOutput {
   static RecordOutput fromJson(Map<String, dynamic> json) => RecordOutput();
 }
 
+/// Information about a tag, which is a key-value pair.
 class RecordTag {
   /// The key for this tag.
   final String key;
@@ -4274,6 +4322,7 @@ class RejectPortfolioShareOutput {
       RejectPortfolioShareOutput();
 }
 
+/// Information about a resource change that will occur when a plan is executed.
 class ResourceChange {
   /// The change action.
   final String action;
@@ -4309,6 +4358,7 @@ class ResourceChange {
   static ResourceChange fromJson(Map<String, dynamic> json) => ResourceChange();
 }
 
+/// Information about a change to a resource attribute.
 class ResourceChangeDetail {
   /// Information about the resource attribute to be modified.
   final ResourceTargetDefinition target;
@@ -4330,6 +4380,7 @@ class ResourceChangeDetail {
       ResourceChangeDetail();
 }
 
+/// Information about a resource.
 class ResourceDetail {
   /// The identifier of the resource.
   final String id;
@@ -4356,6 +4407,7 @@ class ResourceDetail {
   static ResourceDetail fromJson(Map<String, dynamic> json) => ResourceDetail();
 }
 
+/// Information about a change to a resource attribute.
 class ResourceTargetDefinition {
   /// The attribute to be changed.
   final String attribute;
@@ -4449,6 +4501,8 @@ class SearchProvisionedProductsOutput {
       SearchProvisionedProductsOutput();
 }
 
+/// A self-service action association consisting of the Action ID, the Product
+/// ID, and the Provisioning Artifact ID.
 class ServiceActionAssociation {
   /// The self-service action identifier. For example, `act-fs7abcd89wxyz`.
   final String serviceActionId;
@@ -4467,6 +4521,7 @@ class ServiceActionAssociation {
   });
 }
 
+/// An object containing detailed information about the self-service action.
 class ServiceActionDetail {
   /// Summary information about the self-service action.
   final ServiceActionSummary serviceActionSummary;
@@ -4482,6 +4537,7 @@ class ServiceActionDetail {
       ServiceActionDetail();
 }
 
+/// Detailed information about the self-service action.
 class ServiceActionSummary {
   /// The self-service action identifier.
   final String id;
@@ -4505,6 +4561,7 @@ class ServiceActionSummary {
       ServiceActionSummary();
 }
 
+/// Information about the portfolio share operation.
 class ShareDetails {
   /// List of accounts for whom the operation succeeded.
   final List<String> successfulShares;
@@ -4519,6 +4576,7 @@ class ShareDetails {
   static ShareDetails fromJson(Map<String, dynamic> json) => ShareDetails();
 }
 
+/// Errors that occurred during the portfolio share operation.
 class ShareError {
   /// List of accounts impacted by the error.
   final List<String> accounts;
@@ -4537,6 +4595,13 @@ class ShareError {
   static ShareError fromJson(Map<String, dynamic> json) => ShareError();
 }
 
+/// An AWS CloudFormation stack, in a specific account and region, that's part
+/// of a stack set operation. A stack instance is a reference to an attempted or
+/// actual stack in a given account within a given region. A stack instance can
+/// exist without a stack—for example, if the stack couldn't be created for some
+/// reason. A stack instance is associated with only one stack set. Each stack
+/// instance contains the ID of its associated stack set, as well as the ID of
+/// the actual stack and the stack status.
 class StackInstance {
   /// The name of the AWS account that the stack instance is associated with.
   final String account;
@@ -4570,6 +4635,8 @@ class StackInstance {
   static StackInstance fromJson(Map<String, dynamic> json) => StackInstance();
 }
 
+/// Information about a tag. A tag is a key-value pair. Tags are propagated to
+/// the resources created when provisioning a product.
 class Tag {
   /// The tag key.
   final String key;
@@ -4584,6 +4651,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Information about a TagOption.
 class TagOptionDetail {
   /// The TagOption key.
   final String key;
@@ -4607,6 +4675,7 @@ class TagOptionDetail {
       TagOptionDetail();
 }
 
+/// Summary information about a TagOption.
 class TagOptionSummary {
   /// The TagOption key.
   final String key;
@@ -4737,6 +4806,7 @@ class UpdateProvisioningArtifactOutput {
       UpdateProvisioningArtifactOutput();
 }
 
+/// The parameter key-value pair used to update a provisioned product.
 class UpdateProvisioningParameter {
   /// The parameter key.
   final String key;
@@ -4757,6 +4827,9 @@ class UpdateProvisioningParameter {
       UpdateProvisioningParameter();
 }
 
+/// The user-defined preferences that will be applied when updating a
+/// provisioned product. Not all preferences are applicable to all provisioned
+/// product types.
 class UpdateProvisioningPreferences {
   /// One or more AWS accounts that will have access to the provisioned product.
   ///
@@ -4899,6 +4972,7 @@ class UpdateTagOptionOutput {
       UpdateTagOptionOutput();
 }
 
+/// Additional information provided by the administrator.
 class UsageInstruction {
   /// The usage instruction type for the value.
   final String type;

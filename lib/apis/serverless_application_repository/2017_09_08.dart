@@ -40,7 +40,7 @@ class ServerlessApplicationRepositoryApi {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   ///
   /// [description]: The description of the application.
   ///
@@ -53,7 +53,7 @@ class ServerlessApplicationRepositoryApi {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   ///
   /// [licenseBody]: A local text file that contains the license of the app that
   /// matches the spdxLicenseID value of your application. The file has the
@@ -76,7 +76,7 @@ class ServerlessApplicationRepositoryApi {
   ///
   /// Minimum length=1. Maximum length=140
   ///
-  /// Pattern: "\[a-zA-Z0-9\\\-\]+";
+  /// Pattern: "[a-zA-Z0-9-]+";
   ///
   /// [readmeBody]: A local text readme file in Markdown language that contains
   /// a more detailed description of the application and how it works. The file
@@ -179,22 +179,21 @@ class ServerlessApplicationRepositoryApi {
   /// applications, you must explicitly acknowledge their capabilities by
   /// specifying this parameter.
   ///
-  /// The only valid values are CAPABILITY\_IAM, CAPABILITY\_NAMED\_IAM,
-  /// CAPABILITY\_RESOURCE\_POLICY, and CAPABILITY\_AUTO_EXPAND.
+  /// The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+  /// CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
   ///
-  /// The following resources require you to specify CAPABILITY\_IAM or
-  /// CAPABILITY\_NAMED_IAM:
+  /// The following resources require you to specify CAPABILITY_IAM or
+  /// CAPABILITY_NAMED_IAM:
   /// [AWS::IAM::Group](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html),
   /// [AWS::IAM::InstanceProfile](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html),
   /// [AWS::IAM::Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// and
   /// [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html).
   /// If the application contains IAM resources, you can specify either
-  /// CAPABILITY\_IAM or CAPABILITY\_NAMED\_IAM. If the application contains IAM
-  /// resources with custom names, you must specify CAPABILITY\_NAMED_IAM.
+  /// CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+  /// resources with custom names, you must specify CAPABILITY_NAMED_IAM.
   ///
-  /// The following resources require you to specify
-  /// CAPABILITY\_RESOURCE\_POLICY:
+  /// The following resources require you to specify CAPABILITY_RESOURCE_POLICY:
   /// [AWS::Lambda::Permission](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html),
   /// [AWS::IAM:Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// [AWS::ApplicationAutoScaling::ScalingPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html),
@@ -204,7 +203,7 @@ class ServerlessApplicationRepositoryApi {
   /// [AWS::SNS:TopicPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html).
   ///
   /// Applications that contain one or more nested applications require you to
-  /// specify CAPABILITY\_AUTO\_EXPAND.
+  /// specify CAPABILITY_AUTO_EXPAND.
   ///
   /// If your application template contains any of the above resources, we
   /// recommend that you review all permissions associated with the application
@@ -261,7 +260,7 @@ class ServerlessApplicationRepositoryApi {
   /// [templateId]: The UUID returned by CreateCloudFormationTemplate.
   ///
   /// Pattern:
-  /// \[0-9a-fA-F\]{8}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{12}
+  /// [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
   Future<CreateCloudFormationChangeSetResponse> createCloudFormationChangeSet(
       {@required String applicationId,
       List<String> capabilities,
@@ -322,7 +321,7 @@ class ServerlessApplicationRepositoryApi {
   /// [templateId]: The UUID returned by CreateCloudFormationTemplate.
   ///
   /// Pattern:
-  /// \[0-9a-fA-F\]{8}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{12}
+  /// [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
   Future<GetCloudFormationTemplateResponse> getCloudFormationTemplate(
       {@required String applicationId, @required String templateId}) async {
     return GetCloudFormationTemplateResponse.fromJson({});
@@ -370,8 +369,8 @@ class ServerlessApplicationRepositoryApi {
   }
 
   /// Sets the permission policy for an application. For the list of actions
-  /// supported for this operation, see [Application
-  /// Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions)
+  /// supported for this operation, see
+  /// [Application Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions)
   /// .
   ///
   /// [applicationId]: The Amazon Resource Name (ARN) of the application.
@@ -391,7 +390,7 @@ class ServerlessApplicationRepositoryApi {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   ///
   /// [description]: The description of the application.
   ///
@@ -404,7 +403,7 @@ class ServerlessApplicationRepositoryApi {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   ///
   /// [readmeBody]: A text readme file in Markdown language that contains a more
   /// detailed description of the application and how it works.
@@ -426,6 +425,7 @@ class ServerlessApplicationRepositoryApi {
   }
 }
 
+/// A nested application summary.
 class ApplicationDependencySummary {
   /// The Amazon Resource Name (ARN) of the nested application.
   final String applicationId;
@@ -441,9 +441,10 @@ class ApplicationDependencySummary {
       ApplicationDependencySummary();
 }
 
+/// Policy statement applied to the application.
 class ApplicationPolicyStatement {
-  /// For the list of actions supported for this operation, see [Application
-  /// Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions).
+  /// For the list of actions supported for this operation, see
+  /// [Application Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions).
   final List<String> actions;
 
   /// An array of AWS account IDs, or * to make the application public.
@@ -461,6 +462,7 @@ class ApplicationPolicyStatement {
       ApplicationPolicyStatement();
 }
 
+/// Summary of details about the application.
 class ApplicationSummary {
   /// The application Amazon Resource Name (ARN).
   final String applicationId;
@@ -469,7 +471,7 @@ class ApplicationSummary {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   final String author;
 
   /// The date and time this resource was created.
@@ -488,14 +490,14 @@ class ApplicationSummary {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   final List<String> labels;
 
   /// The name of the application.
   ///
   /// Minimum length=1. Maximum length=140
   ///
-  /// Pattern: "\[a-zA-Z0-9\\\-\]+";
+  /// Pattern: "[a-zA-Z0-9-]+";
   final String name;
 
   /// A valid identifier from
@@ -524,7 +526,7 @@ class CreateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   final String author;
 
   /// The date and time this resource was created.
@@ -543,7 +545,7 @@ class CreateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   final List<String> labels;
 
   /// A link to a license file of the app that matches the spdxLicenseID value
@@ -556,7 +558,7 @@ class CreateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=140
   ///
-  /// Pattern: "\[a-zA-Z0-9\\\-\]+";
+  /// Pattern: "[a-zA-Z0-9-]+";
   final String name;
 
   /// A link to the readme file in Markdown language that contains a more
@@ -604,22 +606,21 @@ class CreateApplicationVersionResponse {
   /// and Access Management (IAM) users. For those applications, you must
   /// explicitly acknowledge their capabilities by specifying this parameter.
   ///
-  /// The only valid values are CAPABILITY\_IAM, CAPABILITY\_NAMED\_IAM,
-  /// CAPABILITY\_RESOURCE\_POLICY, and CAPABILITY\_AUTO_EXPAND.
+  /// The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+  /// CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
   ///
-  /// The following resources require you to specify CAPABILITY\_IAM or
-  /// CAPABILITY\_NAMED_IAM:
+  /// The following resources require you to specify CAPABILITY_IAM or
+  /// CAPABILITY_NAMED_IAM:
   /// [AWS::IAM::Group](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html),
   /// [AWS::IAM::InstanceProfile](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html),
   /// [AWS::IAM::Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// and
   /// [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html).
   /// If the application contains IAM resources, you can specify either
-  /// CAPABILITY\_IAM or CAPABILITY\_NAMED\_IAM. If the application contains IAM
-  /// resources with custom names, you must specify CAPABILITY\_NAMED_IAM.
+  /// CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+  /// resources with custom names, you must specify CAPABILITY_NAMED_IAM.
   ///
-  /// The following resources require you to specify
-  /// CAPABILITY\_RESOURCE\_POLICY:
+  /// The following resources require you to specify CAPABILITY_RESOURCE_POLICY:
   /// [AWS::Lambda::Permission](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html),
   /// [AWS::IAM:Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// [AWS::ApplicationAutoScaling::ScalingPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html),
@@ -629,7 +630,7 @@ class CreateApplicationVersionResponse {
   /// [AWS::SNS::TopicPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html).
   ///
   /// Applications that contain one or more nested applications require you to
-  /// specify CAPABILITY\_AUTO\_EXPAND.
+  /// specify CAPABILITY_AUTO_EXPAND.
   ///
   /// If your application template contains any of the above resources, we
   /// recommend that you review all permissions associated with the application
@@ -682,7 +683,7 @@ class CreateCloudFormationChangeSetResponse {
   ///
   /// Length constraints: Minimum length of 1.
   ///
-  /// Pattern: ARN:\[-a-zA-Z0-9:/\]*
+  /// Pattern: ARN:[-a-zA-Z0-9:/]*
   final String changeSetId;
 
   /// The semantic version of the application:
@@ -728,7 +729,7 @@ class CreateCloudFormationTemplateResponse {
   /// The UUID returned by CreateCloudFormationTemplate.
   ///
   /// Pattern:
-  /// \[0-9a-fA-F\]{8}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{12}
+  /// [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
   final String templateId;
 
   /// A link to the template that can be used to deploy the application using
@@ -768,7 +769,7 @@ class GetApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   final String author;
 
   /// The date and time this resource was created.
@@ -787,7 +788,7 @@ class GetApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   final List<String> labels;
 
   /// A link to a license file of the app that matches the spdxLicenseID value
@@ -800,7 +801,7 @@ class GetApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=140
   ///
-  /// Pattern: "\[a-zA-Z0-9\\\-\]+";
+  /// Pattern: "[a-zA-Z0-9-]+";
   final String name;
 
   /// A link to the readme file in Markdown language that contains a more
@@ -856,7 +857,7 @@ class GetCloudFormationTemplateResponse {
   /// The UUID returned by CreateCloudFormationTemplate.
   ///
   /// Pattern:
-  /// \[0-9a-fA-F\]{8}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{4}\\-\[0-9a-fA-F\]{12}
+  /// [0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}
   final String templateId;
 
   /// A link to the template that can be used to deploy the application using
@@ -923,6 +924,7 @@ class ListApplicationsResponse {
       ListApplicationsResponse();
 }
 
+/// Parameters supported by the application.
 class ParameterDefinition {
   /// A regular expression that represents the patterns to allow for String
   /// types.
@@ -933,10 +935,10 @@ class ParameterDefinition {
 
   /// A string that explains a constraint when the constraint is violated. For
   /// example, without a constraint description, a parameter that has an allowed
-  /// pattern of \[A-Za-z0-9\]+ displays the following error message when the
-  /// user specifies an invalid value:
+  /// pattern of [A-Za-z0-9]+ displays the following error message when the user
+  /// specifies an invalid value:
   ///
-  ///  Malformed input-Parameter MyParameter must match pattern \[A-Za-z0-9\]+
+  ///  Malformed input-Parameter MyParameter must match pattern [A-Za-z0-9]+
   ///
   /// By adding a constraint description, such as "must contain only uppercase
   /// and lowercase letters and numbers," you can display the following
@@ -1003,14 +1005,14 @@ class ParameterDefinition {
   /// a list of strings.
   ///
   /// For example, users might specify "80,20", and then Ref results in
-  /// \["80","20"\].
+  /// ["80","20"].
   ///
   ///  CommaDelimitedList: An array of literal strings that are separated by
   /// commas. The total number of strings should be one more than the total
   /// number of commas. Also, each member string is space-trimmed.
   ///
   /// For example, users might specify "test,dev,prod", and then Ref results in
-  /// \["test","dev","prod"\].
+  /// ["test","dev","prod"].
   final String type;
 
   ParameterDefinition({
@@ -1032,6 +1034,7 @@ class ParameterDefinition {
       ParameterDefinition();
 }
 
+/// Parameter value of the application.
 class ParameterValue {
   /// The key associated with the parameter. If you don't specify a key and
   /// value for a particular parameter, AWS CloudFormation uses the default
@@ -1058,6 +1061,9 @@ class PutApplicationPolicyResponse {
       PutApplicationPolicyResponse();
 }
 
+/// This property corresponds to the _AWS CloudFormation
+/// [RollbackConfiguration](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackConfiguration)_
+///  Data Type.
 class RollbackConfiguration {
   /// This property corresponds to the content of the same name for the _AWS
   /// CloudFormation
@@ -1077,6 +1083,9 @@ class RollbackConfiguration {
   });
 }
 
+/// This property corresponds to the _AWS CloudFormation
+/// [RollbackTrigger](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/RollbackTrigger)_
+///  Data Type.
 class RollbackTrigger {
   /// This property corresponds to the content of the same name for the _AWS
   /// CloudFormation
@@ -1096,6 +1105,9 @@ class RollbackTrigger {
   });
 }
 
+/// This property corresponds to the _AWS CloudFormation
+/// [Tag](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/Tag)_
+///  Data Type.
 class Tag {
   /// This property corresponds to the content of the same name for the _AWS
   /// CloudFormation
@@ -1123,7 +1135,7 @@ class UpdateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127.
   ///
-  /// Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
+  /// Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";
   final String author;
 
   /// The date and time this resource was created.
@@ -1142,7 +1154,7 @@ class UpdateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=127. Maximum number of labels: 10
   ///
-  /// Pattern: "^\[a-zA-Z0-9+\\\-_:\\\/@\]+$";
+  /// Pattern: "^[a-zA-Z0-9+-_:/@]+$";
   final List<String> labels;
 
   /// A link to a license file of the app that matches the spdxLicenseID value
@@ -1155,7 +1167,7 @@ class UpdateApplicationResponse {
   ///
   /// Minimum length=1. Maximum length=140
   ///
-  /// Pattern: "\[a-zA-Z0-9\\\-\]+";
+  /// Pattern: "[a-zA-Z0-9-]+";
   final String name;
 
   /// A link to the readme file in Markdown language that contains a more
@@ -1187,6 +1199,7 @@ class UpdateApplicationResponse {
       UpdateApplicationResponse();
 }
 
+/// Application version details.
 class Version {
   /// The application Amazon Resource Name (ARN).
   final String applicationId;
@@ -1203,22 +1216,21 @@ class Version {
   /// and Access Management (IAM) users. For those applications, you must
   /// explicitly acknowledge their capabilities by specifying this parameter.
   ///
-  /// The only valid values are CAPABILITY\_IAM, CAPABILITY\_NAMED\_IAM,
-  /// CAPABILITY\_RESOURCE\_POLICY, and CAPABILITY\_AUTO_EXPAND.
+  /// The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
+  /// CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
   ///
-  /// The following resources require you to specify CAPABILITY\_IAM or
-  /// CAPABILITY\_NAMED_IAM:
+  /// The following resources require you to specify CAPABILITY_IAM or
+  /// CAPABILITY_NAMED_IAM:
   /// [AWS::IAM::Group](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html),
   /// [AWS::IAM::InstanceProfile](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html),
   /// [AWS::IAM::Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// and
   /// [AWS::IAM::Role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html).
   /// If the application contains IAM resources, you can specify either
-  /// CAPABILITY\_IAM or CAPABILITY\_NAMED\_IAM. If the application contains IAM
-  /// resources with custom names, you must specify CAPABILITY\_NAMED_IAM.
+  /// CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
+  /// resources with custom names, you must specify CAPABILITY_NAMED_IAM.
   ///
-  /// The following resources require you to specify
-  /// CAPABILITY\_RESOURCE\_POLICY:
+  /// The following resources require you to specify CAPABILITY_RESOURCE_POLICY:
   /// [AWS::Lambda::Permission](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html),
   /// [AWS::IAM:Policy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html),
   /// [AWS::ApplicationAutoScaling::ScalingPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html),
@@ -1228,7 +1240,7 @@ class Version {
   /// [AWS::SNS::TopicPolicy](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-policy.html).
   ///
   /// Applications that contain one or more nested applications require you to
-  /// specify CAPABILITY\_AUTO\_EXPAND.
+  /// specify CAPABILITY_AUTO_EXPAND.
   ///
   /// If your application template contains any of the above resources, we
   /// recommend that you review all permissions associated with the application
@@ -1272,6 +1284,7 @@ class Version {
   static Version fromJson(Map<String, dynamic> json) => Version();
 }
 
+/// An application version summary.
 class VersionSummary {
   /// The application Amazon Resource Name (ARN).
   final String applicationId;

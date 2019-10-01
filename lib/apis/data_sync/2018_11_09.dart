@@ -75,9 +75,8 @@ class DataSyncApi {
   ///
   /// [vpcEndpointId]: The ID of the VPC (Virtual Private Cloud) endpoint that
   /// the agent has access to. This is the client-side VPC endpoint, also called
-  /// a PrivateLink. If you don't have a PrivateLink VPC endpoint, see [Creating
-  /// a VPC Endpoint Service
-  /// Configuration](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html#create-endpoint-service)
+  /// a PrivateLink. If you don't have a PrivateLink VPC endpoint, see
+  /// [Creating a VPC Endpoint Service Configuration](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html#create-endpoint-service)
   /// in the AWS VPC User Guide.
   ///
   /// VPC endpoint ID looks like this: `vpce-01234d5aff67890e1`.
@@ -161,7 +160,7 @@ class DataSyncApi {
   ///
   /// To transfer all the data in the folder you specified, DataSync needs to
   /// have permissions to read all the data. To ensure this, either configure
-  /// the NFS export with `no\_root\_squash,` or ensure that the permissions for
+  /// the NFS export with `no_root_squash,` or ensure that the permissions for
   /// all of the files that you want DataSync allow read access for all users.
   /// Doing either enables the agent to read the files. For the agent to access
   /// directories, you must additionally enable all execute access.
@@ -589,6 +588,9 @@ class DataSyncApi {
   }
 }
 
+/// Represents a single entry in a list of agents. `AgentListEntry` returns an
+/// array that contains a list of agents when the ListAgents operation is
+/// called.
 class AgentListEntry {
   /// The Amazon Resource Name (ARN) of the agent.
   final String agentArn;
@@ -613,6 +615,7 @@ class CancelTaskExecutionResponse {
       CancelTaskExecutionResponse();
 }
 
+/// CreateAgentResponse
 class CreateAgentResponse {
   /// The Amazon Resource Name (ARN) of the agent. Use the `ListAgents`
   /// operation to return a list of agents for your account and AWS Region.
@@ -625,6 +628,7 @@ class CreateAgentResponse {
       CreateAgentResponse();
 }
 
+/// CreateLocationEfs
 class CreateLocationEfsResponse {
   /// The Amazon Resource Name (ARN) of the Amazon EFS file system location that
   /// is created.
@@ -637,6 +641,7 @@ class CreateLocationEfsResponse {
       CreateLocationEfsResponse();
 }
 
+/// CreateLocationNfsResponse
 class CreateLocationNfsResponse {
   /// The Amazon Resource Name (ARN) of the source NFS file system location that
   /// is created.
@@ -649,6 +654,7 @@ class CreateLocationNfsResponse {
       CreateLocationNfsResponse();
 }
 
+/// CreateLocationS3Response
 class CreateLocationS3Response {
   /// The Amazon Resource Name (ARN) of the source Amazon S3 bucket location
   /// that is created.
@@ -661,6 +667,7 @@ class CreateLocationS3Response {
       CreateLocationS3Response();
 }
 
+/// CreateLocationSmbResponse
 class CreateLocationSmbResponse {
   /// The Amazon Resource Name (ARN) of the source SMB file system location that
   /// is created.
@@ -673,6 +680,7 @@ class CreateLocationSmbResponse {
       CreateLocationSmbResponse();
 }
 
+/// CreateTaskResponse
 class CreateTaskResponse {
   /// The Amazon Resource Name (ARN) of the task.
   final String taskArn;
@@ -702,6 +710,7 @@ class DeleteTaskResponse {
       DeleteTaskResponse();
 }
 
+/// DescribeAgentResponse
 class DescribeAgentResponse {
   /// The Amazon Resource Name (ARN) of the agent.
   final String agentArn;
@@ -742,6 +751,7 @@ class DescribeAgentResponse {
       DescribeAgentResponse();
 }
 
+/// DescribeLocationEfsResponse
 class DescribeLocationEfsResponse {
   /// The Amazon resource Name (ARN) of the EFS location that was described.
   final String locationArn;
@@ -764,6 +774,7 @@ class DescribeLocationEfsResponse {
       DescribeLocationEfsResponse();
 }
 
+/// DescribeLocationNfsResponse
 class DescribeLocationNfsResponse {
   /// The Amazon resource Name (ARN) of the NFS location that was described.
   final String locationArn;
@@ -790,6 +801,7 @@ class DescribeLocationNfsResponse {
       DescribeLocationNfsResponse();
 }
 
+/// DescribeLocationS3Response
 class DescribeLocationS3Response {
   /// The Amazon Resource Name (ARN) of the Amazon S3 bucket location.
   final String locationArn;
@@ -812,6 +824,7 @@ class DescribeLocationS3Response {
       DescribeLocationS3Response();
 }
 
+/// DescribeLocationSmbResponse
 class DescribeLocationSmbResponse {
   /// The Amazon resource Name (ARN) of the SMB location that was described.
   final String locationArn;
@@ -849,6 +862,7 @@ class DescribeLocationSmbResponse {
       DescribeLocationSmbResponse();
 }
 
+/// DescribeTaskExecutionResponse
 class DescribeTaskExecutionResponse {
   /// The Amazon Resource Name (ARN) of the task execution that was described.
   /// `TaskExecutionArn` is hierarchical and includes `TaskArn` for the task
@@ -935,6 +949,7 @@ class DescribeTaskExecutionResponse {
       DescribeTaskExecutionResponse();
 }
 
+/// DescribeTaskResponse
 class DescribeTaskResponse {
   /// The Amazon Resource Name (ARN) of the task that was described.
   final String taskArn;
@@ -1019,6 +1034,10 @@ class DescribeTaskResponse {
       DescribeTaskResponse();
 }
 
+/// The subnet and the security group that DataSync uses to access target EFS
+/// file system. The subnet must have at least one mount target for that file
+/// system. The security group that you provide needs to be able to communicate
+/// with the security group on the mount target in the subnet specified.
 class Ec2Config {
   /// The ARN of the subnet and the security group that DataSync uses to access
   /// the target EFS file system.
@@ -1035,6 +1054,8 @@ class Ec2Config {
   static Ec2Config fromJson(Map<String, dynamic> json) => Ec2Config();
 }
 
+/// Specifies which files, folders and objects to include or exclude when
+/// transferring files from source to destination.
 class FilterRule {
   /// The type of filter rule to apply. AWS DataSync only supports the
   /// SIMPLE_PATTERN rule type.
@@ -1052,6 +1073,7 @@ class FilterRule {
   static FilterRule fromJson(Map<String, dynamic> json) => FilterRule();
 }
 
+/// ListAgentsResponse
 class ListAgentsResponse {
   /// A list of agents in your account.
   final List<AgentListEntry> agents;
@@ -1068,6 +1090,7 @@ class ListAgentsResponse {
       ListAgentsResponse();
 }
 
+/// ListLocationsResponse
 class ListLocationsResponse {
   /// An array that contains a list of locations.
   final List<LocationListEntry> locations;
@@ -1084,6 +1107,7 @@ class ListLocationsResponse {
       ListLocationsResponse();
 }
 
+/// ListTagsForResourceResponse
 class ListTagsForResourceResponse {
   /// Array of resource tags.
   final List<TagListEntry> tags;
@@ -1100,6 +1124,7 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// ListTaskExecutionsResponse
 class ListTaskExecutionsResponse {
   /// A list of executed tasks.
   final List<TaskExecutionListEntry> taskExecutions;
@@ -1116,6 +1141,7 @@ class ListTaskExecutionsResponse {
       ListTaskExecutionsResponse();
 }
 
+/// ListTasksResponse
 class ListTasksResponse {
   /// A list of all the tasks that are returned.
   final List<TaskListEntry> tasks;
@@ -1132,6 +1158,9 @@ class ListTasksResponse {
       ListTasksResponse();
 }
 
+/// Represents a single entry in a list of locations. `LocationListEntry`
+/// returns an array that contains a list of locations when the ListLocations
+/// operation is called.
 class LocationListEntry {
   /// The Amazon Resource Name (ARN) of the location. For Network File System
   /// (NFS) or Amazon EFS, the location is the export path. For Amazon S3, the
@@ -1167,6 +1196,8 @@ class LocationListEntry {
       LocationListEntry();
 }
 
+/// Represents the mount options that are available for DataSync to access an
+/// NFS location.
 class NfsMountOptions {
   /// The specific NFS version that you want DataSync to use to mount your NFS
   /// share. If you don't specify a version, DataSync defaults to `AUTOMATIC`.
@@ -1181,6 +1212,8 @@ class NfsMountOptions {
       NfsMountOptions();
 }
 
+/// A list of Amazon Resource Names (ARNs) of agents to use for a Network File
+/// System (NFS) location.
 class OnPremConfig {
   /// ARNs)of the agents to use for an NFS location.
   final List<String> agentArns;
@@ -1191,14 +1224,23 @@ class OnPremConfig {
   static OnPremConfig fromJson(Map<String, dynamic> json) => OnPremConfig();
 }
 
+/// Represents the options that are available to control the behavior of a
+/// StartTaskExecution operation. Behavior includes preserving metadata such as
+/// user ID (UID), group ID (GID), and file permissions, and also overwriting
+/// files in the destination, data integrity verification, and so on.
+///
+/// A task has a set of default options associated with it. If you don't specify
+/// an option in StartTaskExecution, the default value is used. You can override
+/// the defaults options on each task execution by specifying an overriding
+/// `Options` value to StartTaskExecution.
 class Options {
   /// A value that determines whether a data integrity verification should be
   /// performed at the end of a task execution after all data and metadata have
   /// been transferred.
   ///
-  /// Default value: POINT\_IN\_TIME_CONSISTENT.
+  /// Default value: POINT_IN_TIME_CONSISTENT.
   ///
-  /// POINT\_IN\_TIME_CONSISTENT: Perform verification (recommended).
+  /// POINT_IN_TIME_CONSISTENT: Perform verification (recommended).
   ///
   /// NONE: Skip verification.
   final String verifyMode;
@@ -1317,6 +1359,8 @@ class Options {
   static Options fromJson(Map<String, dynamic> json) => Options();
 }
 
+/// The VPC endpoint, subnet and security group that an agent uses to access IP
+/// addresses in a VPC (Virtual Private Cloud).
 class PrivateLinkConfig {
   /// The ID of the VPC endpoint that is configured for an agent. An agent that
   /// is configured with a VPC endpoint will not be accessible over the public
@@ -1349,6 +1393,11 @@ class PrivateLinkConfig {
       PrivateLinkConfig();
 }
 
+/// The Amazon Resource Name (ARN) of the AWS Identity and Access Management
+/// (IAM) role that is used to access an Amazon S3 bucket.
+///
+/// For detailed information about using such a role, see Creating a Location
+/// for Amazon S3 in the _AWS DataSync User Guide_.
 class S3Config {
   /// The Amazon S3 bucket to access. This bucket is used as a parameter in the
   /// CreateLocationS3 operation.
@@ -1360,6 +1409,8 @@ class S3Config {
   static S3Config fromJson(Map<String, dynamic> json) => S3Config();
 }
 
+/// Represents the mount options that are available for DataSync to access an
+/// SMB location.
 class SmbMountOptions {
   /// The specific SMB version that you want DataSync to use to mount your SMB
   /// share. If you don't specify a version, DataSync defaults to `AUTOMATIC`.
@@ -1374,6 +1425,7 @@ class SmbMountOptions {
       SmbMountOptions();
 }
 
+/// StartTaskExecutionResponse
 class StartTaskExecutionResponse {
   /// The Amazon Resource Name (ARN) of the specific task execution that was
   /// started.
@@ -1386,6 +1438,9 @@ class StartTaskExecutionResponse {
       StartTaskExecutionResponse();
 }
 
+/// Represents a single entry in a list of AWS resource tags. `TagListEntry`
+/// returns an array that contains a list of tasks when the ListTagsForResource
+/// operation is called.
 class TagListEntry {
   /// The key for an AWS resource tag.
   final String key;
@@ -1406,6 +1461,9 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Represents a single entry in a list of task executions.
+/// `TaskExecutionListEntry` returns an array that contains a list of specific
+/// invocations of a task when ListTaskExecutions operation is called.
 class TaskExecutionListEntry {
   /// The Amazon Resource Name (ARN) of the task that was executed.
   final String taskExecutionArn;
@@ -1421,6 +1479,9 @@ class TaskExecutionListEntry {
       TaskExecutionListEntry();
 }
 
+/// Describes the detailed result of a `TaskExecution` operation. This result
+/// includes the time in milliseconds spent in each phase, the status of the
+/// task execution, and the errors encountered.
 class TaskExecutionResultDetail {
   /// The total time in milliseconds that AWS DataSync spent in the PREPARING
   /// phase.
@@ -1465,6 +1526,10 @@ class TaskExecutionResultDetail {
       TaskExecutionResultDetail();
 }
 
+/// Represents a single entry in a list of tasks. `TaskListEntry` returns an
+/// array that contains a list of tasks when the ListTasks operation is called.
+/// A task includes the source and destination file systems to sync and the
+/// options to use for the tasks.
 class TaskListEntry {
   /// The Amazon Resource Name (ARN) of the task.
   final String taskArn;

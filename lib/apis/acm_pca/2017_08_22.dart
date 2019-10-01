@@ -9,15 +9,15 @@ import 'dart:typed_data';
 /// The documentation for each action shows the Query API request parameters and
 /// the XML response. Alternatively, you can use one of the AWS SDKs to access
 /// an API that's tailored to the programming language or platform that you're
-/// using. For more information, see [AWS
-/// SDKs](https://aws.amazon.com/tools/#SDKs).
+/// using. For more information, see
+/// [AWS SDKs](https://aws.amazon.com/tools/#SDKs).
 ///
 ///
 ///
 /// Each ACM Private CA API action has a throttling limit which determines the
 /// number of times the action can be called per second. For more information,
-/// see [API Rate Limits in ACM Private
-/// CA](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaLimits.html#PcaLimits-api)
+/// see
+/// [API Rate Limits in ACM Private CA](https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaLimits.html#PcaLimits-api)
 /// in the ACM Private CA user guide.
 class AcmPcaApi {
   /// Creates a root or subordinate private certificate authority (CA). You must
@@ -58,8 +58,8 @@ class AcmPcaApi {
   /// can associate up to 50 tags with a private CA. For information using tags
   /// with
   ///
-  /// IAM to manage permissions, see [Controlling Access Using IAM
-  /// Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
+  /// IAM to manage permissions, see
+  /// [Controlling Access Using IAM Tags](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html).
   Future<CreateCertificateAuthorityResponse> createCertificateAuthority(
       {@required
           CertificateAuthorityConfiguration certificateAuthorityConfiguration,
@@ -195,24 +195,24 @@ class AcmPcaApi {
   /// specify the private CA on input by its ARN (Amazon Resource Name). The
   /// output contains the status of your CA. This can be any of the following:
   ///
-  /// *    `CREATING` \- ACM Private CA is creating your private certificate
+  /// *    `CREATING` - ACM Private CA is creating your private certificate
   /// authority.
   ///
-  /// *    `PENDING_CERTIFICATE` \- The certificate is pending. You must use
-  /// your ACM Private CA-hosted or on-premises root or subordinate CA to sign
-  /// your private CA CSR and then import it into PCA.
+  /// *    `PENDING_CERTIFICATE` - The certificate is pending. You must use your
+  /// ACM Private CA-hosted or on-premises root or subordinate CA to sign your
+  /// private CA CSR and then import it into PCA.
   ///
-  /// *    `ACTIVE` \- Your private CA is active.
+  /// *    `ACTIVE` - Your private CA is active.
   ///
-  /// *    `DISABLED` \- Your private CA has been disabled.
+  /// *    `DISABLED` - Your private CA has been disabled.
   ///
-  /// *    `EXPIRED` \- Your private CA certificate has expired.
+  /// *    `EXPIRED` - Your private CA certificate has expired.
   ///
-  /// *    `FAILED` \- Your private CA has failed. Your CA can fail because of
+  /// *    `FAILED` - Your private CA has failed. Your CA can fail because of
   /// problems such a network outage or backend AWS failure or other errors. A
   /// failed CA can never return to the pending state. You must create a new CA.
   ///
-  /// *    `DELETED` \- Your private CA is within the restoration period, after
+  /// *    `DELETED` - Your private CA is within the restoration period, after
   /// which it is permanently deleted. The length of time remaining in the CA's
   /// restoration period is also included in this action's output.
   ///
@@ -396,15 +396,15 @@ class AcmPcaApi {
   /// a 2048 bit RSA private key.
   ///
   ///  `openssl req -new -newkey rsa:2048 -days 365 -keyout
-  /// private/test\_cert\_priv\_key.pem -out csr/test\_cert_.csr`
+  /// private/test_cert_priv_key.pem -out csr/test_cert_.csr`
   ///
   /// If you have a configuration file, you can use the following OpenSSL
   /// command. The `usr_cert` block in the configuration file contains your X509
   /// version 3 extensions.
   ///
-  ///  `openssl req -new -config openssl\_rsa.cnf -extensions usr\_cert -newkey
-  /// rsa:2048 -days -365 -keyout private/test\_cert\_priv\_key.pem -out
-  /// csr/test\_cert_.csr`
+  ///  `openssl req -new -config openssl_rsa.cnf -extensions usr_cert -newkey
+  /// rsa:2048 -days -365 -keyout private/test_cert_priv_key.pem -out
+  /// csr/test_cert_.csr`
   ///
   /// [signingAlgorithm]: The name of the algorithm that will be used to sign
   /// the certificate to be issued.
@@ -429,8 +429,8 @@ class AcmPcaApi {
   /// *   arn:aws:acm-pca:::template/RootCACertificate/V1
   ///
   ///
-  /// For more information, see [Using
-  /// Templates](https://docs.aws.amazon.com/acm-pca/latest/userguide/UsingTemplates.html).
+  /// For more information, see
+  /// [Using Templates](https://docs.aws.amazon.com/acm-pca/latest/userguide/UsingTemplates.html).
   ///
   /// [validity]: The type of the validity period.
   ///
@@ -646,6 +646,15 @@ class AcmPcaApi {
       {RevocationConfiguration revocationConfiguration, String status}) async {}
 }
 
+/// Contains information about the certificate subject. The certificate can be
+/// one issued by your private certificate authority (CA) or it can be your
+/// private CA certificate. The **Subject** field in the certificate identifies
+/// the entity that owns or controls the public key in the certificate. The
+/// entity can be a user, computer, device, or service. The **Subject** must
+/// contain an X.500 distinguished name (DN). A DN is a sequence of relative
+/// distinguished names (RDNs). The RDNs are separated by commas in the
+/// certificate. The DN must be unique for each entity, but your private CA can
+/// issue more than one certificate with the same DN to the same entity.
 class Asn1Subject {
   /// Two-digit code that specifies the country in which the certificate subject
   /// located.
@@ -721,6 +730,16 @@ class Asn1Subject {
   static Asn1Subject fromJson(Map<String, dynamic> json) => Asn1Subject();
 }
 
+/// Contains information about your private certificate authority (CA). Your
+/// private CA can issue and revoke X.509 digital certificates. Digital
+/// certificates verify that the entity named in the certificate **Subject**
+/// field owns or controls the public key contained in the **Subject Public Key
+/// Info** field. Call the CreateCertificateAuthority action to create your
+/// private CA. You must then call the GetCertificateAuthorityCertificate action
+/// to retrieve a private CA certificate signing request (CSR). Sign the CSR
+/// with your ACM Private CA-hosted or on-premises root or subordinate CA
+/// certificate. Call the ImportCertificateAuthorityCertificate action to import
+/// the signed certificate into AWS Certificate Manager (ACM).
 class CertificateAuthority {
   /// Amazon Resource Name (ARN) for your private certificate authority (CA).
   /// The format is  `_12345678-1234-1234-1234-123456789012_` .
@@ -780,6 +799,12 @@ class CertificateAuthority {
       CertificateAuthority();
 }
 
+/// Contains configuration information for your private certificate authority
+/// (CA). This includes information about the class of public key algorithm and
+/// the key pair that your private CA creates when it issues a certificate. It
+/// also includes the signature algorithm that it uses when issuing
+/// certificates, and its X.500 distinguished name. You must specify this
+/// information when you call the CreateCertificateAuthority action.
 class CertificateAuthorityConfiguration {
   /// Type of the public key algorithm and size, in bits, of the key pair that
   /// your CA creates when it issues a certificate. When you create a
@@ -836,6 +861,70 @@ class CreateCertificateAuthorityResponse {
       CreateCertificateAuthorityResponse();
 }
 
+/// Contains configuration information for a certificate revocation list (CRL).
+/// Your private certificate authority (CA) creates base CRLs. Delta CRLs are
+/// not supported. You can enable CRLs for your new or an existing private CA by
+/// setting the **Enabled** parameter to `true`. Your private CA writes CRLs to
+/// an S3 bucket that you specify in the **S3BucketName** parameter. You can
+/// hide the name of your bucket by specifying a value for the **CustomCname**
+/// parameter. Your private CA copies the CNAME or the S3 bucket name to the
+/// **CRL Distribution Points** extension of each certificate it issues. Your S3
+/// bucket policy must give write permission to ACM Private CA.
+///
+/// Your private CA uses the value in the **ExpirationInDays** parameter to
+/// calculate the **nextUpdate** field in the CRL. The CRL is refreshed at 1/2
+/// the age of next update or when a certificate is revoked. When a certificate
+/// is revoked, it is recorded in the next CRL that is generated and in the next
+/// audit report. Only time valid certificates are listed in the CRL. Expired
+/// certificates are not included.
+///
+/// CRLs contain the following fields:
+///
+/// *    **Version**: The current version number defined in RFC 5280 is V2. The
+/// integer value is 0x1.
+///
+/// *    **Signature Algorithm**: The name of the algorithm used to sign the
+/// CRL.
+///
+/// *    **Issuer**: The X.500 distinguished name of your private CA that issued
+/// the CRL.
+///
+/// *    **Last Update**: The issue date and time of this CRL.
+///
+/// *    **Next Update**: The day and time by which the next CRL will be issued.
+///
+/// *    **Revoked Certificates**: List of revoked certificates. Each list item
+/// contains the following information.
+///
+///     *    **Serial Number**: The serial number, in hexadecimal format, of the
+/// revoked certificate.
+///
+///     *    **Revocation Date**: Date and time the certificate was revoked.
+///
+///     *    **CRL Entry Extensions**: Optional extensions for the CRL entry.
+///
+///         *    **X509v3 CRL Reason Code**: Reason the certificate was revoked.
+///
+///
+///
+/// *    **CRL Extensions**: Optional extensions for the CRL.
+///
+///     *    **X509v3 Authority Key Identifier**: Identifies the public key
+/// associated with the private key used to sign the certificate.
+///
+///     *    **X509v3 CRL Number:**: Decimal sequence number for the CRL.
+///
+///
+/// *    **Signature Algorithm**: Algorithm used by your private CA to sign the
+/// CRL.
+///
+/// *    **Signature Value**: Signature computed over the CRL.
+///
+///
+/// Certificate revocation lists created by ACM Private CA are DER-encoded. You
+/// can use the following OpenSSL command to list a CRL.
+///
+///  `openssl crl -inform DER -text -in _crl_path_ -noout`
 class CrlConfiguration {
   /// Boolean value that specifies whether certificate revocation lists (CRLs)
   /// are enabled. You can use this value to enable certificate revocation for a
@@ -1022,6 +1111,12 @@ class ListTagsResponse {
       ListTagsResponse();
 }
 
+/// Permissions designate which private CA actions can be performed by an AWS
+/// service or entity. In order for ACM to automatically renew private
+/// certificates, you must give the ACM service principal all available
+/// permissions (`IssueCertificate`, `GetCertificate`, and `ListPermissions`).
+/// Permissions can be assigned with the CreatePermission action, removed with
+/// the DeletePermission action, and listed with the ListPermissions action.
 class Permission {
   /// The Amazon Resource Number (ARN) of the private CA from which the
   /// permission was issued.
@@ -1055,6 +1150,11 @@ class Permission {
   static Permission fromJson(Map<String, dynamic> json) => Permission();
 }
 
+/// Certificate revocation information used by the CreateCertificateAuthority
+/// and UpdateCertificateAuthority actions. Your private certificate authority
+/// (CA) can create and maintain a certificate revocation list (CRL). A CRL
+/// contains information about certificates revoked by your CA. For more
+/// information, see RevokeCertificate.
 class RevocationConfiguration {
   /// Configuration of the certificate revocation list (CRL), if any, maintained
   /// by your private CA.
@@ -1067,6 +1167,11 @@ class RevocationConfiguration {
       RevocationConfiguration();
 }
 
+/// Tags are labels that you can use to identify and organize your private CAs.
+/// Each tag consists of a key and an optional value. You can associate up to 50
+/// tags with a private CA. To add one or more tags to a private CA, call the
+/// TagCertificateAuthority action. To remove a tag, call the
+/// UntagCertificateAuthority action.
 class Tag {
   /// Key (name) of the tag.
   final String key;
@@ -1081,6 +1186,9 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Length of time for which the certificate issued by your private certificate
+/// authority (CA), or by the private CA itself, is valid in days, months, or
+/// years. You can issue a certificate by calling the IssueCertificate action.
 class Validity {
   /// Time period.
   final BigInt value;

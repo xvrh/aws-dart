@@ -15,11 +15,11 @@ import 'package:meta/meta.dart';
 /// discovery naming for their components. To use App Mesh, you must have a
 /// containerized application running on Amazon EC2 instances, hosted in either
 /// Amazon ECS, Amazon EKS, or Kubernetes on AWS. For more information about
-/// service discovery on Amazon ECS, see [Service
-/// Discovery](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html)
+/// service discovery on Amazon ECS, see
+/// [Service Discovery](http://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html)
 /// in the _Amazon Elastic Container Service Developer Guide_. Kubernetes
-/// `kube-dns` is supported. For more information, see [DNS for Services and
-/// Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
+/// `kube-dns` is supported. For more information, see
+/// [DNS for Services and Pods](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/)
 /// in the Kubernetes documentation.
 class AppMeshApi {
   /// Creates a new service mesh. A service mesh is a logical boundary for
@@ -85,7 +85,7 @@ class AppMeshApi {
   /// The response metadata for your new virtual node contains the `arn` that is
   /// associated with the virtual node. Set this value (either the full ARN or
   /// the truncated resource name, for example,
-  /// `mesh/default/virtualNode/simpleapp`, as the `APPMESH\_VIRTUAL\_NODE_NAME`
+  /// `mesh/default/virtualNode/simpleapp`, as the `APPMESH_VIRTUAL_NODE_NAME`
   /// environment variable for your task group's Envoy proxy container in your
   /// task definition or pod spec. This is then mapped to the `node.id` and
   /// `node.cluster` Envoy parameters.
@@ -94,7 +94,7 @@ class AppMeshApi {
   ///
   /// If you require your Envoy stats or tracing to use a different name, you
   /// can override the `node.cluster` value that is set by
-  /// `APPMESH\_VIRTUAL\_NODE_NAME` with the `APPMESH\_VIRTUAL\_NODE_CLUSTER`
+  /// `APPMESH_VIRTUAL_NODE_NAME` with the `APPMESH_VIRTUAL_NODE_CLUSTER`
   /// environment variable.
   ///
   /// [clientToken]: Unique, case-sensitive identifier that you provide to
@@ -419,6 +419,10 @@ class UpdateVirtualRouterOutput {
       UpdateVirtualRouterOutput();
 }
 
+/// An object representing a target and its relative weight. Traffic is
+/// distributed across targets according to their relative weight. For example,
+/// a weighted target with a relative weight of 50 receives five times as much
+/// traffic as one with a relative weight of 10.
 class WeightedTarget {
   /// The virtual node to associate with the weighted target.
   final String virtualNode;
@@ -444,6 +448,7 @@ class CreateRouteOutput {
       CreateRouteOutput();
 }
 
+/// The DNS service discovery information for your virtual node.
 class DnsServiceDiscovery {
   /// The DNS service name for your virtual node.
   final String serviceName;
@@ -455,6 +460,7 @@ class DnsServiceDiscovery {
       DnsServiceDiscovery();
 }
 
+/// An object representing a virtual node returned by a list operation.
 class VirtualNodeRef {
   /// The full Amazon Resource Name (ARN) for the virtual node.
   final String arn;
@@ -484,6 +490,7 @@ class DescribeRouteOutput {
       DescribeRouteOutput();
 }
 
+/// An object representing the service discovery information for a virtual node.
 class ServiceDiscovery {
   /// Specifies the DNS service name for the virtual node.
   final DnsServiceDiscovery dns;
@@ -495,6 +502,7 @@ class ServiceDiscovery {
       ServiceDiscovery();
 }
 
+/// An object representing the status of a service mesh.
 class MeshStatus {
   /// The current mesh status.
   final String status;
@@ -505,6 +513,7 @@ class MeshStatus {
   static MeshStatus fromJson(Map<String, dynamic> json) => MeshStatus();
 }
 
+/// An object representing a virtual node returned by a describe operation.
 class VirtualNodeData {
   /// The name of the service mesh in which the virtual node resides.
   final String meshName;
@@ -532,6 +541,7 @@ class VirtualNodeData {
       VirtualNodeData();
 }
 
+/// An object representing the specification of a virtual node.
 class VirtualNodeSpec {
   /// The backends to which the virtual node is expected to send outbound
   /// traffic.
@@ -553,6 +563,7 @@ class VirtualNodeSpec {
       VirtualNodeSpec();
 }
 
+/// An object representing a service mesh returned by a list operation.
 class MeshRef {
   /// The full Amazon Resource Name (ARN) of the service mesh.
   final String arn;
@@ -589,6 +600,8 @@ class UpdateRouteOutput {
       UpdateRouteOutput();
 }
 
+/// An object representing the traffic distribution requirements for matched
+/// HTTP requests.
 class HttpRouteAction {
   /// The targets that traffic is routed to when a request matches the route.
   /// You can specify one or more targets and their relative weights with which
@@ -613,6 +626,7 @@ class CreateVirtualRouterOutput {
       CreateVirtualRouterOutput();
 }
 
+/// An object representing the current status of a route.
 class RouteStatus {
   /// The current status for the route.
   final String status;
@@ -623,6 +637,7 @@ class RouteStatus {
   static RouteStatus fromJson(Map<String, dynamic> json) => RouteStatus();
 }
 
+/// An object representing the status of a virtual router.
 class VirtualRouterStatus {
   /// The current status of the virtual router.
   final String status;
@@ -674,6 +689,7 @@ class CreateMeshOutput {
       CreateMeshOutput();
 }
 
+/// An object representing a route returned by a describe operation.
 class RouteData {
   /// The name of the service mesh in which the route resides.
   final String meshName;
@@ -704,6 +720,7 @@ class RouteData {
   static RouteData fromJson(Map<String, dynamic> json) => RouteData();
 }
 
+/// An object representing the HTTP routing specification for a route.
 class HttpRoute {
   /// The action to take if a match is determined.
   final HttpRouteAction action;
@@ -737,6 +754,7 @@ class ListRoutesOutput {
       ListRoutesOutput();
 }
 
+/// An object representing the specification of a route.
 class RouteSpec {
   /// The HTTP routing information for the route.
   final HttpRoute httpRoute;
@@ -747,6 +765,7 @@ class RouteSpec {
   static RouteSpec fromJson(Map<String, dynamic> json) => RouteSpec();
 }
 
+/// An object representing a virtual router returned by a list operation.
 class VirtualRouterRef {
   /// The full Amazon Resource Name (ARN) for the virtual router.
   final String arn;
@@ -835,6 +854,7 @@ class DeleteVirtualRouterOutput {
       DeleteVirtualRouterOutput();
 }
 
+/// An object representing metadata for a resource.
 class ResourceMetadata {
   /// The full Amazon Resource Name (ARN) for the resource.
   ///
@@ -842,14 +862,14 @@ class ResourceMetadata {
   ///
   /// After you create a virtual node, set this value (either the full ARN or
   /// the truncated resource name, for example,
-  /// `mesh/default/virtualNode/simpleapp`, as the `APPMESH\_VIRTUAL\_NODE_NAME`
+  /// `mesh/default/virtualNode/simpleapp`, as the `APPMESH_VIRTUAL_NODE_NAME`
   /// environment variable for your task group's Envoy proxy container in your
   /// task definition or pod spec. This is then mapped to the `node.id` and
   /// `node.cluster` Envoy parameters.
   ///
   /// If you require your Envoy stats or tracing to use a different name, you
   /// can override the `node.cluster` value that is set by
-  /// `APPMESH\_VIRTUAL\_NODE_NAME` with the `APPMESH\_VIRTUAL\_NODE_CLUSTER`
+  /// `APPMESH_VIRTUAL_NODE_NAME` with the `APPMESH_VIRTUAL_NODE_CLUSTER`
   /// environment variable.
   final String arn;
 
@@ -878,6 +898,7 @@ class ResourceMetadata {
       ResourceMetadata();
 }
 
+/// An object representing a virtual node listener port mapping.
 class PortMapping {
   /// The port used for the port mapping.
   final int port;
@@ -892,6 +913,7 @@ class PortMapping {
   static PortMapping fromJson(Map<String, dynamic> json) => PortMapping();
 }
 
+/// An object representing the specification of a virtual router.
 class VirtualRouterSpec {
   /// The service mesh service names to associate with the virtual router.
   final List<String> serviceNames;
@@ -914,6 +936,7 @@ class DescribeMeshOutput {
       DescribeMeshOutput();
 }
 
+/// An object representing a virtual router returned by a describe operation.
 class VirtualRouterData {
   /// The name of the service mesh in which the virtual router resides.
   final String meshName;
@@ -941,6 +964,7 @@ class VirtualRouterData {
       VirtualRouterData();
 }
 
+/// An object representing a listener for a virtual node.
 class Listener {
   /// The health check information for the listener.
   final HealthCheckPolicy healthCheck;
@@ -955,6 +979,8 @@ class Listener {
   static Listener fromJson(Map<String, dynamic> json) => Listener();
 }
 
+/// An object representing the health check policy for a virtual node's
+/// listener.
 class HealthCheckPolicy {
   /// The number of consecutive successful health checks that must occur before
   /// declaring listener healthy.
@@ -996,6 +1022,7 @@ class HealthCheckPolicy {
       HealthCheckPolicy();
 }
 
+/// An object representing a service mesh returned by a describe operation.
 class MeshData {
   /// The name of the service mesh.
   final String meshName;
@@ -1014,6 +1041,8 @@ class MeshData {
   static MeshData fromJson(Map<String, dynamic> json) => MeshData();
 }
 
+/// An object representing the requirements for a route to match HTTP requests
+/// for a virtual router.
 class HttpRouteMatch {
   /// Specifies the path with which to match requests. This parameter must
   /// always start with `/`, which by itself matches all requests to the virtual
@@ -1040,6 +1069,7 @@ class DeleteRouteOutput {
       DeleteRouteOutput();
 }
 
+/// An object representing the current status of the virtual node.
 class VirtualNodeStatus {
   /// The current status of the virtual node.
   final String status;
@@ -1051,6 +1081,7 @@ class VirtualNodeStatus {
       VirtualNodeStatus();
 }
 
+/// An object representing a route returned by a list operation.
 class RouteRef {
   /// The full Amazon Resource Name (ARN) for the route.
   final String arn;

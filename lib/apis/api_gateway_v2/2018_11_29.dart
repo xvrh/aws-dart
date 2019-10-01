@@ -4,9 +4,8 @@ import 'package:meta/meta.dart';
 class ApiGatewayV2Api {
   /// Creates an Api resource.
   ///
-  /// [apiKeySelectionExpression]: An API key selection expression. See [API Key
-  /// Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// [apiKeySelectionExpression]: An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   ///
   /// [description]: The description of the API.
   ///
@@ -22,7 +21,7 @@ class ApiGatewayV2Api {
   /// [version]: A version identifier for the API.
   ///
   /// [tags]: The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
+  /// [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not
   /// start with aws:. The tag value can be up to 256 characters..
   Future<CreateApiResponse> createApi(
       {String apiKeySelectionExpression,
@@ -74,13 +73,13 @@ class ApiGatewayV2Api {
   /// [authorizerUri]: The authorizer's Uniform Resource Identifier (URI). For
   /// REQUEST authorizers, this must be a well-formed Lambda function URI, for
   /// example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   ///
   /// [identitySource]: The identity source for which authorization is
   /// requested.
@@ -139,7 +138,7 @@ class ApiGatewayV2Api {
   /// [domainNameConfigurations]: The domain name configurations.
   ///
   /// [tags]: The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
+  /// [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not
   /// start with aws:. The tag value can be up to 256 characters..
   Future<CreateDomainNameResponse> createDomainName(String domainName,
       {List<DomainNameConfiguration> domainNameConfigurations,
@@ -158,13 +157,13 @@ class ApiGatewayV2Api {
   /// through the public routable internet.
   ///
   /// [contentHandlingStrategy]: Specifies how to handle response payload
-  /// content type conversions. Supported values are CONVERT\_TO\_BINARY and
-  /// CONVERT\_TO\_TEXT, with the following behaviors:
+  /// content type conversions. Supported values are CONVERT_TO_BINARY and
+  /// CONVERT_TO_TEXT, with the following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -211,19 +210,19 @@ class ApiGatewayV2Api {
   /// [passthroughBehavior]: Specifies the pass-through behavior for incoming
   /// requests based on the Content-Type header in the request, and the
   /// available mapping templates specified as the requestTemplates property on
-  /// the Integration resource. There are three valid values: WHEN\_NO\_MATCH,
-  /// WHEN\_NO\_TEMPLATES, and NEVER.
+  /// the Integration resource. There are three valid values: WHEN_NO_MATCH,
+  /// WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   ///
   /// [requestParameters]: A key-value map specifying request parameters that
   /// are passed from the method request to the backend. The key is an
@@ -268,13 +267,13 @@ class ApiGatewayV2Api {
   /// [apiId]: The API identifier.
   ///
   /// [contentHandlingStrategy]: Specifies how to handle response payload
-  /// content type conversions. Supported values are CONVERT\_TO\_BINARY and
-  /// CONVERT\_TO\_TEXT, with the following behaviors:
+  /// content type conversions. Supported values are CONVERT_TO_BINARY and
+  /// CONVERT_TO_TEXT, with the following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -427,10 +426,10 @@ class ApiGatewayV2Api {
   ///
   /// [stageVariables]: A map that defines the stage variables for a Stage.
   /// Variable names can have alphanumeric and underscore characters, and the
-  /// values must match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// values must match [A-Za-z0-9-._~:/?#&=,]+.
   ///
   /// [tags]: The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
+  /// [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not
   /// start with aws:. The tag value can be up to 256 characters..
   Future<CreateStageResponse> createStage(
       {AccessLogSettings accessLogSettings,
@@ -827,7 +826,7 @@ class ApiGatewayV2Api {
   /// [resourceArn]: AWS resource arn
   ///
   /// [tags]: The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
+  /// [a-zA-Z+-=._:/]. The tag key can be up to 128 characters and must not
   /// start with aws:. The tag value can be up to 256 characters..
   Future<TagResourceResponse> tagResource(String resourceArn,
       {Map<String, String> tags}) async {
@@ -846,9 +845,8 @@ class ApiGatewayV2Api {
   ///
   /// [apiId]: The API identifier.
   ///
-  /// [apiKeySelectionExpression]: An API key selection expression. See [API Key
-  /// Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// [apiKeySelectionExpression]: An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   ///
   /// [description]: The description of the API.
   ///
@@ -913,13 +911,13 @@ class ApiGatewayV2Api {
   /// [authorizerUri]: The authorizer's Uniform Resource Identifier (URI). For
   /// REQUEST authorizers, this must be a well-formed Lambda function URI, for
   /// example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   ///
   /// [identitySource]: The identity source for which authorization is
   /// requested.
@@ -994,13 +992,13 @@ class ApiGatewayV2Api {
   /// through the public routable internet.
   ///
   /// [contentHandlingStrategy]: Specifies how to handle response payload
-  /// content type conversions. Supported values are CONVERT\_TO\_BINARY and
-  /// CONVERT\_TO\_TEXT, with the following behaviors:
+  /// content type conversions. Supported values are CONVERT_TO_BINARY and
+  /// CONVERT_TO_TEXT, with the following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -1049,19 +1047,19 @@ class ApiGatewayV2Api {
   /// [passthroughBehavior]: Specifies the pass-through behavior for incoming
   /// requests based on the Content-Type header in the request, and the
   /// available mapping templates specified as the requestTemplates property on
-  /// the Integration resource. There are three valid values: WHEN\_NO\_MATCH,
-  /// WHEN\_NO\_TEMPLATES, and NEVER.
+  /// the Integration resource. There are three valid values: WHEN_NO_MATCH,
+  /// WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   ///
   /// [requestParameters]: A key-value map specifying request parameters that
   /// are passed from the method request to the backend. The key is an
@@ -1107,13 +1105,13 @@ class ApiGatewayV2Api {
   /// [apiId]: The API identifier.
   ///
   /// [contentHandlingStrategy]: Specifies how to handle response payload
-  /// content type conversions. Supported values are CONVERT\_TO\_BINARY and
-  /// CONVERT\_TO\_TEXT, with the following behaviors:
+  /// content type conversions. Supported values are CONVERT_TO_BINARY and
+  /// CONVERT_TO_TEXT, with the following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -1278,7 +1276,7 @@ class ApiGatewayV2Api {
   ///
   /// [stageVariables]: A map that defines the stage variables for a Stage.
   /// Variable names can have alphanumeric and underscore characters, and the
-  /// values must match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// values must match [A-Za-z0-9-._~:/?#&=,]+.
   Future<UpdateStageResponse> updateStage(
       {AccessLogSettings accessLogSettings,
       @required String apiId,
@@ -1293,6 +1291,7 @@ class ApiGatewayV2Api {
   }
 }
 
+/// Settings for logging access in a stage.
 class AccessLogSettings {
   /// The ARN of the CloudWatch Logs log group to receive access logs.
   final String destinationArn;
@@ -1309,6 +1308,7 @@ class AccessLogSettings {
       AccessLogSettings();
 }
 
+/// Represents an API.
 class Api {
   /// The URI of the API, of the form
   /// {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
@@ -1318,8 +1318,8 @@ class Api {
   /// The API ID.
   final String apiId;
 
-  /// An API key selection expression. See [API Key Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   final String apiKeySelectionExpression;
 
   /// The timestamp when the API was created.
@@ -1347,9 +1347,9 @@ class Api {
   /// import.
   final List<String> warnings;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   Api({
@@ -1369,6 +1369,7 @@ class Api {
   static Api fromJson(Map<String, dynamic> json) => Api();
 }
 
+/// Represents an API mapping.
 class ApiMapping {
   /// The API identifier.
   final String apiId;
@@ -1391,6 +1392,7 @@ class ApiMapping {
   static ApiMapping fromJson(Map<String, dynamic> json) => ApiMapping();
 }
 
+/// Represents an authorizer.
 class Authorizer {
   /// Specifies the required credentials as an IAM role for API Gateway to
   /// invoke the authorizer. To specify an IAM role for API Gateway to assume,
@@ -1413,13 +1415,13 @@ class Authorizer {
 
   /// The authorizer's Uniform Resource Identifier (URI). ForREQUEST
   /// authorizers, this must be a well-formed Lambda function URI, for example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   final String authorizerUri;
 
   /// The identity source for which authorization is requested.
@@ -1495,8 +1497,8 @@ class CreateApiResponse {
   /// The API ID.
   final String apiId;
 
-  /// An API key selection expression. See [API Key Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   final String apiKeySelectionExpression;
 
   /// The timestamp when the API was created.
@@ -1524,9 +1526,9 @@ class CreateApiResponse {
   /// import.
   final List<String> warnings;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   CreateApiResponse({
@@ -1569,13 +1571,13 @@ class CreateAuthorizerResponse {
 
   /// The authorizer's Uniform Resource Identifier (URI). ForREQUEST
   /// authorizers, this must be a well-formed Lambda function URI, for example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   final String authorizerUri;
 
   /// The identity source for which authorization is requested.
@@ -1657,9 +1659,9 @@ class CreateDomainNameResponse {
   /// The domain name configurations.
   final List<DomainNameConfiguration> domainNameConfigurations;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   CreateDomainNameResponse({
@@ -1682,13 +1684,13 @@ class CreateIntegrationResponse {
   final String connectionType;
 
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -1714,8 +1716,7 @@ class CreateIntegrationResponse {
   final String integrationMethod;
 
   /// The integration response selection expression for the integration. See
-  /// [Integration Response Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
+  /// [Integration Response Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
   final String integrationResponseSelectionExpression;
 
   /// The integration type of an integration. One of the following:
@@ -1747,19 +1748,18 @@ class CreateIntegrationResponse {
   /// Specifies the pass-through behavior for incoming requests based on the
   /// Content-Type header in the request, and the available mapping templates
   /// specified as the requestTemplates property on the Integration resource.
-  /// There are three valid values: WHEN\_NO\_MATCH, WHEN\_NO\_TEMPLATES, and
-  /// NEVER.
+  /// There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   final String passthroughBehavior;
 
   /// A key-value map specifying request parameters that are passed from the
@@ -1808,13 +1808,13 @@ class CreateIntegrationResponse {
 
 class CreateIntegrationResponseResponse {
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -1896,7 +1896,7 @@ class CreateRouteResponse {
   final bool apiKeyRequired;
 
   /// A list of authorization scopes configured on a route. The scopes are used
-  /// with a COGNITO\_USER\_POOLS authorizer to authorize the method invocation.
+  /// with a COGNITO_USER_POOLS authorizer to authorize the method invocation.
   /// The authorization works by matching the route scopes against the scopes
   /// parsed from the access token in the incoming request. The method
   /// invocation is authorized if any route scope matches a claimed scope in the
@@ -2014,12 +2014,12 @@ class CreateStageResponse {
 
   /// A map that defines the stage variables for a stage resource. Variable
   /// names can have alphanumeric and underscore characters, and the values must
-  /// match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// match [A-Za-z0-9-._~:/?#&=,]+.
   final Map<String, String> stageVariables;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   CreateStageResponse({
@@ -2039,6 +2039,9 @@ class CreateStageResponse {
       CreateStageResponse();
 }
 
+/// An immutable representation of an API that can be called by users. A
+/// Deployment must be associated with a Stage for it to be callable over the
+/// internet.
 class Deployment {
   /// The date and time when the Deployment resource was created.
   final DateTime createdDate;
@@ -2065,6 +2068,7 @@ class Deployment {
   static Deployment fromJson(Map<String, dynamic> json) => Deployment();
 }
 
+/// Represents a domain name.
 class DomainName {
   /// The API mapping selection expression.
   final String apiMappingSelectionExpression;
@@ -2075,9 +2079,9 @@ class DomainName {
   /// The domain name configurations.
   final List<DomainNameConfiguration> domainNameConfigurations;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   DomainName({
@@ -2089,6 +2093,7 @@ class DomainName {
   static DomainName fromJson(Map<String, dynamic> json) => DomainName();
 }
 
+/// The domain name configuration.
 class DomainNameConfiguration {
   /// A domain name for the WebSocket API.
   final String apiGatewayDomainName;
@@ -2113,7 +2118,7 @@ class DomainNameConfiguration {
   final String hostedZoneId;
 
   /// The Transport Layer Security (TLS) version of the security policy for this
-  /// domain name. The valid values are TLS\_1\_0 and TLS\_1\_2.
+  /// domain name. The valid values are TLS_1_0 and TLS_1_2.
   final String securityPolicy;
 
   /// The status of the domain name migration. The valid values are AVAILABLE
@@ -2189,8 +2194,8 @@ class GetApiResponse {
   /// The API ID.
   final String apiId;
 
-  /// An API key selection expression. See [API Key Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   final String apiKeySelectionExpression;
 
   /// The timestamp when the API was created.
@@ -2218,9 +2223,9 @@ class GetApiResponse {
   /// import.
   final List<String> warnings;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   GetApiResponse({
@@ -2278,13 +2283,13 @@ class GetAuthorizerResponse {
 
   /// The authorizer's Uniform Resource Identifier (URI). ForREQUEST
   /// authorizers, this must be a well-formed Lambda function URI, for example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   final String authorizerUri;
 
   /// The identity source for which authorization is requested.
@@ -2398,9 +2403,9 @@ class GetDomainNameResponse {
   /// The domain name configurations.
   final List<DomainNameConfiguration> domainNameConfigurations;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   GetDomainNameResponse({
@@ -2439,13 +2444,13 @@ class GetIntegrationResponse {
   final String connectionType;
 
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -2471,8 +2476,7 @@ class GetIntegrationResponse {
   final String integrationMethod;
 
   /// The integration response selection expression for the integration. See
-  /// [Integration Response Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
+  /// [Integration Response Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
   final String integrationResponseSelectionExpression;
 
   /// The integration type of an integration. One of the following:
@@ -2504,19 +2508,18 @@ class GetIntegrationResponse {
   /// Specifies the pass-through behavior for incoming requests based on the
   /// Content-Type header in the request, and the available mapping templates
   /// specified as the requestTemplates property on the Integration resource.
-  /// There are three valid values: WHEN\_NO\_MATCH, WHEN\_NO\_TEMPLATES, and
-  /// NEVER.
+  /// There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   final String passthroughBehavior;
 
   /// A key-value map specifying request parameters that are passed from the
@@ -2565,13 +2568,13 @@ class GetIntegrationResponse {
 
 class GetIntegrationResponseResponse {
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -2711,7 +2714,7 @@ class GetRouteResponse {
   final bool apiKeyRequired;
 
   /// A list of authorization scopes configured on a route. The scopes are used
-  /// with a COGNITO\_USER\_POOLS authorizer to authorize the method invocation.
+  /// with a COGNITO_USER_POOLS authorizer to authorize the method invocation.
   /// The authorization works by matching the route scopes against the scopes
   /// parsed from the access token in the incoming request. The method
   /// invocation is authorized if any route scope matches a claimed scope in the
@@ -2861,12 +2864,12 @@ class GetStageResponse {
 
   /// A map that defines the stage variables for a stage resource. Variable
   /// names can have alphanumeric and underscore characters, and the values must
-  /// match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// match [A-Za-z0-9-._~:/?#&=,]+.
   final Map<String, String> stageVariables;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   GetStageResponse({
@@ -2902,6 +2905,7 @@ class GetStagesResponse {
       GetStagesResponse();
 }
 
+/// Represents an integration.
 class Integration {
   /// The connection ID.
   final String connectionId;
@@ -2912,13 +2916,13 @@ class Integration {
   final String connectionType;
 
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -2944,8 +2948,7 @@ class Integration {
   final String integrationMethod;
 
   /// The integration response selection expression for the integration. See
-  /// [Integration Response Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
+  /// [Integration Response Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
   final String integrationResponseSelectionExpression;
 
   /// The integration type of an integration. One of the following:
@@ -2977,19 +2980,18 @@ class Integration {
   /// Specifies the pass-through behavior for incoming requests based on the
   /// Content-Type header in the request, and the available mapping templates
   /// specified as the requestTemplates property on the Integration resource.
-  /// There are three valid values: WHEN\_NO\_MATCH, WHEN\_NO\_TEMPLATES, and
-  /// NEVER.
+  /// There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   final String passthroughBehavior;
 
   /// A key-value map specifying request parameters that are passed from the
@@ -3035,15 +3037,16 @@ class Integration {
   static Integration fromJson(Map<String, dynamic> json) => Integration();
 }
 
+/// Represents an integration response.
 class IntegrationResponse {
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -3101,6 +3104,8 @@ class GetTagsResponse {
       GetTagsResponse();
 }
 
+/// Represents a data model for an API. See
+/// [Create Models and Mapping Templates for Request and Response Mappings](https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html).
 class Model {
   /// The content-type for the model, for example, "application/json".
   final String contentType;
@@ -3128,6 +3133,8 @@ class Model {
   static Model fromJson(Map<String, dynamic> json) => Model();
 }
 
+/// Validation constraints imposed on parameters of a request (path, query
+/// string, headers).
 class ParameterConstraints {
   /// Whether or not the parameter is required.
   final bool isRequired;
@@ -3139,12 +3146,13 @@ class ParameterConstraints {
       ParameterConstraints();
 }
 
+/// Represents a route.
 class Route {
   /// Specifies whether an API key is required for this route.
   final bool apiKeyRequired;
 
   /// A list of authorization scopes configured on a route. The scopes are used
-  /// with a COGNITO\_USER\_POOLS authorizer to authorize the method invocation.
+  /// with a COGNITO_USER_POOLS authorizer to authorize the method invocation.
   /// The authorization works by matching the route scopes against the scopes
   /// parsed from the access token in the incoming request. The method
   /// invocation is authorized if any route scope matches a claimed scope in the
@@ -3204,6 +3212,7 @@ class Route {
   static Route fromJson(Map<String, dynamic> json) => Route();
 }
 
+/// Represents a route response.
 class RouteResponse {
   /// Represents the model selection expression of a route response.
   final String modelSelectionExpression;
@@ -3230,6 +3239,7 @@ class RouteResponse {
   static RouteResponse fromJson(Map<String, dynamic> json) => RouteResponse();
 }
 
+/// Represents a collection of route settings.
 class RouteSettings {
   /// Specifies whether (true) or not (false) data trace logging is enabled for
   /// this route. This property affects the log entries pushed to Amazon
@@ -3259,6 +3269,7 @@ class RouteSettings {
   static RouteSettings fromJson(Map<String, dynamic> json) => RouteSettings();
 }
 
+/// Represents an API stage.
 class Stage {
   /// Settings for logging access in this stage.
   final AccessLogSettings accessLogSettings;
@@ -3289,12 +3300,12 @@ class Stage {
 
   /// A map that defines the stage variables for a stage resource. Variable
   /// names can have alphanumeric and underscore characters, and the values must
-  /// match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// match [A-Za-z0-9-._~:/?#&=,]+.
   final Map<String, String> stageVariables;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   Stage({
@@ -3351,8 +3362,8 @@ class UpdateApiResponse {
   /// The API ID.
   final String apiId;
 
-  /// An API key selection expression. See [API Key Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
+  /// An API key selection expression. See
+  /// [API Key Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).
   final String apiKeySelectionExpression;
 
   /// The timestamp when the API was created.
@@ -3380,9 +3391,9 @@ class UpdateApiResponse {
   /// import.
   final List<String> warnings;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   UpdateApiResponse({
@@ -3425,13 +3436,13 @@ class UpdateAuthorizerResponse {
 
   /// The authorizer's Uniform Resource Identifier (URI). ForREQUEST
   /// authorizers, this must be a well-formed Lambda function URI, for example,
-  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account\_id}:function:{lambda\_function\_name}/invocations.
+  /// arn:aws:apigateway:us-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:us-west-2:{account_id}:function:{lambda_function_name}/invocations.
   /// In general, the URI has this form:
-  /// arn:aws:apigateway:{region}:lambda:path/{service\_api} , where {region} is
+  /// arn:aws:apigateway:{region}:lambda:path/{service_api} , where {region} is
   /// the same as the region hosting the Lambda function, path indicates that
   /// the remaining substring in the URI should be treated as the path to the
   /// resource, including the initial /. For Lambda functions, this is usually
-  /// of the form /2015-03-31/functions/\[FunctionARN\]/invocations.
+  /// of the form /2015-03-31/functions/[FunctionARN]/invocations.
   final String authorizerUri;
 
   /// The identity source for which authorization is requested.
@@ -3513,9 +3524,9 @@ class UpdateDomainNameResponse {
   /// The domain name configurations.
   final List<DomainNameConfiguration> domainNameConfigurations;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   UpdateDomainNameResponse({
@@ -3538,13 +3549,13 @@ class UpdateIntegrationResponse {
   final String connectionType;
 
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -3570,8 +3581,7 @@ class UpdateIntegrationResponse {
   final String integrationMethod;
 
   /// The integration response selection expression for the integration. See
-  /// [Integration Response Selection
-  /// Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
+  /// [Integration Response Selection Expressions](https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-integration-response-selection-expressions).
   final String integrationResponseSelectionExpression;
 
   /// The integration type of an integration. One of the following:
@@ -3603,19 +3613,18 @@ class UpdateIntegrationResponse {
   /// Specifies the pass-through behavior for incoming requests based on the
   /// Content-Type header in the request, and the available mapping templates
   /// specified as the requestTemplates property on the Integration resource.
-  /// There are three valid values: WHEN\_NO\_MATCH, WHEN\_NO\_TEMPLATES, and
-  /// NEVER.
+  /// There are three valid values: WHEN_NO_MATCH, WHEN_NO_TEMPLATES, and NEVER.
   ///
-  ///  WHEN\_NO\_MATCH passes the request body for unmapped content types
-  /// through to the integration backend without transformation.
+  ///  WHEN_NO_MATCH passes the request body for unmapped content types through
+  /// to the integration backend without transformation.
   ///
   ///  NEVER rejects unmapped content types with an HTTP 415 Unsupported Media
   /// Type response.
   ///
-  ///  WHEN\_NO\_TEMPLATES allows pass-through when the integration has no
-  /// content types mapped to templates. However, if there is at least one
-  /// content type defined, unmapped content types will be rejected with the
-  /// same HTTP 415 Unsupported Media Type response.
+  ///  WHEN_NO_TEMPLATES allows pass-through when the integration has no content
+  /// types mapped to templates. However, if there is at least one content type
+  /// defined, unmapped content types will be rejected with the same HTTP 415
+  /// Unsupported Media Type response.
   final String passthroughBehavior;
 
   /// A key-value map specifying request parameters that are passed from the
@@ -3664,13 +3673,13 @@ class UpdateIntegrationResponse {
 
 class UpdateIntegrationResponseResponse {
   /// Specifies how to handle response payload content type conversions.
-  /// Supported values are CONVERT\_TO\_BINARY and CONVERT\_TO\_TEXT, with the
+  /// Supported values are CONVERT_TO_BINARY and CONVERT_TO_TEXT, with the
   /// following behaviors:
   ///
-  ///  CONVERT\_TO\_BINARY: Converts a response payload from a Base64-encoded
+  ///  CONVERT_TO_BINARY: Converts a response payload from a Base64-encoded
   /// string to the corresponding binary blob.
   ///
-  ///  CONVERT\_TO\_TEXT: Converts a response payload from a binary blob to a
+  ///  CONVERT_TO_TEXT: Converts a response payload from a binary blob to a
   /// Base64-encoded string.
   ///
   /// If this property is not defined, the response payload will be passed
@@ -3752,7 +3761,7 @@ class UpdateRouteResponse {
   final bool apiKeyRequired;
 
   /// A list of authorization scopes configured on a route. The scopes are used
-  /// with a COGNITO\_USER\_POOLS authorizer to authorize the method invocation.
+  /// with a COGNITO_USER_POOLS authorizer to authorize the method invocation.
   /// The authorization works by matching the route scopes against the scopes
   /// parsed from the access token in the incoming request. The method
   /// invocation is authorized if any route scope matches a claimed scope in the
@@ -3870,12 +3879,12 @@ class UpdateStageResponse {
 
   /// A map that defines the stage variables for a stage resource. Variable
   /// names can have alphanumeric and underscore characters, and the values must
-  /// match \[A-Za-z0-9-._~:/?#&=,\]+.
+  /// match [A-Za-z0-9-._~:/?#&=,]+.
   final Map<String, String> stageVariables;
 
-  /// The key-value map of strings. The valid character set is
-  /// \[a-zA-Z+-=._:/\]. The tag key can be up to 128 characters and must not
-  /// start with aws:. The tag value can be up to 256 characters..
+  /// The key-value map of strings. The valid character set is [a-zA-Z+-=._:/].
+  /// The tag key can be up to 128 characters and must not start with aws:. The
+  /// tag value can be up to 256 characters..
   final Map<String, String> tags;
 
   UpdateStageResponse({

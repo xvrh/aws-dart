@@ -6,20 +6,20 @@ import 'package:meta/meta.dart';
 /// scalable, fault-tolerant applications running on the Amazon Web Services
 /// cloud.
 ///
-/// For more information about this product, go to the [AWS Elastic
-/// Beanstalk](http://aws.amazon.com/elasticbeanstalk/) details page. The
-/// location of the latest AWS Elastic Beanstalk WSDL is
+/// For more information about this product, go to the
+/// [AWS Elastic Beanstalk](http://aws.amazon.com/elasticbeanstalk/) details
+/// page. The location of the latest AWS Elastic Beanstalk WSDL is
 /// [http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl](http://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl).
 /// To install the Software Development Kits (SDKs), Integrated Development
 /// Environment (IDE) Toolkits, and command line tools that enable you to access
-/// the API, go to [Tools for Amazon Web
-/// Services](http://aws.amazon.com/tools/).
+/// the API, go to
+/// [Tools for Amazon Web Services](http://aws.amazon.com/tools/).
 ///
 ///  **Endpoints**
 ///
 /// For a list of region-specific endpoints that AWS Elastic Beanstalk supports,
-/// go to [Regions and
-/// Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
+/// go to
+/// [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
 /// in the _Amazon Web Services Glossary_.
 class ElasticBeanstalkApi {
   /// Cancels in-progress environment configuration update or application
@@ -62,8 +62,8 @@ class ElasticBeanstalkApi {
   /// specify application source bundles for each of the environments to create
   /// or update. The name of each environment and other required information
   /// must be included in the source bundles in an environment manifest named
-  /// `env.yaml`. See [Compose
-  /// Environments](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html)
+  /// `env.yaml`. See
+  /// [Compose Environments](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-mgmt-compose.html)
   /// for details.
   ///
   /// [applicationName]: The name of the application to which the specified
@@ -72,8 +72,7 @@ class ElasticBeanstalkApi {
   /// [groupName]: The name of the group to which the target environments
   /// belong. Specify a group name only if the environment name defined in each
   /// target environment's manifest ends with a + (plus) character. See
-  /// [Environment Manifest
-  /// (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
+  /// [Environment Manifest (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
   /// for details.
   ///
   /// [versionLabels]: A list of version labels, specifying one or more
@@ -308,8 +307,8 @@ class ElasticBeanstalkApi {
   /// [groupName]: The name of the group to which the target environment
   /// belongs. Specify a group name only if the environment's name is specified
   /// in an environment manifest and not with the environment name parameter.
-  /// See [Environment Manifest
-  /// (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
+  /// See
+  /// [Environment Manifest (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
   /// for details.
   ///
   /// [description]: Describes this environment.
@@ -340,8 +339,8 @@ class ElasticBeanstalkApi {
   /// If specified, AWS Elastic Beanstalk sets the configuration values to the
   /// default values associated with the specified solution stack.
   ///
-  /// For a list of current solution stacks, see [Elastic Beanstalk Supported
-  /// Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html).
+  /// For a list of current solution stacks, see
+  /// [Elastic Beanstalk Supported Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html).
   ///
   /// [platformArn]: The ARN of the platform.
   ///
@@ -784,8 +783,8 @@ class ElasticBeanstalkApi {
   }
 
   /// Retrieves detailed information about the health of instances in your AWS
-  /// Elastic Beanstalk. This operation requires [enhanced health
-  /// reporting](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html).
+  /// Elastic Beanstalk. This operation requires
+  /// [enhanced health reporting](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced.html).
   ///
   /// [environmentName]: Specify the AWS Elastic Beanstalk environment by name.
   ///
@@ -837,9 +836,8 @@ class ElasticBeanstalkApi {
   /// response contains a list of tag key-value pairs.
   ///
   /// Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk
-  /// environments. For details about environment tagging, see [Tagging
-  /// Resources in Your Elastic Beanstalk
-  /// Environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
+  /// environments. For details about environment tagging, see
+  /// [Tagging Resources in Your Elastic Beanstalk Environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resouce for which a
   /// tag list is requested.
@@ -1011,8 +1009,9 @@ class ElasticBeanstalkApi {
   /// the environment, but the AWS resources continue to operate.
   ///
   ///
-  ///  For more information, see the  [AWS Elastic Beanstalk User
-  /// Guide.](https://docs.aws.amazon.com/elasticbeanstalk/latest/ug/)
+  ///  For more information, see the
+  /// [AWS Elastic Beanstalk User Guide.](https://docs.aws.amazon.com/elasticbeanstalk/latest/ug/)
+  ///
   ///
   ///  Default: `true`
   ///
@@ -1166,8 +1165,8 @@ class ElasticBeanstalkApi {
   /// [groupName]: The name of the group to which the target environment
   /// belongs. Specify a group name only if the environment's name is specified
   /// in an environment manifest and not with the environment name or
-  /// environment ID parameters. See [Environment Manifest
-  /// (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
+  /// environment ID parameters. See
+  /// [Environment Manifest (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
   /// for details.
   ///
   /// [description]: If this parameter is specified, AWS Elastic Beanstalk
@@ -1219,9 +1218,8 @@ class ElasticBeanstalkApi {
   /// `TagsToRemove`.
   ///
   /// Currently, Elastic Beanstalk only supports tagging of Elastic Beanstalk
-  /// environments. For details about environment tagging, see [Tagging
-  /// Resources in Your Elastic Beanstalk
-  /// Environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
+  /// environments. For details about environment tagging, see
+  /// [Tagging Resources in Your Elastic Beanstalk Environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.tagging.html).
   ///
   /// If you create a custom IAM user policy to control permission to this
   /// operation, specify one of the following two virtual actions (or both)
@@ -1237,9 +1235,8 @@ class ElasticBeanstalkApi {
   /// Controls permission to call `UpdateTagsForResource` and pass a list of tag
   /// keys to remove in the `TagsToRemove` parameter.
   ///
-  /// For details about creating a custom user policy, see [Creating a Custom
-  /// User
-  /// Policy](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies).
+  /// For details about creating a custom user policy, see
+  /// [Creating a Custom User Policy](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/AWSHowTo.iam.managed-policies.html#AWSHowTo.iam.policies).
   ///
   /// [resourceArn]: The Amazon Resource Name (ARN) of the resouce to be
   /// updated.
@@ -1285,6 +1282,7 @@ class ElasticBeanstalkApi {
   }
 }
 
+/// Describes the properties of an application.
 class ApplicationDescription {
   /// The Amazon Resource Name (ARN) of the application.
   final String applicationArn;
@@ -1324,6 +1322,7 @@ class ApplicationDescription {
       ApplicationDescription();
 }
 
+/// Result message containing a single description of an application.
 class ApplicationDescriptionMessage {
   ///  The ApplicationDescription of the application.
   final ApplicationDescription application;
@@ -1335,6 +1334,7 @@ class ApplicationDescriptionMessage {
       ApplicationDescriptionMessage();
 }
 
+/// Result message containing a list of application descriptions.
 class ApplicationDescriptionsMessage {
   /// This parameter contains a list of ApplicationDescription.
   final List<ApplicationDescription> applications;
@@ -1346,6 +1346,7 @@ class ApplicationDescriptionsMessage {
       ApplicationDescriptionsMessage();
 }
 
+/// Application request metrics for an AWS Elastic Beanstalk environment.
 class ApplicationMetrics {
   /// The amount of time that the metrics cover (usually 10 seconds). For
   /// example, you might have 5 requests (`request_count`) within the most
@@ -1375,6 +1376,11 @@ class ApplicationMetrics {
       ApplicationMetrics();
 }
 
+/// The resource lifecycle configuration for an application. Defines lifecycle
+/// settings for resources that belong to the application, and the service role
+/// that Elastic Beanstalk assumes in order to apply lifecycle settings. The
+/// version lifecycle configuration defines lifecycle settings for application
+/// versions.
 class ApplicationResourceLifecycleConfig {
   /// The ARN of an IAM service role that Elastic Beanstalk has permission to
   /// assume.
@@ -1417,6 +1423,7 @@ class ApplicationResourceLifecycleDescriptionMessage {
       ApplicationResourceLifecycleDescriptionMessage();
 }
 
+/// Describes the properties of an application version.
 class ApplicationVersionDescription {
   /// The Amazon Resource Name (ARN) of the application version.
   final String applicationVersionArn;
@@ -1486,6 +1493,7 @@ class ApplicationVersionDescription {
       ApplicationVersionDescription();
 }
 
+/// Result message wrapping a single description of an application version.
 class ApplicationVersionDescriptionMessage {
   ///  The ApplicationVersionDescription of the application version.
   final ApplicationVersionDescription applicationVersion;
@@ -1498,6 +1506,7 @@ class ApplicationVersionDescriptionMessage {
       ApplicationVersionDescriptionMessage();
 }
 
+/// Result message wrapping a list of application version descriptions.
 class ApplicationVersionDescriptionsMessage {
   /// List of `ApplicationVersionDescription` objects sorted in order of
   /// creation.
@@ -1516,6 +1525,13 @@ class ApplicationVersionDescriptionsMessage {
       ApplicationVersionDescriptionsMessage();
 }
 
+/// The application version lifecycle settings for an application. Defines the
+/// rules that Elastic Beanstalk applies to an application's versions in order
+/// to avoid hitting the per-region limit for application versions.
+///
+/// When Elastic Beanstalk deletes an application version from its database, you
+/// can no longer deploy that version to an environment. The source bundle
+/// remains in S3 unless you configure the rule to delete it.
 class ApplicationVersionLifecycleConfig {
   /// Specify a max count rule to restrict the number of application versions
   /// that are retained for an application.
@@ -1534,6 +1550,7 @@ class ApplicationVersionLifecycleConfig {
       ApplicationVersionLifecycleConfig();
 }
 
+/// The result message containing information about the managed action.
 class ApplyEnvironmentManagedActionResult {
   /// The action ID of the managed action.
   final String actionId;
@@ -1558,6 +1575,7 @@ class ApplyEnvironmentManagedActionResult {
       ApplyEnvironmentManagedActionResult();
 }
 
+/// Describes an Auto Scaling launch configuration.
 class AutoScalingGroup {
   /// The name of the `AutoScalingGroup` .
   final String name;
@@ -1569,6 +1587,7 @@ class AutoScalingGroup {
       AutoScalingGroup();
 }
 
+/// Settings for an AWS CodeBuild build.
 class BuildConfiguration {
   /// The name of the artifact of the CodeBuild build. If provided, Elastic
   /// Beanstalk stores the build artifact in the S3 location
@@ -1585,14 +1604,11 @@ class BuildConfiguration {
 
   /// Information about the compute resources the build project will use.
   ///
-  /// *    `BUILD\_GENERAL1\_SMALL: Use up to 3 GB memory and 2 vCPUs for
-  /// builds`
+  /// *    `BUILD_GENERAL1_SMALL: Use up to 3 GB memory and 2 vCPUs for builds`
   ///
-  /// *    `BUILD\_GENERAL1\_MEDIUM: Use up to 7 GB memory and 4 vCPUs for
-  /// builds`
+  /// *    `BUILD_GENERAL1_MEDIUM: Use up to 7 GB memory and 4 vCPUs for builds`
   ///
-  /// *    `BUILD\_GENERAL1\_LARGE: Use up to 15 GB memory and 8 vCPUs for
-  /// builds`
+  /// *    `BUILD_GENERAL1_LARGE: Use up to 15 GB memory and 8 vCPUs for builds`
   final String computeType;
 
   /// The ID of the Docker image to use for this build project.
@@ -1612,6 +1628,7 @@ class BuildConfiguration {
   });
 }
 
+/// The builder used to build the custom platform.
 class Builder {
   /// The ARN of the builder.
   final String arn;
@@ -1622,6 +1639,7 @@ class Builder {
   static Builder fromJson(Map<String, dynamic> json) => Builder();
 }
 
+/// CPU utilization metrics for an instance.
 class CpuUtilization {
   /// Percentage of time that the CPU has spent in the `User` state over the
   /// last 10 seconds.
@@ -1680,6 +1698,7 @@ class CpuUtilization {
   static CpuUtilization fromJson(Map<String, dynamic> json) => CpuUtilization();
 }
 
+/// Indicates if the specified CNAME is available.
 class CheckDnsAvailabilityResultMessage {
   /// Indicates if the specified CNAME is available:
   ///
@@ -1701,6 +1720,7 @@ class CheckDnsAvailabilityResultMessage {
       CheckDnsAvailabilityResultMessage();
 }
 
+/// Describes the possible values for a configuration option.
 class ConfigurationOptionDescription {
   /// A unique namespace identifying the option's associated AWS resource.
   final String namespace;
@@ -1794,6 +1814,10 @@ class ConfigurationOptionDescription {
       ConfigurationOptionDescription();
 }
 
+///  A specification identifying an individual configuration option along with
+/// its current value. For a list of possible option values, go to
+/// [Option Values](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html)
+/// in the _AWS Elastic Beanstalk Developer Guide_.
 class ConfigurationOptionSetting {
   /// A unique resource name for a time-based scaling configuration option.
   final String resourceName;
@@ -1817,6 +1841,7 @@ class ConfigurationOptionSetting {
       ConfigurationOptionSetting();
 }
 
+/// Describes the settings for a specified configuration set.
 class ConfigurationOptionsDescription {
   /// The name of the solution stack these configuration options belong to.
   final String solutionStackName;
@@ -1836,6 +1861,7 @@ class ConfigurationOptionsDescription {
       ConfigurationOptionsDescription();
 }
 
+/// Describes the settings for a configuration set.
 class ConfigurationSettingsDescription {
   /// The name of the solution stack this configuration set uses.
   final String solutionStackName;
@@ -1899,6 +1925,8 @@ class ConfigurationSettingsDescription {
       ConfigurationSettingsDescription();
 }
 
+/// The results from a request to change the configuration settings of an
+/// environment.
 class ConfigurationSettingsDescriptions {
   ///  A list of ConfigurationSettingsDescription.
   final List<ConfigurationSettingsDescription> configurationSettings;
@@ -1911,6 +1939,7 @@ class ConfigurationSettingsDescriptions {
       ConfigurationSettingsDescriptions();
 }
 
+/// Provides a list of validation messages.
 class ConfigurationSettingsValidationMessages {
   ///  A list of ValidationMessage.
   final List<ValidationMessage> messages;
@@ -1938,6 +1967,7 @@ class CreatePlatformVersionResult {
       CreatePlatformVersionResult();
 }
 
+/// Results of a CreateStorageLocationResult call.
 class CreateStorageLocationResultMessage {
   /// The name of the Amazon S3 bucket created.
   final String s3Bucket;
@@ -1950,6 +1980,7 @@ class CreateStorageLocationResultMessage {
       CreateStorageLocationResultMessage();
 }
 
+/// A custom AMI available to platforms.
 class CustomAmi {
   /// The type of virtualization used to create the custom AMI.
   final String virtualizationType;
@@ -1975,6 +2006,7 @@ class DeletePlatformVersionResult {
       DeletePlatformVersionResult();
 }
 
+/// Information about an application version deployment.
 class Deployment {
   /// The version label of the application version in the deployment.
   final String versionLabel;
@@ -2018,12 +2050,13 @@ class DescribeAccountAttributesResult {
       DescribeAccountAttributesResult();
 }
 
+/// Health details for an AWS Elastic Beanstalk environment.
 class DescribeEnvironmentHealthResult {
   /// The environment's name.
   final String environmentName;
 
-  /// The [health
-  /// status](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html)
+  /// The
+  /// [health status](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html)
   /// of the environment. For example, `Ok`.
   final String healthStatus;
 
@@ -2031,8 +2064,8 @@ class DescribeEnvironmentHealthResult {
   /// `Terminating`, or `Terminated`.
   final String status;
 
-  /// The [health
-  /// color](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html)
+  /// The
+  /// [health color](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html)
   /// of the environment.
   final String color;
 
@@ -2063,6 +2096,7 @@ class DescribeEnvironmentHealthResult {
       DescribeEnvironmentHealthResult();
 }
 
+/// A result message containing a list of completed and failed managed actions.
 class DescribeEnvironmentManagedActionHistoryResult {
   /// A list of completed and failed managed actions.
   final List<ManagedActionHistoryItem> managedActionHistoryItems;
@@ -2080,6 +2114,7 @@ class DescribeEnvironmentManagedActionHistoryResult {
       DescribeEnvironmentManagedActionHistoryResult();
 }
 
+/// The result message containing a list of managed actions.
 class DescribeEnvironmentManagedActionsResult {
   /// A list of upcoming and in-progress managed actions.
   final List<ManagedAction> managedActions;
@@ -2092,6 +2127,8 @@ class DescribeEnvironmentManagedActionsResult {
       DescribeEnvironmentManagedActionsResult();
 }
 
+/// Detailed health information about the Amazon EC2 instances in an AWS Elastic
+/// Beanstalk environment.
 class DescribeInstancesHealthResult {
   /// Detailed health information about each instance.
   ///
@@ -2126,6 +2163,7 @@ class DescribePlatformVersionResult {
       DescribePlatformVersionResult();
 }
 
+/// Describes the properties of an environment.
 class EnvironmentDescription {
   /// The name of this environment.
   final String environmentName;
@@ -2208,8 +2246,8 @@ class EnvironmentDescription {
   final String health;
 
   /// Returns the health status of the application running in your environment.
-  /// For more information, see [Health Colors and
-  /// Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
+  /// For more information, see
+  /// [Health Colors and Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
   final String healthStatus;
 
   /// The description of the AWS resources used by this environment.
@@ -2251,6 +2289,7 @@ class EnvironmentDescription {
       EnvironmentDescription();
 }
 
+/// Result message containing a list of environment descriptions.
 class EnvironmentDescriptionsMessage {
   ///  Returns an EnvironmentDescription list.
   final List<EnvironmentDescription> environments;
@@ -2267,6 +2306,7 @@ class EnvironmentDescriptionsMessage {
       EnvironmentDescriptionsMessage();
 }
 
+/// The information retrieved from the Amazon EC2 instances.
 class EnvironmentInfoDescription {
   /// The type of information retrieved.
   final String infoType;
@@ -2294,6 +2334,11 @@ class EnvironmentInfoDescription {
       EnvironmentInfoDescription();
 }
 
+/// A link to another environment, defined in the environment's manifest. Links
+/// provide connection information in system properties that can be used to
+/// connect to another environment in the same group. See
+/// [Environment Manifest (env.yaml)](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html)
+/// for details.
 class EnvironmentLink {
   /// The name of the link.
   final String linkName;
@@ -2309,6 +2354,7 @@ class EnvironmentLink {
       EnvironmentLink();
 }
 
+/// Describes the AWS resources in use by this environment. This data is live.
 class EnvironmentResourceDescription {
   /// The name of the environment.
   final String environmentName;
@@ -2348,6 +2394,7 @@ class EnvironmentResourceDescription {
       EnvironmentResourceDescription();
 }
 
+/// Result message containing a list of environment resource descriptions.
 class EnvironmentResourceDescriptionsMessage {
   ///  A list of EnvironmentResourceDescription.
   final EnvironmentResourceDescription environmentResources;
@@ -2360,6 +2407,8 @@ class EnvironmentResourceDescriptionsMessage {
       EnvironmentResourceDescriptionsMessage();
 }
 
+/// Describes the AWS resources in use by this environment. This data is not
+/// live data.
 class EnvironmentResourcesDescription {
   /// Describes the LoadBalancer.
   final LoadBalancerDescription loadBalancer;
@@ -2371,6 +2420,7 @@ class EnvironmentResourcesDescription {
       EnvironmentResourcesDescription();
 }
 
+/// Describes the properties of an environment tier
 class EnvironmentTier {
   /// The name of this environment tier.
   ///
@@ -2408,6 +2458,7 @@ class EnvironmentTier {
       EnvironmentTier();
 }
 
+/// Describes an event.
 class EventDescription {
   /// The date when the event occurred.
   final DateTime eventDate;
@@ -2451,6 +2502,7 @@ class EventDescription {
       EventDescription();
 }
 
+/// Result message wrapping a list of event descriptions.
 class EventDescriptionsMessage {
   ///  A list of EventDescription.
   final List<EventDescription> events;
@@ -2468,6 +2520,7 @@ class EventDescriptionsMessage {
       EventDescriptionsMessage();
 }
 
+/// The description of an Amazon EC2 instance.
 class Instance {
   /// The ID of the Amazon EC2 instance.
   final String id;
@@ -2478,6 +2531,9 @@ class Instance {
   static Instance fromJson(Map<String, dynamic> json) => Instance();
 }
 
+/// Represents summary information about the health of an instance. For more
+/// information, see
+/// [Health Colors and Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
 class InstanceHealthSummary {
   ///  **Grey.** AWS Elastic Beanstalk and the health agent are reporting no
   /// data on an instance.
@@ -2524,6 +2580,8 @@ class InstanceHealthSummary {
       InstanceHealthSummary();
 }
 
+/// Represents the average latency for the slowest X percent of requests over
+/// the last 10 seconds.
 class Latency {
   /// The average latency for the slowest 0.1 percent of requests over the last
   /// 10 seconds.
@@ -2570,6 +2628,7 @@ class Latency {
   static Latency fromJson(Map<String, dynamic> json) => Latency();
 }
 
+/// Describes an Auto Scaling launch configuration.
 class LaunchConfiguration {
   /// The name of the launch configuration.
   final String name;
@@ -2581,6 +2640,7 @@ class LaunchConfiguration {
       LaunchConfiguration();
 }
 
+/// Describes an Amazon EC2 launch template.
 class LaunchTemplate {
   /// The ID of the launch template.
   final String id;
@@ -2591,6 +2651,7 @@ class LaunchTemplate {
   static LaunchTemplate fromJson(Map<String, dynamic> json) => LaunchTemplate();
 }
 
+/// A list of available AWS Elastic Beanstalk solution stacks.
 class ListAvailableSolutionStacksResultMessage {
   /// A list of available solution stacks.
   final List<String> solutionStacks;
@@ -2623,6 +2684,7 @@ class ListPlatformVersionsResult {
       ListPlatformVersionsResult();
 }
 
+/// Describes the properties of a Listener for the LoadBalancer.
 class Listener {
   /// The protocol that is used by the Listener.
   final String protocol;
@@ -2637,6 +2699,7 @@ class Listener {
   static Listener fromJson(Map<String, dynamic> json) => Listener();
 }
 
+/// Describes a LoadBalancer.
 class LoadBalancer {
   /// The name of the LoadBalancer.
   final String name;
@@ -2647,6 +2710,7 @@ class LoadBalancer {
   static LoadBalancer fromJson(Map<String, dynamic> json) => LoadBalancer();
 }
 
+/// Describes the details of a LoadBalancer.
 class LoadBalancerDescription {
   /// The name of the LoadBalancer.
   final String loadBalancerName;
@@ -2666,6 +2730,7 @@ class LoadBalancerDescription {
       LoadBalancerDescription();
 }
 
+/// The record of an upcoming or in-progress managed action.
 class ManagedAction {
   /// A unique identifier for the managed action.
   final String actionId;
@@ -2694,6 +2759,7 @@ class ManagedAction {
   static ManagedAction fromJson(Map<String, dynamic> json) => ManagedAction();
 }
 
+/// The record of a completed or failed managed action.
 class ManagedActionHistoryItem {
   /// A unique identifier for the managed action.
   final String actionId;
@@ -2733,6 +2799,8 @@ class ManagedActionHistoryItem {
       ManagedActionHistoryItem();
 }
 
+/// A lifecycle rule that deletes application versions after the specified
+/// number of days.
 class MaxAgeRule {
   /// Specify `true` to apply the rule, or `false` to disable it.
   final bool enabled;
@@ -2752,6 +2820,8 @@ class MaxAgeRule {
   static MaxAgeRule fromJson(Map<String, dynamic> json) => MaxAgeRule();
 }
 
+/// A lifecycle rule that deletes the oldest application version when the
+/// maximum count is exceeded.
 class MaxCountRule {
   /// Specify `true` to apply the rule, or `false` to disable it.
   final bool enabled;
@@ -2771,6 +2841,8 @@ class MaxCountRule {
   static MaxCountRule fromJson(Map<String, dynamic> json) => MaxCountRule();
 }
 
+/// A regular expression representing a restriction on a string configuration
+/// option value.
 class OptionRestrictionRegex {
   /// The regular expression pattern that a string configuration option value
   /// with this restriction must match.
@@ -2787,6 +2859,7 @@ class OptionRestrictionRegex {
       OptionRestrictionRegex();
 }
 
+/// A specification identifying an individual configuration option.
 class OptionSpecification {
   /// A unique resource name for a time-based scaling configuration option.
   final String resourceName;
@@ -2804,6 +2877,7 @@ class OptionSpecification {
   });
 }
 
+/// Detailed information about a platform.
 class PlatformDescription {
   /// The ARN of the platform.
   final String platformArn;
@@ -2883,6 +2957,11 @@ class PlatformDescription {
       PlatformDescription();
 }
 
+/// Specify criteria to restrict the results when listing custom platforms.
+///
+/// The filter is evaluated as the expression:
+///
+///  `Type` `Operator` `Values[i]`
 class PlatformFilter {
   /// The custom platform attribute to which the filter values are applied.
   ///
@@ -2907,6 +2986,7 @@ class PlatformFilter {
   });
 }
 
+/// A framework supported by the custom platform.
 class PlatformFramework {
   /// The name of the framework.
   final String name;
@@ -2922,6 +3002,7 @@ class PlatformFramework {
       PlatformFramework();
 }
 
+/// A programming language supported by the platform.
 class PlatformProgrammingLanguage {
   /// The name of the programming language.
   final String name;
@@ -2937,6 +3018,7 @@ class PlatformProgrammingLanguage {
       PlatformProgrammingLanguage();
 }
 
+/// Detailed information about a platform.
 class PlatformSummary {
   /// The ARN of the platform.
   final String platformArn;
@@ -2977,6 +3059,7 @@ class PlatformSummary {
       PlatformSummary();
 }
 
+/// Describes a queue.
 class Queue {
   /// The name of the queue.
   final String name;
@@ -2991,6 +3074,8 @@ class Queue {
   static Queue fromJson(Map<String, dynamic> json) => Queue();
 }
 
+/// The AWS Elastic Beanstalk quota information for a single resource type in an
+/// AWS account. It reflects the resource's limits for this account.
 class ResourceQuota {
   /// The maximum number of instances of this Elastic Beanstalk resource type
   /// that an AWS account can use.
@@ -3002,6 +3087,8 @@ class ResourceQuota {
   static ResourceQuota fromJson(Map<String, dynamic> json) => ResourceQuota();
 }
 
+/// A set of per-resource AWS Elastic Beanstalk quotas associated with an AWS
+/// account. They reflect Elastic Beanstalk resource limits for this account.
 class ResourceQuotas {
   /// The quota for applications in the AWS account.
   final ResourceQuota applicationQuota;
@@ -3044,6 +3131,7 @@ class ResourceTagsDescriptionMessage {
       ResourceTagsDescriptionMessage();
 }
 
+/// Result message containing a description of the requested environment info.
 class RetrieveEnvironmentInfoResultMessage {
   ///  The EnvironmentInfoDescription of the environment.
   final List<EnvironmentInfoDescription> environmentInfo;
@@ -3056,6 +3144,7 @@ class RetrieveEnvironmentInfoResultMessage {
       RetrieveEnvironmentInfoResultMessage();
 }
 
+/// The bucket and key of an item stored in Amazon S3.
 class S3Location {
   /// The Amazon S3 bucket where the data is located.
   final String s3Bucket;
@@ -3070,18 +3159,20 @@ class S3Location {
   static S3Location fromJson(Map<String, dynamic> json) => S3Location();
 }
 
+/// Detailed health information about an Amazon EC2 instance in your Elastic
+/// Beanstalk environment.
 class SingleInstanceHealth {
   /// The ID of the Amazon EC2 instance.
   final String instanceId;
 
   /// Returns the health status of the specified instance. For more information,
-  /// see [Health Colors and
-  /// Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
+  /// see
+  /// [Health Colors and Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
   final String healthStatus;
 
   /// Represents the color indicator that gives you information about the health
-  /// of the EC2 instance. For more information, see [Health Colors and
-  /// Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
+  /// of the EC2 instance. For more information, see
+  /// [Health Colors and Statuses](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-status.html).
   final String color;
 
   /// Represents the causes, which provide more information about the current
@@ -3122,6 +3213,7 @@ class SingleInstanceHealth {
       SingleInstanceHealth();
 }
 
+/// Describes the solution stack.
 class SolutionStackDescription {
   /// The name of the solution stack.
   final String solutionStackName;
@@ -3137,6 +3229,7 @@ class SolutionStackDescription {
       SolutionStackDescription();
 }
 
+/// Location of the source code for an application version.
 class SourceBuildInformation {
   /// The type of repository.
   ///
@@ -3172,6 +3265,7 @@ class SourceBuildInformation {
       SourceBuildInformation();
 }
 
+/// A specification for an environment configuration
 class SourceConfiguration {
   /// The name of the application associated with the configuration.
   final String applicationName;
@@ -3185,6 +3279,9 @@ class SourceConfiguration {
   });
 }
 
+/// Represents the percentage of requests over the last 10 seconds that resulted
+/// in each type of status code response. For more information, see
+/// [Status Code Definitions](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html).
 class StatusCodes {
   /// The percentage of requests over the last 10 seconds that resulted in a 2xx
   /// (200, 201, etc.) status code.
@@ -3211,13 +3308,14 @@ class StatusCodes {
   static StatusCodes fromJson(Map<String, dynamic> json) => StatusCodes();
 }
 
+/// CPU utilization and load average metrics for an Amazon EC2 instance.
 class SystemStatus {
   /// CPU utilization metrics for the instance.
   final CpuUtilization cpuUtilization;
 
   /// Load average in the last 1-minute, 5-minute, and 15-minute periods. For
-  /// more information, see [Operating System
-  /// Metrics](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os).
+  /// more information, see
+  /// [Operating System Metrics](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/health-enhanced-metrics.html#health-enhanced-metrics-os).
   final List<double> loadAverage;
 
   SystemStatus({
@@ -3227,6 +3325,7 @@ class SystemStatus {
   static SystemStatus fromJson(Map<String, dynamic> json) => SystemStatus();
 }
 
+/// Describes a tag applied to a resource in an environment.
 class Tag {
   /// The key of the tag.
   final String key;
@@ -3241,6 +3340,7 @@ class Tag {
   static Tag fromJson(Map<String, dynamic> json) => Tag();
 }
 
+/// Describes a trigger.
 class Trigger {
   /// The name of the trigger.
   final String name;
@@ -3251,6 +3351,7 @@ class Trigger {
   static Trigger fromJson(Map<String, dynamic> json) => Trigger();
 }
 
+/// An error or warning for a desired configuration option value.
 class ValidationMessage {
   /// A message describing the error or warning.
   final String message;

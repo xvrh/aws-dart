@@ -19,8 +19,7 @@ import 'package:meta/meta.dart';
 ///
 ///
 /// For more information about the features of Amazon EventBridge, see the
-/// [Amazon EventBridge User
-/// Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/).
+/// [Amazon EventBridge User Guide](https://docs.aws.amazon.com/eventbridge/latest/userguide/).
 class EventBridgeApi {
   /// Activates a partner event source that has been deactivated. Once
   /// activated, your matching event bus will start receiving events from the
@@ -447,8 +446,8 @@ class EventBridgeApi {
   /// If you grant permissions using an organization, then accounts in that
   /// organization must specify a `RoleArn` with proper permissions when they
   /// use `PutTarget` to add your account's event bus as a target. For more
-  /// information, see [Sending and Receiving Events Between AWS
-  /// Accounts](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html)
+  /// information, see
+  /// [Sending and Receiving Events Between AWS Accounts](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html)
   /// in the _Amazon EventBridge User Guide_.
   ///
   /// The permission policy on an event bus can't exceed 10 KB in size.
@@ -477,8 +476,8 @@ class EventBridgeApi {
   /// [condition]: This parameter enables you to limit the permission to
   /// accounts that fulfill a certain condition, such as being a member of a
   /// certain AWS organization. For more information about AWS Organizations,
-  /// see [What Is AWS
-  /// Organizations?](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
+  /// see
+  /// [What Is AWS Organizations?](https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html)
   /// in the _AWS Organizations User Guide_.
   ///
   /// If you specify `Condition` with an AWS organization ID and specify "*" as
@@ -549,16 +548,16 @@ class EventBridgeApi {
   ///
   /// An infinite loop can quickly cause higher than expected charges. We
   /// recommend that you use budgeting, which alerts you when charges exceed
-  /// your specified limit. For more information, see [Managing Your Costs with
-  /// Budgets](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-managing-costs.html).
+  /// your specified limit. For more information, see
+  /// [Managing Your Costs with Budgets](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/budgets-managing-costs.html).
   ///
   /// [name]: The name of the rule that you're creating or updating.
   ///
   /// [scheduleExpression]: The scheduling expression: for example, `"cron(0 20
   /// * * ? *)"` or `"rate(5 minutes)"`.
   ///
-  /// [eventPattern]: The event pattern. For more information, see [Event
-  /// Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
+  /// [eventPattern]: The event pattern. For more information, see
+  /// [Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
   /// in the _Amazon EventBridge User Guide_.
   ///
   /// [state]: Indicates whether the rule is enabled or disabled.
@@ -637,8 +636,8 @@ class EventBridgeApi {
   /// SNS resources, EventBridge relies on resource-based policies. For EC2
   /// instances, Kinesis data streams, and AWS Step Functions state machines,
   /// EventBridge relies on IAM roles that you specify in the `RoleARN` argument
-  /// in `PutTargets`. For more information, see [Authentication and Access
-  /// Control](https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html)
+  /// in `PutTargets`. For more information, see
+  /// [Authentication and Access Control](https://docs.aws.amazon.com/eventbridge/latest/userguide/auth-and-access-control-eventbridge.html)
   /// in the _Amazon EventBridge User Guide_.
   ///
   /// If another AWS account is in the same Region and has granted you
@@ -654,9 +653,8 @@ class EventBridgeApi {
   /// If you're setting an event bus in another account as the target and that
   /// account granted permission to your account through an organization instead
   /// of directly by the account ID, you must specify a `RoleArn` with proper
-  /// permissions in the `Target` structure. For more information, see [Sending
-  /// and Receiving Events Between AWS
-  /// Accounts](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html)
+  /// permissions in the `Target` structure. For more information, see
+  /// [Sending and Receiving Events Between AWS Accounts](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html)
   /// in the _Amazon EventBridge User Guide_.
   ///
   /// For more information about enabling cross-account events, see
@@ -786,8 +784,8 @@ class EventBridgeApi {
   /// creating event patterns so that they match the ARN syntax in the event
   /// that you want to match.
   ///
-  /// [eventPattern]: The event pattern. For more information, see [Event
-  /// Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
+  /// [eventPattern]: The event pattern. For more information, see
+  /// [Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
   /// in the _Amazon EventBridge User Guide_.
   ///
   /// [event]: The event, in JSON format, to test against the event pattern.
@@ -808,6 +806,9 @@ class EventBridgeApi {
   }
 }
 
+/// This structure specifies the VPC subnets and security groups for the task
+/// and whether a public IP address is to be used. This structure is relevant
+/// only for ECS tasks that use the `awsvpc` network mode.
 class AwsVpcConfiguration {
   /// Specifies the subnets associated with the task. These subnets must all be
   /// in the same VPC. You can specify as many as 16 subnets.
@@ -833,6 +834,10 @@ class AwsVpcConfiguration {
       AwsVpcConfiguration();
 }
 
+/// The array properties for the submitted job, such as the size of the array.
+/// The array size can be between 2 and 10,000. If you specify array properties
+/// for a job, it becomes an array job. This parameter is used only if the
+/// target is an AWS Batch job.
 class BatchArrayProperties {
   /// The size of the array, if this is an array batch job. Valid values are
   /// integers between 2 and 10,000.
@@ -845,6 +850,7 @@ class BatchArrayProperties {
       BatchArrayProperties();
 }
 
+/// The custom parameters to be used when the target is an AWS Batch job.
 class BatchParameters {
   /// The ARN or name of the job definition to use if the event target is an AWS
   /// Batch job. This job definition must already exist.
@@ -876,6 +882,9 @@ class BatchParameters {
       BatchParameters();
 }
 
+/// The retry strategy to use for failed jobs if the target is an AWS Batch job.
+/// If you specify a retry strategy here, it overrides the retry strategy
+/// defined in the job definition.
 class BatchRetryStrategy {
   /// The number of times to attempt to retry, if the job fails. Valid values
   /// are 1–10.
@@ -888,6 +897,15 @@ class BatchRetryStrategy {
       BatchRetryStrategy();
 }
 
+/// A JSON string that you can use to limit the event bus permissions that
+/// you're granting to only accounts that fulfill the condition. Currently, the
+/// only supported condition is membership in a certain AWS organization. The
+/// string must contain `Type`, `Key`, and `Value` fields. The `Value` field
+/// specifies the ID of the AWS organization. The following is an example value
+/// for `Condition`:
+///
+///  `'{"Type" : "StringEquals", "Key": "aws:PrincipalOrgID", "Value":
+/// "o-1234567890"}'`
 class Condition {
   /// The type of condition. Currently, the only supported value is
   /// `StringEquals`.
@@ -1009,8 +1027,8 @@ class DescribeRuleResponse {
   /// The Amazon Resource Name (ARN) of the rule.
   final String arn;
 
-  /// The event pattern. For more information, see [Event
-  /// Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
+  /// The event pattern. For more information, see
+  /// [Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
   /// in the _Amazon EventBridge User Guide_.
   final String eventPattern;
 
@@ -1050,6 +1068,7 @@ class DescribeRuleResponse {
       DescribeRuleResponse();
 }
 
+/// The custom parameters to be used when the target is an Amazon ECS task.
 class EcsParameters {
   /// The ARN of the task definition to use if the event target is an Amazon ECS
   /// task.
@@ -1062,8 +1081,7 @@ class EcsParameters {
   /// that you specify here must match one of the launch type (compatibilities)
   /// of the target task. The `FARGATE` value is supported only in the Regions
   /// where AWS Fargate with Amazon ECS is supported. For more information, see
-  /// [AWS Fargate on Amazon
-  /// ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html)
+  /// [AWS Fargate on Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS-Fargate.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String launchType;
 
@@ -1081,8 +1099,8 @@ class EcsParameters {
   /// portion of the platform version, such as `1.1.0`.
   ///
   /// This structure is used only if `LaunchType` is `FARGATE`. For more
-  /// information about valid platform versions, see [AWS Fargate Platform
-  /// Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
+  /// information about valid platform versions, see
+  /// [AWS Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html)
   /// in the _Amazon Elastic Container Service Developer Guide_.
   final String platformVersion;
 
@@ -1101,6 +1119,12 @@ class EcsParameters {
   static EcsParameters fromJson(Map<String, dynamic> json) => EcsParameters();
 }
 
+/// An event bus receives events from a source and routes them to rules
+/// associated with that event bus. Your account's default event bus receives
+/// rules from AWS services. A custom event bus can receive rules from AWS
+/// services as well as your custom applications and services. A partner event
+/// bus receives events from an event source created by an SaaS partner. These
+/// events come from the partners services or applications.
 class EventBus {
   /// The name of the event bus.
   final String name;
@@ -1120,6 +1144,9 @@ class EventBus {
   static EventBus fromJson(Map<String, dynamic> json) => EventBus();
 }
 
+/// A partner event source is created by an SaaS partner. If a customer creates
+/// a partner event bus that matches this event source, that AWS account can
+/// receive events from the partner's applications or services.
 class EventSource {
   /// The ARN of the event source.
   final String arn;
@@ -1155,6 +1182,8 @@ class EventSource {
   static EventSource fromJson(Map<String, dynamic> json) => EventSource();
 }
 
+/// Contains the parameters needed for you to provide custom input to a target
+/// based on one or more pieces of data extracted from the event.
 class InputTransformer {
   /// Map of JSON paths to be extracted from the event. You can then insert
   /// these in the template in `InputTemplate` to produce the output to be sent
@@ -1204,7 +1233,7 @@ class InputTransformer {
   ///  `"InputPathsMap": {"instance": "$.detail.instance","status":
   /// "$.detail.status"},`
   ///
-  ///  `"InputTemplate": "<instance> is in state \\"<status>\\""`
+  ///  `"InputTemplate": "<instance> is in state "<status>""`
   ///
   ///  `}`
   final String inputTemplate;
@@ -1217,10 +1246,14 @@ class InputTransformer {
       InputTransformer();
 }
 
+/// This object enables you to specify a JSON path to extract from the event and
+/// use as the partition key for the Amazon Kinesis data stream so that you can
+/// control the shard that the event goes to. If you don't include this
+/// parameter, the default is to use the `eventId` as the partition key.
 class KinesisParameters {
   /// The JSON path to be extracted from the event and used as the partition
-  /// key. For more information, see [Amazon Kinesis Streams Key
-  /// Concepts](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key)
+  /// key. For more information, see
+  /// [Amazon Kinesis Streams Key Concepts](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key)
   /// in the _Amazon Kinesis Streams Developer Guide_.
   final String partitionKeyPath;
 
@@ -1356,6 +1389,7 @@ class ListTargetsByRuleResponse {
       ListTargetsByRuleResponse();
 }
 
+/// This structure specifies the network configuration for an ECS task.
 class NetworkConfiguration {
   /// Use this structure to specify the VPC subnets and security groups for the
   /// task and whether a public IP address is to be used. This structure is
@@ -1369,6 +1403,9 @@ class NetworkConfiguration {
       NetworkConfiguration();
 }
 
+/// A partner event source is created by an SaaS partner. If a customer creates
+/// a partner event bus that matches this event source, that AWS account can
+/// receive events from the partner's applications or services.
 class PartnerEventSource {
   /// The ARN of the partner event source.
   final String arn;
@@ -1384,6 +1421,7 @@ class PartnerEventSource {
       PartnerEventSource();
 }
 
+/// The AWS account that a partner event source has been offered to.
 class PartnerEventSourceAccount {
   /// The AWS account ID that the partner event source was offered to.
   final String account;
@@ -1412,6 +1450,7 @@ class PartnerEventSourceAccount {
       PartnerEventSourceAccount();
 }
 
+/// Represents an event to be submitted.
 class PutEventsRequestEntry {
   /// The timestamp of the event, per
   /// [RFC3339](https://www.rfc-editor.org/rfc/rfc3339.txt). If no timestamp is
@@ -1465,6 +1504,7 @@ class PutEventsResponse {
       PutEventsResponse();
 }
 
+/// Represents an event that failed to be submitted.
 class PutEventsResultEntry {
   /// The ID of the event.
   final String eventId;
@@ -1484,6 +1524,7 @@ class PutEventsResultEntry {
       PutEventsResultEntry();
 }
 
+/// The details about an event generated by an SaaS partner.
 class PutPartnerEventsRequestEntry {
   /// The date and time of the event.
   final DateTime time;
@@ -1529,6 +1570,7 @@ class PutPartnerEventsResponse {
       PutPartnerEventsResponse();
 }
 
+/// Represents an event that a partner tried to generate but failed.
 class PutPartnerEventsResultEntry {
   /// The ID of the event.
   final String eventId;
@@ -1574,6 +1616,7 @@ class PutTargetsResponse {
       PutTargetsResponse();
 }
 
+/// Represents a target that failed to be added to a rule.
 class PutTargetsResultEntry {
   /// The ID of the target.
   final String targetId;
@@ -1610,6 +1653,7 @@ class RemoveTargetsResponse {
       RemoveTargetsResponse();
 }
 
+/// Represents a target that failed to be removed from a rule.
 class RemoveTargetsResultEntry {
   /// The ID of the target.
   final String targetId;
@@ -1631,6 +1675,7 @@ class RemoveTargetsResultEntry {
       RemoveTargetsResultEntry();
 }
 
+/// Contains information about a rule in Amazon EventBridge.
 class Rule {
   /// The name of the rule.
   final String name;
@@ -1638,8 +1683,8 @@ class Rule {
   /// The Amazon Resource Name (ARN) of the rule.
   final String arn;
 
-  /// The event pattern of the rule. For more information, see [Event
-  /// Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
+  /// The event pattern of the rule. For more information, see
+  /// [Event Patterns](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-and-event-patterns.html)
   /// in the _Amazon EventBridge User Guide_.
   final String eventPattern;
 
@@ -1678,6 +1723,8 @@ class Rule {
   static Rule fromJson(Map<String, dynamic> json) => Rule();
 }
 
+/// This parameter contains the criteria (either `InstanceIds` or a tag) used to
+/// specify which EC2 instances are to be sent the command.
 class RunCommandParameters {
   /// Currently, we support including only one `RunCommandTarget` block, which
   /// specifies either an array of `InstanceIds` or a tag.
@@ -1690,6 +1737,9 @@ class RunCommandParameters {
       RunCommandParameters();
 }
 
+/// Information about the EC2 instances that are to be sent the command,
+/// specified as key-value pairs. Each `RunCommandTarget` block can include only
+/// one key, but this key can specify multiple values.
 class RunCommandTarget {
   /// Can be either `tag:` _tag-key_ or `InstanceIds`.
   final String key;
@@ -1706,6 +1756,8 @@ class RunCommandTarget {
       RunCommandTarget();
 }
 
+/// This structure includes the custom parameter to be used when the target is
+/// an SQS FIFO queue.
 class SqsParameters {
   /// The FIFO message group ID to use as the target.
   final String messageGroupId;
@@ -1716,6 +1768,8 @@ class SqsParameters {
   static SqsParameters fromJson(Map<String, dynamic> json) => SqsParameters();
 }
 
+/// A key-value pair associated with an AWS resource. In EventBridge, rules
+/// support tagging.
 class Tag {
   /// A string that you can use to assign a value. The combination of tag keys
   /// and values can help you organize and categorize your resources.
@@ -1737,6 +1791,16 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// Targets are the resources to be invoked when a rule is triggered. For a
+/// complete list of services and resources that can be set as a target, see
+/// PutTargets.
+///
+/// If you're setting the event bus of another account as the target and that
+/// account granted permission to your account through an organization instead
+/// of directly by the account ID, you must specify a `RoleArn` with proper
+/// permissions in the `Target` structure. For more information, see
+/// [Sending and Receiving Events Between AWS Accounts](https://docs.aws.amazon.com/eventbridge/latest/userguide/eventbridge-cross-account-event-delivery.html)
+/// in the _Amazon EventBridge User Guide_.
 class Target {
   /// The ID of the target.
   final String id;
@@ -1750,9 +1814,8 @@ class Target {
   final String roleArn;
 
   /// Valid JSON text passed to the target. In this case, nothing from the event
-  /// itself is passed to the target. For more information, see [The JavaScript
-  /// Object Notation (JSON) Data Interchange
-  /// Format](http://www.rfc-editor.org/rfc/rfc7159.txt).
+  /// itself is passed to the target. For more information, see
+  /// [The JavaScript Object Notation (JSON) Data Interchange Format](http://www.rfc-editor.org/rfc/rfc7159.txt).
   final String input;
 
   /// The value of the JSONPath that is used for extracting part of the matched
@@ -1777,8 +1840,8 @@ class Target {
 
   /// Contains the Amazon ECS task definition and task count to be used if the
   /// event target is an Amazon ECS task. For more information about Amazon ECS
-  /// tasks, see [Task
-  /// Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
+  /// tasks, see
+  /// [Task Definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_defintions.html)
   ///  in the _Amazon EC2 Container Service Developer Guide_.
   final EcsParameters ecsParameters;
 

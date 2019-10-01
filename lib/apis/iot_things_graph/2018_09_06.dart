@@ -9,8 +9,8 @@ import 'package:meta/meta.dart';
 /// connecting devices and services and defining how they interact at an
 /// abstract level.
 ///
-/// For more information about how AWS IoT Things Graph works, see the [User
-/// Guide](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html).
+/// For more information about how AWS IoT Things Graph works, see the
+/// [User Guide](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-whatis.html).
 class IotThingsGraphApi {
   /// Associates a device with a concrete thing that is in the user's registry.
   ///
@@ -183,8 +183,8 @@ class IotThingsGraphApi {
   /// error.
   ///
   /// For information about the artifacts that get added to your Greengrass core
-  /// device when you use this API, see [AWS IoT Things Graph and AWS IoT
-  /// Greengrass](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-greengrass.html).
+  /// device when you use this API, see
+  /// [AWS IoT Things Graph and AWS IoT Greengrass](https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-greengrass.html).
   ///
   /// [id]: The ID of the system instance. This value is returned by the
   /// `CreateSystemInstance` action.
@@ -415,10 +415,10 @@ class IotThingsGraphApi {
   /// [entityTypes]: The entity types for which to search.
   ///
   /// [filters]: Optional filter to apply to the search. Valid filters are
-  /// `NAME` `NAMESPACE`, `SEMANTIC\_TYPE\_PATH` and `REFERENCED\_ENTITY\_ID`.
-  /// `REFERENCED\_ENTITY\_ID` filters on entities that are used by the entity
-  /// in the result set. For example, you can filter on the ID of a property
-  /// that is used in a state.
+  /// `NAME` `NAMESPACE`, `SEMANTIC_TYPE_PATH` and `REFERENCED_ENTITY_ID`.
+  /// `REFERENCED_ENTITY_ID` filters on entities that are used by the entity in
+  /// the result set. For example, you can filter on the ID of a property that
+  /// is used in a state.
   ///
   /// Multiple filters function as OR criteria in the query. Multiple values
   /// passed inside the filter function as AND criteria.
@@ -465,7 +465,7 @@ class IotThingsGraphApi {
   /// Searches for summary information about workflows.
   ///
   /// [filters]: An array of objects that limit the result set. The only valid
-  /// filter is `DEVICE\_MODEL\_ID`.
+  /// filter is `DEVICE_MODEL_ID`.
   ///
   /// [nextToken]: The string that specifies the next page of results. Use this
   /// when you're paginating results.
@@ -481,7 +481,7 @@ class IotThingsGraphApi {
   /// Searches for system instances in the user's account.
   ///
   /// [filters]: Optional filter to apply to the search. Valid filters are
-  /// `SYSTEM\_TEMPLATE\_ID`, `STATUS`, and `GREENGRASS\_GROUP\_NAME`.
+  /// `SYSTEM_TEMPLATE_ID`, `STATUS`, and `GREENGRASS_GROUP_NAME`.
   ///
   /// Multiple filters function as OR criteria in the query. Multiple values
   /// passed inside the filter function as AND criteria.
@@ -502,7 +502,7 @@ class IotThingsGraphApi {
   /// specified workflow.
   ///
   /// [filters]: An array of filters that limit the result set. The only valid
-  /// filter is `FLOW\_TEMPLATE\_ID`.
+  /// filter is `FLOW_TEMPLATE_ID`.
   ///
   /// [nextToken]: The string that specifies the next page of results. Use this
   /// when you're paginating results.
@@ -573,8 +573,8 @@ class IotThingsGraphApi {
   ///
   /// This parameter to the API requires a JSON text string argument. For
   /// information on how to format a JSON parameter for the various command line
-  /// tool environments, see [Using JSON for
-  /// Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html#cli-using-param-json)
+  /// tool environments, see
+  /// [Using JSON for Parameters](https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-parameters.html#cli-using-param-json)
   /// in the _AWS CLI User Guide_.
   Future<UntagResourceResponse> untagResource(
       {@required String resourceArn, @required List<String> tagKeys}) async {
@@ -713,6 +713,7 @@ class CreateSystemTemplateResponse {
       CreateSystemTemplateResponse();
 }
 
+/// A document that defines an entity.
 class DefinitionDocument {
   /// The language used to define the entity. `GRAPHQL` is the only valid value.
   final String language;
@@ -761,6 +762,8 @@ class DeleteSystemTemplateResponse {
       DeleteSystemTemplateResponse();
 }
 
+/// An object that contains the ID and revision number of a workflow or system
+/// that is part of a deployment.
 class DependencyRevision {
   /// The ID of the workflow or system.
   final String id;
@@ -839,6 +842,7 @@ class DissociateEntityFromThingResponse {
       DissociateEntityFromThingResponse();
 }
 
+/// Describes the properties of an entity.
 class EntityDescription {
   /// The entity ID.
   final String id;
@@ -866,10 +870,15 @@ class EntityDescription {
       EntityDescription();
 }
 
+/// An object that filters an entity search. Multiple filters function as OR
+/// criteria in the search. For example a search that includes a `NAMESPACE` and
+/// a `REFERENCED_ENTITY_ID` filter searches for entities in the specified
+/// namespace that use the entity specified by the value of
+/// `REFERENCED_ENTITY_ID`.
 class EntityFilter {
-  /// The name of the entity search filter field. `REFERENCED\_ENTITY\_ID`
-  /// filters on entities that are used by the entity in the result set. For
-  /// example, you can filter on the ID of a property that is used in a state.
+  /// The name of the entity search filter field. `REFERENCED_ENTITY_ID` filters
+  /// on entities that are used by the entity in the result set. For example,
+  /// you can filter on the ID of a property that is used in a state.
   final String name;
 
   /// An array of string values for the search filter field. Multiple values
@@ -882,6 +891,7 @@ class EntityFilter {
   });
 }
 
+/// An object that contains information about a flow event.
 class FlowExecutionMessage {
   /// The unique identifier of the message.
   final String messageId;
@@ -905,6 +915,7 @@ class FlowExecutionMessage {
       FlowExecutionMessage();
 }
 
+/// An object that contains summary information about a flow execution.
 class FlowExecutionSummary {
   /// The ID of the flow execution.
   final String flowExecutionId;
@@ -936,6 +947,7 @@ class FlowExecutionSummary {
       FlowExecutionSummary();
 }
 
+/// An object that contains a workflow's definition and summary information.
 class FlowTemplateDescription {
   /// An object that contains summary information about a workflow.
   final FlowTemplateSummary summary;
@@ -956,6 +968,7 @@ class FlowTemplateDescription {
       FlowTemplateDescription();
 }
 
+/// An object that filters a workflow search.
 class FlowTemplateFilter {
   /// The name of the search filter field.
   final String name;
@@ -970,6 +983,7 @@ class FlowTemplateFilter {
   });
 }
 
+/// An object that contains summary information about a workflow.
 class FlowTemplateSummary {
   /// The ID of the workflow.
   final String id;
@@ -1169,6 +1183,8 @@ class ListTagsForResourceResponse {
       ListTagsForResourceResponse();
 }
 
+/// An object that specifies whether cloud metrics are collected in a deployment
+/// and, if so, what role is used to collect metrics.
 class MetricsConfiguration {
   /// A Boolean that specifies whether cloud metrics are collected.
   final bool cloudMetricEnabled;
@@ -1284,6 +1300,8 @@ class SearchThingsResponse {
       SearchThingsResponse();
 }
 
+/// An object that contains a system instance definition and summary
+/// information.
 class SystemInstanceDescription {
   /// An object that contains summary information about a system instance.
   final SystemInstanceSummary summary;
@@ -1323,6 +1341,10 @@ class SystemInstanceDescription {
       SystemInstanceDescription();
 }
 
+/// An object that filters a system instance search. Multiple filters function
+/// as OR criteria in the search. For example a search that includes a
+/// GREENGRASS_GROUP_NAME and a STATUS filter searches for system instances in
+/// the specified Greengrass group that have the specified status.
 class SystemInstanceFilter {
   /// The name of the search filter field.
   final String name;
@@ -1337,6 +1359,7 @@ class SystemInstanceFilter {
   });
 }
 
+/// An object that contains summary information about a system instance.
 class SystemInstanceSummary {
   /// The ID of the system instance.
   final String id;
@@ -1380,6 +1403,8 @@ class SystemInstanceSummary {
       SystemInstanceSummary();
 }
 
+/// An object that contains a system's definition document and summary
+/// information.
 class SystemTemplateDescription {
   /// An object that contains summary information about a system.
   final SystemTemplateSummary summary;
@@ -1400,6 +1425,7 @@ class SystemTemplateDescription {
       SystemTemplateDescription();
 }
 
+/// An object that filters a system search.
 class SystemTemplateFilter {
   /// The name of the system search filter field.
   final String name;
@@ -1414,6 +1440,7 @@ class SystemTemplateFilter {
   });
 }
 
+/// An object that contains information about a system.
 class SystemTemplateSummary {
   /// The ID of the system.
   final String id;
@@ -1437,6 +1464,8 @@ class SystemTemplateSummary {
       SystemTemplateSummary();
 }
 
+/// Metadata assigned to an AWS IoT Things Graph resource consisting of a
+/// key-value pair.
 class Tag {
   /// The required name of the tag. The string value can be from 1 to 128
   /// Unicode characters in length.
@@ -1459,6 +1488,7 @@ class TagResourceResponse {
       TagResourceResponse();
 }
 
+/// An AWS IoT thing.
 class Thing {
   /// The ARN of the thing.
   final String thingArn;
