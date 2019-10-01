@@ -1,0 +1,8 @@
+.*
+_*
+build/
+pubspec.lock
+*.iml
+
+!aws-sdk-js/.changes
+!.gitignore
